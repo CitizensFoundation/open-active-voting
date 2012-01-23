@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails open-active-voting: development" product="" version="" jdbc-version="" driver-version="" uuid="caeae142-ed19-4ee6-8841-925021e08f8d">
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://127.0.0.1/voting_dev</jdbc-url>
+    <user-name>root</user-name>
+    <user-password>dfc8dfc0dfcbdfc2dfcedfc2df9cdf93</user-password>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-license.txt</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-java-5.1.16-bin.jar</url>
+      </library>
+    </libraries>
+  </data-source>
+  <data-source source="LOCAL" name="Rails open-active-voting: test" product="" version="" jdbc-version="" driver-version="" uuid="595525b4-4197-4bb1-9a22-1a7c8020bdcd">
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://127.0.0.1/voting_test</jdbc-url>
+    <user-name>root</user-name>
+    <user-password>dfc8dfc0dfcbdfc2dfcedfc2df9cdf93</user-password>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-license.txt</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-java-5.1.16-bin.jar</url>
+      </library>
+    </libraries>
+  </data-source>
+  <data-source source="LOCAL" name="Rails open-active-voting: production" product="" version="" jdbc-version="" driver-version="" uuid="f63f614b-e94f-4a59-b9a7-4559144235e9">
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://127.0.0.1/voting_p</jdbc-url>
+    <user-name>root</user-name>
+    <user-password>dfc8dfc0dfcbdfc2dfcedfc2df9cdf93</user-password>
+    <libraries>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-license.txt</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/.RubyMine32/config/jdbc-drivers/mysql-connector-java-5.1.16-bin.jar</url>
+      </library>
+    </libraries>
+  </data-source>
+</component>
