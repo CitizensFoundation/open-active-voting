@@ -8,5 +8,7 @@ class CreateVotes < ActiveRecord::Migration
       t.string :client_ip_address
       t.timestamps
     end
+
+    add_index :votes, :user_id_hash
   end
 end

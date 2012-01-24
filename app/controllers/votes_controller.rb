@@ -23,8 +23,7 @@ class VotesController < ApplicationController
   end
 
   def post_vote
-    voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
-    unless voter_national_identity_hash
+    unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
       response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
     else
       user_id_and_payload_hash = Digest::MD5.hexdigest(voter_national_identity_hash+params[:payload_data])
