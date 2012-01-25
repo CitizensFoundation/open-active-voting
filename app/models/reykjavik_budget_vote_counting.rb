@@ -7,7 +7,7 @@ class ReykjavikBudgetVoteCounting
       process_vote(vote)
     end
     write_voting_results_report
-    write_audio_report
+    write_audit_report
   end
 
   private
@@ -49,7 +49,7 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
-  def write_audio_report
+  def write_audit_report
     CSV.generate do |csv|
       csv << "Audit report"
       csv << ""

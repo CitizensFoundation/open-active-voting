@@ -59,7 +59,7 @@
           <file leaf-file-name="reykjavik_budget_vote_counting.rb" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="24" column="69" selection-start="836" selection-end="836" vertical-scroll-proportion="0.5365127">
+                <state line="62" column="28" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.86587185">
                   <folding />
                 </state>
               </provider>
@@ -698,7 +698,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="69" selection-start="836" selection-end="836" vertical-scroll-proportion="0.5365127">
+        <state line="62" column="28" selection-start="2109" selection-end="2109" vertical-scroll-proportion="0.86587185">
           <folding />
         </state>
       </provider>
