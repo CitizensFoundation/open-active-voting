@@ -19,6 +19,7 @@ class VotesController < ApplicationController
       redirect_to :action=>:authentication_error
       return false
     end
+    @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
     @vote_count = Vote.count(:user_id_hash=>voter_national_identity_hash)
   end
 
