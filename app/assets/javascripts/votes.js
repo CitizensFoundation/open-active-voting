@@ -101,3 +101,22 @@ function packVote() {
         return "";
     }
 };
+
+$(".submit_button").click(function() {
+    var dataString = packVote();
+    $.ajax({
+      type: "POST",
+      url: "votes/post_vote",
+      data: dataString,
+      success: function() {
+        $('#columns').html("<div id='message'></div>");
+        $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
+        .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
+        .hide()
+        .fadeIn(1500, function() {
+          $('#message').append("<img id='checkmark' src='images/rails.png' />");
+        });
+      }
+     });
+    return false;
+});

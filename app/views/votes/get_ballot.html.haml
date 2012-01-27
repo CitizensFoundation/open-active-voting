@@ -3,8 +3,10 @@
 %form{:method => 'post', :action => ""}
   #columns
     #left_column.left
-      = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
+      %ul
+        = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
     #right_column.right
-      = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
+      %ul
+        = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
   #submit
-    %input{:type => :submit, :value => "Smelltu hér til að kjósa"}
+    %input{:type => :submit, :name => "submit_button", :value => "Smelltu hér til að kjósa"}
