@@ -1,7 +1,7 @@
 set :application, "open-active-voting"
 set :domain, "br1"
 set :selected_branch, "master"
-set :repository, "git://github.com/rbjarnason/open-active-voting.git"
+set :repository, "git@github.com:rbjarnason/open-active-voting.git"
 set :use_sudo, false
 set :deploy_to, "/home/ktest/sites/#{application}/#{selected_branch}"
 set :branch, "#{selected_branch}"
@@ -18,7 +18,6 @@ role :db,  "br1", :primary => true # This is where Rails migrations will run
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   task :after_update_code do
     run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
