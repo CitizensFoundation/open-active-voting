@@ -29,7 +29,7 @@ class VotesController < ApplicationController
     else
       user_id_and_payload_hash = Digest::MD5.hexdigest(voter_national_identity_hash+params[:payload_data])
       if Vote.create(:user_id_hash=>voter_national_identity_hash, :payload_data => params[:payload_data],
-                     :localtime=>Time.now, :client_ip_address=>request.ip_address, :user_id_and_payload_hash=>user_id_and_payload_hash)
+                     :localtime=>Time.now, :client_ip_address=>request.ip_address)
         response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
       else
         response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]

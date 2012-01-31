@@ -4,7 +4,6 @@ class CreateVotes < ActiveRecord::Migration
       t.string :user_id_hash
       t.text :payload_data
       t.datetime :localtime
-      t.string :user_id_and_payload_hash
       t.string :client_ip_address
       t.timestamps
     end

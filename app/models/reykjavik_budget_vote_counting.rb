@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ReykjavikBudgetVoteCounting
   @construction_priority_ids_count = Hash.new
   @maintenance_priority_ids_count = Hash.new

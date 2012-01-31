@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ReykjavikBudgetBallot
   @construction_priorities = []
   @maintenance_priorities = []
