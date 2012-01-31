@@ -6,4 +6,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+//= require pidcrypt_c
+//= require pidcrypt_util_c
+//= require asn1_c
+//= require jsbn_c
+//= require rng_c
+//= require prng4_c
+//= require rsa_c
 //= require_tree .

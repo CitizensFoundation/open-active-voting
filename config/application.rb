@@ -44,5 +44,8 @@ module OpenActiveVoting
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.cache_store = :dalli_store, '127.0.0.1:11211', { :namespace => "oav-#{Rails.env}",
+                                                            :compress => true, :compress_threshold => 64*1024 }
   end
 end

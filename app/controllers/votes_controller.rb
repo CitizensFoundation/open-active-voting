@@ -15,21 +15,24 @@ class VotesController < ApplicationController
   end
 
   def get_ballot
+    #Rails.cache.write(request.session_options[:id],"19654654434343"+rand(54545454).to_s)
+    Rails.logger.info(request.session_options[:id])
+    Rails.cache.write(request.session_options[:id],"gggffiud12345")
     unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
       redirect_to :action=>:authentication_error
       return false
     end
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
-    @vote_count = Vote.count(:user_id_hash=>voter_national_identity_hash)
+    @vote_count = Vote.where(:user_id_hash=>voter_national_identity_hash).count
   end
 
   def post_vote
+    Rails.logger.info(request.session_options[:id])
     unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
       response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
     else
-      user_id_and_payload_hash = Digest::MD5.hexdigest(voter_national_identity_hash+params[:payload_data])
-      if Vote.create(:user_id_hash=>voter_national_identity_hash, :payload_data => params[:payload_data],
-                     :localtime=>Time.now, :client_ip_address=>request.ip_address)
+      if Vote.create(:user_id_hash=>voter_national_identity_hash, :payload_data => params[:vote],
+                     :localtime=>Time.now, :client_ip_address=>request.remote_ip)
         response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
       else
         response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]

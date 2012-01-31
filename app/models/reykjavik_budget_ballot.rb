@@ -1,10 +1,12 @@
 # coding: utf-8
 
 class ReykjavikBudgetBallot
-  @construction_priorities = []
-  @maintenance_priorities = []
+  attr_reader :construction_priorities
+  attr_reader :maintenance_priorities
 
   def initialize
+    @construction_priorities = []
+    @maintenance_priorities = []
     @construction_priorities << {:id=>1, :name=>"Nýframkvæmd 1"}
     @construction_priorities << {:id=>2, :name=>"Nýframkvæmd 2"}
     @construction_priorities << {:id=>3, :name=>"Nýframkvæmd 3"}

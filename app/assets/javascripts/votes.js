@@ -80,43 +80,57 @@ function packVote() {
     });
     maintenance_priorities_ids += "]";
 
-    var vote = "["+construction_priorities_ids+","+maintenance_priorities_ids+"]"
+    var vote = "["+construction_priorities_ids+","+maintenance_priorities_ids+"]";
+    alert(vote);
 
-    params = certParser(public_key_2048);
+    var params = certParser(public_key_2048);
+    //alert(params);
     if(params.b64) {
         var key = pidCryptUtil.decodeBase64(params.b64);
         //new RSA instance
         var rsa = new pidCrypt.RSA();
         //RSA encryption
         //ASN1 parsing
+        //alert(key);
+        //alert(rsa);
         var asn = pidCrypt.ASN1.decode(pidCryptUtil.toByteArray(key));
+        //alert(asn);
         var tree = asn.toHexTree();
+        //alert("tree");
         //setting the public key for encryption
         rsa.setPublicKeyFromASN(tree);
-        crypted = rsa.encrypt(input);
+        //alert("rsa set");
+        //alert(vote);
+        crypted = rsa.encrypt(vote);
+        //alert("encrypt");
         encryptedVote = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
+        alert(encryptedVote);
         return encryptedVote;
      } else {
         alert('Could not find public key.');
         return "";
     }
 };
-
-$(".submit_button").click(function() {
-    var dataString = packVote();
-    $.ajax({
-      type: "POST",
-      url: "votes/post_vote",
-      data: dataString,
-      success: function() {
-        $('#columns').html("<div id='message'></div>");
-        $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
-        .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
-        .hide()
-        .fadeIn(1500, function() {
-          $('#message').append("<img id='checkmark' src='images/rails.png' />");
-        });
-      }
-     });
-    return false;
+$(function() {
+    $(".button").click(function() {
+        alert("CLICK");
+        var dataString = packVote();
+        alert("CLICK 2");
+        $.ajax({
+          type: "POST",
+          url: "/votes/post_vote",
+          data: { vote : dataString },
+          success: function() {
+            $('#columns').html("<div id='message'></div>");
+            $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
+            .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
+            .hide()
+            .fadeIn(1500, function() {
+              $('#message').append("<img id='checkmark' src='/images/rails.png' />");
+            });
+          }
+         });
+        alert("CLICK 3");
+        return false;
+    });
 });
