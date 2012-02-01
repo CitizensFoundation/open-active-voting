@@ -18,11 +18,19 @@ role :db,  "o1", :primary => true # This is where Rails migrations will run
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-namespace :deploy do
-  task :after_update_code do
-    run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
+namespace :assets do
+  task :precompile, :roles => :web do
+    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:precompile"
   end
 
+  task :cleanup, :roles => :web do
+    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:clean"
+  end
+end
+
+after :deploy, "assets:precompile"
+
+namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
