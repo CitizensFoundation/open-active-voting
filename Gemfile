@@ -24,7 +24,7 @@ gem 'therubyracer'
 gem 'mysql2'
 gem 'dalli'
 gem 'capistrano'
-
+gem 'multi_json'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

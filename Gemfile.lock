@@ -136,6 +136,7 @@ DEPENDENCIES
   execjs
   haml
   jquery-rails
+  multi_json
   mysql2
   psych (= 1.2.1)
   rails (= 3.1.3)
