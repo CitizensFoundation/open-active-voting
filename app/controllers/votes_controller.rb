@@ -1,4 +1,11 @@
 class VotesController < ApplicationController
+
+  before_filter :log_session_id
+
+  def log_session_id
+    Rails.logger.info("Session id: #{request.session_options[:id]}")
+  end
+
   def authentication_options
     @island_is_url = DB_CONFIG[RAILS_ENV]['island_is_url']
   end
@@ -16,22 +23,21 @@ class VotesController < ApplicationController
 
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    Rails.logger.info("Session id: #{request.session_options[:id]}")
     Rails.cache.write(request.session_options[:id],"testtesttest_noauth") unless Rails.cache.read(request.session_options[:id])
-    unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
+    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       redirect_to :action=>:authentication_error
       return false
     end
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
-    @vote_count = Vote.where(:user_id_hash=>voter_national_identity_hash).count
+    @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
   end
 
   def post_vote
-    Rails.logger.info(request.session_options[:id])
-    unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
+    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
+      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     else
-      if Vote.create(:user_id_hash=>voter_national_identity_hash, :payload_data => params[:vote],
+      if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :localtime=>Time.now, :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
         response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
       else

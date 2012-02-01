@@ -8,7 +8,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
     @browser ||= Watir::Browser.new :firefox
 
-    5.times do
+    10.times do
       @browser.goto "http://ktest.betrireykjavik.is/votes/get_ballot"
       setup_checkboxes
       @browser.button.click
@@ -24,8 +24,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_checkboxes
-    5.times do
-      @browser.checkbox(:value => "#{rand(5+1)}").set
+    20.times do
+      @browser.checkbox(:value => "#{rand(26)+1}").set
     end
   end
 end
