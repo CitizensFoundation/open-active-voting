@@ -1,5 +1,5 @@
 - priorities.each do |priority|
   %li
     = priority[:name]
-    %input{:type=>"checkbox", :name=>"#{priority[:name]}", :value=>priority[:id], :checked=>false}
+    %input{:type=>"checkbox", :id=>priority[:name], :name=>"#{priority[:name]}", :value=>priority[:id], :checked=>false}
 

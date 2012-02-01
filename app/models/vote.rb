@@ -15,10 +15,10 @@ class Vote < ActiveRecord::Base
         raise "Message was not a success #{response.inspect}"
       end
       Rails.cache.write(request.session_options[:id],national_identity_hash)
-      RAILS_DEFAULT_LOGGER.info("Authentication successful for #{national_identity_hash} #{response.inspect}")
+      Rails.logger.info("Authentication successful for #{national_identity_hash} #{response.inspect}")
       return true
     rescue  => ex
-      RAILS_DEFAULT_LOGGER.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
+      Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       return false
     end
   end
