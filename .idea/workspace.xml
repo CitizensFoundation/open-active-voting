@@ -81,10 +81,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="deploy.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="20120105173120_create_votes.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="21" selection-start="421" selection-end="421" vertical-scroll-proportion="0.20487805">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="deploy.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/deploy.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="20" selection-start="1336" selection-end="1336" vertical-scroll-proportion="0.5707317">
+            <state line="31" column="64" selection-start="1112" selection-end="1112" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="database.yml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/database.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="55" selection-start="777" selection-end="777" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -102,7 +120,6 @@
       <list>
         <option value="$PROJECT_DIR$/app/models/vote_counting.rb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/votes.css.scss" />
-        <option value="$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb" />
         <option value="$PROJECT_DIR$/app/models/vote.rb" />
         <option value="$PROJECT_DIR$/app/views/votes/authentication_error.html.haml" />
         <option value="$PROJECT_DIR$/config/application.rb" />
@@ -116,6 +133,7 @@
         <option value="$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb" />
         <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
         <option value="$PROJECT_DIR$/config/deploy.rb" />
+        <option value="$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb" />
       </list>
     </option>
   </component>
@@ -745,11 +763,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/votes/authentication_error.html.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="20" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/application.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="48" column="4" selection-start="2143" selection-end="2143" vertical-scroll-proportion="0.0" />
@@ -785,13 +798,6 @@
         <state line="2" column="20" selection-start="45" selection-end="45" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="26" selection-start="131" selection-end="143" vertical-scroll-proportion="0.17751479">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/counting.rake">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="38" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" />
@@ -825,6 +831,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/database.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="55" selection-start="777" selection-end="777" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/deploy.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="64" selection-start="1112" selection-end="1112" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="35" selection-start="1130" selection-end="1130" vertical-scroll-proportion="0.0">
@@ -832,9 +852,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/deploy.rb">
+    <entry file="file://$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="20" selection-start="1336" selection-end="1336" vertical-scroll-proportion="0.5707317">
+        <state line="14" column="21" selection-start="421" selection-end="421" vertical-scroll-proportion="0.20487805">
           <folding />
         </state>
       </provider>
