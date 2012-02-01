@@ -27,10 +27,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="votes_controller.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="votes_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="83" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.0">
+            <state line="34" column="0" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.76119405">
               <folding />
             </state>
           </provider>
@@ -39,16 +39,7 @@
       <file leaf-file-name="votes.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="18" selection-start="3393" selection-end="3394" vertical-scroll-proportion="-21.678572">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/assets/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="10916" selection-start="142007" selection-end="142007" vertical-scroll-proportion="0.11415525">
+            <state line="120" column="40" selection-start="3589" selection-end="3589" vertical-scroll-proportion="-12.214286">
               <folding />
             </state>
           </provider>
@@ -141,8 +132,8 @@
         <option value="$PROJECT_DIR$/db/migrate/20120105173120_create_votes.rb" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/app/views/votes/get_ballot.html.haml" />
-        <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/votes.js" />
+        <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
       </list>
     </option>
   </component>
@@ -899,13 +890,6 @@
         <state line="17" column="36" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/votes/get_ballot.html.haml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="122" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
@@ -913,23 +897,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="83" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="18" selection-start="3393" selection-end="3394" vertical-scroll-proportion="-21.678572">
+        <state line="120" column="40" selection-start="3589" selection-end="3589" vertical-scroll-proportion="-12.214286">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/application.js">
+    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="10916" selection-start="142007" selection-end="142007" vertical-scroll-proportion="0.11415525">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="0" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.76119405">
           <folding />
         </state>
       </provider>

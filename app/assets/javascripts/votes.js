@@ -118,7 +118,7 @@ $(function() {
         $.ajax({
           type: "POST",
           url: "/votes/post_vote",
-          data: { vote : dataString },
+          data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           success: function() {
             $('#columns').html("<div id='message'></div>");
             $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")

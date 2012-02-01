@@ -15,10 +15,9 @@ class VotesController < ApplicationController
   end
 
   def get_ballot
-    #Rails.cache.write(request.session_options[:id],"19654654434343"+rand(54545454).to_s)
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    Rails.logger.info(request.session_options[:id])
-    Rails.cache.write(request.session_options[:id],"gggffiud12345")
+    Rails.logger.info("Session id: #{request.session_options[:id]}")
+    Rails.cache.write(request.session_options[:id],"testtesttest_noauth") unless Rails.cache.read(request.session_options[:id])
     unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
       redirect_to :action=>:authentication_error
       return false
