@@ -30,25 +30,34 @@
       <file leaf-file-name="votes_controller_test.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/functional/votes_controller_test.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="61" selection-start="335" selection-end="335" vertical-scroll-proportion="0.0">
+            <state line="16" column="49" selection-start="335" selection-end="335" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="votes_test.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="votes_test.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/integration/votes_test.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="0" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0">
+            <state line="24" column="43" selection-start="681" selection-end="681" vertical-scroll-proportion="0.53731346">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="votes.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="votes.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="23" selection-start="3692" selection-end="3692" vertical-scroll-proportion="0.6492537">
+            <state line="111" column="36" selection-start="3361" selection-end="3361" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_ballot.html.haml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/votes/get_ballot.html.haml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="56" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -90,19 +99,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="session_store.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/initializers/session_store.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="16" selection-start="442" selection-end="442" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="reykjavik_budget_vote_counting.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="51" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+            <state line="73" column="48" selection-start="2268" selection-end="2268" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -127,7 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/votes/get_ballot.html.haml" />
         <option value="$PROJECT_DIR$/test/integration/vote_through_browser.rb" />
         <option value="$PROJECT_DIR$/config/database.yml" />
         <option value="$PROJECT_DIR$/app/models/vote.rb" />
@@ -141,8 +140,9 @@
         <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb" />
         <option value="$PROJECT_DIR$/app/models/reykjavik_budget_vote.rb" />
-        <option value="$PROJECT_DIR$/test/integration/votes_test.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/votes.js" />
+        <option value="$PROJECT_DIR$/app/views/votes/get_ballot.html.haml" />
+        <option value="$PROJECT_DIR$/test/integration/votes_test.rb" />
       </list>
     </option>
   </component>
@@ -920,13 +920,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_ballot.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="7" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/database.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="68" selection-start="776" selection-end="776" vertical-scroll-proportion="0.0">
@@ -969,9 +962,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/functional/votes_controller_test.rb">
+    <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="61" selection-start="335" selection-end="335" vertical-scroll-proportion="0.0">
+        <state line="16" column="103" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/votes/get_ballot.html.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="56" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="36" selection-start="3361" selection-end="3361" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/test.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="40" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -990,13 +1004,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/environments/test.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="40" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="66" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
@@ -1006,28 +1013,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="51" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+        <state line="73" column="48" selection-start="2268" selection-end="2268" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_vote.rb">
+    <entry file="file://$PROJECT_DIR$/test/functional/votes_controller_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="103" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
+        <state line="16" column="49" selection-start="335" selection-end="335" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/integration/votes_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="543" selection-end="543" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="23" selection-start="3692" selection-end="3692" vertical-scroll-proportion="0.6492537">
+        <state line="24" column="43" selection-start="681" selection-end="681" vertical-scroll-proportion="0.53731346">
           <folding />
         </state>
       </provider>

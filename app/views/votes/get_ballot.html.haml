@@ -1,7 +1,7 @@
 #head
   %h1 Kosningasíða
 %form{:name => 'vote', :action => ""}
-  #columns
+  #content
     #left_column.left
       %ul
         = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }

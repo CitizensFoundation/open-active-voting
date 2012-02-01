@@ -7,34 +7,25 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
   def setup
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
+    @firefox_browser = Watir::Browser.new :firefox
+    @chrome_browser  = Watir::Browser.new :chrome
+    @votes = []
+    setup_votes
   end
 
   def teardown
-    @browser.close if @browser
+    @firefox_browser.close
+    @chrome_browser.close
   end
 
-  test "test_vote_through_firefox" do
-    @browser ||= Watir::Browser.new :firefox
-    perform_main_browser_test
-  end
-
-  test "test_vote_through_firefox" do
-    @browser ||= Watir::Browser.new :firefox
-    perform_main_browser_test
-  end
-
-
-  def perform_main_browser_test
-    setup_votes
+  test "vote_through_firefox_and_chrome" do
     @votes.each do |vote|
-      @browser.goto "http://localhost:3000/votes/ballot"
-      setup_checkboxes(vote)
-      @browser.button.click
-      @browser.div(:id => "success_message").wait_until_present
-      success_value = @browser.div(:id => "success_message").value
-      Rails.logger.debug success_value
+      browser = [@firefox_browser,@chrome_browser][rand(2)]
+      browser.goto "http://localhost:3000/votes/ballot"
+      setup_checkboxes(browser,vote)
+      browser.button.click
+      browser.div(:id => "success_message").wait_until_present
     end
-    @browser.close
     assert vote_match?
   end
 
@@ -51,8 +42,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_votes
-    @votes = []
-    20.times do
+    10.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1
@@ -76,10 +66,10 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     end
   end
 
-  def setup_checkboxes(vote_types)
+  def setup_checkboxes(browser,vote_types)
     vote_types.each do |vote|
       vote.each do |checkbox_to_set|
-        @browser.checkbox(:value => checkbox_to_set.to_s).set
+        browser.checkbox(:value => checkbox_to_set.to_s).set
       end
     end
   end
