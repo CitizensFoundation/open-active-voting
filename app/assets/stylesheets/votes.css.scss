@@ -2,10 +2,89 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#left_column {
-    float: left;
-}
 
-#right_column {
-    float: right;
-}
+
+
+/* 			CSS base						*/
+
+body {				background:url('img/bg.png') top repeat-x #fff; 
+					margin:0px; padding: 0px; 
+					
+					font-size: 0.8em; 
+					font-family: arial, geneva, sans-serif; 
+					}
+					
+					
+p { margin:0px}
+
+a:link {		color: #336699; text-decoration: none; }
+a:visited  {	color: #003366; text-decoration: none; }
+a:hover {		color: #003366; text-decoration: none; }
+
+
+/* 			id's 						*/
+
+#wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%;   }
+#header {			padding: 20px 10px 0px 10px;     }
+
+#logo {				width: 330px; }
+#blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
+#blurbtext p {		font-style: italic; color: #cc9900;  }
+
+#submenu {			width: 690px; background: url('img/headerbase.png') top repeat-x; text-align: right; margin-top: 20px; padding: 3px;  }
+
+#submenu ul {		list-style-type: none; }
+#submenu ul li {	display: inline; margin-left: 10px;   }
+#corner {			width: 200px; float:right;  }
+.corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 30px; position:fixed;   }
+
+
+
+
+#content {			margin: 0px 10px;  }
+
+
+h2 {				margin: 0px; display: inline; color: #cc3333;  }
+h3 {				margin:0px; display:inline; }
+
+
+.content-select {	font-size: 85%; margin-left: 10px;  }
+.alignright {		text-align:right; float:right; }
+
+
+#leftcol {		margin-top: 20px; width: 450px; float: left;   }
+#rightcol {		margin-top:20px; width: 450px; margin-left: 475px;  }
+
+
+#votes_ny {		 	background: url('img/bg-vote.png') repeat-x; width: 446px; height: 80px; margin:10px 0px; padding:2px; }
+#votes_vid {		background: url('img/bg-vote.png') repeat-x;width: 446px; height: 80px;  margin:10px 0px; padding:2px;   }
+
+.header-txt {		margin-left:20px; font-weight: bold; }
+.header-price {		margin-left: 240px; font-weight: bold;  }
+.header-price-sml {	font-size: 85%;  font-weight: normal; }
+
+.list ul {			list-style-type: none; margin-top:10px; padding:0px;    }
+.list ul li {		border-bottom: 1px solid #ddd; padding:4px; }
+
+.list ul li.selected {		background-color: #d9dfe8; }
+.list ul li.disabled {		color: #aaa; }
+
+.list ul li .num {				font-weight: bold; margin-right: 10px;  }
+.list ul li .txt {				 }
+.list ul li .price {		font-size: 130%; margin-right: 30px; float:right;  }
+.list ul li .zoom {			float:right;}
+
+#vote {				clear:both; width: 100%; text-align:center;  }
+#vote img {			width: 125px;    }
+
+
+
+
+.content-text {		width: 400px;  }
+#hverfi {			width: 250px; float:right; font-size: 85%; color: #333; line-height: 150%;  }
+#hverfi p {			margin-bottom: 5px;  }
+
+.vote-3 {				width: 105px; background-color: #336699; display:inline-block; position:relative; height: 100%; text-align:center;  }
+	.v-name {		font-weight:bold; margin-top: 10px; font-size: 200%; color: #fff;  }
+	.v-price {		color: #fff;  }
+
