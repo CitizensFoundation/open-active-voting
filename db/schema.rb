@@ -14,14 +14,16 @@
 ActiveRecord::Schema.define(:version => 20120105173120) do
 
   create_table "votes", :force => true do |t|
-    t.string   "user_id_hash"
-    t.text     "payload_data"
-    t.datetime "localtime"
-    t.string   "client_ip_address"
+    t.integer  "neighborhood_id",   :null => false
+    t.string   "user_id_hash",      :null => false
+    t.text     "payload_data",      :null => false
+    t.datetime "localtime",         :null => false
+    t.string   "client_ip_address", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "votes", ["neighborhood_id"], :name => "index_votes_on_neighborhood_id"
   add_index "votes", ["user_id_hash"], :name => "index_votes_on_user_id_hash"
 
 end

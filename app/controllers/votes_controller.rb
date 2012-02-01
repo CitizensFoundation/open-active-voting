@@ -16,6 +16,7 @@ class VotesController < ApplicationController
 
   def get_ballot
     #Rails.cache.write(request.session_options[:id],"19654654434343"+rand(54545454).to_s)
+    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
     Rails.logger.info(request.session_options[:id])
     Rails.cache.write(request.session_options[:id],"gggffiud12345")
     unless voter_national_identity_hash = Rails.cache.read(request.session_options[:id])
@@ -32,7 +33,7 @@ class VotesController < ApplicationController
       response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
     else
       if Vote.create(:user_id_hash=>voter_national_identity_hash, :payload_data => params[:vote],
-                     :localtime=>Time.now, :client_ip_address=>request.remote_ip)
+                     :localtime=>Time.now, :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
         response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
       else
         response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]

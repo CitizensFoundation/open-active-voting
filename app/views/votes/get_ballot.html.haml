@@ -8,5 +8,5 @@
     #right_column.right
       %ul
         = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
-
+    %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
     %input{:type => :submit, :id=>"submit_btn", :class=>"button", :name => "submit", :value => "Smelltu hér til að kjósa"}

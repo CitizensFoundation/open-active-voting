@@ -115,7 +115,6 @@ $(function() {
     $(".button").click(function() {
         alert("CLICK");
         var dataString = packVote();
-        alert("CLICK 2");
         $.ajax({
           type: "POST",
           url: "/votes/post_vote",
@@ -126,11 +125,11 @@ $(function() {
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
             .hide()
             .fadeIn(1500, function() {
-              $('#message').append("<img id='checkmark' src='/images/rails.png' />");
+              $('#message').append("<img id='checkmark' src='/assets/images/rails.png' />");
             });
           }
          });
-        alert("CLICK 3");
+        alert("Have sent vote");
         return false;
     });
 });
