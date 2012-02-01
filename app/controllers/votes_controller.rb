@@ -22,6 +22,11 @@ class VotesController < ApplicationController
   def authentication_error
   end
 
+  def ballot
+    session[:start]=true
+    redirect_to :action=>:get_ballot
+  end
+
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
     Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])

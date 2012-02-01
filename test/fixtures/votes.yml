@@ -1,14 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  user_id_hash: MyString
-  payload_data: MyText
-  neighborhood_id: 99
-  localtime: 2012-01-05 17:31:20
-
-two:
-  neighborhood_id: 99
-  user_id_hash: MyString
-  payload_data: MyText
-  localtime: 2012-01-05 17:31:20
-

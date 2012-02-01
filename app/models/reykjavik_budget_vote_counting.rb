@@ -3,24 +3,41 @@
 require 'csv'
 
 class ReykjavikBudgetVoteCounting
+  attr_reader :construction_priority_ids_count, :maintenance_priority_ids_count
 
-  def count_all_votes(private_key_file)
+  def initialize(private_key_file)
     @construction_priority_ids_count = Hash.new
     @maintenance_priority_ids_count = Hash.new
     @private_key_file = private_key_file
+  end
+
+  def count_all_votes(csv_out=true)
     Vote.find(:all,:select=>"DISTINCT(user_id_hash), payload_data", :order=>"created_at").each do |vote|
       process_vote(vote)
     end
-    write_voting_results_report
-    write_audit_report
+    if csv_out
+      write_voting_results_report
+      write_audit_report
+    end
+  end
+
+  def count_all_test_votes(test_votes)
+    test_votes.each do |vote|
+      decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file)
+      decrypted_vote.unpack_without_encryption
+      add_votes(decrypted_vote)
+    end
   end
 
   private
 
   def process_vote(vote)
-    puts vote.inspect
     decrypted_vote = ReykjavikBudgetVote.new(vote.payload_data,@private_key_file)
     decrypted_vote.unpack
+    add_votes(decrypted_vote)
+  end
+
+  def add_votes(decrypted_vote)
     add_construction_votes(decrypted_vote.construction_priority_ids)
     add_maintenance_votes(decrypted_vote.maintenance_priority_ids)
   end

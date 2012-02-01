@@ -3,6 +3,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/authenticate_from_island_is"
   get "votes/authentication_error"
 
+  get "votes/ballot"
   get "votes/get_ballot"
   post "votes/post_vote"
   # The priority is based upon order of creation:
