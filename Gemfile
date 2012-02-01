@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-gem 'psych', '1.2.1'
 gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
@@ -37,7 +36,12 @@ gem 'multi_json'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-group :test do
+
+
+group :development, :test do
   # Pretty printed test output
+  gem 'waitr'
+  gem 'watir-webdriver'
+  gem 'psych', '1.2.1'
   gem 'turn', '~> 0.8.3', :require => false
 end
