@@ -24,7 +24,7 @@ class VotesController < ApplicationController
 
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    Rails.cache.write(request.session_options[:id],"testtesttest_noauth") unless Rails.cache.read(request.session_options[:id])
+    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
       redirect_to :action=>:authentication_error
