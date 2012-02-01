@@ -75,7 +75,7 @@
       <file leaf-file-name="votes_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="66" selection-start="1796" selection-end="1796" vertical-scroll-proportion="0.8364486">
+            <state line="54" column="3" selection-start="2176" selection-end="2176" vertical-scroll-proportion="0.95327103">
               <folding />
             </state>
           </provider>
@@ -959,7 +959,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/votes_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="66" selection-start="1796" selection-end="1796" vertical-scroll-proportion="0.8364486">
+        <state line="54" column="3" selection-start="2176" selection-end="2176" vertical-scroll-proportion="0.95327103">
           <folding />
         </state>
       </provider>
