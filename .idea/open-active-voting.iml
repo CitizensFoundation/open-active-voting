@@ -16,11 +16,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="thor (v0.14.6, RVM: ruby-1.9.2-p180 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-sftp (v2.0.5, RVM: ruby-1.9.2-p180 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.18, RVM: ruby-1.9.2-p180 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-scp (v1.0.4, RVM: ruby-1.9.2-p180 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-ssh-gateway (v1.1.0, RVM: ruby-1.9.2-p180 [global]) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
