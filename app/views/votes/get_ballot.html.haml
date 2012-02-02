@@ -75,7 +75,7 @@
             %span.header-price-sml í milljónum
           .list
             %ul
-              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
+              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
         #vote
           %a{:href => "#"}
             %img{:alt => "", :border => "0", :src => "/assets/vote.png"}/
@@ -84,3 +84,4 @@
 
       / /content
     / /wrapper
+

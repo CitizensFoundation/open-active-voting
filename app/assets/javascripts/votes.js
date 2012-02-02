@@ -67,21 +67,21 @@ function certParser(cert){
 function packVote() {
     var encryptedVote;
     var construction_priorities_ids = "[";
-    $("#left_column :checked").each(function() {
+    $("#leftcol :checked").each(function() {
       construction_priorities_ids += $(this).val();
       construction_priorities_ids += ",";
     });
     construction_priorities_ids += "]";
 
     var maintenance_priorities_ids = "[";
-    $("#right_column :checked").each(function() {
+    $("#rightcol :checked").each(function() {
       maintenance_priorities_ids += $(this).val();
       maintenance_priorities_ids += ",";
     });
     maintenance_priorities_ids += "]";
 
     var vote = "["+construction_priorities_ids+","+maintenance_priorities_ids+"]";
-    alert(vote);
+    //alert(vote);
 
     var params = certParser(public_key_2048);
     //alert(params);
@@ -104,7 +104,7 @@ function packVote() {
         crypted = rsa.encrypt(vote);
         //alert("encrypt");
         encryptedVote = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
-        alert(encryptedVote);
+        //alert(encryptedVote);
         return encryptedVote;
      } else {
         alert('Could not find public key.');
@@ -113,14 +113,14 @@ function packVote() {
 };
 $(function() {
     $(".button").click(function() {
-        alert("CLICK");
+        //alert("CLICK");
         var dataString = packVote();
         $.ajax({
           type: "POST",
           url: "/votes/post_vote",
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           success: function() {
-            $('#columns').html("<div id='message'></div>");
+            $('#content').html("<div id='success_message'>success</div><div id='message'></div>");
             $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
             .hide()
@@ -129,7 +129,7 @@ $(function() {
             });
           }
          });
-        alert("Have sent vote");
+        //alert("Have sent vote");
         return false;
     });
 });

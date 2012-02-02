@@ -32,4 +32,10 @@ class ReykjavikBudgetVote
     @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
     @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
   end
+
+  def unpack_without_encryption
+    combined_priorities = JSON.parse(@encrypted_payload.to_s).to_a
+    @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
+    @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
+  end
 end
