@@ -11,6 +11,11 @@ class VotesController < ApplicationController
     Rails.logger.info("Session id: #{request.session_options[:id]}")
   end
 
+  def logout
+    reset_session
+    redirect_to "/"
+  end
+
   def authentication_options
     @island_is_url = @db_config[Rails.env]['rsk_url']
   end
@@ -47,8 +52,10 @@ class VotesController < ApplicationController
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
 
-    # Write a fake identity when running in development mode
-    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id]) if Rails.env.dev?
+    # Write a fake identity when not running in production mode
+    unless Rails.env.production?
+      Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
+    end
 
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
@@ -88,18 +95,25 @@ class VotesController < ApplicationController
 
   def perform_island_is_token_authentication(token,request)
     begin
+      # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
+
+      # Get SAML from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
 
+      # Check and see if the re
       if @response and @response.status and @response.status.message="Success"
-        elements = Nokogiri.parse(@response.saml)
-        national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
-        raise "Message was not a success #{@response.inspect}"
+        raise "Authentication was not a success #{@response.inspect}"
       end
-      Rails.cache.write(request.session_options[:id],national_identity_hash)
+
+      # Write the national identity hash to memcache under our session id
+      if national_identity_hash and national_identity_hash!=""
+        Rails.cache.write(request.session_options[:id],national_identity_hash)
+      end
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
       return true
     rescue  => ex

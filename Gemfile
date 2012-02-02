@@ -16,6 +16,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem "airbrake"
 gem 'haml'
 gem 'jquery-rails'
 gem 'execjs'
