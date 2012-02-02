@@ -52,8 +52,10 @@ class VotesController < ApplicationController
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
 
-    # Write a fake identity when running in development mode
-    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id]) if Rails.env.dev?
+    # Write a fake identity when not running in production mode
+    unless Rails.env.production?
+      Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
+    end
 
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
