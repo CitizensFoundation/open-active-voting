@@ -11,6 +11,11 @@ class VotesController < ApplicationController
     Rails.logger.info("Session id: #{request.session_options[:id]}")
   end
 
+  def logout
+    reset_session
+    redirect_to "/"
+  end
+
   def authentication_options
     @island_is_url = @db_config[Rails.env]['rsk_url']
   end
