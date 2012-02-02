@@ -12,14 +12,25 @@ class VotesController < ApplicationController
 
   def authenticate_from_island_is
     if Vote.authenticate_from_island_is(params[:token],request)
+      session[:have_authenticated_and_been_approved]=true
+      redirect_to :action=>:get_ballot
+    else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
       redirect_to :action=>:authentication_error
-    else
-      redirect_to :action=>:get_ballot
     end
   end
 
   def authentication_error
+  end
+
+  def check_authentication
+    if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
+      redirect_to :action=>:get_ballot
+    elsif params[:token]
+      redirect_to :action=>:authenticate_from_island_is, :token=>params[:token]
+    else
+      redirect_to :action=>:authentication_options
+    end
   end
 
   def ballot
@@ -29,13 +40,22 @@ class VotesController < ApplicationController
 
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
+
+    # Write a fake identity when running in development mode
+    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id]) if Rails.env.dev?
+
+    # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
+      flash[:notice]="Please authenticate"
       redirect_to :action=>:authentication_error
       return false
     end
+
+    # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
+
+    # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
   end
 

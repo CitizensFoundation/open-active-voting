@@ -29,6 +29,7 @@ class ReykjavikBudgetVote
     puts decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
     decrypted_vote = decrypted_vote.gsub(",]","]")
     combined_priorities = JSON.parse(decrypted_vote).to_a
+    puts "Last vote for #{combined_priorities}"
     @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
     @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
   end

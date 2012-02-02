@@ -1,0 +1,9 @@
+#head
+  %h1 Authentication options
+  - if flash[:notice]
+    %h1
+      = flash[:notice]
+  #authentication_options
+    = link_to "island.is", @island_is_url
+
+

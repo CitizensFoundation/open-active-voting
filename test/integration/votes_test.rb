@@ -10,6 +10,9 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     @firefox_browser = Watir::Browser.new :firefox
     @chrome_browser  = Watir::Browser.new :chrome
     @votes = []
+    @final_votes = Hash.new
+    @final_votes[@firefox_browser] = []
+    @final_votes[@chrome_browser] = []
     setup_votes
   end
 
@@ -25,24 +28,38 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       setup_checkboxes(browser,vote)
       browser.button.click
       browser.div(:id => "success_message").wait_until_present
+      @final_votes[browser] << vote
     end
-    assert vote_match?
+    #assert vote_match?(@votes), "All individual votes matched"
+    assert vote_match?(generate_unique_votes,false), "All unique votes matched"
   end
 
-  def vote_match?
-    Vote.all.each do |vote| puts vote.inspect end
+  def generate_unique_votes
+    puts "All votes in fixture ff #{@final_votes[@firefox_browser]}"
+    puts "All votes in fixture cb #{@final_votes[@chrome_browser]}"
+    puts "Last vote in fixture ff #{@final_votes[@firefox_browser].last}"
+    puts "Last vote in fixture cb #{@final_votes[@chrome_browser].last}"
+    [@final_votes[@firefox_browser].last,@final_votes[@chrome_browser].last]
+  end
+
+  def vote_match?(votes,count_all_votes=true)
+    votes.each do |vote| puts vote.inspect end # DEBUG
     database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-    database_count.count_all_votes(false)
+    if count_all_votes
+      database_count.count_all_votes
+    else
+      database_count.count_unique_votes(false)
+    end
     puts database_count.inspect
     test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-    test_count.count_all_test_votes(@votes)
+    test_count.count_all_test_votes(votes)
     puts test_count.inspect
     (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
      test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
   end
 
   def setup_votes
-    10.times do
+    6.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1
