@@ -67,14 +67,14 @@ function certParser(cert){
 function packVote() {
     var encryptedVote;
     var construction_priorities_ids = "[";
-    $("#left_column :checked").each(function() {
+    $("#leftcol :checked").each(function() {
       construction_priorities_ids += $(this).val();
       construction_priorities_ids += ",";
     });
     construction_priorities_ids += "]";
 
     var maintenance_priorities_ids = "[";
-    $("#right_column :checked").each(function() {
+    $("#rightcol :checked").each(function() {
       maintenance_priorities_ids += $(this).val();
       maintenance_priorities_ids += ",";
     });
@@ -120,7 +120,7 @@ $(function() {
           url: "/votes/post_vote",
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           success: function() {
-            $('#content').html("<div id='success_message'>success</div><div id='message'></div>");
+            $('#content').html("<div id='success_message'></div><div id='message'></div>");
             $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin og síðasta atkvæðið er það sem gildir.</p>")
             .hide()

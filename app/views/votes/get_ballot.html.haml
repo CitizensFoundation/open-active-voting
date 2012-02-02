@@ -1,12 +1,87 @@
-#head
-  %h1 Kosningasíða
-%form{:name => 'vote', :action => ""}
-  #content
-    #left_column.left
-      %ul
-        = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
-    #right_column.right
-      %ul
-        = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
-    %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
-    %input{:type => :submit, :id=>"submit_btn", :class=>"button", :name => "submit", :value => "Smelltu hér til að kjósa"}
+!!!
+%html
+  %head  
+    %link{"rel" => "stylesheet", "href" => "stylesheets/voting.css", "type" => "text/css"}
+    %title Betri hverfi - kosning verkefna í hverfum Reykjavíkur
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "EN", "http-equiv" => "Content-Language"}/
+    %meta{:content => "FOLLOW,INDEX", :name => "robots"}/
+  %body
+  %form{:name => 'vote', :action => ""}
+    #wrapper
+      #header
+        #corner
+          %img{:alt => "", :border => "0", :src => "/assets/logo-ibuar.png"}/
+          %br/
+          %span.corner-txt fyrir
+          %br/
+          %img{:alt => "", :border => "0", :src => "/assets/logo-br.png"}/
+        #blurbtext
+          %p
+            Kjóstu um verkefni í
+            = succeed "." do
+              %b einu hverfi að eigin vali
+            Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu.
+        #logo
+          %img{:alt => "", :border => "0", :src => "/assets/logo.png"}/
+        #submenu
+          %ul
+            %li
+              %a{:href => "#"} Hjálp
+            %li
+              %a{:href => "#"} Reglur
+            %li
+              %a{:href => "#"} Útskrá
+      #content
+        #content-title
+          %h2.content-title Vesturbærinn
+          %span.content-select
+            %a{:href => "#"} < Velja annað hverfi
+        #leftcol
+          %h3 Nýframkvæmdir
+          %span.content-select.alignright 15 milljónir
+          #votes_ny
+            %span.vote-3
+              / Text inside each vote cell
+              %p.v-name f
+              %p.v-price 3m.
+            %span.vote-2
+              / Text inside each vote cell
+              %p.v-name f
+              %p.v-price 3m.
+          %span.header-txt Nafn hugmyndar
+          %span.header-price
+            Verð
+            %span.header-price-sml í milljónum
+          .list
+            %ul
+              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
+              -#
+                This code formats perfectly with the css so haml code should compile as below
+                %li
+                %span.num a
+                %span.txt Malbika göngustíg sem liggur á milli fjalls og fjöru sem er…
+                %a{:href => "#"}
+                  %img.zoom{:alt => "", :border => "0", :src => "/assets/zoom.png"}/
+                %span.price 3
+
+        #rightcol
+          %h3 Viðhaldsverkefni
+          %span.content-select.alignright 15 milljónir
+          #votes_vid
+          %span.header-txt Nafn hugmyndar
+          %span.header-price
+            Verð
+            %span.header-price-sml í milljónum
+          .list
+            %ul
+              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
+        #vote
+          %a{:href => "#"}
+            %img{:alt => "", :border => "0", :src => "/assets/vote.png"}/
+        %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
+        %input{:type => :submit, :id=>"submit_btn", :class=>"button", :name => "submit", :value => "Smelltu hér til að kjósa"}
+    
+      / /content
+    / /wrapper
+
