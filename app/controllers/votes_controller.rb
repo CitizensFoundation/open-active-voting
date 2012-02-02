@@ -91,11 +91,11 @@ class VotesController < ApplicationController
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
+      raise "#{token}"
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
 
       if @response and @response.status and @response.status.message="Success"
         elements = Nokogiri.parse(@response.inspect)
-        name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
         national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
         raise "Message was not a success #{@response.inspect}"
