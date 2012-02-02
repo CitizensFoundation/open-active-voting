@@ -7,7 +7,7 @@ class VotesController < ApplicationController
   end
 
   def authentication_options
-    @island_is_url = @db_config[RAILS_ENV]['island_is_url']
+    @island_is_url = @db_config[Rails.env]['island_is_url']
   end
 
   def authenticate_from_island_is
