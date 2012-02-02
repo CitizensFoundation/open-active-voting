@@ -59,7 +59,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_votes
-    10.times do
+    15.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1

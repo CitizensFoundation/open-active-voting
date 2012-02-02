@@ -9,16 +9,16 @@ class Vote < ActiveRecord::Base
         SELECT  id, created_at, payload_data, user_id_hash
         FROM    votes vs
         WHERE   id =
-                (
-                SELECT  id
-                FROM    votes vsi
-                WHERE   vsi.user_id_hash = vs.user_id_hash
-                ORDER BY
-                        created_at DESC, id DESC
-                LIMIT 1
-                )
+                  (
+                    SELECT  id
+                    FROM    votes vsi
+                    WHERE   vsi.user_id_hash = vs.user_id_hash
+                    ORDER BY
+                            created_at DESC
+                    LIMIT 1
+                  )
         ORDER BY
-                created_at ASC, id DESC
+                created_at DESC
 
      })
   end
