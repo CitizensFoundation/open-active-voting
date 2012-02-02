@@ -94,7 +94,7 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
 
       if @response and @response.status and @response.status.message="Success"
-        elements = Nokogiri.parse(@response)
+        elements = Nokogiri.parse(@response.inspect)
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
         national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
