@@ -39,7 +39,7 @@
       <file leaf-file-name="votes_test.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/integration/votes_test.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="43" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
+            <state line="26" column="41" selection-start="735" selection-end="750" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -48,7 +48,7 @@
       <file leaf-file-name="get_ballot.html.haml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/votes/get_ballot.html.haml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="17" selection-start="2413" selection-end="2421" vertical-scroll-proportion="0.0">
+            <state line="76" column="78" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,7 +57,7 @@
       <file leaf-file-name="votes.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="78" selection-start="4089" selection-end="4089" vertical-scroll-proportion="0.7089552">
+            <state line="122" column="65" selection-start="3719" selection-end="3726" vertical-scroll-proportion="0.5970149">
               <folding />
             </state>
           </provider>
@@ -140,8 +140,8 @@
         <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/reykjavik_budget_vote_counting.rb" />
         <option value="$PROJECT_DIR$/app/models/reykjavik_budget_vote.rb" />
-        <option value="$PROJECT_DIR$/test/integration/votes_test.rb" />
         <option value="$PROJECT_DIR$/app/views/votes/get_ballot.html.haml" />
+        <option value="$PROJECT_DIR$/test/integration/votes_test.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/votes.js" />
       </list>
     </option>
@@ -997,13 +997,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/votes_test.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="43" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/reykjavik_budget_ballot.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="37" selection-start="99" selection-end="121" vertical-scroll-proportion="0.0">
@@ -1020,14 +1013,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/votes/get_ballot.html.haml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="17" selection-start="2413" selection-end="2421" vertical-scroll-proportion="0.0">
+        <state line="76" column="78" selection-start="2695" selection-end="2695" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/integration/votes_test.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="41" selection-start="735" selection-end="750" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/votes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="78" selection-start="4089" selection-end="4089" vertical-scroll-proportion="0.7089552">
+        <state line="122" column="65" selection-start="3719" selection-end="3726" vertical-scroll-proportion="0.5970149">
           <folding />
         </state>
       </provider>
