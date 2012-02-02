@@ -88,17 +88,17 @@ class VotesController < ApplicationController
 
   def perform_island_is_token_authentication(token,request)
     begin
-      soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOVDKM_AuthConsumer.AccessPoint?WSDL"
+      soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
+      Rails.logger.info("#{}")
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
       @response = soap.generateSAMLFromToken(token,:token => token, :ipAddress=>request.remote_ip)
-
       if @response and @response[0] and @response[0].message="Success"
         elements = Nokogiri.parse(@response[1])
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
         national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
-        raise "Message was not a success #{response.inspect}"
+        raise "Message was not a success #{@response.inspect}"
       end
       Rails.cache.write(request.session_options[:id],national_identity_hash)
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{response.inspect}")
