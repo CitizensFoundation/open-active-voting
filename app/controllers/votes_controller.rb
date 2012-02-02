@@ -16,7 +16,7 @@ class VotesController < ApplicationController
   end
 
   def authenticate_from_island_is
-    if authenticate_from_island_is(params[:token],request)
+    if perform_island_is_token_authentication(params[:token],request)
       session[:have_authenticated_and_been_approved]=true
       redirect_to :action=>:get_ballot
     else
@@ -86,7 +86,7 @@ class VotesController < ApplicationController
 
   private
 
-  def authenticate_from_island_is(token,request)
+  def perform_island_is_token_authentication(token,request)
     begin
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOVDKM_AuthConsumer.AccessPoint?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
