@@ -12,7 +12,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def count_unique_votes(csv_out=true)
-    Vote.group(:user_id_hash).order("votes.created_at ASC").each do |vote|
+    Vote.all_latest_votes_by_distinct_voters.each do |vote|
       process_vote(vote)
     end
     if csv_out

@@ -30,7 +30,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       browser.div(:id => "success_message").wait_until_present
       @final_votes[browser] << vote
     end
-    #assert vote_match?(@votes), "All individual votes matched"
+    assert vote_match?(@votes), "All individual votes matched"
     assert vote_match?(generate_unique_votes,false), "All unique votes matched"
   end
 
@@ -59,7 +59,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_votes
-    4.times do
+    10.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1
