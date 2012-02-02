@@ -90,7 +90,7 @@ class VotesController < ApplicationController
     begin
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOVDKM_AuthConsumer.AccessPoint?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
-      soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[RAILS_ENV]['rsk_soap_username'],@db_config[RAILS_ENV]['rsk_soap_password']]
+      soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
       @response = soap.generateSAMLFromToken(token,:token => token, :ipAddress=>request.remote_ip)
 
       if @response and @response[0] and @response[0].message="Success"
