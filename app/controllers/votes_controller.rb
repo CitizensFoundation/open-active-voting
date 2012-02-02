@@ -92,7 +92,7 @@ class VotesController < ApplicationController
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
       Rails.logger.info("#{}")
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
-      @response = soap.generateElectionSAMLFromToken(token,:token => token)
+      @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
       if @response and @response[0] and @response[0].message="Success"
         elements = Nokogiri.parse(@response[1])
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
