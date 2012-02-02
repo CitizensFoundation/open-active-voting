@@ -26,6 +26,8 @@ a:hover {		color: #003366; text-decoration: none; }
 
 #wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%;   }
 #header {			padding: 20px 10px 0px 10px;     }
+#footer {			margin: 20px 10px 10px 10px;     }
+#footer span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
 #blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
@@ -36,7 +38,7 @@ a:hover {		color: #003366; text-decoration: none; }
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline; margin-left: 10px;   }
 #corner {			width: 200px; float:right;  }
-.corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 30px; position:fixed;   }
+.corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 30px;  }
 
 
 
