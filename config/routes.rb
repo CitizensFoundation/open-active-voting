@@ -6,6 +6,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/ballot"
   get "votes/get_ballot"
   post "votes/post_vote"
+  get "votes/logout"
   root :to => 'votes#check_authentication'
 
   # The priority is based upon order of creation:
