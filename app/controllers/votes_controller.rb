@@ -96,8 +96,8 @@ class VotesController < ApplicationController
       Rails.logger.info("0 #{@response[0].inspect}")
       Rails.logger.info("1 #{@response[1].inspect}")
 
-      if @response and @response[0] and @response[0].message="Success"
-        elements = Nokogiri.parse(@response[1])
+      if @response and @response and @response.message="Success"
+        elements = Nokogiri.parse(@response)
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
         national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
