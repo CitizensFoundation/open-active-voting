@@ -93,6 +93,11 @@ class VotesController < ApplicationController
       Rails.logger.info("#{}")
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
+      Rails.logger.info("Authentication successful for #{national_identity_hash} #{response.inspect}")
+
+      Rails.logger.info("0 #{@response[0].inspect}")
+      Rails.logger.info("1 #{@response[1].inspect}")
+
       if @response and @response[0] and @response[0].message="Success"
         elements = Nokogiri.parse(@response[1])
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
@@ -101,7 +106,7 @@ class VotesController < ApplicationController
         raise "Message was not a success #{@response.inspect}"
       end
       Rails.cache.write(request.session_options[:id],national_identity_hash)
-      Rails.logger.info("Authentication successful for #{national_identity_hash} #{response.inspect}")
+      Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
       return true
     rescue  => ex
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
