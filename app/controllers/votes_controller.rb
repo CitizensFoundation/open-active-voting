@@ -78,7 +78,7 @@ class VotesController < ApplicationController
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     else
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
-                     :localtime=>Time.now, :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
+                     :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
         response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
       else
