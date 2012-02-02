@@ -11,13 +11,19 @@ class ReykjavikBudgetVoteCounting
     @private_key_file = private_key_file
   end
 
-  def count_all_votes(csv_out=true)
-    Vote.find(:all,:select=>"DISTINCT(user_id_hash), payload_data", :order=>"created_at").each do |vote|
+  def count_unique_votes(csv_out=true)
+    Vote.group(:user_id_hash).order("created_at DESC").each do |vote|
       process_vote(vote)
     end
     if csv_out
       write_voting_results_report
       write_audit_report
+    end
+  end
+
+  def count_all_votes
+    Vote.find(:all,:select=>"user_id_hash, payload_data", :order=>"created_at").each do |vote|
+      process_vote(vote)
     end
   end
 

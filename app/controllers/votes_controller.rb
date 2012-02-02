@@ -1,3 +1,8 @@
+require 'digest/sha1'
+require 'nokogiri'
+require 'soap/rpc/driver'
+require 'soap/wsdlDriver'
+
 class VotesController < ApplicationController
 
   after_filter :log_session_id
@@ -7,19 +12,31 @@ class VotesController < ApplicationController
   end
 
   def authentication_options
-    @island_is_url = DB_CONFIG[RAILS_ENV]['island_is_url']
+    @island_is_url = @db_config[Rails.env]['rsk_url']
   end
 
   def authenticate_from_island_is
-    if Vote.authenticate_from_island_is(params[:token],request)
-      Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
-      redirect_to :action=>:authentication_error
-    else
+    if perform_island_is_token_authentication(params[:token],request)
+      session[:have_authenticated_and_been_approved]=true
       redirect_to :action=>:get_ballot
+    else
+      Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
+      flash[:notice]="Authentication Error!!!"
+      redirect_to :action=>:authentication_error
     end
   end
 
   def authentication_error
+  end
+
+  def check_authentication
+    if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
+      redirect_to :action=>:get_ballot
+    elsif params[:token]
+      redirect_to :action=>:authenticate_from_island_is, :token=>params[:token]
+    else
+      redirect_to :action=>:authentication_options
+    end
   end
 
   def ballot
@@ -29,13 +46,22 @@ class VotesController < ApplicationController
 
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
+
+    # Write a fake identity when running in development mode
+    Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id]) if Rails.env.dev?
+
+    # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
+      flash[:notice]="Please authenticate"
       redirect_to :action=>:authentication_error
       return false
     end
+
+    # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
+
+    # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
   end
 
@@ -55,6 +81,31 @@ class VotesController < ApplicationController
     end
     respond_to do |format|
       format.json { render :json => response }
+    end
+  end
+
+  private
+
+  def perform_island_is_token_authentication(token,request)
+    begin
+      soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
+      soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
+      soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
+      @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
+
+      if @response and @response.status and @response.status.message="Success"
+        elements = Nokogiri.parse(@response.saml)
+        national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+      else
+        raise "Message was not a success #{@response.inspect}"
+      end
+      Rails.cache.write(request.session_options[:id],national_identity_hash)
+      Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
+      return true
+    rescue  => ex
+      Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
+      Rails.logger.error(@response.inspect)
+      return false
     end
   end
 end
