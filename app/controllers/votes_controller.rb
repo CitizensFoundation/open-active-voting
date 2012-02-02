@@ -93,10 +93,7 @@ class VotesController < ApplicationController
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
 
-      Rails.logger.info("0 #{@response[0].inspect}")
-      Rails.logger.info("1 #{@response[1].inspect}")
-
-      if @response and @response and @response.message="Success"
+      if @response and @response.status and @response.status.message="Success"
         elements = Nokogiri.parse(@response)
         name = elements.root.xpath("//blarg:NameIdentifier", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).first.text
         national_identity_hash = elements.root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
