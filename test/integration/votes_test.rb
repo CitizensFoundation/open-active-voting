@@ -4,26 +4,39 @@ require "watir-webdriver"
 require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
+  WINDOWS =
 
   def setup
+    @max_browsers = 10
+    @max_votes = 200
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
-    @firefox_browser = Watir::Browser.new :firefox
-    @chrome_browser  = Watir::Browser.new :chrome
+    if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
+      @browser_types = [:firefox,:chrome,:ie]
+    else
+      @browser_types = [:firefox,:chrome]
+    end
+
+    @browsers = []
+    @max_browsers.times do
+      @browsers << Watir::Browser.new(@browser_types[rand(@browser_types.length)])
+    end
     @votes = []
     @final_votes = Hash.new
-    @final_votes[@firefox_browser] = []
-    @final_votes[@chrome_browser] = []
+    @browsers.each do |browser|
+      @final_votes[browser] = []
+    end
     setup_votes
   end
 
   def teardown
-    @firefox_browser.close
-    @chrome_browser.close
+    @browsers.each do |browser|
+      browser.close
+    end
   end
 
   test "vote_through_firefox_and_chrome" do
     @votes.each do |vote|
-      browser = [@firefox_browser,@chrome_browser][rand(2)]
+      browser = @browsers[rand(@browsers.length)]
       browser.goto "http://localhost:3000/votes/ballot"
       setup_checkboxes(browser,vote)
       @final_votes[browser] << get_final_votes(browser)
@@ -55,11 +68,11 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def get_unique_votes
-    puts "All votes in fixture ff #{@final_votes[@firefox_browser]}"
-    puts "All votes in fixture cb #{@final_votes[@chrome_browser]}"
-    puts "Last vote in fixture ff #{@final_votes[@firefox_browser].last}"
-    puts "Last vote in fixture cb #{@final_votes[@chrome_browser].last}"
-    [@final_votes[@firefox_browser].last,@final_votes[@chrome_browser].last]
+    unique_votes = []
+    @final_votes.each do |browser,values|
+      unique_votes << values.last
+    end
+    unique_votes
   end
 
   def vote_match?(votes,count_all_votes=true)
@@ -79,7 +92,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_votes
-    7.times do
+    @max_votes.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1

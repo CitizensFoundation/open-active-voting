@@ -36,7 +36,7 @@ class VotesController < ApplicationController
 
   def check_authentication
     if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
-      redirect_to :action=>:get_ballot
+      redirect_to :action=>:select_area
     elsif params[:token]
       redirect_to :action=>:authenticate_from_island_is, :token=>params[:token]
     else
@@ -47,6 +47,9 @@ class VotesController < ApplicationController
   def ballot
     session[:start]=true
     redirect_to :action=>:get_ballot
+  end
+
+  def select_area
   end
 
   def get_ballot

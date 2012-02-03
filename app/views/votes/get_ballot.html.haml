@@ -37,9 +37,10 @@
               %a{:href => "/votes/logout" } Útskrá
       #content
         #content-title
-          %h2.content-title Vesturbærinn
+          %h2.content-title
+            = "#{@neighborhood_id} - Vesturbærinn"
           %span.content-select
-            %a{:href => "#"} < Velja annað hverfi
+            %a{:href => "/votes/select_area"} < Velja annað hverfi
         #leftcol
           %h3 Nýframkvæmdir
           %span.content-select.alignright
