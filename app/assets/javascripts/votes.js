@@ -66,21 +66,7 @@ function certParser(cert){
 
 function packVote() {
     var encryptedVote;
-    var construction_priorities_ids = "[";
-    $("#leftcol :checked").each(function() {
-      construction_priorities_ids += $(this).val();
-      construction_priorities_ids += ",";
-    });
-    construction_priorities_ids += "]";
-
-    var maintenance_priorities_ids = "[";
-    $("#rightcol :checked").each(function() {
-      maintenance_priorities_ids += $(this).val();
-      maintenance_priorities_ids += ",";
-    });
-    maintenance_priorities_ids += "]";
-
-    var vote = "["+construction_priorities_ids+","+maintenance_priorities_ids+"]";
+    var vote = "["+"["+construction_selected.toString()+"]"+","+"["+maintenance_selected.toString()+"]"+"]";
     //alert(vote);
 
     var params = certParser(public_key_2048);

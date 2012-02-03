@@ -26,15 +26,35 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       browser = [@firefox_browser,@chrome_browser][rand(2)]
       browser.goto "http://localhost:3000/votes/ballot"
       setup_checkboxes(browser,vote)
+      @final_votes[browser] << get_final_votes(browser)
       browser.button.click
       browser.div(:id => "success_message").wait_until_present
-      @final_votes[browser] << vote
     end
-    assert vote_match?(@votes), "All individual votes matched"
-    assert vote_match?(generate_unique_votes,false), "All unique votes matched"
+    assert vote_match?(all_votes), "All individual votes matched"
+    assert vote_match?(get_unique_votes,false), "All unique votes matched"
   end
 
-  def generate_unique_votes
+  def get_final_votes(browser)
+    construction_votes = []
+    browser.elements(:class, "construction_vote_class").each do |element|
+      construction_votes << element.id.split("_")[1].to_i
+    end
+    maintenance_votes = []
+    class_elements = browser.elements(:class, "maintenance_vote_class").each do |element|
+      maintenance_votes << element.id.split("_")[1].to_i
+    end
+    [construction_votes,maintenance_votes]
+  end
+
+  def all_votes
+    all_votes = []
+    @final_votes.each do |browser,values|
+      all_votes+=values
+    end
+    all_votes
+  end
+
+  def get_unique_votes
     puts "All votes in fixture ff #{@final_votes[@firefox_browser]}"
     puts "All votes in fixture cb #{@final_votes[@chrome_browser]}"
     puts "Last vote in fixture ff #{@final_votes[@firefox_browser].last}"
@@ -59,7 +79,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_votes
-    15.times do
+    7.times do
       seen = {}
       construction_votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1
@@ -86,7 +106,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup_checkboxes(browser,vote_types)
     vote_types.each do |vote|
       vote.each do |checkbox_to_set|
-        browser.checkbox(:value => checkbox_to_set.to_s).set
+        browser.li(:id => "option_#{checkbox_to_set}").click
       end
     end
   end

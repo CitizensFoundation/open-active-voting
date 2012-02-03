@@ -51,7 +51,9 @@ class VotesController < ApplicationController
 
   def get_ballot
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-
+    @letter_of_alphabet = ('a'..'m').to_a
+    @construction_total = 46
+    @maintenance_total = 20
     # Write a fake identity when not running in production mode
     unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])

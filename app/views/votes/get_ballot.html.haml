@@ -3,7 +3,6 @@
 !!!
 %html
   %head
-    %link{"rel" => "stylesheet", "href" => "stylesheets/voting.css", "type" => "text/css"}
     %title Betri hverfi - kosning verkefna í hverfum Reykjavíkur
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "EN", "http-equiv" => "Content-Language"}/
@@ -43,50 +42,42 @@
             %a{:href => "#"} < Velja annað hverfi
         #leftcol
           %h3 Nýframkvæmdir
-          %span.content-select.alignright 15 milljónir
-          #votes_ny
-            %span.vote-3
-              / Text inside each vote cell
-              %p.v-name f
-              %p.v-price 3m.
-            %span.vote-2
-              / Text inside each vote cell
-              %p.v-name f
-              %p.v-price 3m.
+          %span.content-select.alignright
+            = "#{@construction_total} milljónir"
+          #votebox_construction
+            #votes_construction
+            #votes_construction_totals
+              %span#construction_curtotal milljónir valdar
           %span.header-txt Nafn hugmyndar
           %span.header-price
             Verð
             %span.header-price-sml í milljónum
           .list
-            %ul
-              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities }
-              -#
-                This code formats perfectly with the css so haml code should compile as below
-                %li
-                %span.num a
-                %span.txt Malbika göngustíg sem liggur á milli fjalls og fjöru sem er…
-                %a{:href => "#"}
-                  %img.zoom{:alt => "", :border => "0", :src => "/assets/zoom.png"}/
-                %span.price 3
-
+            %ul#options_construction
+              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities, :selected=>"construction"}
         #rightcol
           %h3 Viðhaldsverkefni
-          %span.content-select.alignright 15 milljónir
-          #votes_vid
+          %span.content-select.alignright
+            = "#{@maintenance_total} milljónir"
+          #votebox_maintenance
+            #votes_maintenance
+            #votes_maintenance_totals
+              %span#maintenance_curtotal milljónir valdar
           %span.header-txt Nafn hugmyndar
           %span.header-price
             Verð
             %span.header-price-sml í milljónum
           .list
-            %ul
-              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities }
+            %ul#options_maintenance
+              = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities, :selected=>"maintenance"}
         #vote
           %a{:href => "#"}
 
           %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
           %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :value => "Smelltu hér til að kjósa"}
         = render :partial => "footer"
-
+        :javascript
+          setTotals(#{@construction_total},#{@maintenance_total});
       / /content
     / /wrapper
 

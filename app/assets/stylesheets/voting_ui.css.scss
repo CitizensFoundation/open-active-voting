@@ -1,0 +1,59 @@
+#votebox_construction {
+	vertical-align:	center;
+}
+
+#votebox_maintenance {
+	vertical-align:	center;
+}
+
+#votes_construction {
+	position:		relative;
+	display:		inline-block;
+	width:		450px;
+	height:		85px;
+	border:		1px solid #000000;
+	overflow:		hidden;
+}
+
+#votes_maintenance {
+	position:		relative;
+	display:		inline-block;
+	width:		450px;
+	height:		85px;
+	border:		1px solid #000000;
+	overflow:		hidden;
+}
+
+li.selected {
+	background:	#70aa70;
+}
+
+li.disabled {
+	background:	#555;
+}
+
+#votes_construction div {
+	float:		left;
+	display:		inline-block;
+	height:		83px;
+	background:	#D9DFE8;
+	margin:		1px;
+}
+
+#votes_maintenance div {
+	float:		left;
+	display:		inline-block;
+	height:		83px;
+	background:	#D9DFE8;
+	margin:		1px;
+}
+
+li {
+	cursor:		pointer;
+}
+
+a {
+	font-size:		9pt;
+	color:		#000;
+	text-decoration: none;
+}
