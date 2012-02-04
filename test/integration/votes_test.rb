@@ -10,6 +10,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     @max_browsers = 10
     @max_votes = 200
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
+    @neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
     else
@@ -23,7 +24,10 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     @votes = []
     @final_votes = Hash.new
     @browsers.each do |browser|
-      @final_votes[browser] = []
+      @final_votes[browser] = Hash.new unless @final_votes[browser]
+      @neighborhood_ids.each do |neighborhood_id|
+        @final_votes[browser][neighborhood_id] = []
+      end
     end
     setup_votes
   end
@@ -37,9 +41,10 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   test "vote_through_firefox_and_chrome" do
     @votes.each do |vote|
       browser = @browsers[rand(@browsers.length)]
-      browser.goto "http://localhost:3000/votes/ballot"
+      neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
+      browser.goto "http://localhost:3000/votes/ballot?neighborhood_id=#{neighborhood_id}"
       setup_checkboxes(browser,vote)
-      @final_votes[browser] << get_final_votes(browser)
+      @final_votes[neighborhood_id][browser] << get_final_votes(browser)
       browser.button.click
       browser.div(:id => "success_message").wait_until_present
     end

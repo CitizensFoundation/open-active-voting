@@ -53,10 +53,6 @@ class VotesController < ApplicationController
   end
 
   def get_ballot
-    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id] : 99
-    @letter_of_alphabet = ('a'..'m').to_a
-    @construction_total = 46
-    @maintenance_total = 20
     # Write a fake identity when not running in production mode
     unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
@@ -72,6 +68,13 @@ class VotesController < ApplicationController
 
     # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
+    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id].to_i : 99
+
+    # Get the budget for the given neighborhood id
+    @maintenance_total = @construction_total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
+
+    # Letters are used to mark each budget vote selection
+    @letter_of_alphabet = ('a'..'m').to_a
 
     # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count

@@ -9,6 +9,7 @@ var maintenance_total = 0;
 
 var voteswidth = 450;
 
+// Add a method to array to indicate if that array "has" a member
 Array.prototype.has=function(v){
     for (i=0;i<this.length;i++){
         if (this[i]==v) return true;
@@ -74,8 +75,8 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         }
     }
     if (the_type=="construction") {
-        $(curTotalDiv).html(construction_curtotal);
+        $(curTotalDiv).html(construction_total.toFixed(1)+" alls "+construction_curtotal.toFixed(1)+" notad "+(construction_total-construction_curtotal).toFixed(1)+" eftir ");
     } else {
-        $(curTotalDiv).html(maintenance_curtotal);
+        $(curTotalDiv).html(maintenance_total.toFixed(1)+" alls "+maintenance_curtotal.toFixed(1)+" notad "+(maintenance_total-maintenance_curtotal).toFixed(1)+" eftir ");
     }
 }

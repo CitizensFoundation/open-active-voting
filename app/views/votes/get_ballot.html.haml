@@ -38,13 +38,13 @@
       #content
         #content-title
           %h2.content-title
-            = "#{@neighborhood_id} - Vesturbærinn"
+            = "#{@neighborhood_id} - #{@reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)}"
           %span.content-select
             %a{:href => "/votes/select_area"} < Velja annað hverfi
         #leftcol
           %h3 Nýframkvæmdir
           %span.content-select.alignright
-            = "#{@construction_total} milljónir"
+            = "#{number_with_precision(@construction_total, :precision => 1)} milljónir"
           #votebox_construction
             #votes_construction
             #votes_construction_totals
@@ -59,7 +59,7 @@
         #rightcol
           %h3 Viðhaldsverkefni
           %span.content-select.alignright
-            = "#{@maintenance_total} milljónir"
+            = "#{number_with_precision(@maintenance_total, :precision => 1)} milljónir"
           #votebox_maintenance
             #votes_maintenance
             #votes_maintenance_totals
