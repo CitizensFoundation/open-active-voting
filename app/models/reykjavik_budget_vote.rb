@@ -36,7 +36,9 @@ class ReykjavikBudgetVote
 
   def unpack_without_encryption
     combined_priorities = @encrypted_payload
-    @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
-    @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
+    if combined_priorities
+      @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
+      @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
+    end
   end
 end

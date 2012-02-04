@@ -46,7 +46,7 @@ class VotesController < ApplicationController
 
   def ballot
     session[:start]=true
-    redirect_to :action=>:get_ballot
+    redirect_to :action=>:get_ballot, :neighborhood_id => params[:neighborhood_id] ? params[:neighborhood_id].to_i : 99
   end
 
   def select_area
@@ -68,7 +68,7 @@ class VotesController < ApplicationController
 
     # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
-    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id].to_i : 99
+    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id].to_i : 1
 
     # Get the budget for the given neighborhood id
     @maintenance_total = @construction_total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)

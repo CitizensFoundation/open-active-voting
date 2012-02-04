@@ -7,10 +7,11 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   WINDOWS =
 
   def setup
-    @max_browsers = 10
-    @max_votes = 200
+    @max_browsers = 2
+    @max_votes = 20
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
-    @neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
+    @neighborhood_ids = [1,2]
+#    @neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
     else
@@ -23,10 +24,10 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     end
     @votes = []
     @final_votes = Hash.new
-    @browsers.each do |browser|
-      @final_votes[browser] = Hash.new unless @final_votes[browser]
-      @neighborhood_ids.each do |neighborhood_id|
-        @final_votes[browser][neighborhood_id] = []
+    @neighborhood_ids.each do |neighborhood_id|
+      @final_votes[neighborhood_id] = Hash.new unless @final_votes[neighborhood_id]
+      @browsers.each do |browser|
+        @final_votes[neighborhood_id][browser] = []
       end
     end
     setup_votes
@@ -44,15 +45,15 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
       browser.goto "http://localhost:3000/votes/ballot?neighborhood_id=#{neighborhood_id}"
       setup_checkboxes(browser,vote)
-      @final_votes[neighborhood_id][browser] << get_final_votes(browser)
+      @final_votes[neighborhood_id][browser] << get_user_votes(browser)
       browser.button.click
       browser.div(:id => "success_message").wait_until_present
     end
-    assert vote_match?(all_votes), "All individual votes matched"
-    assert vote_match?(get_unique_votes,false), "All unique votes matched"
+    assert all_vote_match?(all_votes), "All individual votes matched"
+    assert unique_vote_match?, "All unique votes matched"
   end
 
-  def get_final_votes(browser)
+  def get_user_votes(browser)
     construction_votes = []
     browser.elements(:class, "construction_vote_class").each do |element|
       construction_votes << element.id.split("_")[1].to_i
@@ -66,28 +67,49 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
   def all_votes
     all_votes = []
-    @final_votes.each do |browser,values|
-      all_votes+=values
+    @final_votes.each do |neighborhood, browsers|
+      browsers.each do |browser, values|
+        all_votes+=values
+      end
     end
     all_votes
   end
 
-  def get_unique_votes
+  def get_unique_votes(neighborhood_id)
     unique_votes = []
-    @final_votes.each do |browser,values|
+    @final_votes[neighborhood_id].each do |browser,values|
       unique_votes << values.last
     end
     unique_votes
   end
 
-  def vote_match?(votes,count_all_votes=true)
+  def unique_vote_match?
+    votes.each do |vote| puts vote.inspect end # DEBUG
+    all_passed = true
+    @neighborhood_ids.each do |neighborhood_id|
+      puts "NEIGHBORHOOD ID #{neighborhood_id}"
+      database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+      database_count.count_unique_votes(neighborhood_id)
+      puts database_count.inspect
+      test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+      test_count.count_all_test_votes(get_unique_votes(neighborhood_id))
+      puts test_count.inspect
+      match = (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
+               test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
+      unless match
+        puts "FAILED"
+        all_passed = false
+        break
+      end
+    end
+    puts "NEIGHEND"
+    all_passed
+  end
+
+  def all_vote_match?(votes)
     votes.each do |vote| puts vote.inspect end # DEBUG
     database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-    if count_all_votes
-      database_count.count_all_votes
-    else
-      database_count.count_unique_votes(false)
-    end
+    database_count.count_all_votes
     puts database_count.inspect
     test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
