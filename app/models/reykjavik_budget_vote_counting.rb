@@ -11,8 +11,8 @@ class ReykjavikBudgetVoteCounting
     @private_key_file = private_key_file
   end
 
-  def count_unique_votes(csv_out=true)
-    Vote.all_latest_votes_by_distinct_voters.each do |vote|
+  def count_unique_votes(csv_out=true,neighborhood_id)
+    Vote.all_latest_votes_by_distinct_voters(neighborhood_id).each do |vote|
       process_vote(vote)
     end
     if csv_out
