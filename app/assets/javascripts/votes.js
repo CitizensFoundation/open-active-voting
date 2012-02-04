@@ -106,7 +106,7 @@ $(function() {
           url: "/votes/post_vote",
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           success: function() {
-            $('#content').html("<div id='success_message'>success</div><div id='message'></div>");
+            $('#content').html("<div id='success_message'> </div><div id='message'></div>");
             $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir.</p>")
             .hide()

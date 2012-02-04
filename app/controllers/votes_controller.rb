@@ -23,7 +23,7 @@ class VotesController < ApplicationController
   def authenticate_from_island_is
     if perform_island_is_token_authentication(params[:token],request)
       session[:have_authenticated_and_been_approved]=true
-      redirect_to :action=>:get_ballot
+      redirect_to :action=>:select_area
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
       flash[:notice]="Authentication Error!!!"
@@ -66,9 +66,11 @@ class VotesController < ApplicationController
       return false
     end
 
-    # Create the Reykjavik Budget Ballot
-    @reykjavik_budget_ballot = ReykjavikBudgetBallot.new
+    # Set the neighborhood id from url parameters
     @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id].to_i : 1
+
+    # Create the Reykjavik Budget Ballot
+    @reykjavik_budget_ballot = ReykjavikBudgetBallot.new(@neighborhood_id)
 
     # Get the budget for the given neighborhood id
     @maintenance_total = @construction_total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)

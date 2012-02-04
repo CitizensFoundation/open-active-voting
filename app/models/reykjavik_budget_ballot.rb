@@ -4,18 +4,7 @@ class ReykjavikBudgetBallot
   attr_reader :maintenance_priorities
   attr_reader :neighborhoods
 
-  def initialize
-    @construction_priorities = []
-    @maintenance_priorities = []
-    count = 0
-    13.times do
-      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>rand(20)+1 }
-    end
-
-    13.times do
-      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>rand(10)+1 }
-    end
-
+  def initialize(neighborhood_id=1)
     @neighborhoods=Hash.new
     @neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"13.534.046" }
     @neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"23.209.940" }
@@ -27,6 +16,9 @@ class ReykjavikBudgetBallot
     @neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"18.308.904" }
     @neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"12.019.905" }
     @neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"18.640.952" }
+
+    # For testing purposes
+    reset_random_setup_by_neighborhood_id(neighborhood_id)
   end
 
   def get_neighborhood_budget(neighborhood_id)
@@ -36,5 +28,19 @@ class ReykjavikBudgetBallot
 
   def get_neighborhood_name(id)
     @neighborhoods[id][:name]
+  end
+
+  def reset_random_setup_by_neighborhood_id(neighborhood_id)
+    amount = get_neighborhood_budget(neighborhood_id)
+    @construction_priorities = []
+    @maintenance_priorities = []
+    count = 0
+    13.times do
+      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>rand(amount/1.2)+1 }
+    end
+
+    13.times do
+      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>rand(amount/1.2)+1 }
+    end
   end
 end
