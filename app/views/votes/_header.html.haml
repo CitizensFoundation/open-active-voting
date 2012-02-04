@@ -1,0 +1,25 @@
+#header
+  #corner
+    %a{:href => "#", :title =>"Should open http://ibuar.is in a overlaid popup"}
+      %img{:alt => "", :border => "0", :src => "/assets/logo-ibuar.png"}/
+    %br/
+    %span.corner-txt fyrir
+    %br/
+    %a{:href => "#", :title => "Should open http://betrireykjavik.is in a overlaid popup"}
+      %img{:alt => "", :border => "0", :src => "/assets/logo-br.png"}/
+  #blurbtext
+    %p
+      Kjóstu um verkefni í
+      = succeed "." do
+        %b einu hverfi að eigin vali
+      Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu.
+  #logo
+    %img{:alt => "", :border => "0", :src => "/assets/logo.png"}/
+  #submenu
+    %ul
+      %li
+        %a{:href => "#"} Hjálp
+      %li
+        %a{:href => "#"} Reglur
+      %li
+        %a{:href => "/votes/logout" } Útskrá

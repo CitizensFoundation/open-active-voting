@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title Betri hverfi - kosning verkefna í hverfum Reykjavíkur
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    #wrapper
+      = render :partial => "header"
+      = yield
+      = render :partial => "footer"

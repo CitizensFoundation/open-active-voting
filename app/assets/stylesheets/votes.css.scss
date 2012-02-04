@@ -33,7 +33,7 @@ a:hover {		color: #003366; text-decoration: none; }
 #blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
 #blurbtext p {		font-style: italic; color: #cc9900;  }
 
-#submenu {			width: 690px; background: url('img/headerbase.png') top repeat-x; text-align: right; margin-top: 20px; padding: 3px;  }
+#submenu {			width: 690px; background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 20px; padding: 3px;  }
 
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline; margin-left: 10px;   }
@@ -68,8 +68,8 @@ h3 {				margin:0px; display:inline; }
 .list ul {			list-style-type: none; margin-top:10px; padding:0px;    }
 .list ul li {		border-bottom: 1px solid #ddd; padding:4px; }
 
-.list ul li.selected {		background-color: #d9dfe8; }
-.list ul li.disabled {		color: #aaa; }
+.list ul li.selected {		background-color: #369; color:#fff; }
+.list ul li.disabled {		background-color: #D9DFE8; color: #aaa; }
 
 .list ul li .num {				font-weight: bold; margin-right: 10px;  }
 .list ul li .txt {				 }
