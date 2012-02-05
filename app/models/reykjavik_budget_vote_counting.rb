@@ -17,7 +17,7 @@ class ReykjavikBudgetVoteCounting
   def count_unique_votes(csv_out=true,neighborhood_id)
     @neighborhood_id = neighborhood_id
 
-    Vote.all_latest_votes_by_distinct_voters(neighborhood_id).each do |vote|
+    FinalSplitVote.where(:neighborhood_id=>neighborhood_id).all.each do |vote|
       process_vote(vote)
     end
 
@@ -54,7 +54,7 @@ class ReykjavikBudgetVoteCounting
       csv << ["Niðurstöður kosninga"]
       csv << [""]
       csv << ["Hverfi"]
-      csv << ["Id","Nafn","Fjármagn"]
+      csv << ["ID","Nafn","Fjármagn"]
       csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id),@ballot.get_neighborhood_budget(@neighborhood_id)]
       csv << [""]
       csv << ["Valin verkefni fyrir Nýframkvæmdir"]
@@ -126,17 +126,33 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
+  def write_voting_totals(csv)
+    csv << [""]
+    csv << ["Alls innsend atkvæði"]
+    csv << [Vote.count]
+    csv << [""]
+    csv << ["Alls talinn atkvæði"]
+    csv << [FinalSplitVote.count]
+    csv << [""]
+    csv << ["Alls innsend atkvæði í þessu hverfi"]
+    csv << [Vote.where(:neighborhood_id=>neighborhood_id).count]
+    csv << [""]
+    csv << ["Alls talinn atkvæði"]
+    csv << [FinalSplitVote.where(:neighborhood_id=>neighborhood_id).count]
+  end
+
   def write_audit_report
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_audit_report.csv"
     CSV.open(Rails.root.join("results",filename),"wb") do |csv|
       csv << ["Audit report"]
+      write_voting_totals(csv)
       csv << [""]
-      csv << ["Hverfa id","Nafn a hverfi"]
+      csv << ["Hverfa ID","Nafn a hverfi"]
       csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id)]
       csv << [""]
-      csv << ["Dulkóðuð kennitala","Dagsetning","IP tala"]
+      csv << ["Hverfa ID","Dulkóðuð kennitala","Dagsetning","IP tala"]
       Vote.find(:all, :order=>"user_id_hash").each do |vote|
-        csv << [vote.user_id_hash,vote.created_at,vote.client_ip_address]
+        csv << [vote.neighborhood_id,vote.user_id_hash,vote.created_at,vote.client_ip_address]
       end
     end
   end
