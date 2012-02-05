@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -20,7 +22,7 @@ class ApplicationController < ActionController::Base
         flash[:notice] = 'Your session has expired.'
         if request.xhr?
           render :update do |page|
-            page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er dottinn úr gildi, þú hefur 20 til að kjósa og hefur farin yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
+            page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
           end
         else
           redirect_to '/'
