@@ -60,11 +60,12 @@ class ReykjavikBudgetBallot
     @maintenance_priorities = []
     count = 0
     13.times do
-      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>[(budget/4)+count,budget].max }
+      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
     end
 
+    count2 = 1
     13.times do
-      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>[(budget/4)+count,budget].max }
+      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
     end
   end
 end
