@@ -108,7 +108,7 @@ $(function() {
           success: function() {
             $('#content').html("<div id='success_message'> </div><div id='message'></div>");
             $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
-            .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir.</p>")
+            .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir. Smelltu <a href='/'>hér til að kjósa aftur.</a></p>")
             .hide()
             .fadeIn(1500, function() {
               $('#message').append("...");

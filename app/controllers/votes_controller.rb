@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'digest/sha1'
 require 'nokogiri'
 require 'soap/rpc/driver'
@@ -57,8 +59,8 @@ class VotesController < ApplicationController
       redirect_to :action=>:select_area
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
-      flash[:notice]="Authentication Error!!!"
-      redirect_to :action=>:authentication_error
+      flash[:notice]="Auðkenningarvilla frá island.is"
+      redirect_to :action=>:authentication_options
     end
   end
 
@@ -81,6 +83,12 @@ class VotesController < ApplicationController
   end
 
   def select_area
+    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
+      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
+      flash[:notice]="Please authenticate"
+      redirect_to :action=>:authentication_options
+      return false
+    end
   end
 
   def get_ballot
@@ -93,7 +101,7 @@ class VotesController < ApplicationController
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
       flash[:notice]="Please authenticate"
-      redirect_to :action=>:authentication_error
+      redirect_to :action=>:authentication_options
       return false
     end
 
