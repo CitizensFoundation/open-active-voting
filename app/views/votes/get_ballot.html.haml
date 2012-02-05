@@ -1,10 +1,10 @@
-%form{:name => 'vote', :action => ""}
+%form{:name => 'vote'}
   #content
     #content-title
       %h2.content-title
         = "#{@neighborhood_id} - #{@reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)}"
       %span.content-select
-        %a{:href => "/votes/select_area"} < Velja annað hverfi
+        %a{:href => "/votes/select_area"} &lt; Velja annað hverfi
     #leftcol
       %h3 Nýframkvæmdir
       %span.content-select.alignright
@@ -39,7 +39,7 @@
       %a{:href => "#"}
 
       %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
-      %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :value => "Smelltu hér til að kjósa"}
+      %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
     :javascript
       setTotals(#{@construction_total},#{@maintenance_total});
   / /content
