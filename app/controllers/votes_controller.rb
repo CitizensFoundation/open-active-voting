@@ -19,6 +19,22 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def better_reykjavik_info
+    render :layout=>false
+  end
+
+  def better_neighborhoods_info
+    render :layout=>false
+  end
+
+  def ibuar_info
+    render :layout=>false
+  end
+
+  def rvk_info
+    render :layout=>false
+  end
+
   def priority_info
     @priority_id = params[:priority_id]
     render :layout=>false

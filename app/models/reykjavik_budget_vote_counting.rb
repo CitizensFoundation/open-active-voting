@@ -12,9 +12,12 @@ class ReykjavikBudgetVoteCounting
   end
 
   def count_unique_votes(csv_out=true,neighborhood_id)
+    @neighborhood_id = neighborhood_id
+
     Vote.all_latest_votes_by_distinct_voters(neighborhood_id).each do |vote|
       process_vote(vote)
     end
+
     if csv_out
       write_voting_results_report
       write_audit_report
@@ -27,7 +30,8 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
-  def count_all_test_votes(test_votes)
+  def count_all_test_votes(test_votes,neighborhood_id)
+    @neighborhood_id = neighborhood_id
     test_votes.each do |vote|
       decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file)
       decrypted_vote.unpack_without_encryption
@@ -62,8 +66,11 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
-  def write_voting_results_report
-     CSV.open(Rails.root.join("results","voting_results.csv"),"wb") do |csv|
+  def write_voting_results_report(filename="voting_results.csv")
+     CSV.open(Rails.root.join("results",filename),"wb") do |csv|
+      csv << ["Hverfa id","Nanf a hverfi"]
+      csv << [@,"Nanf a hverfi"]
+      csv << [""]
       csv << ["Niðurstöður fyrir Nýframkvæmdir"]
       add_priorities_to_csv(@construction_priority_ids_count,csv)
       csv << ["Niðurstöður fyrir Viðhaldsverkefni"]

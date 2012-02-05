@@ -9,6 +9,8 @@
 # Ignore bundler config
 /.bundle
 
+results/*
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
