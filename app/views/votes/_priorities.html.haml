@@ -9,5 +9,5 @@
       %span.price
         = priority[:price]
   %span.info
-    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}' })"}
+    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}'+'&letter='+'#{@letter_of_alphabet[index]}'+'&name='+'#{priority[:name]}' })"}
       %img.zoom{:alt => "", :src => "/assets/zoom.png"}/

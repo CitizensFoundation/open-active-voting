@@ -37,6 +37,8 @@ class VotesController < ApplicationController
 
   def priority_info
     @priority_id = params[:priority_id]
+    @name = params[:name]
+    @letter = params[:letter]
     render :layout=>false
   end
 
