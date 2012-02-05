@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
             page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
           end
         else
-          redirect_to '/'
+          redirect_to '/votes/authentication_options'
         end
         return false
       end
