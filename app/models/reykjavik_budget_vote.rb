@@ -19,6 +19,11 @@ class ReykjavikBudgetVote
     @@private_key = OpenSSL::PKey::RSA.new(@@private_key_file_data,nil) unless @@private_key
   end
 
+  def unencryped_vote_for_audit_csv
+    unpack
+    (@construction_priority_ids+@maintenance_priority_ids)
+  end
+
   def pack(public_key_file,construction_priority_ids,maintenance_priority_ids)
     public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
     combined_priorities = [construction_priority_ids,maintenance_priority_ids].to_json

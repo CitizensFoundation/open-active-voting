@@ -10,6 +10,7 @@
 /.bundle
 
 results/*
+test/results/*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

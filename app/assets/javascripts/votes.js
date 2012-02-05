@@ -111,7 +111,7 @@ $(function() {
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir.</p>")
             .hide()
             .fadeIn(1500, function() {
-              $('#message').append("<img id='checkmark' src='/assets/rails.png' />");
+              $('#message').append("...");
             });
           }
          });
