@@ -16,6 +16,7 @@ class ReykjavikBudgetVoteCounting
       process_vote(vote)
     end
     if csv_out
+      @neighborhood_id = neighborhood_id
       write_voting_results_report
       write_audit_report
     end
@@ -62,8 +63,8 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
-  def write_voting_results_report
-     CSV.open(Rails.root.join("results","voting_results.csv"),"wb") do |csv|
+  def write_voting_results_report(filename="voting_results.csv")
+     CSV.open(Rails.root.join("results",filename),"wb") do |csv|
       csv << ["Niðurstöður fyrir Nýframkvæmdir"]
       add_priorities_to_csv(@construction_priority_ids_count,csv)
       csv << ["Niðurstöður fyrir Viðhaldsverkefni"]
