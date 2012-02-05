@@ -92,7 +92,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       database_count.count_unique_votes(neighborhood_id)
       puts database_count.inspect
       test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-      test_count.count_all_test_votes(get_unique_votes(neighborhood_id))
+      test_count.count_all_test_votes(get_unique_votes(neighborhood_id),neighborhood_id)
       puts test_count.inspect
       match = (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
                test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
