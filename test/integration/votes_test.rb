@@ -5,8 +5,8 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 4
-    @max_votes = 7
+    @max_browsers = 18
+    @max_votes = 45
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
     @neighborhood_ids = [1,2]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
@@ -83,7 +83,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def get_unique_votes(neighborhood_id)
     unique_votes = []
     @user_browser_votes.each do |browsers,vote_values|
-      unique_votes<<vote_values.last[:votes] if vote_values.last[:neighborhood_id] == neighborhood_id
+      unique_votes<<vote_values.last[:votes] if vote_values.last and vote_values.last[:neighborhood_id] == neighborhood_id
     end
     unique_votes
   end
@@ -96,6 +96,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       puts "NEIGHBORHOOD ID #{neighborhood_id}"
       database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       @database_csv_filenames << database_count.count_unique_votes(neighborhood_id)
+      database_count.write_counted_unencryped_audit_report
       #puts database_count.inspect
       test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       test_count.count_all_test_votes(get_unique_votes(neighborhood_id),neighborhood_id)
