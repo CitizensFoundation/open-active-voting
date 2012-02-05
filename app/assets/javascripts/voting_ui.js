@@ -32,7 +32,8 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
     //alert(id);
     optprice = parseInt($(item).attr("price"));
     optwidth = parseInt(voteswidth * (optprice / total))-2;
-    optname = $(item).attr("name");;
+    optname = $(item).attr("name");
+    optletter = $(item).attr("letter");
     if (selected.has(id)) {
         for (var i = 0; i < selected.length; i++) {
             if (selected[i] == id) {
@@ -51,7 +52,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
     } else {
         selected.push(id);
         $(item).addClass("selected");
-        $(votesDiv).append("<div id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+the_type+"_vote_class\"><br>" + optname + "<br><br>" + optprice + "<div>");
+        $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+the_type+"_vote_class\"><br>" + optletter + "<br><br>" + optprice + "<div>");
         if (the_type=="construction") {
           construction_curtotal += optprice;
           curtotal=construction_curtotal;
