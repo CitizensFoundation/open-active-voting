@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(:version => 20120205182949) do
 
   create_table "final_split_votes", :force => true do |t|
     t.integer  "neighborhood_id", :null => false
-    t.integer  "vote_id", :null => false
     t.text     "payload_data",    :null => false
+    t.integer  "vote_id",         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
