@@ -39,18 +39,20 @@ img { border:0;}
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline; margin-left: 10px;   }
 #corner {			width: 200px; float:right;  }
-.corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 30px;  }
+.corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 80px;  }
 
 
 
 
 #content {			margin: 0px 10px;  }
 
-.info {			    margin: 0px; padding:6px;border-bottom:1px solid #DDDDDD;}
+.info {			    margin: 0px; padding:6px;}
 .info img {	    vertical-align:middle;}
 .info p { margin:10px}
-.info a { text-decoration: underline}
-.ibuar_logo {margin-left: 25px;}
+.info a {}
+.ibuar_logo {margin-left: 45px;margin-bottom:2px;}
+.br_logo {margin-left: 43px; margin-top: 3px;}
+
 
 h1 {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%;  }
