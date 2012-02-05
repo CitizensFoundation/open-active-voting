@@ -30,17 +30,41 @@ class ReykjavikBudgetBallot
     @neighborhoods[id][:name]
   end
 
+  def get_priority_name(id)
+    name = nil
+    all = @construction_priorities+@maintenance_priorities
+    all.each do |p|
+      if p[:id]==id
+        name = p[:name]
+        break
+      end
+    end
+    name
+  end
+
+  def get_priority_price(id)
+    name = nil
+    all = @construction_priorities+@maintenance_priorities
+    all.each do |p|
+      if p[:id]==id
+        name = p[:price]
+        break
+      end
+    end
+    name
+  end
+
   def reset_random_setup_by_neighborhood_id(neighborhood_id)
-    amount = get_neighborhood_budget(neighborhood_id)
+    budget = get_neighborhood_budget(neighborhood_id)
     @construction_priorities = []
     @maintenance_priorities = []
     count = 0
     13.times do
-      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>rand(amount/1.2)+1 }
+      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>[(budget/4)+count,budget].max }
     end
 
     13.times do
-      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>rand(amount/1.2)+1 }
+      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>[(budget/4)+count,budget].max }
     end
   end
 end

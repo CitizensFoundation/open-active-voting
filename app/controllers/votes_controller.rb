@@ -139,10 +139,10 @@ class VotesController < ApplicationController
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
 
-      # Get SAML from island.is
+      # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
 
-      # Check and see if the re
+      # Check and see if the response is a success
       if @response and @response.status and @response.status.message="Success"
         national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
