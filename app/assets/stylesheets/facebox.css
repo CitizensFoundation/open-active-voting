@@ -9,7 +9,7 @@
 
 #facebox .popup{
   position:relative;
-  border:3px solid rgba(0,0,0,0);
+
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
@@ -28,12 +28,6 @@
   border-radius:4px;
 }
 
-#facebox .content > p:first-child{
-  margin-top:0;
-}
-#facebox .content > p:last-child{
-  margin-bottom:0;
-}
 
 #facebox .close{
   position:absolute;

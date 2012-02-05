@@ -7,14 +7,14 @@
 
 /* 			CSS base						*/
 
-body {				background:url('img/bg.png') top repeat-x #fff; 
-					margin:0px; padding: 0px; 
-					
-					font-size: 0.8em; 
-					font-family: arial, geneva, sans-serif; 
+body {				background:url('img/bg.png') top repeat-x #fff;
+					margin:0px; padding: 0px;
+
+					font-size: 0.8em;
+					font-family: arial, geneva, sans-serif;
 					}
-					
-					
+
+
 p { margin:0px}
 
 a:link {		color: #336699; text-decoration: none; }
@@ -46,13 +46,16 @@ img { border:0;}
 
 #content {			margin: 0px 10px;  }
 
-.info {			    margin: 0px 10px; }
+.info {			    margin: 0px; padding:6px;border-bottom:1px solid #DDDDDD;}
+.info img {	    vertical-align:middle;}
 .info p { margin:10px}
 .info a { text-decoration: underline}
+.ibuar_logo {margin-left: 25px;}
 
 h1 {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%;  }
 h3 {				margin:0px; display:inline; }
+iframe{          	border: 0px; width: 750px; height:600px;}
 
 
 .content-select {	font-size: 85%; margin-left: 10px;  }
@@ -71,14 +74,14 @@ h3 {				margin:0px; display:inline; }
 .header-price-sml {	font-size: 85%;  font-weight: normal; }
 
 .list ul {			list-style-type: none; margin-top:10px; padding:0px;    }
-.list ul li {		border-bottom: 1px solid #ddd; padding:4px; }
+.list ul li {		border-bottom: 1px solid #ddd; padding:3px; width:410px; display:inline-table;}
 
 .list ul li.selected {		background-color: #369; color:#fff; }
 .list ul li.disabled {		background-color: #D9DFE8; color: #aaa; }
 
 .list ul li .num {				font-weight: bold; margin-right: 10px;  }
 .list ul li .txt {				 }
-.list ul li .price {		font-size: 130%; margin-right: 30px; float:right;  }
+.list ul li .price {		font-size: 120%; margin-right: 20px; float:right;  }
 .list ul li .zoom {			float:right;}
 
 #vote {				clear:both; width: 100%; text-align:center;  }
