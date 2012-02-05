@@ -21,6 +21,7 @@ a:link {		color: #336699; text-decoration: none; }
 a:visited  {	color: #003366; text-decoration: none; }
 a:hover {		color: #003366; text-decoration: none; }
 
+img { border:0;}
 
 /* 			id's 						*/
 
@@ -45,6 +46,9 @@ a:hover {		color: #003366; text-decoration: none; }
 
 #content {			margin: 0px 10px;  }
 
+.info {			    margin: 0px 10px; }
+.info p { margin:10px}
+.info a { text-decoration: underline}
 
 h1 {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%;  }

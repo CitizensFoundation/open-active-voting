@@ -1,12 +1,12 @@
 #header
   #corner
-    %a{:href => "#", :title =>"Should open http://ibuar.is in a overlaid popup"}
-      %img{:alt => "", :border => "0", :src => "/assets/logo-ibuar.png"}/
+    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/ibuar_info' })" }
+      %img{:alt => "", :src => "/assets/ibuar_ses_logo.png"}/
     %br/
     %span.corner-txt fyrir
     %br/
-    %a{:href => "#", :title => "Should open http://betrireykjavik.is in a overlaid popup"}
-      %img{:alt => "", :border => "0", :src => "/assets/logo-br.png"}/
+    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_reykjavik_info' })" }
+      %img{:alt => "", :src => "/assets/logo-br.png"}/
   #blurbtext
     %p
       Kjóstu um verkefni í
@@ -14,7 +14,7 @@
         %b einu hverfi að eigin vali
       Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu.
   #logo
-    %img{:alt => "", :border => "0", :src => "/assets/logo.png"}/
+    %img{:alt => "", :src => "/assets/logo.png"}/
   #submenu
     %ul
       %li

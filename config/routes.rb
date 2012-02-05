@@ -11,6 +11,10 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/help_info"
   get "votes/rules_info"
   get "votes/priority_info"
+  get "votes/better_reykjavik_info"
+  get "votes/better_neighborhoods_info"
+  get "votes/ibuar_info"
+  get "votes/rvk_info"
 
   root :to => 'votes#check_authentication'
 

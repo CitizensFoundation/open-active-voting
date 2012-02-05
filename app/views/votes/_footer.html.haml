@@ -2,10 +2,11 @@
   %span.votecount
     = render :partial=>"votecount"
   %a{:href => "mailto:kosning@rvk.is"} Hafðu samband
-  %a{:href => "reglur"} Reglur
-  %a{:href => "hjalp"} Hjálp
-  %a{:href => "http://betrireykjavik.is"} Betri Reykjavík
-  %a{:href => "http://betrireykjavik.is/about/choose_partner"} Betri hverfi
-  %a{:href => "http://ibuar.is"} Íbúar ses
-  %a{:href => "http://www.rvk.is"} Reykjavíkurborg
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} Reglur
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info' })"} Hjálp
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_reykjavik_info' })"} Betri Reykjavík
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_neighborhoods_info' })"} Betri hverfi
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/ibuar_info' })"} Íbúar ses
+  %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rvk_info' })"} Reykjavíkurborg
+
 
