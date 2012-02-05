@@ -8,6 +8,9 @@ OpenActiveVoting::Application.routes.draw do
   post "votes/post_vote"
   get "votes/logout"
   get "votes/select_area"
+  get "votes/help_info"
+  get "votes/rules_info"
+  get "votes/priority_info"
 
   root :to => 'votes#check_authentication'
 

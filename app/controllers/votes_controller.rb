@@ -11,6 +11,19 @@ class VotesController < ApplicationController
     Rails.logger.info("Session id: #{request.session_options[:id]}")
   end
 
+  def help_info
+    render :layout=>false
+  end
+
+  def rules_info
+    render :layout=>false
+  end
+
+  def priority_info
+    @priority_id = params[:priority_id]
+    render :layout=>false
+  end
+
   def logout
     reset_session
     redirect_to "/"

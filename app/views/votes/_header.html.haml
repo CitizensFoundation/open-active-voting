@@ -18,8 +18,8 @@
   #submenu
     %ul
       %li
-        %a{:href => "#"} Hjálp
+        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info' })"} Hjálp
       %li
-        %a{:href => "#"} Reglur
+        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} Reglur
       %li
         %a{:href => "/votes/logout" } Útskrá
