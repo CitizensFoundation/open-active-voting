@@ -71,8 +71,8 @@ class ReykjavikBudgetVoteCounting
     filename
   end
 
-  def write_audit_counted_unencrypted_votes_report
-    filename = "#{@neighborhood_id}_#{get_time_for_filename}_audit_counted_unencrypted_votes_report.csv"
+  def write_counted_unencrypted_audit_report
+    filename = "#{@neighborhood_id}_#{get_time_for_filename}_counted_unencrypted_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
       csv << ["Audit counted unencrypted votes report"]
@@ -80,8 +80,8 @@ class ReykjavikBudgetVoteCounting
       write_voting_totals(csv)
       csv << [""]
       csv << ["Hverfa ID","Dagsetning","IP tala"]
-      Vote.find(:all, :include=>:vote, :conditions=>["neighborhood_id = ?",@neighborhood_id],:order=>"votes.created_at").each do |final_vote|
-        csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file)
+      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id],:order=>"votes.created_at").each do |final_vote|
+        csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
       end
     end
   end
@@ -151,10 +151,10 @@ class ReykjavikBudgetVoteCounting
     csv << [FinalSplitVote.count]
     csv << [""]
     csv << ["Alls innsend atkvæði í þessu hverfi"]
-    csv << [Vote.where(:neighborhood_id=>neighborhood_id).count]
+    csv << [Vote.where(:neighborhood_id=>@neighborhood_id).count]
     csv << [""]
     csv << ["Alls talinn atkvæði í þessu hverfi"]
-    csv << [FinalSplitVote.where(:neighborhood_id=>neighborhood_id).count]
+    csv << [FinalSplitVote.where(:neighborhood_id=>@neighborhood_id).count]
   end
 
   def write_audit_report
