@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   before_filter :update_activity_time
 
   def update_activity_time
-    session[:expires_at] = 20.minutes.from_now
+    if Rails.env.test?
+      session[:expires_at] = 600.hours.from_now
+    else
+      session[:expires_at] = 20.minutes.from_now
+    end
   end
 
   def session_expiry
