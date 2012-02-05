@@ -79,8 +79,8 @@ class ReykjavikBudgetVoteCounting
       csv << [""]
       write_voting_totals(csv)
       csv << [""]
-      csv << ["Hverfa ID","Dagsetning","IP tala"]
-      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id],:order=>"votes.created_at").each do |final_vote|
+      csv << ["Hverfa ID","Dagsetning","ID Verkefna"]
+      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
         csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
       end
     end
@@ -166,7 +166,7 @@ class ReykjavikBudgetVoteCounting
       write_voting_totals(csv)
       csv << [""]
       csv << ["Hverfa ID","Dulkóðuð kennitala","Dagsetning","IP tala"]
-      Vote.find(:all, :order=>"created_at").each do |vote|
+      Vote.find(:all, :conditions=>["neighborhood_id = ?",@neighborhood_id], :order=>"created_at").each do |vote|
         csv << [vote.neighborhood_id,vote.user_id_hash,vote.created_at,vote.client_ip_address]
       end
     end
