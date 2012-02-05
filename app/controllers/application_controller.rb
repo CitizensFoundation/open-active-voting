@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_db_config
 
-  before_filter :session_expiry, :except => [:authentication_options]
+  before_filter :session_expiry, :except => [:authentication_options,:check_authentication,:authenticate_from_island_is]
   before_filter :update_activity_time
 
   def update_activity_time
