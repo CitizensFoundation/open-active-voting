@@ -111,7 +111,7 @@ $(function() {
             .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir. Smelltu <a href='/'>hér til að kjósa aftur.</a></p>")
             .hide()
             .fadeIn(1500, function() {
-              $('#message').append("...");
+              $('#message').append(" ");
             });
           }
          });
