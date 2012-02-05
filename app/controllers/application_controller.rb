@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :update_activity_time
 
   def update_activity_time
-    session[:expires_at] = 2.minutes.from_now
+    session[:expires_at] = 20.minutes.from_now
   end
 
   def session_expiry
@@ -19,13 +19,16 @@ class ApplicationController < ActionController::Base
       unless @time_left > 0
         Rails.logger.info("Resetting session")
         reset_session
-        flash[:notice] = 'Your session has expired.'
-        if request.xhr?
-          render :update do |page|
-            page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
-          end
-        else
-          redirect_to '/votes/authentication_options'
+        respond_to do |format|
+          format.html {
+            flash[:notice] = 'Your session has expired.'
+            redirect_to '/votes/authentication_options'
+          }
+          format.js {
+            render :update do |page|
+              page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
+            end
+          }
         end
         return false
       end
