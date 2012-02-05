@@ -57,17 +57,17 @@ class ReykjavikBudgetVoteCounting
       csv << ["Id","Nafn","Fjármagn"]
       csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id),@ballot.get_neighborhood_budget(@neighborhood_id)]
       csv << [""]
-      csv << ["Heildaratkvæði fyrir Nýframkvæmdir"]
-      add_priorities_to_csv(@construction_priority_ids_count,csv)
-      csv << [""]
-      csv << ["Heildaratkvæði fyrir Viðhaldsverkefni"]
-      add_priorities_to_csv(@maintenance_priority_ids_count,csv)
-      csv << [""]
       csv << ["Valin verkefni fyrir Nýframkvæmdir"]
       add_priorities_to_csv(@construction_priority_ids_selected_count,csv)
       csv << [""]
       csv << ["Valin verkefni fyrir Viðhaldsverkefni"]
       add_priorities_to_csv(@maintenance_priority_ids_selected_count,csv)
+      csv << [""]
+      csv << ["Heildaratkvæði fyrir Nýframkvæmdir"]
+      add_priorities_to_csv(@construction_priority_ids_count,csv)
+      csv << [""]
+      csv << ["Heildaratkvæði fyrir Viðhaldsverkefni"]
+      add_priorities_to_csv(@maintenance_priority_ids_count,csv)
     end
     filename
   end
@@ -90,6 +90,7 @@ class ReykjavikBudgetVoteCounting
         left_of_budget-=priority_price
       end
     end
+    selected
   end
 
   def process_vote(vote)
@@ -119,8 +120,6 @@ class ReykjavikBudgetVoteCounting
 
 
   def add_priorities_to_csv(priorities,csv)
-    csv << [""]
-    csv << ["Verkefni"]
     csv << ["Id","Nafn","Atkvæði","Verð"]
     priorities.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
       csv << [priority_id,@ballot.get_priority_name(priority_id),vote_count,@ballot.get_priority_price(priority_id)]
