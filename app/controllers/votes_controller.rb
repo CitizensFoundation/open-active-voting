@@ -128,8 +128,10 @@ class VotesController < ApplicationController
     else
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
+        # Count how many times this particular voter has voted
+        vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = [:error=>false, :message=>"Vote created", :vote_ok=>true]
+        response = [:error=>false, :message=>"Vote created", :vote_ok=>true, :vote_count=>vote_count]
       else
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]

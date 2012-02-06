@@ -109,6 +109,7 @@ $(function() {
           success: function(response) {
             if (response[0] && response[0].vote_ok==true) {
               $('#content').html("<div id='success_message'> </div><div id='message'></div>");
+              $('#vote_count').html("Fjöldi innsendra atkvæðaseðla "+response[0].vote_count);
               $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
               .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir. Smelltu <a href='/'>hér til að kjósa aftur.</a></p>")
             } else if (response[0] && response[0].message) {

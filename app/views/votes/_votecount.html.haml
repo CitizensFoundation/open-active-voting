@@ -1,4 +1,5 @@
-- if @vote_count and @vote_count>0
-  = "Fjöldi atkvæða: #{@vote_count}."
-- elsif @vote_count
-  = "Þú hefur ekki kosið ennþá."
+%span#vote_count
+  - if @vote_count and @vote_count>0
+    = "Fjöldi innsendra atkvæðaseðla #{@vote_count}"
+  - elsif @vote_count
+    = "Þú hefur ekki kosið ennþá"
