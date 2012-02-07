@@ -9,7 +9,7 @@ class VotesController < ApplicationController
 
   after_filter :log_session_id
 
-  def ss
+  def force_session_id
     if Time.now<DateTime.parse("01/03/2012")
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
