@@ -108,7 +108,7 @@ class VotesController < ApplicationController
     end
 
     # Set the neighborhood id from url parameters
-    @neighborhood_id = params[:neighborhood_id]
+    @neighborhood_id = params[:neighborhood_id].to_i
 
     # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new(@neighborhood_id)
