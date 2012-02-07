@@ -5,8 +5,8 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 15
-    @max_votes = 50
+    @max_browsers = 10
+    @max_votes = 30
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
     @neighborhood_ids = [1,6]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]

@@ -105,14 +105,18 @@ $(function() {
           type: "POST",
           url: "/votes/post_vote",
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
-          success: function() {
-            $('#content').html("<div id='success_message'> </div><div id='message'></div>");
-            $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
-            .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir. Smelltu <a href='/'>hér til að kjósa aftur.</a></p>")
-            .hide()
-            .fadeIn(1500, function() {
-              $('#message').append(" ");
-            });
+          dataType: "json",
+          success: function(response) {
+            if (response[0] && response[0].vote_ok==true) {
+              $('#content').html("<div id='success_message'> </div><div id='message'></div>");
+              $('#vote_count').html("Fjöldi innsendra atkvæðaseðla "+response[0].vote_count);
+              $('#message').html("<h2>Atkvæðið hefur verið móttekið</h2>")
+              .append("<p>Þú getur kosið eins oft og þú vilt meðan kosning er opin. Síðasta atkvæðið er það sem gildir. Smelltu <a href='/'>hér til að kjósa aftur.</a></p>")
+            } else if (response[0] && response[0].message) {
+              $('#content').html("<div id='success_message'> </div><div id='message'></div>");
+              $('#message').html("<h2>"+response.message+"</h2>")
+              .append("<p>Smelltu <a href='/'>hér til að reyna að kjósa aftur.</a></p>")
+            }
           }
          });
         //alert("Have sent vote");
