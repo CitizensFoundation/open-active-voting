@@ -13,6 +13,8 @@ class VotesController < ApplicationController
     if Time.now<DateTime.parse("01/03/2012")
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
+
+    render :action=>help_info
   end
 
   def help_info
