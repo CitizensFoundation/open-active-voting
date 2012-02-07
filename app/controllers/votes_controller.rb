@@ -14,7 +14,7 @@ class VotesController < ApplicationController
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
-    redirect_to :action=>help_info
+    redirect_to "/votes/help_info"
   end
 
   def help_info
