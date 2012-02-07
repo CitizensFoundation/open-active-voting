@@ -1,7 +1,33 @@
 # coding: utf-8
 
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  # DISABLED FOR LOAD TESTING -- REVERT!!!
+  #protect_from_forgery
 
   before_filter :get_db_config
 
@@ -25,7 +51,7 @@ class ApplicationController < ActionController::Base
         reset_session
         respond_to do |format|
           format.html {
-            flash[:notice] = 'Your session has expired.'
+            flash[:notice] = 'Auðkenning er ..., vinsamlegast auðkennist aftur.'
             redirect_to '/votes/authentication_options'
           }
           format.js {

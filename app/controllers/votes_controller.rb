@@ -9,8 +9,10 @@ class VotesController < ApplicationController
 
   after_filter :log_session_id
 
-  def log_session_id
-    Rails.logger.info("Session id: #{request.session_options[:id]}")
+  def ss
+    if Time.now<DateTime.parse("01/03/2012")
+      Rails.cache.write(request.session_options[:id],params[:ssn])
+    end
   end
 
   def help_info
@@ -106,7 +108,7 @@ class VotesController < ApplicationController
     end
 
     # Set the neighborhood id from url parameters
-    @neighborhood_id = params[:neighborhood_id] ? params[:neighborhood_id].to_i : 1
+    @neighborhood_id = params[:neighborhood_id]
 
     # Create the Reykjavik Budget Ballot
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.new(@neighborhood_id)
@@ -143,6 +145,10 @@ class VotesController < ApplicationController
   end
 
   private
+
+  def log_session_id
+    Rails.logger.info("Session id: #{request.session_options[:id]}")
+  end
 
   def perform_island_is_token_authentication(token,request)
     begin

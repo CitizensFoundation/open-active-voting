@@ -7,9 +7,9 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
     @max_browsers = 10
     @max_votes = 30
-    @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
     @neighborhood_ids = [1,6]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
+
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
     elsif true
@@ -33,6 +33,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     FileUtils.rm_rf File.join(Rails.root.join("test","results"))
     Dir.mkdir(File.join(Rails.root.join("test","results")))
+
+    @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
 
     setup_votes
   end

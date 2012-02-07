@@ -135,7 +135,7 @@ class ReykjavikBudgetVoteCounting
 
 
   def add_priorities_to_csv(priorities,csv)
-    csv << ["Id","Nafn","Atkvæðastig","Kostnaður"]
+    csv << ["Id","Nafn","Stig","Kostnaður"]
     total_vote_count = 0
     total_price = 0
     priorities.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
@@ -143,14 +143,14 @@ class ReykjavikBudgetVoteCounting
       total_price+=@ballot.get_priority_price(priority_id)
       csv << [priority_id,@ballot.get_priority_name(priority_id),vote_count,@ballot.get_priority_price(priority_id)]
     end
-    csv << ["","",total_vote_count,total_price]
+    csv << ["","Samtals",total_vote_count,total_price]
   end
 
   def write_voting_totals(csv)
     csv << ["Hverfa ID","Nafn á hverfi","Fjármagn (m.)"]
     csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id),@ballot.get_neighborhood_budget(@neighborhood_id)]
     csv << [""]
-    csv << ["Allir atkvæðaseðlar","Taldir atkvæðaseðlar","Allir atkvæðaseðlar í þessu hverfi","Taldir atkvæðaseðlar í þessu hverfi"]
+    csv << ["Innsendir atkvæðaseðlar","Taldir atkvæðaseðlar","Innsendir atkvæðaseðlar í þessu hverfi","Taldir atkvæðaseðlar í þessu hverfi"]
     csv << [Vote.count,FinalSplitVote.count,Vote.where(:neighborhood_id=>@neighborhood_id).count,FinalSplitVote.where(:neighborhood_id=>@neighborhood_id).count]
     csv << [""]
   end
