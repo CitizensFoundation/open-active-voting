@@ -52,7 +52,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
     } else {
         selected.push(id);
         $(item).addClass("selected");
-        $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+the_type+"_vote_class\"><br>" + optletter + "<br><br>" + optprice + "<div>");
+        $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+the_type+"_vote_class\">" + optletter + "");
         if (the_type=="construction") {
           construction_curtotal += optprice;
           curtotal=construction_curtotal;
@@ -76,8 +76,8 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         }
     }
     if (the_type=="construction") {
-        $(curTotalDiv).html(construction_total.toFixed(1)+" alls "+construction_curtotal.toFixed(1)+" notad "+(construction_total-construction_curtotal).toFixed(1)+" eftir ");
+        $(curTotalDiv).html(construction_total.toFixed(1)+" alls - "+construction_curtotal.toFixed(1)+" notað - "+(construction_total-construction_curtotal).toFixed(1)+" eftir ");
     } else {
-        $(curTotalDiv).html(maintenance_total.toFixed(1)+" alls "+maintenance_curtotal.toFixed(1)+" notad "+(maintenance_total-maintenance_curtotal).toFixed(1)+" eftir ");
+        $(curTotalDiv).html(maintenance_total.toFixed(1)+" alls - "+maintenance_curtotal.toFixed(1)+" notað - "+(maintenance_total-maintenance_curtotal).toFixed(1)+" eftir ");
     }
 }

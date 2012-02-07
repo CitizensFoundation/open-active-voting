@@ -26,15 +26,15 @@ img { border:0;}
 /* 			id's 						*/
 
 #wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%;   }
-#header {			padding: 20px 10px 0px 10px;     }
+#header {			padding: 10px 10px 0px 10px;     }
 #footer {			margin: 20px 0 20px 70px     }
 #footer span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
 #blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
-#blurbtext p {		font-style: italic; color: #cc9900;  }
+#blurbtext p {		font-style: italic; color: #f00;  }
 
-#submenu {			width: 690px; background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 20px; padding: 3px;  }
+#submenu {			width: 690px; background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 0px; padding: 3px;  }
 
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline; margin-left: 10px;   }
@@ -44,13 +44,12 @@ img { border:0;}
 
 
 
-#content {			margin: 0px 10px;  }
+#content {			margin: -30px 0 0 10px;  }
 
-.info {			    margin: 0px; padding:6px;}
-.info img {	    vertical-align:middle;}
-.info p { margin:10px}
+.info {			    margin: 0px; position:relative; float:right;}
+.info img {	 padding-right:8px; padding-top: 4px;}
 .info a {}
-.ibuar_logo {margin-left: 45px;margin-bottom:2px;}
+.ibuar_logo {float:right;margin-bottom:2px;}
 .br_logo {margin-left: 43px; margin-top: 3px;}
 
 
@@ -61,7 +60,7 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 
 
 .content-select {	font-size: 85%; margin-left: 10px;  }
-.alignright {		text-align:right; float:right; }
+
 
 
 #leftcol {		margin-top: 20px; width: 450px; float: left;   }
@@ -81,7 +80,7 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 .list ul li.selected {		background-color: #369; color:#fff; }
 .list ul li.disabled {		background-color: #D9DFE8; color: #aaa; }
 
-.list ul li .num {				font-weight: bold; margin-right: 10px;  }
+.list ul li .num {				font-size: 14px; font-weight: bold; margin-right: 10px; text-transform:capitalize; }
 .list ul li .txt {				 }
 .list ul li .price {		font-size: 120%; margin-right: 20px; float:right;  }
 .list ul li .zoom {			float:right;}
@@ -100,3 +99,6 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 	.v-name {		font-weight:bold; margin-top: 10px; font-size: 200%; color: #fff;  }
 	.v-price {		color: #fff;  }
 
+/* Chrome and Safari hack */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{}

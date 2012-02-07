@@ -2,16 +2,13 @@
   #corner
     %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/ibuar_info' })" }
       %img{:alt => "", :src => "/assets/ibuar_ses_logo.png", :class => "ibuar_logo"}/
-    %br/
-    %span.corner-txt fyrir
-    %br/
     %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_reykjavik_info' })" }
       %img{:alt => "", :src => "/assets/logo-br.png", :class => "br_logo"}/
   #blurbtext
     %p
-      Kjóstu um verkefni í
       = succeed "." do
-        %b einu hverfi að eigin vali
+        %b Þú mátt bara kjósa í einu hverfi
+      , að eigin vali
       Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu.
   #logo
     %img{:alt => "", :src => "/assets/logo.png"}/

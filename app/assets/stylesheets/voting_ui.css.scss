@@ -6,7 +6,7 @@
 	position:		relative;
 	display:		inline-block;
 	width:		450px;
-	height:		85px;
+	height:		43px;
 	border:		1px solid #D9DFE8;
 	overflow:		hidden;
     margin-top: 5px;
@@ -24,10 +24,16 @@ li.disabled {
 #votes_construction div,#votes_maintenance div  {
 	float:		left;
 	display:	inline-block;
-	height:		83px;
+	height:		29px;
 	background:	#369;
     color: #fff;
 	margin:		1px;
+   font-weight: bold;
+   padding-top: 12px;
+   font-size: 16px;
+   text-transform:capitalize;
+   float:left;
+   width:10px;
 }
 
 
