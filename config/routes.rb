@@ -15,6 +15,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/better_neighborhoods_info"
   get "votes/ibuar_info"
   get "votes/rvk_info"
+  get "votes/logout_info"
   get "votes/force_session_id"
 
   root :to => 'votes#check_authentication'

@@ -31,8 +31,10 @@ img { border:0;}
 #footer span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
+#logo img {				height: 65px; }
 #blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
-#blurbtext p {		font-style: italic; color: #f00;  }
+#blurbtext_wide {		width: 100%; margin-top: 10px; }
+#blurbtext p, #blurbtext_wide {		color: #f00;  }
 
 #submenu {			width: 690px; background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 0px; padding: 3px;  }
 
@@ -45,6 +47,9 @@ img { border:0;}
 
 
 #content {			margin: -30px 0 0 10px;  }
+#content.popup {			margin: 0px;}
+
+
 
 .info {			    margin: 0px; position:relative; float:right;}
 .info img {	 padding-right:8px; padding-top: 4px;}

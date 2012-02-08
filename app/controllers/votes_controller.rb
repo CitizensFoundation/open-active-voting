@@ -41,6 +41,10 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def logout_info
+    render :layout=>false
+  end
+
   def priority_info
     @priority_id = params[:priority_id]
     @name = params[:name]
