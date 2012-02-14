@@ -5,6 +5,7 @@ class ReykjavikBudgetBallot
   attr_reader :neighborhoods
 
   def initialize(neighborhood_id=1)
+    # Setup the neighborhoods for the ballot
     @neighborhoods=Hash.new
     @neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"13.534.046" }
     @neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"23.209.940" }
@@ -18,23 +19,26 @@ class ReykjavikBudgetBallot
     @neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"18.640.952" }
 
     # For testing purposes
-    reset_random_setup_by_neighborhood_id(neighborhood_id)
+    setup_test_priorities_by_neighborhood_id(neighborhood_id)
   end
 
   def get_neighborhood_budget(neighborhood_id)
+    # Get the given neighborhood budget
     Rails.logger.debug("The id: #{neighborhood_id} #{@neighborhoods.inspect} XXXX #{@neighborhoods[neighborhood_id]}")
     @neighborhoods[neighborhood_id][:budget_amount].gsub(".","").to_f/"1.000.000".gsub(".","").to_f
   end
 
-  def get_neighborhood_name(id)
-    @neighborhoods[id][:name]
+  def get_neighborhood_name(neighborhood_id)
+    # Get the given neighborhood budget
+    @neighborhoods[neighborhood_id][:name]
   end
 
-  def get_priority_name(id)
+  def get_priority_name(priority_id)
+    # Get the given priority name
     name = nil
     all = @construction_priorities+@maintenance_priorities
     all.each do |p|
-      if p[:id]==id
+      if p[:id]==priority_id
         name = p[:name]
         break
       end
@@ -42,11 +46,12 @@ class ReykjavikBudgetBallot
     name
   end
 
-  def get_priority_price(id)
+  def get_priority_price(priority_id)
+    # Get the given priority price
     name = nil
     all = @construction_priorities+@maintenance_priorities
     all.each do |p|
-      if p[:id]==id
+      if p[:id]==priority_id
         name = p[:price]
         break
       end
@@ -54,7 +59,8 @@ class ReykjavikBudgetBallot
     name
   end
 
-  def reset_random_setup_by_neighborhood_id(neighborhood_id)
+  def setup_test_priorities_by_neighborhood_id(neighborhood_id)
+    # For testing purposes
     budget = get_neighborhood_budget(neighborhood_id)
     @construction_priorities = []
     @maintenance_priorities = []

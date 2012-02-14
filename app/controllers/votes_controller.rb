@@ -10,6 +10,7 @@ class VotesController < ApplicationController
   after_filter :log_session_id
 
   def force_session_id
+    # This is a test method for load testing to allow load testing without the secure authentication
     if Time.now<DateTime.parse("01/03/2012")
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
@@ -18,26 +19,32 @@ class VotesController < ApplicationController
   end
 
   def help_info
+    # Display help information
     render :layout=>false
   end
 
   def rules_info
+    # Display information about the rules
     render :layout=>false
   end
 
   def better_reykjavik_info
+    # Display information about Better Reykjavik
     render :layout=>false
   end
 
   def better_neighborhoods_info
+    # Display information about Better Neighborhoods
     render :layout=>false
   end
 
   def ibuar_info
+    # Display information about Ibua SES
     render :layout=>false
   end
 
   def rvk_info
+    # Display information about the city of Reykjavik
     render :layout=>false
   end
 
@@ -46,6 +53,7 @@ class VotesController < ApplicationController
   end
 
   def priority_info
+    # Display information about a given priority
     @priority_id = params[:priority_id]
     @name = params[:name]
     @letter = params[:letter]
@@ -53,15 +61,18 @@ class VotesController < ApplicationController
   end
 
   def logout
+    # Logout and reset the session
     reset_session
     redirect_to "/"
   end
 
   def authentication_options
+    # Display authentication options
     @island_is_url = @db_config[Rails.env]['rsk_url']
   end
 
   def authenticate_from_island_is
+    # The redirect return point from the external island.is authentication
     if perform_island_is_token_authentication(params[:token],request)
       session[:have_authenticated_and_been_approved]=true
       redirect_to :action=>:select_area
@@ -72,10 +83,8 @@ class VotesController < ApplicationController
     end
   end
 
-  def authentication_error
-  end
-
   def check_authentication
+    # The root method that checks if authentication has been completed and redirects to area selection if authentication has been confirmed
     if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
       redirect_to :action=>:select_area
     elsif params[:token]
@@ -85,12 +94,10 @@ class VotesController < ApplicationController
     end
   end
 
-  def ballot
-    session[:start]=true
-    redirect_to :action=>:get_ballot, :neighborhood_id => params[:neighborhood_id] ? params[:neighborhood_id].to_i : 99
-  end
-
   def select_area
+    # Select the voting area
+
+    # Check to see if the user has been authenticated and if the voter identity hash is available
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
       flash[:notice]="Please authenticate"
@@ -100,6 +107,8 @@ class VotesController < ApplicationController
   end
 
   def get_ballot
+    # Get the ballot and display it to the user
+
     # Write a fake identity when not running in production mode
     unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
@@ -108,7 +117,7 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]="Please authenticate"
+      flash[:notice]="Staðfestu auðkenni þitt"
       redirect_to :action=>:authentication_options
       return false
     end
@@ -130,10 +139,14 @@ class VotesController < ApplicationController
   end
 
   def post_vote
+    # The encrypted vote submitted by the user
+
+    # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     else
+      # Save the vote to the database
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
         # Count how many times this particular voter has voted
@@ -157,6 +170,8 @@ class VotesController < ApplicationController
   end
 
   def perform_island_is_token_authentication(token,request)
+    # Call island.is authentication service to verify the authentication token
+
     begin
       # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
