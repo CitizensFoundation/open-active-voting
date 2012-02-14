@@ -34,15 +34,9 @@ class ApplicationController < ActionController::Base
   before_filter :session_expiry, :except => [:authentication_options,:check_authentication,:authenticate_from_island_is]
   before_filter :update_activity_time
 
-  def update_activity_time
-    if Rails.env.test?
-      session[:expires_at] = 600.hours.from_now
-    else
-      session[:expires_at] = 20.minutes.from_now
-    end
-  end
-
   def session_expiry
+    # Expire the session if the session has timed out
+
     Rails.logger.info("Session expires at #{session[:expires_at]}")
     if session[:expires_at]
       @time_left = (session[:expires_at] - Time.now).to_i
@@ -51,7 +45,7 @@ class ApplicationController < ActionController::Base
         reset_session
         respond_to do |format|
           format.html {
-            flash[:notice] = 'Auðkenning er ..., vinsamlegast auðkennist aftur.'
+            flash[:notice] = 'Auðkenning er fallinn úr gildi, vinsamlegast auðkennist aftur.'
             redirect_to '/votes/authentication_options'
           }
           format.js {
@@ -62,6 +56,15 @@ class ApplicationController < ActionController::Base
         end
         return false
       end
+    end
+  end
+
+  def update_activity_time
+    # Update the activity time to keep the user session alive
+    if Rails.env.test?
+      session[:expires_at] = 600.hours.from_now
+    else
+      session[:expires_at] = 20.minutes.from_now
     end
   end
 
