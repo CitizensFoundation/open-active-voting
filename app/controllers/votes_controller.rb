@@ -164,7 +164,8 @@ class VotesController < ApplicationController
       soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
 
       # Get SAML response from island.is
-      @response = soap.generateElectionSAMLFromToken(:token => token, :electionId=>"1", :svfNr=>["1"])
+      @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
+                                                     :electionId=>"44E92B79-969C-4A05-82A5-4B470948C456", :svfNr=>["0000"])
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message="Success"
