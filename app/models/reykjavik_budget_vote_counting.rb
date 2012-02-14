@@ -15,6 +15,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def count_unique_votes(csv_out=true,neighborhood_id)
+    # Count all unique votes from the same identity
     @neighborhood_id = neighborhood_id
 
     FinalSplitVote.where(:neighborhood_id=>neighborhood_id).all.each do |vote|
@@ -32,12 +33,14 @@ class ReykjavikBudgetVoteCounting
   end
 
   def count_all_votes
+    # Count all votes, including duplicates from the same identity
     Vote.find(:all,:select=>"user_id_hash, payload_data", :order=>"created_at").each do |vote|
       process_vote(vote)
     end
   end
 
   def count_all_test_votes(test_votes,neighborhood_id=nil)
+    # Count test votes, for testing purposes only
     @neighborhood_id = neighborhood_id
     test_votes.each do |vote|
       decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file)
@@ -49,6 +52,7 @@ class ReykjavikBudgetVoteCounting
 
 
   def write_voting_results_report(filename="voting_results.csv")
+    # Write the voting results to a csv file including the hashed identities
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_#{filename}"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
@@ -72,6 +76,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def write_counted_unencrypted_audit_report
+    # Write all counted votes unencrypted to csv file
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_counted_unencrypted_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
@@ -90,11 +95,13 @@ class ReykjavikBudgetVoteCounting
   private
 
   def select_top_priorities_that_still_fit_budget
+    # Select the top priorities that still fit the budget
     @construction_priority_ids_selected_count = select_top_priorities(@construction_priority_ids_count)
     @maintenance_priority_ids_selected_count = select_top_priorities(@maintenance_priority_ids_count)
   end
 
   def select_top_priorities(priority_ids)
+    # Select the top priorities that still fit the budget
     total_budget = @ballot.get_neighborhood_budget(@neighborhood_id)
     left_of_budget = total_budget
     selected = Hash.new
@@ -109,17 +116,20 @@ class ReykjavikBudgetVoteCounting
   end
 
   def process_vote(vote)
+    # Decrypt and add votes
     decrypted_vote = ReykjavikBudgetVote.new(vote.payload_data,@private_key_file)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end
 
   def add_votes(decrypted_vote)
+    # Add votes to the correct arrays
     add_construction_votes(decrypted_vote.construction_priority_ids)
     add_maintenance_votes(decrypted_vote.maintenance_priority_ids)
   end
 
   def add_construction_votes(priority_ids)
+    # Add the construction votes to an array
     priority_ids.each do |priority_id|
       @construction_priority_ids_count[priority_id] = 0 unless @construction_priority_ids_count[priority_id]
       @construction_priority_ids_count[priority_id] += 1
@@ -127,6 +137,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def add_maintenance_votes(priority_ids)
+    # Add the maintenance votes to an array
     priority_ids.each do |priority_id|
       @maintenance_priority_ids_count[priority_id] = 0 unless @maintenance_priority_ids_count[priority_id]
       @maintenance_priority_ids_count[priority_id] += 1
@@ -135,6 +146,7 @@ class ReykjavikBudgetVoteCounting
 
 
   def add_priorities_to_csv(priorities,csv)
+    # Add priorities to csv
     csv << ["Id","Nafn","Stig","Kostnaður"]
     total_vote_count = 0
     total_price = 0
@@ -147,6 +159,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def write_voting_totals(csv)
+    # Add totals to csv
     csv << ["Hverfa ID","Nafn á hverfi","Fjármagn (m.)"]
     csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id),@ballot.get_neighborhood_budget(@neighborhood_id)]
     csv << [""]
@@ -156,6 +169,7 @@ class ReykjavikBudgetVoteCounting
   end
 
   def write_audit_report
+    # Write out the audit report to csv
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|

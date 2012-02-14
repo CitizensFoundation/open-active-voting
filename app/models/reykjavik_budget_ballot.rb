@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class ReykjavikBudgetBallot
   attr_reader :construction_priorities
   attr_reader :maintenance_priorities

@@ -20,17 +20,20 @@ class ReykjavikBudgetVote
   end
 
   def unencryped_vote_for_audit_csv
+    # Decrypt the vote for the audit csv
     unpack
     (@construction_priority_ids+@maintenance_priority_ids)
   end
 
   def pack(public_key_file,construction_priority_ids,maintenance_priority_ids)
+    # Encrypt the vote, for testing purposes only
     public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
     combined_priorities = [construction_priority_ids,maintenance_priority_ids].to_json
     @encrypted_payload = Base64.encode64(public_key.public_encrypt(combined_priorities.to_json))
   end
 
   def unpack
+    # Decrypt the vote
     puts decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
     decrypted_vote = decrypted_vote.gsub(",]","]")
     combined_priorities = JSON.parse(decrypted_vote).to_a
@@ -40,6 +43,7 @@ class ReykjavikBudgetVote
   end
 
   def unpack_without_encryption
+    # Unpack the vote without decryption
     combined_priorities = @encrypted_payload
     if combined_priorities
       @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
