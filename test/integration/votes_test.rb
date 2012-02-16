@@ -49,7 +49,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     @votes.each do |vote|
       browser = @browsers[rand(@browsers.length)]
       neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
-      browser.goto "http://localhost:3000/votes/ballot?neighborhood_id=#{neighborhood_id}"
+      browser.goto "http://localhost:3000/votes/force_session_id"
+      browser.goto "http://localhost:3000/votes/get_ballot?neighborhood_id=#{neighborhood_id}"
       setup_checkboxes(browser,vote)
       @user_browser_votes[browser] << {:neighborhood_id=>neighborhood_id, :votes=>get_user_votes(browser)}
       browser.button.click

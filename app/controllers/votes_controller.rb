@@ -138,10 +138,7 @@ class VotesController < ApplicationController
     # The encrypted vote submitted by the user
 
     # Try to read the vote identity and redirect to authentication error if not found
-    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
-      response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
-      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-    else
+    if voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
@@ -153,6 +150,9 @@ class VotesController < ApplicationController
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]
       end
+    else
+      response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
+      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
     respond_to do |format|
       format.json { render :json => response }
@@ -175,11 +175,11 @@ class VotesController < ApplicationController
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>"44E92B79-969C-4A05-82A5-4B470948C456", :svfNr=>["0000"])
+                                                     :electionId=>"44E92B79-969C-4A05-82A5-4B470948C456", :svfNr=>%w{0000})
 
       # Check and see if the response is a success
-      if @response and @response.status and @response.status.message="Success"
-        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {'blarg' => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+      if @response and @response.status and @response.status.message=="Success"
+        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {:blarg => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
         raise "Authentication was not a success #{@response.inspect}"
       end

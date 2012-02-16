@@ -27,9 +27,8 @@ class ReykjavikBudgetVoteCounting
     if csv_out
       filename = write_voting_results_report
       write_audit_report
+      filename
     end
-
-    filename
   end
 
   def count_all_votes
