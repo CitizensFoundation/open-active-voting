@@ -15,7 +15,7 @@ body {				background:url('bg.png') top repeat-x #fff;
 					}
 
 
-p { margin:0px}
+p { margin:0 0 7px 0;}
 
 a:link {		color: #336699; text-decoration: none; }
 a:visited  {	color: #003366; text-decoration: none; }
@@ -25,9 +25,9 @@ img { border:0;}
 
 /* 			id's 						*/
 
-#wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%;   }
+#wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%; min-height:700px;   }
 #header {			padding: 10px 10px 0px 10px;     }
-#footer {			margin: 20px 0 20px 70px     }
+#footer {			margin: 20px 0 20px 70px; position: absolute; bottom:0;     }
 #footer span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
@@ -56,9 +56,11 @@ img { border:0;}
 .info a {}
 .ibuar_logo {float:right;margin-bottom:2px;}
 .br_logo {margin-left: 43px; margin-top: 3px;}
+.auth_logos {margin-left: 43px; margin-top: 13px; margin-bottom: 13px;}
 
 
-h1 {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
+h1 {				margin: 0 0 0 17px; display: inline; color: #333; font-size: 150%;  }
+h1#popup {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%;  }
 h3 {				margin:0px; display:inline; }
 iframe{          	border: 0px; width: 750px; height:600px;}
