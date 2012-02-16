@@ -1,33 +1,7 @@
 # coding: utf-8
 
 class ApplicationController < ActionController::Base
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  # DISABLED FOR LOAD TESTING -- REVERT!!!
-  #protect_from_forgery
+  protect_from_forgery
 
   before_filter :get_db_config
 
@@ -36,7 +10,6 @@ class ApplicationController < ActionController::Base
 
   def session_expiry
     # Expire the session if the session has timed out
-
     Rails.logger.info("Session expires at #{session[:expires_at]}")
     if session[:expires_at]
       @time_left = (session[:expires_at] - Time.now).to_i

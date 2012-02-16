@@ -56,6 +56,11 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def logout_info
+    # Display information about loging out
+    render :layout=>false
+  end
+
   def logout
     # Logout and reset the session
     reset_session
