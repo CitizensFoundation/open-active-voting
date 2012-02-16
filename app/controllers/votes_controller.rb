@@ -188,7 +188,7 @@ class VotesController < ApplicationController
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
-        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {:blarg => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
