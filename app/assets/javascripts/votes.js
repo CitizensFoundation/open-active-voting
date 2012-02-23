@@ -100,6 +100,8 @@ function packVote() {
 $(function() {
     $(".button").click(function() {
         //alert("CLICK");
+        $(".button").attr("disabled", true);
+        return;
         var dataString = packVote();
         $.ajax({
           type: "POST",
