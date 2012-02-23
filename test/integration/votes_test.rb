@@ -5,7 +5,7 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 10
+    @max_browsers = 4
     @max_votes = 30
     @neighborhood_ids = [1,6]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
@@ -13,11 +13,17 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
     elsif ENV['HEADLESS']
-      @browser_types = [:chrome]
+      @browser_types = [:firefox]
     elsif true
-      @browser_types = [:chrome]
+      @browser_types = [:firefox]
     else
       @browser_types = [:firefox,:chrome]
+    end
+
+    if ENV['HEADLESS']
+      require 'headless'
+      @headless = Headless.new
+      @headless.start
     end
 
     @browsers = []
@@ -37,12 +43,6 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     Dir.mkdir(File.join(Rails.root.join("test","results")))
 
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
-
-    if ENV['HEADLESS']
-      require 'headless'
-      @headless = Headless.new
-      @headless.start
-    end
 
     setup_votes
   end
