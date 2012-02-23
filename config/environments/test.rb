@@ -28,3 +28,12 @@ OpenActiveVoting::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+if ENV['HEADLESS']
+  require 'headless'
+  headless = Headless.new
+  headless.start
+  at_exit do
+    headless.destroy
+  end
+end

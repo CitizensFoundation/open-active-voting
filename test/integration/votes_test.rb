@@ -12,6 +12,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
+    elsif ENV['HEADLESS']
+      @browser_types = [:chrome]
     elsif true
       @browser_types = [:chrome]
     else
@@ -36,12 +38,21 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
 
+    if ENV['HEADLESS']
+      require 'headless'
+      @headless = Headless.new
+      @headless.start
+    end
+
     setup_votes
   end
 
   def teardown
     @browsers.each do |browser|
       browser.close
+    end
+    if ENV['HEADLESS']
+      @headless.destroy
     end
   end
 
