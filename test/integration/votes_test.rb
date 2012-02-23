@@ -145,12 +145,19 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
   def all_vote_match?(votes)
     votes.each do |vote| puts vote.inspect end # DEBUG
+
     database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
-    puts database_count.inspect
+    puts "From database:"
+    puts database_count.construction_priority_ids_count.inspect
+    puts database_count.maintenance_priority_ids_count.inspect
+
     test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
-    puts test_count.inspect
+    puts "From browser:"
+    puts test_count.construction_priority_ids_count.inspect
+    puts test_count.maintenance_priority_ids_count.inspect
+
     (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
      test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
   end
