@@ -1,3 +1,4 @@
-%h1
-  = "#{@letter} - #{@name}"
-  %iframe{:src => "http://betrireykjavik.is/priorities/#{@priority_id}"}
+#popup.content
+  %h2
+    = "#{@letter} - #{@name}"
+    %iframe{:src => "http://betrireykjavik.is/priorities/#{@priority_id}"}
