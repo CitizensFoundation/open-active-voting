@@ -6,7 +6,7 @@ require 'test_helper'
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
     @max_browsers = 4
-    @max_votes = 30
+    @max_votes = 10
     @neighborhood_ids = [1,6]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
 
@@ -14,7 +14,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       @browser_types = [:firefox,:chrome,:ie]
     elsif ENV['HEADLESS']
       @browser_types = [:firefox]
-    elsif true
+    elsif false
       @browser_types = [:firefox]
     else
       @browser_types = [:firefox,:chrome]
