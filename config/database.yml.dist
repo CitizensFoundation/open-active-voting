@@ -1,0 +1,38 @@
+production:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: true
+  database: voting_production
+  pool: 5
+  username:
+  password: 
+  rsk_soap_username:
+  rsk_soap_password:
+  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
+
+development: 
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: true
+  database: voting_dev
+  pool: 5
+  username:
+  password: 
+  rsk_soap_username: 
+  rsk_soap_password:
+  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  collation: utf8_general_ci
+  reconnect: true
+  database: voting_test
+  pool: 5
+  username:
+  password: 
+  rsk_soap_username:
+  rsk_soap_password:
+  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is

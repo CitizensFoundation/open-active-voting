@@ -2,4 +2,27 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  layout_title: "Better Neighborhoods - budget voting for Reykjavík"
+
+# Labels
+  votes_header_info_text_1: ""
+  votes_header_info_text_2: ""
+  votes_header_info_text_3: ""
+  votes_header_help_label: "Help"
+  votes_header_rules_label: "Rules"
+  votes_header_logout_label: "Logout"
+  votes_header_contact_us_label: ""
+  votes_header_about_better_reykjavik_label: ""
+  votes_header_about_better_neighborhoods_label: ""
+
+# Texts
+  votes_logout_text: "<b>Logout</b><br>
+                      Be sure to have finished voting before you log
+                      out. To finish voting you will have to click the
+                      big Vote button at the bottom of the voting
+                      page. <b>By clicking the link below you will
+                      leave the polling site!</b>
+                      <p>
+                      <a href='/votes/logout'>Sign out of polling site</a>"
+
+
