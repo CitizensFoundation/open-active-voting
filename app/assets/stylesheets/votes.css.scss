@@ -27,8 +27,8 @@ img { border:0;}
 
 #wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%; min-height:700px;   }
 #header {			padding: 10px 10px 0px 10px;     }
-#footer {			margin: 20px 0 20px 70px; position: absolute; bottom:0;     }
-#footer span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
+#footer {			margin: 20px 0 20px 70px; position: relative; bottom:0;     }
+.votecount span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
 #logo img {				height: 65px; }
@@ -36,7 +36,7 @@ img { border:0;}
 #blurbtext_wide {		width: 100%; margin-top: 10px; }
 #blurbtext p, #blurbtext_wide {		color: #f00;  }
 
-#submenu {			width: 690px; background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 0px; padding: 3px;  }
+#submenu {			background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 0px; padding: 3px;  }
 
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline; margin-left: 10px;   }
@@ -55,7 +55,7 @@ img { border:0;}
 .info img {	 padding-right:8px; padding-top: 4px;}
 .info a {}
 .ibuar_logo {float:right;margin-bottom:2px;}
-.br_logo {margin-left: 43px; margin-top: 3px;}
+.br_logo {margin-left: 23px; margin-top: 3px;}
 .auth_logos {margin-left: 43px; margin-top: 13px; margin-bottom: 13px;}
 
 
@@ -95,6 +95,7 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 #vote {				clear:both; width: 100%; text-align:center;  }
 #vote img {			width: 125px;    }
 
+.redright {float:right; color: red;}
 
 
 

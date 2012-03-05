@@ -23,6 +23,11 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def about_info
+    # Display information about the vote
+    render :layout=>false
+  end
+
   def rules_info
     # Display information about the rules
     render :layout=>false

@@ -13,6 +13,7 @@
         #votes_construction
         #votes_construction_totals
           %span#construction_curtotal milljónir valdar
+          %span.redright Fyrst: Smelltu á verkefnin hér fyrir neðan til að kjósa þau
       %span.header-txt Nafn hugmyndar
       %span.header-price
         Verð
@@ -28,6 +29,7 @@
         #votes_maintenance
         #votes_maintenance_totals
           %span#maintenance_curtotal milljónir valdar
+          %span.redright Eftir val: Þú þarft ekki að velja fyrir alla upphæðina
       %span.header-txt Nafn hugmyndar
       %span.header-price
         Verð
@@ -42,6 +44,10 @@
       %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
       #blurbtext_wide
         %p
-        %b Þú mátt bara kjósa í einu hverfi að eigin vali
+          %b Þú mátt bara kjósa í einu hverfi að eigin vali.
+        %p
+          %b En þú mátt kjósa eins oft og þú vilt og skipta um hverfi.
+        %p
+          %b Síðasta atkvæðið þitt gildir og það stýrir í hvaða hverfi atkvæðið þitt er talið.
     :javascript
       setTotals(#{@construction_total},#{@maintenance_total});
