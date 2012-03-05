@@ -13,17 +13,18 @@ Simple ballot based voting system.
 3. At the command prompt, in the <tt>open-active-democracy</tt> folder:
        <tt>bundle install</tt> (to install Ruby Gem dependencies)
 
+4. To create the empty database tables:
+       rake db:create
+       rake db:schema:load
+
 == Running the tests
 
 1. Change directory to <tt>open-active-democracy</tt> and start the web server:
 <tt>cd open-active-democracy; rails server -e test</tt>
 
-2. At the command prompt, in the <tt>open-active-democracy</tt> folder:
+2. At a new command prompt, in the <tt>open-active-democracy</tt> folder:
        <tt>rake test</tt> (to run the end to end tests)
 
 == Browsing the test system
 
 1. Open http://localhost:3000/ in your browser
-
-
-
