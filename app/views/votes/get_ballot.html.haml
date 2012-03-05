@@ -4,36 +4,47 @@
       %h2.content-title
         = "#{@neighborhood_id} - #{@reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)}"
       %span.content-select
-        %a{:href => "/votes/select_area"} &lt; Velja annað hverfi
+        %a{:href => "/votes/select_area"}
+          = raw "&lt; #{t(:choose_another_neighbourhood)}"
     #leftcol
-      %h3 Nýframkvæmdir
+      %h3
+        = t :new_construction_projects
       %span.content-select.alignright
-        = "#{number_with_precision(@construction_total, :precision => 1)} milljónir"
+        = "#{number_with_precision(@construction_total, :precision => 1)} #{t :millions}"
       #votebox_construction
         #votes_construction
         #votes_construction_totals
-          %span#construction_curtotal milljónir valdar
-          %span.redright Fyrst: Smelltu á verkefnin hér fyrir neðan til að kjósa þau
-      %span.header-txt Nafn hugmyndar
+          %span#construction_curtotal
+            = t :millions_selected
+          %span.redright
+            = t :choose_project_below
+      %span.header-txt
+        = t :name_of_project
       %span.header-price
-        Verð
-        %span.header-price-sml í milljónum
+        = t :price
+        %span.header-price-sml
+          = t :in_millions
       .list
         %ul#options_construction
           = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities, :selected=>"construction"}
     #rightcol
-      %h3 Viðhaldsverkefni
+      %h3
+        = t :maintainance_projects
       %span.content-select.alignright
-        = "#{number_with_precision(@maintenance_total, :precision => 1)} milljónir"
+        = "#{number_with_precision(@maintenance_total, :precision => 1)} #{t :millions}"
       #votebox_maintenance
         #votes_maintenance
         #votes_maintenance_totals
-          %span#maintenance_curtotal milljónir valdar
-          %span.redright Eftir val: Þú þarft ekki að velja fyrir alla upphæðina
-      %span.header-txt Nafn hugmyndar
+          %span#maintenance_curtotal
+            = t :millions_selected
+          %span.redright
+            = t :you_dont_need_to_finish_all_the_budget
+      %span.header-txt
+        = t :name_of_project
       %span.header-price
-        Verð
-        %span.header-price-sml í milljónum
+        = t :price
+        %span.header-price-sml
+          = t :in_millions
       .list
         %ul#options_maintenance
           = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities, :selected=>"maintenance"}
@@ -44,10 +55,13 @@
       %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
       #blurbtext_wide
         %p
-          %b Þú mátt bara kjósa í einu hverfi að eigin vali.
+          %b
+            = t :get_ballot_footer_1
         %p
-          %b En þú mátt kjósa eins oft og þú vilt og skipta um hverfi.
+          %b
+            = t :get_ballot_footer_2
         %p
-          %b Síðasta atkvæðið þitt gildir og það stýrir í hvaða hverfi atkvæðið þitt er talið.
+          %b
+            = t :get_ballot_footer_3
     :javascript
       setTotals(#{@construction_total},#{@maintenance_total});

@@ -4,7 +4,8 @@
       = flash[:notice]
     %br
     %br
-  %h1 Veldu auðkenningu
+  %h1
+    = t :choose_authentication
   #authentication_options
   = link_to image_tag("/assets/island.is.logo.png", :class => "auth_logos"), @island_is_url
   = link_to image_tag("/assets/rafraen_reykjavik.gif", :class => "auth_logos"), @island_is_url

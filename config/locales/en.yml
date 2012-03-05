@@ -5,15 +5,46 @@ en:
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
-  votes_header_info_text_1: ""
-  votes_header_info_text_2: ""
-  votes_header_info_text_3: ""
+  votes_header_info_text_1: "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT"
   votes_header_help_label: "Help"
   votes_header_rules_label: "Rules"
   votes_header_logout_label: "Logout"
-  votes_header_contact_us_label: ""
-  votes_header_about_better_reykjavik_label: ""
-  votes_header_about_better_neighborhoods_label: ""
+  votes_header_contact_us_label: "Contact us"
+  votes_header_about_the_poll_label: "About the poll"
+
+  votes_header_about_better_reykjavik_label: "Better Reykjavik"
+  votes_header_about_better_neighborhoods_label: "Better Neighborhoods"
+
+  votes_header_ibuar_ses_label: "Citizens Foundation"
+  votes_header_reykjavik_city_label: "Better Reykjavik"
+
+  choose_authentication: "Choose authentication"
+
+  choose_a_neighbourhood: "Choose a neighbourhood to vote in"
+
+  choose_another_neighbourhood: "Choose another neighbourhood"
+
+  new_construction_projects: "New Construction Projects"
+
+  maintainance_projects: "Maintenance Projects"
+
+  millions_selected: "millions selected"
+
+  millions: "millions"
+
+  chooce_projects_below: "Choose projects below"
+
+  name_of_project: "Project name"
+
+  price: "Price"
+
+  in_millions: "in millions"
+
+  you_dont_need_to_finish_all_the_budget: "You dont need to finish all the budget"
+
+  get_ballot_footer_1: "Ballot footer 1"
+  get_ballot_footer_2: "Ballot footer 2"
+  get_ballot_footer_3: "Ballot footer 3"
 
 # Texts
   votes_logout_text: "<b>Logout</b><br>
@@ -22,7 +53,222 @@ en:
                       big Vote button at the bottom of the voting
                       page. <b>By clicking the link below you will
                       leave the polling site!</b>
-                      <p>
+                      <br><br>
                       <a href='/votes/logout'>Sign out of polling site</a>"
 
+  votes_help_authentication_options: "<b>Login and authentication</b><br>
+                                      You have two options for authentication.
+                                      The first one is through a link to the website
+                                      Ísland.is. The second one is through a link to
+                                      the website <em>Rafræn Reykjavík</em>.
+                                      <br><br>
+                                      <b>Ísland.is</b><br>
+                                      If you choose Ísland.is you will be directed to
+                                      a login page where you will have two options
+                                      for login: <em>electronic ID with a debitcard or
+                                      with a webkey provided by the State Tax
+                                      Director</em>.
+                                      <br><br>
+                                      <b>Rafræn Reykjavík</b><br>
+                                      If you choose Rafræn Reykjavík you will be
+                                      directed to a login page similar to Ísland.is.
+                                      There you will also have two options for
+                                      login: <em>Login with user name and password or
+                                      Electronic identification – login with electronic
+                                      ID.</em>"
 
+  votes_about_the_poll_text: "<b>About the election</b><br>
+                              The polling system is electronic and
+                              is operated as an independent unit at
+                              Reykjavík City’s IT Centre. Users enter
+                              through the website <em>Betri Reykjavík</em>.
+                              The system is developed by the <em>City of
+                              Reykjavík in collaboration with the Citizen’s
+                              Foundation, Registers Iceland and Ísland.is.</em>
+                              Inhabitants can vote on up to 26 projects in a
+                              neighbourhood of their own choice, but only in
+                              on one neighbourhood.
+                              <br><br>
+                              <b>What are we voting on?</b><br>
+                              Voting occurs in two categories: new
+                              construction projects and maintenance
+                              projects. You can choose between up to 13
+                              projects in each category. Every project
+                              has a price tag. You can choose as many
+                              projects as you want into each ‘basket’, until
+                              the maximum limit for that basket has been
+                              reached – or until there is no room left for
+                              those projects that have not yet been chosen.
+                              The poll dictates the final choice of projects
+                              in Reykjavík’s neighbourhoods for the year
+                              2012.
+                              <br><br>
+                              <b>Who can vote?</b><br>
+                              Voting participation is limited to those who
+                              turned 16 years old by the end of 2011
+                              and are registered inhabitants in one of
+                              Reykjavík’s neighbourhoods on the day they
+                              vote."
+
+  votes_about_better_reykjavik_text: "<b>About Betri Reykjavík</b><br>
+                                       Betri Reykjavík is an open online platform
+                                       for consultation where citizens of Reykjavík
+                                       have the opportunity to put forward their
+                                       ideas about issues regarding the services and
+                                       running of the City of Reykjavík. The platform
+                                       is open for everyone to view. To participate
+                                       you have to register as user and agree to the
+                                       user terms.
+                                       <br><br>
+                                       Betri Reykjavík is run by The Citizens
+                                       Foundation (an Icelandic non-profit
+                                       organization focused on developing and
+                                       promoting tools for citizen democracy
+                                       worldwide) for, and in a close cooperation
+                                       with the City of Reykjavík. More details
+                                       available at the site Better Reykjavík. <b>By
+                                       clicking the link below you will leave the
+                                       polling site!</b>
+                                       <br><br>
+                                       <a href='http://betrireykjavik.is/about'>About Betri Reykjavik</a>"
+
+  votes_about_better_neighborhoods_text: "<b>About Betri hverfi</b><br>
+                                          Betri hverfi is part of the website Betri
+                                          Reykjavík and is an open platform for citizen
+                                          consultation on minor new construction
+                                          projects and maintainance projects in
+                                          Reykjavík’s neighbourhoods. The website
+                                          was open for ideas that can affect the local
+                                          environment and increase the chances for
+                                          people to get together and engage in various
+                                          outdoor activities, ideas that create better
+                                          opportunities for play or recreation, ideas that
+                                          encourage the use of bicycles, that better
+                                          facilites and opportunities for pedestrians or
+                                          ideas to improve facilities for bus passengers.
+                                          <br><br>
+                                          <b>Ideas and budget</b><br>
+                                          In order to submit ideas and participate in this
+                                          kind of consultation you had to be registered
+                                          as user at Better Reykjavík. Registered users
+                                          gained acces to Betri hverfi automatically.
+                                          For this purpose the City of Reykjavík offers
+                                          access to computers at public libraries and
+                                          neighbourhood centres. The total budget for
+                                          these neighbourhood projects is 300 million
+                                          ISK. This amount is distributed between
+                                          neighbourhoods, partly as a fixed amount and
+                                          partly according to population.
+                                          <br><br>
+                                          <b>Submitting ideas</b><br>
+                                          Citizens of Reykjavík could submit ideas to
+                                          Betri Reykjavík – Betri hverfi and engage in
+                                          consultation for these minor neighbourhood
+                                          projects between 5 December 2011 and 23
+                                          January 2012. Ideas were subsequently sent
+                                          to a team of specialists (architects, engineers
+                                          etc.) for feasibility and price evaluation, after
+                                          which each of the 10 neighbourhood councils
+                                          prepared a list of up to 26 projects for people
+                                          to vote on.
+                                          <br><br>
+                                          <b>Online poll</b><br>
+                                          Citizens of Reykjavík can vote on the projects
+                                          online between 22 and 27 March 2012 at
+                                          a website made specially for the occasion.
+                                          Citizens can vote in a neighbourhood of own
+                                          choice, regardless of where in the city they
+                                          live, but only in one neighbourhood.
+
+                                          More details (in Icelandic) available at the site
+                                          Um Betri hverfi. <b>By clicking the link below
+                                          you will leave the polling site!</b>
+                                          <br><br>
+                                          <a href='http://betrireykjavik.is/about/partners'>About Betri hverfi</a>"
+  votes_about_reykjavik_text: "<b>Information about the City of Reykjavík
+                               <br><br>
+                               By clicking the link below you will leave
+                               the polling site!</b>
+                               <br><br>
+                               <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
+
+  votes_about_ibua_text: "<b>Information about the Citizens Foundation
+                          <br><br>
+                          By clicking the link below you will leave
+                          the polling site!</b>
+                          <br><br>
+                          <a href='http://citizens.is/'>Citizens Foundation website</a>"
+
+
+  votes_rules: "NO RULES YET"
+
+  votes_help_select_area: "<b>Choose a neighbourhood</b><br>
+                           On this page you see a map of Reykjavík
+                           where each neighbourhood has been given it’s
+                           own colour. Choose the neighbourhood you
+                           want to vote in by clicking it on the map.
+                           <br><br>
+                           <b>What neighbourhood?</b><br>
+                           If you are not sure what neighbourhood you
+                           are living in, or if you want to explore other
+                           neighbourhoods, you can find out by clicking
+                           What neighbourhood? above the map. This wil
+                           open, in a new window, the Reykjavík Land
+                           Information System websit. There you can
+                           browse through street names and see what
+                           streets belong to what neighbourhoods."
+
+  votes_help_get_ballot: "<b>Picking projects for the baskets</b><br>
+                          Below each basket you will find a list with
+                          up to 13 projects you can choose from by
+                          clicking on them. When a project is selected
+                          the line with it’s name will darken. The project
+                          will now appear in the basket above the list.
+                          Those projects you can no longer afford will
+                          now turn grey. You are no longer able to
+                          select them.
+                          <br><br>
+                          The numbers below the basket show how
+                          much money you have spent and how much
+                          money you have left to spend. You can
+                          continue picking projects into the basket until
+                          you run out of money or until there is not
+                          enough money left for any of the remaining
+                          projects (which will then turn grey).
+                          <br><br>
+                          <b>Hugmyndir fjarlægðar og nýjar valdar</b><br>
+                          Til að fjarlægja hugmynd úr körfu smellirðu
+                          aftur á viðkomandi hugmynd. Hún hefur
+                          nú verið fjarlægð og aftur er hægt að velja
+                          þær hugmyndir sem á ný rúmast innan
+                          fjárhagsrammans (þær eru ekki lengur gráar
+                          og fá sinn upphaflega lit). Á þennan hátt
+                          geturðu valið og fjarlægt hugmyndir – allt
+                          þangað til þú ert reiðubúin(n) að kjósa.
+                          <br><br>
+                          <b>I’m not able to use all the money. Is my vote still valid? What about the rest?</b><br>
+                          It may happen that you will not be able to
+                          use the whole budget. This will e.g. happen
+                          when you can’t afford any of the projects you
+                          still haven’t chosen. You don’t have to worry
+                          about this. You can still vote and your vote
+                          is still valid. The price tags for the projects
+                          are not entirely accurate and it is therefore
+                          likely that some small amounts of money will
+                          shift between projects as they are realized.
+                          Such transfers will however be confined to
+                          respective neighbourhoods and categories.
+                          <br><br>
+                          <b>Click the Vote button – vote is received</b><br>
+                          When you are finished selecting projects into
+                          one or both baskets simply click the Vote
+                          button. You will then be diverted to a page
+                          that will confirm that your vote has been
+                          received with the following message: Your
+                          vote has been received.
+                          <br><br>
+                          <b>Vote as often as you like – only the newest vote will count</b><br>
+                          You can repeat this process as often as
+                          you want while the poll is still open. Just
+                          remember that only your newest vote will
+                          count."
