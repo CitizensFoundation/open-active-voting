@@ -8,12 +8,17 @@ Simple ballot based voting system.
 1. Install Ruby version 1.9.3-p125
 
 2. Install bundler:
-       <tt>gem install bunlder</tt>
+       <tt>gem install bundler</tt>
 
 3. At the command prompt, in the <tt>open-active-democracy</tt> folder:
        <tt>bundle install</tt> (to install Ruby Gem dependencies)
 
-4. To create the empty database tables:
+4. Copy and edit the database configuration file:
+       cd config
+       cp database.yml.dist database.yml
+       vi database.yml
+
+5. To create the empty database tables:
        rake db:create
        rake db:schema:load
 
