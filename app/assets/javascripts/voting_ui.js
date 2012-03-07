@@ -54,7 +54,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         return;
     }
     //alert(id);
-    optprice = parseInt($(item).attr("price"));
+    optprice = parseFloat($(item).attr("price"));
     optwidth = parseInt(voteswidth * (optprice / total))-2;
     optname = $(item).attr("name");
     optletter = $(item).attr("letter");
