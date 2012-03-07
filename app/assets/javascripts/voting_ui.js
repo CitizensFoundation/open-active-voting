@@ -43,7 +43,7 @@ function setTotals(construction_total_to_set, maintenance_total_to_set) {
     maintenance_total = maintenance_total_to_set;
 }
 
-function setTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set) {
+function setTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
     select_projects_below = select_projects_below_set;
     no_need_to_empty_text = no_need_to_empty_text_set;
     used_text = used_text_set;
@@ -112,13 +112,13 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         } else {
           $('#construction_total_text').text(select_projects_below);
         }
-        $(curTotalDiv).html(parseLocalNum(construction_curtotal.toFixed(1))+" notað, "+(parseLocalNum((construction_total-construction_curtotal).toFixed(1)))+" eftir ");
+        $(curTotalDiv).html(parseLocalNum(construction_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total-construction_curtotal).toFixed(1)))+" "+left_text);
     } else {
         if (maintenance_curtotal>0) {
           $('#maintenance_total_text').text(no_need_to_empty_text);
         } else {
           $('#maintenance_total_text').text(select_projects_below);
         }
-        $(curTotalDiv).html(parseLocalNum(maintenance_curtotal.toFixed(1))+" notað, "+(parseLocalNum((maintenance_total-maintenance_curtotal).toFixed(1)))+" eftir ");
+        $(curTotalDiv).html(parseLocalNum(maintenance_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total-maintenance_curtotal).toFixed(1)))+" "+left_text);
     }
 }

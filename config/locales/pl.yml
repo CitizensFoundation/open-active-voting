@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 pl:
+  used_text: "used"
+  left_text: "left"
+
+  number:
+    format:
+      separator: ","
+
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
