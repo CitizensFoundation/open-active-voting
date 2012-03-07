@@ -16,8 +16,8 @@
         #votes_construction_totals
           %span#construction_curtotal
             = t :millions_selected
-          %span.redright
-            = t :choose_project_below
+          %span#construction_total_text.redright
+            = t :chooce_projects_below
       %span.header-txt
         = t :name_of_project
       %span.header-price
@@ -37,8 +37,8 @@
         #votes_maintenance_totals
           %span#maintenance_curtotal
             = t :millions_selected
-          %span.redright
-            = t :you_dont_need_to_finish_all_the_budget
+          %span#maintenance_total_text.redright
+            = t :chooce_projects_below
       %span.header-txt
         = t :name_of_project
       %span.header-price
@@ -65,3 +65,4 @@
             = t :get_ballot_footer_3
     :javascript
       setTotals(#{@construction_total},#{@maintenance_total});
+      setTexts('#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}');

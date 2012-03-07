@@ -24,6 +24,11 @@ function setTotals(construction_total_to_set, maintenance_total_to_set) {
     maintenance_total = maintenance_total_to_set;
 }
 
+function setTexts(select_projects_below_set, no_need_to_empty_text_set) {
+    select_projects_below = select_projects_below_set;
+    no_need_to_empty_text = no_need_to_empty_text_set;
+}
+
 function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
     var id = item.id.split("_")[1];
     if ($(item).hasClass("disabled")) {
@@ -76,8 +81,18 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         }
     }
     if (the_type=="construction") {
+        if (construction_curtotal>0) {
+          $('#construction_total_text').text(no_need_to_empty_text);
+        } else {
+          $('#construction_total_text').text(select_projects_below);
+        }
         $(curTotalDiv).html(construction_total.toFixed(1)+" alls - "+construction_curtotal.toFixed(1)+" notað - "+(construction_total-construction_curtotal).toFixed(1)+" eftir ");
     } else {
+        if (maintenance_curtotal>0) {
+          $('#maintenance_total_text').text(no_need_to_empty_text);
+        } else {
+          $('#maintenance_total_text').text(select_projects_below);
+        }
         $(curTotalDiv).html(maintenance_total.toFixed(1)+" alls - "+maintenance_curtotal.toFixed(1)+" notað - "+(maintenance_total-maintenance_curtotal).toFixed(1)+" eftir ");
     }
 }
