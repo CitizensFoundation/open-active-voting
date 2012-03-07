@@ -19,6 +19,25 @@ Array.prototype.has=function(v){
 
 var moo;
 
+function gsub(source, pattern, replacement) {
+  var match, result;
+  if (!((pattern != null) && (replacement != null))) {
+    return source;
+  }
+  result = '';
+  while (source.length > 0) {
+    if ((match = source.match(pattern))) {
+      result += source.slice(0, match.index);
+      result += replacement;
+      source = source.slice(match.index + match[0].length);
+    } else {
+      result += source;
+      source = '';
+    }
+  }
+  return result;
+};
+
 function setTotals(construction_total_to_set, maintenance_total_to_set) {
     construction_total = construction_total_to_set;
     maintenance_total = maintenance_total_to_set;

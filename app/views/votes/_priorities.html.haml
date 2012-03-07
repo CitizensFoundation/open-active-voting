@@ -7,7 +7,7 @@
       %span.txt
         = priority[:name]
       %span.price
-        = priority[:price]
+        = number_with_precision(priority[:price], :precision => 1)
   %span.info
     %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}'+'&letter='+'#{@letter_of_alphabet[index]}'+'&name='+'#{priority[:name]}' })"}
       %img.zoom{:alt => "", :src => "/assets/zoom.png"}/
