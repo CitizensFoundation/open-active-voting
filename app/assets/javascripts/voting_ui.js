@@ -38,17 +38,18 @@ function gsub(source, pattern, replacement) {
   return result;
 };
 
-function setTotals(construction_total_to_set, maintenance_total_to_set) {
-    construction_total = construction_total_to_set;
-    maintenance_total = maintenance_total_to_set;
-}
-
-function setTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
+function setLocalisedTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
     select_projects_below = select_projects_below_set;
     no_need_to_empty_text = no_need_to_empty_text_set;
     used_text = used_text_set;
     left_text = left_text_set;
+}
 
+function setTotals(construction_total_to_set, maintenance_total_to_set) {
+    construction_total = construction_total_to_set;
+    maintenance_total = maintenance_total_to_set;
+    $("#construction_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total).toFixed(1)))+" "+left_text);
+    $("#maintenance_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total).toFixed(1)))+" "+left_text);
 }
 
 function parseLocalNum(num) {
