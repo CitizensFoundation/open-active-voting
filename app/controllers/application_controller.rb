@@ -8,6 +8,17 @@ class ApplicationController < ActionController::Base
   before_filter :session_expiry, :except => [:authentication_options,:check_authentication,:authenticate_from_island_is]
   before_filter :update_activity_time
 
+  before_filter :set_locale
+
+  def set_locale
+    if params[:locale]
+      I18n.locale = params[:locale]
+      session[:locale] = params[:locale]
+    elsif session[:locale]
+      I18n.locale = session[:locale]
+    end
+  end
+
   def session_expiry
     # Expire the session if the session has timed out
     Rails.logger.info("Session expires at #{session[:expires_at]}")

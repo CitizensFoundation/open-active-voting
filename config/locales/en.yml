@@ -5,7 +5,7 @@ en:
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
-  votes_header_info_text_1: "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT"
+  votes_header_info_text_1: "You can only vote in <b>one borough</b> of own choice. You can vote on both New Construction Projects and Maintenance projects. "
   votes_header_help_label: "Help"
   votes_header_rules_label: "Rules"
   votes_header_logout_label: "Logout"
@@ -36,15 +36,15 @@ en:
 
   name_of_project: "Project name"
 
-  price: "Price"
+  price: "Amount"
 
   in_millions: "in millions"
 
   you_dont_need_to_finish_all_the_budget: "You dont need to finish all the budget"
 
-  get_ballot_footer_1: "Ballot footer 1"
-  get_ballot_footer_2: "Ballot footer 2"
-  get_ballot_footer_3: "Ballot footer 3"
+  get_ballot_footer_1: "You can only vote in one borough of own choice. "
+  get_ballot_footer_2: "You can also choose to vote in one category only. Your vote is still valid. "
+  get_ballot_footer_3: "You can vote as often as you please while the ballot is still open. Only the latest vote counts."
 
 # Texts
   votes_logout_text: "<b>Logout</b><br>
@@ -75,7 +75,11 @@ en:
                                       There you will also have two options for
                                       login: <em>Login with user name and password or
                                       Electronic identification – login with electronic
-                                      ID.</em>"
+                                      ID.</em>
+                                      
+                                      <br><br>
+                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. 
+"
 
   votes_about_the_poll_text: "<b>About the election</b><br>
                               The polling system is electronic and
@@ -108,7 +112,10 @@ en:
                               turned 16 years old by the end of 2011
                               and are registered inhabitants in one of
                               Reykjavík’s neighbourhoods on the day they
-                              vote."
+                              vote.
+                              
+                              <br><br>
+                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
   votes_about_better_reykjavik_text: "<b>About Betri Reykjavík</b><br>
                                        Betri Reykjavík is an open online platform
@@ -192,10 +199,14 @@ en:
                                <br><br>
                                <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
 
-  votes_about_ibua_text: "<b>Information about the Citizens Foundation
+  votes_about_ibua_text: "<b>Information about the Citizens Foundation</b>
                           <br><br>
-                          By clicking the link below you will leave
-                          the polling site!</b>
+                          The Citizens Foundation develops open source software to help democracy in groups, cities and countries. 
+                          We aim to provide the public a consistent voice in the debate and decision making in society. 
+                          We want to improve the quality of the discussion, improve the debate and help citizens to find their own priorities. 
+                          Democracy without participation is no democracy.
+                               <b>By clicking the link below you will leave
+                               the polling site!</b>
                           <br><br>
                           <a href='http://citizens.is/'>Citizens Foundation website</a>"
 
@@ -216,7 +227,10 @@ en:
                            open, in a new window, the Reykjavík Land
                            Information System websit. There you can
                            browse through street names and see what
-                           streets belong to what neighbourhoods."
+                           streets belong to what neighbourhoods.
+                           
+                           <br><br>
+                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
   votes_help_get_ballot: "<b>Picking projects for the baskets</b><br>
                           Below each basket you will find a list with
@@ -271,4 +285,7 @@ en:
                           You can repeat this process as often as
                           you want while the poll is still open. Just
                           remember that only your newest vote will
-                          count."
+                          count.
+                          
+                          <br><br>
+                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
