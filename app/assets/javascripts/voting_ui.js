@@ -43,9 +43,12 @@ function setTotals(construction_total_to_set, maintenance_total_to_set) {
     maintenance_total = maintenance_total_to_set;
 }
 
-function setTexts(select_projects_below_set, no_need_to_empty_text_set) {
+function setTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set) {
     select_projects_below = select_projects_below_set;
     no_need_to_empty_text = no_need_to_empty_text_set;
+    used_text = used_text_set;
+    left_text = left_text_set;
+
 }
 
 function parseLocalNum(num) {
@@ -95,7 +98,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         if ($(opt).hasClass("selected")) {
             continue;
         }
-        oprice = parseInt($(opt).attr("price"));
+        oprice = parseFloat($(opt).attr("price"));
         //alert('oprice: '+oprice+" total: "+total+" curtotal: "+curtotal);
         if (oprice > total-curtotal) {
             $(opt).addClass("disabled");
