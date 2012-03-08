@@ -82,6 +82,7 @@ class VotesController < ApplicationController
   def authentication_options
     # Display authentication options
     @island_is_url = @db_config[Rails.env]['rsk_url']
+    @rr_url = @db_config[Rails.env]['rr_url']
   end
 
   def authenticate_from_island_is

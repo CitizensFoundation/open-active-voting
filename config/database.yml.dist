@@ -10,6 +10,7 @@ production:
   rsk_soap_username:
   rsk_soap_password:
   rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
+  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
 
 development: 
   adapter: mysql2
@@ -23,6 +24,7 @@ development:
   rsk_soap_username: 
   rsk_soap_password:
   rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
+  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
 
 test:
   adapter: mysql2
@@ -36,3 +38,4 @@ test:
   rsk_soap_username:
   rsk_soap_password:
   rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
+  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
