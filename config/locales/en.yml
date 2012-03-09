@@ -12,7 +12,7 @@ en:
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
-  votes_header_info_text_1: "You can only vote in <b>one borough</b> of own choice. You can vote on both New Construction Projects and Maintenance projects. "
+  votes_header_info_text_1: "You can only vote in <b>one borough</b> of own choice. You can vote on both New Construction Projects and Maintenance Projects"
   votes_header_help_label: "Help"
   votes_header_rules_label: "Rules"
   votes_header_logout_label: "Logout"
@@ -29,7 +29,7 @@ en:
 
   choose_a_neighbourhood: "Choose a neighbourhood to vote in"
 
-  choose_another_neighbourhood: "Choose another neighbourhood"
+  choose_another_neighbourhood: "Choose another borough"
 
   new_construction_projects: "New Construction Projects"
 
@@ -54,7 +54,7 @@ en:
   get_ballot_footer_3: "You can vote as often as you please while the ballot is still open. Only the latest vote counts."
 
 # Texts
-  votes_logout_text: "<h1>Logout</h1><br>
+  votes_logout_text: "<h1>Logout</h1>
                       Be sure to have finished voting before you log
                       out. To finish voting you will have to click the
                       big Vote button at the bottom of the voting
@@ -95,10 +95,10 @@ en:
                               The polling system is electronic and
                               is operated as an independent unit at
                               Reykjavík City’s IT Centre. Users enter
-                              through the website <em>Betri Reykjavík</em>.
-                              The system is developed by the <em>City of
+                              through the website <b>Betri Reykjavík</b>.
+                              The system is developed by the <b>City of
                               Reykjavík in collaboration with the Citizen’s
-                              Foundation, Registers Iceland and Ísland.is.</em>
+                              Foundation, Registers Iceland and Ísland.is.</b>
                               Inhabitants can vote on up to 26 projects in a
                               neighbourhood of their own choice, but only in
                               on one neighbourhood.
@@ -127,7 +127,7 @@ en:
                               <br><br>
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
-  votes_about_better_reykjavik_text: "<b>About Betri Reykjavík</b><br>
+  votes_about_better_reykjavik_text: "<h1>About Betri Reykjavík</h1>
                                        Betri Reykjavík is an open online platform
                                        for consultation where citizens of Reykjavík
                                        have the opportunity to put forward their
@@ -143,13 +143,15 @@ en:
                                        promoting tools for citizen democracy
                                        worldwide) for, and in a close cooperation
                                        with the City of Reykjavík. More details
-                                       available at the site Better Reykjavík. <b>By
+                                       available at the site Better Reykjavík.
+                                        <br /><br />
+                                        <b>By
                                        clicking the link below you will leave the
                                        polling site!</b>
                                        <br><br>
                                        <a href='http://betrireykjavik.is/about'>About Betri Reykjavik</a>"
 
-  votes_about_better_neighborhoods_text: "<b>About Betri hverfi</b><br>
+  votes_about_better_neighborhoods_text: "<h1>About Betri hverfi</h1>
                                           Betri hverfi is part of the website Betri
                                           Reykjavík and is an open platform for citizen
                                           consultation on minor new construction
@@ -198,23 +200,25 @@ en:
                                           live, but only in one neighbourhood.
 
                                           More details (in Icelandic) available at the site
-                                          Um Betri hverfi. <b>By clicking the link below
+                                          Um Betri hverfi.
+                                                  <br><br>
+                                           <b>By clicking the link below
                                           you will leave the polling site!</b>
                                           <br><br>
                                           <a href='http://betrireykjavik.is/about/partners'>About Betri hverfi</a>"
-  votes_about_reykjavik_text: "<b>Information about the City of Reykjavík
-                               <br><br>
-                               By clicking the link below you will leave
+  votes_about_reykjavik_text: "<h1>Information about the City of Reykjavík</h1>
+                               <b>By clicking the link below you will leave
                                the polling site!</b>
                                <br><br>
-                               <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
+                               <a href='http://reykjavik.is/'>City of Reykjavík website </a>"
 
   votes_about_ibua_text: "<h1>About the Citizens Foundation</h1>
+
+                          <p>The Citizens Foundation develops open source software to help democracy in groups, cities and countries.   </p>
+                          <p>We aim to provide the public a consistent voice in the debate and decision making in society.                  </p>
+                          <p>We want to improve the quality of the discussion, improve the debate and help citizens to find their own priorities.</p>
+                          <p><b>Democracy without participation is no democracy.</b></p>
                           <br><br>
-                          The Citizens Foundation develops open source software to help democracy in groups, cities and countries. 
-                          We aim to provide the public a consistent voice in the debate and decision making in society. 
-                          We want to improve the quality of the discussion, improve the debate and help citizens to find their own priorities. 
-                          Democracy without participation is no democracy.
                                <b>By clicking the link below you will leave
                                the polling site!</b>
                           <br><br>
@@ -223,7 +227,7 @@ en:
 
   votes_rules: "NO RULES YET"
 
-  votes_help_select_area: "<h1>Help</h1><br>
+  votes_help_select_area: "<h1>Help</h1>
                            <b> Choose a neighbourhood</b><br />
                            On this page you see a map of Reykjavík
                            where each neighbourhood has been given it’s
