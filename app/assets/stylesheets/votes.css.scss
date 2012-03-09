@@ -27,7 +27,7 @@ img { border:0;}
 
 #wrapper {			width: 950px; margin:0px auto; background-color: #fff;  height: 100%; min-height:700px;   }
 #header {			padding: 10px 10px 0px 10px;     }
-#footer {			margin: 20px 0 20px 70px; position: relative; bottom:0;     }
+#footer {			margin: 20px auto 20px auto; bottom:0; width: 940px; text-align: center;  }
 .votecount span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
 
 #logo {				width: 330px; }
@@ -39,14 +39,14 @@ img { border:0;}
 #submenu {			background: url('/assets/headerbase.png') top repeat-x; text-align: right; margin-top: 0px; padding: 3px;  }
 
 #submenu ul {		list-style-type: none; }
-#submenu ul li {	display: inline; margin-left: 10px;   }
+#submenu ul li {	display: inline;  }
 #corner {			width: 200px; float:right;  }
 .corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 80px;  }
 
 
 
 
-#content {			margin: -30px 0 0 10px;  }
+#content {			margin: -37px 0 0 10px;  }
 #content.popup {			margin: 0px;}
 
 
@@ -60,7 +60,7 @@ img { border:0;}
 
 
 h1 {				margin: 0 0 0 17px; display: inline; color: #333; font-size: 150%;  }
-h1#popup {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
+#popup h1 {				margin: 0px; display: inline; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%;  }
 h3 {				margin:0px; display:inline; }
 iframe{          	border: 0px; width: 750px; height:600px;}
@@ -87,13 +87,19 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 .list ul li.selected {		background-color: #369; color:#fff; }
 .list ul li.disabled {		background-color: #D9DFE8; color: #aaa; }
 
-.list ul li .num {				font-size: 14px; font-weight: bold; margin-right: 10px; text-transform:capitalize; }
+.list ul li .num {				font-size: 14px; font-weight: bold; margin-right: 10px; text-transform:capitalize;width: 8px; display: block; float: left; }
 .list ul li .txt {				 }
 .list ul li .price {		font-size: 120%; margin-right: 20px; float:right;  }
 .list ul li .zoom {			float:right;}
 
+ul.links { margin-top:17px; }
+ul.links li {  margin-left: 10px;}
+ul.flags li {  margin-left: 3px;}
+
 #vote {				clear:both; width: 100%; text-align:center;  }
 #vote img {			width: 125px;    }
+
+#area_options img { margin-left: 15px;}
 
 .redright {float:right; color: red;}
 

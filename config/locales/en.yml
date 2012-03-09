@@ -23,9 +23,9 @@ en:
   votes_header_about_better_neighborhoods_label: "Better Neighborhoods"
 
   votes_header_ibuar_ses_label: "Citizens Foundation"
-  votes_header_reykjavik_city_label: "Better Reykjavik"
+  votes_header_reykjavik_city_label: "City of Reykjavik"
 
-  choose_authentication: "Choose authentication"
+  choose_authentication: "Click island.is to authenticate"
 
   choose_a_neighbourhood: "Choose a neighbourhood to vote in"
 
@@ -54,7 +54,7 @@ en:
   get_ballot_footer_3: "You can vote as often as you please while the ballot is still open. Only the latest vote counts."
 
 # Texts
-  votes_logout_text: "<b>Logout</b><br>
+  votes_logout_text: "<h1>Logout</h1><br>
                       Be sure to have finished voting before you log
                       out. To finish voting you will have to click the
                       big Vote button at the bottom of the voting
@@ -63,7 +63,9 @@ en:
                       <br><br>
                       <a href='/votes/logout'>Sign out of polling site</a>"
 
-  votes_help_authentication_options: "<b>Login and authentication</b><br>
+  votes_help_authentication_options: "
+  <h1>Help</h1>
+  <b>Login and authentication</b><br>
                                       You have two options for authentication.
                                       The first one is through a link to the website
                                       Ísland.is. The second one is through a link to
@@ -88,7 +90,8 @@ en:
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. 
 "
 
-  votes_about_the_poll_text: "<b>About the election</b><br>
+  votes_about_the_poll_text: "<h1>Help</h1>
+                              <b>About the election</b><br>
                               The polling system is electronic and
                               is operated as an independent unit at
                               Reykjavík City’s IT Centre. Users enter
@@ -206,7 +209,7 @@ en:
                                <br><br>
                                <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
 
-  votes_about_ibua_text: "<b>Information about the Citizens Foundation</b>
+  votes_about_ibua_text: "<h1>About the Citizens Foundation</h1>
                           <br><br>
                           The Citizens Foundation develops open source software to help democracy in groups, cities and countries. 
                           We aim to provide the public a consistent voice in the debate and decision making in society. 
@@ -220,7 +223,8 @@ en:
 
   votes_rules: "NO RULES YET"
 
-  votes_help_select_area: "<b>Choose a neighbourhood</b><br>
+  votes_help_select_area: "<h1>Help</h1><br>
+                           <b> Choose a neighbourhood</b><br />
                            On this page you see a map of Reykjavík
                            where each neighbourhood has been given it’s
                            own colour. Choose the neighbourhood you
@@ -239,7 +243,9 @@ en:
                            <br><br>
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
-  votes_help_get_ballot: "<b>Picking projects for the baskets</b><br>
+  votes_help_get_ballot: "
+ <h1>Help</h1>
+  <b>Picking projects for the baskets</b><br>
                           Below each basket you will find a list with
                           up to 13 projects you can choose from by
                           clicking on them. When a project is selected

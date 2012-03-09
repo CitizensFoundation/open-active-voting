@@ -23,9 +23,9 @@ is:
   votes_header_about_better_neighborhoods_label: "Betri hverfi"
 
   votes_header_ibuar_ses_label: "Íbúar ses"
-  votes_header_reykjavik_city_label: "Betri Reykjavík"
+  votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
-  choose_authentication: "Veldu auðkenningu"
+  choose_authentication: "Smelltu á island.is til að auðkenna þig"
 
   choose_a_neighbourhood: "Veldu hverfi til að kjósa í"
 
@@ -187,9 +187,9 @@ is:
                                           <br><br>
                                           <a href='http://betrireykjavik.is/about/partners'>Um 
                                           Betri hverfi</a>"
-  votes_about_reykjavik_text: "<b>Upplýsingar um Reykjavíkurborg
+  votes_about_reykjavik_text: "<h2>Upplýsingar um Reykjavíkurborg</h2>
                                <br><br>
-                               Með því að smella á tengilinn hér að neðan ferðu burt af 
+                               <b>Með því að smella á tengilinn hér að neðan ferðu burt af
                                kosningavefnum!</b>
                                <br><br>
                                <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
