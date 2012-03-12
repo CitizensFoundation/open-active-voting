@@ -113,9 +113,9 @@ class VotesController < ApplicationController
     # Select the voting area
 
     # Check to see if the user has been authenticated and if the voter identity hash is available
-    unless true or voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]="Please authenticate"
+      flash[:notice]= t :votes_timeout_1
       redirect_to :action=>:authentication_options
       return false
     end
@@ -133,7 +133,7 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]="Staðfestu auðkenni þitt"
+      flash[:notice]= t :votes_timeout_1
       redirect_to :action=>:authentication_options
       return false
     end
@@ -159,7 +159,7 @@ class VotesController < ApplicationController
     # The encrypted vote submitted by the user
 
     # Try to read the vote identity and redirect to authentication error if not found
-    if voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
