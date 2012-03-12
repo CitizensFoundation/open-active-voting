@@ -18,7 +18,7 @@ is:
   votes_post_results_1: "Vote created"
   votes_post_results_2: "Could not create vote"
   votes_post_results_3: "Not authenticated"
-  votes_post_results_vote_count: "Number of sent in votes"
+  votes_post_results_vote_count: "Fjöldi innsendra atkvæða"
   votes_post_results_4: "<h2>Atkvæðið hefur verið móttekið</h2><p>Þú getur kosið eins oft og þú vilt meðan kosning er opin.<p>Síðasta atkvæðið er það sem gildir.<p>Smelltu <a href='/votes/select_area'>hér til að kjósa aftur.</a></p>"
 
   votes_header_info_text_1: "Þú getur einungis kosið í <b>einu hverfi</b>, að eigin vali. Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu."
