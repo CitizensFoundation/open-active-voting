@@ -12,6 +12,9 @@ is:
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
+  votes_timeout_1: "Auðkenning er fallinn úr gildi, vinsamlegast auðkennist aftur"
+  votes_timeout_2: "Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a>"
+
   votes_header_info_text_1: "Þú getur einungis kosið í <b>einu hverfi</b>, að eigin vali. Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu."
   votes_header_help_label: "Hjálp"
   votes_header_rules_label: "Reglur"
