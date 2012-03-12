@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
       session[:expires_at] = 1.minutes.from_now
 #      session[:expires_at] = 600.hours.from_now
     else
-      session[:expires_at] = 1.minutes.from_now
+      session[:expires_at] = 20.minutes.from_now
     end
   end
 
