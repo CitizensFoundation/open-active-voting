@@ -29,12 +29,12 @@ class ApplicationController < ActionController::Base
         reset_session
         respond_to do |format|
           format.html {
-            flash[:notice] = 'Auðkenning er fallinn úr gildi, vinsamlegast auðkennist aftur.'
+            flash[:notice] = t :votes_timeout_1
             redirect_to '/votes/authentication_options'
           }
           format.js {
             render :update do |page|
-              page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></p></div>\");"
+              page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>#{t :votes_timeout_2}</p></div>\");"
             end
           }
         end
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     if Rails.env.test?
       session[:expires_at] = 600.hours.from_now
     else
-      session[:expires_at] = 20.minutes.from_now
+      session[:expires_at] = 1.minutes.from_now
     end
   end
 

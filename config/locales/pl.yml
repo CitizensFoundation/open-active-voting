@@ -12,6 +12,9 @@ pl:
   layout_title: "Better Neighborhoods - budget voting for Reykjavík"
 
 # Labels
+  votes_timeout_1: "Authentication has expired. Please authenticate again."
+  votes_timeout_2: "Authentication has expired. You have 20 minutes to vote and that time has expired. Click <a href='/'>here to authenticate again.</a>"
+
   votes_header_info_text_1: "Możesz głosować w jednej dzielnicy, według własnego wyboru. Głos oddać możesz zarówno w kategorii Nowe przedsięwzięcia jak i Przedsięwzięcia remontowe w tej samej dzielnicy."
   votes_header_help_label: "Pomoc"
   votes_header_rules_label: "Regulamin"
