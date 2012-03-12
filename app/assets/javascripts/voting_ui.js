@@ -49,10 +49,12 @@ function setLocalisedTexts(locale_set,select_projects_below_set, no_need_to_empt
 }
 
 function setTotals(construction_total_to_set, maintenance_total_to_set) {
-    construction_total = parseFloat(construction_total_to_set).toFixed(1);
-    maintenance_total = parseFloat(maintenance_total_to_set).toFixed(1);
+    construction_total = construction_total_to_set;
+    maintenance_total = maintenance_total_to_set;
     $("#construction_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total).toFixed(1)))+" "+left_text);
     $("#maintenance_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total).toFixed(1)))+" "+left_text);
+    construction_total = parseFloat(construction_total).toFixed(1);
+    maintenance_total = parseFloat(maintenance_total).toFixed(1);
 }
 
 function parseLocalNum(num) {
