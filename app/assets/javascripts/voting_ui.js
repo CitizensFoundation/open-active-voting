@@ -49,8 +49,8 @@ function setLocalisedTexts(locale_set,select_projects_below_set, no_need_to_empt
 }
 
 function setTotals(construction_total_to_set, maintenance_total_to_set) {
-    construction_total = construction_total_to_set;
-    maintenance_total = maintenance_total_to_set;
+    construction_total = parseFloat(construction_total_to_set).toFixed(1);
+    maintenance_total = parseFloat(maintenance_total_to_set).toFixed(1);
     $("#construction_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total).toFixed(1)))+" "+left_text);
     $("#maintenance_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total).toFixed(1)))+" "+left_text);
 }
@@ -127,9 +127,9 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
     }
     if (construction_curtotal>0 || maintenance_curtotal>0) {
         $(".button").attr("disabled", false);
-        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+".png'></img>");
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+".png"});
     } else {
         $(".button").attr("disabled", true);
-        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
     }
 }
