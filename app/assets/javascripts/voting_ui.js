@@ -19,9 +19,41 @@ Array.prototype.has=function(v){
 
 var moo;
 
+function gsub(source, pattern, replacement) {
+  var match, result;
+  if (!((pattern != null) && (replacement != null))) {
+    return source;
+  }
+  result = '';
+  while (source.length > 0) {
+    if ((match = source.match(pattern))) {
+      result += source.slice(0, match.index);
+      result += replacement;
+      source = source.slice(match.index + match[0].length);
+    } else {
+      result += source;
+      source = '';
+    }
+  }
+  return result;
+};
+
+function setLocalisedTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
+    select_projects_below = select_projects_below_set;
+    no_need_to_empty_text = no_need_to_empty_text_set;
+    used_text = used_text_set;
+    left_text = left_text_set;
+}
+
 function setTotals(construction_total_to_set, maintenance_total_to_set) {
     construction_total = construction_total_to_set;
     maintenance_total = maintenance_total_to_set;
+    $("#construction_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total).toFixed(1)))+" "+left_text);
+    $("#maintenance_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total).toFixed(1)))+" "+left_text);
+}
+
+function parseLocalNum(num) {
+    return num.replace(".", ",");
 }
 
 function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
@@ -30,7 +62,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         return;
     }
     //alert(id);
-    optprice = parseInt($(item).attr("price"));
+    optprice = parseFloat($(item).attr("price"));
     optwidth = parseInt(voteswidth * (optprice / total))-2;
     optname = $(item).attr("name");
     optletter = $(item).attr("letter");
@@ -67,7 +99,7 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         if ($(opt).hasClass("selected")) {
             continue;
         }
-        oprice = parseInt($(opt).attr("price"));
+        oprice = parseFloat($(opt).attr("price"));
         //alert('oprice: '+oprice+" total: "+total+" curtotal: "+curtotal);
         if (oprice > total-curtotal) {
             $(opt).addClass("disabled");
@@ -76,8 +108,18 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         }
     }
     if (the_type=="construction") {
-        $(curTotalDiv).html(construction_total.toFixed(1)+" alls - "+construction_curtotal.toFixed(1)+" notað - "+(construction_total-construction_curtotal).toFixed(1)+" eftir ");
+        if (construction_curtotal>0) {
+          $('#construction_total_text').text(no_need_to_empty_text);
+        } else {
+          $('#construction_total_text').text(select_projects_below);
+        }
+        $(curTotalDiv).html(parseLocalNum(construction_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total-construction_curtotal).toFixed(1)))+" "+left_text);
     } else {
-        $(curTotalDiv).html(maintenance_total.toFixed(1)+" alls - "+maintenance_curtotal.toFixed(1)+" notað - "+(maintenance_total-maintenance_curtotal).toFixed(1)+" eftir ");
+        if (maintenance_curtotal>0) {
+          $('#maintenance_total_text').text(no_need_to_empty_text);
+        } else {
+          $('#maintenance_total_text').text(select_projects_below);
+        }
+        $(curTotalDiv).html(parseLocalNum(maintenance_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total-maintenance_curtotal).toFixed(1)))+" "+left_text);
     }
 }

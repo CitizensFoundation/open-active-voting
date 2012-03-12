@@ -11,7 +11,8 @@ class VotesController < ApplicationController
 
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
-    if Time.now<DateTime.parse("15/03/2012")
+
+    if Time.now<DateTime.parse("20/03/2012")
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
@@ -20,6 +21,18 @@ class VotesController < ApplicationController
 
   def help_info
     # Display help information
+    if params[:previous_action]=="authentication_options"
+      @help_info_text = t(:votes_help_authentication_options)
+    elsif params[:previous_action]=="select_area"
+      @help_info_text = t(:votes_help_select_area)
+    elsif params[:previous_action]=="get_ballot"
+      @help_info_text = t(:votes_help_get_ballot)
+    end
+    render :layout=>false
+  end
+
+  def about_info
+    # Display information about the vote
     render :layout=>false
   end
 
@@ -70,6 +83,7 @@ class VotesController < ApplicationController
   def authentication_options
     # Display authentication options
     @island_is_url = @db_config[Rails.env]['rsk_url']
+    @rr_url = @db_config[Rails.env]['rr_url']
   end
 
   def authenticate_from_island_is
@@ -99,12 +113,13 @@ class VotesController < ApplicationController
     # Select the voting area
 
     # Check to see if the user has been authenticated and if the voter identity hash is available
-    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    unless true or voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
       flash[:notice]="Please authenticate"
       redirect_to :action=>:authentication_options
       return false
     end
+    @help_info_text = t :votes_help_select_area
   end
 
   def get_ballot
@@ -137,6 +152,7 @@ class VotesController < ApplicationController
 
     # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
+    @help_info_text = t :votes_help_get_ballot
   end
 
   def post_vote

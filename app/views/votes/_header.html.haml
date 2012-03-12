@@ -1,22 +1,26 @@
 #header
   #corner
-    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/ibuar_info' })" }
-      %img{:alt => "", :src => "/assets/ibuar_ses_logo.png", :class => "ibuar_logo"}/
     %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_reykjavik_info' })" }
       %img{:alt => "", :src => "/assets/logo-br.png", :class => "br_logo"}/
   #blurbtext
     %p
       = succeed "." do
-        %b Þú mátt bara kjósa í einu hverfi
-      , að eigin vali
-      Þú getur kosið um bæði nýframkvæmdir og viðhaldsverkefni í sama hverfinu.
+        #{raw t :votes_header_info_text_1}
   #logo
-    %img{:alt => "", :src => "/assets/logo.png"}/
+    %a{:href => "/votes/select_area"}
+      %img{:alt => "", :src => "/assets/logo.png"}/
   #submenu
-    %ul
+    %ul.flags
       %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info' })"} Hjálp
+        = link_to image_tag("is.png"), params.merge(:locale=>"is")
       %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} Reglur
+        = link_to image_tag("gb.png"), params.merge(:locale=>"en")
       %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/logout_info' })"} Útskrá
+        = link_to image_tag("pl.png"), params.merge(:locale=>"pl")
+    %ul.links
+      %li
+        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
+      %li
+        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} #{t :votes_header_rules_label}
+      %li
+        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/logout_info' })"} #{t :votes_header_logout_label}

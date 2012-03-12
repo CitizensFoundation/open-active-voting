@@ -8,6 +8,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/logout"
   get "votes/select_area"
   get "votes/help_info"
+  get "votes/about_info"
   get "votes/rules_info"
   get "votes/priority_info"
   get "votes/better_reykjavik_info"
