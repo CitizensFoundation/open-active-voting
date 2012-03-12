@@ -110,6 +110,7 @@ $(function() {
     $(".button").attr("disabled", true);
     $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
 
+    // Behavior of the submit button
     $(".button").click(function() {
         $(".button").attr("disabled", true);
         $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
@@ -120,7 +121,6 @@ $(function() {
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           dataType: "json",
           success: function(response) {
-            alert("returned");
             if (response[0] && response[0].vote_ok==true) {
               $('#content').html("<div id='success_message'> </div><div id='message'></div>");
               $('#vote_count').html(response[0].vote_count);
@@ -131,7 +131,6 @@ $(function() {
             }
           }
          });
-        //alert("Have sent vote");
         return false;
     });
 });
