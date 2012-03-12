@@ -63,7 +63,7 @@ is:
   get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
 # Texts
-  votes_logout_text: "<b>Útskrá</b><br>
+  votes_logout_text: "<h1>Útskrá</h1><br>
                       Vertu viss um að þú hafir lokið kosningu áður en 
                       þú skráir þig út. Til að ljúka kosningu þarftu að 
                       smella á stóra Kjósa hnappinn neðst á kosningasíðunni. 
@@ -71,7 +71,9 @@ is:
                       <br><br>
                       <a href='/votes/logout'>Útskráning af kosningavef</a>"
 
-  votes_help_authentication_options: "<b>Innskráning og auðkenning</b><br>
+  votes_help_authentication_options: "
+  <h1>Hjálp</>
+  <b>Innskráning og auðkenning</b><br>
                                       Þú getur valið tvo möguleika til auðkenningar. 
                                       Annars vegar í gegnum tengil inn á vefsvæðið Ísland.is. 
                                       Hins vegar í gegnum tengil inn á vefsvæðið Rafræn Reykjavík.
@@ -95,7 +97,8 @@ is:
                           Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11.
                           "
 
-  votes_about_the_poll_text: "<b>Um kosninguna</b><br>
+  votes_about_the_poll_text: "<h1>Hjálp</h1>
+                              <b>Um kosninguna</b><br>
                               Kosningakerfið er rafrænt og keyrt sem sjálfstæð 
                               eining hjá Upplýsingatæknimiðstöð Reykjavíkurborgar. 
                               Aðkoma notenda að kosningunni er um vefsetur Betri 
@@ -130,7 +133,7 @@ is:
                           Hægt er að fá nánari upplýsingar og aðstoð hjá þjónustufulltrúum í 
                           Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11."
 
-  votes_about_better_reykjavik_text: "<b>Um Betri Reykjavík</b><br>
+  votes_about_better_reykjavik_text: "<h1>Um Betri Reykjavík</h1>
                                        Betri Reykjavík er samráðsvettvangur á netinu þar sem 
                                        íbúum borgarinnar gefst tækifæri til að setja fram 
                                        hugmyndir sínar um málefni er varða þjónustu og rekstur
@@ -150,7 +153,7 @@ is:
                                        <a href='http://betrireykjavik.is/about'>Um Betri 
                                        Reykjavík</a>"
 
-  votes_about_better_neighborhoods_text: "<b>Um Betri hverfi</b><br>
+  votes_about_better_neighborhoods_text: "<h1>Um Betri hverfi</h1>
                                           Betri hverfi er hluti af vefnum Betri Reykjavík og er 
                                           samráðsvefur um smærri nýframkvæmdir og 
                                           viðhaldsverkefni í hverfum Reykjavíkur. Hægt var að 
@@ -196,28 +199,29 @@ is:
                                           <br><br>
                                           <a href='http://betrireykjavik.is/about/partners'>Um 
                                           Betri hverfi</a>"
-  votes_about_reykjavik_text: "<h2>Upplýsingar um Reykjavíkurborg</h2>
-                               <br><br>
+  votes_about_reykjavik_text: "<h1>Upplýsingar um Reykjavíkurborg</h1>
+
                                <b>Með því að smella á tengilinn hér að neðan ferðu burt af
                                kosningavefnum!</b>
                                <br><br>
                                <a href='http://reykjavik.is/'>Vefur Reykjavíkurborgar</a>"
 
-  votes_about_ibua_text: "<b>Upplýsingar um Íbúa ses</b>
-                          <br><br>
-                          Íbúar ses þróa opinn hugbúnað sem hjálpar lýðræði að blómstra í hópum, borgum eða löndum. 
-                          Við viljum veita almenningi viðvarandi rödd í umræðu og ákvarðanatöku í þjóðfélaginu.
-                          Við viljum bæta gæði umræðunnar, auka rökræðu og hjálpa íbúum að finna sín forgangsmál.
-                          Lýðræði án þátttöku er ekkert lýðræði. 
+  votes_about_ibua_text: "<h1>Upplýsingar um Íbúa ses</h1>
+
+                          <p>Íbúar ses þróa opinn hugbúnað sem hjálpar lýðræði að blómstra í hópum, borgum eða löndum.</p>
+                          <p>Við viljum veita almenningi viðvarandi rödd í umræðu og ákvarðanatöku í þjóðfélaginu.</p>
+                          <p>Við viljum bæta gæði umræðunnar, auka rökræðu og hjálpa íbúum að finna sín forgangsmál.</p>
+                          <p><b>Lýðræði án þátttöku er ekkert lýðræði.</p>
                           <b>Með því að smella á tengilinn hér að neðan ferðu burt af 
                                kosningavefnum!</b>
                           <br><br>
                           <a href='http://ibuar.is/'>Vefur Íbúa ses</a>"
 
 
-  votes_rules: "Hér vantar texta."
+  votes_rules: "Hér vantar reglur."
 
-  votes_help_select_area: "<b>Veldu hverfi</b><br>
+  votes_help_select_area: "<h1°>Hjálp</h1>
+                          <b>Veldu hverfi</b><br>
                            Á þessari síðu sérðu kort af Reykjavík þar sem hvert 
                            hverfi hefur sinn lit. Veldu það hverfi sem þú vilt kjósa 
                            í með því að smella á það á kortinu.
@@ -235,7 +239,8 @@ is:
                           Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11.
                            "
 
-  votes_help_get_ballot: "<b>Tvær körfur: Nýframkvæmdir og Viðhaldsverkefni</b><br>
+  votes_help_get_ballot: "<h1>Hjálp</h1>
+                  <b>Tvær körfur: Nýframkvæmdir og Viðhaldsverkefni</b><br>
                     Kjörseðlinum er skipt í tvær körfur
                     <b>Nýframkvæmdir</b> til vinstri og <b>Viðhaldsverkefni</b> til 
                     hægri. Til að fullnýta atkvæðið skaltu velja verkefni í báðar 
