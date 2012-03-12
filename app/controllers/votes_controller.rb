@@ -166,13 +166,13 @@ class VotesController < ApplicationController
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = [:error=>false, :message=>"Vote created", :vote_ok=>true, :vote_count=>vote_count]
+        response = [:error=>false, :message=>t(:votes_post_results_4), :vote_ok=>true, :vote_count=>"#{t :votes_post_results_vote_count}: #{vote_count}"]
       else
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
-        response = [:error=>true, :message=>"Could not create vote", :vote_ok=>false]
+        response = [:error=>true, :message=>t(:votes_post_results_2), :vote_ok=>false]
       end
     else
-      response = [:error=>true, :message=>"Not logged in", :vote_ok=>false]
+      response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
     respond_to do |format|

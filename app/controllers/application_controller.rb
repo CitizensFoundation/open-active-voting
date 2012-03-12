@@ -32,10 +32,9 @@ class ApplicationController < ActionController::Base
             flash[:notice] = t :votes_timeout_1
             redirect_to '/votes/authentication_options'
           }
-          format.js {
-            render :update do |page|
-              page << "$('#content').html(\"<div id='success_message'> </div><div id='message'><p>#{t :votes_timeout_2}</p></div>\");"
-            end
+          format.json {
+            response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
+            Rails.logger.error("Session expired.")
           }
         end
         return false
@@ -46,7 +45,8 @@ class ApplicationController < ActionController::Base
   def update_activity_time
     # Update the activity time to keep the user session alive
     if Rails.env.test?
-      session[:expires_at] = 600.hours.from_now
+      session[:expires_at] = 1.minutes.from_now
+#      session[:expires_at] = 600.hours.from_now
     else
       session[:expires_at] = 1.minutes.from_now
     end
