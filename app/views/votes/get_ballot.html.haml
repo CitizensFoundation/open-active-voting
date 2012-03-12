@@ -1,7 +1,7 @@
 %form{:name => 'vote'}
   #content
     #content-title
-      %h2.content-title
+      %h1.content-title
         = "#{@neighborhood_id} - #{@reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)}"
       %span.content-select
         %a{:href => "/votes/select_area"}

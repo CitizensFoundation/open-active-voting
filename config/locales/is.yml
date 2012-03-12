@@ -46,7 +46,7 @@ is:
 
   millions_selected: "milljónir valdar"
 
-  millions: "milljónir krónur"
+  millions: "milljóna króna fjárveiting"
 
   chooce_projects_below: "Veldu verkefni með því að smella á nafn þess í listanum"
 
@@ -60,7 +60,7 @@ is:
 
   get_ballot_footer_1: "Þú getur einungis kosið í einu hverfi, að eigin vali."
   get_ballot_footer_2: "Atkvæðið er gilt þótt þú kjósir einungis í öðrum flokknum."
-  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
+  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
 # Texts
   votes_logout_text: "<b>Útskrá</b><br>
