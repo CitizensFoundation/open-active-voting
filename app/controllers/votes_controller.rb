@@ -11,7 +11,7 @@ class VotesController < ApplicationController
 
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
-    if Time.now<DateTime.parse("01/03/2012")
+    if Time.now<DateTime.parse("15/03/2012")
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 

@@ -66,13 +66,34 @@ class ReykjavikBudgetBallot
     @construction_priorities = []
     @maintenance_priorities = []
     count = 0
-    13.times do
-      @construction_priorities << { :id=>count+=1, :name=>"Nýframkvæmd #{count}", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
-    end
+
+    @construction_priorities << { :id=>count+=1, :name=>"Ímyndað verkefni", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Þetta verkefni er ekki til", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Hugmynd sem kemur til greina", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Verkefni um eyðingu veggjatítlna", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Verkefni sem verður kannski framkvæmt", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Þessi hugmynd er kannski góð", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Verkefni sem bætir geð", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Þetta er hugmynd um betra líf", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Hugmynd sem ekki er til", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Engin hugmynd um ekkert verkefni", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Verkefni sem virkar, kannski", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Hugmynd fyrir okkur öll sem gæti gengið", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
+    @construction_priorities << { :id=>count+=1, :name=>"Lokaverkefni fyrir leikskóla", :price=>[(budget/7)+count/(2.0-(count/10)),budget].min.round(1) }
 
     count2 = 1
-    13.times do
-      @maintenance_priorities << { :id=>count+=1, :name=>"Viðhaldsverkefni #{count}", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
-    end
+    @maintenance_priorities << { :id=>count+=1, :name=>"Engin hugmynd um ekkert verkefni", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Þessi hugmynd er kannski góð", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Verkefni sem virkar, kannski", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Hugmynd sem kemur til greina", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Þetta verkefni er ekki til", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Verkefnið sem verður kannski framkvæmt en hugsanlega aldrei", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Ímyndað verkefni", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Verkefni sem bætir geð", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Verkefni um eyðingu veggjatítlna", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Hugmynd sem ekki er til", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Hugmynd fyrir okkur öll sem gæti gengið", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Lokaverkefni fyrir leikskóla", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
+    @maintenance_priorities << { :id=>count+=1, :name=>"Þetta er hugmynd um betra líf", :price=>[(budget/7)+(count2+=1)/(2.0-(count2/10)),budget].min.round(1) }
   end
 end
