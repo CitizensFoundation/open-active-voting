@@ -64,6 +64,14 @@ function certParser(cert){
   return retObj;
 }
 
+function pausecomp(millis)
+ {
+  var date = new Date();
+  var curDate = null;
+  do { curDate = new Date(); }
+  while(curDate-date < millis);
+}
+
 function packVote() {
     var encryptedVote;
     var vote = "["+"["+construction_selected.toString()+"]"+","+"["+maintenance_selected.toString()+"]"+"]";
@@ -98,9 +106,13 @@ function packVote() {
     }
 };
 $(function() {
+    // Disable vote button until something has been selected
+    $(".button").attr("disabled", true);
+    $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
+
     $(".button").click(function() {
-        //alert("CLICK");
         $(".button").attr("disabled", true);
+        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
         var dataString = packVote();
         $.ajax({
           type: "POST",
@@ -108,6 +120,7 @@ $(function() {
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           dataType: "json",
           success: function(response) {
+            pausecomp(5000);
             if (response[0] && response[0].vote_ok==true) {
               $('#content').html("<div id='success_message'> </div><div id='message'></div>");
               $('#vote_count').html("Fjöldi innsendra atkvæðaseðla "+response[0].vote_count);

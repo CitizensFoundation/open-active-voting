@@ -52,7 +52,8 @@
       %a{:href => "#"}
 
       %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
-      %input{:type => :image, :src => "/assets/vote.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
+      #vote_button
+        %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
       #blurbtext_wide
         %p
           %b
@@ -64,5 +65,5 @@
           %b
             = t :get_ballot_footer_3
     :javascript
-      setLocalisedTexts('#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
+      setLocalisedTexts('#{I18n.locale}','#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
       setTotals(#{@construction_total},#{@maintenance_total});

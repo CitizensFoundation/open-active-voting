@@ -9,6 +9,8 @@ var maintenance_total = 0;
 
 var voteswidth = 450;
 
+var locale;
+
 // Add a method to array to indicate if that array "has" a member
 Array.prototype.has=function(v){
     for (i=0;i<this.length;i++){
@@ -38,7 +40,8 @@ function gsub(source, pattern, replacement) {
   return result;
 };
 
-function setLocalisedTexts(select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
+function setLocalisedTexts(locale_set,select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
+    locale = locale_set;
     select_projects_below = select_projects_below_set;
     no_need_to_empty_text = no_need_to_empty_text_set;
     used_text = used_text_set;
@@ -121,5 +124,12 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
           $('#maintenance_total_text').text(select_projects_below);
         }
         $(curTotalDiv).html(parseLocalNum(maintenance_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total-maintenance_curtotal).toFixed(1)))+" "+left_text);
+    }
+    if (construction_curtotal>0 || maintenance_curtotal>0) {
+        $(".button").attr("disabled", false);
+        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+".png'></img>");
+    } else {
+        $(".button").attr("disabled", true);
+        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
     }
 }
