@@ -108,11 +108,11 @@ function packVote() {
 $(function() {
     // Disable vote button until something has been selected
     $(".button").attr("disabled", true);
-    $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
+    $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
 
     $(".button").click(function() {
         $(".button").attr("disabled", true);
-        $("#vote_button").replaceWith("<img src='/assets/vote_"+locale+"_gray.png'></img>");
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
         var dataString = packVote();
         $.ajax({
           type: "POST",
