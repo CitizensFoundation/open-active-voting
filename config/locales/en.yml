@@ -37,7 +37,7 @@ en:
 
   millions_selected: "millions selected"
 
-  millions: "millions in krónur"
+  millions: "millions ISK budget"
 
   chooce_projects_below: "Choose projects below"
 
@@ -51,7 +51,7 @@ en:
 
   get_ballot_footer_1: "You can only vote in one borough of own choice. "
   get_ballot_footer_2: "You can also choose to vote in one category only. Your vote is still valid. "
-  get_ballot_footer_3: "You can vote as often as you please while the ballot is still open. Only the latest vote counts."
+  get_ballot_footer_3: "You can vote as often as you please and change buroughs while the ballot is still open. Only your latest vote counts."
 
 # Texts
   votes_logout_text: "<h1>Logout</h1>
