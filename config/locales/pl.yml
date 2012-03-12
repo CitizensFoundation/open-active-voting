@@ -21,6 +21,8 @@ pl:
   votes_post_results_vote_count: "Number of sent in votes"
   votes_post_results_4: "<h2>Your vote has been received</h2><p>You can vote as many times as you like while the vote is open.<p>The last vote you submit is the one that will be counted.<p>Click <a href='/votes/select_area'>here to vote again.</a></p>"
 
+  votes_vote_count_none: "You have not yet voted"
+
   votes_header_info_text_1: "Możesz głosować w jednej dzielnicy, według własnego wyboru. Głos oddać możesz zarówno w kategorii Nowe przedsięwzięcia jak i Przedsięwzięcia remontowe w tej samej dzielnicy."
   votes_header_help_label: "Pomoc"
   votes_header_rules_label: "Regulamin"

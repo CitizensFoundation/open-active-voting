@@ -1,5 +1,5 @@
 %span#vote_count
   - if @vote_count and @vote_count>0
-    = "Fjöldi innsendra atkvæðaseðla #{@vote_count}"
+    = "#{t :votes_post_results_vote_count} #{@vote_count}"
   - elsif @vote_count
-    = "Þú hefur ekki kosið ennþá"
+    = t :votes_vote_count_none
