@@ -32,7 +32,7 @@ img { border:0;}
 
 #logo {				width: 330px; }
 #logo img {				height: 65px; }
-#blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0;  }
+#blurbtext {		width: 280px; float: right; margin: 15px 50px 0 0; height: 50px; overflow: hidden; }
 #blurbtext_wide {		width: 100%; margin-top: 10px; }
 #blurbtext p, #blurbtext_wide {		color: #f00;  }
 
