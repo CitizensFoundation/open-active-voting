@@ -159,7 +159,7 @@ class VotesController < ApplicationController
     # The encrypted vote submitted by the user
 
     # Try to read the vote identity and redirect to authentication error if not found
-    if voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
