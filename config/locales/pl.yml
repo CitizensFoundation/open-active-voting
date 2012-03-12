@@ -13,7 +13,7 @@ pl:
 
 # Labels
   votes_timeout_1: "Authentication has expired. Please authenticate again."
-  votes_timeout_2: "Authentication has expired. You have 20 minutes to vote and that time has expired. Click <a href='/'>here to authenticate again.</a>"
+  votes_timeout_2: "<h2>Authentication has expired. You have 20 minutes to vote and that time has expired. Click <a href='/'>here to authenticate again.</a></h2>"
 
   votes_post_results_1: "Vote created"
   votes_post_results_2: "Could not create vote"

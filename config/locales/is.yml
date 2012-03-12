@@ -13,7 +13,7 @@ is:
 
 # Labels
   votes_timeout_1: "Auðkenning er fallinn úr gildi, vinsamlegast auðkennist aftur"
-  votes_timeout_2: "Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a>"
+  votes_timeout_2: "<h2>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></h2>"
 
   votes_post_results_1: "Vote created"
   votes_post_results_2: "Could not create vote"
