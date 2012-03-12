@@ -120,6 +120,7 @@ $(function() {
           data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
           dataType: "json",
           success: function(response) {
+            alert("returned");
             if (response[0] && response[0].vote_ok==true) {
               $('#content').html("<div id='success_message'> </div><div id='message'></div>");
               $('#vote_count').html("Fjöldi innsendra atkvæðaseðla "+response[0].vote_count);
