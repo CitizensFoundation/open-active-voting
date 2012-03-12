@@ -66,7 +66,7 @@ pl:
   get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
 # Texts
-  votes_logout_text: "<b>Wyloguj</b><br>
+  votes_logout_text: "<h1>Wyloguj</h1>
                       Upewnij się czy twój głos został oddany zanim się wylogujesz. 
                       Aby zakończyć głosowanie muszisz nacisnąć na duży przycisk 
                       Głosuj w dolnej części strony do głosowania.
@@ -74,8 +74,10 @@ pl:
                       <br><br>
                       <a href='/votes/logout'>Wylogowanie ze stronu do głosowania</a>"
 
-  votes_help_authentication_options: "<b>Logowanie i autoryzacja</b><br>
-                                      Są dwa sposoby autoryzacji. Możesz użyć linku na stronę 
+  votes_help_authentication_options: "
+                            <h1>Pomoc</h1>
+                            <b>Logowanie i autoryzacja</b><br>
+                                        Są dwa sposoby autoryzacji. Możesz użyć linku na stronę
                                       Island.is, lub linku na E-Reykjavik.
                                       <br><br>
                                       <b>Island.is</b><br>
@@ -93,7 +95,8 @@ pl:
                          z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11.
                           "
 
-  votes_about_the_poll_text: "<b>O głosowaniu</b><br>
+  votes_about_the_poll_text: "<h1>Pomoc</h1>
+                              <b>O głosowaniu</b><br>
                               Głosowanie odbywa się drogą elektroniczną i jest obsługiwane przez 
                               niezależną jednostkę Centrum IT Miasta Reykjavik. Głosowanie odbywa 
                               się na stronie Betri Reykjavik. System ten został stworzony przy Fundację 
@@ -125,7 +128,8 @@ pl:
                           W celu uzyskania dokładniejszych informacji i pomocy skontaktuj się z konsultantami 
                           z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11."
 
-  votes_about_better_reykjavik_text: "<b>O Betri Reykjavík</b><br>
+  votes_about_better_reykjavik_text: "<h1>Pomoc</h1>
+                                      <b>O Betri Reykjavík</b><br>
                                       Betri Reykjavik / Lepszy Reykjavik to otwarta platforma internetowa, 
                                       gdzie mieszkańcy miasta mają możliwość udostępniania swoich pomysłów 
                                       dotyczących usług i administracji miasta Reykjavik. 
@@ -138,7 +142,7 @@ pl:
                                        <br><br>
                                        <a href='http://betrireykjavik.is/about'>O Betri Reykjavik</a>"
 
-  votes_about_better_neighborhoods_text: "<b>O Betri hverfi</b><br>
+  votes_about_better_neighborhoods_text: "<h1>O Betri hverfi</h1>
                                           Betri hverfi (Lepsze dzielnice) jest częścią strony internetowej Lepszy 
                                           Reykjavik. Jest to otwarta platforma służąca do konsultacji na temat 
                                           mniejszych nowych projektów konstrukcyjnych lub remontowych w 
@@ -176,14 +180,14 @@ pl:
                                           <b>Klikając na link poniżej opuścisz stronę do głosowania!</b>
                                           <br><br>
                                           <a href='http://betrireykjavik.is/about/partners'>O Betri hverfi</a>"
-  votes_about_reykjavik_text: "<b>Informacje o Reykjaviku
-                               <br><br>
+  votes_about_reykjavik_text: "<h1>Informacje o Reykjaviku</h1>
+
                                Klikając na link poniżej opuścisz stronę do głosowania!</b>
                                <br><br>
                                <a href='http://reykjavik.is/'>Strona Miasta Reykjavik</a>"
 
-  votes_about_ibua_text: "<b>Upplýsingar um Íbúa ses
-                          <br><br>
+  votes_about_ibua_text: "<h1>Upplýsingar um Íbúa ses</h1>
+
                           Klikając na link poniżej opuścisz stronę do głosowania!</b>
                           <br><br>
                           <a href='http://citizens.is/'>Citizens Foundation website</a>"
@@ -191,7 +195,7 @@ pl:
 
   votes_rules: "Hér vantar texta."
 
-  votes_help_select_area: "<b>Wybierz dzielnicę</b><br>
+  votes_help_select_area: "<h1>Wybierz dzielnicę</h1>
                            Na tej stronie możesz zobaczyć mapę Reykjaviku, gdzie każda dzielnica oznaczona została 
                            odrębnym kolorem. Wybierz dzielnicę w której chcesz głosować, klikając na nią.
                            <br><br>
@@ -206,20 +210,21 @@ pl:
                           Usługowego Miasta Reykjavik tel. 4 11 11 11.
                            "
 
-  votes_help_get_ballot: "<b>Dwa koszyki: Nowe przedsięwzięcia i Przedsięwzięcia remontowe</b><br>
+  votes_help_get_ballot: "<h1>Pomoc</h1>
+  <b>Dwa koszyki: Nowe przedsięwzięcia i Przedsięwzięcia remontowe</b><br>
                     Głosowanie podzielone jest na dwa koszyki: Nowe przedsięwzięcia po prawej stronie i 
                     Przedsięwzięcia remontowe po lewej. Aby w pełni wykorzystać swój głos wybierz przedsięwzięcia z 
                     obu koszyków. Swój głos oddajesz naciskając na przycisk Głosuj. Głos jest ważny mimo że, nie 
                     zapełnisz koszyka lub pozostawisz jeden z nich pusty.
                           <br><br>
                     
-                    <b>Dokładne informacje o       przedsięwzięciach?</b>
+                    <b>Dokładne informacje o       przedsięwzięciach?</b><br>
                     Jeżeli chcesz uzyskać więcej informacji na temat przedsięwzięć, naciśnij na znak zapytania znajdujący
                     się za jego nazwą. W ten sposób otworzy się nowe okno z krótkim opisem poszczególnych 
                     przedsięwzięć.
                           <br><br>
                           
-                    <b>Wybór przedsięwzięcia do koszyka</b>
+                    <b>Wybór przedsięwzięcia do koszyka</b>  <br>
                           Poniżej każdego z koszyków znajduje się lista 13 przedsięwzięć, które możesz wybrać klikając na 
                           nie. Po wybraniu przedsięwzięcia linia z jego nazwą zmieni kolor na ciemniejszy, a projekt pojawi 
                           się w koszyku ponad listą. Nazwy przedsięwzięć na które budżet jest niewystarczający, zmienią 
