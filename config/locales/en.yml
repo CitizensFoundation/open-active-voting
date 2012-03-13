@@ -24,6 +24,7 @@ en:
   votes_vote_count_none: "You have not yet voted"
 
   votes_header_info_text_1: "You can only vote in <b>one borough</b> of own choice. You can vote on both New Construction Projects and Maintenance Projects"
+  votes_header_finnahverfi_label: "Find my borough"
   votes_header_help_label: "Help"
   votes_header_rules_label: "Rules"
   votes_header_logout_label: "Logout"
