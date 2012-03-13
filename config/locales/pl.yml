@@ -35,7 +35,7 @@ pl:
   votes_header_about_better_neighborhoods_label: "Betri hverfi"
 
   votes_header_ibuar_ses_label: "Íbúar ses"
-  votes_header_reykjavik_city_label: "Betri Reykjavík"
+  votes_header_reykjavik_city_label: "Strona Miasta Reykjavik"
 
   choose_authentication: "Wybierz sposób identyfikacji"
 
@@ -189,7 +189,7 @@ pl:
 
   votes_about_ibua_text: "<h1>Upplýsingar um Íbúa ses</h1>
 
-                          Klikając na link poniżej opuścisz stronę do głosowania!</b>
+                          <b>Klikając na link poniżej opuścisz stronę do głosowania!</b>
                           <br><br>
                           <a href='http://citizens.is/'>Citizens Foundation website</a>"
 
