@@ -70,7 +70,7 @@ pl:
   votes_logout_text: "<h1>Wyloguj</h1>
                       Upewnij się czy twój głos został oddany zanim się wylogujesz. 
                       Aby zakończyć głosowanie muszisz nacisnąć na duży przycisk 
-                      Głosuj w dolnej części strony do głosowania.
+                      Głosuj w dolnej części strony do głosowania.   <br><br>
                       <b>Naciskając na link poniżej opuścisz stronę do głosowania!</b>
                       <br><br>
                       <a href='/votes/logout'>Wylogowanie ze stronu do głosowania</a>"

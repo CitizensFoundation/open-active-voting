@@ -70,7 +70,8 @@ en:
                       Be sure to have finished voting before you log
                       out. To finish voting you will have to click the
                       big Vote button at the bottom of the voting
-                      page. <b>By clicking the link below you will
+                      page. <br><bt>
+                      <b>By clicking the link below you will
                       leave the polling site!</b>
                       <br><br>
                       <a href='/votes/logout'>Sign out of polling site</a>"
@@ -97,9 +98,9 @@ en:
                                       login: <em>Login with user name and password or
                                       Electronic identification – login with electronic
                                       ID.</em>
-                                      
+
                                       <br><br>
-                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. 
+                                      For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre.
 "
 
   votes_about_the_poll_text: "<h1>Help</h1>
@@ -108,9 +109,8 @@ en:
                               is operated as an independent unit at
                               Reykjavík City’s IT Centre. Users enter
                               through the website <b>Betri Reykjavík</b>.
-                              The system is developed by the <b>City of
-                              Reykjavík in collaboration with the Citizen’s
-                              Foundation, Registers Iceland and Ísland.is.</b>
+                              The system is developed by the the <b>Citizen’s
+                              Foundation for the City of Reykjavík in collaboration with Registers Iceland and Ísland.is.</b>
                               Inhabitants can vote on up to 26 projects in a
                               neighbourhood of their own choice, but only in
                               on one neighbourhood.
@@ -135,7 +135,7 @@ en:
                               and are registered inhabitants in one of
                               Reykjavík’s neighbourhoods on the day they
                               vote.
-                              
+
                               <br><br>
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
@@ -255,7 +255,7 @@ en:
                            Information System websit. There you can
                            browse through street names and see what
                            streets belong to what neighbourhoods.
-                           
+
                            <br><br>
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "
 
@@ -315,6 +315,6 @@ en:
                           you want while the poll is still open. Just
                           remember that only your newest vote will
                           count.
-                          
+
                           <br><br>
                                       For further information and assistance please call 4 11 11 11 to talk to our service representatives at Reykjavík City‘s Service Centre. "

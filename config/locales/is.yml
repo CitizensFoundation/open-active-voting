@@ -70,7 +70,8 @@ is:
   votes_logout_text: "<h1>Útskrá</h1><br>
                       Vertu viss um að þú hafir lokið kosningu áður en 
                       þú skráir þig út. Til að ljúka kosningu þarftu að 
-                      smella á stóra Kjósa hnappinn neðst á kosningasíðunni. 
+                      smella á stóra Kjósa hnappinn neðst á kosningasíðunni.
+                      <br><br>
                       <b>Með því að smella á tengilinn hér að neðan ferðu burt af kosningavefnum!</b>
                       <br><br>
                       <a href='/votes/logout'>Útskráning af kosningavef</a>"
