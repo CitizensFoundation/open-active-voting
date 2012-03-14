@@ -132,6 +132,6 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
         $("#submit_btn").attr({src: "/assets/vote_"+locale+".png"});
     } else {
         $(".button").attr("disabled", true);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+"grey.png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
     }
 }
