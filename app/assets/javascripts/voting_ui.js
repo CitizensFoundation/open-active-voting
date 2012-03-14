@@ -129,9 +129,9 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
     }
     if (construction_curtotal>0 || maintenance_curtotal>0) {
         $(".button").attr("disabled", false);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_prufa.png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+".png"});
     } else {
         $(".button").attr("disabled", true);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_prufa_grey.png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"grey.png"});
     }
 }
