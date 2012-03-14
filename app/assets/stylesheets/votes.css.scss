@@ -61,7 +61,7 @@ img { border:0;}
 
 h1 {				margin: 0 0 0 17px; display: inline; color: #333; font-size: 150%;  }
 #popup h1 {				margin: 0px; display: block; color: #333; font-size: 150%; margin-bottom: 5px; }
-h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%; top: -30px; position: relative; margin-left: 25px; width:500px;}
+h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%; top: 0px; position: relative; margin-left: 25px; width:500px;}
 h3 {				margin:0px; display:inline; }
 iframe{          	border: 0px; width: 750px; height:600px;}
 
@@ -103,8 +103,8 @@ ul.flags li {  margin-left: 3px;}
 
 .redright {float:right; color: red;}
 
-.flags {float:right; padding: 0px;}
-.facebook {float:right; text-align: right; position: relative; top: 4px;}
+.flags {float:right; padding: 0px; width: 120px;}
+.facebook {float:right; text-align: right; position: relative; top: 4px; width:130px;}
 
 .content-text {		width: 400px;  }
 #hverfi {			width: 250px; float:right; font-size: 85%; color: #333; line-height: 150%;  }
