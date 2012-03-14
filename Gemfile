@@ -45,7 +45,7 @@ group :development, :test do
   # Pretty printed test output
   #gem 'waitr'
   gem 'watir-webdriver'
-#  gem 'psych', '1.2.1'
+  gem 'psych', '1.2.1'
   gem 'headless'
   gem 'turn', '~> 0.8.3', :require => false
 end
