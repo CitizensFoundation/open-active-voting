@@ -21,8 +21,9 @@
       %li
         .fb-like{"data-href" => "https://kjosa.betrireykjavik.is/", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "50"}
     %ul.links
-      %li
-        %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
+      - if action_name=="select_area"
+        %li
+          %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
       %li
         %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
       %li
