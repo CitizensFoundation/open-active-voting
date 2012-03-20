@@ -162,7 +162,8 @@ class VotesController < ApplicationController
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
       if Vote.create(:user_id_hash=>voter_identity_hash, :payload_data => params[:vote],
-                     :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id])
+                     :client_ip_address=>request.remote_ip, :neighborhood_id =>params[:neighborhood_id],
+                     :session_id=>request.session_options[:id])
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
