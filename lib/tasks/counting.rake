@@ -1,6 +1,7 @@
 namespace :counting do
   desc "Count all votes"
   task(:count => :environment) do
+    Dir.mkdir("results") unless File.exists?("results")
     puts "Starting vote counting"
     puts "Splitting user id hash and vote and generating final votes database tables"
     Vote.split_and_generate_final_votes!
