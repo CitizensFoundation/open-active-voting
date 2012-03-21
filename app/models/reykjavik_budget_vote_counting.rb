@@ -12,6 +12,7 @@ class ReykjavikBudgetVoteCounting
     @maintenance_priority_ids_selected_count = Hash.new
     @private_key_file = private_key_file
     @ballot = ReykjavikBudgetBallot.new
+    @invalid_votes = []
   end
 
   def count_unique_votes(csv_out=true,neighborhood_id)
@@ -19,7 +20,11 @@ class ReykjavikBudgetVoteCounting
     @neighborhood_id = neighborhood_id
 
     FinalSplitVote.where(:neighborhood_id=>neighborhood_id).all.each do |vote|
-      process_vote(vote)
+      begin
+        process_vote(vote)
+      rescue Exception => e
+        @invalid_votes << [vote.inspect,e.message]
+      end
     end
 
     select_top_priorities_that_still_fit_budget
@@ -70,6 +75,13 @@ class ReykjavikBudgetVoteCounting
       csv << [""]
       csv << ["Heildaratkvæði fyrir Viðhaldsverkefni"]
       add_priorities_to_csv(@maintenance_priority_ids_count,csv)
+      unless @invalid_votes.empty?
+        csv << [""]
+        csv << ["Ógild atkvæði"]
+        @invalid_votes.each do |invalid_vote|
+          csv << invalid_vote
+        end
+      end
     end
     filename
   end
