@@ -98,7 +98,12 @@ class ReykjavikBudgetVoteCounting
       csv << ["Allir taldir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
       FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
-        csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
+        begin
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
+        rescue Exception => e
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
+        end
+
       end
     end
   end
