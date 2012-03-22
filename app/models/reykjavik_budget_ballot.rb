@@ -273,7 +273,7 @@ class ReykjavikBudgetBallot
     all = @neighborhoods[neighborhood_id][:construction_priorities]+@neighborhoods[neighborhood_id][:maintenance_priorities]
     all.each do |p|
       if p[:id]==priority_id
-        description = p[:link]
+        link = p[:link]
         break
       end
     end
