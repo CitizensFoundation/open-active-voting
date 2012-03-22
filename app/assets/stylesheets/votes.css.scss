@@ -63,6 +63,7 @@ h1 {				margin: 0 0 0 17px; display: inline; color: #333; font-size: 150%;  }
 #popup h1 {				margin: 0px; display: block; color: #333; font-size: 150%; margin-bottom: 5px; }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%; top: 0px; position: relative; margin-left: 25px; width:500px;}
 h3 {				margin:0px; display:inline; }
+h4 {				margin-top: 10px; margin-bottom:5px; }
 iframe{          	border: 0px; width: 750px; height:600px;}
 
 
@@ -151,6 +152,11 @@ ul.flags li {  margin-left: 3px;}
 	margin-bottom: 10px;
 }
 
+#welcome p
+{
+padding-left: 10px;
+width: 500px;
+}
 /* Chrome and Safari hack */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 {}
