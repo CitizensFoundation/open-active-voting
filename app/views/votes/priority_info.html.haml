@@ -1,17 +1,16 @@
 #popup.content2
   #bh_container
-    %h2
-      #bh_header
-        %img{:alt => "Betri hverfi", :height => "74", :src => "/assets/betri_hverfi_logo.png", :width => "340"}/
-      #bh_name
-        %h2
-          = @name
-      #bh_leftcol
-        .rok
-          %p
-            = @description
-      - if @link
-        #bh_footer
-          %p
-            %a{:href => @link}> Upphafleg hugmynd á Betri Reykjavík
-            \- Opnast í nýjum glugga
+    #bh_header
+      %img{:alt => "Betri hverfi", :height => "74", :src => "/assets/betri_hverfi_logo.png", :width => "340"}/
+    #bh_name
+      %h4
+        = @name
+    #bh_leftcol
+      .rok
+        %p
+          = @description
+    - if @link
+      #bh_footer
+        %p
+          %a{:href => @link}> Upphafleg hugmynd á Betri Reykjavík
+          \- Opnast í nýjum glugga

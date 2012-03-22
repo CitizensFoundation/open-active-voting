@@ -375,6 +375,8 @@ is:
   layout_title: "Betri hverfi - kosning verkefna í hverfum Reykjavíkur"
 
 # Labels
+
+
   votes_timeout_1: "Auðkenning er fallin úr gildi, vinsamlegast auðkennist aftur"
   votes_timeout_2: "<h2>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></h2>"
 
@@ -401,7 +403,14 @@ is:
   votes_header_ibuar_ses_label: "Íbúar ses"
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
-  choose_authentication: "Smelltu á island.is til að auðkenna þig"
+  choose_authentication: "<h1>Velkomin(n) á kosningavef Betri hverfa</h1>
+                                    <p>Hér getur þú kosið um smærri framkvæmdir í hverfum Reykjavíkur.
+                                    Kosningin stendur yfir frá fimmtudeginum 29. mars til kl. 04:00 aðfaranótt miðvikudagsins 4. apríl.</p>
+
+                                    <h1>Smelltu á Ísland.is til að auðkenna þig</h1>
+                                    <p>Auðkenningin er í samstarfi við Ísland.is. Hægt er að nota hvort heldur sem er aðalveflykil ríkisskattstjóra
+                                    eða rafræn skilríki á debetkorti. Vakin er athygli á því að starfsmenn kosningarinnar hafa hvorki aðgang að
+                                    kennitölu né veflykli kjósanda og þar af leiðandi ekki  þeim upplýsingum sem slík auðkenni veita.</p>"
 
   choose_a_neighbourhood: "Veldu hverfi til að kjósa í"
 
