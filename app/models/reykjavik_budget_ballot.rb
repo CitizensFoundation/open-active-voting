@@ -10,7 +10,7 @@ class ReykjavikBudgetBallot
     @neighborhoods=Hash.new
     @neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"13.534.046" }
     @neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"23.209.940" }
-    @neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt og Úlfarsárdalur", :budget_amount=>"9.083.648" }
+    @neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt",                  :budget_amount=>"9.083.648" }
     @neighborhoods[4] = { :id=>4 ,:name=>"Grafarvogur",                 :budget_amount=>"20.768.909" }
     @neighborhoods[5] = { :id=>5 ,:name=>"Háaleiti og Bústaðir",        :budget_amount=>"16.983.556" }
     @neighborhoods[6] = { :id=>6 ,:name=>"Hlíðar",                      :budget_amount=>"12.905.052" }
