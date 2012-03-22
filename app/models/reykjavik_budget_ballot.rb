@@ -242,6 +242,7 @@ class ReykjavikBudgetBallot
 
   def get_priority_name(neighborhood_id, priority_id)
     # Get the given priority name
+    Rails.logger.info("BLAH:#{neighborhood_id} #{priority_id}")
     name = nil
     all = @neighborhoods[neighborhood_id][:construction_priorities]+@neighborhoods[neighborhood_id][:maintenance_priorities]
     all.each do |p|
@@ -251,6 +252,32 @@ class ReykjavikBudgetBallot
       end
     end
     name
+  end
+
+  def get_priority_description(neighborhood_id, priority_id)
+    # Get the given priority description
+    description = nil
+    all = @neighborhoods[neighborhood_id][:construction_priorities]+@neighborhoods[neighborhood_id][:maintenance_priorities]
+    all.each do |p|
+      if p[:id]==priority_id
+        description = p[:description]
+        break
+      end
+    end
+    description
+  end
+
+  def get_priority_link(neighborhood_id, priority_id)
+    # Get the given priority description
+    link = nil
+    all = @neighborhoods[neighborhood_id][:construction_priorities]+@neighborhoods[neighborhood_id][:maintenance_priorities]
+    all.each do |p|
+      if p[:id]==priority_id
+        description = p[:link]
+        break
+      end
+    end
+    link
   end
 
   def get_priority_price(neighborhood_id, priority_id)
