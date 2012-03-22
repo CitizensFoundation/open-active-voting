@@ -44,6 +44,7 @@ gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
 group :development, :test do
   # Pretty printed test output
   #gem 'waitr'
+  gem 'awesome_print'
   gem 'watir-webdriver'
   gem 'psych', '1.2.2'
   gem 'headless'

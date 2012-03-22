@@ -12,6 +12,7 @@ class ReykjavikBudgetVoteCounting
     @maintenance_priority_ids_selected_count = Hash.new
     @private_key_file = private_key_file
     @ballot = ReykjavikBudgetBallot.new
+    @invalid_votes = []
   end
 
   def count_unique_votes(csv_out=true,neighborhood_id)
@@ -19,7 +20,11 @@ class ReykjavikBudgetVoteCounting
     @neighborhood_id = neighborhood_id
 
     FinalSplitVote.where(:neighborhood_id=>neighborhood_id).all.each do |vote|
-      process_vote(vote)
+      begin
+        process_vote(vote)
+      rescue Exception => e
+        @invalid_votes << [vote.inspect,e.message]
+      end
     end
 
     select_top_priorities_that_still_fit_budget
@@ -70,6 +75,13 @@ class ReykjavikBudgetVoteCounting
       csv << [""]
       csv << ["Heildaratkvæði fyrir Viðhaldsverkefni"]
       add_priorities_to_csv(@maintenance_priority_ids_count,csv)
+      unless @invalid_votes.empty?
+        csv << [""]
+        csv << ["Ógild atkvæði"]
+        @invalid_votes.each do |invalid_vote|
+          csv << invalid_vote
+        end
+      end
     end
     filename
   end
@@ -86,7 +98,12 @@ class ReykjavikBudgetVoteCounting
       csv << ["Allir taldir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
       FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
-        csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
+        begin
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
+        rescue Exception => e
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
+        end
+
       end
     end
   end
@@ -105,7 +122,7 @@ class ReykjavikBudgetVoteCounting
     left_of_budget = total_budget
     selected = Hash.new
     priority_ids.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
-      priority_price = @ballot.get_priority_price(priority_id)
+      priority_price = @ballot.get_priority_price(@neighborhood_id,priority_id)
       if priority_price<=left_of_budget
         selected[priority_id]=vote_count
         left_of_budget-=priority_price
@@ -151,8 +168,8 @@ class ReykjavikBudgetVoteCounting
     total_price = 0
     priorities.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
       total_vote_count+=vote_count
-      total_price+=@ballot.get_priority_price(priority_id)
-      csv << [priority_id,@ballot.get_priority_name(priority_id),vote_count,@ballot.get_priority_price(priority_id)]
+      total_price+=@ballot.get_priority_price(@neighborhood_id,priority_id)
+      csv << [priority_id,@ballot.get_priority_name(@neighborhood_id,priority_id),vote_count,@ballot.get_priority_price(@neighborhood_id,priority_id)]
     end
     csv << ["","Samtals",total_vote_count,total_price]
   end
