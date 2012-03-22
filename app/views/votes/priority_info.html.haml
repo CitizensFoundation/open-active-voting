@@ -1,4 +1,17 @@
 #popup.content2
-  %h2
-    = "#{@letter} - #{@name}"
-    %iframe{:src => "http://betrireykjavik.is/priorities/#{@priority_id}"}
+  #bh_container
+    %h2
+      #bh_header
+        %img{:alt => "Betri hverfi", :height => "74", :src => "/assets/betri_hverfi_logo.png", :width => "340"}/
+      #bh_name
+        %h2
+          = @name
+      #bh_leftcol
+        .rok
+          %p
+            = @description
+      - if @link
+      #bh_footer
+        %p
+          %a{:href => @link}> Upphafleg hugmynd á Betri Reykjavík
+          \- Opnast í nýjum glugga
