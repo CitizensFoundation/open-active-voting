@@ -64,7 +64,9 @@ class VotesController < ApplicationController
   def priority_info
     # Display information about a given priority
     @priority_id = params[:priority_id]
-    @name = params[:name]
+    @neighborhood_id = params[:neighborhood_id]
+    ballot = ReykjavikBudgetBallot.new
+    @name = ballot
     @letter = params[:letter]
     render :layout=>false
   end

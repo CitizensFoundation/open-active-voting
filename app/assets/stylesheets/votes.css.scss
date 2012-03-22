@@ -114,6 +114,44 @@ ul.flags li {  margin-left: 3px;}
 	.v-name {		font-weight:bold; margin-top: 10px; font-size: 200%; color: #fff;  }
 	.v-price {		color: #fff;  }
 
+#bh_footer p {
+	float: right;
+	margin-right: 20px;
+}
+
+#bh_container {
+	width:720px;
+	margin:20px auto;
+	background-image: url(content-text-bg.png);
+	background-repeat: no-repeat;
+	padding: 5px;
+}
+#bh_leftcol {
+	float:left;
+	width:720px;
+
+}
+#bh_footer {
+	clear:both;
+}
+
+.rok
+{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: white;
+	border: 1px solid #CACACA;
+	-webkit-border-radius: 1em !important;
+	-moz-border-radius: 1em !important;
+	border-radius: 1em !important;
+	padding: 10px;
+	width: 678px;
+	margin-bottom: 10px;
+}
+
 /* Chrome and Safari hack */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 {}
+
