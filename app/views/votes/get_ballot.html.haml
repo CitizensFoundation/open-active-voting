@@ -26,7 +26,7 @@
           = t :in_millions
       .list
         %ul#options_construction
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities, :selected=>"construction"}
+          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities(@neighborhood_id), :selected=>"construction"}
     #rightcol
       %h3
         = t :maintainance_projects
@@ -47,7 +47,7 @@
           = t :in_millions
       .list
         %ul#options_maintenance
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities, :selected=>"maintenance"}
+          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities(@neighborhood_id), :selected=>"maintenance"}
     #vote
       %a{:href => "#"}
 

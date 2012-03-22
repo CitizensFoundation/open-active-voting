@@ -5,7 +5,7 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 6
+    @max_browsers = 2
     @max_votes = 30
     @neighborhood_ids = [1,6]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
@@ -59,7 +59,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   test "vote_through_firefox_and_chrome" do
     @votes.each do |vote|
       browser = @browsers[rand(@browsers.length)]
-      neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
+      @current_neighborhood_id = neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
       browser.goto "http://localhost:3000/votes/force_session_id"
       browser.goto "http://localhost:3000/votes/get_ballot?neighborhood_id=#{neighborhood_id}"
       setup_checkboxes(browser,vote)
@@ -190,7 +190,13 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup_checkboxes(browser,vote_types)
     vote_types.each do |vote|
       vote.each do |checkbox_to_set|
-        browser.li(:id => "option_#{checkbox_to_set}").click
+        retry_count = 0
+        begin
+          browser.li(:id => "option_#{checkbox_to_set*@current_neighborhood_id}").click
+        rescue
+          checkbox_to_set -= 1
+          retry unless (retry_count += 1) > 12
+        end
       end
     end
   end
