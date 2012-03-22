@@ -62,9 +62,14 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       @current_neighborhood_id = neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
       browser.goto "http://localhost:3000/votes/force_session_id"
       browser.goto "http://localhost:3000/votes/get_ballot?neighborhood_id=#{neighborhood_id}"
-      setup_checkboxes(browser,vote)
+      retry_count = 0
+      begin
+        setup_checkboxes(browser,vote)
+        browser.button.click
+      rescue
+        retry unless (retry_count += 1) > 30
+      end
       @user_browser_votes[browser] << {:neighborhood_id=>neighborhood_id, :votes=>get_user_votes(browser)}
-      browser.button.click
       browser.div(:id => "success_message").wait_until_present
     end
     assert all_vote_match?(all_votes), "All individual votes matched"
@@ -194,7 +199,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
         begin
           browser.li(:id => "option_#{checkbox_to_set*@current_neighborhood_id}").click
         rescue
-          checkbox_to_set -= 1
+          checkbox_to_set -= rand(4)+1
           retry unless (retry_count += 1) > 12
         end
       end
