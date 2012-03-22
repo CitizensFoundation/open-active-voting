@@ -66,10 +66,10 @@ class VotesController < ApplicationController
     @priority_id = params[:priority_id].to_i
     @neighborhood_id = params[:neighborhood_id].to_i
     ballot = ReykjavikBudgetBallot.new
-    Rails.logger.info(@neighborhood_id)
     @name = ballot.get_priority_name(@neighborhood_id,@priority_id)
     @description = ballot.get_priority_description(@neighborhood_id,@priority_id)
     @link = ballot.get_priority_link(@neighborhood_id,@priority_id)
+    Rails.logger.info(@link)
     @link = nil if @link=="-- no Hyperlink --"
     render :layout=>false
   end
