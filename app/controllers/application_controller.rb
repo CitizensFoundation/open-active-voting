@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_db_config
 
-  before_filter :session_expiry, :except => [:authentication_options, :authenticate_from_island_is]
+  before_filter :session_expiry, :except => [:authentication_options, :authenticate_from_island_is,
+                                             :help_info, :about_info, :rules_info, :better_reykjavik_info,
+                                             :better_neighborhoods_info, :ibuar_info, :rvk_info, :priority_info,
+                                             :logout_info]
   before_filter :update_activity_time
 
   before_filter :set_locale
