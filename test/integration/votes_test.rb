@@ -5,8 +5,8 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 50
-    @max_votes = 100
+    @max_browsers = 40
+    @max_votes = 400
     #@neighborhood_ids = [1]
     @neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
 
