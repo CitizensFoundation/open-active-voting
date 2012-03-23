@@ -403,10 +403,10 @@ is:
   votes_header_ibuar_ses_label: "Íbúar ses"
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
-  choose_authentication: "<h1>Velkomin(n) á kosningavef Betri hverfa</h1>
-                                    <p>Hér getur þú kosið um smærri framkvæmdir í hverfum Reykjavíkur.
-                                    Kosningin stendur yfir frá fimmtudeginum 29. mars til kl. 04:00 aðfaranótt miðvikudagsins 4. apríl.</p>
-
+  choose_authentication: "<h1 style=\"color:red; font-size:30px;\" >Velkomin á prufukosningu vegna Betri hverfa</h1><br /><br />
+                                    <p><b>Sjálf kosningin hefst fimmtudaginn 29. mars næstkomandi.</b></p>                 <br />
+                                    <p>Endilega <a href=\"mailt:betrireykjavik@ibuar.is\">láttu okkur vita</a> ef eitthvað er ekki að virka rétt!</p>
+                                                                                                                          <br />
                                     <h1>Smelltu á Ísland.is til að auðkenna þig</h1>
                                     <p>Auðkenningin er í samstarfi við Ísland.is. Hægt er að nota hvort heldur sem er aðalveflykil ríkisskattstjóra
                                     eða rafræn skilríki á debetkorti. Vakin er athygli á því að starfsmenn kosningarinnar hafa hvorki aðgang að
