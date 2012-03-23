@@ -1,11 +1,11 @@
 var public_key_2048 = '-----BEGIN PUBLIC KEY-----\n\
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2A2gctqsQkGSa9fnA7B/\n\
-LEG7rX4b1UUOwxNg1tHeOTweU769ulttEdXbdUhbDqfzYev2LCfASeOfkXdD/OKe\n\
-O0FGAS9sAwIHGsyr1ocU2RANDhd2Mm6Qfwjg0rNggF0fAdkBAkDnj3q3+nnAJl8I\n\
-KIFFCjwls9rURSCZtZsEDxMnBtyfqj1toO8N5In6RL5pLLY86iBARhgVoD6k6lJL\n\
-uUF570KuX2G6UWhsqDQcBJtBTsIMCgPyDzmKcBRaTYRfsrf1zgxFgl6S4wsHqzQ7\n\
-ZsiFJYrTj2ifAZPqDLT+1F8KlHZNHhrjAIdAiHK0nASi/bzjq3f/RhEY1EaiQe2s\n\
-KQIDAQAB\n\
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy/z8qd4xz4UsyOEhQUmy\n\
+6B6z50ozCKB94qeevRhh3XnK3LKEJxBpfmIOjUMrM/q7P1c4UrTG3ExnwzwiMzn0\n\
+JPCSRZ9WlRRE4F1zY+axoZUmc/du533zXU/32jkUfYltngegvJqsz7DRMzkJInPk\n\
+PPyZskgvVxhGu5mn+RUwXMQOTBA+0ensVfUfawJMQ1xmsRBjfIRlZPbG1hrlkNgf\n\
+hvJmRH0xRXUp7aA8I2A0a0eYOM/cTkpeTrY4+KCDXAaYlyeX5j6mq/rBlax03dt3\n\
+IwREnnZON696BW1iDpyElM/YfgS3RQyDmGhmeWaBRXVoeqqrc3QghqUn+3BR7tyL\n\
+/wIDAQAB\n\
 -----END PUBLIC KEY-----';
 
 function certParser(cert){
@@ -72,9 +72,27 @@ function pausecomp(millis)
   while(curDate-date < millis);
 }
 
+function parseVotesFromList(ul_name) {
+    votes = "";
+    $(ul_name).each(function(index) {
+        $(this).find('li').each(function(){
+            if ($(this).hasClass("selected")) {
+                //alert($(this).attr('id') + ': ' + $(this).text());
+                votes += $(this).attr('id').split("_")[1];
+                votes += ",";
+            }
+        });
+    });
+    return votes;
+}
+
 function packVote() {
     var encryptedVote;
-    var vote = "["+"["+construction_selected.toString()+"]"+","+"["+maintenance_selected.toString()+"]"+"]";
+    // Read vote selection directly from the UL list, to ensure that they are sent to the server the same way as the user sees them
+    construction_votes = parseVotesFromList('#options_construction');
+    maintenance_votes = parseVotesFromList('#options_maintenance');
+
+    var vote = "["+"["+construction_votes+"]"+","+"["+maintenance_votes+"]"+"]";
     //alert(vote);
 
     var params = certParser(public_key_2048);

@@ -5,9 +5,9 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 2
-    @max_votes = 30
-    @neighborhood_ids = [1,6]
+    @max_browsers = 1
+    @max_votes = 1
+    @neighborhood_ids = [1]
     #@neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -63,13 +63,15 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       browser.goto "http://localhost:3000/votes/force_session_id"
       browser.goto "http://localhost:3000/votes/get_ballot?neighborhood_id=#{neighborhood_id}"
       retry_count = 0
+      user_votes = nil
       begin
         setup_checkboxes(browser,vote)
+        user_votes = {:neighborhood_id=>neighborhood_id, :votes=>get_user_votes(browser)}
         browser.button.click
       rescue
-        retry unless (retry_count += 1) > 30
+        retry unless (retry_count += 1) > 40
       end
-      @user_browser_votes[browser] << {:neighborhood_id=>neighborhood_id, :votes=>get_user_votes(browser)}
+      @user_browser_votes[browser] << user_votes
       browser.div(:id => "success_message").wait_until_present
     end
     assert all_vote_match?(all_votes), "All individual votes matched"
@@ -86,6 +88,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     class_elements = browser.elements(:class, "maintenance_vote_class").each do |element|
       maintenance_votes << element.id.split("_")[1].to_i
     end
+    puts "VOTES FROM BROWSER: #{[construction_votes,maintenance_votes]}"
     [construction_votes,maintenance_votes]
   end
 
