@@ -166,9 +166,7 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
-      public_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join("config","rvk_public_key.pem")))
-      vote_checksum = Digest::SHA1.hexdigest("#{voter_identity_hash} #{params[:vote]} #{request.remote_ip} #{params[:neighborhood_id]} #{request.session_options[:id]}")
-      encrypted_vote_checksum = Base64.encode64(public_key.public_encrypt(vote_checksum))
+      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:vote],request.remote_ip,params[:neighborhood_id],request.session_options[:id])
       if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:vote],
                      :client_ip_address => request.remote_ip, :neighborhood_id =>params[:neighborhood_id],
                      :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)

@@ -14,11 +14,13 @@
 ActiveRecord::Schema.define(:version => 20120324132305) do
 
   create_table "final_split_votes", :force => true do |t|
-    t.integer  "neighborhood_id", :null => false
-    t.text     "payload_data",    :null => false
-    t.integer  "vote_id",         :null => false
+    t.integer  "neighborhood_id",         :null => false
+    t.text     "payload_data",            :null => false
+    t.integer  "vote_id",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "encrypted_vote_checksum", :null => false
+    t.text     "generated_vote_checksum", :null => false
   end
 
   add_index "final_split_votes", ["neighborhood_id"], :name => "index_final_split_votes_on_neighborhood_id"
@@ -31,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20120324132305) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "session_id",              :null => false
-    t.string   "encrypted_vote_checksum", :null => false
+    t.text     "encrypted_vote_checksum", :null => false
   end
 
   add_index "votes", ["neighborhood_id"], :name => "index_votes_on_neighborhood_id"

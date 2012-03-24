@@ -11,12 +11,13 @@ class ReykjavikBudgetVote
   @@private_key_file_data = nil
   @@private_key = nil
 
-  def initialize(encrypted_payload, private_key_file)
+  def initialize(encrypted_payload, private_key_file, vote)
     @construction_priority_ids = []
     @maintenance_priority_ids = []
     @encrypted_payload = encrypted_payload
     @@private_key_file_data = File.read(private_key_file) unless @@private_key_file_data
     @@private_key = OpenSSL::PKey::RSA.new(@@private_key_file_data,nil) unless @@private_key
+    @vote = vote
   end
 
   def unencryped_vote_for_audit_csv
@@ -33,8 +34,15 @@ class ReykjavikBudgetVote
   end
 
   def unpack
+    # Check the encrypted checksum
+    puts "Encrypted checksum: #{@vote.encrypted_vote_checksum}"
+    decrypted_vote_checksum = @@private_key.private_decrypt(Base64.decode64(@vote.encrypted_vote_checksum))
+    generated_vote_checksum = @@private_key.private_decrypt(Base64.decode64(@vote.generated_vote_checksum))
+    raise "Vote checksum does not match #{decrypted_vote_checksum} != #{generated_vote_checksum}" unless decrypted_vote_checksum==generated_vote_checksum
+
     # Decrypt the vote
     puts decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
+    Rails.logger.info("#{ap @vote}")
     decrypted_vote = decrypted_vote.gsub(",]","]")
     combined_priorities = JSON.parse(decrypted_vote).to_a
     puts "Last vote for #{combined_priorities}"

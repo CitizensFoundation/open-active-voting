@@ -23,7 +23,7 @@ class ReykjavikBudgetVoteCounting
       begin
         process_vote(vote)
       rescue Exception => e
-        @invalid_votes << [vote.inspect,e.message]
+        puts @invalid_votes << [vote.inspect,e.message]
       end
     end
 
@@ -38,7 +38,8 @@ class ReykjavikBudgetVoteCounting
 
   def count_all_votes
     # Count all votes, including duplicates from the same identity
-    Vote.find(:all,:select=>"user_id_hash, payload_data", :order=>"created_at").each do |vote|
+    Vote.find(:all, :order=>"created_at").each do |vote|
+      vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.neighborhood_id, vote.session_id)
       process_vote(vote)
     end
   end
@@ -47,7 +48,7 @@ class ReykjavikBudgetVoteCounting
     # Count test votes, for testing purposes only
     @neighborhood_id = neighborhood_id
     test_votes.each do |vote|
-      decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file)
+      decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file,vote)
       decrypted_vote.unpack_without_encryption
       add_votes(decrypted_vote)
     end
@@ -99,7 +100,7 @@ class ReykjavikBudgetVoteCounting
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
       FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
         begin
-          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file).unencryped_vote_for_audit_csv
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
         rescue Exception => e
           csv << [final_vote.neighborhood_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
         end
@@ -133,7 +134,7 @@ class ReykjavikBudgetVoteCounting
 
   def process_vote(vote)
     # Decrypt and add votes
-    decrypted_vote = ReykjavikBudgetVote.new(vote.payload_data,@private_key_file)
+    decrypted_vote = ReykjavikBudgetVote.new(vote.payload_data,@private_key_file,vote)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end
