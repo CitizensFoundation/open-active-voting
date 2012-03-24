@@ -3,7 +3,7 @@
   %li{:id=>"option_#{priority[:id]}", :name=>priority[:name], :letter=>@letter_of_alphabet[index],:price=>priority[:price],:onclick=>onclick_options}
     %span.val
       %span.num
-        = @letter_of_alphabet[index]
+        = priority[:letter]
       %span.txt
         = priority[:name]
       %span.price
