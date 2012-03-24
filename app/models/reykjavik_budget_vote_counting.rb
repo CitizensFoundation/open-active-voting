@@ -58,6 +58,7 @@ class ReykjavikBudgetVoteCounting
 
   def write_voting_results_report(filename="voting_results.csv")
     # Write the voting results to a csv file including the hashed identities
+    puts "Write the voting results"
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_#{filename}"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
@@ -187,6 +188,7 @@ class ReykjavikBudgetVoteCounting
 
   def write_audit_report
     # Write out the audit report to csv
+    puts "Write audit report"
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
