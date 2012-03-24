@@ -365,6 +365,9 @@ is:
   new_project_name_id_181: "Bæta leikaðstöðu á Landakotstúni"
   new_project_description_id_181: "Endurbætur á leiksvæði á Landakotstúni."
 
+  island_is_auth_error_general: "Auðkenningarvilla frá island.is"
+  island_is_auth_error_not_on_voter_register: "Þessi kennitala er ekki skráð með búsetu í Reykjavík hjá island.is"
+
   used_text: "af"
   left_text: "milljónum króna"
 

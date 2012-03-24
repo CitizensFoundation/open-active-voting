@@ -98,7 +98,11 @@ class VotesController < ApplicationController
       redirect_to :action=>:select_area
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
-      flash[:notice]="Auðkenningarvilla frá island.is"
+      if @on_voters_register
+        flash[:notice]="Auðkenningarvilla frá island.is"
+      else
+        flash[:notice]="Þessi kennitala er ekki skráð með búsetu í Reykjavík hjá island.is"
+      end
       redirect_to :action=>:authentication_options
     end
   end
@@ -221,6 +225,11 @@ class VotesController < ApplicationController
     rescue  => ex
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
+      if @response.status.code=="8"
+        @on_voters_register = false
+      else
+        @on_voters_register = true
+      end
       return false
     end
   end
