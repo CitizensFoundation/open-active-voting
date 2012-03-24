@@ -21,3 +21,5 @@ chromedriver.log
 /log/*.log
 /tmp
 /.idea
+/test_ballot
+test_ballots/*

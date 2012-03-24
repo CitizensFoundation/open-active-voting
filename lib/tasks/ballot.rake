@@ -34,14 +34,69 @@ def get_until_budget_full(budget,priorities)
 
   left_of_budget = budget
   priorities.shuffle.each do |priority|
-    if left_of_budget>priority[:price]
+    if left_of_budget>=priority[:price]
       selected<<priority
       left_of_budget -= priority[:price]
-    else
+    elsif left_of_budget<=0.0
       break
     end
   end
   selected
+end
+
+def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_priorities_html,selected_maintenance_priorities_html)
+  html = <<DOC
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Untitled Document</title>
+  <style type="text/css">
+  .litur {
+          background-color: #e9e9e9;
+  }
+  li {
+          list-style-type: none;
+          padding: 3px;
+          margin-bottom: 5px;
+  }
+  td {
+          vertical-align: top;
+  }
+  ul {
+          margin: 3px;
+          padding: 2px;
+  }
+  </style>
+  </head>
+
+  <body>
+  <h2>Betri hverfi - Forskrift vegna prófana á kosningakerfi</h2>
+  <h1>GSUB_NAFN_HVERFIS</h1>
+  <h3>Númer þitt er GSUB_NUMERID_THITT</h3>
+  <table width="750" border="0" cellpadding="3" cellspacing="3">
+    <tr>
+      <td><b>Nýframkvæmdir</b></td>
+      <td><b>Viðhaldsverkefni</b></td>
+    </tr>
+    <tr>
+      <td><ul>
+        GSUB_NYFRAMKVAEMDIR
+      </ul></td>
+      <td><ul>
+        GSUB_VIDHALDSVERKEFNI
+      </ul></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  </body>
+  </html>
+DOC
+  html = html.gsub("GSUB_NAFN_HVERFIS",neighborhood_name)
+  html = html.gsub("GSUB_NUMERID_THITT",test_ballot_number.to_s)
+  html = html.gsub("GSUB_NYFRAMKVAEMDIR",selected_construction_priorities_html)
+  html = html.gsub("GSUB_VIDHALDSVERKEFNI",selected_maintenance_priorities_html)
+  html
 end
 
 namespace :ballot do
@@ -52,11 +107,26 @@ namespace :ballot do
     ballot = ReykjavikBudgetBallot.new
     budget = ballot.get_neighborhood_budget(neighborhood_id)
 
-    selected_construction_priorities = get_until_budget_full(budget,ballot.construction_priorities(neighborhood_id))
-    selected_maintenance_priorities = get_until_budget_full(budget,ballot.maintenance_priorities(neighborhood_id))
-
-
-
+    Dir.mkdir("test_ballots") unless File.exists?("test_ballots")
+    test_ballots = []
+    number_of_voters.times do |test_ballot_number|
+      selected_construction_priorities = get_until_budget_full(budget,ballot.construction_priorities(neighborhood_id))
+      selected_construction_priorities_html = ""
+      selected_construction_priorities_ids = []
+      selected_construction_priorities.sort_by { |v| v[:letter] }.each do |priority|
+        selected_construction_priorities_ids << priority[:id]
+        selected_construction_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+      end
+      selected_maintenance_priorities = get_until_budget_full(budget,ballot.maintenance_priorities(neighborhood_id))
+      selected_maintenance_priorities_html = ""
+      selected_maintenance_priorities_ids = []
+      selected_maintenance_priorities.sort_by { |v| v[:letter] }.each do |priority|
+        selected_maintenance_priorities_ids << priority[:id]
+        selected_maintenance_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+      end
+      puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+1,selected_construction_priorities_html,selected_maintenance_priorities_html)
+      File.open("test_ballots/test_ballot_#{test_ballot_number+1}.html","w").write(html_out)
+    end
   end
 
   desc "Generate ballot from CSV"
@@ -84,7 +154,8 @@ namespace :ballot do
           #puts "Found project row: #{row}"
           @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
           @neighborhoods[current_neighborhood[:id]][:construction_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:construction_priorities]
-          @neighborhoods[current_neighborhood[:id]][:construction_priorities] << { :letter=>letter_of_alphabet[construction_priorities_count+=1], :id=>master_id+=1, :link=>row[8], :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
+          @neighborhoods[current_neighborhood[:id]][:construction_priorities] << { :letter=>letter_of_alphabet[construction_priorities_count+=1], :id=>master_id+=1, :link=>row[8],
+                                                                                   :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
                                                                         :name_is=>row[5], :description_is=>row[6], :price=>change_price_to_i(row[7]) }
         end
       elsif state == "wait_for_maintenance_priorities" and row[2]=="Viðhaldsverkefni"
@@ -96,7 +167,8 @@ namespace :ballot do
         else
           @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
           @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]
-          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities] << {:letter=>letter_of_alphabet[maintenance_priorities_count+=1], :id=>master_id+=1, :link=>row[8], :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
+          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities] << {:letter=>letter_of_alphabet[maintenance_priorities_count+=1], :id=>master_id+=1, :link=>row[8],
+                                                                                 :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
                                                                                 :name_is=>row[5], :description_is=>row[6], :price=>change_price_to_i(row[7]) }
         end
       end
