@@ -99,9 +99,9 @@ class VotesController < ApplicationController
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
       if @on_voters_register
-        flash[:notice]="Auðkenningarvilla frá island.is"
+        flash[:notice]=t :island_is_auth_error_general
       else
-        flash[:notice]="Þessi kennitala er ekki skráð með búsetu í Reykjavík hjá island.is"
+        flash[:notice]=t :island_is_auth_error_not_on_voter_register
       end
       redirect_to :action=>:authentication_options
     end
