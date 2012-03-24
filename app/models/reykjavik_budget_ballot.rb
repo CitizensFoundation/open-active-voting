@@ -232,7 +232,7 @@ class ReykjavikBudgetBallot
   def get_neighborhood_budget(neighborhood_id)
     # Get the given neighborhood budget
     Rails.logger.debug("The id: #{neighborhood_id} #{@neighborhoods.inspect} XXXX #{@neighborhoods[neighborhood_id]}")
-    @neighborhoods[neighborhood_id][:budget_amount].gsub(".","").to_f/"1.000.000".gsub(".","").to_f
+    (@neighborhoods[neighborhood_id][:budget_amount].gsub(".","").to_f/"1.000.000".gsub(".","").to_f).round(1)
   end
 
   def get_neighborhood_name(neighborhood_id)
