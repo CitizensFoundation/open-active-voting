@@ -74,7 +74,7 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_p
   <h2>Betri hverfi - Forskrift vegna prófana á kosningakerfi</h2>
   <h1>GSUB_NAFN_HVERFIS</h1>
   <h3>Númer þitt er GSUB_NUMERID_THITT</h3>
-  <table width="750" border="0" cellpadding="3" cellspacing="3">
+  <table border="0" cellpadding="3" cellspacing="3">
     <tr>
       <td><b>Nýframkvæmdir</b></td>
       <td><b>Viðhaldsverkefni</b></td>

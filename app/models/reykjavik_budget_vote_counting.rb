@@ -44,7 +44,7 @@ class ReykjavikBudgetVoteCounting
     end
   end
 
-  def count_all_test_votes(test_votes,neighborhood_id=nil)
+  def count_all_test_votes(test_votes,neighborhood_id=nil,write_out_path=nil)
     # Count test votes, for testing purposes only
     @neighborhood_id = neighborhood_id
     test_votes.each do |vote|
@@ -53,14 +53,19 @@ class ReykjavikBudgetVoteCounting
       add_votes(decrypted_vote)
     end
     select_top_priorities_that_still_fit_budget if neighborhood_id
+    write_voting_results_report("voting_results.csv",write_out_path)
   end
 
 
-  def write_voting_results_report(filename="voting_results.csv")
+  def write_voting_results_report(filename="voting_results.csv",write_out_path=nil)
     # Write the voting results to a csv file including the hashed identities
     puts "Write the voting results"
     filename = "#{@neighborhood_id}_#{get_time_for_filename}_#{filename}"
-    filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
+    if write_out_path
+      filepath = write_out_path
+    else
+      filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
+    end
     CSV.open(filepath,"wb") do |csv|
       csv << ["Niðurstöður kosninga"]
       csv << [""]
