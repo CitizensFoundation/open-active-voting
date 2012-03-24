@@ -640,35 +640,35 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
 
                            <p>Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónustuveri Reykjavíkur-borgar í síma 4 11 11 11.</p>"
 
-  votes_help_get_ballot: "<h1>Tvær körfur:<br />
-                          Nýframkvæmdir og Viðhaldsverkefni</h1>
+  votes_help_get_ballot: "<h1>Tvær körfur</h1>
+                          <b>Nýframkvæmdir og Viðhaldsverkefni</b>
                           <p>Kjörseðlinum er skipt í tvær nokkurs konar innkaupakörfur: nýframkvæmdir til vinstri og viðhaldsverkefni til hægri. Til að fullnýta atkvæðið skaltu velja verkefni í báðar körfurnar. Þú getur kosið með því að ýta á Kjósa, jafnvel þótt þú hafir ekki fyllt körfurnar eða skilið aðra þeirra eftir tóma. Atkvæðið verður gilt eftir sem áður. </p>
 
-                          <h1>Nánari upplýsingar um verkefnin</h1><p>
+                          <b>Nánari upplýsingar um verkefnin</b><p>
                           Ef þú vilt fá nánari upplýsingar um verkefnin geturðu smellt á spurningarmerkið sem staðsett er fyrir aftan hvert verkefni. Þá opnast nýr gluggi þar sem þú getur lesið rökstuðning og lýsingu.</p>
 
 
-                          <h1>Verkefnum raðað í körfurnar
-                          <h1/><p>
+                          <b>Verkefnum raðað í körfurnar
+                          </b><p>
                           Fyrir neðan báðar körfur er listi með allt að 13 verkefnum sem þú getur valið með því að smella á. Þegar verkefni hefur verið valið verður línan með heiti þess dökkleit og verkefnið birtist í körfunni fyrir ofan listann. Nú fá þau verkefni sem þú hefur ekki lengur efni á gráan lit. Ekki er hægt að velja þær lengur.<p/>
 
                           <p>Tölurnar fyrir neðan körfuna sýna hversu miklu þú hefur ráðstafað og hversu mikið þú átt eftir. Þú getur haldið áfram að velja verkefni í körfuna þar til heildarupphæð er náð eða þar til ekki er til nægur peningur fyrir neina af þeim hugmyndum sem eftir eru (sem eru þá allar orðnar gráar).<p/>
 
 
 
-                          <h1>Verkefni fjarlægð og ný valin<h1/>
+                          <b>Verkefni fjarlægð og ný valin</b>
                           <p>Til að fjarlægja verkefni úr körfu smellirðu aftur á viðkomandi verkefni. Það hefur nú verið fjarlægt og aftur er hægt að velja þau verkefni sem á ný rúmast innan fjárhagsrammans (þau eru ekki lengur grá og fá sinn upphaflega lit). Á þennan hátt getur þú valið og fjarlægt verkefni – allt þangað til þú ert ákveður að kjósa.</p>
 
 
 
-                          <h1>Ég get ekki notað allan peninginn. Er atkvæðið gilt? Hvað um afganginn?</h1>
+                          <b>Ég get ekki notað allan peninginn. Er atkvæðið gilt? Hvað um afganginn?</b>
                           <p>Þú getur staðið frammi fyrir því að geta ekki fullnýtt fjárveitingu viðkomandi hverfis, t.d. þegar verkefnin sem eftir eru óvalin kosta hvert um sig meira en sem nemur þeirri fjárhæð sem eftir er. Þú þarft ekki að hafa áhyggjur af þessu. Þú getur samt kosið og atkvæðið er gilt.<p/>
 
-                          <h1>Ýtt á hnappinn Kjósa – atkvæði hér<h1/>
+                          <b>Ýtt á hnappinn Kjósa – atkvæði hér</b>
                           <p>Þegar þú hefur lokið við að velja verkefni í aðra eða báðar körfurnar smellirðu á hnappinn Kjósa. Þá birtast skilaboð um að atkvæðið hafi verið móttekið.<p/>
 
 
-                          <h1>Kjóstu eins oft og þú vilt – aðeins nýjasta atkvæðið gildir<h1/><p>
+                          <b>Kjóstu eins oft og þú vilt – aðeins nýjasta atkvæðið gildir</b><p>
                           Þú getur endurtekið þetta og kosið eins oft og þú vilt meðan kosningin er opin. Mundu bara að einungis nýjasta atkvæðið þitt gildir.<p/>
 
 
