@@ -5,10 +5,10 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 40
-    @max_votes = 400
-    #@neighborhood_ids = [1]
-    @neighborhood_ids = [1,2,3,4,5,6,7,8,9,10]
+    @max_browsers = 25
+    @max_votes = 72 
+    @neighborhood_ids = [7,8,9,10]
+    #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]

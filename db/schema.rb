@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320120841) do
+ActiveRecord::Schema.define(:version => 20120324132305) do
 
   create_table "final_split_votes", :force => true do |t|
     t.integer  "neighborhood_id", :null => false
@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(:version => 20120320120841) do
   add_index "final_split_votes", ["neighborhood_id"], :name => "index_final_split_votes_on_neighborhood_id"
 
   create_table "votes", :force => true do |t|
-    t.integer  "neighborhood_id",   :null => false
-    t.string   "user_id_hash",      :null => false
-    t.text     "payload_data",      :null => false
-    t.string   "client_ip_address", :null => false
+    t.integer  "neighborhood_id",         :null => false
+    t.string   "user_id_hash",            :null => false
+    t.text     "payload_data",            :null => false
+    t.string   "client_ip_address",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "session_id",        :null => false
+    t.string   "session_id",              :null => false
+    t.string   "encrypted_vote_checksum", :null => false
   end
 
   add_index "votes", ["neighborhood_id"], :name => "index_votes_on_neighborhood_id"
