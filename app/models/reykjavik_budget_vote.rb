@@ -35,17 +35,17 @@ class ReykjavikBudgetVote
 
   def unpack
     # Check the encrypted checksum
-    puts "Encrypted checksum: #{@vote.encrypted_vote_checksum}"
+    #puts "Encrypted checksum: #{@vote.encrypted_vote_checksum}"
     decrypted_vote_checksum = @@private_key.private_decrypt(Base64.decode64(@vote.encrypted_vote_checksum))
     generated_vote_checksum = @@private_key.private_decrypt(Base64.decode64(@vote.generated_vote_checksum))
     raise "Vote checksum does not match #{decrypted_vote_checksum} != #{generated_vote_checksum}" unless decrypted_vote_checksum==generated_vote_checksum
 
     # Decrypt the vote
-    puts decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
-    Rails.logger.info("#{ap @vote}")
+    decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
+    #Rails.logger.info("#{ap @vote}")
     decrypted_vote = decrypted_vote.gsub(",]","]")
     combined_priorities = JSON.parse(decrypted_vote).to_a
-    puts "Last vote for #{combined_priorities}"
+    #puts "Last vote for #{combined_priorities}"
     @construction_priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
     @maintenance_priority_ids = combined_priorities[MAINTENANCE_PRIORITIES_ARRAY_ID]
   end
