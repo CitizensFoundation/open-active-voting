@@ -5,7 +5,7 @@
         = @reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)
       %span.content-select
         %a{:href => "/votes/select_area"}
-          = raw "&lt; #{t(:choose_another_neighbourhood)}"
+          = raw "#{t(:choose_another_neighbourhood)}"
     #leftcol
       %h3
         = t :new_construction_projects
@@ -52,7 +52,7 @@
       %a{:href => "#"}
 
       %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
-      %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :alt => 'Smelltu hér til að kjósa'}
+      %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :title=>"Smelltu hér til að kjósa", :alt => 'Smelltu hér til að kjósa'}
 
       #blurbtext_wide
         %p

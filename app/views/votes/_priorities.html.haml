@@ -9,5 +9,5 @@
       %span.price
         = number_with_precision(priority[:price], :precision => 1)
   %span.info
-    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}&neighborhood_id=#{@neighborhood_id}' })"}
+    %a{:href => "#", :title=>priority[:name], :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}&neighborhood_id=#{@neighborhood_id}' })"}
       %img.zoom{:alt => "", :src => "/assets/zoom.png"}/
