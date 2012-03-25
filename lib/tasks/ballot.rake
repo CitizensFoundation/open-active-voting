@@ -129,6 +129,25 @@ namespace :ballot do
     end
   end
 
+  def make_data_hash(row,master_id,count)
+    letter_of_alphabet = ('a'..'m').to_a
+    { :letter=>letter_of_alphabet[count],
+      :id=>master_id,
+      :name=>"new_project_name_id_#{master_id}",
+      :description=>"new_project_description_id_#{master_id}",
+      :name_is=>row[5], :description_is=>row[6],
+      :name_en=>row[7], :description_en=>row[6],
+      :price=>change_price_to_i(row[8]),
+      :link=>row[9] }
+  end
+
+
+  class String
+    def escape_quotes
+      self.gsub(/["]/, '\\\\\"')
+    end
+  end
+
   desc "Generate ballot from CSV"
   task(:generate_ballot_from_csv => :environment) do
     @ballot = ReykjavikBudgetBallot.new
@@ -136,7 +155,7 @@ namespace :ballot do
     state = "waiting_for_neighborhood"
     current_neighborhood = nil
     master_id = 0
-    letter_of_alphabet = ('a'..'m').to_a
+
     construction_priorities_count = nil
     maintenance_priorities_count = nil
 
@@ -154,9 +173,7 @@ namespace :ballot do
           #puts "Found project row: #{row}"
           @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
           @neighborhoods[current_neighborhood[:id]][:construction_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:construction_priorities]
-          @neighborhoods[current_neighborhood[:id]][:construction_priorities] << { :letter=>letter_of_alphabet[construction_priorities_count+=1], :id=>master_id+=1, :link=>row[8],
-                                                                                   :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
-                                                                        :name_is=>row[5], :description_is=>row[6], :price=>change_price_to_i(row[7]) }
+          @neighborhoods[current_neighborhood[:id]][:construction_priorities] << make_data_hash(row,master_id+=1,construction_priorities_count+=1)
         end
       elsif state == "wait_for_maintenance_priorities" and row[2]=="Viðhaldsverkefni"
         puts state = "maintenance_priorities"
@@ -167,19 +184,20 @@ namespace :ballot do
         else
           @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
           @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]
-          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities] << {:letter=>letter_of_alphabet[maintenance_priorities_count+=1], :id=>master_id+=1, :link=>row[8],
-                                                                                 :description=>"new_project_description_id_#{master_id}", :name=>"new_project_name_id_#{master_id}",
-                                                                                :name_is=>row[5], :description_is=>row[6], :price=>change_price_to_i(row[7]) }
+          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities] << make_data_hash(row,master_id+=1,maintenance_priorities_count+=1)
         end
       end
     end
     main_outfile = ""
     is_yml = ""
+    en_yml = ""
     @neighborhoods.each do |id, project_types|
       project_types.each do |project_type,array|
         array.each do |item|
           is_yml += "#{item[:name]}: \"#{item[:name_is].strip}\"\n"
-          is_yml += "#{item[:description]}: \"#{item[:description_is].strip.gsub(""",""")}\"\n"
+          is_yml += "#{item[:description]}: \"#{item[:description_is].strip.escape_quotes}\"\n"
+          en_yml += "#{item[:name]}: \"#{item[:name_en].strip}\"\n"
+          en_yml += "#{item[:description]}: \"#{item[:description_en].strip.escape_quotes}\"\n"
           item.delete(:name_is)
           item.delete(:description_is)
           main_outfile += "@neighborhoods[#{id}][:#{project_type}] << {:id=>#{item[:id]}, :letter=>\"#{item[:letter]}\", :link=>\"#{item[:link]}\", :description=>I18n.t(:#{item[:description]}), :name=>I18n.t(:#{item[:name]}), :price=>#{item[:price].to_f/1000000.0}}\n"
@@ -189,5 +207,6 @@ namespace :ballot do
     end
     puts main_outfile
     #puts is_yml
+    #puts en_yml
   end
 end

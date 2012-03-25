@@ -52,8 +52,10 @@ class ReykjavikBudgetVoteCounting
       decrypted_vote.unpack_without_encryption
       add_votes(decrypted_vote)
     end
-    select_top_priorities_that_still_fit_budget if neighborhood_id
-    write_voting_results_report("voting_results.csv",write_out_path)
+    if neighborhood_id
+      select_top_priorities_that_still_fit_budget
+      write_voting_results_report("voting_results.csv",write_out_path)
+    end
   end
 
 
