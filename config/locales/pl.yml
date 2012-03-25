@@ -57,7 +57,7 @@ pl:
   votes_header_help_label: "Pomoc"
   votes_header_rules_label: "Regulamin"
   votes_header_logout_label: "Wyloguj"
-  votes_header_contact_us_label: "Kontakt"
+  votes_header_contact_us_label: "betrireykjavik@ibuar.is"
   votes_header_about_the_poll_label: "O głosowaniu"
 
   votes_header_about_better_reykjavik_label: "O Betri Reykjavík"
