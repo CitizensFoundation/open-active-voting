@@ -1,7 +1,7 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
+pl:
   island_is_auth_error_general: "Authentication error from island.is"
   island_is_auth_error_not_on_voter_register: "This national identity number is not registered with island.is"
 
@@ -47,19 +47,24 @@ en:
 
   votes_vote_count_none: "You have not voted  yet "
 
-  votes_header_info_text_1: "Prufa á pl.yml"
+  votes_header_info_text_1: "<b>Możesz głosować w
+                             jednej dzielnicy</b> w
+                             kategorii <b>Nowe
+                             przedsięwzięcia</b> oraz
+                             <b>Przedsięwzięcia
+                             remontowe.</b>"
   votes_header_finnahverfi_label: "Find my borough"
-  votes_header_help_label: "Help"
-  votes_header_rules_label: "Rules"
-  votes_header_logout_label: "Logout"
-  votes_header_contact_us_label: "Contact us"
-  votes_header_about_the_poll_label: "About the vote"
+  votes_header_help_label: "Pomoc"
+  votes_header_rules_label: "Regulamin"
+  votes_header_logout_label: "Wyloguj"
+  votes_header_contact_us_label: "Kontakt"
+  votes_header_about_the_poll_label: "O głosowaniu"
 
-  votes_header_about_better_reykjavik_label: "About Better Reykjavik"
-  votes_header_about_better_neighborhoods_label: "About Better Neighborhoods"
+  votes_header_about_better_reykjavik_label: "O Betri Reykjavík"
+  votes_header_about_better_neighborhoods_label: "O Betri hverfi"
 
   votes_header_ibuar_ses_label: "Citizens Foundation"
-  votes_header_reykjavik_city_label: "City of Reykjavik"
+  votes_header_reykjavik_city_label: "Miasto Reykjavík"
 
   choose_authentication: "<h1>Welcome to the Better Boroughs Voting Site</h1>
                           <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City. The vote is open from Thursday, March 29 until 4 a.m. in the morning of Wednesday – April 4.
@@ -83,7 +88,7 @@ en:
 
   millions: "millions ISK budget"
 
-  chooce_projects_below: "Select projects by clicking a name below"
+  chooce_projects_below: "Wybierz przedsięwzięcia klikając na ich na liście poniżej"
 
   name_of_project: "Project name"
 
@@ -91,7 +96,7 @@ en:
 
   in_millions: "in millions"
 
-  you_dont_need_to_finish_all_the_budget: "You do not have to use the whole sum"
+  you_dont_need_to_finish_all_the_budget: "Nie musisz wykorzystać całego budżetu"
 
   get_ballot_footer_1: "You can only vote in one borough of own choice. "
   get_ballot_footer_2: "You can also choose to vote in one category only. Your vote is still valid. "
@@ -106,10 +111,10 @@ en:
 
   votes_help_authentication_options: "
 <h1>Logowanie i autoryzacja</h1>
-<p>Aby się zalogować kliknij na  Island.is Po przejściu na stronę do logowania możesz wybrać dwie możliwości rejestracji: karta debetowa z chipem lub hasło internetowe Naczelnika Urzędu Skarbowego.	</p>
+ <p>Aby się zalogować kliknij na  Island.is Po przejściu na stronę do logowania możesz wybrać dwie możliwości rejestracji: karta debetowa z chipem lub hasło internetowe Naczelnika Urzędu Skarbowego.	</p>
 
 
-<p>W celu uzyskania dokładniejszych informacji i pomocy skontaktuj się z konsultantami z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11.</p>"
+ <p>W celu uzyskania dokładniejszych informacji i pomocy skontaktuj się z konsultantami z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11.</p>"
 
   votes_about_the_poll_text: "
 
@@ -313,17 +318,13 @@ Voting participation is limited to those who turned 16 years old by the end of 2
     <br />
   </p>"
 
-  votes_help_select_area: "<h1>Choose a borough</h1><p>
-                           On this page you see a map of Reykjavík where each borough has been given it’s own colour. Choose the borough you want to vote in by clicking it on the map.</p>
+  votes_help_select_area: "<h1>Wybierz dzielnicę</h1>
+                           <p>Na tej stronie możesz zobaczyć mapę Reykjaviku, gdzie każda dzielnica oznaczona została odrębnym kolorem. Wybierz dzielnicę w której chcesz głosować, klikając na nią.</p>
 
+                           <h1>Znajdź moją dzielnicę</h1>
+                           <p>Jeżeli nie masz pewności, w jakiej dzielnicy mieszkasz, lub chcesz dowiedzieć się więcej o innych dzielnicach, możesz to zrobić klikając na  Znajdź moją dzielnicę powyżej mapy. Wtedy otworzy się nowe okno ze stroną Systemu Informacji o Terenach Reykjaviku. Tam, wpisując nazwę ulicy, uzyskasz informacje do jakiej dzielnicy należy.</p><p>
 
-
-                           <h1>Find my borough </h1><p>
-                           If you are not sure what borough you live in, or if you want to explore other boroughs, you can find out by clicking <strong>Find my borough</strong>  above the map. This will open, in a new window, the Reykjavík Land Information System website. There you can browse through street names and see which streets belong to which borough.
-                           </p>
-
-                           <p>
-                           For further information and assistance please call 4 11 11 11 to talk with one of our service representatives at Reykjavík City‘s Service Centre.</p> "
+                           W celu uzyskania dokładniejszych informacji i pomocy skontaktuj się z konsultantami z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11.</p>"
 
   votes_help_get_ballot: "
  <h1>Two baskets: New construction projects and maintenance projects</h1>
