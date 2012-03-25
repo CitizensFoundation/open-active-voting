@@ -392,7 +392,8 @@ is:
   <div class='indent'>
   <p>Þú getur kosið eins oft og þú vilt meðan kosning er opin.
   <p>Síðasta atkvæðið er það sem gildir.
-  <p>Smelltu <a href='/votes/select_area'>hér til að kjósa aftur.</a></p>
+  <p><a href='/votes/select_area'><b>Smelltu  hér til að kjósa aftur.</b></a></p>
+  <p><a href='/votes/logout'><b>Smelltu hér til þess að útskrá þig</b></a>, svo aðrir sem nota tölvuna þína kjósi ekki óvart í þínu nafni.</p>
                       </div>
   <div class='indent'>
   <p><b>Hvað ræður úrslitum við talningu atkvæða?</b></p>
@@ -429,10 +430,11 @@ is:
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
   choose_authentication: "<h1>Velkomin(n) á kosningavef Betri hverfa</h1>
-                          <p>Hér getur þú kosið um smærri framkvæmdir í hverfum Reykjavíkur. Kosningin stendur yfir frá fimmtudeginum 29. mars til kl. 04:00 aðfaranótt miðvikudagsins 4. apríl. </p>
+                          <p>Hér getur þú kosið um smærri framkvæmdir í hverfum Reykjavíkur.
+                          Kosningin stendur yfir frá fimmtudeginum 29. mars til kl. 04:00 aðfaranótt miðvikudagsins 4. apríl. </p>
 
-                          <h1>Smelltu á Ísland.is til að auðkenna þig</h1>
-                          <p>Auðkenningin er í samstarfi við Ísland.is. Hægt er að nota hvort heldur sem er aðalveflykil ríkisskattstjóra eða rafræn skilríki á debetkorti. Vakin er athygli á því að starfsmenn kosningarinnar hafa hvorki aðgang að kennitölu né veflykli kjósanda og þar af leiðandi ekki  þeim upplýsingum sem slík auðkenni veita.</p>
+                          <h1><a href='https://www.island.is/audkenning?id=ktest.betrireykjavik.is'>Smelltu á Ísland.is til að auðkenna þig</a></h1>
+                          <p>Auðkenningin er í samstarfi við Ísland.is. Hægt er að nota hvort heldur sem er aðalveflykil ríkisskattstjóra eða rafræn skilríki á debetkorti. Vakin er athygli á því að starfsmenn kosningarinnar hafa hvorki aðgang að kennitölu né veflykli kjósanda og þar af leiðandi ekki  þeim upplýsingum sem slík auðkenni veita aðgang að.</p>
 "
 
   choose_a_neighbourhood: "Þú getur kosið um framkvæmdir í einu hverfi. Veldu hverfi!"
@@ -512,7 +514,7 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                                           <p><b>Móttaka  hugmynda</b></p>
                                           <p><em>Betri  Reykjavík – Betri hverfi</em> var opinn fyrir móttöku hugmynda og samráði íbúa vegna þessara  smærri hverfaverkefna frá 5. desember 2011 til 23. janúar 2012. Í  kjölfarið mat fagfólk borgarinnar framkvæmanleika hugmyndanna  m.a. með tilliti til kostnaðar. Hverfaráð borgarinnar stilltu  síðan upp allt að 26 verkefnum fyrir hvert hverfi sem íbúum  Reykjavíkur gefst nú tækifæri til að kjósa um.</p>
                                           <p><b>Rafræn  kosning</b></p>
-                                          <p>Kosið  verður um verkefnin með rafrænum hætti dagana 29. til 04:00  aðfaranótt 4. apríl 2012
+                                          <p>Kosið  verður um verkefnin með rafrænum hætti dagana 29. mars til 3. apríl 2012
                                              á sérstöku vefsvæði sem komið er upp í tilefni kosningarinnar.  Íbúar Reykjavíkur geta kosið verkefni í hvaða hverfi sem er,  óháð búsetu, en aðeins í einu hverfi. Réttur til þátttöku  miðast við 16 ára aldur. Niðurstaðan um val verkefna er  bindandi.</p>
                                           <p>Sjá  nánar á svæðinu <em>Um  Betri hverfi</em>.    </p>
                                           <p><b>Með  því að smella á tengilinn hér að neðan ferðu</b><em> </em><b>burt  af kosningavefnum!</b></p>
