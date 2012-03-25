@@ -26,7 +26,12 @@ pl:
 
   votes_vote_count_none: "You have not yet voted"
 
-  votes_header_info_text_1: "Możesz głosować w jednej dzielnicy, według własnego wyboru. Głos oddać możesz zarówno w kategorii Nowe przedsięwzięcia jak i Przedsięwzięcia remontowe w tej samej dzielnicy."
+  votes_header_info_text_1: "<b>Możesz głosować w
+                             jednej dzielnicy</b> w
+                             kategorii <b>Nowe
+                             przedsięwzięcia</b> oraz
+                             <b>Przedsięwzięcia
+                             remontowe.</b>"
   votes_header_finnahverfi_label: "Find my borough"
   votes_header_help_label: "Pomoc"
   votes_header_rules_label: "Regulamin"
@@ -34,13 +39,20 @@ pl:
   votes_header_contact_us_label: "Kontakt"
   votes_header_about_the_poll_label: "O głosowaniu"
 
-  votes_header_about_better_reykjavik_label: "Betri Reykjavík"
-  votes_header_about_better_neighborhoods_label: "Betri hverfi"
+  votes_header_about_better_reykjavik_label: "O Betri Reykjavík"
+  votes_header_about_better_neighborhoods_label: "O Betri hverfi"
 
   votes_header_ibuar_ses_label: "Íbúar ses"
   votes_header_reykjavik_city_label: "Strona Miasta Reykjavik"
 
-  choose_authentication: "Wybierz sposób identyfikacji"
+  choose_authentication: "<h1>Welcome to the Better Boroughs Voting Site</h1>
+                                                    <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City. The vote is open from Thursday, March 29 until 4 a.m. in the morning of Wednesday – April 4.
+                                                    </p><h1>
+                                                    Click Ísland.is to authenticate yourself
+                                                    </h1></p>The authentication is in cooperation with Island.is. You can use a permanent webkey from the Internal
+                                                    Revenue Directorate (Ríkisskattstjóri) or a debit card with an built in electronic ID. Please note that the people
+                                                    managing and/or working on the vote will not have any access to your ID number or webkey and will thus have no
+                                                    access to any information these items might grant access to.  </p>"
 
   choose_a_neighbourhood: "Aby oddać głos wybierz dzielnicę"
 
