@@ -368,8 +368,8 @@ is:
   island_is_auth_error_general: "Auðkenningarvilla frá island.is"
   island_is_auth_error_not_on_voter_register: "Þessi kennitala er ekki skráð með búsetu í Reykjavík hjá island.is"
 
-  used_text: "af"
-  left_text: "milljónum króna"
+  used_text: "notað"
+  left_text: "eftir"
 
   number:
     format:
