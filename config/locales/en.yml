@@ -105,12 +105,11 @@ en:
                       <p><a href='/votes/logout'>Sign out of voting site</a></p>"
 
   votes_help_authentication_options: "
-<h1>Login and authentication</h1><p>
-To login and authenticate yourself  you click on  <em>Ísland.is</em>.You will now be directed to a login page where you will have two options for login: electronic ID <em>with a debitcard or with a webkey provided by the State Tax Director.</em></p>
+<h1>Logowanie i autoryzacja</h1>
+<p>Aby się zalogować kliknij na  Island.is Po przejściu na stronę do logowania możesz wybrać dwie możliwości rejestracji: karta debetowa z chipem lub hasło internetowe Naczelnika Urzędu Skarbowego.	</p>
 
 
-<p>For further information and assistance please call 4 11 11 11 to talk with one of our service representatives at Reykjavík City‘s Service Centre.</p>
-"
+<p>W celu uzyskania dokładniejszych informacji i pomocy skontaktuj się z konsultantami z Działu Usługowego Miasta Reykjavik tel. 4 11 11 11.</p>"
 
   votes_about_the_poll_text: "
 
