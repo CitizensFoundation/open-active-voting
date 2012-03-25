@@ -366,7 +366,7 @@ is:
   new_project_description_id_181: "Endurbætur á leiksvæði á Landakotstúni."
 
   island_is_auth_error_general: "Auðkenningarvilla frá island.is"
-  island_is_auth_error_not_on_voter_register: "Þessi kennitala er ekki skráð með búsetu í Reykjavík hjá island.is"
+  island_is_auth_error_not_on_voter_register: "Þú ert ekki á kjörskrá og getur því ekki kosið. Á kjörskrá eru þeir sem eru með lögheimili í Reykjavík þegar þeir kjósa og voru orðnir 16 ára um síðustu áramót."
 
   used_text: "notað"
   left_text: "eftir"
