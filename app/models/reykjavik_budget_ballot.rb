@@ -75,7 +75,7 @@ class ReykjavikBudgetBallot
     @neighborhoods[3][:construction_priorities] << {:id=>42, :letter=>"a", :link=>"http://betri-hverfi-grafarholt.betrireykjavik.is/priorities/636-planta-trjam-a-opin-svaedi-i-hverfinu", :description=>I18n.t(:new_project_description_id_42), :name=>I18n.t(:new_project_name_id_42), :price=>3.0}
     @neighborhoods[3][:construction_priorities] << {:id=>43, :letter=>"b", :link=>"http://betri-hverfi-grafarholt.betrireykjavik.is/priorities/1046-tengja-gongustig-vid-nonas-vid-gongustig-kringum-reynisvatn", :description=>I18n.t(:new_project_description_id_43), :name=>I18n.t(:new_project_name_id_43), :price=>7.0}
     @neighborhoods[3][:construction_priorities] << {:id=>44, :letter=>"c", :link=>"http://betri-hverfi-grafarholt.betrireykjavik.is/priorities/892-baett-adstada-vid-dalskola", :description=>I18n.t(:new_project_description_id_44), :name=>I18n.t(:new_project_name_id_44), :price=>4.0}
-    @neighborhoods[3][:construction_priorities] << {:id=>45, :letter=>"d", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_45), :name=>I18n.t(:new_project_name_id_45), :price=>10.0}
+    @neighborhoods[3][:construction_priorities] << {:id=>45, :letter=>"d", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_45), :name=>I18n.t(:new_project_name_id_45), :price=>9.0}
     @neighborhoods[3][:construction_priorities] << {:id=>46, :letter=>"e", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_46), :name=>I18n.t(:new_project_name_id_46), :price=>0.5}
 
     @neighborhoods[3][:maintenance_priorities] << {:id=>47, :letter=>"a", :link=>"http://betri-hverfi-grafarholt.betrireykjavik.is/priorities/1122-grodursetja-tre-i-ulfarsardal", :description=>I18n.t(:new_project_description_id_47), :name=>I18n.t(:new_project_name_id_47), :price=>2.0}
@@ -226,7 +226,8 @@ class ReykjavikBudgetBallot
     @neighborhoods[10][:maintenance_priorities] << {:id=>178, :letter=>"h", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_178), :name=>I18n.t(:new_project_name_id_178), :price=>1.5}
     @neighborhoods[10][:maintenance_priorities] << {:id=>179, :letter=>"i", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_179), :name=>I18n.t(:new_project_name_id_179), :price=>1.0}
     @neighborhoods[10][:maintenance_priorities] << {:id=>180, :letter=>"j", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_180), :name=>I18n.t(:new_project_name_id_180), :price=>2.0}
-    @neighborhoods[10][:maintenance_priorities] << {:id=>181, :letter=>"k", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_181), :name=>I18n.t(:new_project_name_id_181), :price=>3.0}  end
+    @neighborhoods[10][:maintenance_priorities] << {:id=>181, :letter=>"k", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_181), :name=>I18n.t(:new_project_name_id_181), :price=>3.0}
+  end
 
   def get_neighborhood_budget(neighborhood_id)
     # Get the given neighborhood budget
