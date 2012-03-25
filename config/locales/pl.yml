@@ -67,7 +67,8 @@ pl:
   votes_header_reykjavik_city_label: "Miasto Reykjavík"
 
   choose_authentication: "<h1>Welcome to the Better Boroughs Voting Site</h1>
-                          <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City. The vote is open from Thursday, March 29 until 4 a.m. in the morning of Wednesday – April 4.
+                          <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City.
+                          The vote is open from Thursday, March 29 until Tuesday, April 3.
                           </p><h1>
                           Click Ísland.is to authenticate yourself
                           </h1></p>The authentication is in cooperation with Island.is. You can use a permanent webkey from the Internal
