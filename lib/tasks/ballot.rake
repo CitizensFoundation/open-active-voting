@@ -79,7 +79,7 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_p
   <h4 style='color:red'>Ekki gleyma að senda tölvupóst á <a href='betrireykjavik@ibuar.is'>betrireykjavik@ibuar.is</a> með númerinu þínu eftir að þú hefur kosið.</h4>
   
 <h4>Slóðin er https://kjosa.betrireykjavik.is/</h4>
-<br /><br />
+<br />
   
   <table border="0" cellpadding="3" cellspacing="3">
     <tr>
