@@ -1,6 +1,6 @@
 set :application, "open-active-voting"
 set :domain, "ktest.betrireykjavik.is"
-set :selected_branch, "master"
+set :selected_branch, "release1"
 set :repository, "git@github.com:rbjarnason/open-active-voting.git"
 set :use_sudo, false
 set :deploy_to, "/home/ktest/sites/#{application}/#{selected_branch}"
