@@ -365,7 +365,7 @@ is:
   new_project_name_id_181: "Bæta leikaðstöðu á Landakotstúni"
   new_project_description_id_181: "Hverfisráð Vesturbæjar hefur stungið upp á þessu verkefni. Verkefnið miðar að því að bæta aðstöðu á leiksvæði á Landakotstúni og felst m.a. í hreinsun, snyrtingu, gróðursetningu og uppsetningu nýrra leiktækja."
 
-  island_is_auth_error_general: "Auðkenningarvilla frá island.is"
+  island_is_auth_error_general: "Villa hefur komið upp, vinsamlegast reynið aftur síðar. Ef aðstoðar er þörf má hringja í síma 4 11 11 11."
   island_is_auth_error_not_on_voter_register: "Þú ert ekki á kjörskrá og getur því ekki kosið. Á kjörskrá eru þeir sem eru með lögheimili í Reykjavík þegar þeir kjósa og voru orðnir 16 ára um síðustu áramót."
 
   used_text: "notað"

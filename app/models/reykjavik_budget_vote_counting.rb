@@ -172,7 +172,7 @@ class ReykjavikBudgetVoteCounting
 
   def add_priorities_to_csv(priorities,csv)
     # Add priorities to csv
-    csv << ["Id","Nafn","Stig","Kostnaður"]
+    csv << ["Id","Nafn","Atkvæði","Kostnaður"]
     total_vote_count = 0
     total_price = 0
     priorities.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
