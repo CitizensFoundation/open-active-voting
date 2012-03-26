@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # Copyright (C) 2010,2011,2012 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,6 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace :counting do
+  desc "Voting status"
+  task(:status => :environment) do
+    puts "Heildarfjöldi innsendra atkvæða #{Vote.count}"
+    puts "Heildarfjöldi kjósenda #{Vote.count('user_id_hash', :distinct => true)}"
+  end
+
   desc "Count all votes"
   task(:count => :environment) do
     raise "Missing private_key parameters" unless ENV['private_key']
