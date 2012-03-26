@@ -114,15 +114,19 @@ namespace :ballot do
       selected_construction_priorities_html = ""
       selected_construction_priorities_ids = []
       selected_construction_priorities.sort_by { |v| v[:letter] }.each do |priority|
-        selected_construction_priorities_ids << priority[:id]
-        selected_construction_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+        unless rand(40)==7 # Don't finish the budget 1/40 times
+          selected_construction_priorities_ids << priority[:id]
+          selected_construction_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+        end
       end
       selected_maintenance_priorities = get_until_budget_full(budget,ballot.maintenance_priorities(neighborhood_id))
       selected_maintenance_priorities_html = ""
       selected_maintenance_priorities_ids = []
       selected_maintenance_priorities.sort_by { |v| v[:letter] }.each do |priority|
-        selected_maintenance_priorities_ids << priority[:id]
-        selected_maintenance_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+        unless rand(40)==7 # Don't finish the budget 1/40 times
+          selected_maintenance_priorities_ids << priority[:id]
+          selected_maintenance_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+        end
       end
       puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+1,selected_construction_priorities_html,selected_maintenance_priorities_html)
       File.open("test_ballots/test_ballot_#{test_ballot_number+1}.html","w").write(html_out)
