@@ -1,20 +1,5 @@
 # coding: utf-8
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 require "csv"
 require "ap"
 
@@ -92,6 +77,8 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_p
   
   <h3 style='color:red'>Vinsamlegast kjóstu nákvæmlega eins og sýnt er hér að neðan!</h3>
   <h4 style='color:red'>Ekki gleyma að senda tölvupóst á <a href='betrireykjavik@ibuar.is">betrireykjavik@ibuar.is</a> með númerinu þínu eftir að þú hefur kosið.</h4>
+  
+Slóðin er <a href='https://kjosa.betrireykjavik.is/'>https://kjosa.betrireykjavik.is/</a>.
   
   <table border="0" cellpadding="3" cellspacing="3">
     <tr>
