@@ -4,11 +4,11 @@
       %img{:alt => "Betri hverfi", :height => "74", :src => "/assets/betri_hverfi_logo.png", :width => "340"}/
     #bh_name
       %h4
-        = @name
+        = raw @name
     #bh_leftcol
       .rok
         %p
-          = @description
+          = raw @description
     - if @link
       #bh_footer
         %p
