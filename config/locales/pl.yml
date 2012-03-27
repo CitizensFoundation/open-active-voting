@@ -429,16 +429,13 @@ pl:
   votes_header_ibuar_ses_label: "Citizens Foundation"
   votes_header_reykjavik_city_label: "Miasto Reykjavík"
 
-  choose_authentication: "<h1>Welcome to the Better Boroughs Voting Site</h1>
-                          <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City.
-                          The vote is open from Thursday, March 29 until Tuesday, April 3.
+  choose_authentication: "<h1>Witamy na stronie do głosowania Lepsze dzielnice</h1>
+                          <p>Tutaj możesz oddać głos na mniejsze przedsięwzięcia w dzielnicach Miasta Reykjavik. Wybory trwają od czwartku 29 marca, do środy 3 kwietnia.
                           </p><h1>
-                          Click Ísland.is to authenticate yourself
-                          </h1></p>The authentication is in cooperation with Island.is. You can use a permanent webkey from the Internal
-                          Revenue Directorate (Ríkisskattstjóri) or a debit card with an built in electronic ID. Please note that the people
-                          managing and/or working on the vote will not have any access to your ID number or webkey and will thus have no
-                          access to any information these items might grant access to.  </p>
-  "
+                          Kliknij na Ísland.is, aby dokonać identyfikacji
+                          </h1></p>Identyfikacja odbywa się przez stronę Ísland.is przy użyciu hasła internetowego Naczelnika Urzędu Skarbowego lub karty debetowej z chipem.
+                                   Twój głos jest anonimowy.
+                                   Pracownicy wyborów nie mają dostępu do numerów ewidencyjnych, haseł głosujących, ani innych informacji związanych z wyborcami.   </p>"
 
   choose_a_neighbourhood: "You can vote on projects in one borough. Choose a borough!"
 
