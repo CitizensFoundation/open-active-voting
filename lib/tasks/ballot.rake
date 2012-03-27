@@ -110,12 +110,33 @@ DOC
 end
 
 namespace :ballot do
+
+  desc "Generate ids,letter and names"
+  task(:ids_to_letters => :environment) do
+    neighborhood_id = ENV['neighborhood_id'].to_i
+    ballot = ReykjavikBudgetBallot.new
+    puts "Construction"
+    ballot.neighborhoods[neighborhood_id][:construction_priorities].each do |priority|
+      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
+    end
+    puts "Maintenance"
+    ballot.neighborhoods[neighborhood_id][:maintenance_priorities].each do |priority|
+      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
+    end
+  end
+
+
   desc "Generate test ballots"
   task(:generate_test_ballot => :environment) do
     number_of_voters = ENV['number_of_voters'].to_i
     neighborhood_id = ENV['neighborhood_id'].to_i
     ballot = ReykjavikBudgetBallot.new
     budget = ballot.get_neighborhood_budget(neighborhood_id)
+    if ENV['offset']
+      offset = 1+ENV['offset'].to_i
+    else
+      offset = 1
+    end
 
     Dir.mkdir("test_ballots") unless File.exists?("test_ballots")
     test_ballots = []
@@ -138,8 +159,8 @@ namespace :ballot do
           selected_maintenance_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
         end
       end
-      puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+1,selected_construction_priorities_html,selected_maintenance_priorities_html)
-      File.open("test_ballots/test_ballot_#{test_ballot_number+1}.html","w").write(html_out)
+      puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+offset,selected_construction_priorities_html,selected_maintenance_priorities_html)
+      File.open("test_ballots/test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
     end
   end
 
@@ -219,8 +240,8 @@ namespace :ballot do
         main_outfile += "\n"
       end
     end
-    #puts main_outfile
+    puts main_outfile
     #puts is_yml
-    puts en_yml
+    #puts en_yml
   end
 end
