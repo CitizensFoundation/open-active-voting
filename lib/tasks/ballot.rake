@@ -110,6 +110,22 @@ DOC
 end
 
 namespace :ballot do
+
+  desc "Generate ids,letter and names"
+  task(:ids_to_letters => :environment) do
+    neighborhood_id = ENV['neighborhood_id'].to_i
+    ballot = ReykjavikBudgetBallot.new
+    puts "Construction"
+    ballot.neighborhoods[neighborhood_id][:construction_priorities].each do |priority|
+      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
+    end
+    puts "Maintenance"
+    ballot.neighborhoods[neighborhood_id][:maintenance_priorities].each do |priority|
+      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
+    end
+  end
+
+
   desc "Generate test ballots"
   task(:generate_test_ballot => :environment) do
     number_of_voters = ENV['number_of_voters'].to_i
@@ -224,8 +240,8 @@ namespace :ballot do
         main_outfile += "\n"
       end
     end
-    #puts main_outfile
+    puts main_outfile
     #puts is_yml
-    puts en_yml
+    #puts en_yml
   end
 end
