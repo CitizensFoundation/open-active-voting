@@ -126,7 +126,7 @@ class VotesController < ApplicationController
     if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
       redirect_to :action=>:select_area
     elsif params[:token]
-      redirect_to :action=>:authenticate_from_island_is, :token=>params[:token]
+      redirect_to "https://kjosa.betrireykjavik.is?token=#{params[:token]}"
     else
       redirect_to :action=>:authentication_options
     end
