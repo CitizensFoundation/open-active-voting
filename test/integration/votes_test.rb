@@ -20,8 +20,8 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 10
-    @max_votes = 50
+    @max_browsers = 5
+    @max_votes = 10
     @neighborhood_ids = [1,2]
     #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
@@ -56,8 +56,6 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     FileUtils.rm_rf File.join(Rails.root.join("test","results"))
     Dir.mkdir(File.join(Rails.root.join("test","results")))
-
-    @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
 
     setup_votes
   end

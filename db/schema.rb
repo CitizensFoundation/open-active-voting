@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324132305) do
+ActiveRecord::Schema.define(:version => 20130312172029) do
+
+  create_table "ballots", :force => true do |t|
+    t.binary   "neighborhoods", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "config", :force => true do |t|
+    t.string   "rsk_url",            :null => false
+    t.integer  "timeout_in_seconds", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "final_split_votes", :force => true do |t|
     t.integer  "neighborhood_id",         :null => false

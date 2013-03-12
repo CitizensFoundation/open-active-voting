@@ -26,7 +26,7 @@ class ReykjavikBudgetVoteCounting
     @construction_priority_ids_selected_count = Hash.new
     @maintenance_priority_ids_selected_count = Hash.new
     @private_key_file = private_key_file
-    @ballot = ReykjavikBudgetBallot.new
+    @ballot = ReykjavikBudgetBallot.current
     @invalid_votes = []
   end
 

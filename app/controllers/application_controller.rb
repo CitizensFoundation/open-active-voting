@@ -65,14 +65,13 @@ class ApplicationController < ActionController::Base
   def update_activity_time
     # Update the activity time to keep the user session alive
     if Rails.env.test?
-#      session[:expires_at] = 1.minutes.from_now
       session[:expires_at] = 600.hours.from_now
     else
-      session[:expires_at] = 20.minutes.from_now
+      session[:expires_at] = (@config.timeout_in_seconds).seconds.from_now
     end
   end
 
   def get_db_config
-    @db_config = YAML::load(File.read(Rails.root.join("config","database.yml")))
+    @config = ReykjavikBudgetConfig.current # YAML::load(File.read(Rails.root.join("config","database.yml")))
   end
 end

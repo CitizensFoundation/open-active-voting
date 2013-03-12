@@ -79,7 +79,7 @@ class VotesController < ApplicationController
     # Display information about a given priority
     @priority_id = params[:priority_id].to_i
     @neighborhood_id = params[:neighborhood_id].to_i
-    ballot = ReykjavikBudgetBallot.new
+    ballot = ReykjavikBudgetBallot.current
     @name = ballot.get_priority_name(@neighborhood_id,@priority_id)
     @description = ballot.get_priority_description(@neighborhood_id,@priority_id)
     @link = ballot.get_priority_link(@neighborhood_id,@priority_id)
@@ -101,8 +101,7 @@ class VotesController < ApplicationController
 
   def authentication_options
     # Display authentication options
-    @island_is_url = @db_config[Rails.env]['rsk_url']
-    @rr_url = @db_config[Rails.env]['rr_url']
+    @island_is_url = @config.rsk_url
   end
 
   def authenticate_from_island_is
@@ -166,7 +165,7 @@ class VotesController < ApplicationController
     @neighborhood_id = params[:neighborhood_id].to_i
 
     # Create the Reykjavik Budget Ballot
-    @reykjavik_budget_ballot = ReykjavikBudgetBallot.new(@neighborhood_id)
+    @reykjavik_budget_ballot = ReykjavikBudgetBallot.current
 
     # Get the budget for the given neighborhood id
     @maintenance_total = @construction_total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
@@ -218,7 +217,7 @@ class VotesController < ApplicationController
       # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
-      soap.options["protocol.http.basic_auth"] << [soap_url,@db_config[Rails.env]['rsk_soap_username'],@db_config[Rails.env]['rsk_soap_password']]
+      soap.options["protocol.http.basic_auth"] << [soap_url,@config.rsk_soap_username,@config.rsk_soap_password]
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
