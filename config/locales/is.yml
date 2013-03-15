@@ -429,15 +429,15 @@ is:
   votes_header_ibuar_ses_label: "Íbúar ses"
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
-  choose_authentication: "<h1>Velkomin(n) á kosningavef Betri hverfa</h1>
-                          <p>Hér getur þú kosið um smærri framkvæmdir í hverfum Reykjavíkur.
-                          Kosningin stendur yfir frá 29. mars til 3. apríl. </p>
-
-                          <h1><a href='https://www.island.is/audkenning?id=ktest.betrireykjavik.is'>Smelltu á Ísland.is til að auðkenna þig</a></h1>
-                          <p>Auðkenningin er í samstarfi við Ísland.is. Hægt er að nota hvort heldur sem er aðalveflykil ríkisskattstjóra eða rafræn skilríki á debetkorti. Vakin er athygli á því að starfsmenn kosningarinnar hafa hvorki aðgang að kennitölu né veflykli kjósanda og þar af leiðandi ekki  þeim upplýsingum sem slík auðkenni veita aðgang að.</p>
+  introduction: "
+                          <h3>Kosning verkefna í hverfum Reykjavíkur</h3>
+                          <h3>Rafrænar kosningar í Reykjavík 4. - 11. apríl 2013</h3>
+"
+  choose_authentication: "                          <h3><a href='https://www.island.is/audkenning?id=ktest.betrireykjavik.is'>Auðkenndu þig á island.is</a></h3>
 "
 
-  choose_a_neighbourhood: "Þú getur kosið um framkvæmdir í einu hverfi. Veldu hverfi!"
+  choose_a_neighbourhood: "Þú getur aðeins kosið um framkvæmdir í einu hverfi."
+  choose_a_neighbourhood_2: "Veldu hverfi með því að smella á kortið"
 
   choose_another_neighbourhood: "Hér getur þú valið annað hverfi"
 

@@ -1,32 +1,24 @@
 #header
   #corner
-    %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/better_reykjavik_info' })" }
-      %img{:alt => "Home", :src => "/assets/logo-br.png", :class => "br_logo"}/
-  #blurbtext
-    %p
-      = succeed "." do
-        #{raw t :votes_header_info_text_1}
+    #submenu
+      %span.flags
+        = link_to image_tag("is.png"), params.merge(:locale=>"is")
+        = link_to image_tag("gb.png"), params.merge(:locale=>"en")
+      %ul.links
+        - if action_name=="select_area"
+          %li
+            %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
+        %li
+          %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
+        %li
+          %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} #{t :votes_header_rules_label}
+        %li
+          %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/logout_info' })"} #{t :votes_header_logout_label}
+      %ul.facebook
+        %li
+          .fb-like{"data-href" => "https://kjosa.betrireykjavik.is/", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "50"}
   #logo
     %a{:href => "/votes/select_area"}
       %img{:alt => "", :src => "/assets/logo.png"}/
-  #submenu
-    %ul.flags
-      %li
-        = link_to image_tag("is.png"), params.merge(:locale=>"is")
-      %li
-        = link_to image_tag("gb.png"), params.merge(:locale=>"en")
-      %li
-        = link_to image_tag("pl.png"), params.merge(:locale=>"pl")
-    %ul.facebook
-      %li
-        .fb-like{"data-href" => "https://kjosa.betrireykjavik.is/", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "50"}
-    %ul.links
-      - if action_name=="select_area"
-        %li
-          %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
-      %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
-      %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} #{t :votes_header_rules_label}
-      %li
-        %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/logout_info' })"} #{t :votes_header_logout_label}
+  #timeline
+    = link_to image_tag("/assets/01_timalina_audkenna_forsida_sma.png", :class => "timeline", :alt=>"Tímalína")

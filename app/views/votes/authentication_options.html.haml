@@ -6,8 +6,11 @@
     %br
 #content
   #welcome
-    = raw t :choose_authentication
-  #authentication_options
-  = link_to image_tag("/assets/island.is.logo.png", :class => "auth_logos", :alt=>"Island.is auðkenning"), @island_is_url
+    = raw t :introduction
+    = link_to image_tag("/assets/01_timalina_audkenna_forsida.png", :class => "timeline", :alt=>"Tímalína")
 
--#  = link_to image_tag("/assets/rafraen_reykjavik.gif", :class => "auth_logos"), @rr_url
+  #authentication_options
+    %br
+    %br
+    = raw t :choose_authentication
+    = link_to image_tag("/assets/island.is.png", :class => "auth_logos", :alt=>"Island.is auðkenning"), @island_is_url
