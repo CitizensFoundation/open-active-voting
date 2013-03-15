@@ -20,7 +20,7 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 5
+    @max_browsers = 3
     @max_votes = 10
     @neighborhood_ids = [1,2]
     #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
@@ -93,16 +93,12 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def get_user_votes(browser)
-    construction_votes = []
-    browser.elements(:class, "construction_vote_class").each do |element|
-      construction_votes << element.id.split("_")[1].to_i
+    votes = []
+    browser.elements(:class, "vote_class").each do |element|
+      votes << element.id.split("_")[1].to_i
     end
-    maintenance_votes = []
-    class_elements = browser.elements(:class, "maintenance_vote_class").each do |element|
-      maintenance_votes << element.id.split("_")[1].to_i
-    end
-    puts "VOTES FROM BROWSER: #{[construction_votes,maintenance_votes]}"
-    [construction_votes,maintenance_votes]
+    puts "VOTES FROM BROWSER: #{[votes]}"
+    [votes]
   end
 
   def all_votes
@@ -137,11 +133,9 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       test_count.count_all_test_votes(get_unique_votes(neighborhood_id),neighborhood_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
       #puts test_count.inspect
-      puts "Test: ct: #{test_count.construction_priority_ids_count} == #{database_count.construction_priority_ids_count}"
-      puts "Test: mt: #{test_count.maintenance_priority_ids_count} == #{database_count.maintenance_priority_ids_count}"
+      puts "Test: ct: #{test_count.priority_ids_count} == #{database_count.priority_ids_count}"
 
-      match = (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
-               test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
+      match = (test_count.priority_ids_count == database_count.priority_ids_count) ? true : false
       unless match
         puts "FAILED"
         all_passed = false
@@ -170,23 +164,20 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
     puts "From database:"
-    puts database_count.construction_priority_ids_count.inspect
-    puts database_count.maintenance_priority_ids_count.inspect
+    puts database_count.priority_ids_count.inspect
     puts Vote.count
     test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
     puts "From browser:"
-    puts test_count.construction_priority_ids_count.inspect
-    puts test_count.maintenance_priority_ids_count.inspect
+    puts test_count.priority_ids_count.inspect
     puts votes.count
-    (test_count.construction_priority_ids_count == database_count.construction_priority_ids_count &&
-     test_count.maintenance_priority_ids_count == database_count.maintenance_priority_ids_count) ? true : false
+    (test_count.priority_ids_count == database_count.priority_ids_count) ? true : false
   end
 
   def setup_votes
     @max_votes.times do
       seen = {}
-      construction_votes = (1..(rand(7)+2)).map { |n|
+      votes = (1..(rand(7)+2)).map { |n|
                               x = rand(12)+1
                               while (seen[x])
                                 x = rand(12)+1
@@ -194,17 +185,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
                               seen[x]=x
                               x
                             }
-      seen = {}
-      maintenance_votes = (1..(rand(7)+2)).map { |n|
-                              x = rand(12)+14
-                              while (seen[x])
-                                x = rand(12)+14
-                              end
-                              seen[x]=x
-                              x
-                            }
-
-      @votes << [construction_votes,maintenance_votes]
+      @votes << [votes]
     end
   end
 

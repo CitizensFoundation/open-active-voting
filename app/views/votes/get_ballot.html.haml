@@ -6,18 +6,18 @@
       %span.content-select
         %a{:href => "/votes/select_area"}
           = raw "#{t(:choose_another_neighbourhood)}"
+    %h3
+      = t :projects
+    %span.content-select.alignright
+      = "#{number_with_precision(@total, :precision => 1)} #{t :millions}"
+    #votebox
+      #votes
+      #votes_totals
+        %span#curtotal
+          =  " - - "
+        %span#total_text.redright
+          = t :chooce_projects_below
     #leftcol
-      %h3
-        = t :new_construction_projects
-      %span.content-select.alignright
-        = "#{number_with_precision(@construction_total, :precision => 1)} #{t :millions}"
-      #votebox_construction
-        #votes_construction
-        #votes_construction_totals
-          %span#construction_curtotal
-            =  " - - "
-          %span#construction_total_text.redright
-            = t :chooce_projects_below
       %span.header-txt
         = t :name_of_project
       %span.header-price
@@ -25,20 +25,9 @@
         %span.header-price-sml
           = t :in_millions
       .list
-        %ul#options_construction
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.construction_priorities(@neighborhood_id), :selected=>"construction"}
+        %ul#options_left
+          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[0..14]}
     #rightcol
-      %h3
-        = t :maintainance_projects
-      %span.content-select.alignright
-        = "#{number_with_precision(@maintenance_total, :precision => 1)} #{t :millions}"
-      #votebox_maintenance
-        #votes_maintenance
-        #votes_maintenance_totals
-          %span#maintenance_curtotal
-            = " - - "
-          %span#maintenance_total_text.redright
-            = t :chooce_projects_below
       %span.header-txt
         = t :name_of_project
       %span.header-price
@@ -46,8 +35,8 @@
         %span.header-price-sml
           = t :in_millions
       .list
-        %ul#options_maintenance
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.maintenance_priorities(@neighborhood_id), :selected=>"maintenance"}
+        %ul#options_right
+          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[15..30]}
     #vote
       %a{:href => "#"}
 
@@ -66,4 +55,4 @@
             = t :get_ballot_footer_3
     :javascript
       setLocalisedTexts('#{I18n.locale}','#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
-      setTotals(#{@construction_total},#{@maintenance_total});
+      setTotals(#{@total});

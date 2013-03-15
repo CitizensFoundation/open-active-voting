@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
 
   def update_activity_time
     # Update the activity time to keep the user session alive
-    if Rails.env.test?
+    unless Rails.env.production?
       session[:expires_at] = 600.hours.from_now
     else
       session[:expires_at] = (@config.timeout_in_seconds).seconds.from_now

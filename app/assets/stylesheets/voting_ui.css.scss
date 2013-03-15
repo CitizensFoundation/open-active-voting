@@ -1,16 +1,3 @@
-#votebox_construction, #votebox_maintenance  {
-	vertical-align:	middle;
-}
-
-#votes_construction, #votes_maintenance  {
-	position:		relative;
-	display:		inline-block;
-	width:		450px;
-	height:		43px;
-	border:		1px solid #D9DFE8;
-	overflow:		hidden;
-    margin-top: 5px;
-}
 
 
 li.selected {
@@ -21,7 +8,7 @@ li.disabled {
 	background:	#555;
 }
 
-#votes_construction div,#votes_maintenance div  {
+#votes div {
 	float:		left;
 	display:	inline-block;
 	height:		29px;
@@ -37,7 +24,7 @@ li.disabled {
 }
 
 
-#votes_construction_totals, #votes_maintenance_totals
+#votes_totals
  {
     margin-bottom: 10px;
  }

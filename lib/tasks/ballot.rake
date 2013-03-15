@@ -44,7 +44,7 @@ def get_until_budget_full(budget,priorities)
   selected
 end
 
-def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_priorities_html,selected_maintenance_priorities_html)
+def create_html_doc(neighborhood_name,test_ballot_number,selected_priorities_html)
   html = <<DOC
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
@@ -104,8 +104,7 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_construction_p
 DOC
   html = html.gsub("GSUB_NAFN_HVERFIS",neighborhood_name)
   html = html.gsub("GSUB_NUMERID_THITT",test_ballot_number.to_s)
-  html = html.gsub("GSUB_NYFRAMKVAEMDIR",selected_construction_priorities_html)
-  html = html.gsub("GSUB_VIDHALDSVERKEFNI",selected_maintenance_priorities_html)
+  html = html.gsub("GSUB_FRAMKVAEMDIR",selected_priorities_html)
   html
 end
 
@@ -116,11 +115,7 @@ namespace :ballot do
     neighborhood_id = ENV['neighborhood_id'].to_i
     ballot = ReykjavikBudgetBallot.current
     puts "Construction"
-    ballot.neighborhoods[neighborhood_id][:construction_priorities].each do |priority|
-      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
-    end
-    puts "Maintenance"
-    ballot.neighborhoods[neighborhood_id][:maintenance_priorities].each do |priority|
+    ballot.neighborhoods[neighborhood_id][:priorities].each do |priority|
       puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
     end
   end
@@ -141,25 +136,16 @@ namespace :ballot do
     Dir.mkdir("test_ballots") unless File.exists?("test_ballots")
     test_ballots = []
     number_of_voters.times do |test_ballot_number|
-      selected_construction_priorities = get_until_budget_full(budget,ballot.construction_priorities(neighborhood_id))
-      selected_construction_priorities_html = ""
-      selected_construction_priorities_ids = []
-      selected_construction_priorities.sort_by { |v| v[:letter] }.each do |priority|
+      selected_priorities = get_until_budget_full(budget,ballot.priorities(neighborhood_id))
+      selected_priorities_html = ""
+      selected_priorities_ids = []
+      selected_priorities.sort_by { |v| v[:letter] }.each do |priority|
         unless rand(40)==7 # Don't finish the budget 1/40 times
-          selected_construction_priorities_ids << priority[:id]
-          selected_construction_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+          selected_priorities_ids << priority[:id]
+          selected_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
         end
       end
-      selected_maintenance_priorities = get_until_budget_full(budget,ballot.maintenance_priorities(neighborhood_id))
-      selected_maintenance_priorities_html = ""
-      selected_maintenance_priorities_ids = []
-      selected_maintenance_priorities.sort_by { |v| v[:letter] }.each do |priority|
-        unless rand(40)==7 # Don't finish the budget 1/40 times
-          selected_maintenance_priorities_ids << priority[:id]
-          selected_maintenance_priorities_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
-        end
-      end
-      puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+offset,selected_construction_priorities_html,selected_maintenance_priorities_html)
+      puts html_out = create_html_doc(ballot.get_neighborhood_name(neighborhood_id),test_ballot_number+offset,selected_priorities_html)
       File.open("test_ballots/test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
     end
   end
@@ -199,35 +185,23 @@ namespace :ballot do
     current_neighborhood = nil
     master_id = 0
 
-    construction_priorities_count = nil
-    maintenance_priorities_count = nil
+    priorities_count = nil
 
     CSV.parse(File.open(ENV['infile']).read).each do |row|
       #puts row
       if state=="waiting_for_neighborhood" and current_neighborhood = find_neighborhood(row[2])
-        puts state = "wait_for_construction_priorities"
-      elsif state == "wait_for_construction_priorities" and row[2]=="Nýframkvæmdir"
-        puts state = "construction_priorities"
-        construction_priorities_count = -1
-      elsif state == "construction_priorities"
+        puts state = "wait_for_priorities"
+      elsif state == "wait_for_priorities" and row[2]=="Framkvæmdir"
+        puts state = "priorities"
+        priorities_count = -1
+      elsif state == "priorities"
         if row[2]==nil
-          puts state = "wait_for_maintenance_priorities"
+          puts state = "end"
         else
           #puts "Found project row: #{row}"
           @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
-          @neighborhoods[current_neighborhood[:id]][:construction_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:construction_priorities]
-          @neighborhoods[current_neighborhood[:id]][:construction_priorities] << make_data_hash(row,master_id+=1,construction_priorities_count+=1)
-        end
-      elsif state == "wait_for_maintenance_priorities" and row[2]=="Viðhaldsverkefni"
-        puts state = "maintenance_priorities"
-        maintenance_priorities_count = -1
-      elsif state == "maintenance_priorities"
-        if row[2]==nil
-          puts state = "waiting_for_neighborhood"
-        else
-          @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
-          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:maintenance_priorities]
-          @neighborhoods[current_neighborhood[:id]][:maintenance_priorities] << make_data_hash(row,master_id+=1,maintenance_priorities_count+=1)
+          @neighborhoods[current_neighborhood[:id]][:priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:priorities]
+          @neighborhoods[current_neighborhood[:id]][:priorities] << make_data_hash(row,master_id+=1,priorities_count+=1)
         end
       end
     end
