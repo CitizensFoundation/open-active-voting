@@ -9,6 +9,8 @@
           %li
             %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
         %li
+          %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :choose_another_neighbourhood}
+        %li
           %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
         %li
           %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/rules_info' })"} #{t :votes_header_rules_label}

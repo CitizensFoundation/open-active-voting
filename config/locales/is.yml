@@ -439,7 +439,7 @@ is:
   choose_a_neighbourhood: "Þú getur aðeins kosið um framkvæmdir í einu hverfi."
   choose_a_neighbourhood_2: "Veldu hverfi með því að smella á kortið"
 
-  choose_another_neighbourhood: "Hér getur þú valið annað hverfi"
+  choose_another_neighbourhood: "Þú getur valið annað hverfi"
 
   new_projects: "Nýframkvæmdir"
 
@@ -456,6 +456,8 @@ is:
   price: "Upphæð"
 
   in_millions: "í milljónum"
+
+  total_budget: "XX milljóna króna fjárveiting"
 
   you_dont_need_to_finish_all_the_budget: "Þú þarft ekki að nota alla upphæðina"
 

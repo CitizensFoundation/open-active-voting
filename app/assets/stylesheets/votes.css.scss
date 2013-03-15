@@ -30,7 +30,7 @@ strong { font-weight: normal;
 .content-select {	font-size: 13px; margin-left: 10px;  }
 
 
-a:link {		color: #336699; text-decoration: none; }
+a:link {		color: #f00; text-decoration: none; }
 a:visited  {	color: #003366; text-decoration: none; }
 a:hover {		color: #003366; text-decoration: none; }
 
@@ -61,7 +61,9 @@ img { border:0;}
 .corner-txt {		font-size: 85%; font-style: italic; margin: 5px 0 0 80px;  }
 
 #content {			margin: 0px 0 0 10px;  }
+#content_vote {			margin: 0px 10px 10px 10px;  }
 #content.popup {			margin: 0px;}
+
 
 .info {			    margin: 0px; position:relative; float:right;}
 .info img {	 padding-right:8px; padding-top: 4px;}
@@ -90,7 +92,7 @@ margin-right: 30px;
   margin-top: 35px;
   padding: 5px;
 }
-h1 {				margin: 0 0 0 17px; display: inline; color: #333; font-size: 150%;  }
+h1 {				margin: 10px 0 10px 17px; color: #333; font-size: 150%;  }
 #popup h1 {				margin: 0px; display: block; color: #333; font-size: 150%; margin-bottom: 5px;padding-top: 10px; }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%; top: 0px; position: relative; margin-left: 25px;}
 h3 {				font-size: 22px; margin-top: 20px; margin-bottom: 40px; display: block;}
@@ -98,12 +100,11 @@ h3.neighbourhood2 {font-size: 22px; margin-top: -20px; margin-bottom: 10px; disp
 h4 {				margin-top: 10px; margin-bottom:5px; margin-left:10px;}
 iframe{          	border: 0px; width: 750px; height:600px;}
 
-#leftcol {		margin-top: 20px; width: 450px; float: left;   }
+#leftcol {		 width: 450px; float: left;   }
 #rightcol {		margin-top:20px; width: 450px; margin-left: 475px;  }
 
 
-#votes_ny {		 	background: url('bg-vote.png') repeat-x; width: 446px; height: 80px; margin:10px 0px; padding:2px; }
-#votes_vid {		background: url('bg-vote.png') repeat-x;width: 446px; height: 80px;  margin:10px 0px; padding:2px;   }
+#votes {		 	border: 1px solid #ccc; width: 926px; height: 43px; margin:10px 0px; padding:1px; }
 
 .header-txt {		margin-left:20px; font-weight: bold; }
 .header-price {		margin-left: 230px; font-weight: bold;  }
@@ -144,7 +145,9 @@ ul.flags li {  margin-left: 0px;}
 
 #area_options img { margin-left: 15px;}
 
-.redright {float:right; color: red;}
+.right {float:right;}
+
+.center {margin-left: 250px;}
 
 .content-text {		width: 400px;  }
 #hverfi {			width: 250px; float:right; font-size: 85%; color: #333; line-height: 150%;  }

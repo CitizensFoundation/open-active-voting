@@ -1,13 +1,11 @@
 %form{:name => 'vote'}
-  #content
+  #content_vote
     #content-title
       %h1.content-title
         = @reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)
       %span.content-select
         %a{:href => "/votes/select_area"}
           = raw "#{t(:choose_another_neighbourhood)}"
-    %h3
-      = t :projects
     %span.content-select.alignright
       = "#{number_with_precision(@total, :precision => 1)} #{t :millions}"
     #votebox
@@ -15,44 +13,37 @@
       #votes_totals
         %span#curtotal
           =  " - - "
-        %span#total_text.redright
+        %span#total_text.center
+          = t :total_budget
+        %span#total_text.right
           = t :chooce_projects_below
-    #leftcol
-      %span.header-txt
-        = t :name_of_project
-      %span.header-price
-        = t :price
-        %span.header-price-sml
-          = t :in_millions
-      .list
-        %ul#options_left
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[0..14]}
-    #rightcol
-      %span.header-txt
-        = t :name_of_project
-      %span.header-price
-        = t :price
-        %span.header-price-sml
-          = t :in_millions
-      .list
-        %ul#options_right
-          = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[15..30]}
+    #projects_wrapper
+      #leftcol
+        %span.header-txt
+          = t :name_of_project
+        %span.header-price
+          = t :price
+          %span.header-price-sml
+            = t :in_millions
+        .list
+          %ul#options_left
+            = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[0..14]}
+      #rightcol
+        %span.header-txt
+          = t :name_of_project
+        %span.header-price
+          = t :price
+          %span.header-price-sml
+            = t :in_millions
+        .list
+          %ul#options_right
+            = render :partial => "priorities", :locals=>{ :priorities => @reykjavik_budget_ballot.priorities(@neighborhood_id)[15..30]}
     #vote
       %a{:href => "#"}
 
       %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
       %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :title=>"Smelltu hér til að kjósa", :alt => 'Smelltu hér til að kjósa'}
 
-      #blurbtext_wide
-        %p
-          %b
-            = t :get_ballot_footer_1
-        %p
-          %b
-            = t :get_ballot_footer_2
-        %p
-          %b
-            = t :get_ballot_footer_3
     :javascript
       setLocalisedTexts('#{I18n.locale}','#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
       setTotals(#{@total});
