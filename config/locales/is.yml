@@ -457,6 +457,15 @@ is:
 
   in_millions: "í milljónum"
 
+  thank_you_1: "ATKVÆÐI ÞITT HEFUR VERIÐ MÓTTEKIÐ"
+  thank_you_2: "og þú hefur verið skráð(ur) út."
+  thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningakerfið er opið dagana 4. - 11. Apríl"
+  thank_you_4: "Síðasta atkvæðið er það sem gildir."
+  click_to_vote_again: "Smelltu hér til að kjósa aftur"
+  betri_reykjavik_1: "Íbúalýðræði allt árið um kring."
+  betri_reykjavik_2: "Hægt er að setja inn hugmyndir og fylgjast með málefnum"
+  betri_reykjavik_3: "Reykjavíkurborgar á Betri Reykjavík allt árið um kring."
+
   total_budget: "XX milljóna króna fjárveiting"
 
   you_dont_need_to_finish_all_the_budget: "Þú þarft ekki að nota alla upphæðina"

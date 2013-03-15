@@ -48,7 +48,7 @@ img { border:0;}
 #blurbtext {		width: 280px; float: right; margin: 8px 50px 0 0; height: 50px; overflow: hidden; }
 #blurbtext_wide {		width: 100%; margin-top: 10px; }
 #blurbtext p, #blurbtext_wide {		color: #f00;  }
-#timeline { margin-top: -15px; margin-left: 76px; }
+#timeline { margin-top: -20px; margin-left: 76px; }
 
 #submenu {text-align: right; margin-top: 0px; padding-left: 3px; }
 
@@ -97,7 +97,7 @@ h1 {				margin: 10px 0 10px 17px; color: #333; font-size: 150%;  }
 h2 {				margin: 0px; display: inline; color: #cc3333;  font-size: 150%; top: 0px; position: relative; margin-left: 25px;}
 h3 {				font-size: 22px; margin-top: 20px; margin-bottom: 40px; display: block;}
 h3.neighbourhood2 {font-size: 22px; margin-top: -20px; margin-bottom: 10px; display: block;}
-h4 {				margin-top: 10px; margin-bottom:5px; margin-left:10px;}
+h4 {				font-size: 18px; margin-top: 10px; margin-bottom:5px; margin-left:10px;}
 iframe{          	border: 0px; width: 750px; height:600px;}
 
 #leftcol {		 width: 450px; float: left;   }
@@ -211,4 +211,38 @@ ul.flags li {  margin-left: 0px;}
 /* Chrome and Safari hack */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 {}
+
+
+.received
+{
+  margin: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  border: 1px solid #f00;
+  background: #ccf;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url(asset_path("/assets/PIE.htc", image));
+}
+
+
+#betri_reykjavik
+{
+  border: red 1px dashed;
+  padding: 20px;
+  margin-bottom: 40px;
+  width: 400px !important;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url(asset_path("/assets/PIE.htc", image));
+}
+
+.vote_again
+{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 

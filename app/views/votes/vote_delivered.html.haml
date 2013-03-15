@@ -1,0 +1,28 @@
+#flash.popup
+  - if flash[:notice]
+    %h2
+      = flash[:notice]
+    %br
+    %br
+#content
+  #thank_you_message
+    %div.received
+      %h3
+        = raw t :thank_you_1
+      %h3
+        = raw t :thank_you_2
+    %h4
+      = raw t :thank_you_3
+    %h4
+      = raw t :thank_you_4
+    %h4.vote_again
+      = raw t :click_to_vote_again
+
+  #betri_reykjavik
+    = link_to image_tag("/assets/betrireykjavik.png", :class => "betrireykjavik", :alt=>"Betri Reykjavík"), @island_is_url
+    %p
+      = raw t :betri_reykjavik_1
+    %p
+      = raw t :betri_reykjavik_2
+    %p
+      = raw t :betri_reykjavik_3
