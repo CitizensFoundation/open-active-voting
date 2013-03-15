@@ -41,7 +41,7 @@ img { border:0;}
 #wrapper {			width: 950px; margin:0px auto; background-color: #fcfcfc;  height: 100%; min-height:700px;   }
 #header {			padding: 10px 10px 0px 10px; height: 70px;    }
 #footer {			margin: 20px auto 20px auto; bottom:0; width: 940px; text-align: center;  }
-.votecount span, #footer a {border-right: 1px #999 dotted;padding-left: 5px; padding-right: 5px; }
+.votecount span, #footer a {border-right: 1px #999 dotted;padding-left: 7px; padding-right: 15px; }
 
 #logo {				float: left;}
 #logo img {				height: 65px; }
@@ -126,10 +126,16 @@ iframe{          	border: 0px; width: 750px; height:600px;}
 }
 
 .flags {float:right; padding: 0px; margin-left: 15px;}
-.facebook {float:right; text-align: right; width:130px;}
+
+.flags img
+{
+  margin-left: 10px;
+}
+
+#facebook ul {float:right; text-align: right; width:130px; display: block; margin-top: 0px;	list-style-type: none;}
 
 
-ul.links { margin-top:14px;}
+ul.links { margin-top:13px;}
 ul.links li {  margin-left: 0px;}
 ul.flags li {  margin-left: 0px;}
 
