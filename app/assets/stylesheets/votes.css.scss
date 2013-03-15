@@ -43,14 +43,14 @@ img { border:0;}
 #footer {			margin: 20px auto 20px auto; bottom:0; width: 940px; text-align: center;  }
 .votecount span, #footer a {border-right: 1px #999 dotted;padding-left: 7px; padding-right: 15px; }
 
-#logo {				float: left;}
+#logo {			}
 #logo img {				height: 65px; }
 #blurbtext {		width: 280px; float: right; margin: 8px 50px 0 0; height: 50px; overflow: hidden; }
 #blurbtext_wide {		width: 100%; margin-top: 10px; }
 #blurbtext p, #blurbtext_wide {		color: #f00;  }
-#timeline { position: relative;top: 50px;left: -138px;  }
+#timeline { margin-top: -15px; margin-left: 76px; }
 
-#submenu {text-align: right; margin-top: 0px; padding-left: 3px; width: 400px;  }
+#submenu {text-align: right; margin-top: 0px; padding-left: 3px; }
 
 #submenu ul {		list-style-type: none; }
 #submenu ul li {	display: inline;
