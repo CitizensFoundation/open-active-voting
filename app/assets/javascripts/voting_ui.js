@@ -13,16 +13,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var construction_selected = [];
-var maintenance_selected = [];
+var selected = [];
 
-var construction_curtotal = 0;
-var maintenance_curtotal = 0;
+var curtotal = 0;
 
-var construction_total = 0;
-var maintenance_total = 0;
+var total = 0;
 
-var voteswidth = 450;
+var voteswidth = 900;
 
 var locale;
 
@@ -63,20 +60,17 @@ function setLocalisedTexts(locale_set,select_projects_below_set, no_need_to_empt
     left_text = left_text_set;
 }
 
-function setTotals(construction_total_to_set, maintenance_total_to_set) {
-    construction_total = construction_total_to_set;
-    maintenance_total = maintenance_total_to_set;
-    $("#construction_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total).toFixed(1)))+" "+left_text);
-    $("#maintenance_curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total).toFixed(1)))+" "+left_text);
-    construction_total = parseFloat(construction_total).toFixed(1);
-    maintenance_total = parseFloat(maintenance_total).toFixed(1);
+function setTotals(total_to_set) {
+    total = total_to_set;
+    $("#curtotal").html(parseLocalNum((0.0).toFixed(1))+" "+used_text+", "+(parseLocalNum((total).toFixed(1)))+" "+left_text);
+    total = parseFloat(total).toFixed(1);
 }
 
 function parseLocalNum(num) {
     return num.replace(".", ",");
 }
 
-function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
+function select(item,selected,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
     var id = item.id.split("_")[1];
     if ($(item).hasClass("disabled")) {
         return;
@@ -94,26 +88,17 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
                 $("#opt_"+id).remove();
             }
         }
-        if (the_type=="construction") {
-          construction_curtotal -= optprice;
-          curtotal=construction_curtotal;
-        } else {
-          maintenance_curtotal -= optprice;
-          curtotal=maintenance_curtotal;
-        }
+       curtotal -= optprice;
+       curtotal=curtotal;
     } else {
         selected.push(id);
         $(item).addClass("selected");
-        $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+the_type+"_vote_class\">" + optletter + "");
-        if (the_type=="construction") {
-          construction_curtotal += optprice;
-          curtotal=construction_curtotal;
-        } else {
-          maintenance_curtotal += optprice;
-          curtotal=maintenance_curtotal;
-        }
+        $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+"vote_class\">" + optletter + "");
+        curtotal += optprice;
+        curtotal=curtotal;
     }
-    var allopts = $(optionsDiv).children();
+    var allopts = $(optionsDiv+"_left").children();
+    allopts += $(optionsDiv+"_right").children();
     for (var i = 0; i < allopts.length; i++) {
         opt = allopts[i];
         if ($(opt).hasClass("selected")) {
@@ -127,22 +112,13 @@ function select(item,selected,the_type,curtotal,total,curTotalDiv,optionsDiv,vot
             $(opt).removeClass("disabled");
         }
     }
-    if (the_type=="construction") {
-        if (construction_curtotal>0) {
-          $('#construction_total_text').text(no_need_to_empty_text);
-        } else {
-          $('#construction_total_text').text(select_projects_below);
-        }
-        $(curTotalDiv).html(parseLocalNum(construction_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((construction_total-construction_curtotal).toFixed(1)))+" "+left_text);
+    if (curtotal>0) {
+      $('#total_text').text(no_need_to_empty_text);
     } else {
-        if (maintenance_curtotal>0) {
-          $('#maintenance_total_text').text(no_need_to_empty_text);
-        } else {
-          $('#maintenance_total_text').text(select_projects_below);
-        }
-        $(curTotalDiv).html(parseLocalNum(maintenance_curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((maintenance_total-maintenance_curtotal).toFixed(1)))+" "+left_text);
+      $('#total_text').text(select_projects_below);
     }
-    if (construction_curtotal>0 || maintenance_curtotal>0) {
+    $(curTotalDiv).html(parseLocalNum(curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((total-curtotal).toFixed(1)))+" "+left_text);
+    if (curtotal>0) {
         $(".button").attr("disabled", false);
         $("#submit_btn").attr({src: "/assets/vote_"+locale+".png"});
     } else {

@@ -168,7 +168,7 @@ class VotesController < ApplicationController
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.current
 
     # Get the budget for the given neighborhood id
-    @maintenance_total = @construction_total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
+     @total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
 
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = ('a'..'m').to_a

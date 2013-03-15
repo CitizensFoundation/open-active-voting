@@ -18,13 +18,11 @@
 require 'csv'
 
 class ReykjavikBudgetVoteCounting
-  attr_reader :construction_priority_ids_count, :maintenance_priority_ids_count
+  attr_reader :priority_ids_count
 
   def initialize(private_key_file)
-    @construction_priority_ids_count = Hash.new
-    @maintenance_priority_ids_count = Hash.new
-    @construction_priority_ids_selected_count = Hash.new
-    @maintenance_priority_ids_selected_count = Hash.new
+    @priority_ids_count = Hash.new
+    @priority_ids_selected_count = Hash.new
     @private_key_file = private_key_file
     @ballot = ReykjavikBudgetBallot.current
     @invalid_votes = []
@@ -88,17 +86,11 @@ class ReykjavikBudgetVoteCounting
       csv << [""]
       write_voting_totals(csv)
       csv << [""]
-      csv << ["Valin verkefni fyrir Nýframkvæmdir"]
-      add_priorities_to_csv(@construction_priority_ids_selected_count,csv)
+      csv << ["Valin verkefni fyrir Framkvæmdir"]
+      add_priorities_to_csv(@priority_ids_selected_count,csv)
       csv << [""]
-      csv << ["Valin verkefni fyrir Viðhaldsverkefni"]
-      add_priorities_to_csv(@maintenance_priority_ids_selected_count,csv)
-      csv << [""]
-      csv << ["Heildaratkvæði fyrir Nýframkvæmdir"]
-      add_priorities_to_csv(@construction_priority_ids_count,csv)
-      csv << [""]
-      csv << ["Heildaratkvæði fyrir Viðhaldsverkefni"]
-      add_priorities_to_csv(@maintenance_priority_ids_count,csv)
+      csv << ["Heildaratkvæði fyrir Framkvæmdir"]
+      add_priorities_to_csv(@priority_ids_count,csv)
       unless @invalid_votes.empty?
         csv << [""]
         csv << ["Ógild atkvæði"]
@@ -136,8 +128,7 @@ class ReykjavikBudgetVoteCounting
 
   def select_top_priorities_that_still_fit_budget
     # Select the top priorities that still fit the budget
-    @construction_priority_ids_selected_count = select_top_priorities(@construction_priority_ids_count)
-    @maintenance_priority_ids_selected_count = select_top_priorities(@maintenance_priority_ids_count)
+    @priority_ids_selected_count = select_top_priorities(@priority_ids_count)
   end
 
   def select_top_priorities(priority_ids)
@@ -164,23 +155,14 @@ class ReykjavikBudgetVoteCounting
 
   def add_votes(decrypted_vote)
     # Add votes to the correct arrays
-    add_construction_votes(decrypted_vote.construction_priority_ids)
-    add_maintenance_votes(decrypted_vote.maintenance_priority_ids)
+    add_votes(decrypted_vote.priority_ids)
   end
 
-  def add_construction_votes(priority_ids)
+  def add_votes(priority_ids)
     # Add the construction votes to an array
     priority_ids.each do |priority_id|
-      @construction_priority_ids_count[priority_id] = 0 unless @construction_priority_ids_count[priority_id]
-      @construction_priority_ids_count[priority_id] += 1
-    end
-  end
-
-  def add_maintenance_votes(priority_ids)
-    # Add the maintenance votes to an array
-    priority_ids.each do |priority_id|
-      @maintenance_priority_ids_count[priority_id] = 0 unless @maintenance_priority_ids_count[priority_id]
-      @maintenance_priority_ids_count[priority_id] += 1
+      @priority_ids_count[priority_id] = 0 unless @priority_ids_count[priority_id]
+      @priority_ids_count[priority_id] += 1
     end
   end
 
