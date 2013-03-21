@@ -431,9 +431,10 @@ is:
 
   introduction: "
                           <h3>Kosning verkefna í hverfum Reykjavíkur</h3>
-                          <h3>Rafrænar kosningar í Reykjavík 4. - 11. apríl 2013</h3>
+                          <h5>4. - 11. apríl 2013</h5>
+                          <h4>Kosningin er í fjórum skrefum:</h4>
 "
-  choose_authentication: "                          <h3><a href='https://www.island.is/audkenning?id=ktest.betrireykjavik.is'>Auðkenndu þig á island.is</a></h3>
+  choose_authentication: "                          <h3>Smelltu á hnappinn hér fyrir neðan til að byrja</a></h3>
 "
 
   choose_a_neighbourhood: "Þú getur aðeins kosið um framkvæmdir í einu hverfi."
@@ -457,10 +458,10 @@ is:
 
   in_millions: "í milljónum"
 
-  thank_you_1: "ATKVÆÐI ÞITT HEFUR VERIÐ MÓTTEKIÐ"
+  thank_you_1: "Takk fyrir! <br />Atkvæði þitt hefur verið móttekið"
   thank_you_2: "og þú hefur verið skráð(ur) út."
   thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningakerfið er opið dagana 4. - 11. Apríl"
-  thank_you_4: "Síðasta atkvæðið er það sem gildir."
+  thank_you_4: "Síðasta atkvæðið þitt er það sem gildir."
   click_to_vote_again: "Smelltu hér til að kjósa aftur"
   betri_reykjavik_1: "Íbúalýðræði allt árið um kring."
   betri_reykjavik_2: "Hægt er að setja inn hugmyndir og fylgjast með málefnum"
