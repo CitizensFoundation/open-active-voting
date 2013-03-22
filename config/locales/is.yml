@@ -412,10 +412,8 @@ is:
   votes_vote_count_none: "Þú hefur ekki kosið ennþá"
 
   votes_header_info_text_1: "<b>Þú getur aðeins valið
-                             að kjósa í einu hverfi.</b>
-                             Þú getur kosið um
-                             <b>nýframkvæmdir og
-                             viðhaldsverkefni</b>"
+                             að kjósa í einu hverfi.</b>"
+
   votes_header_help_label: "Hjálp"
   votes_header_finnahverfi_label: "Finna hverfið mitt"
   votes_header_rules_label: "Reglur"
@@ -430,7 +428,7 @@ is:
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
 
   introduction: "
-                          <h3>Kosning verkefna í hverfum Reykjavíkur</h3>
+                          <h2>Kosning verkefna í hverfum Reykjavíkur</h2>
                           <h5>4. - 11. apríl 2013</h5>
                           <h4>Kosningin er í fjórum skrefum:</h4>
 "
@@ -458,22 +456,21 @@ is:
 
   in_millions: "í milljónum"
 
-  thank_you_1: "Takk fyrir! <br />Atkvæði þitt hefur verið móttekið"
-  thank_you_2: "og þú hefur verið skráð(ur) út."
-  thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningakerfið er opið dagana 4. - 11. Apríl"
-  thank_you_4: "Síðasta atkvæðið þitt er það sem gildir."
+  thank_you_1: "Takk fyrir!"
+  thank_you_2: "Atkvæði þitt hefur verið móttekið<br />og þú hefur verið skráð(ur) út."
+  thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningakerfið er opið,<br /> dagana 4. - 11. apríl. Síðasta atkvæðið þitt er það sem gildir."
   click_to_vote_again: "Smelltu hér til að kjósa aftur"
-  betri_reykjavik_1: "Íbúalýðræði allt árið um kring."
-  betri_reykjavik_2: "Hægt er að setja inn hugmyndir og fylgjast með málefnum"
-  betri_reykjavik_3: "Reykjavíkurborgar á Betri Reykjavík allt árið um kring."
+
+  betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing.png" alt="Betri Reykjavík"/></a>
+  vote_again: <a href="/votes/authentication_options"><img src="/assets/smelltu_her_til_ad_kjosa_aftur.png" alt="Smelltu hér til að kjósa aftur"/></a>
 
   total_budget: "XX milljóna króna fjárveiting"
 
   you_dont_need_to_finish_all_the_budget: "Þú þarft ekki að nota alla upphæðina"
 
-  get_ballot_footer_1: "Þú getur einungis kosið í einu hverfi, að eigin vali."
-  get_ballot_footer_2: "Atkvæðið er gilt þótt þú kjósir einungis í öðrum flokknum."
-  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
+#  get_ballot_footer_1: "Þú getur einungis kosið í einu hverfi, að eigin vali."
+#  get_ballot_footer_2: "Atkvæðið er gilt þótt þú kjósir einungis í öðrum flokknum."
+#  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
 # Texts
   votes_logout_text: "<h1>Útskráning</h1><p>

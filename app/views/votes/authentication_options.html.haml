@@ -1,19 +1,19 @@
 #flash.popup
   - if flash[:notice]
-    %h2
+    %h2.flash
       = flash[:notice]
     %br
-    %br
 
-#content_authentication
-  #welcome
-    = raw t :introduction
+#content_wrapper
+  #content_authentication
+    #welcome
+      = raw t :introduction
 
-  #timeline
-    = link_to image_tag("/assets/1_ferlistika_audkenna.png", :class => "timeline", :alt=>"Tímalína")
+    #timeline
+      = link_to image_tag("/assets/1_ferlistika_audkenna.png", :class => "timeline", :alt=>"Tímalína")
 
-  #authentication_options
-    %br
-    %br
-    = raw t :choose_authentication
-    = link_to image_tag("/assets/island.is.png", :class => "auth_logos", :alt=>"Island.is auðkenning"), @island_is_url
+    #authentication_options
+      %br
+      %br
+      = raw t :choose_authentication
+      = link_to image_tag("/assets/island.is.png", :class => "auth_logos", :alt=>"Island.is auðkenning"), @island_is_url

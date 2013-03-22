@@ -1,28 +1,24 @@
 #flash.popup
   - if flash[:notice]
-    %h2
+    %h2.flash
       = flash[:notice]
     %br
-    %br
-#content_vote_delivered
-  #thank_you_message
-    %div.received
-      %h3
-        = raw t :thank_you_1
-      %h3
-        = raw t :thank_you_2
-    %h4
-      = raw t :thank_you_3
-    %h4
-      = raw t :thank_you_4
-    %h4.vote_again
-      = raw t :click_to_vote_again
+
+#content_wrapper
+  #timeline
+    = link_to image_tag("/assets/4_ferlistika_atkvaedi_mottekid.png", :class => "timeline", :alt=>"Tímalína")
+
+  #content_vote_delivered
+    #thank_you_message
+      %div#received
+        %h2
+          = raw t :thank_you_1
+        %h3
+          = raw t :thank_you_2
+      %h4
+        = raw t :thank_you_3
+      %h4.vote_again
+        = raw t :vote_again
 
   #betri_reykjavik
-    = link_to image_tag("/assets/betrireykjavik.png", :class => "betrireykjavik", :alt=>"Betri Reykjavík"), @island_is_url
-    %p
-      = raw t :betri_reykjavik_1
-    %p
-      = raw t :betri_reykjavik_2
-    %p
-      = raw t :betri_reykjavik_3
+    = raw t :betri_reykjavik
