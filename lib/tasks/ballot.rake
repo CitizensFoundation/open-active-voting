@@ -9,22 +9,6 @@ class Array
   end
 end
 
-def find_neighborhood(name)
-  puts name
-  if name and name!=""
-    @ballot.neighborhoods.each do |neighborhood_id,hash_value|
-      if hash_value[:name]==name
-        puts "Found: #{hash_value}"
-        return hash_value
-        break
-      end
-    end
-    return false
-  else
-    return false
-  end
-end
-
 def change_price_to_i(price_txt)
   price_txt.gsub(" kr.","").gsub(",","").to_i
 end
@@ -151,15 +135,18 @@ namespace :ballot do
   end
 
   def make_data_hash(row,master_id,count)
-    letter_of_alphabet = ('a'..'m').to_a
+
+    puts row[5]
+
+    letter_of_alphabet = ReykjavikBudgetBallot::ALLOWED_BALLOT_CHARACTERS
     { :letter=>letter_of_alphabet[count],
       :id=>master_id,
       :name=>"new_project_name_id_#{master_id}",
       :description=>"new_project_description_id_#{master_id}",
-      :name_is=>row[5], :description_is=>row[6],
+      :name_is=>row[4], :description_is=>row[6],
       :name_en=>row[7], :description_en=>row[6],
-      :price=>change_price_to_i(row[8]),
-      :link=>row[9] }
+      :price=>change_price_to_i(row[5]),
+      :link=>row[2] }
   end
 
 
@@ -185,25 +172,20 @@ namespace :ballot do
     current_neighborhood = nil
     master_id = 0
 
-    priorities_count = nil
+    priorities_count = 0
 
     CSV.parse(File.open(ENV['infile']).read).each do |row|
-      #puts row
-      if row[1] current_neighborhood = find_neighborhood(row[2])
-        puts state = "wait_for_priorities"
-      elsif state == "wait_for_priorities" and row[2]=="Nýframkvæmdir"
-        puts state = "priorities"
+      #puts "#{master_id} #{row}"
+      if row[0]=="Neighborhood Id"
+        current_neighborhood = row[1].to_i
         priorities_count = -1
-      elsif state == "priorities"
-        if row[2]==nil
-          puts state = "wait_for_maintenance_priorities"
-        else
-          #puts "Found project row: #{row}"
-          @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
-          @neighborhoods[current_neighborhood[:id]][:priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:priorities]
-          @neighborhoods[current_neighborhood[:id]][:priorities] << make_data_hash(row,master_id+=1,priorities_count+=1)
-        end
-
+      elsif row[0]=="END"
+        puts "The End of the import document"
+      else
+        @neighborhoods[current_neighborhood]=Hash.new unless @neighborhoods[current_neighborhood]
+        @neighborhoods[current_neighborhood][:priorities]=[] unless @neighborhoods[current_neighborhood][:priorities]
+        @neighborhoods[current_neighborhood][:priorities] << make_data_hash(row,master_id+=1,priorities_count+=1)
+      end
     end
     main_outfile = ""
     is_yml = ""
@@ -211,9 +193,9 @@ namespace :ballot do
     @neighborhoods.each do |id, project_types|
       project_types.each do |project_type,array|
         array.each do |item|
-          is_yml += "#{item[:name]}: \"#{item[:name_is].strip}\"\n"
+          is_yml += "#{item[:name]}: \"#{item[:name_is].strip.escape_quotes}\"\n"
           is_yml += "#{item[:description]}: \"#{item[:description_is].strip.escape_quotes}\"\n"
-          en_yml += "#{item[:name]}: \"#{item[:name_en].strip}\"\n"
+          en_yml += "#{item[:name]}: \"#{item[:name_en].strip.escape_quotes}\"\n"
           en_yml += "#{item[:description]}: \"#{item[:description_en].strip.escape_quotes}\"\n"
           item.delete(:name_is)
           item.delete(:description_is)
@@ -223,7 +205,7 @@ namespace :ballot do
       end
     end
     puts main_outfile
-    #puts is_yml
+    puts is_yml
     #puts en_yml
   end
 end

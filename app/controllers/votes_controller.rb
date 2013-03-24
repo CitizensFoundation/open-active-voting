@@ -171,7 +171,7 @@ class VotesController < ApplicationController
      @total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
 
     # Letters are used to mark each budget vote selection
-    @letter_of_alphabet = ('a'..'z').to_a+['0','1','2','3']
+    @letter_of_alphabet = ReykjavikBudgetBallot::ALLOWED_BALLOT_CHARACTERS
 
     # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
