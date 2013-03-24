@@ -19,7 +19,7 @@ var curtotal = 0;
 
 var total = 0;
 
-var voteswidth = 970;
+var voteswidth = 900;
 
 var locale;
 
