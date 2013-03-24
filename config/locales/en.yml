@@ -467,7 +467,7 @@ en:
   thank_you_3: "You can vote as often as you like while the vote is open,<br /> from 4. to 11. of April. Your last vote is the one that counts."
   click_to_vote_again: "Click here to vote again."
 
-  betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing.png" alt="Betri Reykjavík"/></a>
+  betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing_EN.png" alt="Betri Reykjavík"/></a>
   vote_again: <a href="/votes/authentication_options"><img src="/assets/eng-voteagain.png" alt="Smelltu hér til að kjósa aftur"/></a>
 
   total_budget: "XX milljóna króna fjárveiting"
@@ -712,3 +712,9 @@ When you are finished selecting projects simply click the   <i>Submit Vote</i> b
  You can repeat this process as often as you want while the poll is still open. Just remember that only your newest vote will count.</p>
 
  <p>For further information and assistance please call 4 11 11 11 to talk with one of our service representatives at Reykjavík City‘s Service Centre.</p> "
+
+
+  timeline_1: "<img src='/assets/eng-progress01.png' class='timeline' alt='Tímalína'/>"
+  timeline_2: "<img src='/assets/eng-progress02.png' class='timeline' alt='Tímalína'/>"
+  timeline_3: "<img src='/assets/eng-progress03.png' class='timeline' alt='Tímalína'/>"
+  timeline_4: "<img src='/assets/eng-progress04.png' class='timeline' alt='Tímalína'/>"
