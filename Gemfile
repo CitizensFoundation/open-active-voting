@@ -2,15 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'execjs'
-  gem 'therubyracer'
-  gem 'sass-rails'
-  gem 'uglifier'
-end
-
 # Gems used in all environments including production
 gem "airbrake" # Online error reporting system
 gem 'haml' # generate html from templates
@@ -21,6 +12,15 @@ gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
 gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
 gem 'ruby-saml'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'execjs'
+  gem 'therubyracer'
+  gem 'sass-rails'
+  gem 'uglifier'
+end
 
 group :development, :test do
   # Pretty printed test output
