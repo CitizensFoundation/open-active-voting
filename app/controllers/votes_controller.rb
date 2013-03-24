@@ -258,6 +258,8 @@ class VotesController < ApplicationController
         raise "Authentication was not a success #{@response.inspect}"
       end
 
+      Rails.logger.error(@response.inspect)
+
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
         Rails.cache.write(request.session_options[:id],national_identity_hash)
