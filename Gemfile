@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,6 +20,7 @@ gem 'dalli' # Memcache driver
 gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
 gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
+gem 'ruby-saml'
 
 group :development, :test do
   # Pretty printed test output

@@ -211,6 +211,24 @@ class VotesController < ApplicationController
     Rails.logger.info("Session id: #{request.session_options[:id]}")
   end
 
+  def saml_settings
+    settings = Onelogin::Saml::Settings.new
+
+    settings.assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
+    settings.issuer                         = request.host
+    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/#{OneLoginAppId}"
+    settings.idp_cert_fingerprint           = OneLoginAppCertFingerPrint
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    # Optional for most SAML IdPs
+    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+
+    settings
+  end
+
+
+  def saml_verification(raw)
+  end
+
   def perform_island_is_token_authentication(token,request)
     # Call island.is authentication service to verify the authentication token
     begin
@@ -221,7 +239,12 @@ class VotesController < ApplicationController
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>"44E92B79-969C-4A05-82A5-4B470948C456", :svfNr=>%w{0000})
+                                                     :electionId=>"CA8796EE-7239-497A-96FE-156419E4F9BA", :svfNr=>%w{0000})
+
+      response_test          = Onelogin::Saml::Response.new(@response)
+      response_test.settings = saml_settings
+
+      Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
