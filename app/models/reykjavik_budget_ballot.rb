@@ -16,17 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ReykjavikBudgetBallot
+
+  # DATA PART
+
   ALLOWED_BALLOT_CHARACTERS = ('a'..'z').to_a+['0','1','2','3','4','5','6','7','8','9']
-
-  attr_accessor :neighborhoods
-
-  def self.current
-    ReykjavikBudgetBallot.new
-  end
-
-  def priorities(neighborhood_id)
-    self.neighborhoods[neighborhood_id][:priorities]
-  end
 
   def initialize(neighborhood_id=1)
     # Setup the neighborhoods for the ballot
@@ -306,6 +299,18 @@ class ReykjavikBudgetBallot
     @neighborhoods[10][:priorities] << {:id=>227, :letter=>"1", :link=>"http://betrireykjavik.is/ideas/1765-grasleppuskurar", :description=>I18n.t(:new_project_description_id_227), :name=>I18n.t(:new_project_name_id_227), :price=>2.0}
     @neighborhoods[10][:priorities] << {:id=>228, :letter=>"2", :link=>"http://betrireykjavik.is/ideas/2164-hradahindrun-a-furumel", :description=>I18n.t(:new_project_description_id_228), :name=>I18n.t(:new_project_name_id_228), :price=>3.0}
     @neighborhoods[10][:priorities] << {:id=>229, :letter=>"3", :link=>"http://betrireykjavik.is/ideas/2308-vistleg-gongleid-of-afdrep-i-kringum-landakotsspitala", :description=>I18n.t(:new_project_description_id_229), :name=>I18n.t(:new_project_name_id_229), :price=>3.0}
+  end
+
+  # CODE PART
+
+  attr_accessor :neighborhoods
+
+  def self.current
+    ReykjavikBudgetBallot.new
+  end
+
+  def priorities(neighborhood_id)
+    self.neighborhoods[neighborhood_id][:priorities]
   end
 
   def get_neighborhood_budget(neighborhood_id)
