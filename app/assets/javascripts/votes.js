@@ -154,11 +154,11 @@ $(function() {
           dataType: "json",
           success: function(response) {
             if (response[0] && response[0].vote_ok==true) {
-              $('#content').html("<div id='success_message'> </div><div id='message'></div>");
+              $('#main_election_content').load("/votes/vote_delivered");
               $('#vote_count').html(response[0].vote_count);
               $('#message').html(response[0].message)
             } else if (response[0] && response[0].message) {
-              $('#content').html("<div id='success_message'> </div><div id='message'></div>");
+              $('#main_election_content').html("<div id='success_message'> </div><div id='message'></div>");
               $('#message').html(response[0].message)
             }
           }

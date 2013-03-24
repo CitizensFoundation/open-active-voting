@@ -205,7 +205,7 @@ namespace :ballot do
       end
     end
     puts main_outfile
-    puts is_yml
+    #puts is_yml
     #puts en_yml
   end
 end

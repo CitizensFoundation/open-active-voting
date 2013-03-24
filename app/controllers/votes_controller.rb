@@ -65,6 +65,10 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def vote_delivered
+    render :layout=>false
+  end
+
   def ibuar_info
     # Display information about Ibua SES
     render :layout=>false
@@ -168,7 +172,7 @@ class VotesController < ApplicationController
     @reykjavik_budget_ballot = ReykjavikBudgetBallot.current
 
     # Get the budget for the given neighborhood id
-     @total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
+    @total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
 
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = ReykjavikBudgetBallot::ALLOWED_BALLOT_CHARACTERS
@@ -200,6 +204,7 @@ class VotesController < ApplicationController
       response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
+    reset_session
     respond_to do |format|
       format.json { render :json => response }
     end
