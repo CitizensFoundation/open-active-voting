@@ -20,8 +20,8 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 3
-    @max_votes = 10
+    @max_browsers = 1
+    @max_votes = 1
     @neighborhood_ids = [1,2]
     #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
@@ -85,7 +85,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
         retry unless (retry_count += 1) > 40
       end
       @user_browser_votes[browser] << user_votes
-      browser.div(:id => "success_message").wait_until_present
+      browser.div(:id => "thank_you_message").wait_until_present
     end
     assert all_vote_match?(all_votes), "All individual votes matched"
     assert unique_vote_match?, "All unique votes matched"

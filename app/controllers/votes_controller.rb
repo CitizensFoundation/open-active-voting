@@ -66,7 +66,7 @@ class VotesController < ApplicationController
   end
 
   def logout_and_information
-    reset_session unless Rails.env.development?
+    reset_session if Rails.env.production?
     render :layout=>false
   end
 
@@ -246,10 +246,10 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>"CA8796EE-7239-497A-96FE-156419E4F9BA", :svfNr=>%w{0000})
 
-      response_test          = Onelogin::Saml::Response.new(@response)
-      response_test.settings = saml_settings
+      #response_test          = Onelogin::Saml::Response.new(@response)
+      #response_test.settings = saml_settings
 
-      Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
+      #Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
@@ -257,6 +257,18 @@ class VotesController < ApplicationController
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
+
+      Rails.logger.error(@response.inspect)
+
+      raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
+      known_x509_cert = OpenSSL::X509::Certificate.new raw_known_x509_cert
+
+      start_token_start = @response.index("X509Certificate")
+      end_token_start = @response.rindex("X509Certificate")
+
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response[start_token_start+16..end_token_start-6]}-----END CERTIFICATE-----\n"
+
+      raise "Failed to verify x509 cert" unless known_x509_cert.to_s.gsub("\n","") == test_x509_cert.gsub("\n","")
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
