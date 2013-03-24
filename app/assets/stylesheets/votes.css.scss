@@ -59,7 +59,7 @@ strong {
 }
 
 a:link {
-  color: #f00;
+  color: #c00;
   text-decoration: none;
 }
 
@@ -105,7 +105,13 @@ img {
   text-align: center;
 }
 
-.votecount span, #footer a, .links a {
+#footer a {
+  border-right: 1px #999 dotted;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.votecount span, .links a {
   border-right: 1px #999 dotted;
   padding-right: 10px;
 }
@@ -283,6 +289,12 @@ h5 {
   margin-top: 10px;
   margin-left: 10px;
   color: #002f86;
+}
+
+h6 {
+  font-size: 14px;
+  margin-bottom: 0px;
+  margin-top: 20px;
 }
 
 iframe {
@@ -536,3 +548,7 @@ ul.flags li {
   text-align: center;
   margin-top: 10px;
 }
+
+.mailto{
+}
+

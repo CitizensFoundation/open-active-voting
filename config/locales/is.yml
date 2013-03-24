@@ -379,7 +379,6 @@ is:
 
 # Labels
 
-
   votes_timeout_1: "Auðkenning er fallin úr gildi, vinsamlegast auðkennist aftur"
   votes_timeout_2: "<h2>Auðkenning þín er fallin úr gildi, þú hefur 20 mín. til að kjósa og hefur farið yfir þann tíma. Smelltu <a href='/'>hér til að auðkenna þig og kjósa aftur.</a></h2>"
 
@@ -396,17 +395,20 @@ is:
   <p><a href='/votes/logout'><b>Smelltu hér til þess að útskrá þig</b></a>, svo aðrir sem nota tölvuna þína kjósi ekki óvart í þínu nafni.</p>
                       </div>
   <div class='indent'>
-  <p><b>Hvað ræður úrslitum við talningu atkvæða?</b></p>
+  <h6>Hvað ræður úrslitum við talningu atkvæða?</h6>
 
-  <p>Atkvæði eru talin í tveimur flokkum, viðhalds- og nýframkvæmdaflokki í hverju af 10 hverfum Reykjavíkurborgar.</p>
+<p>Atkvæði eru talin í hverju af 10 hverfum Reykjavíkurborgar fyrir sig.
 
-  <p>1. Öll atkvæðin í viðkomandi flokki og hverfi talin og verkefnum raðað eftir fjölda atkvæða.</p>
+   <p>Öll atkvæðin í viðkomandi hverfi talin og verkefnum raðað eftir fjölda atkvæða.</p>
 
-  <p>2. Atkvæðamesta verkefninu í viðkomandi flokki og hverfi er stillt upp og kostnaðurinn við verkefnið dreginn frá heildarfjárheimildinni.</p>
 
-  <p>3. Næstatkvæðamesta verkefnið er tekið og borið saman við það sem eftir er af fjárheimildinni. Ef verkefnið rúmast innan heimildarinnar er það sett í listann fyrir valin verkefni. Ef það rúmast ekki innan heimildarinnar er því sleppt og þriðja atkvæðamesta verkefnið skoðað.</p>
+   <p>1. Atkvæðamesta verkefninu í viðkomandi hverfi er stillt upp og kostnaðurinn við verkefnið dreginn frá heildarfjárheimildinni.</p>
 
-  <p>4. Svona gengur þetta koll af kolli þangað til fjárheimildin hefur öll verið notuð eða hún er orðin of lítil fyrir nokkurt þeirra verkefna sem eftir eru.</p>
+   <p>2. Næstatkvæðamesta verkefnið er tekið og borið saman við það sem eftir er af fjárheimildinni. Ef verkefnið rúmast innan heimildarinnar er það sett í listann fyrir valin verkefni. Ef það rúmast ekki innan heimildarinnar er því sleppt og þriðja atkvæðamesta verkefnið skoðað.</p>
+
+   <p>3. Svona gengur þetta koll af kolli þangað til fjárheimildin hefur öll verið notuð eða hún er orðin of lítil fyrir nokkurt þeirra verkefna sem eftir eru.</p>
+
+   <p>4.	Ef einhver verkefni eru jöfn að atkvæðum mun kjörstjórn ráða röðun þeirra með teningakasti.</p>
   </div>"
 
   votes_vote_count_none: "Þú hefur ekki kosið ennþá"
@@ -458,7 +460,7 @@ is:
 
   thank_you_1: "Takk fyrir!"
   thank_you_2: "Atkvæði þitt hefur verið móttekið<br />og þú hefur verið skráð(ur) út."
-  thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningakerfið er opið,<br /> dagana 4. - 11. apríl. Síðasta atkvæðið þitt er það sem gildir."
+  thank_you_3: "Þú getur kosið eins oft og þú vilt á meðan kosningin er opin,<br /> dagana 4. - 11. apríl. Síðasta atkvæðið þitt er það sem gildir."
   click_to_vote_again: "Smelltu hér til að kjósa aftur"
 
   betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing.png" alt="Betri Reykjavík"/></a>
@@ -473,42 +475,38 @@ is:
 #  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
 # Texts
-  votes_logout_text: "<h1>Útskráning</h1><p>
-                      Vertu viss um að þú hafir lokið kosningu áður en þú skráir þig út. Til að ljúka kosningu þarftu að smella á stóra Kjósa hnappinn neðst á kosningasíðunni.
-                      </p><p><b>
+  votes_logout_text: "<h1>Útskráning</h1><h2>
+                      Vertu viss um að þú hafir greitt atkvæði áður en þú skráir þig út. Til að greiða atkvæði  þartu að smella á stóra <i>Greiða atkvæði</i> hnappinn neðst á kosningasíðunni.
+                      </h2>
+                      <h6>
                        Með því að smella á tengilinn hér að neðan ferðu burt af kosningavefnum!</b>
                       </p>
                       <a href='/votes/logout'>Útskráning af kosningavef</a>"
 
   votes_help_authentication_options: "
+<h1>Hjálp</h1>
 <h1>Innskráning og auðkenning</h1>
-<p>Innskráning fer fram með því að smella á hnappinn Ísland.is. Þegar það hefur verið gert sérð þú innskráningarsíðu þar sem þú getur valið um tvo möguleika til auðkenningar: <strong>rafræn skilríki á debetkorti</strong> eða <strong>veflykil ríkisskattstjóra.</strong>
+<p>Innskráning fer fram með því að smella á hnappinn Ísland.is. Þegar það hefur verið gert sérðu innskráningarsíðu þar sem þú getur valið um tvo möguleika til auðkenningar: <b>rafræn skilríki á debetkorti</b> eða <b>veflykil ríkisskattstjóra</b>.</strong>
 </p>
 <p>
 Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11.</p>"
 
-  votes_about_the_poll_text: "<h1>Um  kosninguna</h1>
-                              <p>Kosningakerfið  er rafrænt og rekið sem sjálfstæð eining hjá  Upplýsingatæknimiðstöð Reykjavíkurborgar. Aðkoma notenda að kosningunni  er um vef <em>Betri  Reykjavíkur</em>.  Kerfið er þróað af sjálfseignarstofnuninni Íbúum fyrir  Reykjavíkurborg í samvinnu við <em>Þjóðskrá  Íslands </em>og <em>Ísland.is. </em>Íbúar  geta kosið um allt að 26 verkefni í einu hverfi að eigin vali.</p>
-                              <p><b>Hvað  er kosið um?</b></p>
-                              <p>Kosið  er um verkefni í tveimur flokkum: nýframkvæmdir og  viðhaldsverkefni. Hægt er að velja milli allt að 13 verkefna í  hvorum flokki. Gerð er grein fyrir kostnaði við hvert verkefni.  Kjósendur geta valið saman í eins konar innkaupakörfu þann  fjölda verkefna sem þeir vilja þar til þeirri heildarupphæð er  náð sem hverfið hefur til umráða í hvorum flokki eða þar til  ekki er lengur pláss í körfunni fyrir þau verkefni sem eftir eru  óvalin. Kosningin felur í sér endanlega ákvörðun um val  verkefna á vegum Reykjavíkurborgar í hverfum borgarinnar fyrir  árið 2012.</p>
-                              <p><b>Má  ég kjósa?</b></p>
-                              <p>Kosningin  er takmörkuð við þá íbúa sem náð höfðu 16 ára aldri í  lok árs 2011 og eru búsettir í einu af hverfum Reykjavíkur á  þeim degi sem kosið er. Inni á <em>Mínum  síðum </em>á <em>Ísland.is</em> getur kjósandi skoðað hvernig hann er skráður í <em>Þjóðskrá</em>.  Hægt er að auðkenna sig inn á <em>Mínar  síður</em> með kennitölu og veflykli eða rafrænum skilríkjum á  debetkortum. Einnig er hægt að skoða þessar upplýsingar í  heimabanka.</p>
-                              <p>Nánari  upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í  Þjónustuveri Reykjavíkur-borgar í síma 4 11 11 11.</p>"
+  votes_about_the_poll_text: "<h1>Um kosningarnar</h1>
+                              <p>Kosningakerfið er rafrænt og er rekið sem sjálfstæð eining hjá Upplýsingatæknideild Reykjavíkurborgar. Kerfið er þróað af Íbúum ses og Engu ehf. fyrir Reykjavíkurborg, í samvinnu við Þjóðskrá Íslands og Ísland.is. Íbúar geta kosið um allt að 30 verkefni í einu hverfi. Kjósandi getur haft áhrif á val verkefna í hvaða hverfi sem er, óháð búsetu, en þó aðeins í einu hverfi.</p>
+                              <h6>Hvað  er kosið um?</h6>
+                              <p>Um er að ræða verkefni sem skilgreind eru sem smærri nýframkvæmdir eða viðhaldsverkefni. Gerð er grein fyrir kostnaði við hvert verkefni. Kjósendur geta valið saman í eins konar innkaupkörfu þann fjölda verkefna sem þeir vilja þar til þeirri heildarupphæð er náð sem hverfið hefur til umráða í hvorum flokki eða þar til ekki er lengur pláss í körfunni fyrir þau verkefni sem eftir eru óvalin.
+</p>
+<p>Kosningarnar eru bindandi varðandi val þessara verkefna í hverfum Reykjavíkur fyrir árið 2013.</p>
+
+                              <h6>Má  ég kjósa?</h6>
+                              <p>Rétt til þátttöku í kosningunum hafa íbúar fæddir 1996 eða fyrr og sem eru búsettir í einu af hverfum Reykjavíkur á þeim degi sem kosið er. Inni á <b>Mínum síðum</b> á <b>Ísland.is</b> getur kjósandi skoðað hvernig hann er skráður í <b>Þjóðskrá</b>. Hægt er að auðkenna sig inn á <b>Mínar síður</b> með kennitölu og veflykli eða rafrænum skilríkjum á debetkortum. Einnig er hægt að skoða þessar upplýsingar í heimabanka.</p>
+                              <p>Nánari  upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í  Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11.</p>"
 
   votes_about_better_reykjavik_text: "<h1>Um Betri Reykjavík</h1>
-                                       Betri Reykjavík er samráðsvettvangur á netinu þar sem
-                                       íbúum borgarinnar gefst tækifæri til að setja fram
-                                       hugmyndir sínar um málefni er varða þjónustu og rekstur
-                                       Reykjavíkurborgar. Vettvangurinn er opinn öllum til
-                                       skoðunar og til þátttöku gegn skráningu og samþykki
-                                       notendaskilmála.
-                                       <br><br>
-                                       Betri Reykjavík er rekin af sjálfseignarstofnuninni
-                                       Íbúum fyrir, og í samstarfi við
-                                       Reykjavíkurborg. Sjá nánar á svæðinu Um Betri
-                                       Reykjavík.
+                                       <p>Betri Reykjavík er samráðsvettvangur á netinu þar sem íbúum borgarinnar gefst tækifæri til að setja fram hugmyndir sínar um málefni er varða þjónustu og rekstur Reykjavíkurborgar. Vettvangurinn er opinn öllum til skoðunar og þátttöku gegn skráningu og samþykki notendaskilmála.</p>
 
-                                       <br><br>
+<p>Betri Reykjavík er rekin af sjálfseignarstofnuninni Íbúum -  Samráðslýðræði fyrir, og í samstarfi við Reykjavíkurborg. Sjá nánar á svæðinu Um Betri Reykjavík.</p>
+
                                        <b>Með því að smella á tengilinn hér
                                        að neðan ferðu burt af kosningavefnum!</b>
                                        <br><br>
@@ -517,16 +515,18 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
 
   votes_about_better_neighborhoods_text: "
                                           <h1>Um Betri hverfi</h1><p>
-                                          <em>Betri hverfi</em> er hluti af vefnum <em>Betri Reykjavík</em> og er samráðsvefur um smærri nýframkvæmdir og viðhaldsverkefni í hverfum Reykjavíkur. Hægt var að setja inn hugmyndir sem haft geta áhrif á umhverfi og möguleika til útivistar og samveru, geta haft áhrif á aðstöðu eða tækifæri til leikja eða afþreyingar, hvetja til aukinna hjólreiða, bæta aðstöðu og möguleika gangandi eða bæta aðstöðu fyrir notendur strætisvagna. </p>
-                                          <p><b>Hugmyndir  og fjárhagsrammi   </b></p>
-                                          <p>Til  að setja inn  hugmynd og taka þátt í samráðinu með þessum  hætti þarft þú  að vera skráður notandi samráðsvefsins.  Skráðir notendur <em>Betri  Reykjavíkur</em> eru sjálfkrafa notendur að <em>Betri  hverfum</em>.  Öllum stendur til boða að nota almenningstölvur í bókasöfnum  og þjónustumiðstöðvum borgarinnar í þessu skyni. Fjármagn til  þessara hverfaverkefna er alls 300 milljónir og skiptist milli  hverfa samkvæmt fastri fjárhæð og íbúafjölda.</p>
-                                          <p><b>Móttaka  hugmynda</b></p>
-                                          <p><em>Betri  Reykjavík – Betri hverfi</em> var opinn fyrir móttöku hugmynda og samráði íbúa vegna þessara  smærri hverfaverkefna frá 5. desember 2011 til 23. janúar 2012. Í  kjölfarið mat fagfólk borgarinnar framkvæmanleika hugmyndanna  m.a. með tilliti til kostnaðar. Hverfaráð borgarinnar stilltu  síðan upp allt að 26 verkefnum fyrir hvert hverfi sem íbúum  Reykjavíkur gefst nú tækifæri til að kjósa um.</p>
-                                          <p><b>Rafræn  kosning</b></p>
-                                          <p>Kosið  verður um verkefnin með rafrænum hætti dagana 29. mars til 3. apríl 2012
-                                             á sérstöku vefsvæði sem komið er upp í tilefni kosningarinnar.  Íbúar Reykjavíkur geta kosið verkefni í hvaða hverfi sem er,  óháð búsetu, en aðeins í einu hverfi. Réttur til þátttöku  miðast við 16 ára aldur. Niðurstaðan um val verkefna er  bindandi.</p>
+                                          <b>Betri hverfi</b> er hluti af vefnum <b>Betri Reykjavík</b> og er samráðsvefur um smærri nýframkvæmdir og viðhaldsverkefni í hverfum Reykjavíkur. Hægt var að setja inn hugmyndir sem haft geta áhrif á umhverfi og möguleika til útivistar og samveru, geta haft áhrif á aðstöðu eða tækifæri til leikja eða afþreyingar, hvetja til aukinna hjólreiða, bæta aðstöðu og möguleika gangandi eða bæta aðstöðu fyrir notendur strætisvagna.
+</p>
+                                          <h6>Hugmyndir  og fjárhagsrammi   </h6>
+                                          <pTil að setja inn  hugmynd og taka þátt í samráðinu með þessum hætti þarft þú að vera skráður notandi samráðsvefsins. Skráðir notendur <b>Betri  Reykjavíkur</b> eru sjálfkrafa notendur að <b>Betri  hverfum</b>.  Öllum stendur til boða að nota almenningstölvur í bókasöfnum og þjónustumiðstöðvum borgarinnar í þessu skyni. Fjármagn til þessara hverfaverkefna er alls 300 milljónir og skiptist milli hverfa samkvæmt fastri fjárhæð og íbúafjölda.</p>
+                                          <h6>Móttaka  hugmynda</h6>
+                                          <p><b>Betri  Reykjavík – Betri hverfi</b>var opinn fyrir móttöku hugmynda og samráði íbúa vegna þessara smærri hverfaverkefna frá 14. janúar til 15. febrúar 2013. Faghópur umhverfis- og skipulagssviðs mat framkvæmanleika hugmyndanna, m.a. með tilliti til kostnaðar. Hverfaráð og íbúanefndir skipaðar þremur íbúum úr hverju hverfi borgarinnar stilltu síðan upp allt að 30 verkefnum fyrir hvert hverfi sem íbúum Reykjavíkur gefst nú tækifæri til að kjósa um.
+</p>
+                                          <h6>Rafrænar  kosningar</h6>
+                                          <p>Kosið verður um verkefnin með rafrænum hætti frá miðnætti þann 4. apríl til kl. 04:00 aðfararnótt 12. apríl 2013 á sérstöku vefsvæði sem komið er upp í tilefni kosninganna. Íbúar Reykjavíkur geta kosið verkefni í hvaða hverfi sem er, óháð búsetu, en aðeins í einu hverfi. Rétt til þátttöku í kosningunum hafa íbúar fæddir 1996 eða fyrr og sem eru búsettir í einu af hverfum Reykjavíkur á þeim degi sem kosið er.
+</p>
                                           <p>Sjá  nánar á svæðinu <em>Um  Betri hverfi</em>.    </p>
-                                          <p><b>Með  því að smella á tengilinn hér að neðan ferðu</b><em> </em><b>burt  af kosningavefnum!</b></p>
+                                          <h6>Með  því að smella á tengilinn hér að neðan ferðu</b><em> </em><b>burt  af kosningavefnum!</h6>
 
 
                                <a href=\"http://betrireykjavik.is/about/partners\">Um Betri hverfi</a>"
@@ -541,159 +541,178 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                           <p>Íbúar ses þróa opinn hugbúnað sem hjálpar lýðræði að blómstra í hópum, borgum eða löndum.</p>
                           <p>Við viljum veita almenningi viðvarandi rödd í umræðu og ákvarðanatöku í þjóðfélaginu.</p>
                           <p>Við viljum bæta gæði umræðunnar, auka rökræðu og hjálpa íbúum að finna sín forgangsmál.</p>
-                          <p><b>Lýðræði án þátttöku er ekkert lýðræði.</p>
+                          <h6>Lýðræði án þátttöku er ekkert lýðræði.</p>
                           <b>Með því að smella á tengilinn hér að neðan ferðu burt af
                                kosningavefnum!</b>
                           <br><br>
                           <a href='http://ibuar.is/'>Vefur Íbúa ses</a>"
 
 
-  votes_rules: "<h1>Reglur  um kosninguna</h1>
-                               <p><b>1.  Almennt um kosninguna</b></p>
-                               <p>Kosningakerfið  er rafrænt og er rekið sem sjálfstæð eining hjá  Upplýsingatæknimiðstöð Reykjavíkurborgar. Aðkoma notenda að  kosningunni er um vef Betri Reykjavíkur. Kerfið er þróað af  Íbúum - samráðslýðræði fyrir Reykjavíkurborg, í  samvinnu við Þjóðskrá  Íslands og Ísland.is<em>. </em>Íbúar  geta kosið um allt að 26 verkefni í einu hverfi og getur kjósandi  haft áhrif á val verkefna í hvaða hverfi sem er, óháð búsetu,  en þó aðeins í einu hverfi.</p>
-                               <p>Kosið  er um verkefni í tveimur flokkum. Annars vegar er um að ræða  verkefni sem skilgreind eru sem nýframkvæmdir og hins vegar  viðhaldsverkefni. Hægt er að velja á milli allt að 13 verkefna í  hvorum flokki. Gerð er grein fyrir kostnaði við hvert verkefni.  Kjósendur geta valið saman í eins konar innkaupkörfu þann fjölda  verkefna sem þeir vilja þar til þeirri heildarupphæð er náð  sem hverfið hefur til umráða í hvorum flokki eða þar til ekki  er lengur pláss í körfunni fyrir þau verkefni sem eftir eru  óvalin.</p>
-                               <p>Kosningin  felur í sér endanlega ákvörðun um val verkefna í hverfum  Reykjavíkur fyrir árið 2012.</p>
-                               <p><b>2.  Tímasetning kosningar</b></p>
-                               <p>Rafræn  kosning um smærri nýframkvæmdir og viðhaldsverkefni í hverfum  Reykjavíkur hefst kl. 00.00 þann 29. mars og verður opin til kl.  04.00 aðfaranótt 4. apríl. Þannig verður kosningin opin í  fjórar klukkustundir eftir lok þriðjudagsins 3. apríl og er það  gert til að mæta hugsanlegu álagi og tryggja að allir geti kosið.<br />
+  votes_rules: "<h1>Reglur  um kosningarnar</h1>
+                               <h6>1. Almennt um kosningarnar</h6>
+<p>Atkvæðagreiðslan er ekki lögbundin. Kosningakerfið er rafrænt og er rekið sem sjálfstæð eining hjá Upplýsingatæknideild Reykjavíkurborgar. Kerfið er þróað af Engu ehf. fyrir Reykjavíkurborg, í samvinnu við Þjóðskrá Íslands og Ísland.is. Íbúar geta kosið um allt að 30 verkefni í einu hverfi. Kjósandi getur haft áhrif á val verkefna í hvaða hverfi sem er, óháð búsetu, en þó aðeins í einu hverfi.</p>
+
+<p>Um er að ræða verkefni sem skilgreind eru sem smærri nýframkvæmdir eða viðhaldsverkefni. Gerð er grein fyrir kostnaði við hvert verkefni. Kjósendur geta valið saman í eins konar innkaupakörfu þann fjölda verkefna sem þeir vilja þar til þeirri heildarupphæð er náð sem hverfið hefur til umráða í hvorum flokki eða þar til ekki er lengur pláss í körfunni fyrir þau verkefni sem eftir eru óvalin.</p>
+
+<p>Kosningarnar fela í sér endanlega ákvörðun um val þessara verkefna í hverfum Reykjavíkur fyrir árið 2013.</p>
+
+                               <h6>2.  Tímasetning kosninga</h6>
+                               <p>Rafræn kosningar um smærri nýframkvæmdir og viðhaldsverkefni í hverfum Reykjavíkur hefst á miðnætti þann 4. apríl og verður opin til kl. 04.00 aðfaranótt 12. apríl. Þannig verður kosningakerfið  opið í fjórar klukkustundir eftir lok fimmtudagsins 11. apríl og er það gert til að mæta hugsanlegu álagi og tryggja að allir geti kosið.
                                </p>
-                               <p><b>3.  Tungumál kosningarinnar</b></p>
-                               <p>Kosningaviðmót  og upplýsingaefni verður aðgengilegt á íslensku, ensku og  pólsku. Komi upp einhver vafamál varðandi þessar reglur mun  íslenska útgáfa þeirra gilda.</p>
-                               <p><b>4.  Kjörskrá og kosningaréttur</b></p>
-                               <p>Kosningarétt  hafa þeir íbúar Reykjavíkur sem eru með lögheimili í Reykjavík  þegar þeir kjósa og höfðu náð 16 ára aldri fyrir árslok  2011. Þjóðskrá Íslands staðfestir hvort kjósandi er búsettur  í Reykjavík og á réttum aldri samkvæmt íbúaskrá Þjóðskrár  þegar atkvæði er greitt.</p>
-                               <p>Inni  á &bdquo;Mínum síðum&ldquo;<em> </em>á  Ísland.is getur kjósandi skoðað hvernig hann er skráður í  Þjóðskrá. Hægt er að auðkenna sig inn á &bdquo;Mínar síður&ldquo;  með kennitölu og aðalveflykli eða rafrænum skilríkjum á  debetkortum. Einnig er hægt að skoða þessar upplýsingar í  heimabanka.</p>
-                               <p><b>5.  Kjörstaðir</b></p>
-                               <p>Kosið  er á vefslóðinni <a href=\"http://www.kjosa.betrireykjavik.is\">kjosa.betrireykjavik.is</a>.  Atkvæðagreiðslan er ekki leynileg í hefðbundnum skilningi  kosningalaga því ekki er um eiginlega kjörstaði og kjörklefa að  ræða þar sem fylgst er með því að kjósandinn sé einn í  kjörklefanum. Leynd og öryggi atkvæðagreiðslunnar eru undir  kjósandanum komin og velta til dæmis á því að hann gæti  veflykilsins vel og hagi atkvæðagreiðslunni þannig að aðrir fái  ekki séð. Þá ber að gæta þess að útskrá sig af  kosningasíðunni eftir kosningu.</p>
+
+                               <h6>3.  Tungumál kosninganna</h6>
+                               <p>Kosningaviðmót og upplýsingaefni verður aðgengilegt á íslensku og ensku. Komi upp einhver vafamál varðandi þessar reglur mun íslensk útgáfa þeirra gilda.</p>
+
+                               <h6>4.  Kjörskrá og kosningaréttur</h6>
+                               <p>Rétt til þátttöku í kosningunum hafa íbúar fæddir 1996 eða fyrr og sem eru búsettir í einu af hverfum Reykjavíkur á þeim degi sem kosið er. Þjóðskrá Íslands staðfestir hvort kjósandi er búsettur í Reykjavík og á réttum aldri samkvæmt íbúaskrá Þjóðskrár þegar atkvæði er greitt.
+
+                                  Inni á <b>Mínum síðum</b> á Ísland.is getur kjósandi skoðað hvernig hann er skráður í Þjóðskrá. Hægt er að auðkenna sig inn á <b>Mínar síður</b> með kennitölu og aðalveflykli eða rafrænum skilríkjum á debetkortum. Einnig er hægt að skoða þessar upplýsingar í heimabanka.</p>
+
+                               <h6>5.  Kjörstaðir</h6>
+                               <p>Kosið  er á vefslóðinni <a href=\"http://www.kjosa.betrireykjavik.is\">kjosa.betrireykjavik.is</a>.  Ekki er um eiginlega kjörstaði og kjörklefa að ræða þar sem fylgst er með því að kjósandinn sé einn í kjörklefanum. Leynd og öryggi atkvæðagreiðslunnar eru undir kjósandanum komin og velta til dæmis á því að hann gæti veflykilsins vel og hagi atkvæðagreiðslunni þannig að aðrir fái ekki séð. Þá ber að gæta þess að útskrá sig af kosningasíðunni eftir að atkvæði hefur verið greitt.</p><p>
+                                                                                                                                       Þjónustumiðstöðvar Reykjavíkurborgar bjóða upp á aðgang að tölvum og aðstoð við kosningarnar, sé þess óskað. Sjá nánar í 11. grein um „Aðstoð við kosningu“.
+</p>
                                <p>Þjónustumiðstöðvar  Reykjavíkurborgar bjóða upp á aðgang að tölvum og aðstoð við  kosninguna, sé þess óskað.<b> </b>Sjá  nánar í 11. grein um &bdquo;Aðstoð við kosningu&ldquo;<em>.</em></p>
 
-                              <p><b>6. Auðkenning kjósenda og kosningaréttur</b></p>
+                              <h6>6. Auðkenning kjósenda og kosningaréttur</h6>
 
-                              <p>Kjósandi auðkennir sig með öruggum hætti með auðkenningu Ísland.is. Þjóðskrá Íslands staðfestir hvort kjósandi er búsettur í Reykjavík og á réttum aldri samkvæmt íbúaskrá Þjóðskrár þegar atkvæði er greitt. Í kosningakerfinu er hvert atkvæði síðan dulkóðað. Ekki er hægt að rekja atkvæði aftur til kjósanda.</p>
+                              <p>Kjósandi auðkennir sig með öruggum hætti með auðkenningu Ísland.is. Þjóðskrá Íslands staðfestir hvort kjósandi er búsettur í Reykjavík og á réttum aldri samkvæmt íbúaskrá Þjóðskrár þegar atkvæði er greitt. Í kosningakerfinu er hvert atkvæði síðan dulkóðað. Ekki er hægt að rekja atkvæði aftur til kjósanda.
+                                </p>
+
+<p>Þegar kjósandi hefur valið vefslóðina <a href='http://kjosa.betrireykjavik.is'>kjosa.betrireykjavik.is</a>  birtist honum forsíða kosningavefsins „Betri hverfi – kosning verkefna í hverfum Reykjavíkur.“ Þar er tengill inn á auðkenningarsíðu Ísland.is vegna kosninganna.</p>
+
+Þegar kjósandi hefur smellt á tengilinn inn á vefsvæðið Ísland.is blasir við honum innskráningarsíða. Hér getur hann valið um tvo möguleika til innskráningar: rafræn skilríki á debetkorti eða aðalveflykil ríkisskattstjóra:
 
                               <p>Þegar kjósandi hefur valið vefslóðina kjosa.betrireykjavik.is birtist honum forsíða kosningavefsins Betri hverfi – kosning verkefna í hverfum Reykjavíkur.&ldquo; Þar tengill inn á auðkenningarsíðu Ísland.is vegna kosninganna.</p>
 
 
                               <p>Þegar kjósandi hefur smellt á tengilinn inn á vefsvæðið Ísland.is blasir við honum innskráningarsíða. Hér getur hann valið um tvo möguleika til innskráningar: rafræn skilríki á debetkorti eða aðalveflykil ríkisskattstjóra:</p>
 
-                              <p><b>6.1 Rafræn skilríki</b></p><p>
-                              Kjósandi setur debetkort með rafrænum skilríkjum í tengdan kortalesara og smellir á hnappinn &bdquo;Lesa skilríki&ldquo; og slær inn PIN kóða (ekki þann sem er notaður í hraðbönkum).</p>
+                              <h6>6.1 Rafræn skilríki</h6><p>
+                              Kjósandi setur debetkort með rafrænum skilríkjum í tengdan kortalesara og smellir á hnappinn <b>Lesa skilríki</b> og slær inn PIN kóða (ekki þann sem er notaður í hraðbönkum).</p>
 
-                              <p><b>6.2 Veflykill ríkisskattstjóra</b></p>
+                              <h6>6.2 Veflykill ríkisskattstjóra</h6>
 
-                              <p>Kjósandi slær inn kennitölu sína og veflykil ríkisskattstjóra og smellir á hnappinn &bdquo;Staðfesta.&ldquo; Veflykill ríkisskattstjóra er svokallaður varanlegur aðalveflykill, sjá nánar hér neðar.</p>
+                              <p>Kjósandi slær inn kennitölu sína og veflykil ríkisskattstjóra og smellir á hnappinn <b>Staðfesta</b> Veflykill ríkisskattstjóra er svokallaður varanlegur aðalveflykill, sjá nánar hér neðar.</p>
 
-                              <p><b>7. Nánar um rafræn skilríki og veflykla.</b></p>
 
-                              <p><b>7.1 Rafræn skilríki</b></p>
+                              <h6>7. Nánar um rafræn skilríki og veflykla.</h6>
+
+                              <h6>7.1 Rafræn skilríki</h6>
 
                               <p>Þeir kjósendur sem fengið hafa debetkort með rafrænum skilríkjum geta nýtt þau við kosningarnar. Þeir sem hafa tekið rafrænu skilríkin í notkun við innskráningu í heimabanka, auðkenna sig með sambærilegum hætti við kosningarnar.</p>
 
-                              <p><b>7.2 Veflykill ríkisskattstjóra</b></p>
+                              <h6>7.2 Veflykill ríkisskattstjóra</h6>
 
-                              <p>Margir hafa um árabil notað veflykil ríkisskattstjóra við skil á framtali.  Veflykillinn þarf að vera það sem kallaður er varanlegur aðalveflykill. Aðrir veflyklar, s.s.óbreyttur framtals-veflykill, skilalykill fagaðila eða veflyklar fyrir staðgreiðslu eða virðisauka, duga EKKI til auðkenningar hér.</p>
+                              <p>MMargir hafa um árabil notað veflykil ríkisskattstjóra við skil á framtali.  Veflykillinn þarf að vera það sem kallað er varanlegur aðalveflykill. Aðrir veflyklar, s.s. óbreyttur framtalsveflykill, skilalykill fagaðila eða veflyklar fyrir staðgreiðslu eða virðisauka, duga <b>EKKI</b> til auðkenningar hér.</p>
 
-                              <p>Einfaldast er að prófa að nota þann veflykil sem fólk hefur verið að nota og ef hann virkar ekki að panta þá nýjan sendan samstundis í heimabanka.  Farið inn á  Skattur.is og smellið á &bdquo;Týndur veflykill&ldquo; vinstra megin á síðunni. Einnig er hægt að nálgast veflykil í eigin persónu gegn framvísun persónuskilríkja á næstu skattstofu eða fá hann sendan í pósti, en þá þarf að fara fyrst á þeim lykli inn á skattur.is og breyta honum, áður en hægt er að nýta hann við kosningarnar.</p>
+                              <p>Einfaldast er að prófa að nota þann veflykil sem fólk hefur verið að nota og ef hann virkar ekki að panta þá nýjan sendan samstundis í heimabanka.  Farið inn á  Skattur.is og smellið á <b>Týndur veflykill</b> vinstra megin á síðunni. Einnig er hægt að nálgast veflykil í eigin persónu gegn framvísun persónuskilríkja á næstu skattstofu eða fá hann sendan í pósti, en þá þarf að fara fyrst á þeim lykli inn á skattur.is og breyta honum, áður en hægt er að nýta hann við kosningarnar.
+</p>
 
-                              <p>Þurfi kjósandi á aðstoð að halda við öflun auðkennis, innskráningu eða atkvæðagreiðslu munu þjónustufulltrúar í Þjónustuveri Reykjavíkurborgar liðsinna honum í síma             4 11 11 11       eða í gegnum vefspjall á http://www.reykjavik.is.</p>
+                              <p>Þurfi kjósandi á aðstoð að halda við öflun auðkennis, innskráningu eða atkvæðagreiðslu munu þjónustufulltrúar í Þjónustuveri Reykjavíkurborgar liðsinna honum í síma             4 11 11 11       eða í gegnum vefspjall á <a href='http://www.reykjavik.is'>http://www.reykjavik.is</a>.</p>
 
-                              <p>Kjósandi getur einnig óskað aðstoðar starfsmanna þjónustumiðstöðva við innskráningu og kosningu. Reglur um þessa aðstoð má finna í 11. grein um &bdquo;Aðstoð við kosningu.&ldquo;</p>
+                              <p>Kjósandi getur einnig óskað aðstoðar starfsmanna þjónustumiðstöðva við innskráningu og kosningu. Reglur um þessa aðstoð má finna í 11. grein um <b>Aðstoð við kosningu</b>.</p>
 
 
-                               <p><b>8.  Kjörseðill og atkvæðagreiðsla</b></p>
-                               <p><b>Hverfasíða  – veldu hverfi</b></p>
-                               <p>Þegar  kjósandi hefur gert grein fyrir sér með því að fara í gegnum  auðkenningargáttina Ísland.is<em> </em>blasir  við honum síða með korti af Reykjavík þar sem hvert hverfi  hefur sinn lit. Þar velur kjósandinn hvaða hverfi sem hann vill  kjósa í með því að smella á viðeigandi hverfi á kortinu.</p>
-                               <p><b>Finna  mitt hverfi</b></p>
-                               <p>Ef  kjósandi er ekki viss um hvaða hverfi hann býr í eða vill skoða  önnur hverfi, getur hann séð það með því að smella á  hnappinn &bdquo;Finna hverfið mitt&ldquo;<em> </em>fyrir  ofan kortið. Þá opnast í nýjum glugga síða  Landupplýsingakerfis Reykjavíkurborgar þar sem hægt er að fletta  upp götunöfnum og sjá hvaða götur tilheyra hvaða hverfum.<br />
+                               <h6>8.  Kjörseðill og atkvæðagreiðsla</h6>
+                               <h6>Hverfasíða  – veldu hverfi</h6>
+                               <p>Þegar kjósandi hefur gert grein fyrir sér með því að fara í gegnum auðkenningargáttina Ísland.is blasir við honum síða með korti af Reykjavík þar sem hvert hverfi hefur sinn lit. Þar velur kjósandinn hvaða hverfi sem hann vill kjósa í með því að smella á viðeigandi hverfi á kortinu.</p>
+                               <h6>Finna  mitt hverfi</h6>
+                               <p>EEf kjósandi er ekki viss um hvaða hverfi hann býr í eða vill skoða önnur hverfi, getur hann séð það með því að smella á hnappinn <b>>Finna hverfið mitt</b> fyrir ofan kortið. Þá opnast í nýjum glugga síða Landupplýsingakerfis Reykjavíkurborgar þar sem hægt er að fletta upp götunöfnum og sjá hvaða götur tilheyra hvaða hverfum.
+<br />
                                </p>
-                               <p><b>Tvær  körfur: </b><b>Nýframkvæmdir  og Viðhald</b></p>
-                               <p>Kjörseðlinum  er skipt í tvær nokkurs konar innkaupakörfur: &bdquo;Nýframkvæmdir&ldquo;  til vinstri og &bdquo;Viðhaldsverkefni&ldquo; til hægri. Til að fullnýta  atkvæðið þarf kjósandi að velja verkefni í báðar körfurnar.  Kjósandi getur kosið með því að ýta á &bdquo;Kjósa&ldquo;<em> </em>jafnvel  þótt hann hafi ekki fyllt körfurnar eða skilið aðra þeirra  eftir tóma. Atkvæðið verður gilt eftir sem áður.</p>
-                               <p><b>Nánari  upplýsingar um verkefnin</b></p>
-                               <p>Ef  kjósandi vill fá nánari upplýsingar um verkefnin getur hann  smellt á spurningarmerkið sem staðsett er aftan við hvert  verkefni. Þá opnast nýr gluggi þar sem hann getur lesið  rökstuðning og lýsingu<em>.</em></p>
-                               <p><b>Verkefnum  raðað í körfurnar</b></p>
-                               <p>Fyrir  neðan báðar körfur er listi með allt að 13 verkefnum sem  kjósandi getur smellt á og valið saman. Þegar verkefni hefur  verið valið verður línan með heiti þess dökkleit og verkefnið  birtist í körfunni fyrir ofan listann. Nú fá þau verkefni sem  kjósandi hefur ekki lengur efni á gráan lit. Þá er ekki hægt að  velja þau lengur.</p>
-                               <p><b>Haldið  áfram þar til karfa fyllist eða þar til ekki er nægt fjármagn  eftir</b></p>
-                               <p>Tölurnar  fyrir neðan körfuna sýna hversu hárri upphæð kjósandi hefur  ráðstafað og hversu mikið hann á eftir. Kjósandi getur haldið  áfram að velja verkefni í körfuna þar til heildarupphæðinni  fyrir viðkomandi hverfi er náð eða þar til ekki er til nægur  peningur fyrir neinu af þeim verkefnum sem eftir eru. Þá  fá þau  verkefni sem kjósandi hefur ekki lengur efni á gráan lit. Þá er  ekki hægt að velja þau lengur.</p>
-                               <p><b>Verkefni  fjarlægð og ný valin</b></p>
-                               <p>Til  að fjarlægja verkefni úr körfu smellirðu aftur á  viðkomandi  verkefni. Þá hefur það verið fjarlægt og aftur er hægt að  velja þau verkefni sem á ný rúmast innan fjárveitingarinnar (þau  eru ekki lengur grá og fá sinn upphaflega lit). Á þennan hátt  geturðu valið og fjarlægt verkefni – allt þangað til þú ert  ákveður að kjósa.</p>
-                               <p><b>Ekki  hægt að nota alla fjárhæðina. Er atkvæðið gilt?</b></p>
-                               <p>Þú  getur staðið frammi fyrir því að geta ekki fullnýtt uppgefna  upphæð fyrir viðkomandi hverfi, t.d. þegar verkefnin sem eftir  eru óvalin kosta hvert um sig meira en sem nemur þeirri fjárhæð  sem eftir er. Þú þarft ekki að hafa áhyggjur af þessu. Þú  getur samt kosið og atkvæðið er gilt.</p>
-                               <p><b>Ýtt  á hnappinn &bdquo;Kjósa&ldquo; – atkvæði móttekið</b></p>
-                               <p>Þegar  þú hefur lokið við að velja verkefni í aðra eða báðar  körfurnar smellirðu á hnappinn &bdquo;Kjósa&ldquo;<em>. </em>Þá  birtast skilaboð um að atkvæðið hafi verið móttekið.</p>
-                               <p><b>Kjóstu  eins oft og þú vilt – aðeins nýjasta atkvæðið gildir</b></p>
+                               <h6>Verkefni valin í körfu</h6>
+                               <p>Kjörseðillinn inniheldur lista með allt að 30 verkefnum. Til að fullnýta atkvæðið þarf kjósandi að velja verkefni þar til fleiri verkefni rúmast ekki innan fjárheimildarinnar. Kjósandi getur kosið með því að ýta á <b>Greiða atkvæði</b> jafnvel þótt hann hafi ekki fyllt körfuna. Atkvæðið verður gilt eftir sem áður.</p>
+                               <h6>Nánari  upplýsingar um verkefnin</h6>
+                               <p>Ef kjósandi vill fá nánari upplýsingar um verkefnin getur hann smellt á spurningarmerkið sem staðsett er aftan við hvert verkefni. Þá opnast nýr gluggi þar sem hann getur lesið rökstuðning og lýsingu.</p>
+                               <h6>Verkefnum  raðað í körfuna</h6>
+                               <p>Fyrir neðan körfuna er listi með allt að 30 verkefnum sem kjósandi getur smellt á og valið saman. Þegar verkefni hefur verið valið verður línan með heiti þess dökkleit og verkefnið birtist í körfunni fyrir ofan listann. Nú fá þau verkefni sem kjósandi hefur ekki lengur efni á gráan lit. Þá er ekki hægt að velja þau lengur.</p>
+                               <h6>Haldið  áfram þar til karfa fyllist eða þar til ekki er nægt fjármagn  eftir</h6>
+                               <p>Tölurnar fyrir neðan körfuna sýna hversu hárri upphæð kjósandi hefur ráðstafað og hversu mikið hann á eftir. Kjósandi getur haldið áfram að velja verkefni í körfuna þar til heildarupphæðinni fyrir viðkomandi hverfi er náð eða þar til ekki er til nægur peningur fyrir neinu af þeim verkefnum sem eftir eru. Þá  fá þau verkefni sem kjósandi hefur ekki lengur efni á gráan lit. Þá er ekki hægt að velja þau lengur.</p>
+                               <h6>Verkefni  fjarlægð og ný valin</h6>
+                               <p>Til að fjarlægja verkefni úr körfunni smellirðu aftur á  viðkomandi verkefni. Þá hefur það verið fjarlægt og aftur er hægt að velja þau verkefni sem á ný rúmast innan fjárveitingarinnar (þau eru ekki lengur grá og fá sinn upphaflega lit). Á þennan hátt geturðu valið og fjarlægt verkefni – allt þangað til þú ákveður að kjósa.</p>
+                               <h6>Ég get ekki notað alla fjárhæðina. Er atkvæðið gilt?</h6>
+                               <p>Þú getur staðið frammi fyrir því að geta ekki fullnýtt uppgefna upphæð fyrir viðkomandi hverfi, t.d. þegar verkefnin sem eftir eru óvalin kosta hvert um sig meira en sem nemur þeirri fjárhæð sem eftir er. Þú þarft ekki að hafa áhyggjur af þessu. Þú getur samt kosið og atkvæðið er gilt.</p>
+                               <h6>Ýtt á hnappinn &bdquo;Greiða atkvæði&ldquo; – atkvæði móttekið</h6>
+                               <p>Þegar þú hefur lokið við að velja verkefni  smellirðu á hnappinn <b>Greiða atkvæði</b>. Þá birtast skilaboð um að atkvæði hafi verið móttekið.</p>
+                               <h6>Kjóstu  eins oft og þú vilt – aðeins nýjasta atkvæðið gildir</h6>
                                <p>Þú  getur kosið eins oft og þú vilt meðan kosningin er opin. Mundu  bara að aðeins nýjasta atkvæðið þitt gildir.</p>
-                               <p><b>9.  Talning atkvæða</b></p>
+                               <h6>9.  Talning atkvæða</h6>
                                <p>Talningu  atkvæða er háttað sem hér segir: </p>
 
-                                   <p>1. Öll  	atkvæðin í viðkomandi flokki og hverfi talin og verkefnum raðað  	eftir fjölda atkvæða.</p>
+                                   <p>1. Öll  	atkvæðin í viðkomandi hverfi talin og verkefnum raðað  	eftir fjölda atkvæða.</p>
 
-
-                                   <p>2. Atkvæðamesta  	verkefninu í viðkomandi flokki og hverfi er stillt upp og  	kostnaðurinn  	við verkefnið dreginn frá heildarfjárheimildinni.</p>
+                                   <p>2. Atkvæðamesta  	verkefninu í viðkomandi hverfi er stillt upp og  	kostnaðurinn  	við verkefnið dreginn frá heildarfjárheimildinni.</p>
 
                                    <p>3. Næstatkvæðamesta  	verkefnið er tekið og borið saman við það sem eftir er af  	fjárheimildinni. Ef verkefnið rúmast innan heimildarinnar er það  	sett í listann fyrir valin verkefni. Ef það rúmast ekki innan  	heimildarinnar er því sleppt og þriðja atkvæðamesta verkefnið  	skoðað.</p>
 
                                  <p>4. Svona  	gengur þetta koll af kolli þangað til fjárheimildin hefur öll  	verið notuð eða hún er orðin of lítil fyrir nokkurt þeirra  	verkefna sem eftir eru. </p>
 
-                               <p><b>10.  Birting niðurstaðna</b></p>
-                               <p>Niðurstöður  kosningarinnar verða birtar eigi síðar en þremur dögum eftir lok  kosningarinnar.</p>
-                               <p><b>11.  Aðstoð við kosningu</b></p>
-                               <p><b>11.1  Aðstoð á &ldquo;kjörstað&rdquo;</b></p>
-                               <p>Hægt  verður að kjósa og fá aðstoð við kosningu á opnunartíma sex  þjónustumiðstöðva Reykjavíkurborgar í hverfum borgarinnar  meðan á rafrænni kosningu stendur</p>
-                               <p><b>	11.2 Reglur  		um aðstoð á kjörstað</b> </p>
 
-                               <p>Reglur  um aðstoð við kjósendur sem óska beinnar aðstoðar við að  afla sér veflykils eða við sjálfa kosninguna. Gildir um alla  aðstoð starfsmanna á vegum Reykjavíkurborgar:</p>
+                               <h6>10.  Birting niðurstaðna</h6>
+                               <p>Niðurstöður  kosningarinnar verða birtar eigi síðar en þremur dögum eftir lok  kosningarinnar.</p>
+
+                               <h6>11. Aðstoð við atkvæðagreiðslu</h6>
+                               <h6>11.1  Aðstoð á &ldquo;kjörstað&rdquo;</h6>
+                               <p>Hægt  verður að kjósa og fá aðstoð við kosningu á opnunartíma sex  þjónustumiðstöðva Reykjavíkurborgar í hverfum borgarinnar  meðan á rafrænni kosningu stendur</p>
+                               <h6>	11.2 Reglur  		um aðstoð á kjörstað</h6>
+
+                               <p>Reglur  um aðstoð við kjósendur sem óska beinnar aðstoðar við að  afla sér veflykils eða við sjálfa kosninguna. Starfsmenn Reykjavíkurborgar eru bundnir trúnaði.</p>
 
                                    <p>1. Kjósandi  	gefur sig fram við starfsmann og gerir grein fyrir sér með  	framvísun skilríkja.</p>
 
-                                   <p>2. Aðstoðarmaður  	undirritar yfirlýsingu um trúnað varðandi aðstoðina.  	Starfsmaður útvegar kjósanda aðgang að tölvu og aðstoðar  	kjósanda við öflun varanlegs veflykils með því að leiðbeina  	honum skref fyrir skref. Kjósandi framkvæmir allar aðgerðir  	sjálfur.</p>
+<p>2. Starfsmaður útvegar kjósanda aðgang að tölvu og aðstoðar kjósanda við öflun varanlegs veflykils með því að leiðbeina honum skref fyrir skref. Kjósandi framkvæmir allar aðgerðir sjálfur.</p>
 
-                                   <p>3. Starfsmaður  	aðstoðar kjósanda við kosninguna með því að leiðbeina honum  	skref fyrir skref. Kjósandi framkvæmir allar aðgerðir sjálfur.</p>
+<p>3. Starfsmaður aðstoðar kjósanda við atkvæðagreiðslu með því að leiðbeina honum skref fyrir skref. Kjósandi framkvæmir allar aðgerðir sjálfur.</p>
 
-                               <p><b>12.  Upplýsingar og fyrirspurnir</b></p>
-                               <p>Upplýsingar  um kosninguna verða aðgengilegar á vefnum Betri  Reykjavík,  sem og í kynningarefni sem dreift verður inn á öll heimili í  Reykjavíkurborg áður en kosning hefst. Þá verður hægt að  nálgast upplýsingar hjá þjónustufulltrúum í Þjónustuveri  Reykjavíkurborgar að Borgartúni 12-14. Beinn sími hjá  þjónustuverinu er 4 11 11 11.</p>
-                               <p>Upplýsingar  og leiðbeiningar um kosninguna verða aðgengilegar á sjálfum  kosningavefnum. Þar verður einnig hægt að senda inn fyrirspurnir  og kvartanir á netfangið <a href=\"mailto:betrireykjavik@ibuar.is\">betrireykjavik@ibuar.is</a> með því að ýta á hnappinn &bdquo;Hafðu samband.&ldquo;</p>
-                               <p><b>13.  Kjörstjórn</b></p>
-                               <p>Kjörstjórn  er skipuð þremur fulltrúum frá Reykjavíkurborg. Kjörstjórn ber  ábyrgð á framkvæmd kosningarinnar og afgreiðir þær  athugasemdir er kunna að berast vegna hennar. Kjörstjórn nýtur  aðstoðar fulltrúa Íbúa ses. varðandi tæknileg álitamál.<b> </b>Kjörstjórn  skipa:</p>
-                               <p>Helga  Björk Laxdal, formaður, skrifstofustjóri  borgarstjórnar</p>
-                               <p>Hilmar  Magnússon, verkefnisstjóri  á skrifstofu borgarstjóra</p>
-                               <p>Eggert  Ólafsson, rekstrar-  og gæðastjóri Upplýsingatæknimiðstöðvar Reykjavíkurborgar</p>
-                               <p>Fyrirspurnir,  ábendingar og kvartanir varðandi kosninguna skulu berast á  netfangið <a href=\"mailto:betrireykjavik@ibuar.is\">betrireykjavik@ibuar.is</a>.</p>
-                               <p><b>14.  Eftirlit með framkvæmd kosningar</b></p>
-                               <p>Innri  endurskoðun Reykjavíkurborgar hefur eftirlit með framkvæmd  kosningarinnar og fylgist með því að skráðum ferlum sé fylgt  til hlítar.</p>"
+                               <h6>12.  Upplýsingar og fyrirspurnir</h6>
+                               <p>Upplýsingar  um kosninguna verða aðgengilegar á vefnum Betri  Reykjavík,  sem og í kynningarefni sem dreift verður inn á öll heimili í  Reykjavíkurborg áður en kosningarnar hefjast. Þá verður hægt að  nálgast upplýsingar hjá þjónustufulltrúum í Þjónustuveri  Reykjavíkurborgar að Borgartúni 12-14. Beinn sími hjá  þjónustuverinu er 4 11 11 11.</p>
+                               <p>Upplýsingar  og leiðbeiningar um kosninguna verða aðgengilegar á sjálfum  kosningavefnum. Þar verður einnig hægt að senda inn fyrirspurnir  og kvartanir á netfangið <a href=\"mailto:betrireykjavik@ibuar.is\">betrireykjavik@ibuar.is</a> með því að ýta á hnappinn <b>Hafðu samband.</b>></p>
 
-  votes_help_select_area: "<h1>Veldu hverfi</h1>
+                               <h6>13.  Kjörstjórn</h6>
+                               <p>Kjörstjórn er skipuð þremur fulltrúum frá Reykjavíkurborg. Kjörstjórn ber ábyrgð á framkvæmd kosningarinnar og afgreiðir þær athugasemdir er kunna að berast vegna hennar. Kjörstjórn nýtur aðstoðar fulltrúa Einskis ehf. varðandi tæknileg álitamál. Kjörstjórn skipa:<b> </b>Kjörstjórn  skipa:</p>
+                               <p>Helga  Björk Laxdal, formaður, skrifstofustjóri skrifstofu borgarstjórnar</p>
+                               <p>Hilmar  Magnússon, verkefnisstjóri  á skrifstofu borgarstjóra og borgarritara</p>
+                               <p>Eggert  Ólafsson, rekstrar-  og gæðastjóri Upplýsingatæknideildar Reykjavíkurborgar</p>
+                               <p>Fyrirspurnir,  ábendingar og kvartanir varðandi kosningarnar skulu berast á  netfangið <a href=\"mailto:betrireykjavik@ibuar.is\">betrireykjavik@ibuar.is</a>.</p>
+                               <h6>14.  Eftirlit með framkvæmd kosningar</h6>
+                               <p>Innri  endurskoðun Reykjavíkurborgar hefur eftirlit með framkvæmd  kosninganna og fylgist með því að skráðum ferlum sé fylgt  til hlítar.</p>"
+
+  votes_help_select_area: "<h1>Hjálp</h1>
+<h1>Veldu hverfi</h1>
                            <p>Á þessari síðu sérðu kort af Reykjavík þar sem hvert hverfi hefur sinn lit. Veldu það hverfi sem þú vilt kjósa í með því að smella á það á kortinu.</p>
 
                            <h1>Finna mitt hverfi</h1><p>
-                           Ef þú ert ekki viss um hvaða hverfi þú býrð í eða vilt skoða lista yfir framkvæmdir í öðru hverfi, getur þú gert það með því að smella á hnappinn &bdquo;Finna mitt hverfi&rdquo; fyrir ofan kortið. Þá opnast í nýjum glugga síða Landupplýsingakerfis Reykjavíkurborgar þar sem hægt er að fletta upp götunöfnum og sjá hvaða götur tilheyra hvaða hverfum.</p>
+Ef þú ert ekki viss um hvaða hverfi þú býrð í eða vilt skoða lista yfir framkvæmdir í öðru hverfi, getur þú gert það með því að smella á hnappinn <b>Finna mitt hverfi</b> fyrir ofan kortið. Þá opnast í nýjum glugga síða Landupplýsingakerfis Reykjavíkurborgar þar sem hægt er að fletta upp götunöfnum og sjá hvaða götur tilheyra hvaða hverfum.
 
+Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónustuveri Reykjavíkurborgar í síma 411 1111.
 
                            <p>Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónustuveri Reykjavíkur-borgar í síma 4 11 11 11.</p>"
 
-  votes_help_get_ballot: "<h1>Tvær körfur</h1>
-                          <b>Nýframkvæmdir og Viðhaldsverkefni</b>
-                          <p>Kjörseðlinum er skipt í tvær nokkurs konar innkaupakörfur: nýframkvæmdir til vinstri og viðhaldsverkefni til hægri. Til að fullnýta atkvæðið skaltu velja verkefni í báðar körfurnar. Þú getur kosið með því að ýta á Kjósa, jafnvel þótt þú hafir ekki fyllt körfurnar eða skilið aðra þeirra eftir tóma. Atkvæðið verður gilt eftir sem áður. </p>
+  votes_help_get_ballot: "<h1>Hjálp</h1>
+<h1>Veldu verkefni</h1>
+                          <p>Kjörseðillinn er einskonar innkaupakarfa sem þú velur verkefnin í. Til að fullnýta atkvæðið skaltu velja verkefni þar til þú getur ekki valið fleiri. Þú getur kosið með því að ýta á Greiða atkvæði jafnvel þótt þú hafir ekki fyllt körfuna. Atkvæðið verður gilt eftir sem áður. </p>
 
                           <b>Nánari upplýsingar um verkefnin</b><p>
                           Ef þú vilt fá nánari upplýsingar um verkefnin geturðu smellt á spurningarmerkið sem staðsett er fyrir aftan hvert verkefni. Þá opnast nýr gluggi þar sem þú getur lesið rökstuðning og lýsingu.</p>
 
 
-                          <b>Verkefnum raðað í körfurnar
-                          </b><p>
-                          Fyrir neðan báðar körfur er listi með allt að 13 verkefnum sem þú getur valið með því að smella á. Þegar verkefni hefur verið valið verður línan með heiti þess dökkleit og verkefnið birtist í körfunni fyrir ofan listann. Nú fá þau verkefni sem þú hefur ekki lengur efni á gráan lit. Ekki er hægt að velja þær lengur.<p/>
+                          <b>Verkefnum raðað í körfuna
+                          </b>
+                          <p>Fyrir neðan körfuna er listi með allt að 30 verkefnum sem þú getur valið með því að smella á. Þegar verkefni hefur verið valið verður línan með heiti þess dökkleit og verkefnið birtist í körfunni fyrir ofan listann. Nú fá þau verkefni sem þú hefur ekki lengur efni á gráan lit. Ekki er hægt að velja þau lengur.<p/>
 
-                          <p>Tölurnar fyrir neðan körfuna sýna hversu miklu þú hefur ráðstafað og hversu mikið þú átt eftir. Þú getur haldið áfram að velja verkefni í körfuna þar til heildarupphæð er náð eða þar til ekki er til nægur peningur fyrir neina af þeim hugmyndum sem eftir eru (sem eru þá allar orðnar gráar).<p/>
-
-
+<p>                          Tölurnar fyrir neðan körfuna sýna hversu miklu þú hefur ráðstafað og hversu mikið þú átt eftir. Þú getur haldið áfram að velja verkefni í körfuna þar til heildarupphæð er náð eða þar til ekki er til nægur peningur fyrir neina af þeim hugmyndum sem eftir eru (sem eru þá allar orðnar gráar).</p>
 
                           <b>Verkefni fjarlægð og ný valin</b>
-                          <p>Til að fjarlægja verkefni úr körfu smellirðu aftur á viðkomandi verkefni. Það hefur nú verið fjarlægt og aftur er hægt að velja þau verkefni sem á ný rúmast innan fjárhagsrammans (þau eru ekki lengur grá og fá sinn upphaflega lit). Á þennan hátt getur þú valið og fjarlægt verkefni – allt þangað til þú ert ákveður að kjósa.</p>
+                          <p>Til að fjarlægja verkefni úr körfunni smellirðu aftur á viðkomandi verkefni. Það hefur nú verið fjarlægt og aftur er hægt að velja þau verkefni sem á ný rúmast innan fjárhagsrammans (þau eru ekki lengur grá og fá sinn upphaflega lit). Á þennan hátt getur þú valið og fjarlægt verkefni – allt þangað til þú  ákveður að kjósa.</p>
 
 
 
                           <b>Ég get ekki notað allan peninginn. Er atkvæðið gilt? Hvað um afganginn?</b>
                           <p>Þú getur staðið frammi fyrir því að geta ekki fullnýtt fjárveitingu viðkomandi hverfis, t.d. þegar verkefnin sem eftir eru óvalin kosta hvert um sig meira en sem nemur þeirri fjárhæð sem eftir er. Þú þarft ekki að hafa áhyggjur af þessu. Þú getur samt kosið og atkvæðið er gilt.<p/>
 
-                          <b>Ýtt á hnappinn Kjósa – atkvæði hér</b>
-                          <p>Þegar þú hefur lokið við að velja verkefni í aðra eða báðar körfurnar smellirðu á hnappinn Kjósa. Þá birtast skilaboð um að atkvæðið hafi verið móttekið.<p/>
+                          <b>Ýttu á hnappinn Greiða atkvæði – atkvæði móttekið</b>
+                          <p>Þegar þú hefur lokið við að velja verkefni smellirðu á hnappinn Greiða atkvæði. Þá birtast skilaboð um að atkvæðið hafi verið móttekið.<p/>
 
 
                           <b>Kjóstu eins oft og þú vilt – aðeins nýjasta atkvæðið gildir</b><p>
