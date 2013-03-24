@@ -28,7 +28,7 @@ namespace :assets do
   end
 end
 
-after :deploy, "assets:precompile"
+#after :deploy, "assets:precompile"
 
 task :after_update_code do
   run "ln -s   #{deploy_to}/#{shared_dir}/config/database.yml #{current_release}/config/database.yml"

@@ -10,6 +10,7 @@ gem 'mysql2' # The Mysql Driver
 gem 'dalli' # Memcache driver
 gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
+gem 'psych', '1.2.2'
 gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
 gem 'ruby-saml'
 
@@ -27,7 +28,6 @@ group :development, :test do
   #gem 'waitr'
   gem 'awesome_print'
   gem 'watir-webdriver'
-  gem 'psych', '1.2.2'
   gem 'headless'
   gem 'turn', '~> 0.8.3', :require => false
 end
