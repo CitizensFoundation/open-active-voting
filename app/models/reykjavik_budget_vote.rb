@@ -17,8 +17,7 @@ require 'base64'
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ReykjavikBudgetVote
-  CONSTRUCTION_PRIORITIES_ARRAY_ID = 0
-  MAINTENANCE_PRIORITIES_ARRAY_ID = 1
+  NEW_PRIORITIES_ARRAY_ID = 0
 
   attr_reader :priority_ids
 
@@ -59,14 +58,14 @@ class ReykjavikBudgetVote
     decrypted_vote = decrypted_vote.gsub(",]","]")
     combined_priorities = JSON.parse(decrypted_vote).to_a
     #puts "Last vote for #{combined_priorities}"
-    @priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
+    @priority_ids = combined_priorities[NEW_PRIORITIES_ARRAY_ID]
   end
 
   def unpack_without_encryption
     # Unpack the vote without decryption
     combined_priorities = @encrypted_payload
     if combined_priorities
-      @priority_ids = combined_priorities[CONSTRUCTION_PRIORITIES_ARRAY_ID]
+      @priority_ids = combined_priorities[NEW_PRIORITIES_ARRAY_ID]
     end
   end
 end

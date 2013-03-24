@@ -158,10 +158,10 @@ class ReykjavikBudgetVoteCounting
     add_votes(decrypted_vote.priority_ids)
   end
 
-  def add_votes(priority_ids)
+  def add_votes(vote)
     # Add the construction votes to an array
-    puts "PRI XXXXXXXXXXXXXXXXXX #{priority_ids}"
-    priority_ids.each do |priority_id|
+    puts "PRI XXXXXXXXXXXXXXXXXX #{vote}"
+    vote.priority_ids.each do |priority_id|
       @priority_ids_count[priority_id] = 0 unless @priority_ids_count[priority_id]
       @priority_ids_count[priority_id] += 1
     end
