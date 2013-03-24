@@ -582,8 +582,7 @@ en:
                       <p><a href='/votes/logout'>Sign out of voting site</a></p>"
 
   votes_help_authentication_options: "
-  <h1>Login and authentication</h1><p>To login and authenticate yourself  you click on  Ísland.is. You will now be directed to a login page where you will have two options for login: <b>electronic ID with a debitcard</b> or <b>with a password provided by the Internal Revenue Directorate.
-.</h6>
+  <h1>Login and authentication</h1><p>To login and authenticate yourself  you click on  Ísland.is. You will now be directed to a login page where you will have two options for login: <b>electronic ID with a debitcard</b> or <b>with a password provided by the Internal Revenue Directorate</b>.</h6>
 <p>For further information and assistance please call 4 11 11 11 to talk with one of our service representatives at Reykjavík City‘s Service Centre.</p>"
 
   votes_about_the_poll_text: "
