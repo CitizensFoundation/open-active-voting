@@ -246,10 +246,10 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>"CA8796EE-7239-497A-96FE-156419E4F9BA", :svfNr=>%w{0000})
 
-      response_test          = Onelogin::Saml::Response.new(@response)
-      response_test.settings = saml_settings
+      #response_test          = Onelogin::Saml::Response.new(@response)
+      #response_test.settings = saml_settings
 
-      Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
+      #Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
