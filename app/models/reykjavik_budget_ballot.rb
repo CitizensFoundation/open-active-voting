@@ -15,26 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class ReykjavikBudgetBallot < ActiveRecord::Base
-  set_table_name "ballots"
-  serialize :neighborhoods, Hash
+class ReykjavikBudgetBallot
+
+  attr_accessor :neighborhoods
 
   def self.current
-    unless Rails.env.production?
-      unless ReykjavikBudgetBallot.first
-        ballot = ReykjavikBudgetBallot.new
-        ballot.initialize_from_static_data
-        ballot.save
-      end
-    end
-    ReykjavikBudgetBallot.first
+    ReykjavikBudgetBallot.new
   end
 
   def priorities(neighborhood_id)
     self.neighborhoods[neighborhood_id][:priorities]
   end
 
-  def initialize_from_static_data(neighborhood_id=1)
+  def initialize(neighborhood_id=1)
     # Setup the neighborhoods for the ballot
     self.neighborhoods=Hash.new
     self.neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"13.534.046", :priorities=>[] }
@@ -125,24 +118,22 @@ class ReykjavikBudgetBallot < ActiveRecord::Base
     self.neighborhoods[8][:priorities] << {:id=>131, :letter=>"k", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_131), :name=>I18n.t(:new_project_name_id_131), :price=>3.5}
     self.neighborhoods[8][:priorities] << {:id=>132, :letter=>"l", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_132), :name=>I18n.t(:new_project_name_id_132), :price=>2.5}
     self.neighborhoods[8][:priorities] << {:id=>133, :letter=>"m", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_133), :name=>I18n.t(:new_project_name_id_133), :price=>5.0}
-    self.neighborhoods[8][:priorities] << {:id=>134, :letter=>"o", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/862-matjurtagard-vid-gamla-throttaravollinn-saevidarsundi", :description=>I18n.t(:new_project_description_id_121), :name=>I18n.t(:new_project_name_id_121), :price=>1.0}
-    self.neighborhoods[8][:priorities] << {:id=>135, :letter=>"p", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/843-hundagerdi-i-laugardalnum", :description=>I18n.t(:new_project_description_id_122), :name=>I18n.t(:new_project_name_id_122), :price=>2.5}
-    self.neighborhoods[8][:priorities] << {:id=>136, :letter=>"r", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1125-utiadstada-fyrir-alla-fjolskylduna-i-laugardalinn", :description=>I18n.t(:new_project_description_id_123), :name=>I18n.t(:new_project_name_id_123), :price=>2.5}
-    self.neighborhoods[8][:priorities] << {:id=>137, :letter=>"s", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/914-gonguljos-vid-gatnamotin-a-hofteig-og-reykjaveg", :description=>I18n.t(:new_project_description_id_124), :name=>I18n.t(:new_project_name_id_124), :price=>11.0}
-    self.neighborhoods[8][:priorities] << {:id=>139, :letter=>"t", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1119-baeta-tengingu-langholtsvegar-vid-hjolreidastigin-vid-saebraut", :description=>I18n.t(:new_project_description_id_125), :name=>I18n.t(:new_project_name_id_125), :price=>1.5}
-    self.neighborhoods[8][:priorities] << {:id=>140, :letter=>"w", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1010-gonguljos-og-lysing-vid-gatnamot-kirkjuteigs-og-reykjavegar", :description=>I18n.t(:new_project_description_id_126), :name=>I18n.t(:new_project_name_id_126), :price=>11.0}
-    self.neighborhoods[8][:priorities] << {:id=>141, :letter=>"z", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/812-setja-upp-korfur-a-malbikudum-velli-sem-er-a-bakvid-drekavog", :description=>I18n.t(:new_project_description_id_127), :name=>I18n.t(:new_project_name_id_127), :price=>0.5}
+    self.neighborhoods[8][:priorities] << {:id=>134, :letter=>"n", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/862-matjurtagard-vid-gamla-throttaravollinn-saevidarsundi", :description=>I18n.t(:new_project_description_id_121), :name=>I18n.t(:new_project_name_id_121), :price=>1.0}
+    self.neighborhoods[8][:priorities] << {:id=>135, :letter=>"o", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/843-hundagerdi-i-laugardalnum", :description=>I18n.t(:new_project_description_id_122), :name=>I18n.t(:new_project_name_id_122), :price=>2.5}
+    self.neighborhoods[8][:priorities] << {:id=>136, :letter=>"p", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1125-utiadstada-fyrir-alla-fjolskylduna-i-laugardalinn", :description=>I18n.t(:new_project_description_id_123), :name=>I18n.t(:new_project_name_id_123), :price=>2.5}
+    self.neighborhoods[8][:priorities] << {:id=>137, :letter=>"q", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/914-gonguljos-vid-gatnamotin-a-hofteig-og-reykjaveg", :description=>I18n.t(:new_project_description_id_124), :name=>I18n.t(:new_project_name_id_124), :price=>11.0}
+    self.neighborhoods[8][:priorities] << {:id=>135, :letter=>"r", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/843-hundagerdi-i-laugardalnum", :description=>I18n.t(:new_project_description_id_122), :name=>I18n.t(:new_project_name_id_122), :price=>2.5}
+    self.neighborhoods[8][:priorities] << {:id=>136, :letter=>"s", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1125-utiadstada-fyrir-alla-fjolskylduna-i-laugardalinn", :description=>I18n.t(:new_project_description_id_123), :name=>I18n.t(:new_project_name_id_123), :price=>2.5}
+    self.neighborhoods[8][:priorities] << {:id=>137, :letter=>"t", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/914-gonguljos-vid-gatnamotin-a-hofteig-og-reykjaveg", :description=>I18n.t(:new_project_description_id_124), :name=>I18n.t(:new_project_name_id_124), :price=>11.0}
+    self.neighborhoods[8][:priorities] << {:id=>139, :letter=>"u", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1119-baeta-tengingu-langholtsvegar-vid-hjolreidastigin-vid-saebraut", :description=>I18n.t(:new_project_description_id_125), :name=>I18n.t(:new_project_name_id_125), :price=>1.5}
+    self.neighborhoods[8][:priorities] << {:id=>140, :letter=>"v", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1010-gonguljos-og-lysing-vid-gatnamot-kirkjuteigs-og-reykjavegar", :description=>I18n.t(:new_project_description_id_126), :name=>I18n.t(:new_project_name_id_126), :price=>11.0}
+    self.neighborhoods[8][:priorities] << {:id=>141, :letter=>"w", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/812-setja-upp-korfur-a-malbikudum-velli-sem-er-a-bakvid-drekavog", :description=>I18n.t(:new_project_description_id_127), :name=>I18n.t(:new_project_name_id_127), :price=>0.5}
     self.neighborhoods[8][:priorities] << {:id=>142, :letter=>"x", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1102-honnunarsmidja-vegna-torgs-a-motum-skeidarvogs-og-gnodarvogs", :description=>I18n.t(:new_project_description_id_128), :name=>I18n.t(:new_project_name_id_128), :price=>1.0}
-    self.neighborhoods[8][:priorities] << {:id=>143, :letter=>"y", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1034-baett-lysing-a-horni-skeidarvogs-og-solheima", :description=>I18n.t(:new_project_description_id_129), :name=>I18n.t(:new_project_name_id_129), :price=>0.3}
-    self.neighborhoods[8][:priorities] << {:id=>143, :letter=>"1", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_130), :name=>I18n.t(:new_project_name_id_130), :price=>1.0}
-    self.neighborhoods[8][:priorities] << {:id=>144, :letter=>"2", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_131), :name=>I18n.t(:new_project_name_id_131), :price=>3.5}
-    self.neighborhoods[8][:priorities] << {:id=>145, :letter=>"3", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_132), :name=>I18n.t(:new_project_name_id_132), :price=>2.5}
-    self.neighborhoods[8][:priorities] << {:id=>146, :letter=>"4", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_133), :name=>I18n.t(:new_project_name_id_133), :price=>5.0}
-    self.neighborhoods[8][:priorities] << {:id=>147, :letter=>"5", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1010-gonguljos-og-lysing-vid-gatnamot-kirkjuteigs-og-reykjavegar", :description=>I18n.t(:new_project_description_id_126), :name=>I18n.t(:new_project_name_id_126), :price=>11.0}
-    self.neighborhoods[8][:priorities] << {:id=>148, :letter=>"6", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/812-setja-upp-korfur-a-malbikudum-velli-sem-er-a-bakvid-drekavog", :description=>I18n.t(:new_project_description_id_127), :name=>I18n.t(:new_project_name_id_127), :price=>0.5}
-    self.neighborhoods[8][:priorities] << {:id=>149, :letter=>"7", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1102-honnunarsmidja-vegna-torgs-a-motum-skeidarvogs-og-gnodarvogs", :description=>I18n.t(:new_project_description_id_128), :name=>I18n.t(:new_project_name_id_128), :price=>1.0}
-    self.neighborhoods[8][:priorities] << {:id=>150, :letter=>"8", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1034-baett-lysing-a-horni-skeidarvogs-og-solheima", :description=>I18n.t(:new_project_description_id_129), :name=>I18n.t(:new_project_name_id_129), :price=>0.3}
-    self.neighborhoods[8][:priorities] << {:id=>151, :letter=>"9", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_130), :name=>I18n.t(:new_project_name_id_130), :price=>1.0}
+    self.neighborhoods[8][:priorities] << {:id=>143, :letter=>"z", :link=>"http://betri-hverfi-laugardalur.betrireykjavik.is/priorities/1034-baett-lysing-a-horni-skeidarvogs-og-solheima", :description=>I18n.t(:new_project_description_id_129), :name=>I18n.t(:new_project_name_id_129), :price=>0.3}
+    self.neighborhoods[8][:priorities] << {:id=>143, :letter=>"0", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_130), :name=>I18n.t(:new_project_name_id_130), :price=>1.0}
+    self.neighborhoods[8][:priorities] << {:id=>144, :letter=>"1", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_131), :name=>I18n.t(:new_project_name_id_131), :price=>3.5}
+    self.neighborhoods[8][:priorities] << {:id=>145, :letter=>"2", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_132), :name=>I18n.t(:new_project_name_id_132), :price=>2.5}
+    self.neighborhoods[8][:priorities] << {:id=>146, :letter=>"3", :link=>"-- no Hyperlink --", :description=>I18n.t(:new_project_description_id_133), :name=>I18n.t(:new_project_name_id_133), :price=>5.0}
 
     self.neighborhoods[9][:priorities] << {:id=>147, :letter=>"a", :link=>"http://betri-hverfi-midborg.betrireykjavik.is/priorities/714-hundaleiksvaedi-i-nagrenni-vid-midbaeinn", :description=>I18n.t(:new_project_description_id_147), :name=>I18n.t(:new_project_name_id_147), :price=>2.5}
     self.neighborhoods[9][:priorities] << {:id=>148, :letter=>"b", :link=>"http://betri-hverfi-midborg.betrireykjavik.is/priorities/1113-gangstettir-nedst-a-frakkastig-og-klapparstig", :description=>I18n.t(:new_project_description_id_148), :name=>I18n.t(:new_project_name_id_148), :price=>2.5}

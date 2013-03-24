@@ -151,16 +151,17 @@ namespace :ballot do
   end
 
   def make_data_hash(row,master_id,count)
-    letter_of_alphabet = ('a'..'z').to_a+['0','1','2','3']
+    letter_of_alphabet = ('a'..'m').to_a
     { :letter=>letter_of_alphabet[count],
       :id=>master_id,
       :name=>"new_project_name_id_#{master_id}",
       :description=>"new_project_description_id_#{master_id}",
-      :name_is=>row[3], :description_is=>row[5],
-      :name_en=>row[6], :description_en=>row[5],
-      :price=>change_price_to_i(row[4]),
-      :link=>row[1] }
+      :name_is=>row[5], :description_is=>row[6],
+      :name_en=>row[7], :description_en=>row[6],
+      :price=>change_price_to_i(row[8]),
+      :link=>row[9] }
   end
+
 
   class String
     def escape_quotes
@@ -186,12 +187,23 @@ namespace :ballot do
 
     priorities_count = nil
 
-    current_neighborhood = find_neighborhood(ENV[:id])
-
     CSV.parse(File.open(ENV['infile']).read).each do |row|
-      @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
-      @neighborhoods[current_neighborhood[:id]][:priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:priorities]
-      @neighborhoods[current_neighborhood[:id]][:priorities] << make_data_hash(row,master_id+=1,priorities_count+=1)
+      #puts row
+      if row[1] current_neighborhood = find_neighborhood(row[2])
+        puts state = "wait_for_priorities"
+      elsif state == "wait_for_priorities" and row[2]=="Nýframkvæmdir"
+        puts state = "priorities"
+        priorities_count = -1
+      elsif state == "priorities"
+        if row[2]==nil
+          puts state = "wait_for_maintenance_priorities"
+        else
+          #puts "Found project row: #{row}"
+          @neighborhoods[current_neighborhood[:id]]=Hash.new unless @neighborhoods[current_neighborhood[:id]]
+          @neighborhoods[current_neighborhood[:id]][:priorities]=[] unless @neighborhoods[current_neighborhood[:id]][:priorities]
+          @neighborhoods[current_neighborhood[:id]][:priorities] << make_data_hash(row,master_id+=1,priorities_count+=1)
+        end
+
     end
     main_outfile = ""
     is_yml = ""
@@ -211,7 +223,7 @@ namespace :ballot do
       end
     end
     puts main_outfile
-    puts is_yml
-    puts en_yml
+    #puts is_yml
+    #puts en_yml
   end
 end

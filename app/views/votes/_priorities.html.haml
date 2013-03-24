@@ -1,6 +1,6 @@
 - priorities.each_with_index do |priority,index|
   - onclick_options = "select(this,selected,curtotal,total,'#curtotal','#options','#votes');"
-  %li{:id=>"option_#{priority[:id]}", :name=>priority[:name], :letter=>@letter_of_alphabet[index],:price=>priority[:price],:onclick=>onclick_options}
+  %li{:id=>"option_#{priority[:id]}", :name=>priority[:name], :letter=>@letter_of_alphabet[index+index_offset],:price=>priority[:price],:onclick=>onclick_options}
     %span.val
       %span.num
         = priority[:letter]
