@@ -80,7 +80,7 @@ img {
 /*             id's                         */
 
 #wrapper{
-  width: 950px;
+  width: 990px;
   margin: 0px auto;
   height: 100%;
 }
@@ -304,19 +304,19 @@ iframe {
 }
 
 #leftcol {
-  width: 450px;
+  width: 480px;
   float: left;
 }
 
 #rightcol {
   margin-top: 20px;
-  width: 450px;
-  margin-left: 475px;
+  width: 480px;
+  margin-left: 486px;
 }
 
 #votes {
   border: 1px solid #ccc;
-  width: 926px;
+  width: 960px;
   height: 43px;
   margin: 10px 0px;
   padding: 1px;
@@ -346,7 +346,7 @@ iframe {
 .list ul li {
   border-bottom: 1px solid #ddd;
   padding: 3px;
-  width: 410px;
+  width: 440px;
   display: inline-table;
 }
 
@@ -433,7 +433,8 @@ ul.flags li {
 }
 
 .right {
-  float: right
+  float: right;
+  margin-right: 5px;
 }
 
 .center {

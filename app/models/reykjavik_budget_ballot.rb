@@ -24,16 +24,16 @@ class ReykjavikBudgetBallot
   def initialize(neighborhood_id=1)
     # Setup the neighborhoods for the ballot
     self.neighborhoods=Hash.new
-    self.neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"13.534.046", :priorities=>[] }
-    self.neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"23.209.940", :priorities=>[]  }
-    self.neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt",                  :budget_amount=>"9.083.648", :priorities=>[]  }
-    self.neighborhoods[4] = { :id=>4 ,:name=>"Grafarvogur",                 :budget_amount=>"20.768.909", :priorities=>[] }
-    self.neighborhoods[5] = { :id=>5 ,:name=>"Háaleiti og Bústaðir",        :budget_amount=>"16.983.556", :priorities=>[]  }
-    self.neighborhoods[6] = { :id=>6 ,:name=>"Hlíðar",                      :budget_amount=>"12.905.052", :priorities=>[]  }
-    self.neighborhoods[7] = { :id=>7 ,:name=>"Kjalarnes",                   :budget_amount=>"4.543.122", :priorities=>[]  }
-    self.neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"18.308.904", :priorities=>[]  }
-    self.neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"12.019.905", :priorities=>[] }
-    self.neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"18.640.952", :priorities=>[]  }
+    self.neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"27.232.046", :priorities=>[] }
+    self.neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"46.416.346", :priorities=>[]  }
+    self.neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt",                  :budget_amount=>"18.710.919", :priorities=>[]  }
+    self.neighborhoods[4] = { :id=>4 ,:name=>"Grafarvogur",                 :budget_amount=>"41.262.636", :priorities=>[] }
+    self.neighborhoods[5] = { :id=>5 ,:name=>"Háaleiti og Bústaðir",        :budget_amount=>"34.143.815", :priorities=>[]  }
+    self.neighborhoods[6] = { :id=>6 ,:name=>"Hlíðar",                      :budget_amount=>"25.765.742", :priorities=>[]  }
+    self.neighborhoods[7] = { :id=>7 ,:name=>"Kjalarnes",                   :budget_amount=>"9.028.419", :priorities=>[]  }
+    self.neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"36.888.194", :priorities=>[]  }
+    self.neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"23.463.701", :priorities=>[] }
+    self.neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"37.087.717", :priorities=>[]  }
 
     @neighborhoods[1][:priorities] << {:id=>1, :letter=>"a", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1726-endurnyjun-leikvalla", :description=>I18n.t(:new_project_description_id_1), :name=>I18n.t(:new_project_name_id_1), :price=>7.0}
     @neighborhoods[1][:priorities] << {:id=>2, :letter=>"b", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1758-lysing-a-gongustig-fra-arbaejarlaug-ad-ogurhvarfi", :description=>I18n.t(:new_project_description_id_2), :name=>I18n.t(:new_project_name_id_2), :price=>15.0}
