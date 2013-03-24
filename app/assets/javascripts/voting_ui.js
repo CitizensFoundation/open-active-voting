@@ -70,12 +70,11 @@ function parseLocalNum(num) {
     return num.replace(".", ",");
 }
 
-function select(item,selected,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
+function select(item,selected,curtotalold,total,curTotalDiv,optionsDiv,votesDiv) {
     var id = item.id.split("_")[1];
     if ($(item).hasClass("disabled")) {
         return;
     }
-    //alert(id);
     optprice = parseFloat($(item).attr("price"));
     optwidth = parseInt(voteswidth * (optprice / total))-2;
     optname = $(item).attr("name");
@@ -89,16 +88,25 @@ function select(item,selected,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
             }
         }
        curtotal -= optprice;
-       curtotal=curtotal;
+
     } else {
         selected.push(id);
         $(item).addClass("selected");
         $(votesDiv).append("<div title=\""+optname+"\" id=\"opt_" + id + "\" style=\"text-align: center;width: " + optwidth + "px;\" class=\""+"vote_class\">" + optletter + "");
         curtotal += optprice;
-        curtotal=curtotal;
     }
-    var allopts = $(optionsDiv+"_left").children();
-    allopts += $(optionsDiv+"_right").children();
+
+    var alloptsL = $(optionsDiv+"_left").children();
+    var alloptsR = $(optionsDiv+"_right").children();
+
+//    alert(alloptsL.length);
+//    alert(alloptsR.length);
+
+//    alert(total);
+//    alert(curtotal);
+
+    var allopts = jQuery.merge(alloptsL,alloptsR);
+
     for (var i = 0; i < allopts.length; i++) {
         opt = allopts[i];
         if ($(opt).hasClass("selected")) {
@@ -112,6 +120,7 @@ function select(item,selected,curtotal,total,curTotalDiv,optionsDiv,votesDiv) {
             $(opt).removeClass("disabled");
         }
     }
+
     if (curtotal>0) {
       $('#total_text').text(no_need_to_empty_text);
     } else {
