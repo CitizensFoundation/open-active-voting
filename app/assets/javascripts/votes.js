@@ -154,7 +154,7 @@ $(function() {
           dataType: "json",
           success: function(response) {
             if (response[0] && response[0].vote_ok==true) {
-              $('#main_election_content').load("/votes/vote_delivered");
+              $('#main_election_content').load("/votes/logout_and_information");
               $('#vote_count').html(response[0].vote_count);
               $('#message').html(response[0].message)
             } else if (response[0] && response[0].message) {

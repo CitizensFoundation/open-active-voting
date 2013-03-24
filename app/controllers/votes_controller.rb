@@ -65,7 +65,8 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
-  def vote_delivered
+  def logout_and_information
+    reset_session unless Rails.env.development?
     render :layout=>false
   end
 
@@ -204,7 +205,7 @@ class VotesController < ApplicationController
       response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
-    reset_session
+
     respond_to do |format|
       format.json { render :json => response }
     end

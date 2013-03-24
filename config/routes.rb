@@ -5,7 +5,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/ballot"
   get "votes/get_ballot"
   post "votes/post_vote"
-  get "votes/vote_delivered"
+  get "votes/logout_and_information"
   get "votes/logout"
   get "votes/select_area"
   get "votes/help_info"
