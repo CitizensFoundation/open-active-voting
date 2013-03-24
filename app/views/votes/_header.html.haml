@@ -10,7 +10,8 @@
             %a{:href => "http://lukr-01.reykjavik.is/betrireykjavik/",:target => "_new"} #{t :votes_header_finnahverfi_label}
         - if ["get_ballot"].include?(action_name)
           %li
-            %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :choose_another_neighbourhood}
+            %a{:href => "/votes/select_area"}
+              = t :choose_another_neighbourhood
         %li
           %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
         %li
