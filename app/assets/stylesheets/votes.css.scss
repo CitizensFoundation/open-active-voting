@@ -80,7 +80,7 @@ img {
 /*             id's                         */
 
 #wrapper{
-  width: 950px;
+  width: 990px;
   margin: 0px auto;
   height: 100%;
 }
@@ -311,7 +311,7 @@ iframe {
 #rightcol {
   margin-top: 20px;
   width: 480px;
-  margin-left: 475px;
+  margin-left: 486px;
 }
 
 #votes {
@@ -433,7 +433,8 @@ ul.flags li {
 }
 
 .right {
-  float: right
+  float: right;
+  margin-right: 5px;
 }
 
 .center {

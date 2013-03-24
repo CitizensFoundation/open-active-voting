@@ -566,7 +566,7 @@ en:
   betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing_EN.png" alt="Betri Reykjavík"/></a>
   vote_again: <a href="/votes/authentication_options"><img src="/assets/eng-voteagain.png" alt="Smelltu hér til að kjósa aftur"/></a>
 
-  total_budget: "XX milljóna króna fjárveiting"
+  total_budget: "XX million ISK budget"
 
   you_dont_need_to_finish_all_the_budget: "You do not have to use the whole sum"
 
