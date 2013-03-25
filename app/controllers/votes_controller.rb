@@ -233,10 +233,6 @@ class VotesController < ApplicationController
     settings
   end
 
-
-  def saml_verification(raw)
-  end
-
   def perform_island_is_token_authentication(token,request)
     # Call island.is authentication service to verify the authentication token
     begin
@@ -249,10 +245,11 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>@config.election_id, :svfNr=>%w{0000})
 
-      response_test          = Onelogin::Saml::Response.new(@response.saml)
-      response_test.settings = saml_settings
+      # SAML verification
+      saml_response_test          = Onelogin::Saml::Response.new(@response.saml)
+      saml_response_test.settings = saml_settings
 
-      Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
+      Rails.logger.info("SAML Valid response: #{saml_response_test.validate!}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
