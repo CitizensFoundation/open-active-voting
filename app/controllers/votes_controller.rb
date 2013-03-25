@@ -225,7 +225,7 @@ class VotesController < ApplicationController
     settings.assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
     settings.issuer                         = request.host
     settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/"
-    settings.idp_cert_fingerprint           = "OneLoginAppCertFingerPrint"
+    settings.idp_cert_fingerprint           = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     # Optional for most SAML IdPs
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
@@ -267,17 +267,8 @@ class VotesController < ApplicationController
       known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-      doc = Nokogiri.parse(@response.saml.to_s)
-      Rails.logger.info("DOC")
-      Rails.logger.info(doc)
-
       test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.saml.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
-      Rails.logger.info("B64")
-      Rails.logger.info(test_x509_cert_source_txt_b64.text)
-
       test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
-      Rails.logger.info("decoded")
-      Rails.logger.info(test_x509_cert_source_txt)
 
       test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
 
