@@ -269,10 +269,13 @@ class VotesController < ApplicationController
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----"
-      known_x509_cert_txt = known_x509_cert
+      test_x509_cert_source_txt = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----"
+      test_x509_cert =  OpenSSL::X509::Certificate.new(test_x509_cert_source_txt)
 
-      #raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert} (#{test_x509_cert.size}) |#{test_x509_cert.encoding.name}|" unless known_x509_cert_txt == test_x509_cert
+      known_x509_cert_txt = known_x509_cert.to_s
+      test_x509_cert_txt = test_x509_cert.to_s
+
+      raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert_txt} (#{test_x509_cert_txt.size}) |#{test_x509_cert_txt.encoding.name}|" unless known_x509_cert_txt == test_x509_cert_txt
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
