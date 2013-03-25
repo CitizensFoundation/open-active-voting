@@ -268,7 +268,7 @@ class VotesController < ApplicationController
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".gsub("\n","")
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".gsub("\n","").gsub(/\n/,"")
       known_x509_cert_txt = known_x509_cert.to_s.gsub("\n","")
 
       raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) TEST #{test_x509_cert} (#{test_x509_cert.size}) " unless known_x509_cert_txt == test_x509_cert
