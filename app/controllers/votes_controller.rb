@@ -247,10 +247,10 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>@config.election_id, :svfNr=>%w{0000})
 
-      #response_test          = Onelogin::Saml::Response.new(@response.saml)
-      #response_test.settings = saml_settings
+      response_test          = Onelogin::Saml::Response.new(@response.saml)
+      response_test.settings = saml_settings
 
-      #Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
+      Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
@@ -269,7 +269,7 @@ class VotesController < ApplicationController
       Rails.logger.info("DOC")
       Rails.logger.info(doc)
 
-      test_x509_cert_source_txt_b64 = doc.xpath("//x509Certificate")
+      test_x509_cert_source_txt_b64 = REXML::XPath.first(self, "//ds:X509Certificate", { "ds"=>DSIG })
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
