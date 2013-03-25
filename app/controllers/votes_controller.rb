@@ -265,7 +265,11 @@ class VotesController < ApplicationController
       known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-      test_x509_cert_source_txt_b64 = Nokogiri.parse(@response.saml).xpath("//x509certificate").text
+      doc = Nokogiri.parse(@response.saml)
+      Rails.logger.info("DOC")
+      Rails.logger.info(doc)
+
+      test_x509_cert_source_txt_b64 = doc.xpath("//x509certificate").text
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
