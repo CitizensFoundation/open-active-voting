@@ -244,7 +244,7 @@ class VotesController < ApplicationController
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>"CA8796EE-7239-497A-96FE-156419E4F9BA", :svfNr=>%w{0000})
+                                                     :electionId=>@config.election_id, :svfNr=>%w{0000})
 
       #response_test          = Onelogin::Saml::Response.new(@response)
       #response_test.settings = saml_settings

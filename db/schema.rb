@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324212609) do
+ActiveRecord::Schema.define(:version => 20130325015304) do
 
   create_table "ballots", :force => true do |t|
     t.binary   "neighborhoods", :null => false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20130324212609) do
     t.datetime "updated_at",         :null => false
     t.string   "rsk_soap_username"
     t.string   "rsk_soap_password"
+    t.string   "election_id"
   end
 
   create_table "final_split_votes", :force => true do |t|
