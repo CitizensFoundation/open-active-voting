@@ -1,7 +1,7 @@
 # coding: utf-8
 
 require "csv"
-require "ap"
+#require "ap"
 
 class Array
   def shuffle
