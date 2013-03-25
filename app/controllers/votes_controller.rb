@@ -269,7 +269,7 @@ class VotesController < ApplicationController
       Rails.logger.info("DOC")
       Rails.logger.info(doc)
 
-      test_x509_cert_source_txt_b64 = doc.xpath("//ds:X509Certificate").text
+      test_x509_cert_source_txt_b64 = doc.xpath("//x509Certificate")
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
