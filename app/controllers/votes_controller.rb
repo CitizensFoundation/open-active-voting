@@ -263,7 +263,7 @@ class VotesController < ApplicationController
       raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new raw_known_x509_cert
 
-      text_response = @response.to_s
+      text_response = @response.inspect.to_s
 
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
