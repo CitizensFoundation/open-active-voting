@@ -269,7 +269,10 @@ class VotesController < ApplicationController
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
 
-      test_x509_cert_source_txt = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----"
+      test_x509_cert_source_txt = "-----BEGIN CERTIFICATE-----\n#{text_response[start_token_start+18..end_token_start-8]}\n-----END CERTIFICATE-----"
+
+      Rails.logger.error(test_x509_cert_source_txt)
+
       test_x509_cert =  OpenSSL::X509::Certificate.new(test_x509_cert_source_txt)
 
       known_x509_cert_txt = known_x509_cert.to_s
