@@ -14,13 +14,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 var public_key_2048 = '-----BEGIN PUBLIC KEY-----\n\
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy/z8qd4xz4UsyOEhQUmy\n\
-6B6z50ozCKB94qeevRhh3XnK3LKEJxBpfmIOjUMrM/q7P1c4UrTG3ExnwzwiMzn0\n\
-JPCSRZ9WlRRE4F1zY+axoZUmc/du533zXU/32jkUfYltngegvJqsz7DRMzkJInPk\n\
-PPyZskgvVxhGu5mn+RUwXMQOTBA+0ensVfUfawJMQ1xmsRBjfIRlZPbG1hrlkNgf\n\
-hvJmRH0xRXUp7aA8I2A0a0eYOM/cTkpeTrY4+KCDXAaYlyeX5j6mq/rBlax03dt3\n\
-IwREnnZON696BW1iDpyElM/YfgS3RQyDmGhmeWaBRXVoeqqrc3QghqUn+3BR7tyL\n\
-/wIDAQAB\n\
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAspAwdh67ILL10FcDSRyi\n\
+C0xMwMDY+Xsks4/sK5liMWtZyaa5aDr2NJ++kNm9XXchRoHIl8kobCUDvsV9beCA\n\
+9RQtFS1nSwuX8H2ERUXZ/fFhx64lU6pimtkHuJS/P21tVN6AEJVN+dK6hrYl73Dl\n\
+svJ6BBp5KZvNWslh1J0Z/+4PDdwiJE4/kOK0loBrXO3ZH+FH16VqsUJadA2VvkFr\n\
+mb5CZ0oQE9qkvk/5DRjI/ANL3xHxKVl0peSBkSHuBfzQDuvIybRGFrH+qn979Oii\n\
+bQOAkDXZ1W8DNW3GGjCStHFJPXMQzplOIFV6QJqd9PYxe8TEfKRNKUT9Dqs2btqM\n\
+gwIDAQAB\n\
 -----END PUBLIC KEY-----';
 
 function certParser(cert){
