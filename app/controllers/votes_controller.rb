@@ -262,7 +262,7 @@ class VotesController < ApplicationController
 
       # Verify x509 cert from a known trusted source
       raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
-      known_x509_cert = OpenSSL::X509::Certificate.new(raw_known_x509_cert).to_s
+      known_x509_cert = OpenSSL::X509::Certificate.new(raw_known_x509_cert).to_s.encode("UTF-8")
 
       text_response = @response.inspect.to_s
 
