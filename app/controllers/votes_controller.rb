@@ -19,6 +19,7 @@ require 'digest/sha1'
 require 'nokogiri'
 require 'soap/rpc/driver'
 require 'soap/wsdlDriver'
+require 'base64'
 
 class VotesController < ApplicationController
 
@@ -261,25 +262,11 @@ class VotesController < ApplicationController
       Rails.logger.error(@response.inspect)
 
       # Verify x509 cert from a known trusted source
-      raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
-      known_x509_cert = OpenSSL::X509::Certificate.new(raw_known_x509_cert).to_s
+      known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
+      known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-      text_response = @response.saml
-
-      Rails.logger.info(text_response)
-      Rails.logger.info(text_response.to_s)
-
-      Rails.logger.info(Nokogiri.parse(@response.saml))
-      Rails.logger.info(Nokogiri.parse(@response.saml).search("ds:X509Certificate"))
-
-      start_token_start = text_response.index("X509Certificate")
-      end_token_start = text_response.rindex("X509Certificate")
-
-      test_x509_cert_source_txt = "-----BEGIN CERTIFICATE-----\n#{text_response[start_token_start+18..end_token_start-8]}\n-----END CERTIFICATE-----"
-
-      Rails.logger.error(test_x509_cert_source_txt)
-
-      test_x509_cert =  OpenSSL::X509::Certificate.new(test_x509_cert_source_txt)
+      test_x509_cert_source_txt = Base64.decode64(Nokogiri.parse(@response.saml).xpath("//x509certificate").text)
+      test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
 
       known_x509_cert_txt = known_x509_cert.to_s
       test_x509_cert_txt = test_x509_cert.to_s
