@@ -266,7 +266,11 @@ class VotesController < ApplicationController
 
       text_response = @response.saml
 
-      Rails.logger.error(text_response)
+      Rails.logger.info(text_response)
+      Rails.logger.info(text_response.to_s)
+
+      Rails.logger.info(Nokogiri.parse(@response.saml))
+      Rails.logger.info(Nokogiri.parse(@response.saml).search("ds:X509Certificate"))
 
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
