@@ -247,7 +247,7 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>@config.election_id, :svfNr=>%w{0000})
 
-      #response_test          = Onelogin::Saml::Response.new(@response)
+      #response_test          = Onelogin::Saml::Response.new(@response.saml)
       #response_test.settings = saml_settings
 
       #Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
@@ -266,6 +266,9 @@ class VotesController < ApplicationController
       known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
       test_x509_cert_source_txt = Base64.decode64(Nokogiri.parse(@response.saml).xpath("//x509certificate").text)
+
+      Rails.logger.info(test_x509_cert_source_txt)
+
       test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
 
       known_x509_cert_txt = known_x509_cert.to_s
