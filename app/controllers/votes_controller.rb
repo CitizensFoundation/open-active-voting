@@ -269,7 +269,7 @@ class VotesController < ApplicationController
       Rails.logger.info("DOC")
       Rails.logger.info(doc)
 
-      test_x509_cert_source_txt_b64 = REXML::XPath.first(self, "//ds:X509Certificate", { "ds"=>DSIG })
+      test_x509_cert_source_txt_b64 = REXML::XPath.first(@response.saml.to_s, "//ds:X509Certificate", { "ds"=>DSIG })
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
