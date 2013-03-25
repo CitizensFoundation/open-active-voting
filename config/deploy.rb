@@ -1,3 +1,4 @@
+require 'bundler/capistrano'
 set :application, "open-active-voting"
 set :domain, "ktest.betrireykjavik.is"
 set :selected_branch, "master"
@@ -20,7 +21,6 @@ role :db,  "ktest.betrireykjavik.is", :primary => true # This is where Rails mig
 
 namespace :assets do
   task :precompile, :roles => :web do
-    run "bundle install"
     run "ln -s   #{deploy_to}/#{shared_dir}/config/database.yml #{current_release}/config/database.yml"
     run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:precompile"
   end
