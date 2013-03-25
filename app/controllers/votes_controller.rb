@@ -21,6 +21,8 @@ require 'soap/rpc/driver'
 require 'soap/wsdlDriver'
 require 'base64'
 
+DSIG = "http://www.w3.org/2000/09/xmldsig#"
+
 class VotesController < ApplicationController
 
   after_filter :log_session_id
@@ -269,7 +271,7 @@ class VotesController < ApplicationController
       Rails.logger.info("DOC")
       Rails.logger.info(doc)
 
-      test_x509_cert_source_txt_b64 = REXML::XPath.first(@response.saml.to_s, "//ds:X509Certificate", { "ds"=>"ds" })
+      test_x509_cert_source_txt_b64 = REXML::XPath.first(@response.saml.to_s, "//ds:X509Certificate", { "ds"=>DSIG })
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
