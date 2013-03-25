@@ -259,14 +259,13 @@ class VotesController < ApplicationController
         raise "Authentication was not a success #{@response.inspect}"
       end
 
-      Rails.logger.error(@response.inspect)
+      Rails.logger.error(@response.saml)
 
       # Verify x509 cert from a known trusted source
       known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-
-      test_x509_cert_source_txt_b64 = Nokogiri.parse(@response.saml).root.xpath("//x509certificate").text
+      test_x509_cert_source_txt_b64 = Nokogiri.parse(@response.saml).xpath("//x509certificate").text
       Rails.logger.info("B64")
       Rails.logger.info(test_x509_cert_source_txt_b64)
 
