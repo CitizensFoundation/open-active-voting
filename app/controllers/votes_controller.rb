@@ -273,9 +273,9 @@ class VotesController < ApplicationController
 
       test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.saml.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
       Rails.logger.info("B64")
-      Rails.logger.info(test_x509_cert_source_txt_b64)
+      Rails.logger.info(test_x509_cert_source_txt_b64.text)
 
-      test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64)
+      test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
       Rails.logger.info("decoded")
       Rails.logger.info(test_x509_cert_source_txt)
 
