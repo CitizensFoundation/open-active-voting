@@ -222,7 +222,7 @@ class VotesController < ApplicationController
 
     settings.assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
     settings.issuer                         = request.host
-    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/#{1}"
+    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/"
     settings.idp_cert_fingerprint           = "OneLoginAppCertFingerPrint"
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     # Optional for most SAML IdPs
