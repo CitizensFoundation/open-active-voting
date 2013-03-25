@@ -264,12 +264,12 @@ class VotesController < ApplicationController
       raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new raw_known_x509_cert
 
-      text_response = @response.inspect.to_s
+      text_response = @response.inspect.to_s.encode("ASCII-8BIT")
 
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".encode("ASCII-8BIT").gsub("\n","").gsub(/\n/,"")
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".gsub("\n","").gsub(/\n/,"")
       known_x509_cert_txt = known_x509_cert.to_s.gsub("\n","")
 
 
