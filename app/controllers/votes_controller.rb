@@ -266,9 +266,9 @@ class VotesController < ApplicationController
       start_token_start = @response.inspect.to_s.index("X509Certificate")
       end_token_start = @response.inspect.to_s.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response.inspect[start_token_start+18..end_token_start-8].gsub("\n","")}-----END CERTIFICATE-----"
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response.inspect.to_s[start_token_start+18..end_token_start-8].gsub("\n","")}-----END CERTIFICATE-----"
 
-      raise "Failed to verify x509 cert KNOWN #{known_x509_cert.to_s.gsub("\n","")} TEST #{test_x509_cert.gsub("\n","")}" unless known_x509_cert.to_s.gsub("\n","") == test_x509_cert.gsub("\n","")
+      raise "Failed to verify x509 cert KNOWN #{known_x509_cert.to_s.gsub("\n","")} TEST #{test_x509_cert.to_s.gsub("\n","")}" unless known_x509_cert.to_s.gsub("\n","") == test_x509_cert.to_s.gsub("\n","")
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
