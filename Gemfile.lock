@@ -7,7 +7,8 @@ GIT
 
 GIT
   remote: git://github.com/rbjarnason/ruby-saml.git
-  revision: d3d8f769eebc758877df67dabd85cb1ee5c8a175
+  revision: 309c59837be667493f77369440feff965b56207e
+  ref: 309c59837be667493f77369440feff965b56207e
   specs:
     ruby-saml (0.7.2)
       canonix (= 0.1.1)
