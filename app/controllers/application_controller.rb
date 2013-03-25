@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
         reset_session
         respond_to do |format|
           format.html {
-            flash[:notice] = t :votes_timeout_1
+            flash[:notice] = t :votes_timeout_2
             redirect_to '/votes/authentication_options'
           }
           format.json {
