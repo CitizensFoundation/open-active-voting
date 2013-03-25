@@ -12,7 +12,7 @@ gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
 gem 'psych', '1.2.2'
 gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
-gem 'ruby-saml', :git => 'git://github.com/rbjarnason/ruby-saml.git', :ref => "309c59837be667493f77369440feff965b56207e"
+gem 'ruby-saml', :git => 'git://github.com/rbjarnason/ruby-saml.git', :ref => "001916aa11e6bbb7bc3c7d5cffb317311bd467a7"
 
 # Gems used only for assets and not required
 # in production environments by default.
