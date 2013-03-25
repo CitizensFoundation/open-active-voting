@@ -228,7 +228,7 @@ class VotesController < ApplicationController
     settings.idp_cert_fingerprint           = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     # Optional for most SAML IdPs
-    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    #settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
 
     settings
   end
