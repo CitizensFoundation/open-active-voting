@@ -104,9 +104,10 @@ function parseVotesFromList(ul_name) {
 function packVote() {
     var encryptedVote;
     // Read vote selection directly from the UL list, to ensure that they are sent to the server the same way as the user sees them
-    votes = parseVotesFromList('#options');
+    votes_left = parseVotesFromList('#options_left');
+    votes_right = parseVotesFromList('#options_right');
 
-    var vote = "["+"["+votes+"]"+"]";
+    var vote = "["+"["+votes_left+votes_right+"]"+"]";
     //alert(vote);
 
     var params = certParser(public_key_2048);

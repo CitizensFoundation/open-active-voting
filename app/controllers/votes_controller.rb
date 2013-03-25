@@ -263,10 +263,10 @@ class VotesController < ApplicationController
       raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new raw_known_x509_cert
 
-      start_token_start = @response.index("X509Certificate")
-      end_token_start = @response.rindex("X509Certificate")
+      start_token_start = @response.inspect.index("X509Certificate")
+      end_token_start = @response.inspect.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response[start_token_start+16..end_token_start-6]}-----END CERTIFICATE-----\n"
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response.inspect[start_token_start+16..end_token_start-6]}-----END CERTIFICATE-----\n"
 
       raise "Failed to verify x509 cert" unless known_x509_cert.to_s.gsub("\n","") == test_x509_cert.gsub("\n","")
 
