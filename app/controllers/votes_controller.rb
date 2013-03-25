@@ -268,7 +268,7 @@ class VotesController < ApplicationController
       start_token_start = text_response.index("X509Certificate")
       end_token_start = text_response.rindex("X509Certificate")
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".gsub("\n","").gsub(/\n/,"")
+      test_x509_cert = "-----BEGIN CERTIFICATE-----#{text_response[start_token_start+18..end_token_start-8]}-----END CERTIFICATE-----".force_encoding("ASCII-8BIT").gsub("\n","").gsub(/\n/,"")
       known_x509_cert_txt = known_x509_cert.to_s.gsub("\n","")
 
 
