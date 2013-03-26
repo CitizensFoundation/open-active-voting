@@ -1,4 +1,4 @@
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010,2011,2012,2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,9 +20,9 @@ require 'test_helper'
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 2
-    @max_votes = 4
-    @neighborhood_ids = [1,2]
+    @max_browsers = 8
+    @max_votes = 20
+    @neighborhood_ids = [1]
     #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -97,8 +97,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     browser.elements(:class, "vote_class").each do |element|
       votes << element.id.split("_")[1].to_i
     end
-    puts "VOTES FROM BROWSER: #{[votes]}"
-    [votes]
+    puts "VOTES FROM BROWSER: #{[votes.sort]}"
+    [votes.sort]
   end
 
   def all_votes
@@ -163,12 +163,12 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
-    puts "From database:"
+    puts "From database: #{database_count.priority_ids_count}"
     puts database_count.priority_ids_count.inspect
     puts Vote.count
     test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
-    puts "From browser:"
+    puts "From browser: #{test_count.priority_ids_count}"
     puts test_count.priority_ids_count.inspect
     puts votes.count
     (test_count.priority_ids_count == database_count.priority_ids_count) ? true : false

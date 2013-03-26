@@ -19,6 +19,9 @@ require 'digest/sha1'
 require 'nokogiri'
 require 'soap/rpc/driver'
 require 'soap/wsdlDriver'
+require 'base64'
+
+DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
 class VotesController < ApplicationController
 
@@ -142,7 +145,7 @@ class VotesController < ApplicationController
     # Check to see if the user has been authenticated and if the voter identity hash is available
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t :votes_timeout_1
+      flash[:notice]= t(:votes_timeout_2).html_safe
       redirect_to :action=>:authentication_options
       return false
     end
@@ -160,7 +163,7 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t :votes_timeout_1
+      flash[:notice]= t(:votes_timeout_2).html_safe
       redirect_to :action=>:authentication_options
       return false
     end
@@ -221,17 +224,13 @@ class VotesController < ApplicationController
 
     settings.assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
     settings.issuer                         = request.host
-    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/#{OneLoginAppId}"
-    settings.idp_cert_fingerprint           = OneLoginAppCertFingerPrint
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/"
+    settings.idp_cert_fingerprint           = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
     # Optional for most SAML IdPs
-    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    #settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
 
     settings
-  end
-
-
-  def saml_verification(raw)
   end
 
   def perform_island_is_token_authentication(token,request)
@@ -244,12 +243,13 @@ class VotesController < ApplicationController
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>"CA8796EE-7239-497A-96FE-156419E4F9BA", :svfNr=>%w{0000})
+                                                     :electionId=>@config.election_id, :svfNr=>%w{0000})
 
-      #response_test          = Onelogin::Saml::Response.new(@response)
-      #response_test.settings = saml_settings
+      # SAML verification
+      saml_response_test          = Onelogin::Saml::Response.new(@response.saml)
+      saml_response_test.settings = saml_settings
 
-      #Rails.logger.info("SAML Valid response: #{response_test.is_valid?}")
+      Rails.logger.info("SAML Valid response: #{saml_response_test.validate!}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
@@ -258,17 +258,21 @@ class VotesController < ApplicationController
         raise "Authentication was not a success #{@response.inspect}"
       end
 
-      Rails.logger.error(@response.inspect)
+      Rails.logger.error(@response.saml)
 
-      raw_known_x509_cert = File.open("config/egov.webservice.is.cert")
-      known_x509_cert = OpenSSL::X509::Certificate.new raw_known_x509_cert
+      # Verify x509 cert from a known trusted source
+      known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
+      known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-      start_token_start = @response.index("X509Certificate")
-      end_token_start = @response.rindex("X509Certificate")
+      test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.saml.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
+      test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
 
-      test_x509_cert = "-----BEGIN CERTIFICATE-----#{@response[start_token_start+16..end_token_start-6]}-----END CERTIFICATE-----\n"
+      test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
 
-      raise "Failed to verify x509 cert" unless known_x509_cert.to_s.gsub("\n","") == test_x509_cert.gsub("\n","")
+      known_x509_cert_txt = known_x509_cert.to_s
+      test_x509_cert_txt = test_x509_cert.to_s
+
+      raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert_txt} (#{test_x509_cert_txt.size}) |#{test_x509_cert_txt.encoding.name}|" unless known_x509_cert_txt == test_x509_cert_txt
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""

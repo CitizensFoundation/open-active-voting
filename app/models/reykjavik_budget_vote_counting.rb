@@ -138,6 +138,7 @@ class ReykjavikBudgetVoteCounting
     selected = Hash.new
     priority_ids.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
       priority_price = @ballot.get_priority_price(@neighborhood_id,priority_id)
+      puts "PRIORITY PRICE #{priority_price} #{@neighborhood_id} #{priority_id}"
       if priority_price<=left_of_budget
         selected[priority_id]=vote_count
         left_of_budget-=priority_price
@@ -153,20 +154,15 @@ class ReykjavikBudgetVoteCounting
     add_votes(decrypted_vote)
   end
 
-  def add_votes(decrypted_vote)
-    # Add votes to the correct arrays
-    add_votes(decrypted_vote.priority_ids)
-  end
-
   def add_votes(vote)
-    # Add the construction votes to an array
-    puts "PRI XXXXXXXXXXXXXXXXXX #{vote}"
-    vote.priority_ids.each do |priority_id|
-      @priority_ids_count[priority_id] = 0 unless @priority_ids_count[priority_id]
-      @priority_ids_count[priority_id] += 1
+    puts "Counting votes #{vote.priority_ids}"
+    vote.priority_ids.each do |priority_group|
+      priority_group.each do |priority_id|
+        @priority_ids_count[priority_id] = 0 unless @priority_ids_count[priority_id]
+        @priority_ids_count[priority_id] += 1
+      end
     end
   end
-
 
   def add_priorities_to_csv(priorities,csv)
     # Add priorities to csv

@@ -41,7 +41,7 @@ class ReykjavikBudgetVote
   def pack(public_key_file,priority_ids)
     # Encrypt the vote, for testing purposes only
     public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
-    combined_priorities = [priority_ids].to_json
+    priorities = priority_ids.to_json
     @encrypted_payload = Base64.encode64(public_key.public_encrypt(combined_priorities.to_json))
   end
 
@@ -56,16 +56,17 @@ class ReykjavikBudgetVote
     decrypted_vote = Base64.decode64(@@private_key.private_decrypt(Base64.decode64(@encrypted_payload)))
     #Rails.logger.info("#{ap @vote}")
     decrypted_vote = decrypted_vote.gsub(",]","]")
-    combined_priorities = JSON.parse(decrypted_vote).to_a
+    priorities = JSON.parse(decrypted_vote).to_a
     #puts "Last vote for #{combined_priorities}"
-    @priority_ids = combined_priorities[NEW_PRIORITIES_ARRAY_ID]
+    @priority_ids = priorities
+    puts "@priority_ids #{@priority_ids}"
   end
 
   def unpack_without_encryption
     # Unpack the vote without decryption
-    combined_priorities = @encrypted_payload
-    if combined_priorities
-      @priority_ids = combined_priorities[NEW_PRIORITIES_ARRAY_ID]
+    priorities = @encrypted_payload
+    if priorities
+      @priority_ids = priorities
     end
   end
 end

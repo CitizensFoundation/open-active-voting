@@ -85,7 +85,7 @@ en:
   new_project_name_id_41: "Remove curb and steel frame at Hálsaskógur kindergarten"
   new_project_description_id_41: "Fjarlægja hindranir á stíg úr vegi gangandi og hjólandi vegfarenda"
   new_project_name_id_42: "Repair playground at Fremristekkur"
-  new_project_description_id_42: "Endurbæta leiksvæði með nýjum óvenjulegum tækjum og betri aðstöðu."
+  new_project_description_id_42: "Endurbæta leiksvæði með nýjum 'óvenjulegum' tækjum og betri aðstöðu."
   new_project_name_id_43: "Install large litter bins at schools and sports grounds"
   new_project_description_id_43: "Setja upp stórar ruslatunnur við skóla og íþróttasvæði í hverfinu. Staðsetningar ákveðnar síðar."
   new_project_name_id_44: "Benches and litter bins on various locations in Seljahverfi"
@@ -315,7 +315,7 @@ en:
   new_project_name_id_156: "Install new flag pole at Fólkvangur"
   new_project_description_id_156: "Setja upp nýja fánastöng við félagsheimilið Fólkvang."
   new_project_name_id_157: "Install 'children at play' signs on route from highway to pool"
-  new_project_description_id_157: "Setja upp varúðarskilti börn að leik á leiðinni frá þjóðvegi að sundlaug."
+  new_project_description_id_157: "Setja upp varúðarskilti 'börn að leik' á leiðinni frá þjóðvegi að sundlaug."
   new_project_name_id_158: "Outdoor training equipment and signs at Laugarnestangi"
   new_project_description_id_158: "Bæta útivistaraðstöðu með uppsetningu æfingatækja og skilta. Nú þegar eru 2 nestisborð með bekkjum á svæðinu."
   new_project_name_id_159: "Improve streetlife at the corner of Langholtsvegur/Álfheimar"
@@ -339,7 +339,7 @@ en:
   new_project_name_id_168: "Prevent parking on footpath between Skeifan 5 and 7"
   new_project_description_id_168: "Bæta öryggi gangandi vegfarenda og koma í veg fyrir að bílum sé lagt inn á norðurhluta stígsins með því að afmarka hann og setja upp röraboga."
   new_project_name_id_169: "Install info sign at stargazing location in Laugardalur"
-  new_project_description_id_169: "Seta upp upplýsingaskilti sem bendir vegfarendum á stað í nágrenni ormsins í Laugardal, milli Laugardalsvallar og Laugarásvegar, þar sem hægt er að skoða stjörnur. Nánari staðsetning og útfærsla í samráði við verkefnishóp hverfis og hverfisráð."
+  new_project_description_id_169: "Seta upp upplýsingaskilti sem bendir vegfarendum á stað í nágrenni 'ormsins' í Laugardal, milli Laugardalsvallar og Laugarásvegar, þar sem hægt er að skoða stjörnur. Nánari staðsetning og útfærsla í samráði við verkefnishóp hverfis og hverfisráð."
   new_project_name_id_170: "Equipment for older children in playground at Ljósheimar"
   new_project_description_id_170: "Endurbæta leiksvæði við Ljósheima með því að setja upp leiktæki fyrir eldri börn og unglinga."
   new_project_name_id_171: "Install drinking fountain by foopaths - yet to be located"
@@ -381,7 +381,7 @@ en:
   new_project_name_id_189: "Install pedestrian lights at Barónsstígur/Egilsgata intersection"
   new_project_description_id_189: "Auka öryggi gangandi vegfarenda við Austurbæjarskóla með því að setja upp gönguljós við gatnamót Barónsstígs og Egilsgötu."
   new_project_name_id_190: "Design and install an 'unusual' playground at Hljómskálagarður"
-  new_project_description_id_190: "Hanna og setja upp leiksvæði í Hljómskálagarði með nýjum og fjölbreyttum leiktækjum. Í hönnun er miðað við óhefðbundna og spennandi útfærslu svæðis."
+  new_project_description_id_190: "Hanna og setja upp leiksvæði í Hljómskálagarði með nýjum og fjölbreyttum leiktækjum. Í hönnun er miðað við 'óhefðbundna' og spennandi útfærslu svæðis."
   new_project_name_id_191: "Install areal runway at Austurbæjarskóli's playing ground"
   new_project_description_id_191: "Setja upp aparólu (svifbraut) á skólalóð Austurbæjarskóla í samráði við skólastjóra. Aparóla (einnig þekkt sem hlaupaköttur) er leiktæki þar sem svifið er stutta leið eftir braut eða streng í einskonar rólu."
   new_project_name_id_192: "Improve lighting at the entrance of Austurbæjarskóli's playground"
@@ -403,7 +403,7 @@ en:
   new_project_name_id_200: "Install 'weight lifting stones' along footpaths at Ægissíða"
   new_project_description_id_200: "Koma fyrir misþungum steinum með festingum við göngustíga á Ægissíðu sem nota má til lyftinga og heilsubótar."
   new_project_name_id_201: "Renew playground at Bræðraborgastígur/Túngata"
-  new_project_description_id_201: "Endurbætur á Bláa róló á horni Bræðraborgarstígs og Hávallagötu með nýjum tækjum o.fl."
+  new_project_description_id_201: "Endurbætur á 'Bláa róló' á horni Bræðraborgarstígs og Hávallagötu með nýjum tækjum o.fl."
   new_project_name_id_202: "Install pedestrian lights on crossing over Mýrargata at Seljavegur"
   new_project_description_id_202: "Bæta öryggi gangandi vegfarenda með því að setja upp gönguljós á gönguleið yfir Mýrargötu við Seljaveg, í nágrenni við Héðinshús"
   new_project_name_id_203: "Repair basketball courts in Vesturbær"
@@ -530,7 +530,7 @@ en:
   "
 
   introduction: "
-                          <h2>Voting for projects in Reykjavík buroughs</h2>
+                          <h2>Voting for projects in Reykjavík boroughs</h2>
                           <h5>4. - 11. April 2013</h5>
                           <h4>The voting is in four steps:</h4>
 "

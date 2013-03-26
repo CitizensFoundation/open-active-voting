@@ -5,6 +5,16 @@ GIT
     soap4r (1.5.8)
       httpclient (>= 2.1.1)
 
+GIT
+  remote: git://github.com/rbjarnason/ruby-saml.git
+  revision: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
+  ref: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
+  specs:
+    ruby-saml (0.7.2)
+      canonix (= 0.1.1)
+      nokogiri
+      uuid (~> 2.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -115,10 +125,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.2)
-    ruby-saml (0.7.2)
-      canonix (= 0.1.1)
-      nokogiri
-      uuid (~> 2.3)
     rubyzip (0.9.9)
     sass (3.2.6)
     sass-rails (3.2.6)
@@ -172,7 +178,7 @@ DEPENDENCIES
   nokogiri
   psych (= 1.2.2)
   rails (= 3.2.13)
-  ruby-saml
+  ruby-saml!
   sass-rails
   soap4r!
   therubyracer

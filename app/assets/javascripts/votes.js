@@ -14,13 +14,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 var public_key_2048 = '-----BEGIN PUBLIC KEY-----\n\
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy/z8qd4xz4UsyOEhQUmy\n\
-6B6z50ozCKB94qeevRhh3XnK3LKEJxBpfmIOjUMrM/q7P1c4UrTG3ExnwzwiMzn0\n\
-JPCSRZ9WlRRE4F1zY+axoZUmc/du533zXU/32jkUfYltngegvJqsz7DRMzkJInPk\n\
-PPyZskgvVxhGu5mn+RUwXMQOTBA+0ensVfUfawJMQ1xmsRBjfIRlZPbG1hrlkNgf\n\
-hvJmRH0xRXUp7aA8I2A0a0eYOM/cTkpeTrY4+KCDXAaYlyeX5j6mq/rBlax03dt3\n\
-IwREnnZON696BW1iDpyElM/YfgS3RQyDmGhmeWaBRXVoeqqrc3QghqUn+3BR7tyL\n\
-/wIDAQAB\n\
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1NaqPRiCaNrhrTB4SpUm\n\
+kftHnYiwKO0MnzdAJgcvgu/ObgGAgzXVM5gkBhmVi+HT2iMsu3zgRiCpDBZgh27M\n\
+U8HAmszj3qj28Kf3my43Gn8piWjOw6zHyFbsUWGlv5+ywawbXvUucYFRR0VpFzcB\n\
+WkeA6K/hTUYvt3JL0HsnZlc5Q3hznA1AfJszr0ui0ZxstLcqh1pnUpssDimxwAHB\n\
+CWsHjE22JlRec2htnQruCjmFP1VMGuC4KQTG/Rp4dhhyYDWyz2SETioHVXYs9XJk\n\
+YK7zpY8eo9JJmeoudh1gZO4gcyI2muCKRWcF+UBfjhXP8/7FzYGg3+o6rCtlrMDZ\n\
+KwIDAQAB\n\
 -----END PUBLIC KEY-----';
 
 function certParser(cert){
@@ -104,9 +104,10 @@ function parseVotesFromList(ul_name) {
 function packVote() {
     var encryptedVote;
     // Read vote selection directly from the UL list, to ensure that they are sent to the server the same way as the user sees them
-    votes = parseVotesFromList('#options');
+    votes_left = parseVotesFromList('#options_left');
+    votes_right = parseVotesFromList('#options_right');
 
-    var vote = "["+"["+votes+"]"+"]";
+    var vote = "["+"["+votes_left+votes_right+"]"+"]";
     //alert(vote);
 
     var params = certParser(public_key_2048);

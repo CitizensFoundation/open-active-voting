@@ -1,7 +1,7 @@
 # coding: utf-8
 
 require "csv"
-require "ap"
+#require "ap"
 
 class Array
   def shuffle
@@ -64,8 +64,8 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_priorities_htm
 
 <h3>Aðgangur að kosningavef vegna þessarar prufu</h3>
 <h4>https://kjosa.betrireykjavik.is/</h4>
-<h4>Notandanafn: test</h4>
-<h4>Lykilorð : kjosa</h4>
+<h4>Notandanafn: test2013 </h4>
+<h4>Lykilorð : 2013test </h4>
 <br />
   
   <table border="0" cellpadding="3" cellspacing="3">
@@ -204,8 +204,8 @@ namespace :ballot do
         main_outfile += "\n"
       end
     end
-    puts main_outfile
+    #puts main_outfile
     #puts is_yml
-    #puts en_yml
+    puts en_yml
   end
 end

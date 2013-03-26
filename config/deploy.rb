@@ -1,3 +1,4 @@
+require 'bundler/capistrano'
 set :application, "open-active-voting"
 set :domain, "ktest.betrireykjavik.is"
 set :selected_branch, "master"

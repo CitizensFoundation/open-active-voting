@@ -8,4 +8,5 @@
 c=ReykjavikBudgetConfig.new
 c.timeout_in_seconds = 20
 c.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+c.election_id = "CA8796EE-7239-497A-96FE-156419E4F9BA"
 c.save
