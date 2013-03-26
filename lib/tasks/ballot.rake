@@ -70,15 +70,11 @@ def create_html_doc(neighborhood_name,test_ballot_number,selected_priorities_htm
   
   <table border="0" cellpadding="3" cellspacing="3">
     <tr>
-      <td><b>Nýframkvæmdir</b></td>
-      <td><b>Viðhaldsverkefni</b></td>
+      <td><b>Framkvæmdir</b></td>
     </tr>
     <tr>
       <td><ul>
-        GSUB_NYFRAMKVAEMDIR
-      </ul></td>
-      <td><ul>
-        GSUB_VIDHALDSVERKEFNI
+        GSUB_FRAMKVAEMDIR
       </ul></td>
     </tr>
   </table>
