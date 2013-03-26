@@ -570,6 +570,8 @@ is:
 #  get_ballot_footer_2: "Atkvæðið er gilt þótt þú kjósir einungis í öðrum flokknum."
 #  get_ballot_footer_3: "Þú getur kosið eins oft og þú vilt og skipt um hverfi á meðan kosning er opin. Nýjasta atkvæðið er það sem gildir."
 
+  better_description: "This is a good description of what we do, all sorts of thing"
+
 # Texts
   votes_logout_text: "<h1>Útskráning</h1><h2>
                       Vertu viss um að þú hafir greitt atkvæði áður en þú skráir þig út. Til að greiða atkvæði  þartu að smella á stóra <i>Greiða atkvæði</i> hnappinn neðst á kosningasíðunni.
@@ -665,10 +667,10 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                                   Inni á <b>Mínum síðum</b> á Ísland.is getur kjósandi skoðað hvernig hann er skráður í Þjóðskrá. Hægt er að auðkenna sig inn á <b>Mínar síður</b> með kennitölu og aðalveflykli eða rafrænum skilríkjum á debetkortum. Einnig er hægt að skoða þessar upplýsingar í heimabanka.</p>
 
                                <h6>5.  Kjörstaðir</h6>
-                               <p>Kosið  er á vefslóðinni <a href=\"http://www.kjosa.betrireykjavik.is\">kjosa.betrireykjavik.is</a>.  Ekki er um eiginlega kjörstaði og kjörklefa að ræða þar sem fylgst er með því að kjósandinn sé einn í kjörklefanum. Leynd og öryggi atkvæðagreiðslunnar eru undir kjósandanum komin og velta til dæmis á því að hann gæti veflykilsins vel og hagi atkvæðagreiðslunni þannig að aðrir fái ekki séð. Þá ber að gæta þess að útskrá sig af kosningasíðunni eftir að atkvæði hefur verið greitt.</p><p>
-                                                                                                                                       Þjónustumiðstöðvar Reykjavíkurborgar bjóða upp á aðgang að tölvum og aðstoð við kosningarnar, sé þess óskað. Sjá nánar í 11. grein um „Aðstoð við kosningu“.
-</p>
-                               <p>Þjónustumiðstöðvar  Reykjavíkurborgar bjóða upp á aðgang að tölvum og aðstoð við  kosninguna, sé þess óskað.<b> </b>Sjá  nánar í 11. grein um &bdquo;Aðstoð við kosningu&ldquo;<em>.</em></p>
+                               <p>Kosið  er á vefslóðinni <a href=\"http://www.kjosa.betrireykjavik.is\">kjosa.betrireykjavik.is</a>.  Ekki er um eiginlega kjörstaði og kjörklefa að ræða þar sem fylgst er með því að kjósandinn sé einn í kjörklefanum. Leynd og öryggi atkvæðagreiðslunnar eru undir kjósandanum komin og velta til dæmis á því að hann gæti veflykilsins vel og hagi atkvæðagreiðslunni þannig að aðrir fái ekki séð. Þá ber að gæta þess að útskrá sig af kosningasíðunni eftir að atkvæði hefur verið greitt.</p>
+
+
+<p>Þjónustumiðstöðvar  Reykjavíkurborgar bjóða upp á aðgang að tölvum og aðstoð við  kosninguna, sé þess óskað.<b> </b>Sjá  nánar í 11. grein um &bdquo;Aðstoð við kosningu&ldquo;<em>.</em></p>
 
                               <h6>6. Auðkenning kjósenda og kosningaréttur</h6>
 
@@ -681,8 +683,6 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
 
                               <p>Þegar kjósandi hefur valið vefslóðina kjosa.betrireykjavik.is birtist honum forsíða kosningavefsins Betri hverfi – kosning verkefna í hverfum Reykjavíkur.&ldquo; Þar tengill inn á auðkenningarsíðu Ísland.is vegna kosninganna.</p>
 
-
-                              <p>Þegar kjósandi hefur smellt á tengilinn inn á vefsvæðið Ísland.is blasir við honum innskráningarsíða. Hér getur hann valið um tvo möguleika til innskráningar: rafræn skilríki á debetkorti eða aðalveflykil ríkisskattstjóra:</p>
 
                               <h6>6.1 Rafræn skilríki</h6><p>
                               Kjósandi setur debetkort með rafrænum skilríkjum í tengdan kortalesara og smellir á hnappinn <b>Lesa skilríki</b> og slær inn PIN kóða (ekki þann sem er notaður í hraðbönkum).</p>
@@ -766,7 +766,7 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                                <p>Upplýsingar  og leiðbeiningar um kosninguna verða aðgengilegar á sjálfum  kosningavefnum. Þar verður einnig hægt að senda inn fyrirspurnir  og kvartanir á netfangið <a href=\"mailto:betrireykjavik@ibuar.is\">betrireykjavik@ibuar.is</a> með því að ýta á hnappinn <b>Hafðu samband.</b>></p>
 
                                <h6>13.  Kjörstjórn</h6>
-                               <p>Kjörstjórn er skipuð þremur fulltrúum frá Reykjavíkurborg. Kjörstjórn ber ábyrgð á framkvæmd kosningarinnar og afgreiðir þær athugasemdir er kunna að berast vegna hennar. Kjörstjórn nýtur aðstoðar fulltrúa Einskis ehf. varðandi tæknileg álitamál. Kjörstjórn skipa:<b> </b>Kjörstjórn  skipa:</p>
+                               <p>Kjörstjórn er skipuð þremur fulltrúum frá Reykjavíkurborg. Kjörstjórn ber ábyrgð á framkvæmd kosningarinnar og afgreiðir þær athugasemdir er kunna að berast vegna hennar. Kjörstjórn nýtur aðstoðar fulltrúa Einskis ehf. varðandi tæknileg álitamál. Kjörstjórn skipa:</p>
                                <p>Helga  Björk Laxdal, formaður, skrifstofustjóri skrifstofu borgarstjórnar</p>
                                <p>Hilmar  Magnússon, verkefnisstjóri  á skrifstofu borgarstjóra og borgarritara</p>
                                <p>Eggert  Ólafsson, rekstrar-  og gæðastjóri Upplýsingatæknideildar Reykjavíkurborgar</p>
