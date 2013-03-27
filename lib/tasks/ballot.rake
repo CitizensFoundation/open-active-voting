@@ -100,11 +100,10 @@ namespace :ballot do
     end
   end
 
-
   desc "Generate test ballots"
   task(:generate_test_ballot => :environment) do
-    number_of_voters = ENV['number_of_voters'].to_i
-    neighborhood_id = ENV['neighborhood_id'].to_i
+    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 5
+    neighborhood_id = ENV['neighborhood_id'] ? ENV['neighborhood_id'].to_i : rand(9)+1
     ballot = ReykjavikBudgetBallot.current
     budget = ballot.get_neighborhood_budget(neighborhood_id)
     if ENV['offset']

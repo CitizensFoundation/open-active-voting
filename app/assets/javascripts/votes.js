@@ -88,7 +88,7 @@ function pausecomp(millis)
 }
 
 function parseVotesFromList(ul_name) {
-    votes = "";
+    var votes = "";
     $(ul_name).each(function(index) {
         $(this).find('li').each(function(){
             if ($(this).hasClass("selected")) {
@@ -108,6 +108,7 @@ function packVote() {
     votes_right = parseVotesFromList('#options_right');
 
     var vote = "["+"["+votes_left+votes_right+"]"+"]";
+
     //alert(vote);
 
     var params = certParser(public_key_2048);
