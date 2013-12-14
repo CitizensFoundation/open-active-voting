@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010-2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,14 +17,14 @@
 
 require 'csv'
 
-class ReykjavikBudgetVoteCounting
+class BudgetVoteCounting
   attr_reader :priority_ids_count
 
   def initialize(private_key_file)
     @priority_ids_count = Hash.new
     @priority_ids_selected_count = Hash.new
     @private_key_file = private_key_file
-    @ballot = ReykjavikBudgetBallot.current
+    @ballot = BudgetBallot.current
     @invalid_votes = []
   end
 
@@ -61,7 +61,7 @@ class ReykjavikBudgetVoteCounting
     # Count test votes, for testing purposes only
     @neighborhood_id = neighborhood_id
     test_votes.each do |vote|
-      decrypted_vote = ReykjavikBudgetVote.new(vote,@private_key_file,vote)
+      decrypted_vote = BudgetVote.new(vote,@private_key_file,vote)
       decrypted_vote.unpack_without_encryption
       add_votes(decrypted_vote)
     end
@@ -115,7 +115,7 @@ class ReykjavikBudgetVoteCounting
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
       FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
         begin
-          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+ReykjavikBudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
+          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+BudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
         rescue Exception => e
           csv << [final_vote.neighborhood_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
         end
@@ -149,7 +149,7 @@ class ReykjavikBudgetVoteCounting
 
   def process_vote(vote)
     # Decrypt and add votes
-    decrypted_vote = ReykjavikBudgetVote.new(vote.payload_data,@private_key_file,vote)
+    decrypted_vote = BudgetVote.new(vote.payload_data,@private_key_file,vote)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end

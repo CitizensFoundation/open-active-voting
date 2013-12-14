@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-c=ReykjavikBudgetConfig.new
+c=BudgetConfig.new
 c.timeout_in_seconds = 20
 c.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
 c.election_id = "CA8796EE-7239-497A-96FE-156419E4F9BA"

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010-2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,7 +87,7 @@ class VotesController < ApplicationController
     # Display information about a given priority
     @priority_id = params[:priority_id].to_i
     @neighborhood_id = params[:neighborhood_id].to_i
-    ballot = ReykjavikBudgetBallot.current
+    ballot = BudgetBallot.current
     @name = ballot.get_priority_name(@neighborhood_id,@priority_id)
     @description = ballot.get_priority_description(@neighborhood_id,@priority_id)
     @link = ballot.get_priority_link(@neighborhood_id,@priority_id)
@@ -172,13 +172,13 @@ class VotesController < ApplicationController
     @neighborhood_id = params[:neighborhood_id].to_i
 
     # Create the Reykjavik Budget Ballot
-    @reykjavik_budget_ballot = ReykjavikBudgetBallot.current
+    @budget_ballot = BudgetBallot.current
 
     # Get the budget for the given neighborhood id
-    @total = @reykjavik_budget_ballot.get_neighborhood_budget(@neighborhood_id)
+    @total = @budget_ballot.get_neighborhood_budget(@neighborhood_id)
 
     # Letters are used to mark each budget vote selection
-    @letter_of_alphabet = ReykjavikBudgetBallot::ALLOWED_BALLOT_CHARACTERS
+    @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
 
     # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count

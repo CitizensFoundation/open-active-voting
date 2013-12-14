@@ -1,7 +1,7 @@
 require 'openssl'
 require 'base64'
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010-2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,7 +16,7 @@ require 'base64'
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class ReykjavikBudgetVote
+class BudgetVote
   NEW_PRIORITIES_ARRAY_ID = 0
 
   attr_reader :priority_ids

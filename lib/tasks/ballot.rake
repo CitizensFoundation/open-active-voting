@@ -93,7 +93,7 @@ namespace :ballot do
   desc "Generate ids,letter and names"
   task(:ids_to_letters => :environment) do
     neighborhood_id = ENV['neighborhood_id'].to_i
-    ballot = ReykjavikBudgetBallot.current
+    ballot = BudgetBallot.current
     puts "Construction"
     ballot.neighborhoods[neighborhood_id][:priorities].each do |priority|
       puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
@@ -104,7 +104,7 @@ namespace :ballot do
   task(:generate_test_ballot => :environment) do
     number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 5
     neighborhood_id = ENV['neighborhood_id'] ? ENV['neighborhood_id'].to_i : rand(9)+1
-    ballot = ReykjavikBudgetBallot.current
+    ballot = BudgetBallot.current
     budget = ballot.get_neighborhood_budget(neighborhood_id)
     if ENV['offset']
       offset = 1+ENV['offset'].to_i
@@ -133,7 +133,7 @@ namespace :ballot do
 
     puts row[5]
 
-    letter_of_alphabet = ReykjavikBudgetBallot::ALLOWED_BALLOT_CHARACTERS
+    letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
     { :letter=>letter_of_alphabet[count],
       :id=>master_id,
       :name=>"new_project_name_id_#{master_id}",
@@ -153,15 +153,15 @@ namespace :ballot do
 
   desc "Generate ballot from CSV"
   task(:recreate_from_static => :environment) do
-    ReykjavikBudgetBallot.destroy_all
-    ballot = ReykjavikBudgetBallot.new
+    BudgetBallot.destroy_all
+    ballot = BudgetBallot.new
     ballot.initialize_from_static_data
     ballot.save
   end
 
   desc "Generate ballot from CSV"
   task(:generate_ballot_from_csv => :environment) do
-    @ballot = ReykjavikBudgetBallot.current
+    @ballot = BudgetBallot.current
     @neighborhoods = Hash.new
     state = "waiting_for_neighborhood"
     current_neighborhood = nil

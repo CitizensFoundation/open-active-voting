@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010-2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -29,9 +29,9 @@ namespace :counting do
     puts "Starting vote counting"
     puts "Splitting user id hash and vote and generating final votes database tables"
     Vote.split_and_generate_final_votes!
-    ReykjavikBudgetBallot.current.neighborhoods.each do |i,neighborhood|
+    BudgetBallot.current.neighborhoods.each do |i,neighborhood|
       puts "Counting votes for neighborhood: #{neighborhood[:name]}"
-      count  = ReykjavikBudgetVoteCounting.new(ENV['private_key'])
+      count  = BudgetVoteCounting.new(ENV['private_key'])
       count.count_unique_votes(neighborhood[:id])
       puts "Writing unencrypted audit report"
       count.write_counted_unencrypted_audit_report

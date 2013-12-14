@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010,2011,2012 Íbúar ses
+# Copyright (C) 2010-2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class ReykjavikBudgetBallot
+class BudgetBallot
 
   # DATA PART
 
@@ -34,6 +34,8 @@ class ReykjavikBudgetBallot
     self.neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"36.888.194", :priorities=>[]  }
     self.neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"23.463.701", :priorities=>[] }
     self.neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"37.087.717", :priorities=>[]  }
+
+
 
     @neighborhoods[1][:priorities] << {:id=>1, :letter=>"a", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1726-endurnyjun-leikvalla", :description=>I18n.t(:new_project_description_id_1), :name=>I18n.t(:new_project_name_id_1), :price=>7.0}
     @neighborhoods[1][:priorities] << {:id=>2, :letter=>"b", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1758-lysing-a-gongustig-fra-arbaejarlaug-ad-ogurhvarfi", :description=>I18n.t(:new_project_description_id_2), :name=>I18n.t(:new_project_name_id_2), :price=>15.0}
@@ -280,7 +282,7 @@ class ReykjavikBudgetBallot
   attr_accessor :neighborhoods
 
   def self.current
-    ReykjavikBudgetBallot.new
+    BudgetBallot.new
   end
 
   def priorities(neighborhood_id)

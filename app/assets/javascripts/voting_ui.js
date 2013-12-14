@@ -1,4 +1,4 @@
-// Copyright (C) 2010,2011,2012 Íbúar ses
+// Copyright (C) 2010-2013 Íbúar ses
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by

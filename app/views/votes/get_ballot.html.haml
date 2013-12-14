@@ -1,4 +1,4 @@
-- all_priorities = @reykjavik_budget_ballot.priorities(@neighborhood_id)
+- all_priorities = @budget_ballot.priorities(@neighborhood_id)
 - all_priorities_length = all_priorities.length
 - left_col_start = 0
 - left_col_end = (all_priorities_length/2)-1
@@ -12,7 +12,7 @@
   #content_vote
     #content-title
       %h2.content-title
-        = @reykjavik_budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)
+        = @budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)
     #votebox
       #votes
       #votes_totals

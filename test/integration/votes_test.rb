@@ -1,4 +1,4 @@
-# Copyright (C) 2010,2011,2012,2013 Íbúar ses
+# Copyright (C) 2010-2013,2013 Íbúar ses
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -125,11 +125,11 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     Vote.split_and_generate_final_votes!
     @neighborhood_ids.each do |neighborhood_id|
       puts "NEIGHBORHOOD ID #{neighborhood_id}"
-      database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+      database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       @database_csv_filenames << database_count.count_unique_votes(neighborhood_id)
       database_count.write_counted_unencrypted_audit_report
       #puts database_count.inspect
-      test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+      test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       test_count.count_all_test_votes(get_unique_votes(neighborhood_id),neighborhood_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
       #puts test_count.inspect
@@ -161,12 +161,12 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def all_vote_match?(votes)
     votes.each do |vote| puts vote.inspect end # DEBUG
 
-    database_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+    database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
     puts "From database: #{database_count.priority_ids_count}"
     puts database_count.priority_ids_count.inspect
     puts Vote.count
-    test_count = ReykjavikBudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
+    test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
     puts "From browser: #{test_count.priority_ids_count}"
     puts test_count.priority_ids_count.inspect
