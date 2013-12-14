@@ -512,8 +512,8 @@ en:
   votes_header_contact_us_label: "betrireykjavik@ibuar.is"
   votes_header_about_the_poll_label: "About the vote"
 
-  votes_header_about_better_reykjavik_label: "About Better Reykjavik"
-  votes_header_about_better_neighborhoods_label: "About Better Neighborhoods"
+  votes_header_about_government_label: "About Better Reykjavik"
+  votes_header_about_areas_label: "About Better Neighborhoods"
 
   votes_header_ibuar_ses_label: "Citizens Foundation"
   votes_header_reykjavik_city_label: "City of Reykjavik"
@@ -604,7 +604,7 @@ Voting participation is limited to those born 1996 or earlier and who have legal
 <p>For further information and assistance please call 4 11 11 11 to talk with one of our service representatives at Reykjavík City‘s Service Centre.</p>
 "
 
-  votes_about_better_reykjavik_text: "<h1>About Betri Reykjavík</h1>
+  votes_about_government_text: "<h1>About Betri Reykjavík</h1>
                                       <p>Betri Reykjavík is an open online platform for consultation where citizens of Reykjavík have the opportunity to put forward their ideas about issues regarding the services and administration of  Reykjavík City. The platform is open for everyone to view. To participate you have to register as user and agree to the user terms.
                                          </p>
 
@@ -617,7 +617,7 @@ Voting participation is limited to those born 1996 or earlier and who have legal
                                        </p>
                                        <a href='http://betrireykjavik.is/about'>About Betri Reykjavik</a>"
 
-  votes_about_better_neighborhoods_text: "<h1>About Betri hverfi</h1>
+  votes_about_areas_text: "<h1>About Betri hverfi</h1>
   <p>
 <b>Betri hverfi</b> (Better boroughs) is part of the website <b>Better Reykjavík</b> and is an open platform for citizen consultation on minor new construction projects and maintainance projects in Reykjavík’s neighbourhoods. The website was open for ideas that can improve the local environment and increase the chances for people to get together and engage in various outdoor activities, ideas that create better opportunities for play or recreation and ideas that encourage cycling or improve facilities for pedestrians and bus passengers.</p>
 
@@ -648,7 +648,7 @@ More details (in Icelandic) available at the site <em>Um Betri hverfi</em>.</p>
 
                           <p>The Citizens Foundation develops open source software to help democracy in groups, cities and countries.   </p>
                           <p>We aim to provide the public a consistent voice in the debate and decision making in society.                  </p>
-                          <p>We want to improve the quality of the discussion, improve the debate and help citizens to find their own priorities.</p>
+                          <p>We want to improve the quality of the discussion, improve the debate and help citizens to find their own ideas.</p>
                           <h6>Democracy without participation is no democracy.</h6>
                           <br><br>
                                <b>By clicking the link below you will leave

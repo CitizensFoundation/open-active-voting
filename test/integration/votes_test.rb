@@ -22,8 +22,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
     @max_browsers = 8
     @max_votes = 20
-    @neighborhood_ids = [1]
-    #@neighborhood_ids = [1,2,3] #,4,5,6,7,8,9,10]
+    @area_ids = [1]
+    #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
@@ -72,14 +72,14 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   test "vote_through_firefox_and_chrome" do
     @votes.each do |vote|
       browser = @browsers[rand(@browsers.length)]
-      @current_neighborhood_id = neighborhood_id = @neighborhood_ids[rand(@neighborhood_ids.length)]
+      @current_area_id = area_id = @area_ids[rand(@area_ids.length)]
       browser.goto "http://localhost:3000/votes/force_session_id"
-      browser.goto "http://localhost:3000/votes/get_ballot?neighborhood_id=#{neighborhood_id}"
+      browser.goto "http://localhost:3000/votes/get_ballot?area_id=#{area_id}"
       retry_count = 0
       user_votes = nil
       begin
         setup_checkboxes(browser,vote)
-        user_votes = {:neighborhood_id=>neighborhood_id, :votes=>get_user_votes(browser)}
+        user_votes = {:area_id=>area_id, :votes=>get_user_votes(browser)}
         browser.button.click
       rescue
         retry unless (retry_count += 1) > 40
@@ -111,10 +111,10 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   all_votes
   end
 
-  def get_unique_votes(neighborhood_id)
+  def get_unique_votes(area_id)
     unique_votes = []
     @user_browser_votes.each do |browsers,vote_values|
-      unique_votes<<vote_values.last[:votes] if vote_values.last and vote_values.last[:neighborhood_id] == neighborhood_id
+      unique_votes<<vote_values.last[:votes] if vote_values.last and vote_values.last[:area_id] == area_id
     end
     unique_votes
   end
@@ -123,14 +123,14 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     votes.each do |vote| puts vote.inspect end # DEBUG
     all_passed = true
     Vote.split_and_generate_final_votes!
-    @neighborhood_ids.each do |neighborhood_id|
-      puts "NEIGHBORHOOD ID #{neighborhood_id}"
+    @area_ids.each do |area_id|
+      puts "NEIGHBORHOOD ID #{area_id}"
       database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-      @database_csv_filenames << database_count.count_unique_votes(neighborhood_id)
+      @database_csv_filenames << database_count.count_unique_votes(area_id)
       database_count.write_counted_unencrypted_audit_report
       #puts database_count.inspect
       test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-      test_count.count_all_test_votes(get_unique_votes(neighborhood_id),neighborhood_id)
+      test_count.count_all_test_votes(get_unique_votes(area_id),area_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
       #puts test_count.inspect
       puts "Test: ct: #{test_count.priority_ids_count} == #{database_count.priority_ids_count}"
@@ -147,7 +147,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
   def identical_csv_files?
     all_passed = true
-    @neighborhood_ids.each_with_index do |neighborhood_id,index|
+    @area_ids.each_with_index do |area_id,index|
        match = File.open(Rails.root.join("test","results",@database_csv_filenames[index])).read.to_s == File.open(Rails.root.join("test","results",@test_csv_filenames[index])).read.to_s
        unless match
         puts "FAILED"
@@ -194,7 +194,7 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       vote.each do |checkbox_to_set|
         retry_count = 0
         begin
-          browser.li(:id => "option_#{checkbox_to_set*@current_neighborhood_id}").click
+          browser.li(:id => "option_#{checkbox_to_set*@current_area_id}").click
         rescue
           checkbox_to_set -= rand(4)+1
           retry unless (retry_count += 1) > 12

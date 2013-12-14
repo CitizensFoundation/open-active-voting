@@ -20,7 +20,7 @@ require 'test_helper'
 class VotesTestEncryption < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "encryption" do
-    public_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join("config","rvk_public_key.pem")))
+    public_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join("config","public_key.pem")))
     private_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join('test','keys','privkey.pem')),"kjosa.123")
 
     puts vote_checksum = "sdf9ew9fefjewfjewh89hf948"

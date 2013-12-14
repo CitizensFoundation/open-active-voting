@@ -13,16 +13,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var public_key_2048 = '-----BEGIN PUBLIC KEY-----\n\
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1NaqPRiCaNrhrTB4SpUm\n\
-kftHnYiwKO0MnzdAJgcvgu/ObgGAgzXVM5gkBhmVi+HT2iMsu3zgRiCpDBZgh27M\n\
-U8HAmszj3qj28Kf3my43Gn8piWjOw6zHyFbsUWGlv5+ywawbXvUucYFRR0VpFzcB\n\
-WkeA6K/hTUYvt3JL0HsnZlc5Q3hznA1AfJszr0ui0ZxstLcqh1pnUpssDimxwAHB\n\
-CWsHjE22JlRec2htnQruCjmFP1VMGuC4KQTG/Rp4dhhyYDWyz2SETioHVXYs9XJk\n\
-YK7zpY8eo9JJmeoudh1gZO4gcyI2muCKRWcF+UBfjhXP8/7FzYGg3+o6rCtlrMDZ\n\
-KwIDAQAB\n\
------END PUBLIC KEY-----';
-
 function certParser(cert){
   var lines = cert.split('\n');
   var read = false;
@@ -152,7 +142,7 @@ $(function() {
         $.ajax({
           type: "POST",
           url: "/votes/post_vote",
-          data: { vote : dataString, neighborhood_id : $('input:hidden').val() },
+          data: { vote : dataString, area_id : $('input:hidden').val() },
           dataType: "json",
           success: function(response) {
             if (response[0] && response[0].vote_ok==true) {

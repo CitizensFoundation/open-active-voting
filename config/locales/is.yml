@@ -519,8 +519,8 @@ is:
   votes_header_contact_us_label: "betrireykjavik@ibuar.is"
   votes_header_about_the_poll_label: "Um kosninguna"
 
-  votes_header_about_better_reykjavik_label: "Um Betri Reykjavík"
-  votes_header_about_better_neighborhoods_label: "Um Betri hverfi"
+  votes_header_about_government_label: "Um Betri Reykjavík"
+  votes_header_about_areas_label: "Um Betri hverfi"
 
   votes_header_ibuar_ses_label: "Íbúar ses"
   votes_header_reykjavik_city_label: "Reykjavíkurborg"
@@ -600,7 +600,7 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                               <p>Rétt til þátttöku í kosningunum hafa íbúar fæddir 1996 eða fyrr og sem eru búsettir í einu af hverfum Reykjavíkur á þeim degi sem kosið er. Inni á <b>Mínum síðum</b> á <b>Ísland.is</b> getur kjósandi skoðað hvernig hann er skráður í <b>Þjóðskrá</b>. Hægt er að auðkenna sig inn á <b>Mínar síður</b> með kennitölu og veflykli eða rafrænum skilríkjum á debetkortum. Einnig er hægt að skoða þessar upplýsingar í heimabanka.</p>
                               <p>Nánari  upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í  Þjónustuveri Reykjavíkurborgar í síma 4 11 11 11.</p>"
 
-  votes_about_better_reykjavik_text: "<h1>Um Betri Reykjavík</h1>
+  votes_about_government_text: "<h1>Um Betri Reykjavík</h1>
                                        <p>Betri Reykjavík er samráðsvettvangur á netinu þar sem íbúum borgarinnar gefst tækifæri til að setja fram hugmyndir sínar um málefni er varða þjónustu og rekstur Reykjavíkurborgar. Vettvangurinn er opinn öllum til skoðunar og þátttöku gegn skráningu og samþykki notendaskilmála.</p>
 
 <p>Betri Reykjavík er rekin af sjálfseignarstofnuninni Íbúum -  Samráðslýðræði fyrir, og í samstarfi við Reykjavíkurborg. Sjá nánar á svæðinu Um Betri Reykjavík.</p>
@@ -611,7 +611,7 @@ Nánari upplýsingar og aðstoð má fá hjá  þjónustufulltrúum í Þjónust
                                        <a href='http://betrireykjavik.is/about'>Um Betri
                                        Reykjavík</a>"
 
-  votes_about_better_neighborhoods_text: "
+  votes_about_areas_text: "
                                           <h1>Um Betri hverfi</h1><p>
                                           <b>Betri hverfi</b> er hluti af vefnum <b>Betri Reykjavík</b> og er samráðsvefur um smærri nýframkvæmdir og viðhaldsverkefni í hverfum Reykjavíkur. Hægt var að setja inn hugmyndir sem haft geta áhrif á umhverfi og möguleika til útivistar og samveru, geta haft áhrif á aðstöðu eða tækifæri til leikja eða afþreyingar, hvetja til aukinna hjólreiða, bæta aðstöðu og möguleika gangandi eða bæta aðstöðu fyrir notendur strætisvagna.
 </p>

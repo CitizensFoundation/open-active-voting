@@ -19,14 +19,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :get_db_config
-
   before_filter :session_expiry, :except => [:check_authentication, :authentication_options, :authenticate_from_island_is,
-                                             :help_info, :about_info, :rules_info, :better_reykjavik_info,
-                                             :better_neighborhoods_info, :ibuar_info, :rvk_info, :priority_info,
+                                             :help_info, :about_info, :rules_info, :government_info,
+                                             :areas_info, :ibuar_info, :rvk_info, :idea_info,
                                              :logout_info]
   before_filter :update_activity_time
-
   before_filter :set_locale
+  before_filter :load_public_key
+
+
+  def load_public_key
+    @public_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join("config","public_key.pem")))
+  end
 
   def set_locale
     if params[:locale]
@@ -72,6 +76,6 @@ class ApplicationController < ActionController::Base
   end
 
   def get_db_config
-    @config = BudgetConfig.current # YAML::load(File.read(Rails.root.join("config","database.yml")))
+    @config = BudgetConfig.current
   end
 end

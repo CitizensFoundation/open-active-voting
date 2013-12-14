@@ -16,6 +16,8 @@
 class BudgetConfig < ActiveRecord::Base
   set_table_name "config"
 
+  validates :there_can_only_be_one
+
   def self.current
     unless Rails.env.production?
       unless BudgetConfig.first
@@ -27,4 +29,11 @@ class BudgetConfig < ActiveRecord::Base
     end
     BudgetConfig.first
   end
+
+  private
+
+  def there_can_only_be_one
+    errors.add_to_base('There can only be one') if BudgetConfig.count > 0
+  end
+
 end

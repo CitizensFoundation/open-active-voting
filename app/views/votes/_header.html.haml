@@ -26,3 +26,6 @@
   #logo
     %a{:href => "/votes/select_area"}
       %img{:alt => "", :src => "/assets/logo.png"}/
+:javascript
+  = "var public_key_2048 = '#{@public_key.to_s}';"
+

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.16'
-
+gem 'globalize', '~> 3.0.0'
 # Gems used in all environments including production
 gem "airbrake" # Online error reporting system
 gem 'haml' # generate html from templates

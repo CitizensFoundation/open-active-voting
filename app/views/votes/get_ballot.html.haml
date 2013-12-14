@@ -1,9 +1,9 @@
-- all_priorities = @budget_ballot.priorities(@neighborhood_id)
-- all_priorities_length = all_priorities.length
+- all_ideas = @budget_ballot.ideas(@area_id)
+- all_ideas_length = all_ideas.length
 - left_col_start = 0
-- left_col_end = (all_priorities_length/2)-1
-- right_col_start = (all_priorities_length/2)
-- right_col_end = all_priorities_length+1
+- left_col_end = (all_ideas_length/2)-1
+- right_col_start = (all_ideas_length/2)
+- right_col_end = all_ideas_length+1
 
 #content_wrapper
   #timeline
@@ -12,7 +12,7 @@
   #content_vote
     #content-title
       %h2.content-title
-        = @budget_ballot.get_neighborhood_name(@neighborhood_id.to_i)
+        = @budget_ballot.get_area_name(@area_id.to_i)
     #votebox
       #votes
       #votes_totals
@@ -33,7 +33,7 @@
         .list
           %ul#options_left
 
-            = render :partial => "priorities", :locals=>{ :index_offset=>0, :priorities => all_priorities[left_col_start..left_col_end]}
+            = render :partial => "ideas", :locals=>{ :index_offset=>0, :ideas => all_ideas[left_col_start..left_col_end]}
       #rightcol
         %span.header-txt
           = t :name_of_project
@@ -43,11 +43,11 @@
             = t :in_millions
         .list
           %ul#options_right
-            = render :partial => "priorities", :locals=>{ :index_offset=>right_col_start, :priorities => all_priorities[right_col_start..right_col_end]}
+            = render :partial => "ideas", :locals=>{ :index_offset=>right_col_start, :ideas => all_ideas[right_col_start..right_col_end]}
     #vote
       %a{:href => "#"}
 
-      %input{:type => :hidden, :id=>"neighborhood_id", :name => "neighborhood_id", :value => @neighborhood_id }
+      %input{:type => :hidden, :id=>"area_id", :name => "area_id", :value => @area_id }
       %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :title=>"Smelltu hér til að kjósa", :alt => 'Smelltu hér til að kjósa'}
 
     :javascript

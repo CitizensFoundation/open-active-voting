@@ -58,12 +58,12 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
-  def better_reykjavik_info
+  def government_info
     # Display information about Better Reykjavik
     render :layout=>false
   end
 
-  def better_neighborhoods_info
+  def areas_info
     # Display information about Better Neighborhoods
     render :layout=>false
   end
@@ -83,14 +83,14 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
-  def priority_info
-    # Display information about a given priority
-    @priority_id = params[:priority_id].to_i
-    @neighborhood_id = params[:neighborhood_id].to_i
+  def idea_info
+    # Display information about a given idea
+    @idea_id = params[:idea_id].to_i
+    @area_id = params[:area_id].to_i
     ballot = BudgetBallot.current
-    @name = ballot.get_priority_name(@neighborhood_id,@priority_id)
-    @description = ballot.get_priority_description(@neighborhood_id,@priority_id)
-    @link = ballot.get_priority_link(@neighborhood_id,@priority_id)
+    @name = ballot.get_idea_name(@area_id,@idea_id)
+    @description = ballot.get_idea_description(@area_id,@idea_id)
+    @link = ballot.get_idea_link(@area_id,@idea_id)
     Rails.logger.info(@link)
     @link = nil if @link=="-- no Hyperlink --"
     render :layout=>false
@@ -169,13 +169,13 @@ class VotesController < ApplicationController
     end
 
     # Set the neighborhood id from url parameters
-    @neighborhood_id = params[:neighborhood_id].to_i
+    @area_id = params[:area_id].to_i
 
     # Create the Reykjavik Budget Ballot
     @budget_ballot = BudgetBallot.current
 
     # Get the budget for the given neighborhood id
-    @total = @budget_ballot.get_neighborhood_budget(@neighborhood_id)
+    @total = @budget_ballot.get_area_budget(@area_id)
 
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
@@ -191,9 +191,9 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
       # Save the vote to the database
-      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:vote],request.remote_ip,params[:neighborhood_id],request.session_options[:id])
+      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:vote],request.remote_ip,params[:area_id],request.session_options[:id])
       if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:vote],
-                     :client_ip_address => request.remote_ip, :neighborhood_id =>params[:neighborhood_id],
+                     :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
                      :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
@@ -222,14 +222,13 @@ class VotesController < ApplicationController
   def saml_settings
     settings = Onelogin::Saml::Settings.new
 
-    settings.assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
+    settings.assertion_consumer_service_url = @config.saml_assertion_consumer_service_url
     settings.issuer                         = request.host
-    settings.idp_sso_target_url             = "https://ktest.betrireykjavik.is/"
-    settings.idp_cert_fingerprint           = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+    settings.idp_sso_target_url             = @config.saml_idp_sso_target_url
+    settings.idp_cert_fingerprint           = @config.saml_idp_cert_fingerprint
+    settings.name_identifier_format         = @config.saml_name_identifier_format
     # Optional for most SAML IdPs
     #settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-
     settings
   end
 
@@ -243,13 +242,14 @@ class VotesController < ApplicationController
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>@config.election_id, :svfNr=>%w{0000})
+                                                     :electionId=>@config.election_id, :svfNr=>@config.rsk_svf_nr)
 
       # SAML verification
       saml_response_test          = Onelogin::Saml::Response.new(@response.saml)
       saml_response_test.settings = saml_settings
+      saml_validation_response = saml_response_test.validate!
 
-      Rails.logger.info("SAML Valid response: #{saml_response_test.validate!}")
+      Rails.logger.info("SAML validation response: #{saml_validation_response}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"

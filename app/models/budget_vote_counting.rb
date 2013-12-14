@@ -28,11 +28,11 @@ class BudgetVoteCounting
     @invalid_votes = []
   end
 
-  def count_unique_votes(csv_out=true,neighborhood_id)
+  def count_unique_votes(csv_out=true,area_id)
     # Count all unique votes from the same identity
-    @neighborhood_id = neighborhood_id
+    @area_id = area_id
 
-    FinalSplitVote.where(:neighborhood_id=>neighborhood_id).all.each do |vote|
+    FinalSplitVote.where(:area_id=>area_id).all.each do |vote|
       begin
         process_vote(vote)
       rescue Exception => e
@@ -40,7 +40,7 @@ class BudgetVoteCounting
       end
     end
 
-    select_top_priorities_that_still_fit_budget
+    select_top_ideas_that_still_fit_budget
 
     if csv_out
       filename = write_voting_results_report
@@ -52,21 +52,21 @@ class BudgetVoteCounting
   def count_all_votes
     # Count all votes, including duplicates from the same identity
     Vote.find(:all, :order=>"created_at").each do |vote|
-      vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.neighborhood_id, vote.session_id)
+      vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.area_id, vote.session_id)
       process_vote(vote)
     end
   end
 
-  def count_all_test_votes(test_votes,neighborhood_id=nil,write_out_path=nil)
+  def count_all_test_votes(test_votes,area_id=nil,write_out_path=nil)
     # Count test votes, for testing purposes only
-    @neighborhood_id = neighborhood_id
+    @area_id = area_id
     test_votes.each do |vote|
       decrypted_vote = BudgetVote.new(vote,@private_key_file,vote)
       decrypted_vote.unpack_without_encryption
       add_votes(decrypted_vote)
     end
-    if neighborhood_id
-      select_top_priorities_that_still_fit_budget
+    if area_id
+      select_top_ideas_that_still_fit_budget
       write_voting_results_report("voting_results.csv",write_out_path)
     end
   end
@@ -75,7 +75,7 @@ class BudgetVoteCounting
   def write_voting_results_report(filename="voting_results.csv",write_out_path=nil)
     # Write the voting results to a csv file including the hashed identities
     puts "Write the voting results"
-    filename = "#{@neighborhood_id}_#{get_time_for_filename}_#{filename}"
+    filename = "#{@area_id}_#{get_time_for_filename}_#{filename}"
     if write_out_path
       filepath = write_out_path
     else
@@ -87,10 +87,10 @@ class BudgetVoteCounting
       write_voting_totals(csv)
       csv << [""]
       csv << ["Valin verkefni fyrir Framkvæmdir"]
-      add_priorities_to_csv(@priority_ids_selected_count,csv)
+      add_ideas_to_csv(@priority_ids_selected_count,csv)
       csv << [""]
       csv << ["Heildaratkvæði fyrir Framkvæmdir"]
-      add_priorities_to_csv(@priority_ids_count,csv)
+      add_ideas_to_csv(@priority_ids_count,csv)
       unless @invalid_votes.empty?
         csv << [""]
         csv << ["Ógild atkvæði"]
@@ -104,7 +104,7 @@ class BudgetVoteCounting
 
   def write_counted_unencrypted_audit_report
     # Write all counted votes unencrypted to csv file
-    filename = "#{@neighborhood_id}_#{get_time_for_filename}_counted_unencrypted_audit_report.csv"
+    filename = "#{@area_id}_#{get_time_for_filename}_counted_unencrypted_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
       csv << ["Audit counted unencrypted votes report"]
@@ -113,11 +113,11 @@ class BudgetVoteCounting
       csv << [""]
       csv << ["Allir taldir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
-      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.neighborhood_id = ?",@neighborhood_id], :order=>"votes.created_at").each do |final_vote|
+      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.area_id = ?",@area_id], :order=>"votes.created_at").each do |final_vote|
         begin
-          csv << [final_vote.neighborhood_id,final_vote.vote.created_at]+BudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
+          csv << [final_vote.area_id,final_vote.vote.created_at]+BudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
         rescue Exception => e
-          csv << [final_vote.neighborhood_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
+          csv << [final_vote.area_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
         end
 
       end
@@ -126,19 +126,19 @@ class BudgetVoteCounting
 
   private
 
-  def select_top_priorities_that_still_fit_budget
-    # Select the top priorities that still fit the budget
-    @priority_ids_selected_count = select_top_priorities(@priority_ids_count)
+  def select_top_ideas_that_still_fit_budget
+    # Select the top ideas that still fit the budget
+    @priority_ids_selected_count = select_top_ideas(@priority_ids_count)
   end
 
-  def select_top_priorities(priority_ids)
-    # Select the top priorities that still fit the budget
-    total_budget = @ballot.get_neighborhood_budget(@neighborhood_id)
+  def select_top_ideas(priority_ids)
+    # Select the top ideas that still fit the budget
+    total_budget = @ballot.get_area_budget(@area_id)
     left_of_budget = total_budget
     selected = Hash.new
     priority_ids.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
-      priority_price = @ballot.get_priority_price(@neighborhood_id,priority_id)
-      puts "PRIORITY PRICE #{priority_price} #{@neighborhood_id} #{priority_id}"
+      priority_price = @ballot.get_priority_price(@area_id,priority_id)
+      puts "PRIORITY PRICE #{priority_price} #{@area_id} #{priority_id}"
       if priority_price<=left_of_budget
         selected[priority_id]=vote_count
         left_of_budget-=priority_price
@@ -164,15 +164,15 @@ class BudgetVoteCounting
     end
   end
 
-  def add_priorities_to_csv(priorities,csv)
-    # Add priorities to csv
+  def add_ideas_to_csv(ideas,csv)
+    # Add ideas to csv
     csv << ["Id","Nafn","Atkvæði","Kostnaður"]
     total_vote_count = 0
     total_price = 0
-    priorities.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
+    ideas.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
       total_vote_count+=vote_count
-      total_price+=@ballot.get_priority_price(@neighborhood_id,priority_id)
-      csv << [priority_id,@ballot.get_priority_name(@neighborhood_id,priority_id),vote_count,@ballot.get_priority_price(@neighborhood_id,priority_id)]
+      total_price+=@ballot.get_priority_price(@area_id,priority_id)
+      csv << [priority_id,@ballot.get_priority_name(@area_id,priority_id),vote_count,@ballot.get_priority_price(@area_id,priority_id)]
     end
     csv << ["","Samtals",total_vote_count,total_price]
   end
@@ -180,17 +180,17 @@ class BudgetVoteCounting
   def write_voting_totals(csv)
     # Add totals to csv
     csv << ["Hverfa ID","Nafn á hverfi","Fjármagn (m.)"]
-    csv << [@neighborhood_id,@ballot.get_neighborhood_name(@neighborhood_id),@ballot.get_neighborhood_budget(@neighborhood_id)]
+    csv << [@area_id,@ballot.get_area_name(@area_id),@ballot.get_area_budget(@area_id)]
     csv << [""]
     csv << ["Innsendir atkvæðaseðlar","Taldir atkvæðaseðlar","Innsendir atkvæðaseðlar í þessu hverfi","Taldir atkvæðaseðlar í þessu hverfi"]
-    csv << [Vote.count,FinalSplitVote.count,Vote.where(:neighborhood_id=>@neighborhood_id).count,FinalSplitVote.where(:neighborhood_id=>@neighborhood_id).count]
+    csv << [Vote.count,FinalSplitVote.count,Vote.where(:area_id=>@area_id).count,FinalSplitVote.where(:area_id=>@area_id).count]
     csv << [""]
   end
 
   def write_audit_report
     # Write out the audit report to csv
     puts "Write audit report"
-    filename = "#{@neighborhood_id}_#{get_time_for_filename}_audit_report.csv"
+    filename = "#{@area_id}_#{get_time_for_filename}_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
       csv << ["Audit report"]
@@ -199,8 +199,8 @@ class BudgetVoteCounting
       csv << [""]
       csv << ["Allir innsendir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dulkóðuð kennitala","Dagsetning","IP tala","Dulkóðað atkvæði"]
-      Vote.find(:all, :conditions=>["neighborhood_id = ?",@neighborhood_id], :order=>"created_at").each do |vote|
-        csv << [vote.neighborhood_id,vote.user_id_hash,vote.created_at,vote.client_ip_address,vote.payload_data]
+      Vote.find(:all, :conditions=>["area_id = ?",@area_id], :order=>"created_at").each do |vote|
+        csv << [vote.area_id,vote.user_id_hash,vote.created_at,vote.client_ip_address,vote.payload_data]
       end
     end
   end
