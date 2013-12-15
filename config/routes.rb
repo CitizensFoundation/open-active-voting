@@ -11,7 +11,7 @@ OpenActiveVoting::Application.routes.draw do
   get "votes/help_info"
   get "votes/about_info"
   get "votes/rules_info"
-  get "votes/priority_info"
+  get "votes/idea_info"
   get "votes/government_info"
   get "votes/areas_info"
   get "votes/ibuar_info"
@@ -21,8 +21,8 @@ OpenActiveVoting::Application.routes.draw do
 
   root :to => 'votes#check_authentication'
 
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+  # The idea is based upon order of creation:
+  # first created -> highest idea.
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

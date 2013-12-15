@@ -29,7 +29,7 @@ namespace :counting do
     puts "Starting vote counting"
     puts "Splitting user id hash and vote and generating final votes database tables"
     Vote.split_and_generate_final_votes!
-    BudgetBallot.current.neighborhoods.each do |i,neighborhood|
+    BudgetBallot.current.areas.each do |i,neighborhood|
       puts "Counting votes for neighborhood: #{neighborhood[:name]}"
       count  = BudgetVoteCounting.new(ENV['private_key'])
       count.count_unique_votes(neighborhood[:id])

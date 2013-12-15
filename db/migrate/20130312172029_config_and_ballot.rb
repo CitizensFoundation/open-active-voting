@@ -1,7 +1,7 @@
 class ConfigAndBallot < ActiveRecord::Migration
   def up
     create_table :ballots do |t|
-      t.binary :neighborhoods, :null=>false
+      t.binary :areas, :null=>false
       t.timestamps
     end
 

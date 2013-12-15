@@ -17,10 +17,10 @@ def get_until_budget_full(budget,ideas)
   selected = []
 
   left_of_budget = budget
-  ideas.shuffle.each do |priority|
-    if left_of_budget>=priority[:price]
-      selected<<priority
-      left_of_budget -= priority[:price]
+  ideas.shuffle.each do |idea|
+    if left_of_budget>=idea[:price]
+      selected<<idea
+      left_of_budget -= idea[:price]
     elsif left_of_budget<=0.0
       break
     end
@@ -95,8 +95,8 @@ namespace :ballot do
     area_id = ENV['area_id'].to_i
     ballot = BudgetBallot.current
     puts "Construction"
-    ballot.neighborhoods[area_id][:ideas].each do |priority|
-      puts "#{priority[:letter]},#{priority[:id]},#{priority[:name]}"
+    ballot.areas[area_id][:ideas].each do |idea|
+      puts "#{idea[:letter]},#{idea[:id]},#{idea[:name]}"
     end
   end
 
@@ -118,10 +118,10 @@ namespace :ballot do
       selected_ideas = get_until_budget_full(budget,ballot.ideas(area_id))
       selected_ideas_html = ""
       selected_ideas_ids = []
-      selected_ideas.sort_by { |v| v[:letter] }.each do |priority|
+      selected_ideas.sort_by { |v| v[:letter] }.each do |idea|
         unless rand(40)==7 # Don't finish the budget 1/40 times
-          selected_ideas_ids << priority[:id]
-          selected_ideas_html+="<li class='litur'>#{priority[:letter].upcase} - #{priority[:name]}</li>"
+          selected_ideas_ids << idea[:id]
+          selected_ideas_html+="<li class='litur'>#{idea[:letter].upcase} - #{idea[:name]}</li>"
         end
       end
       puts html_out = create_html_doc(ballot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
@@ -162,7 +162,7 @@ namespace :ballot do
   desc "Generate ballot from CSV"
   task(:generate_ballot_from_csv => :environment) do
     @ballot = BudgetBallot.current
-    @neighborhoods = Hash.new
+    @areas = Hash.new
     state = "waiting_for_neighborhood"
     current_neighborhood = nil
     master_id = 0
@@ -177,15 +177,15 @@ namespace :ballot do
       elsif row[0]=="END"
         puts "The End of the import document"
       else
-        @neighborhoods[current_neighborhood]=Hash.new unless @neighborhoods[current_neighborhood]
-        @neighborhoods[current_neighborhood][:ideas]=[] unless @neighborhoods[current_neighborhood][:ideas]
-        @neighborhoods[current_neighborhood][:ideas] << make_data_hash(row,master_id+=1,ideas_count+=1)
+        @areas[current_neighborhood]=Hash.new unless @areas[current_neighborhood]
+        @areas[current_neighborhood][:ideas]=[] unless @areas[current_neighborhood][:ideas]
+        @areas[current_neighborhood][:ideas] << make_data_hash(row,master_id+=1,ideas_count+=1)
       end
     end
     main_outfile = ""
     is_yml = ""
     en_yml = ""
-    @neighborhoods.each do |id, project_types|
+    @areas.each do |id, project_types|
       project_types.each do |project_type,array|
         array.each do |item|
           is_yml += "#{item[:name]}: \"#{item[:name_is].strip.escape_quotes}\"\n"
@@ -194,7 +194,7 @@ namespace :ballot do
           en_yml += "#{item[:description]}: \"#{item[:description_en].strip.escape_quotes}\"\n"
           item.delete(:name_is)
           item.delete(:description_is)
-          main_outfile += "@neighborhoods[#{id}][:#{project_type}] << {:id=>#{item[:id]}, :letter=>\"#{item[:letter]}\", :link=>\"#{item[:link]}\", :description=>I18n.t(:#{item[:description]}), :name=>I18n.t(:#{item[:name]}), :price=>#{item[:price].to_f/1000000.0}}\n"
+          main_outfile += "@areas[#{id}][:#{project_type}] << {:id=>#{item[:id]}, :letter=>\"#{item[:letter]}\", :link=>\"#{item[:link]}\", :description=>I18n.t(:#{item[:description]}), :name=>I18n.t(:#{item[:name]}), :price=>#{item[:price].to_f/1000000.0}}\n"
         end
         main_outfile += "\n"
       end

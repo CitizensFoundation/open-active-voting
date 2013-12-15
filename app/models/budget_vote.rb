@@ -19,13 +19,13 @@ require 'base64'
 class BudgetVote
   NEW_PRIORITIES_ARRAY_ID = 0
 
-  attr_reader :priority_ids
+  attr_reader :idea_ids
 
   @@private_key_file_data = nil
   @@private_key = nil
 
   def initialize(encrypted_payload, private_key_file, vote)
-    @priority_ids = []
+    @idea_ids = []
     @encrypted_payload = encrypted_payload
     @@private_key_file_data = File.read(private_key_file) unless @@private_key_file_data
     @@private_key = OpenSSL::PKey::RSA.new(@@private_key_file_data,nil) unless @@private_key
@@ -35,13 +35,13 @@ class BudgetVote
   def unencryped_vote_for_audit_csv
     # Decrypt the vote for the audit csv
     unpack
-    (@priority_ids)
+    (@idea_ids)
   end
 
-  def pack(public_key_file,priority_ids)
+  def pack(public_key_file,idea_ids)
     # Encrypt the vote, for testing purposes only
     public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
-    ideas = priority_ids.to_json
+    ideas = idea_ids.to_json
     @encrypted_payload = Base64.encode64(public_key.public_encrypt(combined_ideas.to_json))
   end
 
@@ -58,15 +58,15 @@ class BudgetVote
     decrypted_vote = decrypted_vote.gsub(",]","]")
     ideas = JSON.parse(decrypted_vote).to_a
     #puts "Last vote for #{combined_ideas}"
-    @priority_ids = ideas
-    puts "@priority_ids #{@priority_ids}"
+    @idea_ids = ideas
+    puts "@idea_ids #{@idea_ids}"
   end
 
   def unpack_without_encryption
     # Unpack the vote without decryption
     ideas = @encrypted_payload
     if ideas
-      @priority_ids = ideas
+      @idea_ids = ideas
     end
   end
 end

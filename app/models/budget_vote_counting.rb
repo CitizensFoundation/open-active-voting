@@ -18,11 +18,11 @@
 require 'csv'
 
 class BudgetVoteCounting
-  attr_reader :priority_ids_count
+  attr_reader :idea_ids_count
 
   def initialize(private_key_file)
-    @priority_ids_count = Hash.new
-    @priority_ids_selected_count = Hash.new
+    @idea_ids_count = Hash.new
+    @idea_ids_selected_count = Hash.new
     @private_key_file = private_key_file
     @ballot = BudgetBallot.current
     @invalid_votes = []
@@ -87,10 +87,10 @@ class BudgetVoteCounting
       write_voting_totals(csv)
       csv << [""]
       csv << ["Valin verkefni fyrir Framkvæmdir"]
-      add_ideas_to_csv(@priority_ids_selected_count,csv)
+      add_ideas_to_csv(@idea_ids_selected_count,csv)
       csv << [""]
       csv << ["Heildaratkvæði fyrir Framkvæmdir"]
-      add_ideas_to_csv(@priority_ids_count,csv)
+      add_ideas_to_csv(@idea_ids_count,csv)
       unless @invalid_votes.empty?
         csv << [""]
         csv << ["Ógild atkvæði"]
@@ -128,20 +128,20 @@ class BudgetVoteCounting
 
   def select_top_ideas_that_still_fit_budget
     # Select the top ideas that still fit the budget
-    @priority_ids_selected_count = select_top_ideas(@priority_ids_count)
+    @idea_ids_selected_count = select_top_ideas(@idea_ids_count)
   end
 
-  def select_top_ideas(priority_ids)
+  def select_top_ideas(idea_ids)
     # Select the top ideas that still fit the budget
     total_budget = @ballot.get_area_budget(@area_id)
     left_of_budget = total_budget
     selected = Hash.new
-    priority_ids.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
-      priority_price = @ballot.get_priority_price(@area_id,priority_id)
-      puts "PRIORITY PRICE #{priority_price} #{@area_id} #{priority_id}"
-      if priority_price<=left_of_budget
-        selected[priority_id]=vote_count
-        left_of_budget-=priority_price
+    idea_ids.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
+      idea_price = @ballot.get_idea_price(@area_id,idea_id)
+      puts "PRIORITY PRICE #{idea_price} #{@area_id} #{idea_id}"
+      if idea_price<=left_of_budget
+        selected[idea_id]=vote_count
+        left_of_budget-=idea_price
       end
     end
     selected
@@ -155,11 +155,11 @@ class BudgetVoteCounting
   end
 
   def add_votes(vote)
-    puts "Counting votes #{vote.priority_ids}"
-    vote.priority_ids.each do |priority_group|
-      priority_group.each do |priority_id|
-        @priority_ids_count[priority_id] = 0 unless @priority_ids_count[priority_id]
-        @priority_ids_count[priority_id] += 1
+    puts "Counting votes #{vote.idea_ids}"
+    vote.idea_ids.each do |idea_group|
+      idea_group.each do |idea_id|
+        @idea_ids_count[idea_id] = 0 unless @idea_ids_count[idea_id]
+        @idea_ids_count[idea_id] += 1
       end
     end
   end
@@ -169,10 +169,10 @@ class BudgetVoteCounting
     csv << ["Id","Nafn","Atkvæði","Kostnaður"]
     total_vote_count = 0
     total_price = 0
-    ideas.sort_by{|p| [-p[1], p[0]]}.each do |priority_id,vote_count|
+    ideas.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
       total_vote_count+=vote_count
-      total_price+=@ballot.get_priority_price(@area_id,priority_id)
-      csv << [priority_id,@ballot.get_priority_name(@area_id,priority_id),vote_count,@ballot.get_priority_price(@area_id,priority_id)]
+      total_price+=@ballot.get_idea_price(@area_id,idea_id)
+      csv << [idea_id,@ballot.get_idea_name(@area_id,idea_id),vote_count,@ballot.get_idea_price(@area_id,idea_id)]
     end
     csv << ["","Samtals",total_vote_count,total_price]
   end

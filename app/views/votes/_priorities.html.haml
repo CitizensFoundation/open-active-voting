@@ -1,13 +1,13 @@
-- ideas.each_with_index do |priority,index|
+- ideas.each_with_index do |idea,index|
   - onclick_options = "select(this,selected,curtotal,total,'#curtotal','#options','#votes');"
-  %li{:id=>"option_#{priority[:id]}", :name=>priority[:name], :letter=>@letter_of_alphabet[index+index_offset],:price=>priority[:price],:onclick=>onclick_options}
+  %li{:id=>"option_#{idea[:id]}", :name=>idea[:name], :letter=>@letter_of_alphabet[index+index_offset],:price=>idea[:price],:onclick=>onclick_options}
     %span.val
       %span.num
-        = priority[:letter]
+        = idea[:letter]
       %span.txt
-        = priority[:name]
+        = idea[:name]
       %span.price
-        = number_with_precision(priority[:price], :precision => 1)
+        = number_with_precision(idea[:price], :precision => 1)
   %span.info
-    %a{:href => "#", :title=>priority[:name], :onclick=>"jQuery.facebox({ ajax: '/votes/priority_info?priority_id=#{priority[:id]}&area_id=#{@area_id}' })"}
+    %a{:href => "#", :title=>idea[:name], :onclick=>"jQuery.facebox({ ajax: '/votes/idea_info?idea_id=#{idea[:id]}&area_id=#{@area_id}' })"}
       %img.zoom{:alt => "", :src => "/assets/zoom.png"}/

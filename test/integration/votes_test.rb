@@ -133,9 +133,9 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
       test_count.count_all_test_votes(get_unique_votes(area_id),area_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
       #puts test_count.inspect
-      puts "Test: ct: #{test_count.priority_ids_count} == #{database_count.priority_ids_count}"
+      puts "Test: ct: #{test_count.idea_ids_count} == #{database_count.idea_ids_count}"
 
-      match = (test_count.priority_ids_count == database_count.priority_ids_count) ? true : false
+      match = (test_count.idea_ids_count == database_count.idea_ids_count) ? true : false
       unless match
         puts "FAILED"
         all_passed = false
@@ -163,15 +163,15 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
     database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
-    puts "From database: #{database_count.priority_ids_count}"
-    puts database_count.priority_ids_count.inspect
+    puts "From database: #{database_count.idea_ids_count}"
+    puts database_count.idea_ids_count.inspect
     puts Vote.count
     test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     test_count.count_all_test_votes(votes)
-    puts "From browser: #{test_count.priority_ids_count}"
-    puts test_count.priority_ids_count.inspect
+    puts "From browser: #{test_count.idea_ids_count}"
+    puts test_count.idea_ids_count.inspect
     puts votes.count
-    (test_count.priority_ids_count == database_count.priority_ids_count) ? true : false
+    (test_count.idea_ids_count == database_count.idea_ids_count) ? true : false
   end
 
   def setup_votes

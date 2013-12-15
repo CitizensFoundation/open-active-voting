@@ -36,6 +36,12 @@ module OpenActiveVoting
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    # Set default locale to Icelandic
+    config.i18n.locale = :is
+
+    # Enable localization fallback to :is
+    config.i18n.fallbacks = true
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
