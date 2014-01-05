@@ -17,12 +17,13 @@ require "rubygems"
 require "test/unit"
 require "watir-webdriver"
 require 'test_helper'
+require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 8
-    @max_votes = 20
-    @area_ids = [1]
+    @max_browsers = 1
+    @max_votes = 2
+    @area_ids = [10]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -32,7 +33,8 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     elsif false
       @browser_types = [:firefox]
     else
-      @browser_types = [:firefox,:chrome]
+      @browser_types = [:firefox]
+      #@browser_types = [:firefox,:chrome]
     end
 
     if ENV['HEADLESS']

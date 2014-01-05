@@ -33,7 +33,7 @@ class VotesController < ApplicationController
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
-    redirect_to "/votes/help_info"
+    redirect_to "/votes/select_area"
   end
 
   def help_info
@@ -87,11 +87,10 @@ class VotesController < ApplicationController
     # Display information about a given idea
     @idea_id = params[:idea_id].to_i
     @area_id = params[:area_id].to_i
-    ballot = BudgetBallot.current
-    @name = ballot.get_idea_name(@area_id,@idea_id)
-    @description = ballot.get_idea_description(@area_id,@idea_id)
+    @name = BudgetBallot.get_idea_name(@area_id,@idea_id)
+    @description = BudgetBallot.get_idea_description(@area_id,@idea_id)
     @link = ballot.get_idea_link(@area_id,@idea_id)
-    Rails.logger.info(@link)
+    Rails.BudgetBallot.info(@link)
     @link = nil if @link=="-- no Hyperlink --"
     render :layout=>false
   end
@@ -172,10 +171,10 @@ class VotesController < ApplicationController
     @area_id = params[:area_id].to_i
 
     # Create the Reykjavik Budget Ballot
-    @budget_ballot = BudgetBallot.current
+    @budget_ballot = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
 
     # Get the budget for the given neighborhood id
-    @total = @budget_ballot.get_area_budget(@area_id)
+    @total = BudgetBallot.get_area_budget(@area_id)
 
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS

@@ -24,7 +24,6 @@ class BudgetVoteCounting
     @idea_ids_count = Hash.new
     @idea_ids_selected_count = Hash.new
     @private_key_file = private_key_file
-    @ballot = BudgetBallot.current
     @invalid_votes = []
   end
 
@@ -133,11 +132,11 @@ class BudgetVoteCounting
 
   def select_top_ideas(idea_ids)
     # Select the top ideas that still fit the budget
-    total_budget = @ballot.get_area_budget(@area_id)
+    total_budget = BudgetBallot.get_area_budget(@area_id)
     left_of_budget = total_budget
     selected = Hash.new
     idea_ids.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
-      idea_price = @ballot.get_idea_price(@area_id,idea_id)
+      idea_price = BudgetBallot.get_idea_price(@area_id,idea_id)
       puts "PRIORITY PRICE #{idea_price} #{@area_id} #{idea_id}"
       if idea_price<=left_of_budget
         selected[idea_id]=vote_count
@@ -171,8 +170,8 @@ class BudgetVoteCounting
     total_price = 0
     ideas.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
       total_vote_count+=vote_count
-      total_price+=@ballot.get_idea_price(@area_id,idea_id)
-      csv << [idea_id,@ballot.get_idea_name(@area_id,idea_id),vote_count,@ballot.get_idea_price(@area_id,idea_id)]
+      total_price+=BudgetBallot.get_idea_price(@area_id,idea_id)
+      csv << [idea_id,BudgetBallot.get_idea_name(@area_id,idea_id),vote_count,BudgetBallot.get_idea_price(@area_id,idea_id)]
     end
     csv << ["","Samtals",total_vote_count,total_price]
   end
@@ -180,7 +179,7 @@ class BudgetVoteCounting
   def write_voting_totals(csv)
     # Add totals to csv
     csv << ["Hverfa ID","Nafn á hverfi","Fjármagn (m.)"]
-    csv << [@area_id,@ballot.get_area_name(@area_id),@ballot.get_area_budget(@area_id)]
+    csv << [@area_id,BudgetBallot.get_area_name(@area_id),BudgetBallot.get_area_budget(@area_id)]
     csv << [""]
     csv << ["Innsendir atkvæðaseðlar","Taldir atkvæðaseðlar","Innsendir atkvæðaseðlar í þessu hverfi","Taldir atkvæðaseðlar í þessu hverfi"]
     csv << [Vote.count,FinalSplitVote.count,Vote.where(:area_id=>@area_id).count,FinalSplitVote.where(:area_id=>@area_id).count]

@@ -7,13 +7,14 @@ class AddBallot < ActiveRecord::Migration
     BudgetBallotArea.create_translation_table! :name => :string
 
     create_table :budget_ballot do |t|
-      t.letter :string
-      t.link :string
+      t.string :letter
+      t.string :link
       t.float :price
       t.integer :idea_id
       t.integer :budget_ballot_area_id
       t.timestamps
     end
+
     BudgetBallot.create_translation_table! :name => :string, :description => :text
   end
 

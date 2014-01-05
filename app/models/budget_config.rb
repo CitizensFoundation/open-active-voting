@@ -16,7 +16,7 @@
 class BudgetConfig < ActiveRecord::Base
   set_table_name "config"
 
-  validates :there_can_only_be_one
+  validate :there_can_only_be_one
 
   def self.current
     unless Rails.env.production?

@@ -16,17 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class BudgetBallot < ActiveRecord::Base
-  set_table_name "budget_ballot"
 
   belongs_to :budget_ballot_area
 
-  translates :name, :text
+  translates :name, :description
 
   ALLOWED_BALLOT_CHARACTERS = ('a'..'z').to_a+['0','1','2','3','4','5','6','7','8','9']
-
-  def self.current
-    BudgetBallot.new
-  end
 
   def self.ideas(area_id)
     BudgetBallotArea.find(area_id).budget_ballots
@@ -43,47 +38,23 @@ class BudgetBallot < ActiveRecord::Base
     BudgetBallotArea.find(area_id).name
   end
 
-  def self.get_idea_name(idea_id)
+  def self.get_idea_name(area_id,idea_id)
     # Get the given idea name
-    BudgetBallot.find_by_idea_id()
+    BudgetBallot.where(:budget_ballot_area_id=>area_id, :idea_id=>idea_id).first.name
   end
 
-  def get_idea_description(area_id, idea_id)
+  def self.get_idea_description(area_id, idea_id)
     # Get the given idea description
-    description = nil
-    all = self.areas[area_id][:ideas]
-    all.each do |p|
-      if p[:id]==idea_id
-        description = p[:description]
-        break
-      end
-    end
-    description
+    BudgetBallot.where(:budget_ballot_area_id=>area_id, :idea_id=>idea_id).first.description
   end
 
-  def get_idea_link(area_id, idea_id)
-    # Get the given idea description
-    link = nil
-    all = self.areas[area_id][:ideas]
-    all.each do |p|
-      if p[:id]==idea_id
-        link = p[:link]
-        break
-      end
-    end
-    link
+  def self.get_idea_link(area_id, idea_id)
+    # Get the given idea link
+    BudgetBallot.where(:budget_ballot_area_id=>area_id, :idea_id=>idea_id).first.link
   end
 
-  def get_idea_price(area_id, idea_id)
+  def self.get_idea_price(area_id, idea_id)
     # Get the given idea price
-    name = nil
-    all = self.areas[area_id][:ideas]
-    all.each do |p|
-      if p[:id]==idea_id
-        name = p[:price]
-        break
-      end
-    end
-    name
+    BudgetBallot.where(:budget_ballot_area_id=>area_id, :idea_id=>idea_id).first.price
   end
 end
