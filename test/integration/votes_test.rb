@@ -192,11 +192,16 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
   end
 
   def setup_checkboxes(browser,vote_types)
+    all_options = []
+    browser.elements(:class, "ballot_option").each do |element|
+      all_options << element.id
+    end
+    puts "All options in browser #{all_options.sort}"
     vote_types.each do |vote|
       vote.each do |checkbox_to_set|
         retry_count = 0
         begin
-          browser.li(:id => "option_#{checkbox_to_set*@current_area_id}").click
+          browser.li(:id => all_options.sample).click
         rescue
           checkbox_to_set -= rand(4)+1
           retry unless (retry_count += 1) > 12

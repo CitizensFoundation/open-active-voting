@@ -1,6 +1,6 @@
 - ideas.each_with_index do |idea,index|
   - onclick_options = "select(this,selected,curtotal,total,'#curtotal','#options','#votes');"
-  %li{:id=>"option_#{idea[:id]}", :name=>idea[:name], :letter=>@letter_of_alphabet[index+index_offset],:price=>idea[:price],:onclick=>onclick_options}
+  %li{:id=>"option_#{idea[:id]}", :name=>idea[:name], :class=>"ballot_option", :letter=>@letter_of_alphabet[index+index_offset],:price=>idea[:price],:onclick=>onclick_options}
     %span.val
       %span.num
         = idea[:letter]
