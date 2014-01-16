@@ -4,7 +4,7 @@ Simple ballot based voting system.
 
 Install Ubuntu dependencies
 ````bash
-apt-get -yqq install curl git build-essential libxslt-dev libxml2-dev libmysqlclient-dev mysql-server
+sudo apt-get -yqq install curl git build-essential libxslt-dev libxml2-dev libmysqlclient-dev mysql-server
 ````
 
 Install Ruby 2.0
