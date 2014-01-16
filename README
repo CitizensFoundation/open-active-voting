@@ -2,34 +2,48 @@
 
 Simple ballot based voting system.
 
-== Installation
+== Install Ubuntu dependencies
+````bash
+apt-get -yqq install curl git build-essential libxslt-dev libxml2-dev libmysqlclient-dev mysql-server
+````
 
+== Install Ruby 2.0
+````bash
+wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
+tar -xvzf ruby-2.0.0-p353.tar.gz
+cd ruby...
+make
+sudo make install
+````
 
-1. Install Ruby version 1.9.3-p125
+== Install bundler and dependencies
+````bash
+gem install bundler
+cd open-active-voting
+bundle install
+````
 
-2. Install bundler:
-       <tt>gem install bundler</tt>
+== Setup the database (edit config file)
+````bash
+cd config
+cp database.yml.dist database.yml
+vi database.yml
+cd ..
+rake db:create
+rake db:schema:load
+````
 
-3. At the command prompt, in the <tt>open-active-democracy</tt> folder:
-       <tt>bundle install</tt> (to install Ruby Gem dependencies)
+== Running the test server
+````bash
+rails server -e test
+````
 
-4. Copy and edit the database configuration file:
-       cd config
-       cp database.yml.dist database.yml
-       vi database.yml
-
-5. To create the empty database tables:
-       rake db:create
-       rake db:schema:load
-
-== Running the tests
-
-1. Change directory to <tt>open-active-democracy</tt> and start the web server:
-<tt>cd open-active-democracy; rails server -e test</tt>
-
-2. At a new command prompt, in the <tt>open-active-democracy</tt> folder:
-       <tt>rake test</tt> (to run the end to end tests)
+== In a new terminal Running the tests
+````bash
+cd open-active-voting
+bundle exec rake test:integration
+````
 
 == Browsing the test system
 
-1. Open http://localhost:3000/ in your browser
+Open http://localhost:3000/ in your browser

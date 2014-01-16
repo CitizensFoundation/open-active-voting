@@ -21,9 +21,9 @@ require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 1
-    @max_votes = 2
-    @area_ids = [10]
+    @max_browsers = 7
+    @max_votes = 15
+    @area_ids = [10,3]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
