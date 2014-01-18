@@ -2,6 +2,9 @@ Open Active Voting
 
 Simple ballot based voting system.
 
+Editor is here:
+https://github.com/rbjarnason/open-active-voting-editor
+
 Install Ubuntu dependencies
 ````bash
 sudo apt-get -yqq install curl git build-essential libxslt-dev libxml2-dev libmysqlclient-dev mysql-server
