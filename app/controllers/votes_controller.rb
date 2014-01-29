@@ -243,6 +243,8 @@ class VotesController < ApplicationController
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
                                                      :electionId=>@config.election_id, :svfNr=>@config.rsk_svf_nr)
 
+      Rails.logger.info("SAML response: #{@response.inspect}")
+
       # SAML verification
       saml_response_test          = Onelogin::Saml::Response.new(@response.saml)
       saml_response_test.settings = saml_settings
@@ -280,6 +282,7 @@ class VotesController < ApplicationController
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
       return true
     rescue  => ex
+      raise ex
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
       if @response.status.code=="8"
