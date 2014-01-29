@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/rbjarnason/soap4r.git
-  revision: 24601670d998d882f4ca61c757bbb81081e0449b
+  revision: 2041c105bbb284b9a693a24ed3d031dbd6fefbe3
   specs:
     soap4r (1.5.8)
       httpclient (>= 2.1.1)
