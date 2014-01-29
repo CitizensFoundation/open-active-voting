@@ -240,6 +240,7 @@ class VotesController < ApplicationController
       soap.options["protocol.http.basic_auth"] << [soap_url,@config.rsk_soap_username,@config.rsk_soap_password]
 
       Rails.logger.info("soap: #{soap}")
+      Rails.logger.info("soap options: #{soap.options.inspect}")
 
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
