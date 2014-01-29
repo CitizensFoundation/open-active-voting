@@ -248,7 +248,7 @@ class VotesController < ApplicationController
       Rails.logger.info("election id #{@config.election_id}")
       # Get SAML response from island.is
       @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>@config.election_id, :svfNr=>@config.rsk_svf_nr)
+                                                     :electionId=>@config.election_id, :svfNr=>[@config.rsk_svf_nr])
 
       Rails.logger.info("saml response: #{@response.inspect}")
 
