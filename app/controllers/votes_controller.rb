@@ -242,7 +242,7 @@ class VotesController < ApplicationController
       Rails.logger.info("soap: #{soap}")
       Rails.logger.info("soap options: #{soap.options.inspect}")
 
-      Rails.logger.info(token)
+      Rails.logger.info("token #{token}")
       Rails.logger.info("#{request.remote_ip}")
       Rails.logger.info("svf #{@config.rsk_svf_nr}")
       Rails.logger.info("election id #{@config.election_id}")
