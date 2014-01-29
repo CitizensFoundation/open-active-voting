@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
+ruby '1.9.3'
 gem 'rails', '3.2.16'
 gem 'globalize', '~> 3.0.0'
 # Gems used in all environments including production
