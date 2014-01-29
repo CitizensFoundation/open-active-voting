@@ -59,6 +59,7 @@ GEM
       sshkit (>= 0.0.23)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    daemon_controller (1.1.8)
     dalli (2.6.4)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -97,6 +98,10 @@ GEM
     paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
+    passenger (4.0.37)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.3)
     psych (1.2.2)
     rack (1.4.5)
@@ -185,6 +190,7 @@ DEPENDENCIES
   memcachier
   mysql2
   nokogiri
+  passenger
   psych (= 1.2.2)
   rails (= 3.2.16)
   ruby-saml!
