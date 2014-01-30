@@ -173,6 +173,8 @@ class VotesController < ApplicationController
     # Create the Reykjavik Budget Ballot
     @budget_ballot = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
 
+    @budget_ballot_col_a, @budget_ballot_col_b = @budget_ballot.in_groups_of(@budget_ballot.count/2)
+
     # Get the budget for the given neighborhood id
     @total = BudgetBallot.get_area_budget(@area_id)
 
@@ -236,7 +238,7 @@ class VotesController < ApplicationController
     begin
       # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
-      soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
+      soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_drivercreate_rpc_driver
       soap.options["protocol.http.basic_auth"] << [soap_url,@config.rsk_soap_username,@config.rsk_soap_password]
 
       Rails.logger.info("soap: #{soap}")
