@@ -4,4 +4,10 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-OpenActiveVoting::Application.config.secret_token = 'e69c10e2b7ead1cc7bbd26718379376dde2c67dea369c3b24c0a8c77b5fced2e648808034a98b80852f206d262a2c190835e330c3481968744368fa9e28f01c1'
+# example token: a8ff62b5384ee97f508bed9742742430d16e9cae1f258aa3ec188a81d687b09b94ba3b2bfdf062851761f6c3b596906838fa950cf52c338396c8d5549b10448a
+
+if ENV['RAILS_SECRET_TOKEN']
+  OpenActiveVotingEditor::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN']
+else
+  raise "ENV['RAILS_SECRET_TOKEN'] is missing"
+end
