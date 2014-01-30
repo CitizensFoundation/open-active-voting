@@ -40,8 +40,8 @@
       %a{:href => "#"}
 
       %input{:type => :hidden, :id=>"area_id", :name => "area_id", :value => @area_id }
-      %input{:type => :image, :src => "/assets/vote_#{I18n.locale}.png", :id=>"submit_btn", :class=>"button", :name => "submit", :title=>"Smelltu hér til að kjósa", :alt => 'Smelltu hér til að kjósa'}
+      %input{:type => :image, :src => @config.test_mode ? "/assets/vote_#{I18n.locale}_grey_test_mode.png" : "/assets/vote_#{I18n.locale}_grey.png", :id=>"submit_btn", :class=>"button", :name => "submit", :title=>"Smelltu hér til að kjósa", :alt => 'Smelltu hér til að kjósa'}
 
     :javascript
-      setLocalisedTexts('#{I18n.locale}','#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
+      setLocalisedTexts('#{I18n.locale}','#{@config.test_mode ? "_test_mode" : ""}','#{t(:chooce_projects_below)}','#{t :you_dont_need_to_finish_all_the_budget}','#{t(:used_text)}','#{t(:left_text)}');
       setTotals(#{@total});

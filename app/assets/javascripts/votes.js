@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2013 Íbúar ses
+// Copyright (C) 2010-2014 Íbúar ses / Citizens Foundation
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -132,12 +132,12 @@ function packVote() {
 $(function() {
     // Disable vote button until something has been selected
     $(".button").attr("disabled", true);
-    $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
+    $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey"+test_mode+".png"});
 
     // Behavior of the submit button
     $(".button").click(function() {
         $(".button").attr("disabled", true);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey"+test_mode+".png"});
         var dataString = packVote();
         $.ajax({
           type: "POST",

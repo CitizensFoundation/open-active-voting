@@ -23,6 +23,8 @@ var voteswidth = 960;
 
 var locale;
 
+var test_mode;
+
 // Add a method to array to indicate if that array "has" a member
 Array.prototype.has=function(v){
     for (i=0;i<this.length;i++){
@@ -52,8 +54,9 @@ function gsub(source, pattern, replacement) {
   return result;
 };
 
-function setLocalisedTexts(locale_set,select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
+function setLocalisedTexts(locale_set,test_mode_set,select_projects_below_set, no_need_to_empty_text_set, used_text_set, left_text_set) {
     locale = locale_set;
+    test_mode = test_mode_set;
     select_projects_below = select_projects_below_set;
     no_need_to_empty_text = no_need_to_empty_text_set;
     used_text = used_text_set;
@@ -129,9 +132,9 @@ function select(item,selected,curtotalold,total,curTotalDiv,optionsDiv,votesDiv)
     $(curTotalDiv).html(parseLocalNum(curtotal.toFixed(1))+" "+used_text+", "+(parseLocalNum((total-curtotal).toFixed(1)))+" "+left_text);
     if (curtotal>0) {
         $(".button").attr("disabled", false);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+".png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+test_mode+".png"});
     } else {
         $(".button").attr("disabled", true);
-        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey.png"});
+        $("#submit_btn").attr({src: "/assets/vote_"+locale+"_grey"+test_mode+".png"});
     }
 }
