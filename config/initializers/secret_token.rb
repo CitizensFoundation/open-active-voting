@@ -7,7 +7,7 @@
 # example token: a8ff62b5384ee97f508bed9742742430d16e9cae1f258aa3ec188a81d687b09b94ba3b2bfdf062851761f6c3b596906838fa950cf52c338396c8d5549b10448a
 
 if ENV['RAILS_SECRET_TOKEN']
-  OpenActiveVotingEditor::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN']
+  OpenActiveVoting::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN']
 else
   raise "ENV['RAILS_SECRET_TOKEN'] is missing. Add the missing ENV variable."
 end
