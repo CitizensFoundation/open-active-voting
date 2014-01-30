@@ -9,5 +9,5 @@
 if ENV['RAILS_SECRET_TOKEN']
   OpenActiveVotingEditor::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN']
 else
-  raise "ENV['RAILS_SECRET_TOKEN'] is missing"
+  raise "ENV['RAILS_SECRET_TOKEN'] is missing. Add the missing ENV variable."
 end
