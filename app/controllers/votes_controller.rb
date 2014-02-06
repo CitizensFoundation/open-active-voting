@@ -173,7 +173,7 @@ class VotesController < ApplicationController
     # Create the Reykjavik Budget Ballot
     @budget_ballot = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
 
-    @budget_ballot_col_a, @budget_ballot_col_b = @budget_ballot.in_groups_of(@budget_ballot.count/2)
+    @budget_ballot_col_a, @budget_ballot_col_b = @budget_ballot.each_slice( (@budget_ballot.size/2.0).round ).to_a
 
     # Get the budget for the given neighborhood id
     @total = BudgetBallot.get_area_budget(@area_id)
