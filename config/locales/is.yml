@@ -461,7 +461,7 @@ is:
   new_project_name_id_229: "Útbúa aðstöðu við stíga á Landakotstúni með bekkjum og gróðri"
   new_project_description_id_229: "Útbúa vistleg afdrep við stíga á Landakotstúni með uppsetningu bekkja og gróðursetningu."
 
-  island_is_auth_error_general: "Villa hefur komið upp, vinsamlegast reynið aftur síðar. Ef aðstoðar er þörf má hringja í síma 4 11 11 11."
+  island_is_auth_error_general: "Villa hefur komið upp hjá auðkenningu island.is, vinsamlegast reynið aftur síðar. Ef aðstoðar er þörf má hringja í síma 4 11 11 11."
   island_is_auth_error_not_on_voter_register: "Þú ert ekki á kjörskrá og getur því ekki kosið. Á kjörskrá eru þeir sem eru með lögheimili í Reykjavík þegar þeir kjósa og voru orðnir 16 ára um síðustu áramót."
 
   used_text: "notað"
