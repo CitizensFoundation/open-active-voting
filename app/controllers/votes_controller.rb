@@ -295,7 +295,7 @@ class VotesController < ApplicationController
       notify_airbrake(ex)
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
-      if @response.status.code=="8"
+      if @response and @response.status and @response.status.code=="8"
         @on_voters_register = false
       else
         @on_voters_register = true
