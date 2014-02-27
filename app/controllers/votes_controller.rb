@@ -236,7 +236,6 @@ class VotesController < ApplicationController
   def perform_island_is_token_authentication(token,request)
     # Call island.is authentication service to verify the authentication token
     begin
-      raise "Test error 2 more serious"
       # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
