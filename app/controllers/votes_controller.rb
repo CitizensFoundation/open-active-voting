@@ -236,6 +236,7 @@ class VotesController < ApplicationController
   def perform_island_is_token_authentication(token,request)
     # Call island.is authentication service to verify the authentication token
     begin
+      raise "Test error"
       # Setup the island.is SOAP connection
       soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
@@ -291,7 +292,7 @@ class VotesController < ApplicationController
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
       return true
     rescue  => ex
-      raise ex
+      notify_airbrake(ex)
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
       if @response.status.code=="8"
