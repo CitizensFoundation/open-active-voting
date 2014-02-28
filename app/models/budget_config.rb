@@ -22,7 +22,7 @@ class BudgetConfig < ActiveRecord::Base
     unless Rails.env.production?
       unless BudgetConfig.first
         config=BudgetConfig.new
-        config.timeout_in_seconds = 20
+        config.timeout_in_seconds = 600
         config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
         config.save
       end
