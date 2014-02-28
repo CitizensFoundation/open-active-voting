@@ -85,10 +85,10 @@ class BudgetVoteCounting
       csv << [""]
       write_voting_totals(csv)
       csv << [""]
-      csv << ["Valin verkefni fyrir Framkvæmdir"]
+      csv << ["Valin verkefni"]
       add_ideas_to_csv(@idea_ids_selected_count,csv)
       csv << [""]
-      csv << ["Heildaratkvæði fyrir Framkvæmdir"]
+      csv << ["Heildaratkvæði"]
       add_ideas_to_csv(@idea_ids_count,csv)
       unless @invalid_votes.empty?
         csv << [""]
