@@ -42,7 +42,7 @@ en:
 
   choose_authentication: "<h1>Welcome to the Better Boroughs Voting Site</h1>                           <p>Vote on minor construction and maintenance projects in the boroughs of Reykjavík City. The vote is open from 00:01 on Tuesday, March 11 until 04:00 in the morning of Wednesday March 19 2014.                           </p><h1>                           Click Ísland.is to authenticate yourself                           </h1></p>The authentication is in cooperation with Island.is. You can use the permanent password Íslykill provided by Registers Iceland or a debit card with an electronic ID. Please note that the people working on the vote will not have any access to your ID number or password and will thus have no access to any information these items might grant access to.</p>   "
 
-  introduction: "                           <h2>Voting for projects in Reykjavík boroughs</h2>                           <h5>11. - 18. Mars 2013</h5>                           <h4>The voting is in four steps:</h4> "
+  introduction: "                           <h2>Voting for projects in Reykjavík boroughs</h2>                           <h5>11. - 18. Mars 2014</h5>                           <h4>The voting is in four steps:</h4> "
   choose_authentication: "  <h3>Click the button below to start</a></h3>"
 
   choose_a_neighbourhood: "You can only vote on projects in one borough"
@@ -68,7 +68,7 @@ en:
 
   thank_you_1: "Thank you!"
   thank_you_2: "Your vote has been received<br / > and you have been logged out."
-  thank_you_3: "You can vote as often as you like while the vote is open,<br /> from 4. to 11. of April. Your last vote is the one that counts."
+  thank_you_3: "You can vote as often as you like while the vote is open,<br /> from 11. to 18. of Mars. Your last vote is the one that counts."
   click_to_vote_again: "Click here to vote again."
 
   betri_reykjavik: <a href="http://betrireykjavik.is"><img src="/assets/betri_reykjavik_auglysing_EN.png" alt="Betri Reykjavík"/></a>
