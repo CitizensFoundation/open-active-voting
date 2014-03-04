@@ -89,8 +89,8 @@ class VotesController < ApplicationController
     @area_id = params[:area_id].to_i
     @name = BudgetBallot.get_idea_name(@area_id,@idea_id)
     @description = BudgetBallot.get_idea_description(@area_id,@idea_id)
-    @link = ballot.get_idea_link(@area_id,@idea_id)
-    Rails.BudgetBallot.info(@link)
+    @link = BudgetBallot.get_idea_link(@area_id,@idea_id)
+    Rails.logger.info(@link)
     @link = nil if @link=="-- no Hyperlink --"
     render :layout=>false
   end
