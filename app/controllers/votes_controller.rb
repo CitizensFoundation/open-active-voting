@@ -237,7 +237,7 @@ class VotesController < ApplicationController
     # Call island.is authentication service to verify the authentication token
     begin
       # Setup the island.is SOAP connection
-      soap_url = "https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
+      soap_url = @config.soap_url #"https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
       soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
       soap.options["protocol.http.basic_auth"] << [soap_url,@config.rsk_soap_username,@config.rsk_soap_password]
 
