@@ -9,5 +9,5 @@
       %span.price
         = number_with_precision(idea[:price], :precision => 1)
   %span.info
-    %a{:href => "#", :title=>idea[:name], :onclick=>"jQuery.facebox({ ajax: '/votes/idea_info?idea_id=#{idea[:id]}&area_id=#{@area_id}' })"}
+    %a{:href => "#", :title=>idea[:name], :onclick=>"jQuery.facebox({ ajax: '/votes/idea_info?idea_id=#{idea[:idea_id]}&area_id=#{@area_id}' })"}
       %img.zoom{:alt => "", :src => "/assets/zoom.png"}/
