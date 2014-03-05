@@ -19,7 +19,7 @@ require 'base64'
 class BudgetVote
   NEW_PRIORITIES_ARRAY_ID = 0
 
-  attr_reader :idea_ids
+  attr_reader :idea_ids, :vote
 
   @@private_key_file_data = nil
   @@private_key = nil

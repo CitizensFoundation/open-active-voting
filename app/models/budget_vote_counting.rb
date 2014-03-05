@@ -157,6 +157,7 @@ class BudgetVoteCounting
     puts "Counting votes #{vote.idea_ids}"
     vote.idea_ids.each do |idea_group|
       idea_group.each do |idea_id|
+        raise "Ballots don't match votes" unless BudgetBallot.where(:idea_id=>idea_id, :area_id=>vote.vote.area_id).first
         @idea_ids_count[idea_id] = 0 unless @idea_ids_count[idea_id]
         @idea_ids_count[idea_id] += 1
       end
