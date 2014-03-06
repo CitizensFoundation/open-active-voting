@@ -144,7 +144,7 @@ class VotesController < ApplicationController
     # Check to see if the user has been authenticated and if the voter identity hash is available
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t(:votes_timeout_2).html_safe
+      flash[:notice]= t(:votes_timeout_1).html_safe
       redirect_to :action=>:authentication_options
       return false
     end
@@ -162,7 +162,7 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t(:votes_timeout_2).html_safe
+      flash[:notice]= t(:votes_timeout_1).html_safe
       redirect_to :action=>:authentication_options
       return false
     end
@@ -205,7 +205,7 @@ class VotesController < ApplicationController
         response = [:error=>true, :message=>t(:votes_post_results_2), :vote_ok=>false]
       end
     else
-      response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
+      response = [:error=>true, :message=>t(:votes_timeout_1), :vote_ok=>false]
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
 
