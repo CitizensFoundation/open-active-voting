@@ -108,7 +108,7 @@ namespace :ballot do
 
   desc "Generate test ballots"
   task(:generate_test_ballot => :environment) do
-    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 10
+    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 12
     area_id = ENV['area_id'] ? ENV['area_id'].to_i : rand(9)+1
     budget = BudgetBallot.get_area_budget(area_id)
     if ENV['offset']
