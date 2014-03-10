@@ -135,6 +135,37 @@ namespace :ballot do
     end
   end
 
+  desc "Generate test ballots all"
+  task(:generate_test_ballot_all => :environment) do
+    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 5
+    if ENV['offset']
+      offset = 1+ENV['offset'].to_i
+    else
+      offset = 1
+    end
+
+    Dir.mkdir("test_ballots_all") unless File.exists?("test_ballots_all")
+
+    (1..10).each do |area_id|
+      budget = BudgetBallot.get_area_budget(area_id)
+      number_of_voters.times do |test_ballot_number|
+        selected_ideas = get_until_budget_full(budget,ideas_with_letters(area_id))
+        selected_ideas_html = ""
+        selected_ideas_ids = []
+        selected_ideas.sort_by { |v| v[:letter] }.each do |idea|
+          unless rand(40)==7 # Don't finish the budget 1/40 times
+            selected_ideas_ids << idea[:id]
+            puts idea.inspect
+            selected_ideas_html+="<li class='litur'>#{idea[:letter].upcase} - #{idea[:name]}</li>"
+          end
+        end
+        puts html_out = create_html_doc(BudgetBallot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
+        Dir.mkdir("test_ballots_all/#{area_id}") unless File.exists?("test_ballots_all/#{area_id}")
+        File.open("test_ballots_all/#{area_id}/#{area_id}_test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
+      end
+    end
+  end
+
   def make_data_hash(row,master_id,count)
 
     puts row[5]
