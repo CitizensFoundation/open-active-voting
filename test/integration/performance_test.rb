@@ -22,9 +22,9 @@ require "#{Rails.root}/db/seeds.rb"
 class PerformanceTest < ActionController::IntegrationTest
   def setup
     @max_browsers = 1
-    @max_votes = 250
+    @max_votes = 10
     @area_ids = [10,1]
-    @base_host = "kjosa.betrireykjavik.is"
+    @base_host = "ktest.betrireykjavik.is"
     @http_auth = ENV['OAV_TEST_HTTP_AUTH'] ? ENV['OAV_TEST_HTTP_AUTH'] : ""
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
