@@ -13,11 +13,20 @@ def change_price_to_i(price_txt)
   price_txt.gsub(" kr.","").gsub(",","").to_i
 end
 
+def ideas_with_letters(budget_ballot_area_id)
+  all_ideas = BudgetBallot.where(:budget_ballot_area_id=>budget_ballot_area_id).all
+  all_ideas.each_with_index do |idea,index|
+    letter = BudgetBallot::ALLOWED_BALLOT_CHARACTERS[index]
+    idea.letter = letter
+  end
+  all_ideas
+end
+
 def get_until_budget_full(budget,ideas)
   selected = []
 
   left_of_budget = budget
-  ideas.shuffle.each do |idea|
+  ideas.shuffle.each_with_index do |idea|
     if left_of_budget>=idea[:price]
       selected<<idea
       left_of_budget -= idea[:price]
@@ -64,14 +73,11 @@ def create_html_doc(area_name,test_ballot_number,selected_ideas_html)
 
 <h3>Aðgangur að kosningavef vegna þessarar prufu</h3>
 <h4>https://kjosa.betrireykjavik.is/</h4>
-<h4>Notandanafn: test2013 </h4>
-<h4>Lykilorð : 2013test </h4>
+<h4>Notandanafn: test2014 </h4>
+<h4>Lykilorð: AizeiNg7 </h4>
 <br />
   
   <table border="0" cellpadding="3" cellspacing="3">
-    <tr>
-      <td><b>Framkvæmdir</b></td>
-    </tr>
     <tr>
       <td><ul>
         GSUB_FRAMKVAEMDIR
@@ -102,10 +108,9 @@ namespace :ballot do
 
   desc "Generate test ballots"
   task(:generate_test_ballot => :environment) do
-    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 5
+    number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 12
     area_id = ENV['area_id'] ? ENV['area_id'].to_i : rand(9)+1
-    ballot = BudgetBallot.current
-    budget = ballot.get_area_budget(area_id)
+    budget = BudgetBallot.get_area_budget(area_id)
     if ENV['offset']
       offset = 1+ENV['offset'].to_i
     else
@@ -115,16 +120,17 @@ namespace :ballot do
     Dir.mkdir("test_ballots") unless File.exists?("test_ballots")
     test_ballots = []
     number_of_voters.times do |test_ballot_number|
-      selected_ideas = get_until_budget_full(budget,ballot.ideas(area_id))
+      selected_ideas = get_until_budget_full(budget,ideas_with_letters(area_id))
       selected_ideas_html = ""
       selected_ideas_ids = []
       selected_ideas.sort_by { |v| v[:letter] }.each do |idea|
         unless rand(40)==7 # Don't finish the budget 1/40 times
           selected_ideas_ids << idea[:id]
+          puts idea.inspect
           selected_ideas_html+="<li class='litur'>#{idea[:letter].upcase} - #{idea[:name]}</li>"
         end
       end
-      puts html_out = create_html_doc(ballot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
+      puts html_out = create_html_doc(BudgetBallot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
       File.open("test_ballots/test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
     end
   end

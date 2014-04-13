@@ -3,7 +3,7 @@
   %li{:id=>"option_#{idea[:idea_id]}", :name=>idea[:name], :class=>"ballot_option", :letter=>@letter_of_alphabet[index+index_offset],:price=>idea[:price],:onclick=>onclick_options}
     %span.val
       %span.num
-        = idea[:letter]
+        = @letter_of_alphabet[index+index_offset]
       %span.txt
         = idea[:name]
       %span.price

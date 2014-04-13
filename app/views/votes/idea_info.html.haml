@@ -9,7 +9,7 @@
       .rok
         %p
           = raw @description
-    - if @link
+    - if @link and @link!=""
       #bh_footer
         %p
           %a{:href => @link, :target=>"_blank"}> Upphafleg hugmynd á Betri Reykjavík
