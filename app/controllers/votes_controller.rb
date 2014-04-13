@@ -29,9 +29,9 @@ class VotesController < ApplicationController
 
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
-    #unless Rails.env.production?
+    unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],params[:ssn])
-  #  end
+    end
 
     redirect_to "/votes/select_area"
   end
