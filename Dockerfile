@@ -9,6 +9,7 @@ ENV RAILS_ENV production
 
 CMD ["/sbin/my_init"]
 
+RUN apt-get update
 RUN apt-get install libyaml-dev
 
 RUN rm -f /etc/service/nginx/down
