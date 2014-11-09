@@ -11,7 +11,7 @@
 
 results/*
 test/results/*
-config/database.yml
+#config/database.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
