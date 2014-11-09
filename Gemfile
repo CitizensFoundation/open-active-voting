@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
-gem 'rails', '3.2.16'
+ruby '2.1.2'
+gem 'rails', '3.2.20'
 gem 'globalize', '~> 3.0.0'
 # Gems used in all environments including production
 gem "airbrake" # Online error reporting system
