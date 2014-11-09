@@ -9,6 +9,8 @@ ENV RAILS_ENV production
 
 CMD ["/sbin/my_init"]
 
+RUN apt-get install libyaml-dev
+
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
 ADD nginx.conf /etc/nginx/sites-enabled/oav_website.conf
