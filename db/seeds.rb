@@ -291,6 +291,7 @@ if Rails.env.test? or Rails.env.development?
 else
   BudgetConfig.delete_all
   c=BudgetConfig.new
+  c.timeout_in_seconds = 600
   c.rsk_url = "https://www.island.is/audkenning?id=kjosa.betrireykjavik.is"
   c.election_id = "CA8796EE-7239-497A-96FE-156419E4F9BA"
   c.saml_assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
