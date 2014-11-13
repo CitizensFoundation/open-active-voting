@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/rbjarnason/ruby-saml.git
+  remote: https://github.com/rbjarnason/ruby-saml.git
   revision: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
   ref: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
   specs:
@@ -9,7 +9,7 @@ GIT
       uuid (~> 2.3)
 
 GIT
-  remote: git://github.com/rbjarnason/soap4r.git
+  remote: https://github.com/rbjarnason/soap4r.git
   revision: 7792b4c445825054a703448c2364ae0bdbc42fa0
   specs:
     soap4r (1.5.8)
@@ -72,7 +72,7 @@ GEM
       tilt
     headless (1.0.1)
     hike (1.2.3)
-    httpclient (2.3.4.1)
+    httpclient (2.5.3.2)
     i18n (0.6.11)
     journey (1.0.4)
     jquery-rails (3.0.4)
@@ -80,8 +80,8 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     libv8 (3.16.14.3)
-    macaddr (1.6.1)
-      systemu (~> 2.5.0)
+    macaddr (1.7.1)
+      systemu (~> 2.6.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -150,7 +150,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh
       term-ansicolor
-    systemu (2.5.2)
+    systemu (2.6.4)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
     therubyracer (0.12.0)
