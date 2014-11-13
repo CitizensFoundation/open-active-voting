@@ -12,8 +12,8 @@ gem 'dalli' # Memcache driver
 gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
 gem 'psych', '1.2.2'
-gem 'soap4r', :git => 'git://github.com/rbjarnason/soap4r.git'
-gem 'ruby-saml', :git => 'git://github.com/rbjarnason/ruby-saml.git', :ref => "6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2"
+gem 'soap4r', :git => 'https://github.com/rbjarnason/soap4r.git'
+gem 'ruby-saml', :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref => "6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2"
 gem 'memcachier'
 gem "passenger"
 
