@@ -36,7 +36,7 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     #wrapper
-      - if ENV["LOAD_BALANCING_MODE"]=="true"
+      - if ENV["LOAD_TESTING_MODE"]=="true"
         %h1
           %div{:style=>"color: red;"}
             LOAD BALANCING MODE ACTIVE

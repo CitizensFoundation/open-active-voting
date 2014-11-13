@@ -29,7 +29,7 @@ class VotesController < ApplicationController
 
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
-    if ENV["LOAD_BALANCING_MODE"]=="true"
+    if ENV["LOAD_TESTING_MODE"]=="true"
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
