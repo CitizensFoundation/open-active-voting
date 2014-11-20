@@ -18,6 +18,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  #http_basic_authenticate_with :name => "loadtest", :password => "secret"
+
   before_filter :get_db_config
   before_filter :session_expiry, :except => [:check_authentication, :authentication_options, :authenticate_from_island_is,
                                              :help_info, :about_info, :rules_info, :government_info,
