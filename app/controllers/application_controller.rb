@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
 
   def load_public_key
-    @public_key = OpenSSL::PKey::RSA.new(File.read(Rails.root.join("config","public_key.pem")))
+    @public_key = @config.public_key
   end
 
   def set_locale

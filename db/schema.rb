@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140304181404) do
+ActiveRecord::Schema.define(:version => 20141230234955) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20140304181404) do
     t.string   "rsk_svf_nr"
     t.boolean  "test_mode",                           :default => false
     t.string   "soap_url"
+    t.text     "public_key"
   end
 
   create_table "final_split_votes", :force => true do |t|
