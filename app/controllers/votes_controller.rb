@@ -113,7 +113,7 @@ class VotesController < ApplicationController
 
   def authenticate_from_island_is
     # The redirect return point from the external island.is authentication
-    if perform_island_is_token_authentication(params[:token],request)
+    if perform_island_is_authentication(params[:token],request)
       session[:have_authenticated_and_been_approved]=true
       redirect_to :action=>:select_area
     else
@@ -221,49 +221,29 @@ class VotesController < ApplicationController
   end
 
   def saml_settings
-    settings = Onelogin::Saml::Settings.new
+    settings = OneLogin::RubySaml::Settings.new
 
     settings.assertion_consumer_service_url = @config.saml_assertion_consumer_service_url
     settings.issuer                         = request.host
     settings.idp_sso_target_url             = @config.saml_idp_sso_target_url
     settings.idp_cert_fingerprint           = @config.saml_idp_cert_fingerprint
     settings.name_identifier_format         = @config.saml_name_identifier_format
-    # Optional for most SAML IdPs
-    #settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+
     settings
   end
 
-  def perform_island_is_token_authentication(token,request)
-    # Call island.is authentication service to verify the authentication token
+  def perform_island_is_authentication(token,request)
+    @response = OneLogin::RubySaml::Response.new(token)
+    @response.settings = saml_settings
     begin
-      # Setup the island.is SOAP connection
-      soap_url = @config.soap_url #"https://egov.webservice.is/sst/runtime.asvc/com.actional.soapstation.eGOV_SKRA_KosningAudkenning?WSDL"
-      soap = SOAP::WSDLDriverFactory.new(soap_url).create_rpc_driver
-      soap.options["protocol.http.basic_auth"] << [soap_url,@config.rsk_soap_username,@config.rsk_soap_password]
-
-      Rails.logger.info("soap: #{soap}")
-      Rails.logger.info("soap options: #{soap.options.inspect}")
-
-      Rails.logger.info("token #{token}")
-      Rails.logger.info("#{request.remote_ip}")
-      Rails.logger.info("svf #{@config.rsk_svf_nr}")
-      Rails.logger.info("election id #{@config.election_id}")
-      # Get SAML response from island.is
-      @response = soap.generateElectionSAMLFromToken(:token => token, :ipAddress=>request.remote_ip,
-                                                     :electionId=>@config.election_id, :svfNr=>[@config.rsk_svf_nr])
-
-      Rails.logger.info("saml response: #{@response.inspect}")
-
       # SAML verification
-      saml_response_test          = Onelogin::Saml::Response.new(@response.saml)
-      saml_response_test.settings = saml_settings
-      saml_validation_response = saml_response_test.validate!
+      saml_validation_response = @response.validate!
 
       Rails.logger.info("SAML validation response: #{saml_validation_response}")
 
       # Check and see if the response is a success
       if @response and @response.status and @response.status.message=="Success"
-        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='SSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='UserSSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
         raise "Authentication was not a success #{@response.inspect}"
       end

@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/rbjarnason/ruby-saml.git
-  revision: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
-  ref: 6be3170ba2a5c7eac12d5255e32a62e6fadd1cc2
-  specs:
-    ruby-saml (0.7.2)
-      canonix (= 0.1.1)
-      nokogiri
-      uuid (~> 2.3)
-
-GIT
   remote: https://github.com/rbjarnason/soap4r.git
   revision: 7792b4c445825054a703448c2364ae0bdbc42fa0
   specs:
@@ -52,7 +42,6 @@ GEM
     arel (3.0.3)
     awesome_print (1.2.0)
     builder (3.0.4)
-    canonix (0.1.1)
     capistrano (3.0.1)
       i18n
       rake (>= 10.0.0)
@@ -130,6 +119,9 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
+    ruby-saml (0.8.1)
+      nokogiri (>= 1.5.0)
+      uuid (~> 2.3)
     rubyzip (1.1.0)
     sass (3.2.12)
     sass-rails (3.2.6)
@@ -320,7 +312,7 @@ DEPENDENCIES
   passenger
   psych (= 1.2.2)
   rails (= 3.2.20)
-  ruby-saml!
+  ruby-saml
   sass-rails
   soap4r!
   therubyracer
