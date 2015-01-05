@@ -34,6 +34,7 @@ vi database.yml
 cd ..
 rake db:create
 rake db:schema:load
+rake db:seed
 ````
 
 Running the test server
