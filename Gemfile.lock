@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/rbjarnason/ruby-saml.git
+  revision: 1837960d9a1ab51d8d89390b2849937e826c32fa
+  specs:
+    ruby-saml (0.8.1)
+      nokogiri (>= 1.5.0)
+      uuid (~> 2.3)
+
+GIT
   remote: https://github.com/rbjarnason/soap4r.git
   revision: 7792b4c445825054a703448c2364ae0bdbc42fa0
   specs:
@@ -119,9 +127,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
-    ruby-saml (0.8.1)
-      nokogiri (>= 1.5.0)
-      uuid (~> 2.3)
     rubyzip (1.1.0)
     sass (3.2.12)
     sass-rails (3.2.6)
@@ -312,7 +317,7 @@ DEPENDENCIES
   passenger
   psych (= 1.2.2)
   rails (= 3.2.20)
-  ruby-saml
+  ruby-saml!
   sass-rails
   soap4r!
   therubyracer

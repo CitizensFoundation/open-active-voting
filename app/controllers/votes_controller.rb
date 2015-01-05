@@ -228,7 +228,7 @@ class VotesController < ApplicationController
     settings.idp_sso_target_url             = @config.saml_idp_sso_target_url
     settings.idp_cert_fingerprint           = @config.saml_idp_cert_fingerprint
     settings.name_identifier_format         = @config.saml_name_identifier_format
-
+    settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings
   end
 
@@ -248,7 +248,7 @@ class VotesController < ApplicationController
         raise "Authentication was not a success #{@response.inspect}"
       end
 
-      Rails.logger.error(@response.saml)
+      Rails.logger.info(@response.saml)
 
       # Verify x509 cert from a known trusted source
       known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
@@ -271,14 +271,9 @@ class VotesController < ApplicationController
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
       return true
     rescue  => ex
-      notify_airbrake(ex)
+   #   notify_airbrake(ex)
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
-      if @response and @response.status and @response.status.code=="8"
-        @on_voters_register = false
-      else
-        @on_voters_register = true
-      end
       return false
     end
   end

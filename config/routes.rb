@@ -1,6 +1,6 @@
 OpenActiveVoting::Application.routes.draw do
   get "votes/authentication_options"
-  get "votes/authenticate_from_island_is"
+  post "votes/authenticate_from_island_is"
 
   get "votes/ballot"
   get "votes/get_ballot"
