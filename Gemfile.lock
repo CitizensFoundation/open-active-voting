@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/rbjarnason/ruby-saml.git
-  revision: 1837960d9a1ab51d8d89390b2849937e826c32fa
+  revision: 2aa692f856416ff4126d3aad8e4140b8b8e2fa2f
+  ref: 2aa692f856416ff4126d3aad8e4140b8b8e2fa2f
   specs:
     ruby-saml (0.8.1)
       nokogiri (>= 1.5.0)

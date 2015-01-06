@@ -13,7 +13,7 @@ gem 'capistrano' # Used to manage deployments to staging servers
 gem 'nokogiri' # XML/HTML Parsing library
 gem 'psych', '1.2.2'
 gem 'soap4r', :git => 'https://github.com/rbjarnason/soap4r.git'
-gem 'ruby-saml',  :git => 'https://github.com/rbjarnason/ruby-saml.git'
+gem 'ruby-saml',  :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"2aa692f856416ff4126d3aad8e4140b8b8e2fa2f"
 gem 'memcachier'
 gem "passenger"
 
