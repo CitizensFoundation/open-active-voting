@@ -21,17 +21,17 @@ require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionController::IntegrationTest
   def setup
-    @max_browsers = 1
-    @max_votes = 2
-    @area_ids = [1,3]
+    @max_browsers = 5
+    @max_votes = 20
+    @area_ids = [1,3,6,7]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
       @browser_types = [:firefox,:chrome,:ie]
     elsif ENV['HEADLESS']
-      @browser_types = [:firefox]
+      @browser_types = [:chrome]
     elsif false
-      @browser_types = [:firefox]
+      @browser_types = [:chrome]
     else
       @browser_types = [:firefox]
       #@browser_types = [:firefox,:chrome]

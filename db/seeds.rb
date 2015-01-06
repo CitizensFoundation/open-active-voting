@@ -15,6 +15,7 @@ if Rails.env.test? or Rails.env.development?
   c.saml_idp_sso_target_url = "https://ktest.betrireykjavik.is/"
   c.saml_idp_cert_fingerprint = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
   c.saml_name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+  c.public_key = File.open(Rails.root.join("config/public_key.pem")).read
   c.rsk_svf_nr = %w{0000}
   c.save
 

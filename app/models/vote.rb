@@ -18,7 +18,7 @@ class Vote < ActiveRecord::Base
   attr_accessor :generated_vote_checksum # Used for testing purposes only as this generated checksum is transferred over to the final_split_vote before counting
 
   def self.generate_encrypted_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
-    @@public_key = BudgetConfig.current.public_key unless @@public_key
+    @@public_key =  OpenSSL::PKey::RSA.new(BudgetConfig.current.public_key) unless @@public_key
     vote_checksum = Vote.generate_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
     Rails.logger.info("Public key: #{@@public_key} Checksum: #{vote_checksum}")
     encrypted = Base64.encode64(@@public_key.public_encrypt(vote_checksum))
