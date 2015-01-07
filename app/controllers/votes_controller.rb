@@ -26,6 +26,7 @@ DSIG = "http://www.w3.org/2000/09/xmldsig#"
 class VotesController < ApplicationController
 
   after_filter :log_session_id
+  skip_before_filter :verify_authenticity_token, :only => [:authenticate_from_island_is]
 
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
