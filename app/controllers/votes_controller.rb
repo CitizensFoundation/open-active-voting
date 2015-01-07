@@ -30,6 +30,7 @@ class VotesController < ApplicationController
   def force_session_id
     # This is a test method for load testing to allow load testing without the secure authentication
     if ENV["LOAD_TESTING_MODE"]=="true"
+      session[:have_authenticated_and_been_approved] = true
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
@@ -114,7 +115,6 @@ class VotesController < ApplicationController
   def authenticate_from_island_is
     # The redirect return point from the external island.is authentication
     if perform_island_is_authentication(params[:token],request)
-      session[:have_authenticated_and_been_approved]=true
       redirect_to :action=>:select_area
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
@@ -266,6 +266,7 @@ class VotesController < ApplicationController
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
+        session[:have_authenticated_and_been_approved]= true
         Rails.cache.write(request.session_options[:id],national_identity_hash)
       end
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
