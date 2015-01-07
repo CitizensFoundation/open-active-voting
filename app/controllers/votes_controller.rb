@@ -242,8 +242,8 @@ class VotesController < ApplicationController
       Rails.logger.info("SAML validation response: #{saml_validation_response}")
 
       # Check and see if the response is a success
-      if @response and @response.status and @response.status.message=="Success"
-        national_identity_hash = Nokogiri.parse(@response.saml).root.xpath("//blarg:Attribute[@AttributeName='UserSSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+      if saml_validation_response==true
+        national_identity_hash = Nokogiri.parse(@response.response.to_s).root.xpath("//blarg:Attribute[@AttributeName='UserSSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
@@ -251,10 +251,10 @@ class VotesController < ApplicationController
       Rails.logger.info(@response.saml)
 
       # Verify x509 cert from a known trusted source
-      known_raw_x509_cert = File.open("config/egov.webservice.is.cert")
+      known_raw_x509_cert = File.open("config/known_island_is.cert")
       known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
 
-      test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.saml.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
+      test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.response.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
       test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
 
       test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
