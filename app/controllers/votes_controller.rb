@@ -243,12 +243,12 @@ class VotesController < ApplicationController
 
       # Check and see if the response is a success
       if saml_validation_response==true
-        national_identity_hash = Nokogiri.parse(@response.response.to_s).root.xpath("//blarg:Attribute[@AttributeName='UserSSN']", {"blarg" => 'urn:oasis:names:tc:SAML:1.0:assertion'}).text
+        national_identity_hash = Nokogiri.parse(@response.response.to_s).root.xpath("//blarg:Attribute[@FriendlyName='Kennitala']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
 
-      Rails.logger.info(@response.saml)
+      Rails.logger.info(@response.response)
 
       # Verify x509 cert from a known trusted source
       known_raw_x509_cert = File.open("config/known_island_is.cert")
