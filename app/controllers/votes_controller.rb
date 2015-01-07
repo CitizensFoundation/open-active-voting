@@ -269,9 +269,12 @@ class VotesController < ApplicationController
         Rails.cache.write(request.session_options[:id],national_identity_hash)
       end
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
+
+      update_activity_time
+
       return true
     rescue  => ex
-   #   notify_airbrake(ex)
+      notify_airbrake(ex)
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)
       Rails.logger.error(@response.inspect)
       return false
