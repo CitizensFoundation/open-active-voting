@@ -12,6 +12,8 @@
           %li
             %a{:href => "/votes/select_area"}
               = t :choose_another_neighbourhood
+          %li
+            %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/lukr_map' })"} #{t :lukr_projects_on_map}
         %li
           %a{:href => "#", :onclick=>"jQuery.facebox({ ajax: '/votes/help_info?previous_action=#{action_name}' })"} #{t :votes_header_help_label}
         %li
