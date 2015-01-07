@@ -252,8 +252,7 @@ class VotesController < ApplicationController
       Rails.logger.info(@response.response)
 
       # Verify x509 cert from a known trusted source
-      known_raw_x509_cert = File.open("config/known_island_is.cert")
-      known_x509_cert = OpenSSL::X509::Certificate.new(known_raw_x509_cert).to_s
+      known_x509_cert = OpenSSL::X509::Certificate.new(@config.known_x509_cert).to_s
 
       test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.response.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
       test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
