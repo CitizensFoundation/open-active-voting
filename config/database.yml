@@ -23,7 +23,7 @@ development:
   database: oav_development
   pool: 5
   username: root
-  password:  xxxxxxx
+  password: bjahdh69
   rsk_soap_username: 
   rsk_soap_password:
   rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
@@ -37,7 +37,7 @@ test:
   database: oav_test
   pool: 5
   username: root 
-  password: xxxxxxxx
+  password: bjahdh69
   rsk_soap_username:
   rsk_soap_password:
   rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
