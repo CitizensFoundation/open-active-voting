@@ -59,7 +59,7 @@ class BudgetVote
     ideas = JSON.parse(decrypted_vote).to_a
     #puts "Last vote for #{combined_ideas}"
     @idea_ids = ideas
-    puts "@idea_ids #{@idea_ids}"
+    #puts "@idea_ids #{@idea_ids}"
   end
 
   def unpack_without_encryption

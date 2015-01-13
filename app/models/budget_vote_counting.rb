@@ -31,7 +31,9 @@ class BudgetVoteCounting
     # Count all unique votes from the same identity
     @area_id = area_id
 
-    FinalSplitVote.where(:area_id=>area_id).all.each do |vote|
+    final_split_vote = FinalSplitVote.where(:area_id=>area_id)
+    puts "Counting #{final_split_vote.length} votes"
+    final_split_vote.all.each do |vote|
       begin
         process_vote(vote)
       rescue Exception => e
@@ -137,7 +139,7 @@ class BudgetVoteCounting
     selected = Hash.new
     idea_ids.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
       idea_price = BudgetBallot.get_idea_price(@area_id,idea_id)
-      puts "PRIORITY PRICE #{idea_price} #{@area_id} #{idea_id}"
+      #puts "PRIORITY PRICE #{idea_price} #{@area_id} #{idea_id}"
       if idea_price<=left_of_budget
         selected[idea_id]=vote_count
         left_of_budget-=idea_price
@@ -154,7 +156,7 @@ class BudgetVoteCounting
   end
 
   def add_votes(vote)
-    puts "Counting votes #{vote.idea_ids}"
+    #puts "Counting votes #{vote.idea_ids}"
     vote.idea_ids.each do |idea_group|
       idea_group.each do |idea_id|
         #raise "Ballots don't match votes" unless BudgetBallot.where(:idea_id=>idea_id, :budget_ballot_area_id=>vote.vote.area_id).first
