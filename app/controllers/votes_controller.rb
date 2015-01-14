@@ -90,6 +90,11 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
+  def lukr_map_2
+    # Display the LUKR map with the projects and neighborhoods
+    render :layout=>false
+  end
+
   def idea_info
     # Display information about a given idea
     @idea_id = params[:idea_id].to_i
