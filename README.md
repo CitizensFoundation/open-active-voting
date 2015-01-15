@@ -12,8 +12,8 @@ sudo apt-get -yqq install curl git build-essential libxslt-dev libxml2-dev libmy
 
 Install Ruby 2.0
 ````bash
-wget http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz
-tar -xvzf ruby-2.0.0-p353.tar.gz
+http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz
+tar -xvzf ruby-2.1.5.tar.gz
 cd ruby...
 make
 sudo make install
@@ -29,8 +29,8 @@ bundle install
 Setup the database (edit config file)
 ````bash
 cd config
-cp database.yml.dist database.yml
 vi database.yml
+# Edit database.yml to point to your MySQL server
 cd ..
 rake db:create
 rake db:schema:load
