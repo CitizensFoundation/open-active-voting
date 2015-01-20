@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.5'
 gem 'rails', '3.2.20'
 gem 'globalize', '~> 3.0.0'
 # Gems used in all environments including production
@@ -10,7 +10,7 @@ gem 'jquery-rails' # Jquery for Rails
 gem 'mysql2' # The Mysql Driver
 gem 'dalli' # Memcache driver
 gem 'capistrano' # Used to manage deployments to staging servers
-gem 'nokogiri' # XML/HTML Parsing library
+gem 'nokogiri','1.6.5' # XML/HTML Parsing library
 gem 'psych', '1.2.2'
 gem 'soap4r', :git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml',  :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"

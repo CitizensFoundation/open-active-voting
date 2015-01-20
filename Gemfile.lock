@@ -85,14 +85,14 @@ GEM
       treetop (~> 1.4.8)
     memcachier (0.0.2)
     mime-types (1.25.1)
-    mini_portile (0.5.2)
+    mini_portile (0.6.2)
     multi_json (1.10.1)
     mysql2 (0.3.14)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
+    nokogiri (1.6.5)
+      mini_portile (~> 0.6.0)
     paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
@@ -314,7 +314,7 @@ DEPENDENCIES
   jquery-rails
   memcachier
   mysql2
-  nokogiri
+  nokogiri (= 1.6.5)
   passenger
   psych (= 1.2.2)
   rails (= 3.2.20)
