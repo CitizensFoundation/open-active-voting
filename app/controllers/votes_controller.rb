@@ -71,7 +71,7 @@ class VotesController < ApplicationController
   end
 
   def logout_and_information
-    reset_session if Rails.env.production?
+    reset_session
     render :layout=>false
   end
 
