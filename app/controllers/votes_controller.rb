@@ -129,11 +129,7 @@ class VotesController < ApplicationController
       redirect_to :action=>:select_area
     else
       Rails.logger.error("No identity from island.is for session id: #{request.session_options[:id]}")
-      if @on_voters_register
-        flash[:notice]=t :island_is_auth_error_general
-      else
-        flash[:notice]=t :island_is_auth_error_not_on_voter_register
-      end
+      flash[:notice]=t :island_is_auth_error_general
       redirect_to :action=>:authentication_options
     end
   end
