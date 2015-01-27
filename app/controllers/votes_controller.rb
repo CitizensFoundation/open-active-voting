@@ -282,7 +282,7 @@ class VotesController < ApplicationController
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
         session[:have_authenticated_and_been_approved]= true
-        Rails.cache.write(request.session_options[:id],national_identity_hash, :expires_in => @config.timeout_in_seconds)
+        Rails.cache.write(request.session_options[:id],national_identity_hash)
       end
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
 
