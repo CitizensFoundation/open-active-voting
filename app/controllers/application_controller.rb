@@ -19,7 +19,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :get_db_config
-  before_filter :manage_sessions
+  before_filter :manage_sessions, :except => [:check_authentication, :authentication_options, :authenticate_from_island_is,
+                                              :help_info, :about_info, :rules_info, :government_info,
+                                              :areas_info, :ibuar_info, :rvk_info, :idea_info,
+                                              :logout_info]
 
   before_filter :set_locale
   before_filter :load_public_key
