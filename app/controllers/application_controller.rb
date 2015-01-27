@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
     Rails.logger.info("Session expires at #{session[:expires_at]}")
     if session[:expires_at]
       @time_left = (session[:expires_at] - Time.now).to_i
+      Rails.logger.info("Time now #{Time.now} time left #{@time_left}")
       unless @time_left > 0
         Rails.logger.info("Resetting session")
         reset_session
