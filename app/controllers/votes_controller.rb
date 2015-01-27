@@ -25,9 +25,6 @@ DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
 class VotesController < ApplicationController
 
-  before_filter :session_expiry, :except => [:help_info, :about_info, :rules_info, :government_info,
-                                             :areas_info, :ibuar_info, :rvk_info, :idea_info,
-                                             :logout_info]
   after_filter :log_session_id
   skip_before_filter :verify_authenticity_token, :only => [:authenticate_from_island_is]
 

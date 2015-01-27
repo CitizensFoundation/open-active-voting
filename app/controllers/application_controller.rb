@@ -18,11 +18,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  #http_basic_authenticate_with :name => "loadtest", :password => "secret"
-
   before_filter :get_db_config
+  before_filter :manage_sessions
 
-  before_filter :update_activity_time
   before_filter :set_locale
   before_filter :load_public_key
 
@@ -39,6 +37,11 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = "is"
     end
+  end
+
+  def manage_sessions
+    session_expiry
+    update_activity_time
   end
 
   def session_expiry
