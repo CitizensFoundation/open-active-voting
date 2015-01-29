@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   before_filter :manage_sessions, :except => [:check_authentication, :authentication_options, :authenticate_from_island_is,
                                               :help_info, :about_info, :rules_info, :government_info,
                                               :areas_info, :ibuar_info, :rvk_info, :idea_info,
-                                              :logout_info]
+                                              :logout_info, :lukr_map, :lukr_map_2]
 
   before_filter :set_locale
   before_filter :load_public_key
