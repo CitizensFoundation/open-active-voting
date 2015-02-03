@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  lukr_projects_on_map: "Location of projects"
   island_is_auth_error_general: "Authentication error from island.is"
   island_is_auth_error_not_on_voter_register: "This national identity number is not registered with island.is"
 
