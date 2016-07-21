@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'votes#check_authentication'
+  #root 'votes#check_authentication'
+  root :to => redirect('/index.html')
 
   get "votes/authentication_options"
   post "votes/authenticate_from_island_is"
