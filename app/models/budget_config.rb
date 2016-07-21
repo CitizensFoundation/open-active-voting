@@ -1,4 +1,5 @@
-# Copyright (C) 2010-2013 Íbúar ses
+# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -14,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class BudgetConfig < ActiveRecord::Base
-  set_table_name "config"
+  self.table_name = "config"
 
   validate :there_can_only_be_one
 

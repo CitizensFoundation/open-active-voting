@@ -1,36 +1,56 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-ruby '2.1.5'
-gem 'rails', '3.2.20'
-gem 'globalize', '~> 3.0.0'
+ruby '2.2.5'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.5'
+# Use sqlite3 as the database for Active Record
+#gem 'sqlite3'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.0'
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+gem 'globalize'
 # Gems used in all environments including production
 gem "airbrake" # Online error reporting system
 gem 'haml' # generate html from templates
 gem 'jquery-rails' # Jquery for Rails
 gem 'mysql2' # The Mysql Driver
 gem 'dalli' # Memcache driver
-gem 'capistrano' # Used to manage deployments to staging servers
-gem 'nokogiri','1.6.5' # XML/HTML Parsing library
-gem 'psych', '1.2.2'
+gem 'nokogiri','1.6.8' # XML/HTML Parsing library
+gem 'psych'
 gem 'soap4r', :git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml',  :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem 'memcachier'
 gem "passenger"
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'execjs'
-  gem 'therubyracer'
-  gem 'sass-rails'
-  gem 'uglifier'
-end
-
 group :development, :test do
-  # Pretty printed test output
-  #gem 'waitr'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
   gem 'awesome_print'
   gem 'watir-webdriver'
   gem 'headless'
   gem 'turn', '~> 0.8.3', :require => false
 end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+end
+

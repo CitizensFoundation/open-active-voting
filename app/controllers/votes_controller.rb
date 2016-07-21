@@ -1,6 +1,7 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2013 Íbúar ses
+# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -261,8 +262,6 @@ class VotesController < ApplicationController
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
-
-
 
       Rails.logger.info(@response.response)
 

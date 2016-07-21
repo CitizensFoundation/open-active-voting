@@ -1,4 +1,5 @@
-# Copyright (C) 2010-2013 Íbúar ses
+# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,6 +19,7 @@ class Vote < ActiveRecord::Base
   attr_accessor :generated_vote_checksum # Used for testing purposes only as this generated checksum is transferred over to the final_split_vote before counting
 
   def self.generate_encrypted_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
+    # Create an encrypted checksum for voter id, encrypted ballot data, remote ip, area and session ids.
     @@public_key =  OpenSSL::PKey::RSA.new(BudgetConfig.current.public_key) unless @@public_key
     vote_checksum = Vote.generate_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
     Rails.logger.info("Public key: #{@@public_key} Checksum: #{vote_checksum}")
@@ -27,10 +29,12 @@ class Vote < ActiveRecord::Base
   end
 
   def self.generate_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
+    # Create a SHA1 checksum for voter id, encrypted ballot data, remote ip, area and session ids.
     Digest::SHA1.hexdigest [voter_identity_hash,payload_data,remote_ip,area_id,session_id].join(" ")
   end
 
   def self.split_and_generate_final_votes!
+    # Split ballot data from voter ids into a new table called FinalSplitVote
     FinalSplitVote.delete_all
     Vote.all_latest_votes_by_distinct_voters.each do |vote|
       generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.area_id, vote.session_id)
@@ -40,6 +44,7 @@ class Vote < ActiveRecord::Base
   end
 
   def self.all_latest_votes_by_distinct_voters
+    # Get all the latest ballot votes from each user
     query = %q{
         SELECT  id, created_at, area_id, payload_data, user_id_hash, client_ip_address, encrypted_vote_checksum, session_id
         FROM    votes vs

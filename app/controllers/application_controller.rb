@@ -1,6 +1,7 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2013 Íbúar ses
+# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -14,10 +15,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
   before_filter :get_db_config
   before_filter :manage_sessions, :except => [:check_authentication, :authentication_options, :authenticate_from_island_is,
                                               :help_info, :about_info, :rules_info, :government_info,
