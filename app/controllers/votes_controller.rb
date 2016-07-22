@@ -96,18 +96,6 @@ class VotesController < ApplicationController
     render :layout=>false
   end
 
-  def idea_info
-    # Display information about a given idea
-    @idea_id = params[:idea_id].to_i
-    @area_id = params[:area_id].to_i
-    @name = BudgetBallot.get_idea_name(@area_id,@idea_id)
-    @description = BudgetBallot.get_idea_description(@area_id,@idea_id)
-    @link = BudgetBallot.get_idea_link(@area_id,@idea_id)
-    Rails.logger.info(@link)
-    @link = nil if @link=="-- no Hyperlink --"
-    render :layout=>false
-  end
-
   def logout_info
     # Display information about loging out
     render :layout=>false
@@ -146,17 +134,11 @@ class VotesController < ApplicationController
     end
   end
 
-  def select_area
-    # Select the voting area
-
-    # Check to see if the user has been authenticated and if the voter identity hash is available
-    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
-      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t(:votes_timeout_1).html_safe
-      redirect_to :action=>:authentication_options
-      return false
+  def get_areas
+    # Get the voting areas
+    respond_to do |format|
+      format.json { render :json => [:areas => BudgetBallotArea.all ]}
     end
-    @help_info_text = t :votes_help_select_area
   end
 
   def get_ballot
@@ -166,6 +148,9 @@ class VotesController < ApplicationController
     unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
     end
+
+    # Get voter identify if avilable
+    voter_identity_hash = Rails.cache.read(request.session_options[:id])
 
     # Set the neighborhood id from url parameters
     @area_id = params[:area_id].to_i
@@ -182,7 +167,11 @@ class VotesController < ApplicationController
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
 
     # Count how many times this particular voter has voted
-    @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
+    if voter_identity_hash
+      @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
+    else
+      @vote_count = nil
+    end
 
     respond_to do |format|
       format.json { render :json => [:area_id => @area_id, :budget_ballot => @budget_ballot,

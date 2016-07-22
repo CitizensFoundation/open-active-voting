@@ -17,7 +17,7 @@ require 'base64'
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class BudgetVote
+class BudgetVoteHelper
   NEW_PRIORITIES_ARRAY_ID = 0
 
   attr_reader :idea_ids, :vote

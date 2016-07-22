@@ -63,7 +63,7 @@ class BudgetVoteCounting
     # Count test votes, for testing purposes only
     @area_id = area_id
     test_votes.each do |vote|
-      decrypted_vote = BudgetVote.new(vote,@private_key_file,vote)
+      decrypted_vote = BudgetVoteHelper.new(vote, @private_key_file, vote)
       decrypted_vote.unpack_without_encryption
       add_votes(decrypted_vote)
     end
@@ -117,7 +117,7 @@ class BudgetVoteCounting
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
       FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.area_id = ?",@area_id], :order=>"votes.created_at").each do |final_vote|
         begin
-          csv << [final_vote.area_id,final_vote.vote.created_at]+BudgetVote.new(final_vote.payload_data,@private_key_file,final_vote).unencryped_vote_for_audit_csv
+          csv << [final_vote.area_id,final_vote.vote.created_at]+BudgetVoteHelper.new(final_vote.payload_data, @private_key_file, final_vote).unencryped_vote_for_audit_csv
         rescue Exception => e
           csv << [final_vote.area_id,final_vote.vote.created_at,"Ógilt atkvæði",final_vote.inspect,e.message]
         end
@@ -151,7 +151,7 @@ class BudgetVoteCounting
 
   def process_vote(vote)
     # Decrypt and add votes
-    decrypted_vote = BudgetVote.new(vote.payload_data,@private_key_file,vote)
+    decrypted_vote = BudgetVoteHelper.new(vote.payload_data, @private_key_file, vote)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end
