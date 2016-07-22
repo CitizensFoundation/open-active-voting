@@ -167,14 +167,6 @@ class VotesController < ApplicationController
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
     end
 
-    # Try to read the vote identity and redirect to authentication error if not found
-    unless voter_identity_hash = Rails.cache.read(request.session_options[:id])
-      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      flash[:notice]= t(:votes_timeout_1).html_safe
-      redirect_to :action=>:authentication_options
-      return false
-    end
-
     # Set the neighborhood id from url parameters
     @area_id = params[:area_id].to_i
 
@@ -184,14 +176,19 @@ class VotesController < ApplicationController
     @budget_ballot_col_a, @budget_ballot_col_b = @budget_ballot.each_slice( (@budget_ballot.size/2.0).round ).to_a
 
     # Get the budget for the given neighborhood id
-    @total = BudgetBallot.get_area_budget(@area_id)
+    @ŧotal_budget = BudgetBallot.get_area_budget(@area_id)
 
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
 
     # Count how many times this particular voter has voted
     @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
-    @help_info_text = t :votes_help_get_ballot
+
+    respond_to do |format|
+      format.json { render :json => [:area_id => @area_id, :budget_ballot => @budget_ballot,
+                                     :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
+                                     :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) ]}
+    end
   end
 
   def post_vote
