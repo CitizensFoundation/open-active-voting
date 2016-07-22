@@ -15,6 +15,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -58,10 +59,6 @@ class ApplicationController < ActionController::Base
         Rails.logger.info("Resetting session")
         reset_session
         respond_to do |format|
-          format.html {
-            flash[:notice] = t(:votes_timeout_2).html_safe
-            redirect_to '/votes/authentication_options'
-          }
           format.json {
             response = [:error=>true, :message=>t(:votes_timeout_2), :vote_ok=>false]
             Rails.logger.error("Session expired.")
