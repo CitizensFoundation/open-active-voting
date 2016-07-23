@@ -2,6 +2,16 @@
   "entrypoint": "index.html",
   "shell": "src/oav-app.html",
   "fragments": [
+    "src/oav-ajax/oav-ajax.html",
+    "src/oav-ajax/oav-ajax-error-dialog.html",
+    "src/oav-app-globals/oav-app-globals.html",
+    "src/oav-app-globals/oav-app-user.html",
+    "src/oav-behaviors/app-helpers.html",
+    "src/oav-behaviors/oav-logged-in-user-behavior.html",
+    "src/oav-page/oav-page.html",
+    "src/oav-page/oav-page-dialog.html",
+    "src/oav-session/oav-session.html",
+    "src/oav-user/oav-login.html",
     "src/oav-select-area.html"
   ]
 }
