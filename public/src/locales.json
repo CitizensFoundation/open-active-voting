@@ -1,8 +1,14 @@
 {
   "en": {
-    "page_title": "Our Kópavogur Budget Vote"
+    "page_title": "Our Kópavogur Budget Vote",
+    "voting_areas": "Choose neighborhood",
+    "my_ballots": "My ballots",
+    "menu": "Menu"
   },
   "is": {
-    "page_title": "Okkar Kópavogur Kosning"
+    "page_title": "Okkar Kópavogur Kosning",
+    "voting_areas": "Veldu hverfi",
+    "my_ballots": "Mínir kjörseðlar",
+    "menu": "Valmynd"
   }
 }
