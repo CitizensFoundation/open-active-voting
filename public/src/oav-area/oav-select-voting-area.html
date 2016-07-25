@@ -8,7 +8,7 @@
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 
-<dom-module id="oav-areas">
+<dom-module id="oav-select-voting-area">
   <style>
 
   </style>
@@ -33,7 +33,7 @@
   (function() {
     Polymer({
 
-      is: 'oav-areas',
+      is: 'oav-select-voting-area',
 
       behaviors: [
         Polymer.appHelpers
@@ -43,6 +43,14 @@
 
         areas: {
           type: Array
+        },
+
+        imageMapImageUrl: {
+          type: String
+        },
+
+        imageMapData: {
+          type: String
         },
 
         wide: Boolean
