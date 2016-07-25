@@ -6,34 +6,41 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
-
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="oav-behaviors/app-helpers.html">
 <link rel="import" href="oav-ajax/oav-ajax.html">
 
 <dom-module id="oav-select-voting-area">
   <style>
+    #area_options {
+      background-color: #FFF;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+    }
 
+    h3 {
+      font-size: 18px;
+      padding: 16px;
+    }
   </style>
 
   <template>
     <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+
     <template is="dom-if" if="[[areas]]">
 
-      <div id='content' class="layout horizontal">
-        <h3>
-          {{localize('choose_a_neighbourhood')}}
-        </h3>
-        <h3>
-          {{localize('choose_a_neighbourhood_2')}}
-        </h3>
+      <div id='content' class="layout vertical">
+        <h3>{{localize('choose_a_neighbourhood')}}</h3>
+        <h3>{{localize('choose_a_neighbourhood_2')}}</h3>
       </div>
 
       <template is="dom-if" if="[[wide]]">
-        <div id='area_options'>
+        <div id='area_options' class="layout vertical center-center">
           <img alt='Veldu hverfi' height='566' src='https://s3.amazonaws.com/yrpri-direct-asset/betrihverfi_kort.png' usemap='#Map' width='789'>
           <map id='Map' name='Map'>
-            <area alt='Árbær' coords='750,562,538,565,521,540,543,520,509,518,491,489,496,482,500,463,514,439,505,422,452,400,428,407,416,397,399,395,385,342,419,354,548,352,563,392,559,437,569,468,640,510,680,544,719,550' href='/votes/get_ballot?area_id=1' shape='poly' title='Árbær'>
-            <area alt='Breiðholt' coords='504,519,475,510,413,561,350,505,344,462,379,452,396,413,396,394,407,399,415,396,426,408,451,400,502,421,514,438,498,463,489,488' href='/votes/get_ballot?area_id=2' shape='poly' title='Breiðholt'>
+            <area alt='Árbær' coords='750,562,538,565,521,540,543,520,509,518,491,489,496,482,500,463,514,439,505,422,452,400,428,407,416,397,399,395,385,342,419,354,548,352,563,392,559,437,569,468,640,510,680,544,719,550' href='/#/area-ballot/1' shape='poly' title='Árbær'>
+            <area alt='Breiðholt' coords='504,519,475,510,413,561,350,505,344,462,379,452,396,413,396,394,407,399,415,396,426,408,451,400,502,421,514,438,498,463,489,488' href='/#/area-ballot/2' shape='poly' title='Breiðholt'>
             <area alt='Grafarholt og Úlfarsárdalur' coords='787,233,732,218,733,199,665,211,646,230,631,255,610,306,569,343,551,350,567,388,563,431,571,469,635,504,682,542,754,562,778,562,785,554' href='/votes/get_ballot?area_id=3' shape='poly' title='Grafarholt og Úlfarsárdalur'>
             <area alt='Grafarvogur' coords='665,209,629,259,609,303,568,346,549,350,422,353,395,343,422,294,458,277,444,241,460,184,467,165,545,137,486,113,458,84,457,59,470,45,516,42,580,90,573,154,606,153,662,110' href='/votes/get_ballot?area_id=4' shape='poly' title='Grafarvogur'>
             <area alt='Háaleiti og Bústaðir' coords='255,386,394,412,396,398,383,340,319,312,330,284,301,247,272,246,252,304' href='/votes/get_ballot?area_id=5' shape='poly' title='Háaleiti og Bústaðir'>
@@ -53,6 +60,7 @@
         </template>
       </template>
     </template>
+
     <oav-ajax id="getAreasAjax" auto url="/votes/get_areas" on-response="_areasResponse"></oav-ajax>
   </template>
 
@@ -84,7 +92,15 @@
           type: String
         },
 
+        language: {
+          value: 'is'
+        },
+
         wide: Boolean
+      },
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('locales.json'));
       },
 
       _areasResponse: function (event, detail) {

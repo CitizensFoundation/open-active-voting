@@ -33,7 +33,6 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../src/oav-dialog-container/oav-dialog-container.html">
-
 <link rel="import" href="oav-select-voting-area.html">
 
 <dom-module id="oav-app">
@@ -81,42 +80,26 @@
 
     <oav-dialog-container id="dialogContainer"></oav-dialog-container>
 
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route
         route="{{route}}"
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-drawer-layout fullbleed>
+    <!-- Main content -->
 
-      <!-- Drawer content -->
-      <app-drawer>
-        <app-toolbar>{{localize('menu')}}</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="selectArea" href="/select-voting-area">{{localize('voting_areas')}}</a>
-          <a name="myBallots" href="/my_ballots">{{localize('my_ballots')}}</a>
-        </iron-selector>
-      </app-drawer>
+      <app-header condenses reveals effects="waterfall">
+        <app-toolbar>
+          <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+          <div title>{{localize('app_title')}}</div>
+        </app-toolbar>
+      </app-header>
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
-
-        <app-header condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div title>{{localize('app_title')}}</div>
-          </app-toolbar>
-        </app-header>
-
-        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
-          <oav-ballots name="ballots"></oav-ballots>
-        </iron-pages>
-
-      </app-header-layout>
-
-    </app-drawer-layout>
+      <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+        <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
+        <oav-area-ballot id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+      </iron-pages>
 
   </template>
 
@@ -140,6 +123,11 @@
 
         language: {
           value: 'is'
+        },
+
+        route: {
+          type: String,
+          observer: '_routeChanged'
         }
 
       },
@@ -148,9 +136,14 @@
         '_routePageChanged(routeData.page)'
       ],
 
-
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));
+      },
+
+      _routeChanged: function (route) {
+        if (route.path=="") {
+          this.set('page', 'select-voting-area')                    ;
+        }
       },
 
       _routePageChanged: function(page) {
@@ -163,10 +156,10 @@
 
       _pageChanged: function(page) {
         // load page import on demand.
-        this.importHref(
-          this.resolveUrl('oav-' + page + '.html'), null, null, true);
+        if (page && page!='select-voting-area') {
+          this.importHref(this.resolveUrl('oav-' + page + '.html'), null, null, true);
+        }
       }
-
     });
 
   </script>
