@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(version: 20160725111036) do
     t.text     "public_key",                          limit: 65535
     t.text     "known_x509_cert",                     limit: 65535
     t.text     "areas_imagemap",                       limit: 65535
-    t.string   "areas_imagemap_image",                 limit: 255
   end
 
   create_table "final_split_votes", force: :cascade do |t|
