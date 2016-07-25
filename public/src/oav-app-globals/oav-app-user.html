@@ -152,10 +152,6 @@
           } else if (detail.response.name) {
             this.setLoggedInUser(detail.response);
           }
-          if (detail.response.missingEmail) {
-            var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("missingEmail");
-            dialog.open(detail.response.loginProvider);
-          }
 
           if (this.completeExternalLoginText) {
             window.appGlobals.notifyUserViaToast(this.completeExternalLoginText);

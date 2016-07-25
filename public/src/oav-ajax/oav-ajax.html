@@ -5,6 +5,8 @@
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="oav-ajax">
   <style>
@@ -51,7 +53,8 @@
       is: 'oav-ajax',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -167,13 +170,13 @@
 
       _transformErrorText: function (errorText) {
         if (errorText && errorText.indexOf('status code: 404') > -1) {
-          return this.t('errorNotFound');
+          return this.localize('errorNotFound');
         } else if (errorText && errorText.indexOf('status code: 500') > -1) {
-          return this.t('generalError');
+          return this.localize('generalError');
         } else if (errorText && errorText.indexOf('status code: 401') > -1) {
-          return this.t('errorNotAuthorized');
+          return this.localize('errorNotAuthorized');
         } else if (errorText && errorText.indexOf('503') > -1) {
-          return this.t('errorCantConnect');
+          return this.localize('errorCantConnect');
         } else {
           return errorText;
         }
@@ -186,12 +189,12 @@
         } else {
           text = errorText;
         }
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("errorDialog");
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("errorDialog");
         dialog.showErrorDialog(this._transformErrorText(text));
       },
 
       _resetErrorText: function(event) {
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("errorDialog");
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("errorDialog");
         dialog.resetErrorText();
       }
     })

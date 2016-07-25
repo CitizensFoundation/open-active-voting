@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "votes/authenticate_from_island_is"
 
   get "votes/ballot"
+  get "votes/get_areas"
   get "votes/get_ballot"
   post "votes/post_vote"
   get "votes/logout_and_information"

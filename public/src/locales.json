@@ -3,12 +3,16 @@
     "app_title": "Our Kópavogur Budget Vote",
     "voting_areas": "Choose neighborhood",
     "my_ballots": "My ballots",
-    "menu": "Menu"
+    "menu": "Menu",
+    "choose_a_neighbourhood": "You can only vote on projects in one borough",
+    "choose_a_neighbourhood_2": "Choose a borough by clicking on the map"
   },
   "is": {
     "app_title": "Okkar Kópavogur Kosning",
     "voting_areas": "Veldu hverfi",
     "my_ballots": "Mínir kjörseðlar",
-    "menu": "Valmynd"
+    "menu": "Valmynd",
+    "choose_a_neighbourhood": "Þú getur aðeins kosið um framkvæmdir í einu hverfi",
+    "choose_a_neighbourhood_2": "Veldu hverfi með því að smella á kortið"
   }
 }
