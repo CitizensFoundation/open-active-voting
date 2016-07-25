@@ -12,6 +12,7 @@
     "src/oav-page/oav-page-dialog.html",
     "src/oav-session/oav-session.html",
     "src/oav-user/oav-login.html",
-    "src/oav-select-area.html"
+    "src/oav-dialog-container/oav-dialog-container.html",
+    "src/oav-area/oav-areas.html"
   ]
 }

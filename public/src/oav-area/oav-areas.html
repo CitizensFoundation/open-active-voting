@@ -6,13 +6,25 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+
 <dom-module id="oav-areas">
   <style>
 
   </style>
 
   <template>
+    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+    <template is="dom-if" if="[[areas]]">
+      <template is="dom-if" if="[[wide]]">
 
+      </template>
+
+      <template is="dom-if" if="[[!wide]]">
+
+      </template>
+    </template>
+    <oav-ajax id="getAreasAjax" auto url="/votes/get_areas" on-response="_areasResponse"></oav-ajax>
   </template>
 
 </dom-module>
@@ -31,21 +43,14 @@
 
         areas: {
           type: Array
-        }
+        },
+
+        wide: Boolean
       },
 
-      _response: function (event) {
-        this.$.spinner.active = false;
-        this.fire('response', event.detail);
-      },
+      _areasResponse: function (event, detail) {
+        this.set('areas', detail)
 
-      ready: function() {
-        if (this.auto) {
-          this.$.spinner.active = true;
-        }
-        if (this.largeSpinner) {
-          this.$.spinner.toggleClass('large',true);
-        }
       }
     })
   })();

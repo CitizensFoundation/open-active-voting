@@ -21,7 +21,6 @@
     <oav-session id="session"></oav-session>
 
     <div class="layout horizontal center-center">
-      <oav-ajax id="isLoggedInAjax" method="GET" url="/api/users/loggedInUser/isloggedin" on-response="_isLoggedInResponse"></oav-ajax>
       <oav-ajax id="logoutAjax" method="POST" url="/api/users/logout" on-response="_logoutResponse"></oav-ajax>
     </div>
 
@@ -54,10 +53,6 @@
             observer: "_onUserChanged"
           },
 
-          pointQualitiesIndex: {
-            type: Object
-          },
-
           completeExternalLoginText: {
             type: String,
             value: null
@@ -65,18 +60,18 @@
         },
 
         openUserlogin: function () {
-          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("userLogin");
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("userLogin");
           dialog.setup(this._handleLogin.bind(this));
           dialog.open();
         },
 
         _closeUserLogin: function () {
-          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("userLogin");
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("userLogin");
           dialog.close();
         },
 
         _setUserLoginSpinner: function () {
-          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("userLogin");
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("userLogin");
           dialog.setUserSpinner(true);
         },
 

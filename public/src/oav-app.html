@@ -30,6 +30,8 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
+<link rel="import" href="../src/oav-dialog-container/oav-dialog-container.html">
+
 <dom-module id="oav-app">
 
   <template>
@@ -75,6 +77,8 @@
 
     </style>
 
+    <oav-dialog-container id="dialogContainer"></oav-dialog-container>
+
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -104,7 +108,7 @@
         </app-header>
 
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <my-view1 name="view1"></my-view1>
+          <oav-view1 name="view1"></oav-view1>
           <my-view2 name="view2"></my-view2>
         </iron-pages>
 
@@ -136,6 +140,10 @@
 
       _routePageChanged: function(page) {
         this.page = page || 'view1';
+      },
+
+      getDialog: function (name) {
+        return this.$.dialogContainer.getDialog(name);
       },
 
       _pageChanged: function(page) {

@@ -13,7 +13,7 @@
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
-<dom-module id="yp-login">
+<dom-module id="oav-login">
 
   <style>
     .btn-auth,
@@ -263,8 +263,7 @@
     is: 'yp-login',
 
     behaviors: [
-      Polymer.appHelpers,
-      Polymer.FixDialog
+      Polymer.appHelpers
     ],
 
     properties: {
@@ -272,24 +271,6 @@
       userSpinner: {
         type: Boolean,
         value: false
-      },
-
-      reCaptchaSiteKey: {
-        type: String,
-        value: '6Ld9UBsTAAAAAPq059P_AGqo-tVE_T9gPj5ifrmY'
-      },
-
-      emailValidationPattern: {
-        type: String,
-        value: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-      },
-
-      emailErrorMessage: {
-        type: String
-      },
-
-      passwordErrorMessage: {
-        type: String
       },
 
       name: {
@@ -360,15 +341,6 @@
       this.set('userSpinner', value)
     },
 
-    _facebookLogin: function () {
-      var url = '/api/users/auth/facebook',
-      width = 1000,
-      height = 650,
-      top = (window.outerHeight - height) / 2,
-      left = (window.outerWidth - width) / 2;
-      window.open(url, 'facebook_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
-    },
-
     _islandIsLogin: function () {
       var url = '/api/users/auth/saml',
         width = 1200,
@@ -376,10 +348,6 @@
         top = (window.outerHeight - height) / 2,
         left = (window.outerWidth - width) / 2;
       window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
-    },
-
-    _facebookProvider: function () {
-      return (window.appGlobals.domain.facebookLoginProvided)
     },
 
     _samlProvider: function () {

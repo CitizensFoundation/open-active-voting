@@ -19,6 +19,7 @@
     </style>
 
     <oav-session id="session"></oav-session>
+    <oav-ajax id="boot" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
 
     <iron-signals on-iron-signal-logged-in="_userLoggedIn"></iron-signals>
   </template>
@@ -49,13 +50,12 @@
             value: false
           },
 
-          domain: {
-            type: Object
+          vote_public_key: {
+            type: String
           },
 
-          minSplashMs: {
-            type: Number,
-            value: 1500
+          config_from_server: {
+            type: Object
           },
 
           requestInProgress: {
@@ -65,7 +65,7 @@
         },
 
         notifyUserViaToast: function (text) {
-          var toast = Polymer.dom(document).querySelector('yp-app').getDialog("masterToast");
+          var toast = Polymer.dom(document).querySelector('oav-app').getDialog("masterToast");
           toast.text = text;
           toast.show();
         },
@@ -115,18 +115,9 @@
 
         _bootResponse: function (event, detail) {
           this.set('requestInProgress', false);
-          this.set('domain', detail.response.domain);
-          this.setupGoogleAnalytics(this.domain);
-          var hash = window.location.hash;
-          if (hash===null || hash==="") {
-            if (detail.response.community) {
-              page("#!/community/"+detail.response.community.id);
-            } else {
-              page("#!/domain/" + this.domain.id);
-              this.fire("change-header", { headerTitle: this.domain.domain_name,
-                headerDescription: this.domain.description});
-            }
-          }
+          this.set('config_from_server', detail.response.config);
+          this.set('vote_public_key', detail.response.public_key);
+          this.setupGoogleAnalytics(this.config);
           this._removeSplashWithDelay();
         },
 
@@ -181,11 +172,6 @@
           if (!this.seenWelcome) {
             this.$.welcomeDialog.open();
           }
-        },
-
-        setSeenWelcome: function () {
-          this.seenWelcome = true;
-          localStorage.setItem('yrpri-welcome-status', true);
         },
 
         getSessionFromCookie: function () {
