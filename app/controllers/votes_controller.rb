@@ -107,9 +107,11 @@ class VotesController < ApplicationController
     redirect_to "/"
   end
 
-  def authentication_options
-    # Display authentication options
-    @island_is_url = @config.rsk_url
+  def boot
+    # Send the config and public key to the client app
+    respond_to do |format|
+      format.json { render :json => [:config => @config, :public_key => @public_key ]}
+    end
   end
 
   def authenticate_from_island_is
@@ -157,8 +159,6 @@ class VotesController < ApplicationController
 
     # Create the Reykjavik Budget Ballot
     @budget_ballot = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
-
-    @budget_ballot_col_a, @budget_ballot_col_b = @budget_ballot.each_slice( (@budget_ballot.size/2.0).round ).to_a
 
     # Get the budget for the given neighborhood id
     @ŧotal_budget = BudgetBallot.get_area_budget(@area_id)
