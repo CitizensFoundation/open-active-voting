@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<dom-module id="oav-area-ballot">
+  <style>
+
+  </style>
+
+  <template>
+
+    <template is="dom-if" if="[[ballot]]" restamp>
+      <h1>Gotem</h1>
+    </template>
+
+    <oav-ajax id="getBallotAjax" auto url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-area-ballot',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+
+        ballot: {
+          type: Object,
+          value: null
+        },
+
+        areaId: {
+          type: String,
+          observer: '_areaIdChanged'
+        },
+
+        idRoutePath: {
+          type: Object,
+          observer: '_idRoutePathChanged'
+        }
+      },
+
+      _idRoutePathChanged: function (newPathForId) {
+        if (newPathForId) {
+          this.set('areaId', newPathForId.path.slice(1));
+        }
+      },
+
+      _areaIdChanged: function (newAreaId) {
+        debugger;
+        if (newAreaId) {
+          this.set('ballot', null);
+          this.$.getBallotAjax.params = { area_id: newAreaId };
+          this.$.getBallotAjax.generateRequest();
+        }
+      },
+
+      _ballotResponse: function (event, detail) {
+        this.set('ballot', detail.response);
+        debugger;
+      },
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      }
+    })
+  })();
+
+</script>
+

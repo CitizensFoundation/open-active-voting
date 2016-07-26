@@ -174,9 +174,9 @@ class VotesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json => [:area_id => @area_id, :budget_ballot => @budget_ballot,
-                                     :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
-                                     :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) ]}
+      format.json { render :json =>  { :area_id => @area_id, :budget_ballot => @budget_ballot,
+                                      :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
+                                      :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) }}
     end
   end
 

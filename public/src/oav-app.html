@@ -33,7 +33,7 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../src/oav-dialog-container/oav-dialog-container.html">
-<link rel="import" href="oav-select-voting-area.html">
+<link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
 
 <dom-module id="oav-app">
 
@@ -157,7 +157,7 @@
       _pageChanged: function(page) {
         // load page import on demand.
         if (page && page!='select-voting-area') {
-          this.importHref(this.resolveUrl('oav-' + page + '.html'), null, null, true);
+          this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
         }
       }
     });
