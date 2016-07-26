@@ -4,6 +4,7 @@
 
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -23,6 +24,17 @@
       font-size: 18px;
       padding: 16px;
     }
+
+    paper-fab {
+      padding: 32px;
+      color: #FFF;
+    }
+
+    paper-fab.label {
+      font-size: 30px;
+      color: #FFF;
+    }
+
   </style>
 
   <template>
@@ -58,6 +70,13 @@
         <template is="dom-repeat" list="[[areas]]" as="area">
 
         </template>
+        <div class="layout horizontal wrap">
+          <paper-fab mini class="label" label="230" title="heart eyes cat">230</paper-fab>
+          <paper-fab mini class="label" label="231" title="heart eyes cat">231</paper-fab>
+          <paper-fab mini class="label" label="232" title="heart eyes cat"></paper-fab>
+          <paper-fab mini class="label" label="233" title="heart eyes cat"></paper-fab>
+          <paper-fab mini class="label" label="234" title="heart eyes cat"></paper-fab>
+        </div>
       </template>
     </template>
 

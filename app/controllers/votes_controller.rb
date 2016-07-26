@@ -162,7 +162,7 @@ class VotesController < ApplicationController
 
     # Get the budget for the given neighborhood id
     @ŧotal_budget = BudgetBallot.get_area_budget(@area_id)
-
+      fdsfsd
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
 

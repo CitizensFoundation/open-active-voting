@@ -4,13 +4,21 @@
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
     "choose_a_neighbourhood": "You can only vote on projects in one borough",
-    "choose_a_neighbourhood_2": "Choose a borough by clicking on the map"
+    "choose_a_neighbourhood_2": "Choose a borough by clicking on the map",
+    "error_not_found": "Not found",
+    "general_error": "An error has occurred, we have been notified",
+    "error_not_authorized": "Not authorized",
+    "error_cant_connect": "Can't connect to server, please try again later"
   },
   "is": {
     "app_title": "Okkar Kópavogur Kosning",
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
     "choose_a_neighbourhood": "Þú getur aðeins kosið um framkvæmdir í einu hverfi",
-    "choose_a_neighbourhood_2": "Veldu hverfi með því að smella á kortið"
+    "choose_a_neighbourhood_2": "Veldu hverfi með því að smella á kortið",
+    "error_not_found": "Fannst ekki",
+    "general_error": "Villa hefur komið upp, við höfum verið látin vita",
+    "error_not_authorized": "Þú hefur ekki aðgang",
+    "error_cant_connect": "Get ekki tengst vefþjóni, vinsamlegast prófaðu síðar"
   }
 }

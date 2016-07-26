@@ -132,12 +132,23 @@
 
       },
 
+      listeners: {
+        'app-resources-loaded': '_translationLoaded'
+      },
+
+
       observers: [
         '_routePageChanged(routeData.page)'
       ],
 
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));
+      },
+
+      _translationLoaded: function () {
+        if (this.localize) {
+          document.title = this.localize('app_title');
+        }
       },
 
       _routeChanged: function (route) {

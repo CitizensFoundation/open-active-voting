@@ -19,7 +19,7 @@
       <h1>Gotem</h1>
     </template>
 
-    <oav-ajax id="getBallotAjax" auto url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+    <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
   </template>
 
 </dom-module>
@@ -50,6 +50,10 @@
         idRoutePath: {
           type: Object,
           observer: '_idRoutePathChanged'
+        },
+
+        language: {
+          value: 'is'
         }
       },
 
