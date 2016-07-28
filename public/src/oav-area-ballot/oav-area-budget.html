@@ -10,12 +10,32 @@
 
 <dom-module id="oav-area-budget">
   <style>
+    #votes {
+      border: 1px solid #ccc;
+      width: 960px;
+      height: 43px;
+      margin: 10px 0px;
+      padding: 1px;
+    }
 
+    #votes div {
+      float: left;
+      display: inline-block;
+      height: 29px;
+      background: #369;
+      color: #fff;
+      margin: 1px 0 0 1px;
+      font-weight: bold;
+      padding-top: 12px;
+      font-size: 16px;
+      text-transform:capitalize;
+      width:10px;
+    }
   </style>
 
   <template>
 
-    <div id="votesDiv"></div>
+    <div id="votes"></div>
 
   </template>
 
@@ -34,7 +54,7 @@
 
       properties: {
 
-        selectedIdeas: {
+        selectedIdeaIds: {
           type: Array,
           value: []
         },
@@ -55,6 +75,19 @@
 
         language: {
           value: 'is'
+        }
+      },
+
+      toggleBudgetIdea: function (idea) {
+        if (this.selectedIdeas.indexOf(idea.id) > -1) {
+          this.splice('selectedIdeas', idea.id);
+          this.$$("#idea_id_"+idea.id).remove();
+          this.selectedBudget -= idea.price;
+        } else {
+          var ideaWidth = parseInt(this.voteswidth * (idea.price / this.totalBudget))-2;
+          this.push('selectedIdeaIds', idea.id);
+          this.$.votes.append("<div title=\""+idea.name+"\" id=\"opt_" + idea.id + "\" style=\"text-align: center;width: " + ideaWidth + "px;\" class=\""+"vote_class\">");
+          this.selectedBudget += idea.price;
         }
       },
 
