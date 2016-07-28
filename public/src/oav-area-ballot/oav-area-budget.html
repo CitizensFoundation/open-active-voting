@@ -10,12 +10,27 @@
 
 <dom-module id="oav-area-budget">
   <style>
+
+    :host {
+      width: 100%;
+    }
+
+    .votesContainer {
+      height: 300px;
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+    }
+
     #votes {
-      border: 1px solid #ccc;
+      border: 5px solid #eee;
       width: 960px;
-      height: 43px;
+      background-color: #fff;
+      height: 100px;
       margin: 10px 0px;
       padding: 1px;
+      @apply(--layout-horizontal);
     }
 
     #votes div {
@@ -23,7 +38,7 @@
       display: inline-block;
       height: 29px;
       background: #369;
-      color: #fff;
+      color: #f00;
       margin: 1px 0 0 1px;
       font-weight: bold;
       padding-top: 12px;
@@ -31,11 +46,28 @@
       text-transform:capitalize;
       width:10px;
     }
+
+    .vote_class {
+      float: left;
+      display: inline-block;
+      height: 29px;
+      background: #369;
+      color: #f00;
+      margin: 1px 0 0 1px;
+      font-weight: bold;
+      padding-top: 12px;
+      font-size: 16px;
+      text-transform:capitalize;
+    }
   </style>
 
   <template>
 
-    <div id="votes"></div>
+    <div class="votesContainer">
+      <div id="votes"></div> <br>
+    </div>
+
+    <div class="totalBudget">[[totalBudget]]</div>   <div class="selectedBudget">[[selectedBudget]]</div>
 
   </template>
 
@@ -65,7 +97,8 @@
         },
 
         totalBudget: {
-          type: Number
+          type: Number,
+          value: 25.0
         },
 
         votesWidth: {
@@ -79,15 +112,23 @@
       },
 
       toggleBudgetIdea: function (idea) {
-        if (this.selectedIdeas.indexOf(idea.id) > -1) {
-          this.splice('selectedIdeas', idea.id);
-          this.$$("#idea_id_"+idea.id).remove();
-          this.selectedBudget -= idea.price;
+        if (this.selectedIdeaIds.indexOf(idea.id) > -1) {
+          this.splice('selectedIdeaIds', idea.id);
+          var selectedIdeaDiv = this.$$("#idea_id_"+idea.id);
+          selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
+          this.set('selectedBudget', this.selectedBudget - idea.price);
         } else {
-          var ideaWidth = parseInt(this.voteswidth * (idea.price / this.totalBudget))-2;
+          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-2;
           this.push('selectedIdeaIds', idea.id);
-          this.$.votes.append("<div title=\""+idea.name+"\" id=\"opt_" + idea.id + "\" style=\"text-align: center;width: " + ideaWidth + "px;\" class=\""+"vote_class\">");
-          this.selectedBudget += idea.price;
+          var selectedIdea = document.createElement("div");
+          selectedIdea.title =  idea.name;
+          selectedIdea.id = "idea_id_"+idea.id;
+          selectedIdea.style = 'text-align: center;background-image: url("'+idea.imageUrl+'")';
+          selectedIdea.class = "vote_class";
+          selectedIdea.style.width = ideaWidth+'px';
+          selectedIdea.innerHTML= "&nbsp";
+          this.$.votes.appendChild(selectedIdea);
+          this.set('selectedBudget', this.selectedBudget + idea.price);
         }
       },
 
