@@ -1,0 +1,72 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<dom-module id="oav-area-budget">
+  <style>
+
+  </style>
+
+  <template>
+
+    <div id="votesDiv"></div>
+
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-area-budget',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+
+        selectedIdeas: {
+          type: Array,
+          value: []
+        },
+
+        selectedBudget: {
+          type: Number,
+          value: 0
+        },
+
+        totalBudget: {
+          type: Number
+        },
+
+        votesWidth: {
+          type: Number,
+          value: 960
+        },
+
+        language: {
+          value: 'is'
+        }
+      },
+
+      convertDots: function (num) {
+        return num.replace(".", ",");
+      },
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      }
+    })
+  })();
+
+</script>
+
