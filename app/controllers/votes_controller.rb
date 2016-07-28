@@ -157,12 +157,12 @@ class VotesController < ApplicationController
     # Set the neighborhood id from url parameters
     @area_id = params[:area_id].to_i
 
-    # Create the Reykjavik Budget Ballot
-    @budget_ballot = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
+    # Get all budget ballot ideas
+    @budget_ballot_ideas = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
 
     # Get the budget for the given neighborhood id
     @ŧotal_budget = BudgetBallot.get_area_budget(@area_id)
-      fdsfsd
+
     # Letters are used to mark each budget vote selection
     @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
 
@@ -174,7 +174,7 @@ class VotesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json =>  { :area_id => @area_id, :budget_ballot => @budget_ballot,
+      format.json { render :json =>  { :area_id => @area_id, :budget_ballot_ideas => @budget_ballot_ideas,
                                       :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
                                       :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) }}
     end
