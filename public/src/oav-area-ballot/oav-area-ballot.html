@@ -94,8 +94,11 @@
       left: 8px;
     }
 
-    paper-button {
-      background-color: #00acc1;
+    paper-button.addButton {
+      position: absolute;
+      bottom: 16px;
+      right: 8px;
+      background-color: #006C32;
       color: #FFF;
     }
 
@@ -124,7 +127,7 @@
             </div>
             <div class="description">[[truncate(idea.description, 50)]]</div>
             <div class="detail">
-              <paper-button data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
+              <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
             </div>
           </div>
         </div>

@@ -118,16 +118,19 @@
           selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
           this.set('selectedBudget', this.selectedBudget - idea.price);
         } else {
-          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-2;
+          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-10;
           this.push('selectedIdeaIds', idea.id);
-          var selectedIdea = document.createElement("div");
-          selectedIdea.title =  idea.name;
-          selectedIdea.id = "idea_id_"+idea.id;
-          selectedIdea.style = 'text-align: center;background-image: url("'+idea.imageUrl+'")';
-          selectedIdea.class = "vote_class";
-          selectedIdea.style.width = ideaWidth+'px';
-          selectedIdea.innerHTML= "&nbsp";
-          this.$.votes.appendChild(selectedIdea);
+          var image = document.createElement("iron-image");
+          image.src = idea.imageUrl;
+          image.setAttribute("sizing", "cover");
+          image.setAttribute('alt', idea.name);
+          image.setAttribute('title', idea.name);
+          image.title= idea.name;
+          image.style.width = ideaWidth + 'px';
+          image.id = "idea_id_"+idea.id;
+          image.style.height = '100px';
+         // selectedIdea.appendChild(image);
+          this.$.votes.appendChild(image);
           this.set('selectedBudget', this.selectedBudget + idea.price);
         }
       },
