@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
@@ -15,7 +18,7 @@
     }
 
     .ideaContent {
-      @apply(--layout);
+      @apply(--layout-vertical);
       background-color: #ddd;
       position: relative;
       width: 300px;
@@ -28,7 +31,8 @@
     }
 
     .ideaContent > iron-image {
-      @apply(--layout-flex);
+      height: 169px;
+      width: 300px;
     }
 
     .ideaContent > .detail {
@@ -74,14 +78,15 @@
 
     <oav-ballot-budget id="budget"></oav-ballot-budget>
 
-    <iron-list items="[[ballot.ballot_items]]" as="idea" scroll-target="document" grid>
+    <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
       <template>
         <div class="ideaContainer">
           <div class="ideaContent" tabindex$="[[tabIndex]]">
             <iron-image sizing="cover"
                         src="[[_randomImage()]]">
             </iron-image>
-            <div class="detail">[[idea.name]]</div>
+            <div class="name">[[idea.name]]</div>
+            <div class="detail">[[idea.description]]</div>
           </div>
         </div>
       </template>
@@ -163,6 +168,48 @@
       },
 
       _ballotResponse: function (event, detail) {
+        detail.response.budget_ballot_ideas = [
+          {name: 'Taka forystu í flokkun sorps', description: 'Það ætti að gera öllum kleift að flokka allt sorp og safna moltu, hvort sem fólk á bíl eða ekki. Bærinn gæti verið leiðandi í sorphirðumálum og sótt alla flokka til íbúa eða amk bjóða uppá fullkomna grendargáma í öllum hverfum. Í Kamikatsu í Japan er stefnt að því að hætta að nota landfyllingar árið 2020. Þó svo að í Kópavogi séu fleiri íbúar af hverju ætti ekki að vera hægt að setja markið svona hátt?',
+           price: 7.5},
+          {name: 'Hjólatenging frá Arnarnesvegi á göngustíg undir Reykjanesbr.', description: 'Það vantar ekki nema nokkra malbikaða metra upp á að ná að hjóla þaðan sem Arnarnesvegur endar og niður á hjólastíginn sem fer undir Reykjanesbrautina og kemur upp við Bæjagil - ella þarf maður að reiða hjólið meðfram grófum reiðstíg.",64.09454115526451,-21.884872913360596,19,0,1,"Auðveldar fólki í Lindar- og Salarhverfi að hjóla í átt að Gbæ/Hfj t.d. vegna vinnu (og öfugt) - annars þarf maður að taka stóran krók undir brúnna hjá Smáralind með tilheyrandi lækkun og svo brattri hækkun.',
+           price: 5.0},
+          {name: 'Göngu- og hjólabrú yfir Nýbýlaveginn við BYKO', description: 'Til þess að komast yfir þessi gatnamót er frekar hættulegt  og stundum erfitt.  Kópavogsbær þarf að fá Vegagerðina í lið með sér.',
+            price: 2.5},
+          {name: 'Sundlaug í dalinn', description: '"Sundlaug í dalinn með góðum aðgangi og stæðum fyrir hjól (ekki aðgengi fyrir bíla). Nýtist einnig börnum úr skólum dalsins til sundkennslu þá þarf ekki lengur að ferja þau með rútum í sundkennslu. Þarna mætti einnig setja upp heilsusamlegt kaffihús sem vantar sárlega fyrir útivistar og göngufólk í dalnum.",64.11439647759917,-21.85626983642578,18,9,3,"Börn í skólum við dalinn þurfa ekki að fara með rútum til að fá sundkennslu.Aukin flóra í þetta fallega útivistarsvæði.Hægt að nýta stóru túnin fyrir neðan Kjarrhólma',
+            price: 15.0},
+          {name: 'Öryggi barna við Leikskólann Kópahvoll', description: 'Þegar farið er með börn og þau sótt á leikskólann Kópahvoll þá ganga foreldrar og börn nær undantekningalaust fyrir aftan bílana sem þar leggja. Þetta skapar stór hættu enda er þarna mikið ögnþveiti á morgnana og síðdegis. Einfalt væri að færa hliðið að leikskólanum nokkra metra til norðurs. Í beinu framhaldi kæmi gangbraut út á stéttina sem væri á milli bílastæðanna. Til þess að gera þetta mögulegt þarf að breikka stéttina og færa bílastæðin sem nú eru nyrst í botnlanganum í suður að stéttinni.',
+            price: 4.0},
+          {name: 'Hraðahindrun í Þverbrekku', description: 'Legg til að bætt verði við hraðahindrun þar sem nú er gangbraut til að auka öryggi gangandi og akandi í brekkunni.',
+            price: 5.5},
+          {name: 'Vatnshanar við hjóla- og göngustíga.', description: 'Nokkuð viss um að það séu engir til staðar í dag en mér þætti frábært ef það yrðu settir upp 1 - 2 vatnshanar í Kópavogsdal og/eða Kársnesi. Það þyrfti þá að finna þeim góðan stað við göngu- og hjólastígana. Nokkuð er um þessa vatnshana í Reykjavík t.d. við Árbæjarstíflu; í Laugardal, í Grafarvogi og fleiri stöðum.',
+            price: 18.5},
+          {name: 'Stíg í kringum Elliðavatn', description: 'Stíg í kringum Elliðavatn fyrir hlaupandi; gangandi og hjólandi útivistarfólk. Hafa hann að lágmarki tvöfaldann svo allir komist að án þess að valda slysum.  Enn betra væri að það væru tveir aðgreindir stígar.',
+            price: 7.0},
+          {name: 'Göngu og hjólastígar milli sveitafelaga', description: 'Gott ef kópavogur tæki forystu í að tengja saman stíga milli fveitafélagana  á höfuðborgarsvæðin frá elliðavatni og til suðurs.',
+            price: 5.5},
+          {name: 'Upplífgandi umferðarljós', description: 'Að breyta umferðarljósum í bænum þannig að rauða ljósið sé hjartalaga. Ef fólki hugnast það ekki er annar möguleiki að hafa græna ljósið eins og fjögurrablaða smára.',
+            price: 6.5},
+          {name: 'Ræktin utandyra', description: '"Hér er um að ræða tæki sem bæði ungir sem aldnir geta notað og hafa slegið í gegn víðsvegar um heiminn. Engin lóð eru notuð og því þarf aldrei að skipta raunverulega um þyngd. Í þess stað notar tækið þyngd þess sem notar tækið. Tækin eru fjölbreytt og auðvelt að velja t.d. sex gerðir og svo bæta við síðar ef þetta reynist vel. Tækin þola Íslenskt veðurfar og því er það engin fyrirstaða.',
+            price: 9.0},
+          {name: 'Setja staura hjá gangbrautum í Hamraborg', description: 'Bílar leggja ítrekaðu upp á gangstéttina fyrir framan gangbrautirnar í Hamraborginni. Það getur verið mjög erfitt að komast yfir gangbrautirnar sérstaklega með barnavagn; á hjóli eða í hjólastól þegar lagt er svona. Einnig skapar þetta hættu fyrir gangandi, hjólandi og akandi vegfarendur. Auðvelt ætti að vera að setja staura þarna fyrir sem hindra bíla í að leggja þarna en hindra þó ekki þá sem eru með barnavagna, í hjólastól eða á hjóli.',
+            price: 12.5},
+          {name: 'Ávaxtatrjálundur', description: 'Hafa eplatré; kirsuberjatré og fleiri ávaxtatré ásamt ýmsum berjarunnum á almenningssvæðum þar sem fólk má tína sér ávexti (svona þegar það kemur uppskera) og njóta náttúrunnar.',
+            price: 7.0},
+          {name: 'Kaldur pottur í Kópavogslaug', description: 'Bæta við köldum potti/keri í Kársneslaugina',
+            price: 19.5},
+          {name: 'Gangstétt/göngustígur við Fornahvarf', description: '"Nauðsynlegt er að koma upp göngustíg/gangstétt við Fornahvarf. Annars vegar við götuna er reiðstígur en ekki er gert ráð fyrir gangandi fólki; maður þarf einfaldlega að ganga á götunni sem er ekki gott. Mætti setja stíginn hinum megin við götuna og tengja hann við stíginn sem liggur á brúninni fyrir ofan vatnið við Breiðahvarf. Þessi leið er mikið notuð af hlaupahópum og þá eru heilu flokkarnir á götunni.',
+            price: 5.0},
+          {name: 'Æfingartæki fyrir fullorðna', description: 'Það hefur lengi verið á óskalista mínum að fá uppsett leiktæki fyrir fullorðna',
+            price: 5.0},
+          {name: 'Skólahreystibraut  í Fossvoginum', description: 'Hreystibraut í Fossvoginum; ásamt afgirtu leiksvæði fyrir yngri börn og e.t.v lítið kaffihús  Hugsað að hægt sé að taka nokkrar æfingar og yngribörn gætu leikið sér á meðan á afgirtum leikvelli, kaffihús mynda síðan passa vel hér inní að auki',
+            price: 5.5},
+          {name: 'Lýsing á Víghól', description: 'það vantar lýsingu á göngustíg sem liggur yfir Víhólinn frá lyngheiði að leikskólanum Kópahvol þarna ganga margir yfir bæði börn á leið í skóla og fullorðnir og það er mjög dimmt á veturnar',
+            price: 11.5},
+          {name: 'Kaffihús í Fossvogi', description: 'Nú er smátt og smátt að vaxa upp trjá- og runnasafn í austurenda Fossvogs og kemur til með að verða mjög fallegt svæði. Almenn útivist í dalnum stór aukist og heldur stöðugt að aukast. Það væri því mjög gott fyrir svæði ef á því væri starfrækt lítið og fallegt kaffi-/veitingahús sem fólk hefði tök á að nýta sér jafnt til að fá sér smá hressingu og einnig til að komast á salerni.',
+            price: 4.5},
+          {name: 'Göngu- og hjólreiðastígur meðfram Reykjanesbraut', description: 'Hjólreiða- og göngustígur sem lagður var milli Mjóddar og Lindahverfis er mikið notaður, en stígurinn endar við Lindir í Kópavogi án frekari tenginga. Lagt er til að sett verði göngu- og hjólreiðabrú meðfram Reykjanesbraut sem tengja stíginn við hlið Linda við Glaðheimasvæðið og nýja stíga við Arnarnesveg sem nú er í framkvæmd.',
+            price: 1.5}
+        ];
         this.set('ballot', detail.response);
         debugger;
       },
