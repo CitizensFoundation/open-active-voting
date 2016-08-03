@@ -75,6 +75,11 @@
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
     }
+
+    .votingButtonContainer {
+      position: absolute;
+      bottom: 16px;
+    }
   </style>
 
   <template>
@@ -90,6 +95,10 @@
         </div>
       </template>
     </iron-list>
+
+    <div class="votingButtonContainer">
+      <paper-button on-tap="_postVoteToServer">[[localize('vote')]]</paper-button>
+    </div>
 
     <!-- DISABLE THIS FOR PRODUCTION USE -->
     <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
@@ -139,9 +148,9 @@
         this.$.budget.toggleBudgetIdea(idea);
       },
 
-      _postVote: function () {
+      _postVoteToServer: function () {
         if (this.$.budget.selectedIdeaIds && this.$.budget.selectedIdeaIds.length>0) {
-          var encryptedVote = this.packVote(this.budget.$.selectedIdeaIds);
+          var encryptedVote = this.encryptVote(this.budget.$.selectedIdeaIds);
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
             this.$.postBallotAjax.generateRequest();
