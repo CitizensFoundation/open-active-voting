@@ -95,18 +95,18 @@
   </style>
 
   <template>
-      <div class="ideaContent">
-        <iron-image sizing="cover"
-                    src="[[idea.imageUrl]]">
-        </iron-image>
-        <div class="name">[[idea.name]]</div>
-        <div class="layout horizontal center-center">
-          <div class="price">[[idea.price]]m</div>
-        </div>
-        <div class="addButton">
-          <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
-        </div>
+    <div class="ideaContent">
+      <iron-image sizing="cover"
+                  src="[[idea.imageUrl]]">
+      </iron-image>
+      <div class="name">[[idea.name]]</div>
+      <div class="layout horizontal center-center">
+        <div class="price">[[idea.price]]m</div>
       </div>
+      <div class="addButton">
+        <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
+      </div>
+    </div>
   </template>
 
 </dom-module>
