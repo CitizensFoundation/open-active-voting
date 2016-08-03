@@ -1,0 +1,143 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+<link rel="import" href="oav-area-budget.html">
+
+<dom-module id="oav-area-ballot-item">
+  <style>
+    .ideaContent {
+      @apply(--layout-vertical);
+      background-color: #fafafa;
+      position: relative;
+      width: 300px;
+      height: 400px;
+      margin: 8px;
+    }
+
+    .ideaContent:hover .detail{
+      opacity: 1;
+    }
+
+    .ideaContent > iron-image {
+      height: 169px;
+      width: 300px;
+    }
+
+    .ideaContent > .detail {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+      color: white;
+      font-size: 20px;
+      font-weight: 100;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+
+    @media (max-width: 800px) {
+      .ideaContent {
+        width: auto;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .ideaContainer {
+        width: 100%;
+      }
+
+      .ideaContent > .detail {
+        opacity: 1;
+      }
+    }
+
+    .name {
+      font-size: 19px;
+      padding: 8px;
+    }
+
+    .description {
+      padding-left: 8px;
+      padding-rigth: 8px;
+    }
+
+    .price {
+      font-size: 20px;
+      position: absolute;
+      bottom: 4px;
+      left: 8px;
+    }
+
+    paper-button.addButton {
+      position: absolute;
+      bottom: 16px;
+      right: 8px;
+      background-color: #006C32;
+      color: #FFF;
+    }
+
+    .budgetContainer {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+    }
+  </style>
+
+  <template>
+      <div class="ideaContent">
+        <iron-image sizing="cover"
+                    src="[[idea.imageUrl]]">
+        </iron-image>
+        <div class="name">[[idea.name]]</div>
+        <div class="layout horizontal center-center">
+          <div class="price">[[idea.price]]m</div>
+        </div>
+        <div class="addButton">
+          <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
+        </div>
+      </div>
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-area-ballot-item',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+
+        idea: {
+          type: Object
+        },
+
+        language: {
+          value: 'is'
+        }
+      },
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      }
+    })
+  })();
+
+</script>
+

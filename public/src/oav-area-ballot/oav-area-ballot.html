@@ -12,6 +12,7 @@
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
+<link rel="import" href="oav-area-ballot-item.html">
 
 <dom-module id="oav-area-ballot">
   <style>
@@ -19,38 +20,6 @@
     iron-list {
       margin-top: 90px;
       padding-bottom: 16px;
-    }
-
-    .ideaContent {
-      @apply(--layout-vertical);
-      background-color: #fafafa;
-      position: relative;
-      width: 300px;
-      height: 400px;
-      margin: 8px;
-    }
-
-    .ideaContent:hover .detail{
-      opacity: 1;
-    }
-
-    .ideaContent > iron-image {
-      height: 169px;
-      width: 300px;
-    }
-
-    .ideaContent > .detail {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
-      color: white;
-      font-size: 20px;
-      font-weight: 100;
-      padding: 20px;
-      opacity: 0;
-      transition: opacity 0.1s;
     }
 
     @media (max-width: 800px) {
@@ -117,19 +86,7 @@
     <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
       <template>
         <div class="ideaContainer">
-          <div class="ideaContent" tabindex$="[[tabIndex]]">
-            <iron-image sizing="cover"
-                        src="[[idea.imageUrl]]">
-            </iron-image>
-            <div class="name">[[idea.name]]</div>
-            <div class="layout horizontal center-center">
-              <div class="price">[[idea.price]]m</div>
-            </div>
-            <div class="description">[[truncate(idea.description, 50)]]</div>
-            <div class="detail">
-              <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
-            </div>
-          </div>
+          <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
         </div>
       </template>
     </iron-list>
