@@ -33,29 +33,6 @@
       this.loadResources(this.resolveUrl('../locales.json'));
     },
 
-    getPostLink: function (post) {
-      return "#!/post/"+post.id;
-    },
-
-    interleaveArrays: function (arrayA, arrayB) {
-      var arrs = [arrayA, arrayB];
-      var maxLength = Math.max.apply(Math, arrs.map(function (arr) {
-        return arr.length
-      }));
-
-      var result = [];
-
-      for (var i = 0; i < maxLength; ++i) {
-        arrs.forEach(function (arr) {
-          if (arr.length > i) {
-            result.push(arr[i])
-          }
-        })
-      }
-
-      return result
-    },
-
     getLocale: function () {
       return window.locale;
     },
@@ -66,41 +43,6 @@
       } else {
         return window.googleMapsApiKey;
       }
-    },
-
-    fromTime: function (timeValue) {
-      return moment(timeValue).fromNow();
-    },
-
-    fromLongTime: function (timeValue) {
-      return moment(timeValue).format();
-    },
-
-    goToPost: function (postIdIn) {
-      var postId;
-      if (postIdIn && !(postIdIn instanceof Event)) {
-        postId = postIdIn;
-      } else if (this.post.id) {
-        postId = this.post.id
-      } else {
-        console.error("Can't find post id for goToPost");
-        return;
-      }
-      var postUrl = '/post/' + postId;
-      window.appGlobals.activity('open', 'post', postUrl);
-      window.app.setKeepOpenForPostsOn(page.current);
-      this.async(function () {
-        page(postUrl);
-      });
-    },
-
-    getPositionInArrayFromId: function (collection, id) {
-      for(var i = 0; i < collection.length; i++) {
-        if (collection[i].id==id) {
-          return i;
-        }
-      }
-      return null;
     },
 
     cardMouseOver: function (event) {
@@ -128,32 +70,6 @@
           return formats[formatId];
       } else {
         return "";
-      }
-    },
-
-    removeClass: function(element, classToRemove) {
-      var newClassName = "";
-      var classes = element.className.split(" ");
-      for(var i = 0; i < classes.length; i++) {
-        if(classes[i] !== classToRemove) {
-          newClassName += classes[i] + " ";
-        }
-      }
-      element.className = newClassName;
-    },
-
-    removeElementsByClass: function (rootElement, className) {
-      var elements = rootElement.getElementsByClassName(className);
-      while(elements.length > 0){
-        elements[0].parentNode.removeChild(elements[0]);
-      }
-    },
-
-    formatNumber: function (value) {
-      if (value) {
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      } else {
-        return "0";
       }
     },
 
@@ -195,25 +111,8 @@
       return input;
     },
 
-    capitalize: function (string) {
-      string = string.toLowerCase();
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-
     trim: function(input){
       return input.replace(/^\s*|\s*$/g, '');
-    },
-
-    s3bucketName: function () {
-      return window.s3bucketName;
-    },
-
-    collectionStatusOptions: function() {
-      return [
-        {name: 'active', translatedName: this.t('status.active')},
-        {name: 'featured', translatedName: this.t('status.featured')},
-        {name: 'archived', translatedName: this.t('status.archived')}
-      ]
     }
   };
 </script>

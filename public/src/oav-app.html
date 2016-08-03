@@ -30,9 +30,9 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
-<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="oav-behaviors/app-helpers.html">
 
-<link rel="import" href="../src/oav-dialog-container/oav-dialog-container.html">
+<link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
 
 <dom-module id="oav-app">
@@ -98,7 +98,7 @@
 
       <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
         <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
-        <oav-area-ballot id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+        <oav-area-ballot area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
       </iron-pages>
 
   </template>
@@ -110,7 +110,7 @@
       is: 'oav-app',
 
       behaviors: [
-        Polymer.AppLocalizeBehavior
+        Polymer.appHelpers
       ],
 
       properties: {
@@ -119,10 +119,6 @@
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
-        },
-
-        language: {
-          value: 'is'
         },
 
         route: {
@@ -140,10 +136,6 @@
       observers: [
         '_routePageChanged(routeData.page)'
       ],
-
-      attached: function() {
-        this.loadResources(this.resolveUrl('locales.json'));
-      },
 
       _translationLoaded: function () {
         if (this.localize) {

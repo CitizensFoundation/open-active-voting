@@ -91,6 +91,10 @@
       </template>
     </iron-list>
 
+    <!-- DISABLE THIS FOR PRODUCTION USE -->
+    <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
+    <!-- FAKE LOGIN ENDS -->
+
     <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
     <oav-ajax id="postBallotAjax" method="post" url="/votes/post_ballot" on-response="_ballotPostResponse"></oav-ajax>
   </template>
