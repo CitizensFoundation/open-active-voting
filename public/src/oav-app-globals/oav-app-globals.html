@@ -50,11 +50,11 @@
             value: false
           },
 
-          vote_public_key: {
+          votePublicKey: {
             type: String
           },
 
-          config_from_server: {
+          configFromServer: {
             type: Object
           },
 
@@ -115,8 +115,8 @@
 
         _bootResponse: function (event, detail) {
           this.set('requestInProgress', false);
-          this.set('config_from_server', detail.response.config);
-          this.set('vote_public_key', detail.response.public_key);
+          this.set('configFromServer', detail.response.config);
+          this.set('votePublicKey', detail.response.public_key);
           this.setupGoogleAnalytics(this.config);
           this._removeSplashWithDelay();
         },

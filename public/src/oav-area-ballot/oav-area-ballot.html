@@ -12,6 +12,7 @@
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
 <link rel="import" href="oav-area-ballot-item.html">
+<link rel="import" href="encryption/ballot-encryption-behavior.html">
 
 <dom-module id="oav-area-ballot">
   <style>
@@ -91,6 +92,7 @@
     </iron-list>
 
     <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+    <oav-ajax id="postBallotAjax" method="post" url="/votes/post_ballot" on-response="_ballotPostResponse"></oav-ajax>
   </template>
 
 </dom-module>
@@ -102,7 +104,8 @@
       is: 'oav-area-ballot',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.ballotEncryptionBehavior
       ],
 
       properties: {
@@ -123,9 +126,29 @@
         }
       },
 
+      reset: function () {
+        this.$.budget.reset();
+      },
+
       _addToBudget: function (event) {
         var idea = JSON.parse(event.target.getAttribute('data-idea'));
         this.$.budget.toggleBudgetIdea(idea);
+      },
+
+      _postVote: function () {
+        if (this.$.budget.selectedIdeaIds && this.$.budget.selectedIdeaIds.length>0) {
+          var encryptedVote = this.packVote(this.budget.$.selectedIdeaIds);
+          if (encryptedVote) {
+            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
+            this.$.postBallotAjax.generateRequest();
+          }
+        } else {
+          this.fire('oav-error', this.localize('error_no_ideas_selected'));
+        }
+      },
+
+      _ballotPostResponse: function (event, detail) {
+        this.reset();
       },
 
       _randomImage: function () {

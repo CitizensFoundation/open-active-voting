@@ -104,6 +104,11 @@
         }
       },
 
+      reset: function () {
+        this.set('selectedIdeaIds', []);
+        this.set('selectedBudget', 0);
+      },
+
       toggleBudgetIdea: function (idea) {
         if (this.selectedIdeaIds.indexOf(idea.id) > -1) {
           this.splice('selectedIdeaIds', idea.id);

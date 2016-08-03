@@ -8,7 +8,11 @@
     "error_not_found": "Not found",
     "general_error": "An error has occurred, we have been notified",
     "error_not_authorized": "Not authorized",
-    "error_cant_connect": "Can't connect to server, please try again later"
+    "error_cant_connect": "Can't connect to server, please try again later",
+    "error_invalid_public_key": "Invalid public key",
+    "error_public_key_not_found": "Public key not found",
+    "error_no_ideas_selected": "No ideas selected for vote",
+    "error_encryption": "Encryption error {err}"
   },
   "is": {
     "app_title": "Okkar Kópavogur Kosning",
@@ -19,6 +23,10 @@
     "error_not_found": "Fannst ekki",
     "general_error": "Villa hefur komið upp, við höfum verið látin vita",
     "error_not_authorized": "Þú hefur ekki aðgang",
-    "error_cant_connect": "Get ekki tengst vefþjóni, vinsamlegast prófaðu síðar"
+    "error_cant_connect": "Get ekki tengst vefþjóni, vinsamlegast prófaðu síðar",
+    "error_invalid_public_key": "Dulkóðunarlykill ekki í lagi",
+    "error_public_key_not_found": "Dulkóðunarlykill fannst ekki",
+    "error_no_ideas_selected": "Það eru engar hugmyndir valdar í kosningu",
+    "error_encryption": "Dulkóðunarvilla {err}"
   }
 }
