@@ -77,27 +77,10 @@
       return retObj;
     },
 
-    parseVotesFromList: function (ul_name) {
-      var votes = "";
-      $(ul_name).each(function(index) {
-        $(this).find('li').each(function(){
-          if ($(this).hasClass("selected")) {
-            //alert($(this).attr('id') + ': ' + $(this).text());
-            votes += $(this).attr('id').split("_")[1];
-            votes += ",";
-          }
-        });
-      });
-      return votes;
-    },
-
-    packVote: function () {
+    packVote: function (selectedIdeaIds) {
       var encryptedVote;
-      // Read vote selection directly from the UL list, to ensure that they are sent to the server the same way as the user sees them
-      var votes_left = parseVotesFromList('#options_left');
-      var votes_right = parseVotesFromList('#options_right');
 
-      var vote = "["+"["+votes_left+votes_right+"]"+"]";
+      var vote = selectedIdeaIds.toJSON();
 
       var params = certParser(this.publicKey2048);
 

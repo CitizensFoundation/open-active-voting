@@ -8,7 +8,6 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
@@ -96,8 +95,7 @@
 
   <template>
     <div class="ideaContent">
-      <iron-image sizing="cover"
-                  src="[[idea.imageUrl]]">
+      <iron-image sizing="cover" src="[[idea.imageUrl]]">
       </iron-image>
       <div class="name">[[idea.name]]</div>
       <div class="layout horizontal center-center">
@@ -118,23 +116,14 @@
       is: 'oav-area-ballot-item',
 
       behaviors: [
-        Polymer.appHelpers,
-        Polymer.AppLocalizeBehavior
+        Polymer.appHelpers
       ],
 
       properties: {
 
         idea: {
           type: Object
-        },
-
-        language: {
-          value: 'is'
         }
-      },
-
-      attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
       }
     })
   })();

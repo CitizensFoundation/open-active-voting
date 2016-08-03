@@ -8,7 +8,6 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
@@ -103,8 +102,7 @@
       is: 'oav-area-ballot',
 
       behaviors: [
-        Polymer.appHelpers,
-        Polymer.AppLocalizeBehavior
+        Polymer.appHelpers
       ],
 
       properties: {
@@ -119,13 +117,9 @@
           observer: '_areaIdChanged'
         },
 
-        idRoutePath: {
+        areaIdRoutePath: {
           type: Object,
-          observer: '_idRoutePathChanged'
-        },
-
-        language: {
-          value: 'is'
+          observer: '_areaIdRoutePathChanged'
         }
       },
 
@@ -156,7 +150,7 @@
         return myRandomImages[randomNum];
       },
 
-      _idRoutePathChanged: function (newPathForId) {
+      _areaIdRoutePathChanged: function (newPathForId) {
         if (newPathForId) {
           this.set('areaId', newPathForId.path.slice(1));
         }
@@ -214,10 +208,6 @@
             price: 1.5, imageUrl: this._randomImage()}
         ];
         this.set('ballot', detail.response);
-      },
-
-      attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
       }
     })
   })();
