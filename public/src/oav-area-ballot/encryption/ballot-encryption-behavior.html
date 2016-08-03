@@ -2,17 +2,9 @@
 
 <script>
   /**
-   * @polymerBehavior oavAreaBallotEncryptionBehavior
+   * @polymerBehavior ballotEncryptionBehavior
    */
   Polymer.ballotEncryptionBehavior = {
-
-    properties: {
-      loggedInUser: {
-        type: Object,
-        notify: true,
-        value: null
-      }
-    },
 
     certParser: function (cert) {
       var lines = cert.split('\n');
