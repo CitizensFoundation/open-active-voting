@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../bower_components/paper-map-info/paper-map-info.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
@@ -87,19 +89,28 @@
         <paper-material elevation="3" class="mapContainer">
           <google-map id="map" api-key="AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0" fit-to-markers>
             <template is="dom-repeat" items="[[ideas]]" as="idea">
-              <google-map-marker latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker">
-                <a href="#!/idea/[[idea.id]]" target="_blank">[[idea.name]]</a>
+              <google-map-marker click-events latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
               </google-map-marker>
             </template>
           </google-map>
         </paper-material>
       </template>
 
+      <paper-map-info id="myinfocard" fade-in>
+        <div class="layout vertical">
+          <div style="width:100%; background-color: blue; font-weight: bold; color: white; padding: 5px;">[[selectedIdea.name]]</div>
+          <div class="layout vertical" style="border: 2px solid blue; padding: 5px;">
+            <paper-button raised on-tap="booking">Velja</paper-button>
+          </div>
+        </div>
+      </paper-map-info>
+
       <template is="dom-if" if="[[noIdeas]]">
         <paper-material elevation="3" class="noMapContainer">
           <h1>[[t('ideas.noMapIdeas')]]</h1>
         </paper-material>
       </template>
+    </div>
   </template>
 
   <script>
@@ -116,10 +127,19 @@
           value: null
         },
 
+        selectedIdea: {
+          type: Object
+        },
+
         noIdeas: {
           type: Boolean,
           value: false
         }
+      },
+
+      markerClick: function(e) {
+        this.set('selectedIdea', e.model.get('idea'));
+        this.$.myinfocard.showInfoWindow(e.srcElement.marker);
       }
 
     });
