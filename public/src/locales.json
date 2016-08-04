@@ -14,7 +14,8 @@
     "error_no_ideas_selected": "No ideas selected for vote",
     "error_encryption": "Encryption error {err}",
     "ideas_list": "Ideas list",
-    "ideas_on_map": "Ideas on map"
+    "ideas_on_map": "Ideas on map",
+    "ballot_area_name": "Choose ideas for {area_name}"
   },
   "is": {
     "app_title": "Okkar Kópavogur Kosning",
@@ -31,6 +32,7 @@
     "error_no_ideas_selected": "Það eru engar hugmyndir valdar í kosningu",
     "error_encryption": "Dulkóðunarvilla {err}",
     "ideas_list": "Hugmyndalisti",
-    "ideas_on_map": "Hugmyndir á korti"
+    "ideas_on_map": "Hugmyndir á korti",
+    "ballot_area_name": "Veldu hugmyndir fyrir {area_name}"
   }
 }

@@ -90,18 +90,26 @@
       <oav-area-budget id="budget"></oav-area-budget>
     </div>
 
-    <paper-tabs>
+    <paper-tabs selected="{{selectedView}}">
       <paper-tab>{{localize('ideas_list')}}</paper-tab>
       <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
     </paper-tabs>
 
-    <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
-      <template>
-        <div class="ideaContainer">
-          <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
-        </div>
-      </template>
-    </iron-list>
+    <iron-pages role="main" selected="{{selectedView}}">
+      <section>
+        <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
+          <template>
+            <div class="ideaContainer">
+              <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
+            </div>
+          </template>
+        </iron-list>
+      </section>
+      <section>
+
+      </section>
+    </iron-pages>
+
 
     <div class="votingButtonContainer">
       <paper-button on-tap="_postVoteToServer">{{localize('vote')}}</paper-button>
