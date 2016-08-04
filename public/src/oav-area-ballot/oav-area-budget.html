@@ -6,15 +6,16 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="oav-area-budget">
-  <style>
+  <style include="iron-flex iron-flex-alignment">
 
     :host {
       width: 100%;
     }
 
-    .votesContainer {
+    .budgetContainer {
       height: 300px;
       width: 100%;
       @apply(--layout-horizontal);
@@ -22,12 +23,18 @@
       background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
     }
 
+    .budgetMaterial {
+      width: 960px;
+      background-color: #fff;
+      height: 203px;
+      margin: 10px 0px;
+      @apply(--layout-vertical);
+    }
+
     #votes {
       width: 960px;
       background-color: #fff;
-      height: 100px;
-      margin: 10px 0px;
-      padding: 1px;
+      height: 120px;
       @apply(--layout-horizontal);
     }
 
@@ -57,16 +64,40 @@
       font-size: 16px;
       text-transform:capitalize;
     }
+
+    .budgetRuler {
+      background-color: var(--paper-green-700);
+      color: #FFF;
+      font-size: 18px;
+      padding: 8px;
+      padding-bottom: 16px;
+    }
+
+    .budgetHeader {
+      background-color: var(--paper-green-800);
+      color: #FFF;
+      font-size: 26px;
+      padding: 12px;
+    }
   </style>
 
   <template>
 
-      <div class="votesContainer">
-        <paper-material elevation="5" id="votes"></paper-material>
-      </div>
-
-    <div class="totalBudget">[[totalBudget]]</div>   <div class="selectedBudget">[[selectedBudget]]</div>
-
+    <div class="budgetContainer">
+      <paper-material elevation="5" class="budgetMaterial">
+        <div class="budgetHeader layout horizontal center-center">
+          <div>[[areaName]]</div>
+        </div>
+        <div class="budgetRuler layout horizontal justified">
+          <div>0m</div>
+          <div>6m</div>
+          <div>12.5m</div>
+          <div>19m</div>
+          <div>25m</div>
+        </div>
+        <div id="votes"></div>
+      </paper-material>
+    </div>
   </template>
 
 </dom-module>
@@ -78,7 +109,8 @@
       is: 'oav-area-budget',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -86,6 +118,11 @@
         selectedIdeaIds: {
           type: Array,
           value: []
+        },
+
+        areaName: {
+          type: String,
+          value: "Kársnes"
         },
 
         selectedBudget: {

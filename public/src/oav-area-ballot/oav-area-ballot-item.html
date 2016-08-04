@@ -102,7 +102,7 @@
         <div class="price">[[idea.price]]m</div>
       </div>
       <div class="addButton">
-        <paper-button class="addButton" data-idea$="[[idea]]" raised on-tap="_addToBudget">Velja</paper-button>
+        <paper-button class="addButton" raised on-tap="_addToBudget">Velja</paper-button>
       </div>
     </div>
   </template>
@@ -116,7 +116,8 @@
       is: 'oav-area-ballot-item',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -124,6 +125,10 @@
         idea: {
           type: Object
         }
+      },
+
+      _addToBudget: function (event) {
+        this.fire('oav-toggle-idea-in-budget', { idea: this.idea });
       }
     })
   })();

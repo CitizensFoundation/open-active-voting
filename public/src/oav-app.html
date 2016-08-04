@@ -29,7 +29,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="oav-behaviors/app-helpers.html">
 
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
@@ -110,7 +110,8 @@
       is: 'oav-app',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -132,10 +133,13 @@
         'app-resources-loaded': '_translationLoaded'
       },
 
-
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('locales.json'));
+      },
 
       _translationLoaded: function () {
         if (this.localize) {
