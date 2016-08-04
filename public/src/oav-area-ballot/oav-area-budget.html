@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
 <dom-module id="oav-area-budget">
   <style>
@@ -22,7 +23,7 @@
     }
 
     #votes {
-      border: 5px solid #eee;
+
       width: 960px;
       background-color: #fff;
       height: 100px;
@@ -61,9 +62,10 @@
 
   <template>
 
-    <div class="votesContainer">
-      <div id="votes"></div> <br>
-    </div>
+      <div class="votesContainer">
+        <paper-material elevation="5" id="votes">
+        </paper-material>
+      </div>
 
     <div class="totalBudget">[[totalBudget]]</div>   <div class="selectedBudget">[[selectedBudget]]</div>
 
