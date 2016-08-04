@@ -36,7 +36,9 @@ class VotesController < ApplicationController
       Rails.cache.write(request.session_options[:id],params[:ssn])
     end
 
-    redirect_to "/votes/select_area"
+     respond_to do |format|
+       format.json { render :json => [:ok => true ]}
+     end
   end
 
   def help_info
