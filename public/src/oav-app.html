@@ -29,6 +29,8 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="oav-behaviors/app-helpers.html">
 
@@ -39,7 +41,7 @@
 
   <template>
 
-    <style>
+    <style include="iron-flex iron-flex-alignment">
 
       :host {
         display: block;
@@ -91,8 +93,22 @@
 
       <app-header condenses reveals effects="waterfall">
         <app-toolbar>
-          <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-          <div title>{{localize('app_title')}}</div>
+          <div class="layout horizontal justified">
+            <div>
+              <div hidden$="[[!showExit]]" class="layout horizontal">
+                <paper-icon-button icon="close" on-tap="_exitToMenu"></paper-icon-button>
+              </div>
+              <div>
+                {{localize('app_title')}}
+              </div>
+            </div>
+            <div class="">
+              <div title>[[title]]</div>
+            </div>
+            <div>
+              <paper-icon-button icon="help-outline"></paper-icon-button>
+            </div>
+          </div>
         </app-toolbar>
       </app-header>
 
@@ -125,17 +141,27 @@
         route: {
           type: String,
           observer: '_routeChanged'
+        },
+
+        title: {
+          type: String,
+          value: "Veldu hverfi"
         }
 
       },
 
       listeners: {
-        'app-resources-loaded': '_translationLoaded'
+        'app-resources-loaded': '_translationLoaded',
+        'oav-set-title': '_setTitle'
       },
 
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
+      _setTitle: function (event, detail) {
+        this.set('title', detail);
+      },
 
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));

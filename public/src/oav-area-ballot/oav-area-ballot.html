@@ -19,33 +19,14 @@
 <dom-module id="oav-area-ballot">
   <style>
 
+    :host {
+      background-color: var(--paper-green-700);
+    }
+
     iron-list {
-      margin-top: 90px;
+      margin-top: 32px;
       padding-bottom: 16px;
-    }
-
-    @media (max-width: 800px) {
-      .ideaContainer {
-        width: calc(50% - 16px);
-      }
-
-      .ideaContent {
-        width: auto;
-      }
-    }
-
-    @media (max-width: 400px) {
-      iron-list {
-        margin-top: 72px;
-      }
-
-      .ideaContainer {
-        width: 100%;
-      }
-
-      .ideaContent > .detail {
-        opacity: 1;
-      }
+      background-color: #21b851;
     }
 
     .name {
@@ -69,7 +50,7 @@
       position: absolute;
       bottom: 16px;
       right: 8px;
-      background-color: #006C32;
+      background-color: #F00;
       color: #FFF;
     }
 
@@ -82,45 +63,60 @@
       position: absolute;
       bottom: 16px;
     }
+
+    .topContainer {
+      background-color: #21b851;
+      color: #FFF;
+    }
+
+    paper-tabs {
+      margin-top: 16px;
+    }
+
+    paper-tab {
+      font-size: 19px !important;
+    }
   </style>
 
   <template>
 
-    <div class="budgetContainer">
-      <oav-area-budget id="budget"></oav-area-budget>
+    <div class="topContainer">
+      <div class="budgetContainer">
+        <oav-area-budget id="budget"></oav-area-budget>
+      </div>
+
+      <paper-tabs selected="{{selectedView}}">
+        <paper-tab>{{localize('ideas_list')}}</paper-tab>
+        <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
+      </paper-tabs>
+
+      <iron-pages role="main" selected="{{selectedView}}">
+        <section>
+          <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
+            <template>
+              <div class="ideaContainer">
+                <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
+              </div>
+            </template>
+          </iron-list>
+        </section>
+        <section>
+
+        </section>
+      </iron-pages>
+
+
+      <div class="votingButtonContainer">
+        <paper-button on-tap="_postVoteToServer">{{localize('vote')}}</paper-button>
+      </div>
+
+      <!-- DISABLE THIS FOR PRODUCTION USE -->
+      <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
+      <!-- FAKE LOGIN ENDS -->
+
+      <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+      <oav-ajax id="postBallotAjax" method="post" url="/votes/post_ballot" on-response="_ballotPostResponse"></oav-ajax>
     </div>
-
-    <paper-tabs selected="{{selectedView}}">
-      <paper-tab>{{localize('ideas_list')}}</paper-tab>
-      <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
-    </paper-tabs>
-
-    <iron-pages role="main" selected="{{selectedView}}">
-      <section>
-        <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
-          <template>
-            <div class="ideaContainer">
-              <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
-            </div>
-          </template>
-        </iron-list>
-      </section>
-      <section>
-
-      </section>
-    </iron-pages>
-
-
-    <div class="votingButtonContainer">
-      <paper-button on-tap="_postVoteToServer">{{localize('vote')}}</paper-button>
-    </div>
-
-    <!-- DISABLE THIS FOR PRODUCTION USE -->
-    <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
-    <!-- FAKE LOGIN ENDS -->
-
-    <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
-    <oav-ajax id="postBallotAjax" method="post" url="/votes/post_ballot" on-response="_ballotPostResponse"></oav-ajax>
   </template>
 
 </dom-module>
@@ -156,6 +152,11 @@
         areaIdRoutePath: {
           type: Object,
           observer: '_areaIdRoutePathChanged'
+        },
+
+        selectedView: {
+          type: Number,
+          value: 0
         }
       },
 
@@ -263,6 +264,7 @@
             price: 1.5, imageUrl: this._randomImage()}
         ];
         this.set('ballot', detail.response);
+        this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', "Kársnes"));
       }
     })
   })();
