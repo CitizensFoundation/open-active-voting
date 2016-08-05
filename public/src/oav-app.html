@@ -121,6 +121,7 @@
       <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
         <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
         <oav-area-ballot area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+        <oav-voting-completed name="voting-completed"></oav-voting-completed>
       </iron-pages>
       <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
@@ -176,7 +177,7 @@
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('locales.json'));
+        this.loadResources(this.resolveUrl('./locales.json'));
       },
 
       _translationLoaded: function () {

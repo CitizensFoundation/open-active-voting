@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+
+<dom-module id="oav-voting-completed">
+  <style include="iron-flex iron-flex-alignment">
+
+    paper-material {
+      background-color: var(--paper-green-700);
+      color: #FFF;
+      font-size: 28px;
+      margin: 48px;
+      padding: 48px;
+      max-width: 300px;
+    }
+
+  </style>
+
+  <template>
+    <div class="layout vertical center-center">
+      <paper-material class="layout vertical center-center" elevation="3">
+        <div>
+          <div>Kosningu er lokið.</div>
+          <div>Dreifa á Facebook...</div>
+        </div>
+      </paper-material>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-voting-completed',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ]
+    })
+  })();
+
+</script>
+

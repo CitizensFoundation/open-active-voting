@@ -15,6 +15,7 @@
 <link rel="import" href="oav-area-budget.html">
 <link rel="import" href="oav-area-ballot-item.html">
 <link rel="import" href="encryption/ballot-encryption-behavior.html">
+<link rel="import" href="oav-ideas-map.html">
 
 <dom-module id="oav-area-ballot">
   <style>
@@ -101,7 +102,7 @@
           </iron-list>
         </section>
         <section>
-
+          <oav-ideas-map></oav-ideas-map>
         </section>
       </iron-pages>
 
@@ -184,6 +185,7 @@
 
       _ballotPostResponse: function (event, detail) {
         this.reset();
+        window.location = "/#/voting-completed"
       },
 
       _randomImage: function () {

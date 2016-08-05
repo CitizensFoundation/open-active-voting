@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 <link rel="import" href="../../bower_components/paper-map-info/paper-map-info.html">
 
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
@@ -12,7 +14,7 @@
 
 <dom-module id="oav-ideas-map">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
         width: 100%;
@@ -23,6 +25,7 @@
         margin: 24px;
         width: 960px;
         height: 500px;
+        margin-top: 48px;
       }
 
       .noMapContainer {
@@ -83,11 +86,10 @@
       }
 
     </style>
-
     <div class="layout vertical center-center">
       <template is="dom-if" if="[[ideas]]">
         <paper-material elevation="3" class="mapContainer">
-          <google-map id="map" api-key="AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0" fit-to-markers>
+          <google-map id="map" api-key="[[apiKey]]" fit-to-markers>
             <template is="dom-repeat" items="[[ideas]]" as="idea">
               <google-map-marker click-events latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
               </google-map-marker>
@@ -118,13 +120,17 @@
       is: 'oav-ideas-map',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
         ideas: {
           type: Array,
-          value: null
+          value: [
+                  {id: 2, name: 'Blha blah', location: {latitude: 64.0802717180623, longitude: -21.8183755874634}},
+                  {id: 3, name: 'Blha blah', location: {latitude: 64.1097408274391, longitude: -21.8556046485901}},
+          ]
         },
 
         selectedIdea: {
@@ -134,6 +140,12 @@
         noIdeas: {
           type: Boolean,
           value: false
+        },
+
+        apiKey: {
+          type: String,
+//          value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
+          value: null
         }
       },
 
