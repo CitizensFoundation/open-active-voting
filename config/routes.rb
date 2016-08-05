@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "votes/ballot"
   get "votes/get_areas"
+  get "votes/boot"
   get "votes/get_ballot"
   post "votes/post_vote"
   get "votes/logout_and_information"

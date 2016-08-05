@@ -74,7 +74,7 @@
     }
 
     paper-tab {
-      font-size: 19px !important;
+      font-size: 22px !important;
     }
   </style>
 
@@ -115,7 +115,7 @@
       <!-- FAKE LOGIN ENDS -->
 
       <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
-      <oav-ajax id="postBallotAjax" method="post" url="/votes/post_ballot" on-response="_ballotPostResponse"></oav-ajax>
+      <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
     </div>
   </template>
 
@@ -134,7 +134,8 @@
       ],
 
       listeners: {
-        'oav-toggle-idea-in-budget': '_toggleIdeaInBudget'
+        'oav-toggle-idea-in-budget': '_toggleIdeaInBudget',
+        'oav-submit-vote': '_postVoteToServer'
       },
 
       properties: {
@@ -170,13 +171,14 @@
 
       _postVoteToServer: function () {
         if (this.$.budget.selectedIdeaIds && this.$.budget.selectedIdeaIds.length>0) {
-          var encryptedVote = this.encryptVote(this.budget.$.selectedIdeaIds);
+          var encryptedVote = this.encryptVote(this.$.budget.selectedIdeaIds);
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
             this.$.postBallotAjax.generateRequest();
           }
         } else {
           this.fire('oav-error', this.localize('error_no_ideas_selected'));
+          console.error('error_no_ideas_selected');
         }
       },
 

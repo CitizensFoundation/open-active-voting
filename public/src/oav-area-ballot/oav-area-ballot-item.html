@@ -81,7 +81,7 @@
 
     paper-fab.addButton {
       position: absolute;
-      bottom: 16px;
+      bottom: 12px;
       right: 16px;
       background-color: var(--paper-yellow-a400);
       color: #333;
@@ -99,6 +99,18 @@
     .addButton {
 
     }
+
+    .infoIcon {
+      color: #ddd;
+      width: 45px;
+      height: 45px;
+    }
+
+    .infoLink {
+      position: absolute;
+      bottom: 4px;
+      left: 130px;
+    }
   </style>
 
   <template>
@@ -108,6 +120,11 @@
       <div class="name">[[idea.name]]</div>
       <div class="layout horizontal center-center">
         <div class="price">[[idea.price]]m</div>
+      </div>
+      <div class="infoLink">
+        <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
+          <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
+        </a>
       </div>
       <div class="addButton">
         <paper-fab mini elevation="5" class="addButton" icon="add" on-tap="_addToBudget">Velja</paper-fab>

@@ -34,6 +34,7 @@
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="oav-behaviors/app-helpers.html">
 
+<link rel="import" href="oav-app-globals/oav-app-globals.html">
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
 
@@ -121,7 +122,7 @@
         <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
         <oav-area-ballot area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
       </iron-pages>
-
+      <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
 
   <script>
@@ -157,12 +158,18 @@
 
       listeners: {
         'app-resources-loaded': '_translationLoaded',
-        'oav-set-title': '_setTitle'
+        'oav-set-title': '_setTitle',
+        'oav-error': '_errorHandler'
       },
 
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
+      _errorHandler: function (event, detail) {
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("errorDialog");
+        dialog.showErrorDialog(detail);
+      },
 
       _setTitle: function (event, detail) {
         this.set('title', detail);
