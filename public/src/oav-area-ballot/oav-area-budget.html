@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
@@ -99,13 +100,13 @@
   </style>
 
   <template>
-
+    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
     <div class="budgetContainer">
       <paper-material elevation="5" class="budgetMaterial">
         <div class="budgetRuler layout horizontal justified">
-          <div>0m</div>
-          <div>12.5m</div>
-          <div>25m</div>
+          <div>0[[_millionWord]]</div>
+          <div>12.5[[_millionWord]]</div>
+          <div>25[[_millionWord]]</div>
         </div>
         <div id="votes">
           <div id="noIdeas" class="layout horizontal center-center noIdeasInfo" hidden$="[[!noSelectedIdeas]]">
@@ -171,12 +172,24 @@
         votesWidth: {
           type: Number,
           value: 960
+        },
+
+        wide: {
+          type: Boolean
         }
       },
 
       observers: [
         '_selectedIdeaIdsChanged(selectedIdeaIds.*)'
       ],
+
+      _millionWord: function () {
+        if (this.wide) {
+          return this.localize('million');
+        } else {
+          return this.localize('million_short');
+        }
+      },
 
       _submitVote: function () {
         this.fire('oav-submit-vote');

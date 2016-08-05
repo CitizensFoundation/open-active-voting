@@ -1,5 +1,6 @@
 {
   "en": {
+    "welcome_title": "Okkar Kópavogur voting - choose neighborhood",
     "app_title": "Our Kópavogur Budget Vote",
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
@@ -17,9 +18,17 @@
     "ideas_on_map": "Ideas on map",
     "ballot_area_name": "Choose projects for {area_name}",
     "selected_ideas_info": "You have selected {number_of_ideas} for a total of {selectedBudget} millions",
-    "no_ideas_selected": "No ideas selected"
+    "no_ideas_selected": "No ideas selected",
+    "voting_completed": "Your vote has been received",
+    "add_to_budget": "Add to budget",
+    "thank_you_1": "Thank you!",
+    "thank_you_2": "Your vote has been received and you have been logged out.",
+    "thank_you_3": "You can vote as often as you like while the vote is open, from 25. August to 2. of September. Your last vote is the one that counts.",
+    "million": "million",
+    "million_short": "m."
   },
   "is": {
+    "welcome_title": "Okkar Kópavogur kosning - veldu hverfi",
     "app_title": "Okkar Kópavogur Kosning",
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
@@ -37,6 +46,13 @@
     "ideas_on_map": "Hugmyndir á korti",
     "ballot_area_name": "Veldu verkefni fyrir {area_name}",
     "selected_ideas_info": "Þú hefur valið {number_of_ideas} verkefni fyrir samtals {selectedBudget} milljónir",
-    "no_ideas_selected": "Engin verkefni valin..."
+    "no_ideas_selected": "Engin verkefni valin...",
+    "voting_completed": "Atkvæði þitt hefur verið móttekið",
+    "add_to_budget": "Bæta við verkefni",
+    "thank_you_1": "Takk fyrir!",
+    "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
+    "thank_you_3": "Þú getur kosið eins oft og þú vilt á meðan kosningin er opin, dagana 25. ágúst - 2. september. Síðasta atkvæðið þitt er það sem gildir.",
+    "million": "milljón",
+    "million_short": "mkr"
   }
 }

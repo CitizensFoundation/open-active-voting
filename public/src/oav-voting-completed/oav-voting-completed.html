@@ -1,12 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-
+<link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
@@ -20,14 +17,21 @@
       max-width: 300px;
     }
 
+    .smaller {
+      font-size: 20px;
+      padding-top: 16px;
+    }
+
   </style>
 
   <template>
     <div class="layout vertical center-center">
       <paper-material class="layout vertical center-center" elevation="3">
-        <div>
-          <div>Kosningu er lokið.</div>
-          <div>Dreifa á Facebook...</div>
+        <div class="layout vertical center-center">
+          <div>{{localize('thank_you_1')}}</div>
+          <div class="smaller">{{localize('thank_you_2')}}</div>
+          <div class="smaller">{{localize('thank_you_3')}}</div>
+          <div class="smaller">Dreifa á Facebook...</div>
         </div>
       </paper-material>
     </div>
