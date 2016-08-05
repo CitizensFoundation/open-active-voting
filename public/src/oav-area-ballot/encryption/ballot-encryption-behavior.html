@@ -83,7 +83,6 @@
             var rsa = new pidCrypt.RSA();
             //RSA encryption
             //ASN1 parsing
-            debugger;
             var asn = pidCrypt.ASN1.decode(pidCryptUtil.toByteArray(key));
             //alert(asn);
             var tree = asn.toHexTree();
