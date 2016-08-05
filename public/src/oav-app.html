@@ -78,6 +78,13 @@
       .drawer-list a.subroute {
         padding-left: 32px;
       }
+
+      app-toolbar {
+      }
+
+      .title {
+        font-size: 24px;
+      }
     </style>
 
     <oav-dialog-container id="dialogContainer"></oav-dialog-container>
@@ -92,22 +99,20 @@
     <!-- Main content -->
 
       <app-header condenses reveals effects="waterfall">
-        <app-toolbar>
-          <div class="layout horizontal justified">
-            <div>
-              <div hidden$="[[!showExit]]" class="layout horizontal">
-                <paper-icon-button icon="close" on-tap="_exitToMenu"></paper-icon-button>
-              </div>
-              <div>
-                {{localize('app_title')}}
-              </div>
-            </div>
-            <div class="">
-              <div title>[[title]]</div>
+        <app-toolbar class="layout horizontal justified">
+          <div class="layout horizontal">
+            <div hidden$="[[!showExit]]" class="layout horizontal">
+              <paper-icon-button icon="close" on-tap="_exitToMenu"></paper-icon-button>
             </div>
             <div>
-              <paper-icon-button icon="help-outline"></paper-icon-button>
+
             </div>
+          </div>
+          <div class="title">
+            <div title>[[title]]</div>
+          </div>
+          <div>
+            <paper-icon-button icon="help-outline"></paper-icon-button>
           </div>
         </app-toolbar>
       </app-header>

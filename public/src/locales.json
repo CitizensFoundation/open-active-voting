@@ -3,8 +3,8 @@
     "app_title": "Our Kópavogur Budget Vote",
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
-    "choose_a_neighbourhood": "You can only vote on projects in one borough",
-    "choose_a_neighbourhood_2": "Choose a borough by clicking on the map",
+    "choose_a_neighbourhood": "Choose a borough by clicking on the map, you can only vote on projects in one borough",
+    "choose_a_neighbourhood_2": "",
     "error_not_found": "Not found",
     "general_error": "An error has occurred, we have been notified",
     "error_not_authorized": "Not authorized",
@@ -15,14 +15,15 @@
     "error_encryption": "Encryption error {err}",
     "ideas_list": "Ideas list",
     "ideas_on_map": "Ideas on map",
-    "ballot_area_name": "Choose ideas for {area_name}"
+    "ballot_area_name": "Choose projects for {area_name}",
+    "selected_ideas_info": "You have selected {number_of_ideas} for a total of {selectedBudget} millions"
   },
   "is": {
     "app_title": "Okkar Kópavogur Kosning",
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
-    "choose_a_neighbourhood": "Þú getur aðeins kosið um framkvæmdir í einu hverfi",
-    "choose_a_neighbourhood_2": "Veldu hverfi með því að smella á kortið",
+    "choose_a_neighbourhood": "Veldu hverfi með því að smella á kortið, þú getur aðeins kosið um verkefni í einu hverfi",
+    "choose_a_neighbourhood_2": "",
     "error_not_found": "Fannst ekki",
     "general_error": "Villa hefur komið upp, við höfum verið látin vita",
     "error_not_authorized": "Þú hefur ekki aðgang",
@@ -33,6 +34,7 @@
     "error_encryption": "Dulkóðunarvilla {err}",
     "ideas_list": "Hugmyndalisti",
     "ideas_on_map": "Hugmyndir á korti",
-    "ballot_area_name": "Veldu hugmyndir fyrir {area_name}"
+    "ballot_area_name": "Veldu verkefni fyrir {area_name}",
+    "selected_ideas_info": "Þú hefur valið {number_of_ideas} verkefni fyrir samtals {selectedBudget} milljónir"
   }
 }

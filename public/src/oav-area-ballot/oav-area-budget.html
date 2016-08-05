@@ -26,15 +26,15 @@
     .budgetMaterial {
       width: 960px;
       background-color: #fff;
-      height: 203px;
+      height: 220px;
       margin: 10px 0px;
       @apply(--layout-vertical);
     }
 
     #votes {
       width: 960px;
-      background-color: #888;
-      height: 120px;
+      background-color: #b9b9b9;
+      height: 110px;
       @apply(--layout-horizontal);
     }
 
@@ -70,7 +70,9 @@
       color: #FFF;
       font-size: 18px;
       padding: 8px;
-      padding-bottom: 16px;
+      padding-bottom: 8px;
+      padding-right: 16px;
+      padding-left: 16px;
     }
 
     .budgetHeader {
@@ -78,6 +80,23 @@
       color: #FFF;
       font-size: 26px;
       padding: 12px;
+    }
+
+    .info {
+      background-color: var(--paper-green-700);
+      padding: 8px;
+      font-size: 19px;
+    }
+
+    paper-button.voteButton {
+      background-color: var(--paper-yellow-a400);
+      color: #333;
+      margin: 8px;
+    }
+
+    .selectedInfo {
+      padding-top: 4px;
+      font-size: 20px;
     }
   </style>
 
@@ -87,12 +106,19 @@
       <paper-material elevation="5" class="budgetMaterial">
         <div class="budgetRuler layout horizontal justified">
           <div>0m</div>
-          <div>6m</div>
           <div>12.5m</div>
-          <div>19m</div>
           <div>25m</div>
         </div>
         <div id="votes"></div>
+        <div class="info layout horizontal">
+          <div class="flex layout vertical">
+            <div>Kjóstu þín verkefni í fjárhagsáætlun fyrir Kársnes</div>
+            <div class="selectedInfo">{{localize("selected_ideas_info", "number_of_ideas", selectedIdeaIds.length, "selectedBudget", selectedBudget)}}</div>
+          </div>
+          <div class="end-justified">
+            <paper-button raised class="voteButton">Kjósa!</paper-button>
+          </div>
+        </div>
       </paper-material>
     </div>
   </template>
