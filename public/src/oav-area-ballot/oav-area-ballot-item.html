@@ -23,6 +23,27 @@
       margin: 16px;
     }
 
+    .ideaSelectedFrame {
+      background: transparent;
+      border: none;
+      width: 294px;
+      height: 314px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .buttons {
+      z-index: 5;
+    }
+
+    .ideaSelectedFrame[selected] {
+      background: transparent;
+      border: solid 3px;
+      border-color: var(--paper-yellow-a700);
+    }
+
     .ideaContent:hover .detail{
       opacity: 1;
     }
@@ -80,7 +101,7 @@
       color: var(--paper-yellow-a200);
     }
 
-    paper-fab.addButton {
+    paper-fab.addRemoveButton {
       position: absolute;
       bottom: 12px;
       right: 16px;
@@ -101,7 +122,7 @@
       background-color: #888;
     }
 
-    .addButton {}
+    .addRemoveButton {}
 
     .infoIcon {
       color: #ddd;
@@ -113,11 +134,18 @@
       position: absolute;
       bottom: 4px;
       left: 130px;
+      z-index: 5px;
+    }
+
+    paper-fab.removeButton {
+      background-color: var(--paper-green-500);
+      color: #FFF;
     }
   </style>
 
   <template>
     <paper-material elevation="2" class="ideaContent">
+      <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <iron-image sizing="cover" src="[[idea.imageUrl]]">
       </iron-image>
       <div class="name">[[idea.name]]</div>
@@ -129,9 +157,9 @@
           <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
         </a>
       </div>
-      <div class="addButton">
-        <paper-fab mini elevation="5" class="addButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
-        <paper-fab mini elevation="5" class="addButton remove" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
+      <div class="buttons">
+        <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
+        <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
     </paper-material>
   </template>

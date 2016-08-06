@@ -221,7 +221,6 @@
           var selectedIdeaIds = _.map(this.$.budget.selectedIdeas, function (idea) {
             return idea.id;
           });
-          debugger;
           var encryptedVote = this.encryptVote(selectedIdeaIds);
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
