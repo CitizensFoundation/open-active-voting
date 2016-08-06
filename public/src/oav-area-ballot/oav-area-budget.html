@@ -9,6 +9,8 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
+<link rel="import" href="../../bower_components/lodash-element/lodash.js.html">
+
 <dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
 
@@ -117,7 +119,7 @@
           <div class="flex layout vertical">
             <div>Kjóstu þín verkefni í fjárhagsáætlun fyrir Kársnes</div>
             <template is="dom-if" if="[[selectedBudget]]">
-              <div class="selectedInfo">{{localize("selected_ideas_info", "number_of_ideas", selectedIdeaIds.length, "selectedBudget", selectedBudget)}}</div>
+              <div class="selectedInfo">{{localize("selected_ideas_info", "number_of_ideas", selectedIdeas.length, "selectedBudget", selectedBudget)}}</div>
             </template>
           </div>
           <div class="">
@@ -180,7 +182,7 @@
       },
 
       observers: [
-        '_selectedIdeasChanged(selectedIdeas.*)'
+        '_selectedIdeasChanged(selectedIdeas.splices)'
       ],
 
       attached: function() {
@@ -200,8 +202,8 @@
         this.fire('oav-submit-vote');
       },
 
-      _selectedIdeasChanged: function (newValue) {
-        if (newValue && newValue.base.length>0) {
+      _selectedIdeasChanged: function () {
+        if (this.selectedIdeas && this.selectedIdeas.length>0) {
           this.set('noSelectedIdeas', false);
           this.$.votingButton.disabled = false;
         } else {
@@ -214,33 +216,47 @@
         while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noIdeas') {
           this.$.votes.removeChild(this.$.votes.lastChild);
         }
-        this.set('selectedIdeaIds', []);
+        this.set('selectedIdeas', []);
         this.set('selectedBudget', 0);
+      },
+
+      _removeIdeaFromArray: function (idea) {
+        var newArray = [];
+        this.selectedIdeas.forEach(function (i) {
+          if (i.id!=idea.id) {
+            newArray.push(i);
+          }
+        });
+        this.set('selectedIdeas', newArray);
       },
 
       toggleBudgetIdea: function (idea) {
         if (this.selectedIdeas.indexOf(idea) > -1) {
-          this.splice('selectedIdeas', idea);
+          this._removeIdeaFromArray(idea);
           var selectedIdeaDiv = this.$$("#idea_id_"+idea.id);
+          console.log("SELECTED: "+selectedIdeaDiv.id);
           selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
           this.set('selectedBudget', this.selectedBudget - idea.price);
         } else {
-          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget));
-          this.push('selectedIdeas', idea);
-          var image = document.createElement("iron-image");
-          image.src = idea.imageUrl;
-          image.setAttribute("sizing", "cover");
-          image.setAttribute('alt', idea.name);
-          image.setAttribute('title', idea.name);
-          image.addEventListener('tap',this._removeIdea);
-          image.title= idea.name;
-          image.style.width = ideaWidth + 'px';
-          image.style.cursor = 'pointer';
-          image.id = "idea_id_"+idea.id;
-          image.style.height = '100px';
-         // selectedIdea.appendChild(image);
-          this.$.votes.appendChild(image);
-          this.set('selectedBudget', this.selectedBudget + idea.price);
+          if (this.selectedBudget+idea.price<=this.totalBudget) {
+            var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget));
+            this.push('selectedIdeas', idea);
+            var image = document.createElement("iron-image");
+            image.src = idea.imageUrl;
+            image.setAttribute("sizing", "cover");
+            image.setAttribute('alt', idea.name);
+            image.setAttribute('title', idea.name);
+            image.addEventListener('tap',this._removeIdea);
+            image.title= idea.name;
+            image.style.width = ideaWidth + 'px';
+            image.style.cursor = 'pointer';
+            image.id = "idea_id_"+idea.id;
+            image.style.height = '100px';
+            this.$.votes.appendChild(image);
+            this.set('selectedBudget', this.selectedBudget + idea.price);
+          } else {
+            this.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
+          }
         }
       },
 

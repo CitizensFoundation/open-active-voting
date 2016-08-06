@@ -34,7 +34,8 @@
     "iron-list": "~1.3.5",
     "paper-tabs": "~1.6.2",
     "google-map": "~1.1.11",
-    "paper-map-info": "~1.0.8"
+    "paper-map-info": "~1.0.8",
+    "lodash-import": "~0.0.2"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
