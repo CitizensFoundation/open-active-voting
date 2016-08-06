@@ -101,9 +101,7 @@
       background-color: #888;
     }
 
-    .addButton {
-
-    }
+    .addButton {}
 
     .infoIcon {
       color: #ddd;
@@ -132,7 +130,8 @@
         </a>
       </div>
       <div class="addButton">
-        <paper-fab mini elevation="5" class="addButton" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="add" on-tap="_addToBudget"></paper-fab>
+        <paper-fab mini elevation="5" class="addButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
+        <paper-fab mini elevation="5" class="addButton remove" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
     </paper-material>
   </template>
@@ -151,7 +150,6 @@
       ],
 
       properties: {
-
         idea: {
           type: Object
         },
@@ -187,7 +185,7 @@
         this.loadResources(this.resolveUrl('../locales.json'));
       },
 
-      _addToBudget: function (event) {
+      _toggleInBudget: function (event) {
         this.fire('oav-toggle-idea-in-budget', { idea: this.idea });
       }
     })

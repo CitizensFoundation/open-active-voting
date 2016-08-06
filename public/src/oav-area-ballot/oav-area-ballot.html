@@ -11,6 +11,8 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 
+<link rel="import" href="../../bower_components/lodash-element/lodash.js.html">
+
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
 <link rel="import" href="oav-area-ballot-item.html">
@@ -204,17 +206,23 @@
         var listItems = this.$$("#ironList").$$("#items");
         for (var i = 1; i < listItems.children.length; i++) {
           var listIdea = listItems.children[i].children[0];
-          if (listIdea.idea.price<=budgetLeft) {
-            listIdea.setNotToExpensive();
-          } else {
-            listIdea.setToExpensive();
+          if (!listIdea.selectedInBudget) {
+            if (listIdea.idea.price<=budgetLeft) {
+              listIdea.setNotToExpensive();
+            } else {
+              listIdea.setToExpensive();
+            }
           }
         }
       },
 
       _postVoteToServer: function () {
-        if (this.$.budget.selectedIdeaIds && this.$.budget.selectedIdeaIds.length>0) {
-          var encryptedVote = this.encryptVote(this.$.budget.selectedIdeaIds);
+        if (this.$.budget.selectedIdeas && this.$.budget.selectedIdeas.length>0) {
+          var selectedIdeaIds = _.map(this.$.budget.selectedIdeas, function (idea) {
+            return idea.id;
+          });
+          debugger;
+          var encryptedVote = this.encryptVote(selectedIdeaIds);
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
             this.$.postBallotAjax.generateRequest();
