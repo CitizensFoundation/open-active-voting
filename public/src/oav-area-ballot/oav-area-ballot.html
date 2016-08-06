@@ -94,7 +94,7 @@
       <template is="dom-if" if="[[ballot.budget_ballot_ideas]]" restamp>
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
-            <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
+            <iron-list id="ironList" items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
               <template>
                 <div class="ideaContainer">
                   <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
@@ -137,7 +137,9 @@
 
       listeners: {
         'oav-toggle-idea-in-budget': '_toggleIdeaInBudget',
-        'oav-submit-vote': '_postVoteToServer'
+        'oav-submit-vote': '_postVoteToServer',
+        'oav-idea-selected-in-budget': '_ideaSelectedInBudget',
+        'oav-idea-de-selected-from-budget': '_ideaDeSelectedFromBudget'
       },
 
       properties: {
@@ -173,6 +175,41 @@
 
       _toggleIdeaInBudget: function (event, detail) {
         this.$.budget.toggleBudgetIdea(detail.idea);
+      },
+
+      _ideaSelectedInBudget: function (event, detail) {
+        var listItems = this.$$("#ironList").$$("#items");
+        for (var i = 1; i < listItems.children.length; i++) {
+          var listIdea = listItems.children[i].children[0];
+          if (listIdea.idea.id == detail.ideaId) {
+            listIdea.setInBudget();
+          }
+        }
+        this._setStateOfRemainingIdeas();
+      },
+
+      _ideaDeSelectedFromBudget: function (event, detail) {
+        var listItems = this.$$("#ironList").$$("#items");
+        for (var i = 1; i < listItems.children.length; i++) {
+          var listIdea = listItems.children[i].children[0];
+          if (listIdea.idea.id == detail.ideaId) {
+            listIdea.removeFromBudget();
+          }
+        }
+        this._setStateOfRemainingIdeas();
+      },
+
+      _setStateOfRemainingIdeas: function () {
+        var budgetLeft = this.$.budget.totalBudget-this.$.budget.selectedBudget;
+        var listItems = this.$$("#ironList").$$("#items");
+        for (var i = 1; i < listItems.children.length; i++) {
+          var listIdea = listItems.children[i].children[0];
+          if (listIdea.idea.price<=budgetLeft) {
+            listIdea.setNotToExpensive();
+          } else {
+            listIdea.setToExpensive();
+          }
+        }
       },
 
       _postVoteToServer: function () {

@@ -88,6 +88,10 @@
       color: #333;
     }
 
+    paper-fab[disabled] {
+      background-color: #999;
+    }
+
     .budgetContainer {
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
@@ -128,7 +132,7 @@
         </a>
       </div>
       <div class="addButton">
-        <paper-fab mini elevation="5" class="addButton" title="{{localize('add_to_budget')}}" icon="add" on-tap="_addToBudget"></paper-fab>
+        <paper-fab mini elevation="5" class="addButton" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="add" on-tap="_addToBudget"></paper-fab>
       </div>
     </paper-material>
   </template>
@@ -150,7 +154,33 @@
 
         idea: {
           type: Object
+        },
+
+        selectedInBudget: {
+          type: Boolean,
+          value: false
+        },
+
+        toExpensiveForBudget: {
+          type: Boolean,
+          value: false
         }
+      },
+
+      setInBudget: function () {
+        this.set('selectedInBudget', true);
+      },
+
+      removeFromBudget: function () {
+        this.set('selectedInBudget', false);
+      },
+
+      setToExpensive: function () {
+        this.set('toExpensiveForBudget', true);
+      },
+
+      setNotToExpensive: function () {
+        this.set('toExpensiveForBudget', false);
       },
 
       attached: function() {

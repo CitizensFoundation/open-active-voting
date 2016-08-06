@@ -237,6 +237,7 @@
           console.log("SELECTED: "+selectedIdeaDiv.id);
           selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
           this.set('selectedBudget', this.selectedBudget - idea.price);
+          this.fire('oav-idea-de-selected-from-budget', { ideaId: idea.id });
         } else {
           if (this.selectedBudget+idea.price<=this.totalBudget) {
             var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget));
@@ -254,6 +255,7 @@
             image.style.height = '100px';
             this.$.votes.appendChild(image);
             this.set('selectedBudget', this.selectedBudget + idea.price);
+            this.fire('oav-idea-selected-in-budget', { ideaId: idea.id });
           } else {
             this.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
           }
