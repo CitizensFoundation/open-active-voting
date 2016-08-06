@@ -110,9 +110,6 @@
             <div hidden$="[[!showExit]]" class="layout horizontal">
               <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
             </div>
-            <div>
-
-            </div>
           </div>
           <div class="title">
             <div>[[title]]</div>
@@ -223,7 +220,9 @@
           }
         } else {
           this.set('showExit', false);
-          this.set('title', this.localize('welcome_title'));
+          if (this.localize) {
+            this.set('title', this.localize('welcome_title'));
+          }
         }
       }
     });

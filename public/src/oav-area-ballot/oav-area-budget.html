@@ -288,10 +288,9 @@
         image.className = '.ideaInBudget';
         image.style.width = ideaWidth + 'px';
         image.style.cursor = 'pointer';
-        if (this.selectedIdeas.length>1) {
-          image.style.borderLeft = 'solid 4px';
-          image.style.borderLeftColor = '#ffd600';
-        }
+        image.style.borderLeft = 'solid 2px';
+        image.style.borderRight = 'solid 2px';
+        image.style.borderColor = '#ffd600';
         image.id = "idea_id_"+idea.id;
         if (this.wide) {
           image.style.height = '100px';
