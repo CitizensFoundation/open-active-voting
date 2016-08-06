@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/lodash-element/lodash.js.html">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <script src='../../bower_components/moment/min/moment-with-locales.min.js'></script>
 
@@ -19,18 +18,10 @@
    */
   Polymer.appHelpers = {
 
-    behaviors: [
-      Polymer.AppLocalizeBehavior
-    ],
-
     properties: {
       language: {
         value: 'is'
       }
-    },
-
-    attached: function() {
-      this.loadResources(this.resolveUrl('../locales.json'));
     },
 
     getLocale: function () {

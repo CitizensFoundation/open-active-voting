@@ -49,7 +49,11 @@
       behaviors: [
         Polymer.appHelpers,
         Polymer.AppLocalizeBehavior
-      ]
+      ],
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      }
     })
   })();
 

@@ -153,6 +153,10 @@
         }
       },
 
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      },
+
       _addToBudget: function (event) {
         this.fire('oav-toggle-idea-in-budget', { idea: this.idea });
       }

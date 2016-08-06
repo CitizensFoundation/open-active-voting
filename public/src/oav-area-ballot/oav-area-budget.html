@@ -104,9 +104,9 @@
     <div class="budgetContainer">
       <paper-material elevation="5" class="budgetMaterial">
         <div class="budgetRuler layout horizontal justified">
-          <div>0[[_millionWord]]</div>
-          <div>12.5[[_millionWord]]</div>
-          <div>25[[_millionWord]]</div>
+          <div>0[[_millionWord()]]</div>
+          <div>12.5[[_millionWord()]]</div>
+          <div>25[[_millionWord()]]</div>
         </div>
         <div id="votes">
           <div id="noIdeas" class="layout horizontal center-center noIdeasInfo" hidden$="[[!noSelectedIdeas]]">
@@ -143,7 +143,7 @@
 
       properties: {
 
-        selectedIdeaIds: {
+        selectedIdeas: {
           type: Array,
           value: [],
           notify: true
@@ -180,14 +180,19 @@
       },
 
       observers: [
-        '_selectedIdeaIdsChanged(selectedIdeaIds.*)'
+        '_selectedIdeasChanged(selectedIdeas.*)'
       ],
 
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      },
+
       _millionWord: function () {
+        var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         if (this.wide) {
-          return this.localize('million');
+          return localizeMethod('million');
         } else {
-          return this.localize('million_short');
+          return localizeMethod('million_short');
         }
       },
 
@@ -195,7 +200,7 @@
         this.fire('oav-submit-vote');
       },
 
-      _selectedIdeaIdsChanged: function (newValue) {
+      _selectedIdeasChanged: function (newValue) {
         if (newValue && newValue.base.length>0) {
           this.set('noSelectedIdeas', false);
           this.$.votingButton.disabled = false;
@@ -214,14 +219,14 @@
       },
 
       toggleBudgetIdea: function (idea) {
-        if (this.selectedIdeaIds.indexOf(idea.id) > -1) {
-          this.splice('selectedIdeaIds', idea.id);
+        if (this.selectedIdeas.indexOf(idea) > -1) {
+          this.splice('selectedIdeas', idea);
           var selectedIdeaDiv = this.$$("#idea_id_"+idea.id);
           selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
           this.set('selectedBudget', this.selectedBudget - idea.price);
         } else {
-          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-10;
-          this.push('selectedIdeaIds', idea.id);
+          var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget));
+          this.push('selectedIdeas', idea);
           var image = document.createElement("iron-image");
           image.src = idea.imageUrl;
           image.setAttribute("sizing", "cover");

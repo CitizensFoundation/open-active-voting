@@ -91,21 +91,22 @@
         <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
       </paper-tabs>
 
-      <iron-pages role="main" selected="{{selectedView}}">
-        <section>
-          <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
-            <template>
-              <div class="ideaContainer">
-                <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
-              </div>
-            </template>
-          </iron-list>
-        </section>
-        <section>
-          <oav-ideas-map></oav-ideas-map>
-        </section>
-      </iron-pages>
-
+      <template is="dom-if" if="[[ballot.budget_ballot_ideas]]" restamp>
+        <iron-pages role="main" selected="{{selectedView}}">
+          <section>
+            <iron-list items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
+              <template>
+                <div class="ideaContainer">
+                  <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
+                </div>
+              </template>
+            </iron-list>
+          </section>
+          <section>
+            <oav-ideas-map></oav-ideas-map>
+          </section>
+        </iron-pages>
+      </template>
 
       <div class="votingButtonContainer">
         <paper-button on-tap="_postVoteToServer">{{localize('vote')}}</paper-button>
@@ -160,6 +161,10 @@
           type: Number,
           value: 0
         }
+      },
+
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
       },
 
       reset: function () {
@@ -268,7 +273,8 @@
             price: 2.0, imageUrl: this._randomImage()}
         ];
         this.set('ballot', detail.response);
-        this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', "Kársnes"));
+        var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
+        this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', "Kársnes"));
       }
     })
   })();

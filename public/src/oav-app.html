@@ -194,7 +194,9 @@
       },
 
       _translationLoaded: function () {
-        document.title = this.localize('app_title');
+        if (this.localize) {
+          document.title = this.localize('app_title');
+        }
       },
 
       _routeChanged: function (route) {
