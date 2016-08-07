@@ -18,8 +18,6 @@
 
 require 'digest/sha1'
 require 'nokogiri'
-require 'soap/rpc/driver'
-require 'soap/wsdlDriver'
 require 'base64'
 
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
