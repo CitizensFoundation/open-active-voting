@@ -7,6 +7,8 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
@@ -18,7 +20,7 @@
     .ideaContent {
       @apply(--layout-vertical);
       position: relative;
-      width: 300px;
+      width: 300px !important;
       height: 320px;
       margin: 16px;
     }
@@ -119,8 +121,8 @@
     .infoLink {
       position: absolute;
       bottom: 4px;
-      left: 130px;
-      z-index: 5px;
+      left: 75px;
+      z-index: 5;
     }
 
     paper-fab.removeButton {
@@ -132,8 +134,7 @@
   <template>
     <paper-material elevation="2" class="ideaContent">
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
-      <iron-image sizing="cover" src="[[idea.imageUrl]]">
-      </iron-image>
+      <iron-image sizing="cover" src="[[idea.imageUrl]]"></iron-image>
       <div class="name">[[idea.name]]</div>
       <div class="layout horizontal center-center">
         <div class="price">[[idea.price]]m</div>
@@ -142,6 +143,8 @@
         <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
           <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
         </a>
+        <paper-icon-button class="infoIcon" icon="description"></paper-icon-button>
+        <paper-icon-button class="infoIcon" icon="maps:place"></paper-icon-button>
       </div>
       <div class="buttons">
         <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
