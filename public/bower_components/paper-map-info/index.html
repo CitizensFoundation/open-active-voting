@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+</head>
+<body unresolved>
+  <h1>paper-map-info</h1>
+<p>An element that displays a <paper-material> backed infowindow-like card on a <google-map> element at the position of a map marker.</p>
+  <h2>WHY!?</h2>
+<p>In its current implementation (as of June 2016) the native infowindow does not support event handlers, so interactive infowindows are out.  For example:</p>
+<pre><code>
+&lt;google-map-marker ...&gt;
+  &lt;paper-button on-tap="makeReservation"&gt;Reserve&lt;/paper-button&gt;
+  ...
+&lt;/google-map-marker&gt;
+</code></pre>
+<p>This will not work because the on-tap binding is lost when the infowindow is built. There is an issue open <a href="https://github.com/GoogleWebComponents/google-map/issues/288">#288</a>, but as of now it is not resolved.</p>
+<p>If you don't need event handlers in the infowindow <i>use the native infowindow</i>.  If you do, this element may help you.</p>
+
+<h2>Usage</h2>
+Add the required references
+<code><pre>
+  &lt;script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"&gt;
+  &lt;link rel-"import" href="bower_components/polymer/polymer.html" /&gt;
+  &lt;link rel-"import" href="bower_components/polymer-ts/polymer-ts.html" /&gt;
+  &lt;link rel-"import" href="bower_components/paper-map-info/paper-map-info.html" /&gt;
+</pre></code>
+
+<p>Include the paper-map-info element in your google-map:</p>
+<pre><code>
+  &lt;google-map latitude="40.7555" longitude="-73.985" on-google-map-ready="_mapReady" fit-to-markers&gt;
+    &lt;template is="dom-repeat" items="[[friends]]" as="f"&gt;
+      &lt;google-map-marker click-events latitude="[[f.lat]]" longitude="[[f.lng]]" on-google-map-marker-click="_markerClick"&gt;
+      &lt;/google-map-marker&gt;
+    &lt;/template&gt;
+    &lt;paper-map-info id="myinfocard"&gt;
+      &lt;div class="layout horizontal"&gt;
+        &lt;img src$="[[selectedFriend.picture]]" alt$="[[selectedFriend.name]]" &gt;
+        &lt;paper-icon-button icon="communication:chat" on-tap="_startFriendChat"&gt;&lt;/paper-icon-button&gt;
+      &lt;/div&gt;
+    &lt;/paper-map-info&gt;
+  &lt;/google-map&gt;
+</code></pre>
+<p>Handle the events:</p>
+<pre><code>
+  _markerClick: function(e) {
+    this.selectedFriend = e.model.get('f');
+    this.$.myinfocard.showInfoWindow(e.srcElement.marker);
+  },
+  _startFriendChat: function(e) {
+    ... do something with this.selectedFriend to chat
+  }
+</code></pre>
+<h2>API</h2>
+<h3>Properties</h3>
+<h4>elevation</h4>
+<p>Passed through to the paper-material background.</p>
+<h4>fadeIn, fade-in in markup</h4>
+<p>Defaults to false. When true the info card fades in, when false it just appears.</p>
+<h3>Methods</h3>
+<h4>showInfoWindow(marker: google.maps.Marker): void</h4>
+<p>Opens the info card at the given google.maps.Marker's position.</p>
+<p>If the info card is open on another marker, that window is closed, then the window is opened on the new marker. If due  to the position of the
+  marker, part of the info card is outside the map display, the map is panned to bring the info card into view. If the marker is dragged, the
+  info card goes with the marker. If the map is panned, or zoomed the card goes with the marker.</p>
+<h4>close(): void</h4>
+<p>Closes the info card.</p>
+<h3>Styling</h3>
+<p>You can customize the paper-material background using the --paper-map-info-mixin.
+  You can customize the style of the beak (pointer from the card to the pin) with --paper-map-info-beak-mixin.
+  Or even replace the default beak entirely with:</p>
+  <pre><code>
+    &lt;div class="paper-map-info-beak"&gt;
+      ... your image or svg here ...
+    &lt;/div&gt;
+  </code></pre>
+<p>inside the content of the paper-map-info.</p>
+<h2>Demo</h2>
+<p>Please see the <a href="demo/index.html">demo page</a>.</p>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>paper-map-info Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../polymer-ts/polymer-ts.html" />
+  <link rel="import" href="../paper-map-info.html">
+  <link rel="import" href="../../google-map/google-map.html" />
+  <link rel="import" href="../../paper-icon-button/paper-icon-button.html" />
+  <link rel="import" href="../../iron-icons/iron-icons.html" />
+  <link rel="import" href="../../iron-icons/social-icons.html" />
+  <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html" />
+  <link rel="import" href="../../paper-icon-button/paper-icon-button.html" />
+
+  <style>
+
+  </style>
+</head>
+
+<body unresolved>
+  <dom-module is="sample-tag">
+    <template>
+      <style>
+        :host {
+          display: block;
+        }
+        google-map {
+          width: 500px;
+          height: 400px;
+        }
+      </style>
+      <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors iron-positioning"></style>
+
+      <google-map map="{{map}}" latitude="40.7555" longitude="-73.985" on-google-map-ready="_mapReady" fit-to-markers>
+        <template is="dom-repeat" items="[[meetings]]" as="meeting">
+          <google-map-marker click-events latitude="[[meeting.latLng.lat]]" longitude="[[meeting.latLng.lng]]" on-google-map-marker-click="_markerClick" on-google-map-marker-open="_markerOpen">
+          </google-map-marker>
+        </template>
+        <paper-map-info id="myinfocard" fade-in>
+          <div class="layout verticle">
+            <div style="width:100%; background-color: blue; font-weight: bold; color: white; padding: 5px 5px 5px 9px;">[[meeting.place]]</div>
+            <div class="layout verticle" style="border: 2px solid blue; padding: 5px 5px 5px 9px;">
+              <template is="dom-repeat" items="[[meeting.schedule]]" as="sch">
+                <div class="layout horizontal">
+                  <paper-icon-button id="[[sch.meetingId]]" icon="social:person-add" on-tap="_attending"></paper-icon-button>
+                  <span>[[sch.meetingTime]]</span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </paper-map-info>
+      </google-map>
+      <template is="dom-repeat" items="[[attending]]" as="a">
+        <div>You are confirmed for a meeting at [[a.place]], [[a.meetingTime]]</div>
+      </template>
+    </template>
+
+    <script>
+      HTMLImports.whenReady(function() {
+        Polymer({
+
+          is: 'sample-tag',
+
+          properties: {
+
+            map: {
+              type: Object
+            },
+
+            meetings: {
+              type: Array,
+              notify: true
+            },
+            meeting: {
+              type: Object,
+              notify: true
+            },
+            attending: {
+              type: Array,
+              notify: true,
+              value: function() {
+                return [];
+              }
+            }
+          },
+
+          ready: function() {
+            this.meetings = [{
+              locationId: "a20",
+              latLng: {
+                lat: 40.750454,
+                lng: -73.993519
+              },
+              place: "Pen Station / Madison Square Garden",
+              schedule: [{
+                meetingId: "m120",
+                meetingTime: "07/01/2017 10:00am"
+              }, {
+                meetingId: "m125",
+                meetingTime: "07/05/2017 2:00pm"
+              }, {
+                meetingId: "m130",
+                meetingTime: "07/31/2017 11:00am"
+              }]
+            }, {
+              locationId: "a22",
+              latLng: {
+                lat: 40.761449,
+                lng: -73.977622
+              },
+              place: "MoMA",
+              schedule: [{
+                meetingId: "m121",
+                meetingTime: "07/02/2017 10:30am"
+              }, {
+                meetingId: "m126",
+                meetingTime: "07/06/2017 3:00pm"
+              }, {
+                meetingId: "m131",
+                meetingTime: "07/29/2017 9:30am"
+              }]
+            }, {
+              locationId: "a24",
+              latLng: {
+                lat: 40.74829,
+                lng: -73.985599
+              },
+              place: "Empire State Building",
+              schedule: [{
+                meetingId: "m122",
+                meetingTime: "08/02/2017 10:30am"
+              }, {
+                meetingId: "m127",
+                meetingTime: "08/06/2017 1:00am"
+              }, {
+                meetingId: "m133",
+                meetingTime: "08/29/2017 9:45am"
+              }]
+            }];
+          },
+
+          _mapReady: function(e) {
+            // do any initialization requiring the map to be available
+          },
+
+          _markerClick: function(e) {
+            this.meeting = e.model.get('meeting');
+            this.$.myinfocard.showInfoWindow(e.srcElement.marker);
+          },
+
+          _attending: function(e) {
+            var s = e.model.get('sch');
+            this.push('attending', {
+              place: this.meeting.place,
+              meetingTime: s.meetingTime
+            });
+          }
+
+        });
+      });
+    </script>
+
+  </dom-module>
+
+  <sample-tag></sample-tag>
+
+</body>
+
+</html>

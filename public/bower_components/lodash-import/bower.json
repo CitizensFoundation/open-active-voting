@@ -1,0 +1,30 @@
+{
+  "name": "lodash-import",
+  "version": "0.0.2",
+  "authors": [
+    "XNFA <xnfa2000@gmail.com>"
+  ],
+  "description": "De-dupe the Import of Lodash with HTML Imports, useful for Polymer projects.",
+  "keywords": [
+    "Polymer",
+    "de-dupe",
+    "lodash",
+    "import",
+    "js",
+    "javascript",
+    "library"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "homepage": "https://github.com/xnfa/lodash-import",
+  "main": "lodash.js.html"
+}
