@@ -1,15 +1,12 @@
-GIT
-  remote: https://github.com/rbjarnason/ruby-saml.git
-  revision: 63ce604db2e562eeb25467e7e1655d16bab7d9cb
-  ref: 63ce604db2e562eeb25467e7e1655d16bab7d9cb
+PATH
+  remote: lib/ruby-saml
   specs:
     ruby-saml (0.8.1)
       nokogiri (>= 1.5.0)
       uuid (~> 2.3)
 
-GIT
-  remote: https://github.com/rbjarnason/soap4r.git
-  revision: 7792b4c445825054a703448c2364ae0bdbc42fa0
+PATH
+  remote: lib/soap4r
   specs:
     soap4r (1.5.8)
       httpclient (>= 2.1.1)
