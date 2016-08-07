@@ -146,7 +146,8 @@
         </div>
         <div class="info layout horizontal" wide$="[[wide]]">
           <div class="flex layout vertical">
-            <div>localize('budget_info_text')</div>
+            <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
+            <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
             <template is="dom-if" if="[[selectedBudget]]">
               <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_ideas_info", "number_of_ideas", selectedIdeas.length, "selectedBudget", selectedBudget)}}</div>
               <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_ideas_info_mobile", "number_of_ideas", selectedIdeas.length, "selectedBudget", selectedBudget)}}</div>

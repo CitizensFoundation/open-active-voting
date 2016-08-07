@@ -52,7 +52,7 @@
     "ideas_on_map": "Hugmyndir á korti",
     "ballot_area_name": "Veldu verkefni fyrir {area_name}",
     "selected_ideas_info": "Þú hefur valið {number_of_ideas} verkefni fyrir samtals {selectedBudget} milljónir",
-    "selected_ideas_info_mobile": "{number_of_ideas} verkefni fyrir {selectedBudget} millions",
+    "selected_ideas_info_mobile": "{number_of_ideas} verkefni fyrir {selectedBudget} milljónir",
     "budget_info_text": "Kjóstu þín verkefni í fjárhagsáætlun fyrir {area_name}",
     "budget_info_text_mobile": "Þín verkefni fyrir {area_name}",
     "no_ideas_selected": "Engin verkefni valin...",
