@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-if Rails.env.test? or Rails.env.development?
+if Rails.env.test? or Rails.env.development? or Rails.env.production?
   BudgetConfig.delete_all
   c=BudgetConfig.new
   c.timeout_in_seconds = 20
