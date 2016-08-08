@@ -47,7 +47,7 @@
     .ideaSelectedFrame[selected] {
       background: transparent;
       border: solid 3px;
-      border-color: var(--paper-yellow-a700);
+      border-color: var(--app-accent-color);
     }
 
     iron-image {
@@ -78,9 +78,10 @@
     }
 
     .name {
-      font-size: 21px;
+      font-size: 22px;
       padding-left: 8px;
       padding-right: 8px;
+      padding-top: 8px;
     }
 
     .price {
@@ -88,15 +89,20 @@
       position: absolute;
       bottom: 8px;
       left: 16px;
-      color: var(--paper-yellow-a200);
+      color: var(--app-accent-color);
+    }
+
+    .priceCurrency {
+      font-size: 23px;
+      color: var(--app-accent-color);
     }
 
     paper-fab.addRemoveButton {
       position: absolute;
       bottom: 12px;
       right: 16px;
-      background-color: var(--paper-yellow-a400);
-      color: #333;
+      background-color: var(--app-accent-color);
+      color: #fff;
     }
 
     paper-fab[disabled] {
@@ -109,32 +115,45 @@
     }
 
     .ideaContent {
-      background-color: #888;
+      background-color: #fbfbfb;
+      color: #222;
     }
 
     .addRemoveButton {}
 
     .infoIcon {
-      color: #ddd;
+      color: var(--app-accent-color-light);
       width: 45px;
       height: 45px;
     }
 
     .infoLinks {
       position: absolute;
-      bottom: 4px;
-      left: 80px;
+      top: 118px;
+      right: 0px;
+      z-index: 5;
+    }
+
+    .externalInfoIcon {
+      color: #999;
+      width: 45px;
+      height: 45px;
+    }
+
+    .externalIconContainer {
+      position: absolute;
+      top: 118px;
+      left: 0px;
       z-index: 5;
     }
 
     paper-fab.removeButton {
-      background-color: var(--paper-green-500);
       color: #FFF;
     }
   </style>
 
   <template>
-    <paper-material elevation="2" class="ideaContent">
+    <paper-material elevation="[[elevation]]" class="ideaContent">
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
         <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
@@ -145,23 +164,24 @@
           <div class="description">[[idea.description]]</div>
         </div>
       </iron-pages>
-      <div class="layout horizontal">
-        <div class="name">[[idea.name]]
-          <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
-            <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
-          </a>
-        </div>
-      </div>
-      <div class="layout horizontal center-center">
-        <div class="price">[[idea.price]]m</div>
+      <div class="externalIconContainer">
+        <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
+          <paper-icon-button class="externalInfoIcon" icon="info-outline"></paper-icon-button>
+        </a>
       </div>
       <div class="infoLinks">
         <paper-icon-button class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
+      <div class="layout horizontal">
+        <div class="name">[[idea.name]]</div>
+      </div>
+      <div class="layout vertical center-center">
+        <div class="price">[[idea.price]]<span class="priceCurrency"> milljónir</span></div>
+      </div>
       <div class="buttons">
-        <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
+        <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
     </paper-material>
@@ -185,6 +205,8 @@
           type: Object,
           observer: '_ideaChanged'
         },
+
+        elevation: Number,
 
         budgetElement: {
           type: Object

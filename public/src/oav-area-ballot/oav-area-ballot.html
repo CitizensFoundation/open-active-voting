@@ -29,7 +29,7 @@
     iron-list {
       margin-top: 32px;
       padding-bottom: 16px;
-      background-color: #21b851;
+      background-color: var(--app-main-backround-color);
     }
 
     .name {
@@ -68,16 +68,20 @@
     }
 
     .topContainer {
-      background-color: #21b851;
-      color: #FFF;
+      background-color: var(--app-main-backround-color);
+      color: #333;
     }
 
     paper-tabs {
-      margin-top: 16px;
+      max-width: 100%;
+      margin: 8px;
+      margin-top: 8px;
     }
 
     paper-tab {
       font-size: 22px !important;
+      margin-left: 16px;
+      margin-rigth: 16px;
     }
 
     @media (max-width: 1000px) {
@@ -94,10 +98,12 @@
         <oav-area-budget id="budget"></oav-area-budget>
       </div>
 
-      <paper-tabs selected="{{selectedView}}">
-        <paper-tab>{{localize('ideas_list')}}</paper-tab>
-        <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
-      </paper-tabs>
+      <div class="layout vertical center-justified">
+        <paper-tabs selected="{{selectedView}}">
+          <paper-tab>{{localize('ideas_list')}}</paper-tab>
+          <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
+        </paper-tabs>
+      </div>
 
       <template is="dom-if" if="[[ballot.budget_ballot_ideas]]" restamp>
         <iron-pages role="main" selected="{{selectedView}}">

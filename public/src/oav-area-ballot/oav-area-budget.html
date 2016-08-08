@@ -34,7 +34,7 @@
 
     .budgetMaterial {
       width: 300px;
-      background-color: #fff;
+      background-color: #fbfbfb;
       height: 130px;
       margin: 5px 0px;
       @apply(--layout-vertical);
@@ -50,7 +50,7 @@
 
     #votes {
       width: 300px;
-      background-color: var(--paper-green-100);
+      background-color: #e0e0e0;
       height: 51px;
       @apply(--layout-horizontal);
     }
@@ -61,9 +61,9 @@
     }
 
     .budgetRuler {
-      background-color: var(--paper-green-700);
-      color: #FFF;
-      font-size: 12px;
+      background-color: #fbfbfb;
+      color: #111;
+      font-size: 14px;
       padding: 4px;
       padding-right: 8x;
       padding-left: 8px;
@@ -77,16 +77,17 @@
     }
 
     .budgetHeader {
-      background-color: var(--paper-green-800);
+      background-color: #FFF;
       color: #FFF;
       font-size: 26px;
       padding: 12px;
     }
 
     .info {
-      background-color: var(--paper-green-700);
+      background-color: #fbfbfb;
       padding: 4px;
       font-size: 12px;
+      color: #333;
     }
 
     .info[wide] {
@@ -95,8 +96,8 @@
     }
 
     paper-button.voteButton {
-      background-color: var(--paper-yellow-a400);
-      color: #333;
+      background-color: var(--app-accent-color);
+      color: #fff;
       margin: 8px;
       margin-right: 4px;
     }
@@ -127,7 +128,7 @@
 
     .ideaInBudget {
       border-left: solid 3px;
-      border-left-color: var(--paper-yellow-a700);
+      border-left-color: var(--app-accent-color);
     }
   </style>
 
@@ -136,9 +137,9 @@
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
         <div class="budgetRuler layout horizontal justified" wide$="[[wide]]">
-          <div>0[[_millionWord()]]</div>
-          <div>12.5[[_millionWord()]]</div>
-          <div>25[[_millionWord()]]</div>
+          <div>0 milljónir</div>
+          <div>12.5 milljónir</div>
+          <div>25 milljónir</div>
         </div>
         <div id="votes" wide$="[[wide]]">
           <div id="noIdeas" class="layout horizontal center-center noIdeasInfo" wide$="[[wide]]" hidden$="[[!noSelectedIdeas]]">
@@ -146,7 +147,7 @@
           </div>
         </div>
         <div class="info layout horizontal" wide$="[[wide]]">
-          <div class="flex layout vertical">
+          <div class="flex layout vertical center-center">
             <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
             <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
             <template is="dom-if" if="[[selectedBudget]]">
@@ -292,7 +293,7 @@
         image.style.cursor = 'pointer';
         image.style.borderLeft = 'solid 2px';
         image.style.borderRight = 'solid 2px';
-        image.style.borderColor = '#ffd600';
+        image.style.borderColor = '#ff6500';
         image.id = "idea_id_"+idea.id;
         if (this.wide) {
           image.style.height = '100px';

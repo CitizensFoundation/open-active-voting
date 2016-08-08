@@ -37,6 +37,8 @@
 <link rel="import" href="oav-app-globals/oav-app-globals.html">
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/paper-styles/color.html">
 
 <dom-module id="oav-app">
 
@@ -48,6 +50,11 @@
         display: block;
         --app-primary-color: #006C32;
         --app-secondary-color: black;
+        --app-main-backround-color: #e0e0e0;
+        --app-accent-color: var(--paper-orange-a700);
+        --app-accent-color-light: var(--paper-orange-a200);
+
+        --paper-tabs-selection-bar-color: var(--app-accent-color);
       }
 
       app-header {
