@@ -120,6 +120,10 @@
         }
       },
 
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      },
+
       _response: function (event) {
         this.$.spinner.active = false;
         this.fire('response', event.detail);

@@ -12,6 +12,9 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
+
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
 
@@ -50,9 +53,22 @@
       opacity: 1;
     }
 
-    .ideaContent > iron-image {
+    iron-image {
       height: 169px;
       width: 300px;
+    }
+
+    google-map {
+      height: 169px;
+      width: 300px;
+    }
+
+    .description {
+      height: 169px;
+      width: 300px;
+      padding: 8px;
+      padding-right: 16px;
+      overflow: hidden;
     }
 
     @media (max-width: 800px) {
@@ -134,7 +150,13 @@
   <template>
     <paper-material elevation="2" class="ideaContent">
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
-      <iron-image sizing="cover" src="[[idea.imageUrl]]"></iron-image>
+      <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
+        <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
+        <google-map name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
+
+        </google-map>
+        <div name="description" class="description">[[idea.description]]</div>
+      </iron-pages>
       <div class="name">[[idea.name]]</div>
       <div class="layout horizontal center-center">
         <div class="price">[[idea.price]]m</div>
@@ -143,8 +165,8 @@
         <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
           <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
         </a>
-        <paper-icon-button class="infoIcon" icon="description"></paper-icon-button>
-        <paper-icon-button class="infoIcon" icon="maps:place"></paper-icon-button>
+        <paper-icon-button class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
+        <paper-icon-button class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="buttons">
         <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="check" on-tap="_toggleInBudget"></paper-fab>
@@ -171,6 +193,11 @@
           type: Object
         },
 
+        selectedInfoPanel: {
+          type: String,
+          value: 'image'
+        },
+
         selectedInBudget: {
           type: Boolean,
           value: false
@@ -179,7 +206,19 @@
         toExpensiveForBudget: {
           type: Boolean,
           value: false
+        },
+
+        googleMapsApiKey: {
+          type: String
         }
+      },
+
+      _setMapMode: function () {
+        this.set('selectedInfoPanel', 'map');
+      },
+
+      _setDescriptionMode: function () {
+        this.set('selectedInfoPanel', 'description');
       },
 
       setInBudget: function () {
