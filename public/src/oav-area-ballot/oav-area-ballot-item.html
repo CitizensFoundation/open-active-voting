@@ -133,7 +133,9 @@
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
         <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
-        <google-map name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers></google-map>
+        <google-map zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
+          <google-map-marker latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker"></google-map-marker>
+        </google-map>
         <div name="description" class="descriptionContainer">
           <div class="description">[[idea.description]]</div>
         </div>
