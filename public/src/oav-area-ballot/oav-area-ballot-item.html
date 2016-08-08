@@ -8,6 +8,7 @@
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
@@ -63,38 +64,20 @@
       width: 300px;
     }
 
-    .description {
+    .descriptionContainer {
       height: 169px;
       width: 300px;
-      padding: 8px;
-      padding-right: 16px;
       overflow: hidden;
     }
 
-    @media (max-width: 800px) {
-      .ideaContent {
-        width: auto;
-      }
-    }
+    .description {
+      padding: 8px;
 
-    @media (max-width: 400px) {
-      .ideaContainer {
-        width: 100%;
-      }
-
-      .ideaContent > .detail {
-        opacity: 1;
-      }
     }
 
     .name {
       font-size: 21px;
       padding: 8px;
-    }
-
-    .description {
-      padding-left: 8px;
-      padding-rigth: 8px;
     }
 
     .price {
@@ -153,18 +136,23 @@
       <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
         <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
         <google-map name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
-
         </google-map>
-        <div name="description" class="description">[[idea.description]]</div>
+        <div name="description" class="descriptionContainer">
+          <div class="description">[[idea.description]]</div>
+        </div>
       </iron-pages>
-      <div class="name">[[idea.name]]</div>
+      <div class="layout horizontal">
+        <div class="name">[[idea.name]]
+          <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
+            <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
+          </a>
+        </div>
+      </div>
       <div class="layout horizontal center-center">
         <div class="price">[[idea.price]]m</div>
       </div>
       <div class="infoLink">
-        <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
-          <paper-icon-button class="infoIcon" icon="info-outline"></paper-icon-button>
-        </a>
+        <paper-icon-button class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
@@ -211,6 +199,10 @@
         googleMapsApiKey: {
           type: String
         }
+      },
+
+      _setImageMode: function () {
+        this.set('selectedInfoPanel', 'image');
       },
 
       _setMapMode: function () {
