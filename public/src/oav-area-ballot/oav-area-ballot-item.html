@@ -50,10 +50,6 @@
       border-color: var(--paper-yellow-a700);
     }
 
-    .ideaContent:hover .detail{
-      opacity: 1;
-    }
-
     iron-image {
       height: 169px;
       width: 300px;
@@ -62,22 +58,24 @@
     google-map {
       height: 169px;
       width: 300px;
+      margin-bottom: 7px;
     }
 
     .descriptionContainer {
       height: 169px;
       width: 300px;
       overflow: hidden;
+      margin-bottom: 7px;
     }
 
     .description {
       padding: 8px;
-
     }
 
     .name {
       font-size: 21px;
-      padding: 8px;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
     .price {
@@ -117,10 +115,10 @@
       height: 45px;
     }
 
-    .infoLink {
+    .infoLinks {
       position: absolute;
       bottom: 4px;
-      left: 75px;
+      left: 80px;
       z-index: 5;
     }
 
@@ -135,8 +133,7 @@
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
         <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
-        <google-map name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
-        </google-map>
+        <google-map name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers></google-map>
         <div name="description" class="descriptionContainer">
           <div class="description">[[idea.description]]</div>
         </div>
@@ -151,7 +148,7 @@
       <div class="layout horizontal center-center">
         <div class="price">[[idea.price]]m</div>
       </div>
-      <div class="infoLink">
+      <div class="infoLinks">
         <paper-icon-button class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
@@ -197,7 +194,8 @@
         },
 
         googleMapsApiKey: {
-          type: String
+          type: String,
+          value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
         }
       },
 

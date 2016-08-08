@@ -9,6 +9,8 @@
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 
@@ -35,6 +37,11 @@
       color: #FFF;
     }
 
+    .infoImage {
+      width: 400px;
+      height: 225px;
+      margin-top: 32px;
+    }
   </style>
 
   <template>
@@ -43,6 +50,8 @@
     <template is="dom-if" if="[[areas]]">
 
       <div class="layout vertical center-center">
+        <iron-image sizing="contain" class="infoImage" src="https://yrpri6-production.s3.amazonaws.com/IC/00/wo-retina.png"></iron-image>
+
         <div id='content' class="layout vertical">
           <h3>{{localize('choose_a_neighbourhood')}}</h3>
         </div>
