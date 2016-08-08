@@ -111,7 +111,7 @@
             </iron-list>
           </section>
           <section>
-            <oav-ideas-map ideas="[[ballot.budget_ballot_ideas]]"></oav-ideas-map>
+            <oav-ideas-map id="ideasMap" ideas="[[ballot.budget_ballot_ideas]]"></oav-ideas-map>
           </section>
         </iron-pages>
       </template>
@@ -191,6 +191,7 @@
           var listIdea = listItems.children[i].children[0];
           if (listIdea.idea.id == detail.ideaId) {
             listIdea.setInBudget();
+            this.$$("#ideasMap").setIdeaInBudget(listIdea.idea);
           }
         }
         this._setStateOfRemainingIdeas();
@@ -202,6 +203,7 @@
           var listIdea = listItems.children[i].children[0];
           if (listIdea.idea.id == detail.ideaId) {
             listIdea.removeFromBudget();
+            this.$$("#ideasMap").removeFromBudget(listIdea.idea);
           }
         }
         this._setStateOfRemainingIdeas();
@@ -220,6 +222,7 @@
             }
           }
         }
+        this.$$("#ideasMap").checkIfSelectedIdeaToExpensive(budgetLeft);
       },
 
       _postVoteToServer: function () {
