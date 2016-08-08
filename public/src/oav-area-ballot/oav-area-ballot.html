@@ -105,13 +105,13 @@
             <iron-list id="ironList" items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
               <template>
                 <div class="ideaContainer">
-                  <oav-area-ballot-item tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
+                  <oav-area-ballot-item budget-element="[[budgetElement]]" tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
                 </div>
               </template>
             </iron-list>
           </section>
           <section>
-            <oav-ideas-map id="ideasMap" ideas="[[ballot.budget_ballot_ideas]]"></oav-ideas-map>
+            <oav-ideas-map id="ideasMap" budget-element="[[budgetElement]]" ideas="[[ballot.budget_ballot_ideas]]"></oav-ideas-map>
           </section>
         </iron-pages>
       </template>
@@ -170,11 +170,19 @@
         selectedView: {
           type: Number,
           value: 0
+        },
+
+        budgetElement: {
+          type: Object
         }
       },
 
       attached: function() {
         this.loadResources(this.resolveUrl('../locales.json'));
+      },
+
+      ready: function () {
+        this.set('budgetElement', this.$.budget);
       },
 
       reset: function () {
@@ -216,9 +224,9 @@
           var listIdea = listItems.children[i].children[0];
           if (!listIdea.selectedInBudget) {
             if (listIdea.idea.price<=budgetLeft) {
-              listIdea.setNotToExpensive();
+              listIdea.setNotTooExpensive();
             } else {
-              listIdea.setToExpensive();
+              listIdea.setTooExpensive();
             }
           }
         }

@@ -182,6 +182,11 @@
 
       properties: {
         idea: {
+          type: Object,
+          observer: '_ideaChanged'
+        },
+
+        budgetElement: {
           type: Object
         },
 
@@ -206,6 +211,27 @@
         }
       },
 
+      _ideaChanged: function (newIdea) {
+        if (newIdea) {
+          this.resetFromBudget();
+        }
+      },
+
+      resetFromBudget: function () {
+        if (this.budgetElement.selectedIdeas.indexOf(this.idea) > -1) {
+          this.setInBudget();
+        } else {
+          var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
+          if (this.idea.price>budgetLeft) {
+            this.setTooExpensive()
+          } else {
+            this.setNotTooExpensive()
+          }
+          this.removeFromBudget()
+        }
+        this._setImageMode();
+      },
+
       _setImageMode: function () {
         this.set('selectedInfoPanel', 'image');
       },
@@ -226,11 +252,11 @@
         this.set('selectedInBudget', false);
       },
 
-      setToExpensive: function () {
+      setTooExpensive: function () {
         this.set('toExpensiveForBudget', true);
       },
 
-      setNotToExpensive: function () {
+      setNotTooExpensive: function () {
         this.set('toExpensiveForBudget', false);
       },
 
