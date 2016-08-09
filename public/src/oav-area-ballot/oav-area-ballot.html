@@ -100,10 +100,10 @@
         </paper-tabs>
       </div>
 
-      <template is="dom-if" if="[[ballot.budget_ballot_ideas]]" restamp>
+      <template is="dom-if" if="[[budgetBallotIdeas]]" restamp>
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
-            <iron-list id="ironList" items="[[ballot.budget_ballot_ideas]]" as="idea" scroll-target="document" grid>
+            <iron-list id="ironList" items="[[budgetBallotIdeas]]" as="idea" scroll-target="document" grid>
               <template>
                 <div class="ideaContainer">
                   <oav-area-ballot-item budget-element="[[budgetElement]]" tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
@@ -112,14 +112,10 @@
             </iron-list>
           </section>
           <section>
-            <oav-ideas-map id="ideasMap" budget-element="[[budgetElement]]" ideas="[[ballot.budget_ballot_ideas]]"></oav-ideas-map>
+            <oav-ideas-map id="ideasMap" budget-element="[[budgetElement]]" ideas="[[budgetBallotIdeas]]"></oav-ideas-map>
           </section>
         </iron-pages>
       </template>
-
-      <div class="votingButtonContainer">
-        <paper-button on-tap="_postVoteToServer">{{localize('vote')}}</paper-button>
-      </div>
 
       <!-- DISABLE THIS FOR PRODUCTION USE -->
       <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
@@ -175,7 +171,9 @@
 
         budgetElement: {
           type: Object
-        }
+        },
+
+        budgetBallotIdeas: Array
       },
 
       attached: function() {
@@ -274,7 +272,7 @@
       },
 
       _areaIdRoutePathChanged: function (newPathForId) {
-        if (newPathForId) {
+        if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/area-ballot") {
           this.set('areaId', newPathForId.path.slice(1));
         }
       },
@@ -331,8 +329,12 @@
             location: {latitude: 64.0202717180623, longitude: -21.8783755874634},price: 2.0, imageUrl: this._randomImage()}
         ];
         this.set('ballot', detail.response);
+        this.set('budgetBallotIdeas', detail.response.budget_ballot_ideas);
         var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', "Kársnes"));
+        this.async(function () {
+         this.$$("#ironList").fire('iron-resize');
+        },10);
       }
     })
   })();

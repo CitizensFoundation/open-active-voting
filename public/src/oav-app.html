@@ -38,7 +38,7 @@
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
 <link rel="import" href="oav-area-ballot/oav-area-budget.html">
-<link rel="import" href="oav-area-ballot/oav-area-ballot.html">
+
 
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
@@ -107,6 +107,20 @@
           font-size: 17px;
         }
       }
+
+      .exitIconInBudget {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #FFF;
+      }
+
+      .helpIconInBudget  {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #FFF;
+      }
     </style>
 
     <oav-dialog-container id="dialogContainer"></oav-dialog-container>
@@ -121,7 +135,7 @@
     <!-- Main content -->
     <app-header-layout>
       <app-header reveals effects="waterfall">
-        <app-toolbar class="layout horizontal justified">
+        <app-toolbar class="layout horizontal justified" hidden$="[[!hideBudget]]">
           <div class="layout horizontal">
             <div hidden$="[[!showExit]]" class="layout horizontal">
               <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
@@ -135,16 +149,22 @@
           </div>
         </app-toolbar>
         <div class="budgetContainer" hidden$="[[hideBudget]]">
+          <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
+            <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
+          </div>
+          <div class="helpIconInBudget">
+            <paper-icon-button icon="help-outline"></paper-icon-button>
+          </div>
           <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
       </app-header>
-    <div>
-      <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-        <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
-        <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
-        <oav-voting-completed name="voting-completed"></oav-voting-completed>
-      </iron-pages>
-    </div>
+      <div>
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+          <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
+          <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+          <oav-voting-completed name="voting-completed"></oav-voting-completed>
+        </iron-pages>
+      </div>
     </app-header-layout>
     <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
