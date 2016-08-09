@@ -19,7 +19,7 @@
 <link rel="import" href="oav-ideas-map.html">
 
 <dom-module id="oav-area-ballot">
-  <style>
+  <style include="iron-flex iron-flex-alignment">
 
     :host {
       background-color: var(--paper-green-700);
@@ -71,8 +71,12 @@
       color: #333;
     }
 
+    .tabsContainer {
+      width: 100%;
+    }
+
     paper-tabs {
-      max-width: 100%;
+      width: 100%;
       margin: 8px;
       margin-top: 8px;
     }
@@ -92,15 +96,16 @@
 
   <template>
 
-    <div class="topContainer">
-      <div class="layout vertical center-justified">
-        <paper-tabs selected="{{selectedView}}">
-          <paper-tab>{{localize('ideas_list')}}</paper-tab>
-          <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
-        </paper-tabs>
-      </div>
+    <div class="topContainer layout vertical">
 
       <template is="dom-if" if="[[budgetBallotIdeas]]" restamp>
+        <div class="layout horizontal center-justified tabsContainer">
+          <paper-tabs selected="{{selectedView}}">
+            <paper-tab>{{localize('ideas_list')}}</paper-tab>
+            <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
+          </paper-tabs>
+        </div>
+
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
             <iron-list id="ironList" items="[[budgetBallotIdeas]]" as="idea" scroll-target="document" grid>
@@ -117,12 +122,14 @@
         </iron-pages>
       </template>
 
-      <!-- DISABLE THIS FOR PRODUCTION USE -->
-      <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
-      <!-- FAKE LOGIN ENDS -->
+      <div class="layout horizontal center-center">
+        <!-- DISABLE THIS FOR PRODUCTION USE -->
+        <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
+        <!-- FAKE LOGIN ENDS -->
 
-      <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
-      <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
+        <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+        <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
+      </div>
     </div>
   </template>
 
