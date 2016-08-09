@@ -4,10 +4,12 @@
 
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
@@ -284,25 +286,63 @@
 
       _addIdeaToDiv: function (idea) {
         var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-(1*this.selectedIdeas.length);
+        var container = document.createElement("div");
+        container.id = "idea_id_"+idea.id;
+        if (this.wide) {
+          container.style.height = '100px';
+        } else {
+          container.style.height = '50px';
+        }
+        container.style.width = ideaWidth + 'px';
+        container.backgroundColor = "#F00";
+        container.style.position = "relative";
+        container.style.cursor = "pointer";
+
         var image = document.createElement("iron-image");
         image.src = idea.imageUrl;
         image.setAttribute("sizing", "cover");
         image.setAttribute('alt', idea.name);
         image.setAttribute('title', idea.name);
-        image.addEventListener('tap',this._removeIdea);
         image.title= idea.name;
-        image.style.width = ideaWidth + 'px';
-        image.style.cursor = 'pointer';
         image.style.borderLeft = 'solid 2px';
         image.style.borderRight = 'solid 2px';
         image.style.borderColor = '#ff6500';
-        image.id = "idea_id_"+idea.id;
         if (this.wide) {
           image.style.height = '100px';
         } else {
           image.style.height = '50px';
         }
-        this.$.votes.appendChild(image);
+        image.style.width = ideaWidth + 'px';
+
+        container.appendChild(image);
+
+        var paperIcon = document.createElement("paper-icon-button");
+        paperIcon.setAttribute("icon", "close");
+        paperIcon.icon = "close";
+        paperIcon.style.color = "#FFF";
+        paperIcon.style.height = "42px";
+        paperIcon.style.width = "42px";
+        paperIcon.style.opacity = 0;
+        paperIcon.addEventListener('tap', function () {
+          this._removeIdea(idea.id);
+        }.bind(this));
+        container.appendChild(paperIcon);
+        paperIcon.style.position = "absolute";
+        paperIcon.style.top = 0;
+        paperIcon.style.right = 0;
+
+        container.addEventListener('mouseover', function () {
+          paperIcon.style.opacity = 1;
+        });
+        container.addEventListener('mouseout', function () {
+          paperIcon.style.opacity = 0;
+        });
+
+        container.addEventListener('tap', function () {
+          this._removeIdea(idea.id);
+        }.bind(this));
+
+        this.$.votes.appendChild(container);
       },
 
       _removeIdeaFromDiv: function (idea) {
@@ -329,8 +369,12 @@
         }
       },
 
-      _removeIdea: function (event) {
-        debugger;
+      _removeIdea: function (ideaId) {
+        this.selectedIdeas.forEach(function (idea) {
+          if (idea.id==ideaId) {
+            this.toggleBudgetIdea(idea);
+          }
+        }.bind(this));
       },
 
       convertDots: function (num) {
