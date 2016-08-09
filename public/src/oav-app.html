@@ -37,6 +37,9 @@
 <link rel="import" href="oav-app-globals/oav-app-globals.html">
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
+<link rel="import" href="oav-area-ballot/oav-area-budget.html">
+<link rel="import" href="oav-area-ballot/oav-area-ballot.html">
+
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 
@@ -116,8 +119,8 @@
         tail="{{subroute}}"></app-route>
 
     <!-- Main content -->
-
-      <app-header condenses reveals effects="waterfall">
+    <app-header-layout>
+      <app-header reveals effects="waterfall">
         <app-toolbar class="layout horizontal justified">
           <div class="layout horizontal">
             <div hidden$="[[!showExit]]" class="layout horizontal">
@@ -131,14 +134,19 @@
             <paper-icon-button icon="help-outline"></paper-icon-button>
           </div>
         </app-toolbar>
+        <div class="budgetContainer" hidden$="[[hideBudget]]">
+          <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
+        </div>
       </app-header>
-
+    <div>
       <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
         <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
-        <oav-area-ballot area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+        <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
         <oav-voting-completed name="voting-completed"></oav-voting-completed>
       </iron-pages>
-      <oav-app-globals id="appGlobals"></oav-app-globals>
+    </div>
+    </app-header-layout>
+    <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
 
   <script>
@@ -172,8 +180,15 @@
         showExit: {
           type: Boolean,
           value: false
-        }
+        },
 
+        hideBudget: {
+          type: Boolean,
+          value: true
+        },
+
+        budgetElement: Object,
+        currentBallot: Object
       },
 
       listeners: {
@@ -185,6 +200,11 @@
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
+      ready: function () {
+        this.set('currentBallot', this.$$("#budgetBallot"));
+        this.set('budgetElement', this.$.budget);
+      },
 
       _errorHandler: function (event, detail) {
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("errorDialog");
@@ -236,6 +256,12 @@
           if (this.localize) {
             this.set('title', this.localize('welcome_title'));
           }
+        }
+        if (page && page=='area-ballot') {
+          this.set('currentBallot', this.$$("#budgetBallot"));
+          this.set('hideBudget', false);
+        } else {
+          this.set('hideBudget', true);
         }
       }
     });

@@ -212,7 +212,9 @@
         wide: {
           type: Boolean,
           observer: '_wideChanged'
-        }
+        },
+
+        currentBallot: Object
       },
 
       observers: [
@@ -245,7 +247,7 @@
       },
 
       _submitVote: function () {
-        this.fire('oav-submit-vote');
+        this.currentBallot.fire('oav-submit-vote');
       },
 
       _selectedIdeasChanged: function () {
@@ -314,15 +316,15 @@
           this._removeIdeaFromArray(idea);
           this._removeIdeaFromDiv(idea);
           this.set('selectedBudget', this.selectedBudget - idea.price);
-          this.fire('oav-idea-de-selected-from-budget', { ideaId: idea.id });
+          this.currentBallot.fire('oav-idea-de-selected-from-budget', { ideaId: idea.id });
         } else {
           if (this.selectedBudget+idea.price<=this.totalBudget) {
             this.push('selectedIdeas', idea);
             this._addIdeaToDiv(idea);
             this.set('selectedBudget', this.selectedBudget + idea.price);
-            this.fire('oav-idea-selected-in-budget', { ideaId: idea.id });
+            this.currentBallot.fire('oav-idea-selected-in-budget', { ideaId: idea.id });
           } else {
-            this.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
+            this.currentBallot.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
           }
         }
       },

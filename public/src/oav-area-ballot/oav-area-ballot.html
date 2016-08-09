@@ -14,7 +14,6 @@
 <link rel="import" href="../../bower_components/lodash-element/lodash.js.html">
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
-<link rel="import" href="oav-area-budget.html">
 <link rel="import" href="oav-area-ballot-item.html">
 <link rel="import" href="encryption/ballot-encryption-behavior.html">
 <link rel="import" href="oav-ideas-map.html">
@@ -94,10 +93,6 @@
   <template>
 
     <div class="topContainer">
-      <div class="budgetContainer">
-        <oav-area-budget id="budget"></oav-area-budget>
-      </div>
-
       <div class="layout vertical center-justified">
         <paper-tabs selected="{{selectedView}}">
           <paper-tab>{{localize('ideas_list')}}</paper-tab>
@@ -187,16 +182,12 @@
         this.loadResources(this.resolveUrl('../locales.json'));
       },
 
-      ready: function () {
-        this.set('budgetElement', this.$.budget);
-      },
-
       reset: function () {
-        this.$.budget.reset();
+        this.budgetElement.reset();
       },
 
       _toggleIdeaInBudget: function (event, detail) {
-        this.$.budget.toggleBudgetIdea(detail.idea);
+        this.budgetElement.toggleBudgetIdea(detail.idea);
       },
 
       _ideaSelectedInBudget: function (event, detail) {
@@ -224,7 +215,7 @@
       },
 
       _setStateOfRemainingIdeas: function () {
-        var budgetLeft = this.$.budget.totalBudget-this.$.budget.selectedBudget;
+        var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
         var listItems = this.$$("#ironList").$$("#items");
         for (var i = 1; i < listItems.children.length; i++) {
           var listIdea = listItems.children[i].children[0];
@@ -240,8 +231,8 @@
       },
 
       _postVoteToServer: function () {
-        if (this.$.budget.selectedIdeas && this.$.budget.selectedIdeas.length>0) {
-          var selectedIdeaIds = _.map(this.$.budget.selectedIdeas, function (idea) {
+        if (this.budgetElement.selectedIdeas && this.budgetElement.selectedIdeas.length>0) {
+          var selectedIdeaIds = _.map(this.budgetElement.selectedIdeas, function (idea) {
             return idea.id;
           });
           var encryptedVote = this.encryptVote(selectedIdeaIds);

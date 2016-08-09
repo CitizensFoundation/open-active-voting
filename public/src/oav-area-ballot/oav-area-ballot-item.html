@@ -241,16 +241,18 @@
 
       resetFromBudget: function () {
         console.log("resetFromBudget ideaId: "+this.idea.id);
-        if (this.budgetElement.selectedIdeas.indexOf(this.idea) > -1) {
-          this.setInBudget();
-        } else {
-          var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-          if (this.idea.price>budgetLeft) {
-            this.setTooExpensive()
+        if (this.budgetElement) {
+          if (this.budgetElement.selectedIdeas.indexOf(this.idea) > -1) {
+            this.setInBudget();
           } else {
-            this.setNotTooExpensive()
+            var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
+            if (this.idea.price>budgetLeft) {
+              this.setTooExpensive()
+            } else {
+              this.setNotTooExpensive()
+            }
+            this.removeFromBudget()
           }
-          this.removeFromBudget()
         }
         this._setImageMode();
       },
