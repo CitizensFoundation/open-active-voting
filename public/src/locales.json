@@ -30,7 +30,10 @@
     "thank_you_2": "Your vote has been received and you have been logged out.",
     "thank_you_3": "You can vote as often as you like while the vote is open, from 25. August to 2. of September. Your last vote is the one that counts.",
     "million": "million",
-    "million_short": "m."
+    "million_short": "m.",
+    "image_item_tab": "Idea image",
+    "description_item_tab": "Idea description",
+    "map_item_tab": "Idea location"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur kosning - veldu hverfi",
@@ -63,6 +66,9 @@
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
     "thank_you_3": "Þú getur kosið eins oft og þú vilt á meðan kosningin er opin, dagana 25. ágúst - 2. september. Síðasta atkvæðið þitt er það sem gildir.",
     "million": "milljón",
-    "million_short": "mkr"
+    "million_short": "mkr",
+    "image_item_tab": "Mynd",
+    "description_item_tab": "Útskýring",
+    "map_item_tab": "Hugmynd á korti"
   }
 }

@@ -155,24 +155,24 @@
   <template>
     <paper-material elevation="[[elevation]]" class="ideaContent">
       <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
-      <iron-pages selected="[[selectedInfoPanel]]" attr-for-selected="name">
-        <iron-image name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
-        <google-map zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
+      <div>
+        <iron-image hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
+        <google-map hidden$="[[!mapTabSelected]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
           <google-map-marker latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker"></google-map-marker>
         </google-map>
-        <div name="description" class="descriptionContainer">
+        <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer">
           <div class="description">[[idea.description]]</div>
         </div>
-      </iron-pages>
+      </div>
       <div class="externalIconContainer">
         <a href="https://okkar-kopavogur.betraisland.is/#!/post/7428" target="_blank">
           <paper-icon-button class="externalInfoIcon" icon="info-outline"></paper-icon-button>
         </a>
       </div>
       <div class="infoLinks">
-        <paper-icon-button class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
-        <paper-icon-button class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
-        <paper-icon-button class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
+        <paper-icon-button title="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
+        <paper-icon-button title="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
+        <paper-icon-button title="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
         <div class="name">[[idea.name]]</div>
@@ -212,11 +212,6 @@
           type: Object
         },
 
-        selectedInfoPanel: {
-          type: String,
-          value: 'image'
-        },
-
         selectedInBudget: {
           type: Boolean,
           value: false
@@ -230,6 +225,21 @@
         googleMapsApiKey: {
           type: String,
           value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
+        },
+
+        imageTabSelected: {
+          type: Boolean,
+          value: true
+        },
+
+        descriptionTabSelected: {
+          type: Boolean,
+          value: false
+        },
+
+        mapTabSelected: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -258,15 +268,21 @@
       },
 
       _setImageMode: function () {
-        this.set('selectedInfoPanel', 'image');
+        this.set('imageTabSelected', true);
+        this.set('descriptionTabSelected', false);
+        this.set('mapTabSelected', false);
       },
 
       _setMapMode: function () {
-        this.set('selectedInfoPanel', 'map');
+        this.set('imageTabSelected', false);
+        this.set('descriptionTabSelected', false);
+        this.set('mapTabSelected', true);
       },
 
       _setDescriptionMode: function () {
-        this.set('selectedInfoPanel', 'description');
+        this.set('imageTabSelected', false);
+        this.set('descriptionTabSelected', true);
+        this.set('mapTabSelected', false);
       },
 
       setInBudget: function () {
