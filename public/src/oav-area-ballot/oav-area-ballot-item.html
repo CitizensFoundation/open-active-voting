@@ -240,6 +240,7 @@
       },
 
       resetFromBudget: function () {
+        console.log("resetFromBudget ideaId: "+this.idea.id);
         if (this.budgetElement.selectedIdeas.indexOf(this.idea) > -1) {
           this.setInBudget();
         } else {
@@ -267,18 +268,22 @@
       },
 
       setInBudget: function () {
+        console.log("setInBudget ideaId: "+this.idea.id);
         this.set('selectedInBudget', true);
       },
 
       removeFromBudget: function () {
+        console.log("removeFromBudget ideaId: "+this.idea.id);
         this.set('selectedInBudget', false);
       },
 
       setTooExpensive: function () {
+        console.log("setTooExpensive ideaId: "+this.idea.id);
         this.set('toExpensiveForBudget', true);
       },
 
       setNotTooExpensive: function () {
+        console.log("setNotTooExpensive ideaId: "+this.idea.id);
         this.set('toExpensiveForBudget', false);
       },
 
@@ -287,6 +292,7 @@
       },
 
       _toggleInBudget: function (event) {
+        console.log("_toggleInBudget ideaId: "+this.idea.id);
         this.fire('oav-toggle-idea-in-budget', { idea: this.idea });
       }
     })
