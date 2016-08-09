@@ -182,6 +182,16 @@
 
       reset: function () {
         this.budgetElement.reset();
+        this._resetBallotItems();
+      },
+
+      _resetBallotItems: function () {
+        var listItems = this.$$("#ironList").$$("#items");
+        for (var i = 1; i < listItems.children.length; i++) {
+          var listIdea = listItems.children[i].children[0];
+          listIdea.setNotTooExpensive();
+          listIdea.removeFromBudget();
+        }
       },
 
       _toggleIdeaInBudget: function (event, detail) {
