@@ -191,6 +191,9 @@
       reset: function () {
         this.budgetElement.reset();
         this._resetBallotItems();
+        this.set('budgetBallotIdeas', null);
+        this.set('ballot', null);
+        this.set('areaId', null);
       },
 
       _resetBallotItems: function () {
