@@ -10,6 +10,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 <link rel="import" href="../oav-ajax/oav-ajax.html">
@@ -45,7 +46,13 @@
     .infoImage {
       width: 400px;
       height: 225px;
-      margin-top: 32px;
+    }
+
+    .topMaterial {
+      width: 400px;
+      height: 225px;
+      background-color: #FFF;
+      margin: 32px;
     }
 
     .mainContainer {
@@ -53,7 +60,6 @@
       height: 100%;
       background-color: var(--app-main-backround-color);
     }
-
 
     .imageContainer {
       height: 280px;
@@ -64,16 +70,66 @@
     }
 
     .selectInfoText {
-      font-size: 28px;
-      max-width: 600px;
-      padding: 8px;
-      margin-top: 8px;
+      font-size: 21px;
+      padding: 16px;
+      background-color: var(--app-primary-color);
+      color: #FFF;
+      margin: 0;
     }
 
     .selectInfoTextSmaller {
-      font-size: 24px;
+      font-size: 20px;
       padding-top: 0px;
-      margin-bottom: 8px;
+      padding: 8px;
+    }
+
+    .areaOptions {
+      margin-top: 32px;
+    }
+
+    .voteNumberForKarsnes {
+      position: absolute;
+      top: 120px;
+      left: 30px;
+      color: #ce8716;
+    }
+
+    .voteNumberForDigranes {
+      position: absolute;
+      top: 45px;
+      right: 140px;
+      color: #69b559;
+    }
+
+    .voteNumberForSmarinn {
+      position: absolute;
+      top: 205px;
+      left: 100px;
+      color: #44a3bc;
+    }
+
+    .voteNumberForLindir {
+      position: absolute;
+      top: 275px;
+      left: 210px;
+      color: #ecd344;
+    }
+
+    .voteNumberForVatnsendi {
+      position: absolute;
+      bottom: 60px;
+      left: 340px;
+      color: #cc511f;
+    }
+
+    .voteNumberGeneral {
+      padding-left: 4px;
+      font-size: 28px;
+    }
+
+    .checkIcon {
+      width: 40px;
+      height: 40px;
     }
   </style>
 
@@ -84,18 +140,21 @@
 
       <div class="layout vertical center-center mainContainer">
 
-        <div class="imageContainer">
-          <iron-image hidden sizing="contain" class="infoImage" src="https://yrpri6-production.s3.amazonaws.com/IC/00/wo-retina.png"></iron-image>
-        </div>
+        <div class="layout horizontal imageContainer wrap">
+          <paper-material elevation="5" class="topMaterial">
+            <div class="selectInfoText flex">{{localize('app_title')}}</div>
+            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_1')}}</div>
+            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
+          </paper-material>
 
-        <div id='content' class="layout vertical center-center selectInfoText">
-          <div>{{localize('choose_a_neighbourhood_1')}}</div>
-          <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
+          <paper-material elevation="5" class="topMaterial" hidden$="[[!wide]]">
+            <iron-image sizing="contain" class="infoImage" src="https://yrpri6-production.s3.amazonaws.com/IC/00/wo-retina.png"></iron-image>
+          </paper-material>
         </div>
 
         <template is="dom-if" if="[[wide]]">
-          <paper-material elevation="4">
-            <div id='area_options' class="layout vertical center-center">
+          <paper-material elevation="5" class="areaOptions">
+            <div class="layout vertical center-center">
               <img id="Image-Maps-Com-image-maps-2016-08-04-135857" src="/images/kopavogurMap.png" border="0" width="686" height="550" orgWidth="686" orgHeight="550" usemap="#image-maps-2016-08-04-135857" alt="" />
               <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
                 <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/1" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none;" target="_self"     />
@@ -105,12 +164,18 @@
                 <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/5" shape="poly" coords="23,21,53,20,55,37,69,36,89,30,102,29,104,39,119,40,129,36,140,38,157,33,166,36,188,22,207,27,202,44,187,53,178,62,173,84,179,103,187,126,188,139,176,126,167,123,141,116,94,106,71,103,50,81,47,70,41,53,32,55,20,34" style="outline:none;" target="_self"     />
               </map>
             </div>
+            <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">233</div></div>
+            <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">1.105</div></div>
+            <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">105</div></div>
+            <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">422</div></div>
+            <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">122</div></div>
+
           </paper-material>
         </template>
       </div>
 
       <template is="dom-if" if="[[!wide]]">
-        <div id='area_options' class="layout vertical center-center">
+        <div class="layout vertical center-center">
           <img id="Image-Maps-Com-image-maps-2016-08-04-135857" src="/images/kopavogurMap.png" border="0" width="342" height="225" orgWidth="686" orgHeight="550" usemap="#image-maps-2016-08-04-135857" alt="" />
           <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
             <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/1" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none;" target="_self"     />

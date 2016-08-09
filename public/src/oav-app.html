@@ -139,25 +139,14 @@
 
     <app-header-layout>
       <app-header reveals effects="waterfall">
-        <app-toolbar class="layout horizontal justified" hidden$="[[!hideBudget]]">
-          <div class="layout horizontal">
-            <div hidden$="[[!showExit]]" class="layout horizontal">
-              <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
-            </div>
-          </div>
-          <div class="title">
-            <div>[[title]]</div>
-          </div>
-            <paper-icon-button icon="help-outline"></paper-icon-button>
-          </div>
-        </app-toolbar>
+        <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
+          <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
+        </div>
+        <div class="helpIconInBudget">
+          <paper-icon-button icon="help-outline"></paper-icon-button>
+        </div>
+
         <div class="budgetContainer" hidden$="[[hideBudget]]">
-          <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
-            <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
-          </div>
-          <div class="helpIconInBudget">
-            <paper-icon-button icon="help-outline"></paper-icon-button>
-          </div>
           <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
       </app-header>
