@@ -98,13 +98,14 @@
 
     <div class="topContainer layout vertical">
 
+      <div class="layout horizontal center-justified tabsContainer">
+        <paper-tabs selected="{{selectedView}}">
+          <paper-tab>{{localize('ideas_list')}}</paper-tab>
+          <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
+        </paper-tabs>
+      </div>
+
       <template is="dom-if" if="[[budgetBallotIdeas]]" restamp>
-        <div class="layout horizontal center-justified tabsContainer">
-          <paper-tabs selected="{{selectedView}}">
-            <paper-tab>{{localize('ideas_list')}}</paper-tab>
-            <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
-          </paper-tabs>
-        </div>
 
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
