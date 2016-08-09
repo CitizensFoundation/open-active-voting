@@ -28,6 +28,7 @@
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -133,39 +134,40 @@
         tail="{{subroute}}"></app-route>
 
     <!-- Main content -->
-    <app-header-layout>
-      <app-header reveals effects="waterfall">
-        <app-toolbar class="layout horizontal justified" hidden$="[[!hideBudget]]">
-          <div class="layout horizontal">
-            <div hidden$="[[!showExit]]" class="layout horizontal">
+    <template is="dom-if" if="[[localizationLoaded]]">
+      <app-header-layout>
+        <app-header reveals effects="waterfall">
+          <app-toolbar class="layout horizontal justified" hidden$="[[!hideBudget]]">
+            <div class="layout horizontal">
+              <div hidden$="[[!showExit]]" class="layout horizontal">
+                <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
+              </div>
+            </div>
+            <div class="title">
+              <div>[[title]]</div>
+            </div>
+              <paper-icon-button icon="help-outline"></paper-icon-button>
+            </div>
+          </app-toolbar>
+          <div class="budgetContainer" hidden$="[[hideBudget]]">
+            <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
               <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
             </div>
+            <div class="helpIconInBudget">
+              <paper-icon-button icon="help-outline"></paper-icon-button>
+            </div>
+            <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
           </div>
-          <div class="title">
-            <div>[[title]]</div>
-          </div>
-          <div>
-            <paper-icon-button icon="help-outline"></paper-icon-button>
-          </div>
-        </app-toolbar>
-        <div class="budgetContainer" hidden$="[[hideBudget]]">
-          <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
-            <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
-          </div>
-          <div class="helpIconInBudget">
-            <paper-icon-button icon="help-outline"></paper-icon-button>
-          </div>
-          <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
+        </app-header>
+        <div>
+          <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+            <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
+            <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+            <oav-voting-completed name="voting-completed"></oav-voting-completed>
+          </iron-pages>
         </div>
-      </app-header>
-      <div>
-        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
-          <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
-          <oav-voting-completed name="voting-completed"></oav-voting-completed>
-        </iron-pages>
-      </div>
-    </app-header-layout>
+      </app-header-layout>
+    </template>
     <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
 
@@ -207,6 +209,11 @@
           value: true
         },
 
+        localizationLoaded: {
+          type: Boolean,
+          value: false
+        },
+
         budgetElement: Object,
         currentBallot: Object
       },
@@ -223,7 +230,7 @@
 
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
-        this.set('budgetElement', this.$.budget);
+        this.set('budgetElement', this.$$("#budget"));
       },
 
       _errorHandler: function (event, detail) {
@@ -244,9 +251,11 @@
       },
 
       _translationLoaded: function () {
-        if (this.localize) {
+        Polymer.Base.async(function () {
+          this.set('localizationLoaded', true);
           document.title = this.localize('app_title');
-        }
+          this.set('title', this.localize('welcome_title'));
+        }.bind(this));
       },
 
       _routeChanged: function (route) {
@@ -260,7 +269,7 @@
       },
 
       getDialog: function (name) {
-        return this.$.dialogContainer.getDialog(name);
+        return this.$$("#dialogContainer").getDialog(name);
       },
 
       _pageChanged: function(page) {
@@ -279,6 +288,7 @@
         }
         if (page && page=='area-ballot') {
           this.set('currentBallot', this.$$("#budgetBallot"));
+          this.set('budgetElement', this.$$("#budget"));
           this.set('hideBudget', false);
         } else {
           this.set('hideBudget', true);
