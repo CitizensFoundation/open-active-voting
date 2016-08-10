@@ -1,7 +1,7 @@
 require 'openssl'
 require 'base64'
 
-# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Copyright (C) 2010-2016 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify

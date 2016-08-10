@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Copyright (C) 2010-2016 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
@@ -28,8 +28,8 @@ class VotesController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:authenticate_from_island_is]
   http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
 
+  # This is a test method for load testing to allow load testing without the secure authentication
   def force_session_id
-    # This is a test method for load testing to allow load testing without the secure authentication
     if ENV["LOAD_TESTING_MODE"]=="true"
       session[:have_authenticated_and_been_approved] = true
       Rails.cache.write(request.session_options[:id],params[:ssn])
@@ -40,83 +40,21 @@ class VotesController < ApplicationController
      end
   end
 
-  def help_info
-    # Display help information
-    if params[:previous_action]=="authentication_options"
-      @help_info_text = t(:votes_help_authentication_options)
-    elsif params[:previous_action]=="select_area"
-      @help_info_text = t(:votes_help_select_area)
-    elsif params[:previous_action]=="get_ballot"
-      @help_info_text = t(:votes_help_get_ballot)
-    end
-    render :layout=>false
-  end
-
-  def about_info
-    # Display information about the vote
-    render :layout=>false
-  end
-
-  def rules_info
-    # Display information about the rules
-    render :layout=>false
-  end
-
-  def government_info
-    # Display information about Better Reykjavik
-    render :layout=>false
-  end
-
-  def areas_info
-    # Display information about Better Neighborhoods
-    render :layout=>false
-  end
-
-  def logout_and_information
-    reset_session
-    render :layout=>false
-  end
-
-  def ibuar_info
-    # Display information about Ibua SES
-    render :layout=>false
-  end
-
-  def rvk_info
-    # Display information about the city of Reykjavik
-    render :layout=>false
-  end
-
-  def lukr_map
-    # Display the LUKR map with the projects and neighborhoods
-    render :layout=>false
-  end
-
-  def lukr_map_2
-    # Display the LUKR map with the projects and neighborhoods
-    render :layout=>false
-  end
-
-  def logout_info
-    # Display information about loging out
-    render :layout=>false
-  end
-
+  # Logout and reset the session
   def logout
-    # Logout and reset the session
     reset_session
     redirect_to "/"
   end
 
+  # Send the config and public key to the client app
   def boot
-    # Send the config and public key to the client app
     respond_to do |format|
       format.json { render :json => [:config => @config, :public_key => @public_key ]}
     end
   end
 
+  # The redirect return point from the external island.is authentication
   def authenticate_from_island_is
-    # The redirect return point from the external island.is authentication
     if perform_island_is_authentication(params[:token],request)
       redirect_to :action=>:select_area
     else
@@ -126,8 +64,8 @@ class VotesController < ApplicationController
     end
   end
 
+  # The root method that checks if authentication has been completed and redirects to area selection if authentication has been confirmed
   def check_authentication
-    # The root method that checks if authentication has been completed and redirects to area selection if authentication has been confirmed
     if request.session_options[:id] and Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]
       redirect_to :action=>:select_area
     elsif params[:token]
@@ -137,16 +75,15 @@ class VotesController < ApplicationController
     end
   end
 
+  # Get the voting areas
   def get_areas
-    # Get the voting areas
     respond_to do |format|
       format.json { render :json => [:areas => BudgetBallotArea.all ]}
     end
   end
 
+  # Get the ballot and display it to the user
   def get_ballot
-    # Get the ballot and display it to the user
-
     # Write a fake identity when not running in production mode
     unless Rails.env.production?
       Rails.cache.write(request.session_options[:id],request.session_options[:id]) unless Rails.cache.read(request.session_options[:id])
@@ -155,46 +92,34 @@ class VotesController < ApplicationController
     # Get voter identify if avilable
     voter_identity_hash = Rails.cache.read(request.session_options[:id])
 
-    # Set the neighborhood id from url parameters
-    @area_id = params[:area_id].to_i
+    # Get the budget ballot area from the database
+    @area = BudgetBallotArea.where(:id => params[:area_id].to_i)
 
-    # Get all budget ballot ideas
-    @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=>@area_id)
-
-    # Get the budget for the given neighborhood id
-    @ŧotal_budget = BudgetBallotItem.get_area_budget(@area_id)
-
-    # Letters are used to mark each budget vote selection
-    @letter_of_alphabet = BudgetBallotItem::ALLOWED_BALLOT_CHARACTERS
-
-    # Count how many times this particular voter has voted
-    if voter_identity_hash
-      @vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
-    else
-      @vote_count = nil
-    end
+    # Get all budget ballot items
+    @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id)
 
     respond_to do |format|
-      format.json { render :json =>  { :area_id => @area_id, :@budget_ballot_items => @budget_ballot_items,
-                                      :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
-                                      :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) }}
+      format.json { render :json =>  {:area=>@area, :@budget_ballot_items => @budget_ballot_items }}
     end
   end
 
+  # Encrypted vote posted by the user
   def post_vote
-    # The encrypted vote submitted by the user
-
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
-      # Save the vote to the database
+
+      # Create an encrypted checksum
       encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
+
+      # Save the vote to the database
       if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:encrypted_vote],
                      :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
                      :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = [:error=>false, :message=>t(:votes_post_results_4), :vote_ok=>true, :vote_count=>"#{t :votes_post_results_vote_count} #{vote_count}"]
+        response = [:error=>false, :message=>t(:votes_post_results_4), :vote_ok=>true, :vote_count=> vote_count]
       else
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = [:error=>true, :message=>t(:votes_post_results_2), :vote_ok=>false]

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Copyright (C) 2010-2016 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
@@ -28,12 +28,16 @@ class BudgetVoteCounting
     @invalid_votes = []
   end
 
+  # Count all unique votes from the same identity
   def count_unique_votes(csv_out=true,area_id)
-    # Count all unique votes from the same identity
+
     @area_id = area_id
 
+    # Use data from the final split vote table
     final_split_vote = FinalSplitVote.where(:area_id=>area_id)
     puts "Counting #{final_split_vote.length} votes"
+
+    # Process and count all the votes for this area
     final_split_vote.all.each do |vote|
       begin
         process_vote(vote)
@@ -51,31 +55,8 @@ class BudgetVoteCounting
     end
   end
 
-  def count_all_votes
-    # Count all votes, including duplicates from the same identity
-    Vote.find(:all, :order=>"created_at").each do |vote|
-      vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.area_id, vote.session_id)
-      process_vote(vote)
-    end
-  end
-
-  def count_all_test_votes(test_votes,area_id=nil,write_out_path=nil)
-    # Count test votes, for testing purposes only
-    @area_id = area_id
-    test_votes.each do |vote|
-      decrypted_vote = BudgetVoteHelper.new(vote, @private_key_file, vote)
-      decrypted_vote.unpack_without_encryption
-      add_votes(decrypted_vote)
-    end
-    if area_id
-      select_top_items_that_still_fit_budget
-      write_voting_results_report("voting_results.csv",write_out_path)
-    end
-  end
-
-
+  # Write the voting results to a csv file including the hashed identities
   def write_voting_results_report(filename="voting_results.csv",write_out_path=nil)
-    # Write the voting results to a csv file including the hashed identities
     puts "Write the voting results"
     filename = "#{@area_id}_#{get_time_for_filename}_#{filename}"
     if write_out_path
@@ -104,8 +85,8 @@ class BudgetVoteCounting
     filename
   end
 
+  # Write all counted votes unencrypted to csv file
   def write_counted_unencrypted_audit_report
-    # Write all counted votes unencrypted to csv file
     filename = "#{@area_id}_#{get_time_for_filename}_counted_unencrypted_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)
     CSV.open(filepath,"wb") do |csv|
@@ -126,48 +107,75 @@ class BudgetVoteCounting
     end
   end
 
-  private
+  # PUBLIC METHODS USED FOR TESTING ONLY
 
-  def select_top_items_that_still_fit_budget
-    # Select the top items that still fit the budget
-    @item_ids_selected_count = select_top_items(@item_ids_count)
+  # For testing only, count all votes, including duplicates from the same identity
+  def count_all_votes
+    Vote.find(:all, :order=>"created_at").each do |vote|
+      vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.area_id, vote.session_id)
+      process_vote(vote)
+    end
   end
 
-  def select_top_items(item_ids)
-    # Select the top items that still fit the budget
+  # For testing only, count test votes
+  def count_all_test_votes(test_votes,area_id=nil,write_out_path=nil)
+    @area_id = area_id
+    test_votes.each do |vote|
+      decrypted_vote = BudgetVoteHelper.new(vote, @private_key_file, vote)
+      decrypted_vote.unpack_without_encryption
+      add_votes(decrypted_vote)
+    end
+    if area_id
+      select_top_items_that_still_fit_budget
+      write_voting_results_report("voting_results.csv",write_out_path)
+    end
+  end
+
+  private
+
+  # Select the top items that still fit the budget
+  def select_top_items_that_still_fit_budget
     total_budget = BudgetBallotItem.get_area_budget(@area_id)
     left_of_budget = total_budget
+
     selected = Hash.new
-    item_ids.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
+
+    # Go through all the items in the order of votes and selected the ones that still fit the budget
+    @item_ids_count.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
       item_price = BudgetBallotItem.get_item_price(@area_id,item_id)
-      #puts "PRIORITY PRICE #{item_price} #{@area_id} #{item_id}"
+
+      # Check if item still fits into what is left of the budget and add it to selected if it does
       if item_price<=left_of_budget
         selected[item_id]=vote_count
         left_of_budget-=item_price
       end
     end
-    selected
+
+    @item_ids_selected_count = selected
   end
 
+  # Decrypt and add votes from ballot to total
   def process_vote(vote)
-    # Decrypt and add votes from ballot to total
     decrypted_vote = BudgetVoteHelper.new(vote.payload_data, @private_key_file, vote)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end
 
+  # Add all the decrypted votes from this ballot
   def add_votes(vote)
-    # Add all the decrypted votes from this ballot
     item_array = JSON.parse(vote)
     item_array.each do |item_id|
       raise "Voted ballot item not found" unless BudgetBallotItem.where(:id=>item_id).first
+      # If the counting hash for item does not exists created it
       @item_ids_count[item_id] = 0 unless @item_ids_count[item_id]
+
+      # Add one vote for a given item
       @item_ids_count[item_id] += 1
     end
   end
 
+  # Add items to csv
   def add_items_to_csv(items,csv)
-    # Add items to csv
     csv << ["Id","Nafn","Atkvæði","Kostnaður"]
     total_vote_count = 0
     total_price = 0
@@ -179,8 +187,8 @@ class BudgetVoteCounting
     csv << ["","Samtals",total_vote_count,total_price]
   end
 
+  # Add totals to csv
   def write_voting_totals(csv)
-    # Add totals to csv
     csv << ["Hverfa ID","Nafn á hverfi","Fjármagn (m.)"]
     csv << [@area_id,BudgetBallotItem.get_area_name(@area_id),BudgetBallotItem.get_area_budget(@area_id)]
     csv << [""]
@@ -189,8 +197,8 @@ class BudgetVoteCounting
     csv << [""]
   end
 
+  # Write out the audit report to csv
   def write_audit_report
-    # Write out the audit report to csv
     puts "Write audit report"
     filename = "#{@area_id}_#{get_time_for_filename}_audit_report.csv"
     filepath = Rails.env.test? ? Rails.root.join("test","results",filename) : Rails.root.join("results",filename)

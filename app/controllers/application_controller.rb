@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+# Copyright (C) 2010-2016 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class ApplicationController < ActionController::Base
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -49,8 +50,8 @@ class ApplicationController < ActionController::Base
     update_activity_time
   end
 
+  # Expire the session if the session has timed out
   def session_expiry
-    # Expire the session if the session has timed out
     Rails.logger.info("Session expires at #{session[:expires_at]}")
     if session[:expires_at]
       @time_left = (Time.parse(session[:expires_at]) - Time.now).to_i
@@ -69,8 +70,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Update the activity time to keep the user session alive
   def update_activity_time
-    # Update the activity time to keep the user session alive
     unless Rails.env.production?
       session[:expires_at] = 600.hours.from_now
     else
