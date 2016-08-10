@@ -19,11 +19,11 @@
 require 'csv'
 
 class BudgetVoteCounting
-  attr_reader :idea_ids_count
+  attr_reader :item_ids_count
 
   def initialize(private_key_file)
-    @idea_ids_count = Hash.new
-    @idea_ids_selected_count = Hash.new
+    @item_ids_count = Hash.new
+    @item_ids_selected_count = Hash.new
     @private_key_file = private_key_file
     @invalid_votes = []
   end
@@ -42,7 +42,7 @@ class BudgetVoteCounting
       end
     end
 
-    select_top_ideas_that_still_fit_budget
+    select_top_items_that_still_fit_budget
 
     if csv_out
       filename = write_voting_results_report
@@ -68,7 +68,7 @@ class BudgetVoteCounting
       add_votes(decrypted_vote)
     end
     if area_id
-      select_top_ideas_that_still_fit_budget
+      select_top_items_that_still_fit_budget
       write_voting_results_report("voting_results.csv",write_out_path)
     end
   end
@@ -89,10 +89,10 @@ class BudgetVoteCounting
       write_voting_totals(csv)
       csv << [""]
       csv << ["Valin verkefni"]
-      add_ideas_to_csv(@idea_ids_selected_count,csv)
+      add_items_to_csv(@item_ids_selected_count,csv)
       csv << [""]
       csv << ["Heildaratkvæði"]
-      add_ideas_to_csv(@idea_ids_count,csv)
+      add_items_to_csv(@item_ids_count,csv)
       unless @invalid_votes.empty?
         csv << [""]
         csv << ["Ógild atkvæði"]
@@ -128,54 +128,53 @@ class BudgetVoteCounting
 
   private
 
-  def select_top_ideas_that_still_fit_budget
-    # Select the top ideas that still fit the budget
-    @idea_ids_selected_count = select_top_ideas(@idea_ids_count)
+  def select_top_items_that_still_fit_budget
+    # Select the top items that still fit the budget
+    @item_ids_selected_count = select_top_items(@item_ids_count)
   end
 
-  def select_top_ideas(idea_ids)
-    # Select the top ideas that still fit the budget
+  def select_top_items(item_ids)
+    # Select the top items that still fit the budget
     total_budget = BudgetBallotItem.get_area_budget(@area_id)
     left_of_budget = total_budget
     selected = Hash.new
-    idea_ids.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
-      idea_price = BudgetBallotItem.get_idea_price(@area_id,idea_id)
-      #puts "PRIORITY PRICE #{idea_price} #{@area_id} #{idea_id}"
-      if idea_price<=left_of_budget
-        selected[idea_id]=vote_count
-        left_of_budget-=idea_price
+    item_ids.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
+      item_price = BudgetBallotItem.get_item_price(@area_id,item_id)
+      #puts "PRIORITY PRICE #{item_price} #{@area_id} #{item_id}"
+      if item_price<=left_of_budget
+        selected[item_id]=vote_count
+        left_of_budget-=item_price
       end
     end
     selected
   end
 
   def process_vote(vote)
-    # Decrypt and add votes
+    # Decrypt and add votes from ballot to total
     decrypted_vote = BudgetVoteHelper.new(vote.payload_data, @private_key_file, vote)
     decrypted_vote.unpack
     add_votes(decrypted_vote)
   end
 
   def add_votes(vote)
-    #puts "Counting votes #{vote.idea_ids}"
-    vote.idea_ids.each do |idea_group|
-      idea_group.each do |idea_id|
-        #raise "Ballots don't match votes" unless BudgetBallotItem.where(:idea_id=>idea_id, :budget_ballot_area_id=>vote.vote.area_id).first
-        @idea_ids_count[idea_id] = 0 unless @idea_ids_count[idea_id]
-        @idea_ids_count[idea_id] += 1
-      end
+    # Add all the decrypted votes from this ballot
+    item_array = JSON.parse(vote)
+    item_array.each do |item_id|
+      raise "Voted ballot item not found" unless BudgetBallotItem.where(:id=>item_id).first
+      @item_ids_count[item_id] = 0 unless @item_ids_count[item_id]
+      @item_ids_count[item_id] += 1
     end
   end
 
-  def add_ideas_to_csv(ideas,csv)
-    # Add ideas to csv
+  def add_items_to_csv(items,csv)
+    # Add items to csv
     csv << ["Id","Nafn","Atkvæði","Kostnaður"]
     total_vote_count = 0
     total_price = 0
-    ideas.sort_by{|p| [-p[1], p[0]]}.each do |idea_id,vote_count|
+    items.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
       total_vote_count+=vote_count
-      total_price+=BudgetBallotItem.get_idea_price(@area_id,idea_id)
-      csv << [idea_id,BudgetBallotItem.get_idea_name(@area_id,idea_id),vote_count,BudgetBallotItem.get_idea_price(@area_id,idea_id)]
+      total_price+=BudgetBallotItem.get_item_price(@area_id,item_id)
+      csv << [item_id,BudgetBallotItem.get_item_name(@area_id,item_id),vote_count,BudgetBallotItem.get_item_price(@area_id,item_id)]
     end
     csv << ["","Samtals",total_vote_count,total_price]
   end

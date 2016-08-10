@@ -19,5 +19,5 @@
 class BudgetBallotArea < ActiveRecord::Base
   translates :name
 
-  belongs_to :budget_ballot
+  belongs_to :budget_ballot_item
 end
