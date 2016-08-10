@@ -84,11 +84,11 @@ ActiveRecord::Schema.define(version: 20160725111036) do
 
   create_table "budget_ballot_item_translations", force: :cascade do |t|
     t.integer  "budget_ballot_item_id", limit: 4
-    t.string   "locale",           limit: 255,   null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "name",             limit: 255
-    t.text     "description",      limit: 65535
+    t.string   "locale",                limit: 255,   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "name",                  limit: 255
+    t.text     "description",           limit: 65535
   end
 
   add_index "budget_ballot_item_translations", ["budget_ballot_item_id"], name: "index_budget_ballot_item_translations_on_budget_ballot_item_id", using: :btree
@@ -96,12 +96,12 @@ ActiveRecord::Schema.define(version: 20160725111036) do
 
   create_table "budget_ballot_items", force: :cascade do |t|
     t.string   "link",                  limit: 255
-    t.float    "price",                 limit: 24,    null: false
-    t.integer  "idea_id",               limit: 4,     null: false
-    t.integer  "budget_ballot_area_id", limit: 4,     null: false
+    t.float    "price",                 limit: 24,  null: false
+    t.integer  "idea_id",               limit: 4,   null: false
+    t.integer  "budget_ballot_area_id", limit: 4,   null: false
     t.string   "locations",             limit: 255
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "config", force: :cascade do |t|
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20160725111036) do
     t.string   "soap_url",                            limit: 255
     t.text     "public_key",                          limit: 65535
     t.text     "known_x509_cert",                     limit: 65535
-    t.text     "areas_imagemap",                       limit: 65535
+    t.text     "areas_imagemap",                      limit: 65535
   end
 
   create_table "final_split_votes", force: :cascade do |t|
