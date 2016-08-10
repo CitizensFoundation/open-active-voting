@@ -156,9 +156,8 @@
 
       properties: {
 
-        ballot: {
-          type: Object,
-          value: null
+        area: {
+          type: Object
         },
 
         areaId: {
@@ -354,7 +353,7 @@
           {id: 20, name: 'Göngu- og hjólreiðastígur meðfram Reykjanesbraut', description: 'Hjólreiða- og göngustígur sem lagður var milli Mjóddar og Lindahverfis er mikið notaður, en stígurinn endar við Lindir í Kópavogi án frekari tenginga. Lagt er til að sett verði göngu- og hjólreiðabrú meðfram Reykjanesbraut sem tengja stíginn við hlið Linda við Glaðheimasvæðið og nýja stíga við Arnarnesveg sem nú er í framkvæmd.',
             location: {latitude: 64.0202717180623, longitude: -21.8783755874634},price: 2.0, imageUrl: this._randomImage()}
         ];
-        this.set('ballot', detail.response);
+        this.set('area', detail.response.area);
         this.set('budgetBallotItems', detail.response.budget_ballot_items);
         var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', "Kársnes"));
