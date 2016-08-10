@@ -189,19 +189,25 @@
       },
 
       reset: function () {
-        this.budgetElement.reset();
+        if (this.budgetElement) {
+          this.budgetElement.reset();
+        }
         this._resetBallotItems();
         this.set('budgetBallotIdeas', null);
         this.set('ballot', null);
-        this.set('areaId', null);
       },
 
       _resetBallotItems: function () {
-        var listItems = this.$$("#ironList").$$("#items");
-        for (var i = 1; i < listItems.children.length; i++) {
-          var listIdea = listItems.children[i].children[0];
-          listIdea.setNotTooExpensive();
-          listIdea.removeFromBudget();
+        var list = this.$$("#ironList");
+        if (list) {
+          var listItems = list.$$("#items");
+          if (listItems) {
+            for (var i = 1; i < listItems.children.length; i++) {
+              var listIdea = listItems.children[i].children[0];
+              listIdea.setNotTooExpensive();
+              listIdea.removeFromBudget();
+            }
+          }
         }
       },
 
@@ -298,9 +304,9 @@
         }
       },
 
-      _areaIdChanged: function (newAreaId) {
+      _areaIdChanged: function (newAreaId, oldAreaId) {
         if (newAreaId) {
-          this.set('ballot', null);
+          this.reset();
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
         }
