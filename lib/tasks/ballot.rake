@@ -14,9 +14,9 @@ def change_price_to_i(price_txt)
 end
 
 def ideas_with_letters(budget_ballot_area_id)
-  all_ideas = BudgetBallot.where(:budget_ballot_area_id=>budget_ballot_area_id).all
+  all_ideas = BudgetBallotItem.where(:budget_ballot_area_id=>budget_ballot_area_id).all
   all_ideas.each_with_index do |idea,index|
-    letter = BudgetBallot::ALLOWED_BALLOT_CHARACTERS[index]
+    letter = BudgetBallotItem::ALLOWED_BALLOT_CHARACTERS[index]
     idea.letter = letter
   end
   all_ideas
@@ -99,7 +99,7 @@ namespace :ballot do
   desc "Generate ids,letter and names"
   task(:ids_to_letters => :environment) do
     area_id = ENV['area_id'].to_i
-    ballot = BudgetBallot.current
+    ballot = BudgetBallotItem.current
     puts "Construction"
     ballot.areas[area_id][:ideas].each do |idea|
       puts "#{idea[:letter]},#{idea[:id]},#{idea[:name]}"
@@ -110,7 +110,7 @@ namespace :ballot do
   task(:generate_test_ballot => :environment) do
     number_of_voters = ENV['number_of_voters'] ? ENV['number_of_voters'].to_i : 12
     area_id = ENV['area_id'] ? ENV['area_id'].to_i : rand(9)+1
-    budget = BudgetBallot.get_area_budget(area_id)
+    budget = BudgetBallotItem.get_area_budget(area_id)
     if ENV['offset']
       offset = 1+ENV['offset'].to_i
     else
@@ -130,7 +130,7 @@ namespace :ballot do
           selected_ideas_html+="<li class='litur'>#{idea[:letter].upcase} - #{idea[:name]}</li>"
         end
       end
-      puts html_out = create_html_doc(BudgetBallot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
+      puts html_out = create_html_doc(BudgetBallotItem.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
       File.open("test_ballots/test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
     end
   end
@@ -147,7 +147,7 @@ namespace :ballot do
     Dir.mkdir("test_ballots_all") unless File.exists?("test_ballots_all")
 
     (1..10).each do |area_id|
-      budget = BudgetBallot.get_area_budget(area_id)
+      budget = BudgetBallotItem.get_area_budget(area_id)
       number_of_voters.times do |test_ballot_number|
         selected_ideas = get_until_budget_full(budget,ideas_with_letters(area_id))
         selected_ideas_html = ""
@@ -159,7 +159,7 @@ namespace :ballot do
             selected_ideas_html+="<li class='litur'>#{idea[:letter].upcase} - #{idea[:name]}</li>"
           end
         end
-        puts html_out = create_html_doc(BudgetBallot.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
+        puts html_out = create_html_doc(BudgetBallotItem.get_area_name(area_id),test_ballot_number+offset,selected_ideas_html)
         Dir.mkdir("test_ballots_all/#{area_id}") unless File.exists?("test_ballots_all/#{area_id}")
         File.open("test_ballots_all/#{area_id}/#{area_id}_test_ballot_#{test_ballot_number+offset}.html","w").write(html_out)
       end
@@ -170,7 +170,7 @@ namespace :ballot do
 
     puts row[5]
 
-    letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
+    letter_of_alphabet = BudgetBallotItem::ALLOWED_BALLOT_CHARACTERS
     { :letter=>letter_of_alphabet[count],
       :id=>master_id,
       :name=>"new_project_name_id_#{master_id}",
@@ -181,7 +181,6 @@ namespace :ballot do
       :link=>row[2] }
   end
 
-
   class String
     def escape_quotes
       self.gsub(/["]/, '\\\\\"')
@@ -190,15 +189,61 @@ namespace :ballot do
 
   desc "Generate ballot from CSV"
   task(:recreate_from_static => :environment) do
-    BudgetBallot.destroy_all
-    ballot = BudgetBallot.new
+    BudgetBallotItem.destroy_all
+    ballot = BudgetBallotItem.new
     ballot.initialize_from_static_data
     ballot.save
   end
 
   desc "Generate ballot from CSV"
   task(:generate_ballot_from_csv => :environment) do
-    @ballot = BudgetBallot.current
+    @ballot = BudgetBallotItem.current
+    @areas = Hash.new
+    state = "waiting_for_neighborhood"
+    current_neighborhood = nil
+    master_id = 0
+
+    ideas_count = 0
+
+    CSV.parse(File.open(ENV['infile']).read).each do |row|
+      #puts "#{master_id} #{row}"
+      if row[0]=="Neighborhood Id"
+        current_neighborhood = row[1].to_i
+        ideas_count = -1
+      elsif row[0]=="END"
+        puts "The End of the import document"
+      else
+        @areas[current_neighborhood]=Hash.new unless @areas[current_neighborhood]
+        @areas[current_neighborhood][:ideas]=[] unless @areas[current_neighborhood][:ideas]
+        @areas[current_neighborhood][:ideas] << make_data_hash(row,master_id+=1,ideas_count+=1)
+      end
+    end
+    main_outfile = ""
+    is_yml = ""
+    en_yml = ""
+    @areas.each do |id, project_types|
+      project_types.each do |project_type,array|
+        array.each do |item|
+          is_yml += "#{item[:name]}: \"#{item[:name_is].strip.escape_quotes}\"\n"
+          is_yml += "#{item[:description]}: \"#{item[:description_is].strip.escape_quotes}\"\n"
+          en_yml += "#{item[:name]}: \"#{item[:name_en].strip.escape_quotes}\"\n"
+          en_yml += "#{item[:description]}: \"#{item[:description_en].strip.escape_quotes}\"\n"
+          item.delete(:name_is)
+          item.delete(:description_is)
+          main_outfile += "@areas[#{id}][:#{project_type}] << {:id=>#{item[:id]}, :letter=>\"#{item[:letter]}\", :link=>\"#{item[:link]}\", :description=>I18n.t(:#{item[:description]}), :name=>I18n.t(:#{item[:name]}), :price=>#{item[:price].to_f/1000000.0}}\n"
+        end
+        main_outfile += "\n"
+      end
+    end
+    #puts main_outfile
+    #puts is_yml
+    puts en_yml
+  end
+
+  desc "Import Ballot from CSV"
+  task(:import_ballot_from_csv => :environment) do
+    @ballot = BudgetBallotItem.current
+
     @areas = Hash.new
     state = "waiting_for_neighborhood"
     current_neighborhood = nil

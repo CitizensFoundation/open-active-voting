@@ -71,7 +71,7 @@
       return retObj;
     },
 
-    encryptVote: function (selectedIdeaIds) {
+    encryptVote: function (selectedItemIds) {
       var encryptedVote;
 
       if (window.appGlobals.votePublicKey) {
@@ -88,7 +88,7 @@
             var tree = asn.toHexTree();
             //setting the public key for encryption
             rsa.setPublicKeyFromASN(tree);
-            crypted = rsa.encrypt(JSON.stringify(selectedIdeaIds));
+            crypted = rsa.encrypt(JSON.stringify(selectedItemIds));
             encryptedVote = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
             return encryptedVote;
           } catch(err) {

@@ -159,13 +159,13 @@ class VotesController < ApplicationController
     @area_id = params[:area_id].to_i
 
     # Get all budget ballot ideas
-    @budget_ballot_ideas = BudgetBallot.where(:budget_ballot_area_id=>@area_id)
+    @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=>@area_id)
 
     # Get the budget for the given neighborhood id
-    @ŧotal_budget = BudgetBallot.get_area_budget(@area_id)
+    @ŧotal_budget = BudgetBallotItem.get_area_budget(@area_id)
 
     # Letters are used to mark each budget vote selection
-    @letter_of_alphabet = BudgetBallot::ALLOWED_BALLOT_CHARACTERS
+    @letter_of_alphabet = BudgetBallotItem::ALLOWED_BALLOT_CHARACTERS
 
     # Count how many times this particular voter has voted
     if voter_identity_hash
@@ -175,7 +175,7 @@ class VotesController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render :json =>  { :area_id => @area_id, :budget_ballot_ideas => @budget_ballot_ideas,
+      format.json { render :json =>  { :area_id => @area_id, :@budget_ballot_items => @budget_ballot_items,
                                       :total_budget => @ŧotal_budget, :letter_of_alphabet => @letter_of_alphabet,
                                       :vote_count => @vote_count, :help_info_text => t(:votes_help_get_ballot) }}
     end

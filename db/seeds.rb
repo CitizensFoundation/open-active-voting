@@ -21,7 +21,7 @@ if Rails.env.test? or Rails.env.development? or Rails.env.production?
 
   puts "Creating test ballots"
 
-  BudgetBallot.delete_all
+  BudgetBallotItem.delete_all
   BudgetBallotArea.delete_all
 
   @neighborhoods=Hash.new
@@ -281,7 +281,7 @@ if Rails.env.test? or Rails.env.development? or Rails.env.production?
     budget_ballot_area.name=area[:name]
     budget_ballot_area.save
     area[:ideas].each do |idea|
-      budget_ballot = BudgetBallot.create!(:letter=>idea[:letter], :link=>idea[:link], :price=>idea[:price])
+      budget_ballot = BudgetBallotItem.create!(:letter=>idea[:letter], :link=>idea[:link], :price=>idea[:price])
       budget_ballot.name = idea[:name]
       budget_ballot.idea_id = idea[:id]
       budget_ballot.budget_ballot_area_id = budget_ballot_area.id

@@ -16,7 +16,7 @@
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-ballot-item.html">
 <link rel="import" href="encryption/ballot-encryption-behavior.html">
-<link rel="import" href="oav-ideas-map.html">
+<link rel="import" href="oav-items-map.html">
 
 <dom-module id="oav-area-ballot">
   <style include="iron-flex iron-flex-alignment">
@@ -100,25 +100,24 @@
 
       <div class="layout horizontal center-justified tabsContainer">
         <paper-tabs selected="{{selectedView}}">
-          <paper-tab>{{localize('ideas_list')}}</paper-tab>
-          <paper-tab>{{localize('ideas_on_map')}}</paper-tab>
+          <paper-tab>{{localize('items_list')}}</paper-tab>
+          <paper-tab>{{localize('items_on_map')}}</paper-tab>
         </paper-tabs>
       </div>
 
-      <template is="dom-if" if="[[budgetBallotIdeas]]" restamp>
-
+      <template is="dom-if" if="[[budgetBallotItems]]" restamp>
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
-            <iron-list id="ironList" items="[[budgetBallotIdeas]]" as="idea" scroll-target="document" grid>
+            <iron-list id="ironList" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
               <template>
-                <div class="ideaContainer">
-                  <oav-area-ballot-item budget-element="[[budgetElement]]" tabindex$="[[tabIndex]]" idea="[[idea]]"></oav-area-ballot-item>
+                <div class="itemContainer">
+                  <oav-area-ballot-item budget-element="[[budgetElement]]" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
                 </div>
               </template>
             </iron-list>
           </section>
           <section>
-            <oav-ideas-map id="ideasMap" budget-element="[[budgetElement]]" ideas="[[budgetBallotIdeas]]"></oav-ideas-map>
+            <oav-items-map id="itemsMap" budget-element="[[budgetElement]]" items="[[budgetBallotItems]]"></oav-items-map>
           </section>
         </iron-pages>
       </template>
@@ -149,10 +148,10 @@
       ],
 
       listeners: {
-        'oav-toggle-idea-in-budget': '_toggleIdeaInBudget',
+        'oav-toggle-item-in-budget': '_toggleItemInBudget',
         'oav-submit-vote': '_postVoteToServer',
-        'oav-idea-selected-in-budget': '_ideaSelectedInBudget',
-        'oav-idea-de-selected-from-budget': '_ideaDeSelectedFromBudget'
+        'oav-item-selected-in-budget': '_itemSelectedInBudget',
+        'oav-item-de-selected-from-budget': '_itemDeSelectedFromBudget'
       },
 
       properties: {
@@ -181,7 +180,7 @@
           type: Object
         },
 
-        budgetBallotIdeas: Array
+        budgetBallotItems: Array
       },
 
       ready: function() {
@@ -193,7 +192,7 @@
           this.budgetElement.reset();
         }
         this._resetBallotItems();
-        this.set('budgetBallotIdeas', null);
+        this.set('budgetBallotItems', null);
         this.set('ballot', null);
       },
 
@@ -203,71 +202,71 @@
           var listItems = list.$$("#items");
           if (listItems) {
             for (var i = 1; i < listItems.children.length; i++) {
-              var listIdea = listItems.children[i].children[0];
-              listIdea.setNotTooExpensive();
-              listIdea.removeFromBudget();
+              var listItem = listItems.children[i].children[0];
+              listItem.setNotTooExpensive();
+              listItem.removeFromBudget();
             }
           }
         }
       },
 
-      _toggleIdeaInBudget: function (event, detail) {
-        this.budgetElement.toggleBudgetIdea(detail.idea);
+      _toggleItemInBudget: function (event, detail) {
+        this.budgetElement.toggleBudgetItem(detail.item);
       },
 
-      _ideaSelectedInBudget: function (event, detail) {
+      _itemSelectedInBudget: function (event, detail) {
         var listItems = this.$$("#ironList").$$("#items");
         for (var i = 1; i < listItems.children.length; i++) {
-          var listIdea = listItems.children[i].children[0];
-          if (listIdea.idea.id == detail.ideaId) {
-            listIdea.setInBudget();
-            this.$$("#ideasMap").setIdeaInBudget(listIdea.idea);
+          var listItem = listItems.children[i].children[0];
+          if (listItem.item.id == detail.itemId) {
+            listItem.setInBudget();
+            this.$$("#itemsMap").setItemInBudget(listItem.item);
           }
         }
-        this._setStateOfRemainingIdeas();
+        this._setStateOfRemainingItems();
       },
 
-      _ideaDeSelectedFromBudget: function (event, detail) {
+      _itemDeSelectedFromBudget: function (event, detail) {
         var listItems = this.$$("#ironList").$$("#items");
         for (var i = 1; i < listItems.children.length; i++) {
-          var listIdea = listItems.children[i].children[0];
-          if (listIdea.idea.id == detail.ideaId) {
-            listIdea.removeFromBudget();
-            this.$$("#ideasMap").removeFromBudget(listIdea.idea);
+          var listItem = listItems.children[i].children[0];
+          if (listItem.item.id == detail.itemId) {
+            listItem.removeFromBudget();
+            this.$$("#itemsMap").removeFromBudget(listItem.item);
           }
         }
-        this._setStateOfRemainingIdeas();
+        this._setStateOfRemainingItems();
       },
 
-      _setStateOfRemainingIdeas: function () {
+      _setStateOfRemainingItems: function () {
         var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
         var listItems = this.$$("#ironList").$$("#items");
         for (var i = 1; i < listItems.children.length; i++) {
-          var listIdea = listItems.children[i].children[0];
-          if (!listIdea.selectedInBudget) {
-            if (listIdea.idea.price<=budgetLeft) {
-              listIdea.setNotTooExpensive();
+          var listItem = listItems.children[i].children[0];
+          if (!listItem.selectedInBudget) {
+            if (listItem.item.price<=budgetLeft) {
+              listItem.setNotTooExpensive();
             } else {
-              listIdea.setTooExpensive();
+              listItem.setTooExpensive();
             }
           }
         }
-        this.$$("#ideasMap").checkIfSelectedIdeaToExpensive(budgetLeft);
+        this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
       _postVoteToServer: function () {
-        if (this.budgetElement.selectedIdeas && this.budgetElement.selectedIdeas.length>0) {
-          var selectedIdeaIds = _.map(this.budgetElement.selectedIdeas, function (idea) {
-            return idea.id;
+        if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+          var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
+            return item.id;
           });
-          var encryptedVote = this.encryptVote(selectedIdeaIds);
+          var encryptedVote = this.encryptVote(selectedItemIds);
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
             this.$.postBallotAjax.generateRequest();
           }
         } else {
-          this.fire('oav-error', this.localize('error_no_ideas_selected'));
-          console.error('error_no_ideas_selected');
+          this.fire('oav-error', this.localize('error_no_items_selected'));
+          console.error('error_no_items_selected');
         }
       },
 
@@ -313,7 +312,7 @@
       },
 
       _ballotResponse: function (event, detail) {
-        detail.response.budget_ballot_ideas = [
+        detail.response.budget_ballot_items = [
           {id: 1, name: 'Skúlptúr af kópi á steini í fjörunni', description: 'Það ætti að gera öllum kleift að flokka allt sorp og safna moltu, hvort sem fólk á bíl eða ekki. Bærinn gæti verið leiðandi í sorphirðumálum og sótt alla flokka til íbúa eða amk bjóða uppá fullkomna grendargáma í öllum hverfum. Í Kamikatsu í Japan er stefnt að því að hætta að nota landfyllingar árið 2020. Þó svo að í Kópavogi séu fleiri íbúar af hverju ætti ekki að vera hægt að setja markið svona hátt?',
            location: {latitude: 64.0802717180623, longitude: -21.8183755874634}, price: 7.0, imageUrl: this._randomImage()},
           {id: 2, name: 'Sett upp þrektæki við Kársnesstíg', description: 'Það vantar ekki nema nokkra malbikaða metra upp á að ná að hjóla þaðan sem Arnarnesvegur endar og niður á hjólastíginn sem fer undir Reykjanesbrautina og kemur upp við Bæjagil - ella þarf maður að reiða hjólið meðfram grófum reiðstíg.",64.09454115526451,-21.884872913360596,19,0,1,"Auðveldar fólki í Lindar- og Salarhverfi að hjóla í átt að Gbæ/Hfj t.d. vegna vinnu (og öfugt) - annars þarf maður að taka stóran krók undir brúnna hjá Smáralind með tilheyrandi lækkun og svo brattri hækkun.',
@@ -356,11 +355,11 @@
             location: {latitude: 64.0202717180623, longitude: -21.8783755874634},price: 2.0, imageUrl: this._randomImage()}
         ];
         this.set('ballot', detail.response);
-        this.set('budgetBallotIdeas', detail.response.budget_ballot_ideas);
+        this.set('budgetBallotItems', detail.response.budget_ballot_items);
         var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', "Kársnes"));
         this.async(function () {
-         this.$$("#ironList").fire('iron-resize');
+          this.$$("#ironList").fire('iron-resize');
         },10);
       }
     })

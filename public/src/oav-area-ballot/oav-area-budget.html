@@ -118,17 +118,17 @@
       font-size: 20px;
     }
 
-    .noIdeasInfo {
+    .noItemsInfo {
       width: 100%;
       color: #555;
       font-size: 16px;
     }
 
-    .noIdeasInfo[wide] {
+    .noItemsInfo[wide] {
       font-size: 24px;
     }
 
-    .ideaInBudget {
+    .itemInBudget {
       border-left: solid 3px;
       border-left-color: var(--app-accent-color);
     }
@@ -144,8 +144,8 @@
           <div>25 milljónir</div>
         </div>
         <div id="votes" wide$="[[wide]]">
-          <div id="noIdeas" class="layout horizontal center-center noIdeasInfo" wide$="[[wide]]" hidden$="[[!noSelectedIdeas]]">
-            <div>{{localize('no_ideas_selected')}}</div>
+          <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
+            <div>{{localize('no_items_selected')}}</div>
           </div>
         </div>
         <div class="info layout horizontal" wide$="[[wide]]">
@@ -153,8 +153,8 @@
             <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
             <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
             <template is="dom-if" if="[[selectedBudget]]">
-              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_ideas_info", "number_of_ideas", selectedIdeas.length, "selectedBudget", selectedBudget)}}</div>
-              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_ideas_info_mobile", "number_of_ideas", selectedIdeas.length, "selectedBudget", selectedBudget)}}</div>
+              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
             </template>
           </div>
           <div class="">
@@ -180,13 +180,13 @@
 
       properties: {
 
-        selectedIdeas: {
+        selectedItems: {
           type: Array,
           value: [],
           notify: true
         },
 
-        noSelectedIdeas: {
+        noSelectedItems: {
           type: Boolean,
           value: true
         },
@@ -220,7 +220,7 @@
       },
 
       observers: [
-        '_selectedIdeasChanged(selectedIdeas.splices)'
+        '_selectedItemsChanged(selectedItems.splices)'
       ],
 
       attached: function() {
@@ -234,8 +234,8 @@
           this.set('votesWidth', 300);
         }
         this._resetBudgetDiv();
-        this.selectedIdeas.forEach(function (idea) {
-           this._addIdeaToDiv(idea);
+        this.selectedItems.forEach(function (item) {
+           this._addItemToDiv(item);
         }.bind(this));
       },
 
@@ -252,58 +252,58 @@
         this.currentBallot.fire('oav-submit-vote');
       },
 
-      _selectedIdeasChanged: function () {
-        if (this.selectedIdeas && this.selectedIdeas.length>0) {
-          this.set('noSelectedIdeas', false);
+      _selectedItemsChanged: function () {
+        if (this.selectedItems && this.selectedItems.length>0) {
+          this.set('noSelectedItems', false);
           this.$.votingButton.disabled = false;
         } else {
-          this.set('noSelectedIdeas', true);
+          this.set('noSelectedItems', true);
           this.$.votingButton.disabled = true;
         }
       },
 
       reset: function () {
         this._resetBudgetDiv();
-        this.set('selectedIdeas', []);
+        this.set('selectedItems', []);
         this.set('selectedBudget', 0);
       },
 
       _resetBudgetDiv: function () {
-        while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noIdeas') {
+        while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noItems') {
           this.$.votes.removeChild(this.$.votes.lastChild);
         }
       },
 
-      _removeIdeaFromArray: function (idea) {
+      _removeItemFromArray: function (item) {
         var newArray = [];
-        this.selectedIdeas.forEach(function (i) {
-          if (i.id!=idea.id) {
+        this.selectedItems.forEach(function (i) {
+          if (i.id!=item.id) {
             newArray.push(i);
           }
         });
-        this.set('selectedIdeas', newArray);
+        this.set('selectedItems', newArray);
       },
 
-      _addIdeaToDiv: function (idea) {
-        var ideaWidth = parseInt(this.votesWidth * (idea.price / this.totalBudget))-(1*this.selectedIdeas.length);
+      _addItemToDiv: function (item) {
+        var itemWidth = parseInt(this.votesWidth * (item.price / this.totalBudget))-(1*this.selectedItems.length);
         var container = document.createElement("div");
-        container.id = "idea_id_"+idea.id;
+        container.id = "item_id_"+item.id;
         if (this.wide) {
           container.style.height = '100px';
         } else {
           container.style.height = '50px';
         }
-        container.style.width = ideaWidth + 'px';
+        container.style.width = itemWidth + 'px';
         container.backgroundColor = "#F00";
         container.style.position = "relative";
         container.style.cursor = "pointer";
 
         var image = document.createElement("iron-image");
-        image.src = idea.imageUrl;
+        image.src = item.imageUrl;
         image.setAttribute("sizing", "cover");
-        image.setAttribute('alt', idea.name);
-        image.setAttribute('title', idea.name);
-        image.title= idea.name;
+        image.setAttribute('alt', item.name);
+        image.setAttribute('title', item.name);
+        image.title= item.name;
         image.style.borderLeft = 'solid 2px';
         image.style.borderRight = 'solid 2px';
         image.style.borderColor = '#ff6500';
@@ -312,7 +312,7 @@
         } else {
           image.style.height = '50px';
         }
-        image.style.width = ideaWidth + 'px';
+        image.style.width = itemWidth + 'px';
 
         container.appendChild(image);
 
@@ -324,7 +324,7 @@
         paperIcon.style.width = "42px";
         paperIcon.style.opacity = 0;
         paperIcon.addEventListener('tap', function () {
-          this._removeIdea(idea.id);
+          this._removeItem(item.id);
         }.bind(this));
         container.appendChild(paperIcon);
         paperIcon.style.position = "absolute";
@@ -339,40 +339,40 @@
         });
 
         container.addEventListener('tap', function () {
-          this._removeIdea(idea.id);
+          this._removeItem(item.id);
         }.bind(this));
 
         this.$.votes.appendChild(container);
       },
 
-      _removeIdeaFromDiv: function (idea) {
-        var selectedIdeaDiv = this.$$("#idea_id_"+idea.id);
-        console.log("SELECTED: "+selectedIdeaDiv.id);
-        selectedIdeaDiv.parentNode.removeChild(selectedIdeaDiv);
+      _removeItemFromDiv: function (item) {
+        var selectedItemDiv = this.$$("#item_id_"+item.id);
+        console.log("SELECTED: "+selectedItemDiv.id);
+        selectedItemDiv.parentNode.removeChild(selectedItemDiv);
       },
 
-      toggleBudgetIdea: function (idea) {
-        if (this.selectedIdeas.indexOf(idea) > -1) {
-          this._removeIdeaFromArray(idea);
-          this._removeIdeaFromDiv(idea);
-          this.set('selectedBudget', this.selectedBudget - idea.price);
-          this.currentBallot.fire('oav-idea-de-selected-from-budget', { ideaId: idea.id });
+      toggleBudgetItem: function (item) {
+        if (this.selectedItems.indexOf(item) > -1) {
+          this._removeItemFromArray(item);
+          this._removeItemFromDiv(item);
+          this.set('selectedBudget', this.selectedBudget - item.price);
+          this.currentBallot.fire('oav-item-de-selected-from-budget', { itemId: item.id });
         } else {
-          if (this.selectedBudget+idea.price<=this.totalBudget) {
-            this.push('selectedIdeas', idea);
-            this._addIdeaToDiv(idea);
-            this.set('selectedBudget', this.selectedBudget + idea.price);
-            this.currentBallot.fire('oav-idea-selected-in-budget', { ideaId: idea.id });
+          if (this.selectedBudget+item.price<=this.totalBudget) {
+            this.push('selectedItems', item);
+            this._addItemToDiv(item);
+            this.set('selectedBudget', this.selectedBudget + item.price);
+            this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });
           } else {
             this.currentBallot.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
           }
         }
       },
 
-      _removeIdea: function (ideaId) {
-        this.selectedIdeas.forEach(function (idea) {
-          if (idea.id==ideaId) {
-            this.toggleBudgetIdea(idea);
+      _removeItem: function (itemId) {
+        this.selectedItems.forEach(function (item) {
+          if (item.id==itemId) {
+            this.toggleBudgetItem(item);
           }
         }.bind(this));
       },

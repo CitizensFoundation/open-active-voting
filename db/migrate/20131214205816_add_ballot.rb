@@ -15,7 +15,7 @@ class AddBallot < ActiveRecord::Migration
       t.timestamps
     end
 
-    BudgetBallot.create_translation_table! :name => :string, :description => :text
+    BudgetBallotItem.create_translation_table! :name => :string, :description => :text
   end
 
   def down

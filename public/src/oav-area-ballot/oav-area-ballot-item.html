@@ -21,7 +21,7 @@
 
 <dom-module id="oav-area-ballot-item">
   <style>
-    .ideaContent {
+    .itemContent {
       @apply(--layout-vertical);
       position: relative;
       width: 300px !important;
@@ -29,7 +29,7 @@
       margin: 16px;
     }
 
-    .ideaSelectedFrame {
+    .itemSelectedFrame {
       background: transparent;
       border: none;
       width: 294px;
@@ -44,7 +44,7 @@
       z-index: 5;
     }
 
-    .ideaSelectedFrame[selected] {
+    .itemSelectedFrame[selected] {
       background: transparent;
       border: solid 3px;
       border-color: var(--app-accent-color);
@@ -114,7 +114,7 @@
       @apply(--layout-center-center);
     }
 
-    .ideaContent {
+    .itemContent {
       background-color: #fbfbfb;
       color: #222;
     }
@@ -153,15 +153,15 @@
   </style>
 
   <template>
-    <paper-material elevation="[[elevation]]" class="ideaContent">
-      <div class="ideaSelectedFrame" selected$="[[selectedInBudget]]"></div>
+    <paper-material elevation="[[elevation]]" class="itemContent">
+      <div class="itemSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <div>
-        <iron-image hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[idea.imageUrl]]"></iron-image>
+        <iron-image hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.imageUrl]]"></iron-image>
         <google-map hidden$="[[!mapTabSelected]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
-          <google-map-marker latitude="[[idea.location.latitude]]" longitude="[[idea.location.longitude]]" class="marker"></google-map-marker>
+          <google-map-marker latitude="[[item.location.latitude]]" longitude="[[item.location.longitude]]" class="marker"></google-map-marker>
         </google-map>
         <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer">
-          <div class="description">[[idea.description]]</div>
+          <div class="description">[[item.description]]</div>
         </div>
       </div>
       <div class="infoLinks">
@@ -170,7 +170,7 @@
         <paper-icon-button title="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
-        <div class="name">[[idea.name]]</div>
+        <div class="name">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
@@ -180,7 +180,7 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price">[[idea.price]]<span class="priceCurrency"> milljónir</span></div>
+        <div class="price">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
         <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
@@ -201,9 +201,9 @@
       ],
 
       properties: {
-        idea: {
+        item: {
           type: Object,
-          observer: '_ideaChanged'
+          observer: '_itemChanged'
         },
 
         elevation: Number,
@@ -243,20 +243,20 @@
         }
       },
 
-      _ideaChanged: function (newIdea) {
-        if (newIdea) {
+      _itemChanged: function (newItem) {
+        if (newItem) {
           this.resetFromBudget();
         }
       },
 
       resetFromBudget: function () {
-        console.log("resetFromBudget ideaId: "+this.idea.id);
+        console.log("resetFromBudget itemId: "+this.item.id);
         if (this.budgetElement) {
-          if (this.budgetElement.selectedIdeas.indexOf(this.idea) > -1) {
+          if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
             this.setInBudget();
           } else {
             var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-            if (this.idea.price>budgetLeft) {
+            if (this.item.price>budgetLeft) {
               this.setTooExpensive()
             } else {
               this.setNotTooExpensive()
@@ -286,22 +286,22 @@
       },
 
       setInBudget: function () {
-        console.log("setInBudget ideaId: "+this.idea.id);
+        console.log("setInBudget itemId: "+this.item.id);
         this.set('selectedInBudget', true);
       },
 
       removeFromBudget: function () {
-        console.log("removeFromBudget ideaId: "+this.idea.id);
+        console.log("removeFromBudget itemId: "+this.item.id);
         this.set('selectedInBudget', false);
       },
 
       setTooExpensive: function () {
-        console.log("setTooExpensive ideaId: "+this.idea.id);
+        console.log("setTooExpensive itemId: "+this.item.id);
         this.set('toExpensiveForBudget', true);
       },
 
       setNotTooExpensive: function () {
-        console.log("setNotTooExpensive ideaId: "+this.idea.id);
+        console.log("setNotTooExpensive itemId: "+this.item.id);
         this.set('toExpensiveForBudget', false);
       },
 
@@ -310,8 +310,8 @@
       },
 
       _toggleInBudget: function (event) {
-        console.log("_toggleInBudget ideaId: "+this.idea.id);
-        this.fire('oav-toggle-idea-in-budget', { idea: this.idea });
+        console.log("_toggleInBudget itemId: "+this.item.id);
+        this.fire('oav-toggle-item-in-budget', { item: this.item });
       }
     })
   })();
