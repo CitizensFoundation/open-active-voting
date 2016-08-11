@@ -22,12 +22,33 @@
     </style>
 
     <paper-dialog id="dialog">
-      <h2>[[page.title]]</h2>
+      <h2>[[title]]</h2>
       <paper-dialog-scrollable>
-        <div id="content"></div>
+        <div id="content">
+          <ul>
+            <li>Frá og með 25. ágúst til 4. september verður opið fyrir kosningar þar sem íbúar, 16 ára og eldri, með lögheimili í Kópavogi geta kosið áfram hugmyndir í einu hverfi Kópavogs.</li>
+            <li>Hægt er að kjósa áfram hugmyndir fyrir þá upphæð sem hverju hverfi hefur verið úthlutað.</li>
+            <li>Íbúar geta aðeins kosið í einu hverfi af fimm.</li>
+            <li>Kosning fer fram á vefsvæði þar sem íbúi auðkennir sig með öruggum hætti og verður atkvæði hans dulkóðað. Því er ekki hægt að tengja atkvæði við einstaklinga.</li>
+            <li>Ekki er um að ræða íbúakosningu í skilningi 107. gr. sveitarstjórnarlaga nr. 138 frá 2011.</li>
+            <li>Hverfi Kópavogs eru fimm: Kársnes, Digranes, Smárinn, Fífuhvammur (Lindir og Salir) og Vatnsendi. Upplýsingar um það í hvaða hverfi þú býrð í eru á heimasíðu verkefnisins www.kopavogur.is/okkarkopavogur/kosning</li>
+
+            <li>Fjármagn hverfanna skiptist á eftirfarandi hátt:</li>
+            <ul>
+              <li>Kársnes: 32 milljónir</li>
+              <li>Digranes: 64 milljónir</li>
+              <li>Smárinn: 23 milljónir</li>
+              <li>Fífuhvammur (Lindir og Salir): 37 milljónir</li>
+              <li>Vatnsendi: 44 milljónir</li>
+            </ul>
+            <li>Við vekjum athygli á því að til að geta kosið þarf að vera með auðkenni í síma eða íslykil. Allar nánari upplýsingar um auðkenni má nálgast á www.audkenni.is og um íslykil á www.island.is/islykill</li>
+            <li>Aðstoð við að kjósa er hægt að fá í Þjónustuveri Kópavogsbæjar, Fannborg 2, og á Bókasafni Kópavogs Hamraborg 6a á meðan kosning stendur yfir.</li>
+            <li> llar nánari upplýsingar um verkefnið Okkar Kópavogur má nálgast á www.kopavogur.is/okkarkopavogur eða í Þjónustuveri Kópavogsbæjar, sími 570-1500.</li>
+          </ul>
+        </div>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <paper-button on-tap="_close" dialog-dismiss>[[t('close')]]</paper-button>
+        <paper-button on-tap="_close" dialog-dismiss>[[localize('close')]]</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -38,7 +59,8 @@
       is: 'oav-page-dialog',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -47,17 +69,21 @@
         }
       },
 
-      open: function (title, content) {
-        this.set('title', title);
-        this.$.content.innerHTML = content;
+      open: function (title) {
+        this.set('title', "Okkar Kópavogur - Upplýsingar");
+        //this.$.content.innerHTML = content;
         this.$.dialog.fit();
         this.$.dialog.notifyResize();
         this.$.dialog.open();
       },
 
+      attached: function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      },
+
       _close: function () {
         this.set('title', null);
-        this.$.content.innerHTML = '';
+       //this.$.content.innerHTML = '';
       }
     });
   </script>

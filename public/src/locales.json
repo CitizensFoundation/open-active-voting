@@ -35,7 +35,8 @@
     "description_item_tab": "Item description",
     "map_item_tab": "Item location",
     "budget_left_text": "{budget_left} millions left",
-    "more_info_description": "Idea on idea website"
+    "more_info_description": "Idea on idea website",
+    "close": "Close"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -52,18 +53,18 @@
     "error_public_key_not_found": "Dulkóðunarlykill fannst ekki",
     "error_no_items_selected": "Það eru engar hugmyndir valdar í kosningu",
     "error_encryption": "Dulkóðunarvilla {err}",
-    "error_does_not_fit_in_budget": "Þetta verkefni er of dýrt fyrir það sem er eftir af peningum",
+    "error_does_not_fit_in_budget": "þessi hugmynd er of dýr fyrir það sem er eftir af peningum",
     "items_list": "Hugmyndir",
     "items_on_map": "Hugmyndir á korti",
     "ballot_area_name": "Forgangsraðaðu hugmyndum á {area_name}",
-    "selected_items_info": "Þú hefur valið {number_of_items} verkefni fyrir {selectedBudget} milljónir",
-    "selected_items_info_mobile": "{number_of_items} verkefni fyrir {selectedBudget} milljónir",
-    "budget_info_text": "Kjóstu þín verkefni í fjárhagsáætlun fyrir {area_name}",
-    "budget_info_text_mobile": "Þín verkefni fyrir {area_name}",
-    "no_items_selected": "Engin verkefni valin...",
+    "selected_items_info": "Þú hefur valið {number_of_items} hugmyndir fyrir {selectedBudget} milljónir",
+    "selected_items_info_mobile": "{number_of_items} hugmyndir fyrir {selectedBudget} milljónir",
+    "budget_info_text": "Kjóstu þínar hugmyndir í fjárhagsáætlun fyrir {area_name}",
+    "budget_info_text_mobile": "Þínar hugmyndir fyrir {area_name}",
+    "no_items_selected": "Engin hugmynd valin...",
     "voting_completed": "Atkvæði þitt hefur verið móttekið",
-    "add_to_budget": "Bæta við verkefni",
-    "remove_from_budget": "Taka út verkefni",
+    "add_to_budget": "Bæta við hugmynd",
+    "remove_from_budget": "Taka út hugmynd",
     "thank_you_1": "Takk fyrir!",
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
     "thank_you_3": "Þú getur kosið eins oft og þú vilt á meðan kosningin er opin, dagana 25. ágúst - 2. september. Síðasta atkvæðið þitt er það sem gildir.",
@@ -73,6 +74,7 @@
     "description_item_tab": "Nánari upplýsingar",
     "map_item_tab": "Staðsetning",
     "budget_left_text": "{budget_left} milljónir eftir",
-    "more_info_description": "Hugmynd á hugmyndavef"
+    "more_info_description": "Hugmynd á hugmyndavef",
+    "close": "loka"
   }
 }

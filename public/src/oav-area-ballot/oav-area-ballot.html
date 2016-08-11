@@ -199,6 +199,7 @@
         this.set('budgetBallotItems', null);
         this.set('area', null);
         this.set('areaId', null);
+        this.fire('oav-set-area', { areaName: null, totalBudget: null });
       },
 
       _resetBallotItems: function () {
@@ -321,7 +322,7 @@
         this.set('budgetBallotItems', this._setupLocationsAndTranslation(detail.response.budget_ballot_items));
         var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', this.area.name));
-        this.fire('oav-set-area-name', this.area.name);
+        this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         this.async(function () {
           this.$$("#ironList").fire('iron-resize');
         },10);

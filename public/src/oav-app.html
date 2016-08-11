@@ -150,11 +150,11 @@
           <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
         </div>
         <div class="helpIconInBudget">
-          <paper-icon-button icon="help-outline"></paper-icon-button>
+          <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
         </div>
 
         <div class="budgetContainer" hidden$="[[hideBudget]]">
-          <oav-area-budget id="budget" area-name="[[areaName]]" current-ballot="[[currentBallot]]"></oav-area-budget>
+          <oav-area-budget id="budget" area-name="[[areaName]]" total-budget="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
       </app-header>
       <div>
@@ -216,7 +216,7 @@
         'app-resources-loaded': '_translationLoaded',
         'oav-set-title': '_setTitle',
         'oav-error': '_errorHandler',
-        'oav-set-area-name': '_setAreaName'
+        'oav-set-area': '_setArea'
       },
 
       observers: [
@@ -228,8 +228,13 @@
         this.set('budgetElement', this.$$("#budget"));
       },
 
-      _setAreaName: function (event, detail) {
-        this.set('areaName', detail);
+      _help: function () {
+        this.getDialog("page").open();
+      },
+
+      _setArea: function (event, detail) {
+        this.set('areaName', detail.areaName);
+        this.set('totalBudget', detail.totalBudget);
       },
 
       _errorHandler: function (event, detail) {
