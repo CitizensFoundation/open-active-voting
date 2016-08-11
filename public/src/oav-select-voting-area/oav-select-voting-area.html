@@ -170,12 +170,13 @@
                 <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="23,21,53,20,55,37,69,36,89,30,102,29,104,39,119,40,129,36,140,38,157,33,166,36,188,22,207,27,202,44,187,53,178,62,173,84,179,103,187,126,188,139,176,126,167,123,141,116,94,106,71,103,50,81,47,70,41,53,32,55,20,34" style="outline:none;" target="_self"     />
               </map>
             </div>
-            <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">233</div></div>
-            <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">1.105</div></div>
-            <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">105</div></div>
-            <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">422</div></div>
-            <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">122</div></div>
-
+            <template is="dom-if" if="[[areaVoterCount]]" restamp>
+              <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
+              <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+            </template>
           </paper-material>
         </template>
       </div>
@@ -229,7 +230,13 @@
           value: 'is'
         },
 
-        wide: Boolean
+        wide: Boolean,
+
+        areaVoterCount: Object
+      },
+
+      _getAreaCount: function (areaId) {
+        return this.areaVoterCount[areaId];
       },
 
       attached: function() {
@@ -237,7 +244,9 @@
       },
 
       _areasResponse: function (event, detail) {
-        this.set('areas', detail)
+        this.set('areas', detail.response.areas);
+        this.set('areaVoterCount', detail.response.area_voter_count);
+        debugger;
       }
     })
   })();
