@@ -183,6 +183,10 @@
         budgetBallotItems: Array
       },
 
+      _areaChanged: function (newArea) {
+        debugger;
+      },
+
       ready: function() {
         this.loadResources(this.resolveUrl('../locales.json'));
       },
@@ -194,6 +198,7 @@
         this._resetBallotItems();
         this.set('budgetBallotItems', null);
         this.set('area', null);
+        this.set('areaId', null);
       },
 
       _resetBallotItems: function () {
@@ -261,7 +266,7 @@
           });
           var encryptedVote = this.encryptVote(selectedItemIds);
           if (encryptedVote) {
-            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote  };
+            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
             this.$.postBallotAjax.generateRequest();
           }
         } else {
@@ -310,6 +315,7 @@
         }
         return budgetBallotItems;
       },
+
       _ballotResponse: function (event, detail) {
         this.set('area', detail.response.area);
         this.set('budgetBallotItems', this._setupLocationsAndTranslation(detail.response.budget_ballot_items));

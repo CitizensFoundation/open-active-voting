@@ -319,6 +319,15 @@ namespace :ballot do
 
     BudgetBallotItem.delete_all
     BudgetBallotArea.delete_all
+    BudgetConfig.delete_all
+
+    public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBihRQO8VAT/e1Uapq1S\nTuXxaWeMPo57OyZy+7RA7TXscJVUzj87S7jE/xwZr/uQGHksy0M9upS8LbgrrG3s\nRlGgmjDKffHejkYbNCMDcAVvJcf+iL5qk1aVakHCKVEPd/860XpMCOl6nhGtu4vz\nUVCYyURPoAkc4F44MRGj+clzk0Cc4t//EIfq26IUpsDmDed3Yg8dOAU17Rg9cbl+\no9aV/4+Og1Q4rr/Zg9nASAqeb1ctzJopwFnzt14V3H3LFQC8pj6m7Ke1al/MRkTw\nvAWJruujNtVoLPfwkO6GW2a3GE3e223iwxo1A85zIk7L8bqkmmzfxL7ky4IGA/bx\ncQIDAQAB\n-----END PUBLIC KEY-----"
+
+    config=BudgetConfig.new
+    config.timeout_in_seconds = 600
+    config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+    config.public_key = public_key
+    config.save
 
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
