@@ -93,7 +93,7 @@ class VotesController < ApplicationController
     voter_identity_hash = Rails.cache.read(request.session_options[:id])
 
     # Get the budget ballot area from the database
-    @area = BudgetBallotArea.where(:id => params[:area_id].to_i)
+    @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
 
     # Get all budget ballot items
     @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id)

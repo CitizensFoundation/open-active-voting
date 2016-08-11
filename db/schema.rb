@@ -95,11 +95,12 @@ ActiveRecord::Schema.define(version: 20160725111036) do
   add_index "budget_ballot_item_translations", ["locale"], name: "index_budget_ballot_item_translations_on_locale", using: :btree
 
   create_table "budget_ballot_items", force: :cascade do |t|
-    t.string   "link",                  limit: 255
+    t.string   "idea_url",                  limit: 255
     t.float    "price",                 limit: 24,  null: false
     t.integer  "idea_id",               limit: 4,   null: false
     t.integer  "budget_ballot_area_id", limit: 4,   null: false
     t.string   "locations",             limit: 255
+    t.string   "image_url",             limit: 255
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end

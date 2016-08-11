@@ -19,7 +19,7 @@
     }
 
     .budgetContainer {
-      height: 180px;
+      height: 140px;
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
@@ -27,24 +27,31 @@
     }
 
     .budgetContainer[wide] {
-      height: 300px;
+      height: 238px;
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
       background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
     }
 
+    @media (max-width: 640px) {
+      .budgetContainer {
+        background-image: none;
+        background-color: var(--app-primary-color);
+      }
+    }
+
     .budgetMaterial {
       width: 300px;
       background-color: rgba(249,249,249,1.0);
-      height: 130px;
+      height: 108px;
       margin: 5px 0px;
       @apply(--layout-vertical);
     }
 
     .budgetMaterial[wide] {
       width: 960px;
-      height: 228px;
+      height: 184px;
       margin: 10px 0px;
       margin-top: 8px;
       @apply(--layout-vertical);
@@ -109,13 +116,19 @@
     }
 
     .selectedInfo {
-      padding-top: 4px;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .selectedInfo[wide] {
-      padding-top: 4px;
-      font-size: 20px;
+      font-size: 19px;
+    }
+
+    #budgetLeftInfo {
+      font-size: 16px;
+    }
+
+    #budgetLeftInfo[wide] {
+      font-size: 22px;
     }
 
     .noItemsInfo {
@@ -138,27 +151,25 @@
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
-        <div class="budgetRuler layout horizontal justified" wide$="[[wide]]">
-          <div>0 milljónir</div>
-          <div></div>
-          <div>25 milljónir</div>
-        </div>
-        <div id="votes" wide$="[[wide]]">
-          <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
-            <div>{{localize('no_items_selected')}}</div>
-          </div>
-        </div>
         <div class="info layout horizontal" wide$="[[wide]]">
           <div class="flex layout vertical center-center">
-            <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
-            <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
+            <template is="dom-if" if="[[!selectedBudget]]">
+              <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
+              <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
+            </template>
             <template is="dom-if" if="[[selectedBudget]]">
               <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
               <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
             </template>
+            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
           </div>
           <div class="">
             <paper-button id="votingButton" raised class="voteButton" on-tap="_submitVote">Kjósa!</paper-button>
+          </div>
+        </div>
+        <div id="votes" wide$="[[wide]]">
+          <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
+            <div>{{localize('no_items_selected')}}</div>
           </div>
         </div>
       </paper-material>
@@ -206,6 +217,11 @@
           value: 25.0
         },
 
+        budgetLeft: {
+          type: Number,
+          computed: '_budgetLeft(selectedBudget, totalBudget)'
+        },
+
         votesWidth: {
           type: Number,
           value: 960
@@ -222,6 +238,10 @@
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+
+      _budgetLeft: function (selectedBudget, totalBudget) {
+        return totalBudget-selectedBudget;
+      },
 
       attached: function() {
         this.loadResources(this.resolveUrl('../locales.json'));
@@ -269,7 +289,7 @@
       },
 
       _resetBudgetDiv: function () {
-        while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noItems') {
+        while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noItems' && this.$.votes.lastChild.id!='budgetLeftInfo') {
           this.$.votes.removeChild(this.$.votes.lastChild);
         }
       },

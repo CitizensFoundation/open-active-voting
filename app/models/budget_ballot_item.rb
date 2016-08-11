@@ -50,7 +50,7 @@ class BudgetBallotItem < ActiveRecord::Base
 
   def self.get_idea_link(area_id, idea_id)
     # Get the given idea link
-    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.link
+    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.idea_url
   end
 
   def self.get_idea_price(area_id, idea_id)

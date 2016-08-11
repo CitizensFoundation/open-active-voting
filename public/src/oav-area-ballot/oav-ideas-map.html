@@ -18,20 +18,24 @@
     <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .topMapContainer {
+        width: 100% !important;
+        height: 100% !important;
       }
 
       .mapContainer {
-        margin: 24px;
-        width: 960px;
-        height: 500px;
-        margin-top: 48px;
+        width: 100% !important;
+        height: 100% !important;
+        margin-top: 24px;
       }
 
       .noMapContainer {
         padding: 8px;
-        margin: 48px;
+        margin: 24px;
         background-color: #FFF;
       }
 
@@ -46,45 +50,6 @@
         padding: 24px;
       }
 
-      @media (max-width: 934px) {
-        .mapContainer {
-          margin: 16px;
-          width: 800px;
-          height: 400px;
-        }
-      }
-
-      @media (max-width: 832px) {
-        .mapContainer {
-          margin: 8px;
-          width: 600px;
-          height: 340px;
-        }
-      }
-
-      @media (max-width: 632px) {
-        .mapContainer {
-          margin: 8px;
-          width: 400px;
-          height: 300px;
-        }
-      }
-
-      @media (max-width: 420px) {
-        .mapContainer {
-          margin: 8px;
-          width: 330px;
-          height: 250px;
-        }
-      }
-
-      @media (max-width: 360px) {
-        .mapContainer {
-          margin: 8px;
-          width: 280px;
-          height: 200px;
-        }
-      }
 
       #myInfoCard {
         background-color: #000;
@@ -109,9 +74,18 @@
         color: #FFF;
       }
     </style>
-    <div class="layout vertical center-center">
+
+    <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+
+    <div class="layout vertical center-center topMapContainer">
+      <template is="dom-if" if="[[noItems]]">
+        <paper-material elevation="3" class="noMapContainer">
+          <h1>[[t('items.noMapItems')]]</h1>
+        </paper-material>
+      </template>
+
       <template is="dom-if" if="[[items]]" restamp>
-        <paper-material elevation="3" class="mapContainer">
+        <div class="mapContainer">
           <google-map id="map" api-key="[[apiKey]]" fit-to-markers>
             <template is="dom-repeat" items="[[items]]" as="item">
               <google-map-marker click-events latitude="[[item.location.latitude]]" longitude="[[item.location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
@@ -121,14 +95,9 @@
               <oav-area-ballot-item elevation="0" id="ballotItem" budget-element="[[budgetElement]]" class="ballotItem" item="[[selectedItem]]"></oav-area-ballot-item>
             </paper-map-info>
           </google-map>
-        </paper-material>
+        </div>
       </template>
 
-      <template is="dom-if" if="[[noItems]]">
-        <paper-material elevation="3" class="noMapContainer">
-          <h1>[[t('items.noMapItems')]]</h1>
-        </paper-material>
-      </template>
     </div>
   </template>
 
@@ -144,7 +113,8 @@
       properties: {
         items: {
           type: Array,
-          value: null
+          value: null,
+          observer: '_itemsChanged'
         },
 
         budgetElement: {
@@ -163,6 +133,38 @@
         apiKey: {
           type: String,
           value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
+        },
+
+        wide: {
+          type: Boolean,
+          observer: '_wideChanged'
+        }
+      },
+
+      _itemsChanged: function () {
+
+      },
+
+      attached: function () {
+        this.async(function () {
+          this._resetMapHeight();
+        }.bind(this));
+      },
+
+      _wideChanged: function () {
+        this._resetMapHeight();
+      },
+
+      _resetMapHeight: function () {
+        var map = this.$$("#map");
+        if (map) {
+          var height;
+          if (this.wide) {
+            height = window.innerHeight - 342;
+          } else {
+            height = window.innerHeight - 242;
+          }
+          map.style.height = height + 'px';
         }
       },
 

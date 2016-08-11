@@ -105,6 +105,13 @@
         height: 50px;
       }
 
+      @media (max-width: 640px) {
+        paper-icon-button {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
       @media (max-width: 1000px) {
         .title {
           font-size: 17px;
@@ -138,7 +145,7 @@
     <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
 
     <app-header-layout>
-      <app-header reveals effects="waterfall">
+      <app-header fixed effects="waterfall">
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
           <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
         </div>

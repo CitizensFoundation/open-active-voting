@@ -1,7 +1,7 @@
 {
   "en": {
-    "welcome_title": "Okkar Kópavogur voting - choose neighborhood",
-    "app_title": "Our Kópavogur Budget Vote",
+    "welcome_title": "Our Kópavogur – Participate!",
+    "app_title": "Our Kópavogur – Participate!",
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
     "choose_a_neighbourhood_1": "Choose a borough by clicking on the map",
@@ -33,15 +33,17 @@
     "million_short": "m.",
     "image_item_tab": "Item image",
     "description_item_tab": "Item description",
-    "map_item_tab": "Item location"
+    "map_item_tab": "Item location",
+    "budget_left_text": "{budget_left} millions left",
+    "more_info_description": "Idea on idea website"
   },
   "is": {
-    "welcome_title": "Okkar Kópavogur kosning - veldu hverfi",
-    "app_title": "Okkar Kópavogur Kosning",
+    "welcome_title": "Okkar Kópavogur – Taktu þátt!",
+    "app_title": "Okkar Kópavogur – Taktu þátt!",
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
-    "choose_a_neighbourhood_1": "Veldu hverfi með því að smella á kortið",
-    "choose_a_neighbourhood_2": "Þú getur aðeins kosið um verkefni í einu hverfi",
+    "choose_a_neighbourhood_1": "Nú geta íbúar Kópavogs, 16 ára og eldri, forgagnsraðað hugmyndum í einu af fimm hverfum bæjarins. Þú ert ekki bundin við þitt hverfi. Taktu þátt í að velja hugmyndir frá íbúum sem fara í framkvæmd á næstu mánuðum.",
+    "choose_a_neighbourhood_2": "",
     "error_not_found": "Fannst ekki",
     "general_error": "Villa hefur komið upp, við höfum verið látin vita",
     "error_not_authorized": "Þú hefur ekki aðgang",
@@ -53,8 +55,8 @@
     "error_does_not_fit_in_budget": "Þetta verkefni er of dýrt fyrir það sem er eftir af peningum",
     "items_list": "Hugmyndir",
     "items_on_map": "Hugmyndir á korti",
-    "ballot_area_name": "Veldu verkefni fyrir {area_name}",
-    "selected_items_info": "Þú hefur valið {number_of_items} verkefni fyrir samtals {selectedBudget} milljónir",
+    "ballot_area_name": "Forgangsraðaðu hugmyndum á {area_name}",
+    "selected_items_info": "Þú hefur valið {number_of_items} verkefni fyrir {selectedBudget} milljónir",
     "selected_items_info_mobile": "{number_of_items} verkefni fyrir {selectedBudget} milljónir",
     "budget_info_text": "Kjóstu þín verkefni í fjárhagsáætlun fyrir {area_name}",
     "budget_info_text_mobile": "Þín verkefni fyrir {area_name}",
@@ -68,7 +70,9 @@
     "million": "milljón",
     "million_short": "mkr",
     "image_item_tab": "Mynd",
-    "description_item_tab": "Útskýring",
-    "map_item_tab": "Hugmynd á korti"
+    "description_item_tab": "Nánari upplýsingar",
+    "map_item_tab": "Staðsetning",
+    "budget_left_text": "{budget_left} milljónir eftir",
+    "more_info_description": "Hugmynd á hugmyndavef"
   }
 }

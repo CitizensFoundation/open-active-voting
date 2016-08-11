@@ -16,7 +16,7 @@
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-ballot-item.html">
 <link rel="import" href="encryption/ballot-encryption-behavior.html">
-<link rel="import" href="oav-items-map.html">
+<link rel="import" href="oav-ideas-map.html">
 
 <dom-module id="oav-area-ballot">
   <style include="iron-flex iron-flex-alignment">
@@ -26,7 +26,7 @@
     }
 
     iron-list {
-      margin-top: 32px;
+      margin-top: 24px;
       padding-bottom: 16px;
       background-color: var(--app-main-backround-color);
     }
@@ -78,18 +78,19 @@
     paper-tabs {
       width: 100%;
       margin: 8px;
-      margin-top: 8px;
+      margin-right: 16px;
+      margin-left: 16px;
     }
 
     paper-tab {
       font-size: 22px !important;
       margin-left: 16px;
-      margin-rigth: 16px;
+      margin-right: 16px;
     }
 
     @media (max-width: 1000px) {
       paper-tab {
-        font-size: 18px !important;
+        font-size: 15px !important;
       }
     }
   </style>
@@ -100,7 +101,7 @@
 
       <div class="layout horizontal center-justified tabsContainer">
         <paper-tabs selected="{{selectedView}}">
-          <paper-tab>{{localize('items_list')}}</paper-tab>
+          <paper-tab>[[area.name]] - {{localize('items_list')}}</paper-tab>
           <paper-tab>{{localize('items_on_map')}}</paper-tab>
         </paper-tabs>
       </div>
