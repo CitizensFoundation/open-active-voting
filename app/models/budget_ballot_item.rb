@@ -21,6 +21,8 @@ class BudgetBallotItem < ActiveRecord::Base
   belongs_to :budget_ballot_area
   translates :name, :description
 
+  attr_accessor :name_is, :name_en, :description_is, :description_en
+
   ALLOWED_BALLOT_CHARACTERS = ('a'..'z').to_a+['0','1','2','3','4','5','6','7','8','9']
 
   def self.ideas(area_id)

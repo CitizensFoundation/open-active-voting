@@ -156,9 +156,11 @@
     <paper-material elevation="[[elevation]]" class="itemContent">
       <div class="itemSelectedFrame" selected$="[[selectedInBudget]]"></div>
       <div>
-        <iron-image hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.imageUrl]]"></iron-image>
+        <iron-image hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <google-map hidden$="[[!mapTabSelected]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
-          <google-map-marker latitude="[[item.location.latitude]]" longitude="[[item.location.longitude]]" class="marker"></google-map-marker>
+          <template is="dom-repeate" items="[[item.locations]]" as="location">
+            <google-map-marker latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker"></google-map-marker>
+          </template>
         </google-map>
         <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer">
           <div class="description">[[item.description]]</div>

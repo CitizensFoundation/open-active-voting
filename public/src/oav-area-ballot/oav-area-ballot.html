@@ -275,28 +275,6 @@
         window.location = "/#/voting-completed"
       },
 
-      _randomImage: function () {
-        var myRandomImages = [
-                "https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/9k/P4/RF-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png",
-                "https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"
-        ];
-
-        var randomNum = Math.floor(Math.random() * myRandomImages.length);
-        return myRandomImages[randomNum];
-      },
-
       _areaIdRoutePathChanged: function (newPathForId) {
         if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/area-ballot") {
           this.set('areaId', newPathForId.path.slice(1));
@@ -311,51 +289,31 @@
         }
       },
 
+      _setupLocationsAndTranslation: function (budgetBallotItems) {
+        var arrayLength = budgetBallotItems.length;
+        for (var i = 0; i < arrayLength; i++) {
+          if (budgetBallotItems[i].locations && budgetBallotItems[i].locations != "") {
+            var hashArray = [];
+            var locationsArray = budgetBallotItems[i].locations.replace(' ','').split(',');
+            var counter = 0;
+            while (counter<locationsArray.length) {
+              hashArray.push({ latitude: locationsArray[counter], longitude: locationsArray[counter+1]});
+              counter+=2;
+            }
+            budgetBallotItems[i].locations = hashArray;
+          } else {
+            budgetBallotItems[i].locations = [];
+          }
+          // Set the localized translation
+          budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
+          budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
+        }
+        return budgetBallotItems;
+      },
+
       _ballotResponse: function (event, detail) {
-        detail.response.budget_ballot_items = [
-          {id: 1, name: 'Skúlptúr af kópi á steini í fjörunni', description: 'Það ætti að gera öllum kleift að flokka allt sorp og safna moltu, hvort sem fólk á bíl eða ekki. Bærinn gæti verið leiðandi í sorphirðumálum og sótt alla flokka til íbúa eða amk bjóða uppá fullkomna grendargáma í öllum hverfum. Í Kamikatsu í Japan er stefnt að því að hætta að nota landfyllingar árið 2020. Þó svo að í Kópavogi séu fleiri íbúar af hverju ætti ekki að vera hægt að setja markið svona hátt?',
-           location: {latitude: 64.0802717180623, longitude: -21.8183755874634}, price: 7.0, imageUrl: this._randomImage()},
-          {id: 2, name: 'Sett upp þrektæki við Kársnesstíg', description: 'Það vantar ekki nema nokkra malbikaða metra upp á að ná að hjóla þaðan sem Arnarnesvegur endar og niður á hjólastíginn sem fer undir Reykjanesbrautina og kemur upp við Bæjagil - ella þarf maður að reiða hjólið meðfram grófum reiðstíg.",64.09454115526451,-21.884872913360596,19,0,1,"Auðveldar fólki í Lindar- og Salarhverfi að hjóla í átt að Gbæ/Hfj t.d. vegna vinnu (og öfugt) - annars þarf maður að taka stóran krók undir brúnna hjá Smáralind með tilheyrandi lækkun og svo brattri hækkun.',
-            location: {latitude: 64.1802717180623, longitude: -21.9183755874634},price: 6.0, imageUrl: this._randomImage()},
-          {id: 3, name: 'Gróðursett ávaxtatré og berjarunnar', description: 'Til þess að komast yfir þessi gatnamót er frekar hættulegt  og stundum erfitt.  Kópavogsbær þarf að fá Vegagerðina í lið með sér.',
-            location: {latitude: 64.2802717180623, longitude: -21.7183755874634},price: 2.0, imageUrl: this._randomImage()},
-          {id: 4, name: 'Leiksvæði við Kópavoginn, með aparólu o.fl.', description: '"Sundlaug í dalinn með góðum aðgangi og stæðum fyrir hjól (ekki aðgengi fyrir bíla). Nýtist einnig börnum úr skólum dalsins til sundkennslu þá þarf ekki lengur að ferja þau með rútum í sundkennslu. Þarna mætti einnig setja upp heilsusamlegt kaffihús sem vantar sárlega fyrir útivistar og göngufólk í dalnum.",64.11439647759917,-21.85626983642578,18,9,3,"Börn í skólum við dalinn þurfa ekki að fara með rútum til að fá sundkennslu.Aukin flóra í þetta fallega útivistarsvæði.Hægt að nýta stóru túnin fyrir neðan Kjarrhólma',
-            location: {latitude: 64.3802717180623, longitude: -21.6183755874634},price: 10.0, imageUrl: this._randomImage()},
-          {id: 5, name: 'Endurgerð lóðar Kársnesskóla, gert leiksvæði', description: 'Þegar farið er með börn og þau sótt á leikskólann Kópahvoll þá ganga foreldrar og börn nær undantekningalaust fyrir aftan bílana sem þar leggja. Þetta skapar stór hættu enda er þarna mikið ögnþveiti á morgnana og síðdegis. Einfalt væri að færa hliðið að leikskólanum nokkra metra til norðurs. Í beinu framhaldi kæmi gangbraut út á stéttina sem væri á milli bílastæðanna. Til þess að gera þetta mögulegt þarf að breikka stéttina og færa bílastæðin sem nú eru nyrst í botnlanganum í suður að stéttinni.',
-            location: {latitude: 64.4802717180623, longitude: -21.5183755874634},price: 20.0, imageUrl: this._randomImage()},
-          {id: 6, name: 'Vatnspóstar á Kársnesstíg', description: 'Legg til að bætt verði við hraðahindrun þar sem nú er gangbraut til að auka öryggi gangandi og akandi í brekkunni.',
-            location: {latitude: 64.5802717180623, longitude: -21.4183755874634},price: 5.0, imageUrl: this._randomImage()},
-          {id: 7, name: 'Göngu- og hjólabrú við Fossvog tvöfölduð', description: 'Nokkuð viss um að það séu engir til staðar í dag en mér þætti frábært ef það yrðu settir upp 1 - 2 vatnshanar í Kópavogsdal og/eða Kársnesi. Það þyrfti þá að finna þeim góðan stað við göngu- og hjólastígana. Nokkuð er um þessa vatnshana í Reykjavík t.d. við Árbæjarstíflu; í Laugardal, í Grafarvogi og fleiri stöðum.',
-            location: {latitude: 64.6802717180623, longitude: -21.3183755874634},price: 2.0, imageUrl: this._randomImage()},
-          {id: 8, name: 'Fjölgun og endurnýjun rusladalla', description: 'Stíg í kringum Elliðavatn fyrir hlaupandi; gangandi og hjólandi útivistarfólk. Hafa hann að lágmarki tvöfaldann svo allir komist að án þess að valda slysum.  Enn betra væri að það væru tveir aðgreindir stígar.',
-            location: {latitude: 64.7802717180623, longitude: -21.3183755874634},price: 9.0, imageUrl: this._randomImage()},
-          {id: 9, name: 'Hundagerði við Fossvoginna', description: 'Gott ef kópavogur tæki forystu í að tengja saman stíga milli fveitafélagana  á höfuðborgarsvæðin frá elliðavatni og til suðurs.',
-            location: {latitude: 64.8802717180623, longitude: -21.8183755874634},price: 5.0, imageUrl: this._randomImage()},
-          {id: 10, name: 'Gangbrautir', description: 'Að breyta umferðarljósum í bænum þannig að rauða ljósið sé hjartalaga. Ef fólki hugnast það ekki er annar möguleiki að hafa græna ljósið eins og fjögurrablaða smára.',
-            location: {latitude: 64.0602717180623, longitude: -21.3183755874634},price: 5.0, imageUrl: this._randomImage()},
-          {id: 11, name: 'Sparkvöllur lagaður, gert dvalarsvæði með grillaðstöðu o.fl.', description: '"Hér er um að ræða tæki sem bæði ungir sem aldnir geta notað og hafa slegið í gegn víðsvegar um heiminn. Engin lóð eru notuð og því þarf aldrei að skipta raunverulega um þyngd. Í þess stað notar tækið þyngd þess sem notar tækið. Tækin eru fjölbreytt og auðvelt að velja t.d. sex gerðir og svo bæta við síðar ef þetta reynist vel. Tækin þola Íslenskt veðurfar og því er það engin fyrirstaða.',
-            location: {latitude: 64.0502717180623, longitude: -21.5183755874634},price: 9.0, imageUrl: this._randomImage()},
-          {id: 12, name: 'Hugmyndasamkeppni um nýtingu, hafnar framkvæmdir', description: 'Bílar leggja ítrekaðu upp á gangstéttina fyrir framan gangbrautirnar í Hamraborginni. Það getur verið mjög erfitt að komast yfir gangbrautirnar sérstaklega með barnavagn; á hjóli eða í hjólastól þegar lagt er svona. Einnig skapar þetta hættu fyrir gangandi, hjólandi og akandi vegfarendur. Auðvelt ætti að vera að setja staura þarna fyrir sem hindra bíla í að leggja þarna en hindra þó ekki þá sem eru með barnavagna, í hjólastól eða á hjóli.',
-            location: {latitude: 64.0402717180623, longitude: -21.6183755874634},price: 15.0, imageUrl: this._randomImage()},
-          {id: 13, name: 'Hljóðvarnargirðing við Hafnarfjarðarveg', description: 'Hafa eplatré; kirsuberjatré og fleiri ávaxtatré ásamt ýmsum berjarunnum á almenningssvæðum þar sem fólk má tína sér ávexti (svona þegar það kemur uppskera) og njóta náttúrunnar.',
-            location: {latitude: 64.0302717180623, longitude: -21.8183755874634},price: 15.0, imageUrl: this._randomImage()},
-          {id: 14, name: 'Bætt umferðaröryggi í Sæbólshverfi', description: 'Bæta við köldum potti/keri í Kársneslaugina',
-            location: {latitude: 64.0202717180623, longitude: -21.9183755874634},price: 3.0, imageUrl: this._randomImage()},
-          {id: 15, name: 'Settur upp frisbígolfvöllur', description: '"Nauðsynlegt er að koma upp göngustíg/gangstétt við Fornahvarf. Annars vegar við götuna er reiðstígur en ekki er gert ráð fyrir gangandi fólki; maður þarf einfaldlega að ganga á götunni sem er ekki gott. Mætti setja stíginn hinum megin við götuna og tengja hann við stíginn sem liggur á brúninni fyrir ofan vatnið við Breiðahvarf. Þessi leið er mikið notuð af hlaupahópum og þá eru heilu flokkarnir á götunni.',
-            location: {latitude: 64.0202717180623, longitude: -21.8283755874634},price: 3.0, imageUrl: this._randomImage()},
-          {id: 16, name: 'Endurbætur á útikennslusvæði', description: 'Það hefur lengi verið á óskalista mínum að fá uppsett leiktæki fyrir fullorðna',
-            location: {latitude: 64.0002717180623, longitude: -21.8383755874634},price: 2.0, imageUrl: this._randomImage()},
-          {id: 17, name: 'Endurbætur á útikennslusvæði', description: 'Hreystibraut í Fossvoginum; ásamt afgirtu leiksvæði fyrir yngri börn og e.t.v lítið kaffihús  Hugsað að hægt sé að taka nokkrar æfingar og yngribörn gætu leikið sér á meðan á afgirtum leikvelli, kaffihús mynda síðan passa vel hér inní að auki',
-            location: {latitude: 64.3202717180623, longitude: -21.8483755874634},price: 2.0, imageUrl: this._randomImage()},
-          {id: 18, name: 'Gerður fjölskyldugarður með leik- og dvalarsvæði', description: 'það vantar lýsingu á göngustíg sem liggur yfir Víhólinn frá lyngheiði að leikskólanum Kópahvol þarna ganga margir yfir bæði börn á leið í skóla og fullorðnir og það er mjög dimmt á veturnar',
-            location: {latitude: 64.1502717180623, longitude: -21.8583755874634},price: 5.0, imageUrl: this._randomImage()},
-          {id: 19, name: 'Bætt lýsing við stíga og bílastæði', description: 'Nú er smátt og smátt að vaxa upp trjá- og runnasafn í austurenda Fossvogs og kemur til með að verða mjög fallegt svæði. Almenn útivist í dalnum stór aukist og heldur stöðugt að aukast. Það væri því mjög gott fyrir svæði ef á því væri starfrækt lítið og fallegt kaffi-/veitingahús sem fólk hefði tök á að nýta sér jafnt til að fá sér smá hressingu og einnig til að komast á salerni.',
-            location: {latitude: 64.1202717180623, longitude: -21.8683755874634},price: 15.0, imageUrl: this._randomImage()},
-          {id: 20, name: 'Göngu- og hjólreiðastígur meðfram Reykjanesbraut', description: 'Hjólreiða- og göngustígur sem lagður var milli Mjóddar og Lindahverfis er mikið notaður, en stígurinn endar við Lindir í Kópavogi án frekari tenginga. Lagt er til að sett verði göngu- og hjólreiðabrú meðfram Reykjanesbraut sem tengja stíginn við hlið Linda við Glaðheimasvæðið og nýja stíga við Arnarnesveg sem nú er í framkvæmd.',
-            location: {latitude: 64.0202717180623, longitude: -21.8783755874634},price: 2.0, imageUrl: this._randomImage()}
-        ];
         this.set('area', detail.response.area);
-        this.set('budgetBallotItems', detail.response.budget_ballot_items);
+        this.set('budgetBallotItems', this._setupLocationsAndTranslation(detail.response.budget_ballot_items));
         var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', "Kársnes"));
         this.async(function () {

@@ -242,7 +242,6 @@ namespace :ballot do
   end
 
   def create_budget_ballot_item(area_id, budget_data, row_number)
-    puts "__________________________________"
     #puts budget_data[row_number]
     name_is = budget_data[row_number][3]
     puts name_is
@@ -252,10 +251,12 @@ namespace :ballot do
     price = price.to_i / 1000000
     puts price
     locations = budget_data[row_number][8]
-    if budget_data[row_number][9]
-      locations =+ ','+budget_data[row_number][9]
-    end
     puts locations
+
+    if budget_data[row_number][9]
+      puts budget_data[row_number][9]
+      locations = "#{locations},#{budget_data[row_number][9]}"
+    end
 
     description_is = budget_data[row_number][10]
     description_en = ""
@@ -266,18 +267,22 @@ namespace :ballot do
     idea_url =  budget_data[row_number][16]
     puts idea_url
 
-    idea_id = idea_url.split('/').last
-
-    post_url = "https://www.betraisland.is/api/posts/"+idea_id
-    encoded_url = URI.encode(post_url)
-    uri = URI(encoded_url)
-    res = Net::HTTP.get(uri)
-    puts res
-    #res = Net::HTTP.get URI(post_url)
-    post_json = JSON.parse(res)
-    if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
-      puts post_json["PostHeaderImages"][0]
-      image_url = post_json["PostHeaderImages"][0]["formats"][0]
+    if idea_url
+      idea_id = idea_url.split('/').last
+      post_url = "https://www.betraisland.is/api/posts/"+idea_id
+      encoded_url = URI.encode(post_url)
+      uri = URI(encoded_url)
+      res = Net::HTTP.get(uri)
+      #puts res
+      #res = Net::HTTP.get URI(post_url)
+      post_json = JSON.parse(res)
+      if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
+        #puts post_json["PostHeaderImages"][0]
+        image_url = JSON.parse(post_json["PostHeaderImages"][0]["formats"])[0]
+        puts image_url
+      end
+    else
+      idea_id = 99999
     end
 
     item = BudgetBallotItem.create!(:price=>price,
@@ -301,7 +306,7 @@ namespace :ballot do
   def import_area_data(area_id, budget_data, start_row_number)
     current_row_number = start_row_number -1
 
-    while current_row_number < start_row_number+20  do
+    while current_row_number < start_row_number+19  do
       create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end

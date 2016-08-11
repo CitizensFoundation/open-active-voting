@@ -96,10 +96,24 @@ class VotesController < ApplicationController
     @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
 
     # Get all budget ballot items
-    @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id)
+    I18n.locale = :is
+    @budget_ballot_items_is = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id).all
+
+    I18n.locale = :en
+    @budget_ballot_items_en = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id).all
+
+    @budget_ballot_items = []
+    @budget_ballot_items_is.each_with_index { |item, index|
+      new_item = item
+      new_item.name_is = new_item.name
+      new_item.description_is = new_item.description
+      new_item.name_en  = @budget_ballot_items_en[index].name
+      new_item.description_en  = @budget_ballot_items_en[index].description
+      @budget_ballot_items << new_item
+    }
 
     respond_to do |format|
-      format.json { render :json =>  {:area=>@area, :@budget_ballot_items => @budget_ballot_items }}
+      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :description_is, :description_en]}
     end
   end
 
