@@ -105,12 +105,23 @@
       padding-top: 8px;
     }
 
+    .name[small] {
+      font-size: 18px;
+      padding-top: 4px;
+      padding-right: 4px;
+      padding-top: 4px;
+    }
+
     .price {
       font-size: 25px;
       position: absolute;
       bottom: 8px;
       left: 92px;
       color: var(--app-accent-color);
+    }
+
+    .price[small] {
+      left: 70px;
     }
 
     .priceCurrency {
@@ -157,6 +168,10 @@
       z-index: 100;
     }
 
+    .infoLinks[small] {
+      top: 98px;
+    }
+
     .externalInfoIcon {
       color: #999;
       width: 45px;
@@ -195,13 +210,13 @@
           <div class="description">[[item.description]]</div>
         </div>
       </div>
-      <div class="infoLinks">
+      <div class="infoLinks" small$="[[small]]">
         <paper-icon-button title="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button title="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
-        <div class="name">[[item.name]]</div>
+        <div class="name" small$="[[small]]">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
@@ -211,7 +226,7 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
+        <div class="price" small$="[[small]]">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
         <paper-fab mini elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
