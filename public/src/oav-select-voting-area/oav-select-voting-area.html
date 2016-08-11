@@ -132,6 +132,51 @@
       height: 40px;
     }
 
+    .voteNumberForKarsnesMobile {
+      position: absolute;
+      top: 55px;
+      right: 4px;
+      color: #ce8716;
+    }
+
+    .voteNumberForDigranesMobile {
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      color: #69b559;
+    }
+
+    .voteNumberForSmarinnMobile {
+      position: absolute;
+      top: 385px;
+      left: 20px;
+      color: #44a3bc;
+    }
+
+    .voteNumberForLindirMobile {
+      position: absolute;
+      top: 270px;
+      right: 32px;
+      color: #ecd344;
+    }
+
+    .voteNumberForVatnsendiMobile {
+      position: absolute;
+      bottom: 265px;
+      left: 20px;
+      color: #cc511f;
+    }
+
+    .voteNumberGeneralMobile {
+      padding-left: 3px;
+      font-size: 20px;
+    }
+
+    .checkIconMobile {
+      width: 32px;
+      height: 32px;
+    }
+
     @media (max-width: 640px) {
       .selectInfoText {
         font-size: 18px;
@@ -182,11 +227,11 @@
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp>
-              <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
-              <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+              <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+              <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+              <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+              <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
             </template>
           </paper-material>
         </template>
@@ -203,6 +248,13 @@
               <area  alt="Smárinn" title="Smárinn" href="/#/area-ballot/3" shape="poly" coords="153,407,198,416,234,408,261,416,240,426,215,433,201,445,185,461,174,474,164,490,155,508,131,490,113,480,95,477,88,473,88,452,97,441,103,422,128,420" style="outline:none;" target="_self"     />
               <area  alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="105,576,187,504,217,513,240,516,263,511,281,512,295,505,303,522,291,540,277,546,260,545,247,571,260,577,265,591,251,602,233,606,224,616,220,623,221,632,238,660,263,682,283,676,285,690,276,694,248,726,246,745,143,823,136,824,126,798,113,634,14,607,17,596" style="outline:none;" target="_self"     />
             </map>
+            <template is="dom-if" if="[[areaVoterCount]]" restamp>
+              <div class="voteNumberForKarsnesMobile layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
+              <div class="voteNumberForDigranesMobile layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div class="voteNumberForSmarinnMobile layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div class="voteNumberForLindirMobile layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div class="voteNumberForVatnsendiMobile layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+            </template>
           </paper-material>
         </div>
       </template>
@@ -249,7 +301,7 @@
       },
 
       _getAreaCount: function (areaId) {
-        return this.areaVoterCount[areaId];
+        return this.areaVoterCount[areaId]*1000;
       },
 
       attached: function() {
