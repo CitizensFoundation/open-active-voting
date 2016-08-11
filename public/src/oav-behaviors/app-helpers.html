@@ -64,6 +64,14 @@
       }
     },
 
+    formatNumber: function (value) {
+      if (value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      } else {
+        return "0";
+      }
+    },
+
     getRandomNumber: function (value) {
       return Math.floor((Math.random() * value) + 1);
     },

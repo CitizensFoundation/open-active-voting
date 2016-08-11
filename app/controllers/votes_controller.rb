@@ -78,7 +78,9 @@ class VotesController < ApplicationController
   # Get the voting areas
   def get_areas
     respond_to do |format|
-      format.json { render :json => {:areas => BudgetBallotArea.all, area_voter_count: Vote.group(:area_id).distinct.count(:user_id_hash) }}
+      format.json { render :json => {:areas => BudgetBallotArea.all,
+                                     area_voter_count: Vote.group(:area_id).distinct.count(:user_id_hash),
+                                     total_voter_count: Vote.distinct.count(:user_id_hash) }}
     end
   end
 
