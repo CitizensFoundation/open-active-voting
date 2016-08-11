@@ -58,8 +58,8 @@
         --paper-map-info-mixin: {
           padding: 0;
           margin: 0 !important;
-          background-color:rgba(255, 255, 255, 0.7);
-          color: #000;
+          background-color: #fbfbfb;
+          color: var(--app-accent-color);
           max-width: 100%;
           max-height: 100%;
         };
@@ -89,7 +89,7 @@
           <google-map id="map" api-key="[[apiKey]]" fit-to-markers>
             <template is="dom-repeat" items="[[items]]" as="item">
               <template is="dom-repeat" items="[[item.locations]]" as="location">
-                <google-map-marker click-events latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
+                <google-map-marker click-events item="[[item]]" latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
                 </google-map-marker>
               </template>
             </template>
@@ -143,8 +143,7 @@
         }
       },
 
-      _itemsChanged: function () {
-
+      _itemsChanged: function (newItems) {
       },
 
       attached: function () {
@@ -207,6 +206,7 @@
 
       markerClick: function(e) {
         this.set('selectedItem', e.model.get('item'));
+        var a = this.selectedItem;
         this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
       }
     });

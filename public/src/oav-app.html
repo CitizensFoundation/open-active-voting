@@ -154,7 +154,7 @@
         </div>
 
         <div class="budgetContainer" hidden$="[[hideBudget]]">
-          <oav-area-budget id="budget" current-ballot="[[currentBallot]]"></oav-area-budget>
+          <oav-area-budget id="budget" area-name="[[areaName]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
       </app-header>
       <div>
@@ -206,6 +206,8 @@
           value: true
         },
 
+        areaName: String,
+
         budgetElement: Object,
         currentBallot: Object
       },
@@ -213,7 +215,8 @@
       listeners: {
         'app-resources-loaded': '_translationLoaded',
         'oav-set-title': '_setTitle',
-        'oav-error': '_errorHandler'
+        'oav-error': '_errorHandler',
+        'oav-set-area-name': '_setAreaName'
       },
 
       observers: [
@@ -223,6 +226,10 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+      },
+
+      _setAreaName: function (event, detail) {
+        this.set('areaName', detail);
       },
 
       _errorHandler: function (event, detail) {

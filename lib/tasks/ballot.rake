@@ -280,6 +280,8 @@ namespace :ballot do
         #puts post_json["PostHeaderImages"][0]
         image_url = JSON.parse(post_json["PostHeaderImages"][0]["formats"])[0]
         puts image_url
+      else
+        image_url = "https://i.imgur.com/sdsFAoT.png"
       end
     else
       idea_id = 99999
