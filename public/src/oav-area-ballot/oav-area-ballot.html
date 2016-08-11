@@ -96,12 +96,22 @@
   </style>
 
   <template>
-
+    <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="topContainer layout vertical">
 
       <div class="layout horizontal center-justified tabsContainer">
         <paper-tabs selected="{{selectedView}}">
-          <paper-tab>[[area.name]] - {{localize('items_list')}}</paper-tab>
+          <paper-tab>
+            <template is="dom-if" if="[[wide]]">
+              <div>[[area.name]] - {{localize('items_list')}}</div>
+            </template>
+            <template is="dom-if" if="[[!wide]]">
+              <div class="layout vertical center-center">
+                <div>[[area.name]]</div>
+                <div>{{localize('items_list')}}</div>
+              </div>
+            </template>
+          </paper-tab>
           <paper-tab>{{localize('items_on_map')}}</paper-tab>
         </paper-tabs>
       </div>
