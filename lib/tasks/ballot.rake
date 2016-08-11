@@ -2,6 +2,8 @@
 
 require "csv"
 #require "ap"
+require 'net/http'
+require 'net/https'
 
 class Array
   def shuffle
@@ -167,7 +169,6 @@ namespace :ballot do
   end
 
   def make_data_hash(row,master_id,count)
-
     puts row[5]
 
     letter_of_alphabet = BudgetBallotItem::ALLOWED_BALLOT_CHARACTERS
@@ -240,49 +241,124 @@ namespace :ballot do
     puts en_yml
   end
 
-  desc "Import Ballot from CSV"
-  task(:import_ballot_from_csv => :environment) do
-    @ballot = BudgetBallotItem.current
-
-    @areas = Hash.new
-    state = "waiting_for_neighborhood"
-    current_neighborhood = nil
-    master_id = 0
-
-    ideas_count = 0
-
-    CSV.parse(File.open(ENV['infile']).read).each do |row|
-      #puts "#{master_id} #{row}"
-      if row[0]=="Neighborhood Id"
-        current_neighborhood = row[1].to_i
-        ideas_count = -1
-      elsif row[0]=="END"
-        puts "The End of the import document"
-      else
-        @areas[current_neighborhood]=Hash.new unless @areas[current_neighborhood]
-        @areas[current_neighborhood][:ideas]=[] unless @areas[current_neighborhood][:ideas]
-        @areas[current_neighborhood][:ideas] << make_data_hash(row,master_id+=1,ideas_count+=1)
-      end
+  def create_budget_ballot_item(area_id, budget_data, row_number)
+    puts "__________________________________"
+    #puts budget_data[row_number]
+    name_is = budget_data[row_number][3]
+    puts name_is
+    price = budget_data[row_number][4]
+    price = price.gsub(',','')
+    price = price.gsub(' kr.','')
+    price = price.to_i / 1000000
+    puts price
+    locations = budget_data[row_number][8]
+    if budget_data[row_number][9]
+      locations =+ ','+budget_data[row_number][9]
     end
-    main_outfile = ""
-    is_yml = ""
-    en_yml = ""
-    @areas.each do |id, project_types|
-      project_types.each do |project_type,array|
-        array.each do |item|
-          is_yml += "#{item[:name]}: \"#{item[:name_is].strip.escape_quotes}\"\n"
-          is_yml += "#{item[:description]}: \"#{item[:description_is].strip.escape_quotes}\"\n"
-          en_yml += "#{item[:name]}: \"#{item[:name_en].strip.escape_quotes}\"\n"
-          en_yml += "#{item[:description]}: \"#{item[:description_en].strip.escape_quotes}\"\n"
-          item.delete(:name_is)
-          item.delete(:description_is)
-          main_outfile += "@areas[#{id}][:#{project_type}] << {:id=>#{item[:id]}, :letter=>\"#{item[:letter]}\", :link=>\"#{item[:link]}\", :description=>I18n.t(:#{item[:description]}), :name=>I18n.t(:#{item[:name]}), :price=>#{item[:price].to_f/1000000.0}}\n"
-        end
-        main_outfile += "\n"
-      end
+    puts locations
+
+    description_is = budget_data[row_number][10]
+    description_en = ""
+
+    name_en = budget_data[row_number][15]
+    puts name_en
+
+    idea_url =  budget_data[row_number][16]
+    puts idea_url
+
+    idea_id = idea_url.split('/').last
+
+    post_url = "https://www.betraisland.is/api/posts/"+idea_id
+    encoded_url = URI.encode(post_url)
+    uri = URI(encoded_url)
+    res = Net::HTTP.get(uri)
+    puts res
+    #res = Net::HTTP.get URI(post_url)
+    post_json = JSON.parse(res)
+    if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
+      puts post_json["PostHeaderImages"][0]
+      image_url = post_json["PostHeaderImages"][0]["formats"][0]
     end
-    #puts main_outfile
-    #puts is_yml
-    puts en_yml
+
+    item = BudgetBallotItem.create!(:price=>price,
+                                    :idea_id=>idea_id,
+                                    :budget_ballot_area_id=>area_id,
+                                    :locations=>locations,
+                                    :image_url=>image_url,
+                                    :idea_url=>idea_url)
+
+    I18n.locale = "is"
+    item.name = name_is
+    item.description = description_is
+    item.save
+    I18n.locale = "en"
+    item.name = name_en
+    item.description = description_en
+    item.save
+    puts "========================================================="
+  end
+
+  def import_area_data(area_id, budget_data, start_row_number)
+    current_row_number = start_row_number -1
+
+    while current_row_number < start_row_number+20  do
+      create_budget_ballot_item(area_id, budget_data, current_row_number)
+      current_row_number +=1
+    end
+  end
+
+  desc "Reset Kópavogur Ballot from CSV"
+  task(:reset_kopavogur_ballot_data_from_csv => :environment) do
+
+    BudgetBallotItem.delete_all
+    BudgetBallotArea.delete_all
+
+    budget_data = CSV.parse(File.open(ENV['infile']).read)
+
+    karsnes = BudgetBallotArea.create!(:budget_amount => 32.0)
+    I18n.locale = "is"
+    karsnes.name = "Kársnes"
+    karsnes.save
+    I18n.locale = "en"
+    karsnes.name = "Kársnes"
+    karsnes.save
+
+    import_area_data(karsnes.id, budget_data, 12)
+
+    digranes = BudgetBallotArea.create!(:name => "Digranes", :budget_amount => 64.0)
+    I18n.locale = "is"
+    digranes.name = "Digranes"
+    digranes.save
+    I18n.locale = "en"
+    digranes.name = "Digranes"
+    digranes.save
+    import_area_data(digranes.id, budget_data, 37)
+
+    smarinn = BudgetBallotArea.create!(:name => "Smárinn", :budget_amount => 23.0)
+    I18n.locale = "is"
+    digranes.name = "Smárinn"
+    smarinn.save
+    I18n.locale = "en"
+    smarinn.name = "Smárinn"
+    smarinn.save
+    import_area_data(smarinn.id, budget_data, 61)
+
+    fifuhvammur = BudgetBallotArea.create!(:name => "Fífuhvammur", :budget_amount => 37.0)
+    I18n.locale = "is"
+    fifuhvammur.name = "Fífuhvammur"
+    fifuhvammur.save
+    I18n.locale = "en"
+    fifuhvammur.name = "Fífuhvammur"
+    fifuhvammur.save
+    import_area_data(fifuhvammur.id, budget_data, 86)
+
+    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 37.0)
+    I18n.locale = "is"
+    vatnsendi.name = "Vatnsendi"
+    vatnsendi.save
+    I18n.locale = "en"
+    vatnsendi.name = "Vatnsendi"
+    vatnsendi.save
+    import_area_data(vatnsendi.id, budget_data, 112)
   end
 end
