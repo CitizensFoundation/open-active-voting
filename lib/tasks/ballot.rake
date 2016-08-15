@@ -259,12 +259,13 @@ namespace :ballot do
     end
 
     description_is = budget_data[row_number][10]
-    description_en = ""
+    puts description_is
 
     name_en = budget_data[row_number][15]
     puts name_en
 
-    idea_url =  budget_data[row_number][16]
+    description_en =  budget_data[row_number][16]
+    idea_url =  budget_data[row_number][17]
     puts idea_url
 
     if idea_url

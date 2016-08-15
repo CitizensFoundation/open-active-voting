@@ -107,11 +107,11 @@ class VotesController < ApplicationController
 
       I18n.locale = "is"
       new_item.name_is = item.name
-      new_item.description_is = item.name
+      new_item.description_is = item.description
 
       I18n.locale = "en"
       new_item.name_en = item.name
-      new_item.description_en = item.name
+      new_item.description_en = item.description
       @budget_ballot_items << new_item
     }
 
