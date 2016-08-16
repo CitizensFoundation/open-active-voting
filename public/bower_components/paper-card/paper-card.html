@@ -1,0 +1,186 @@
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+
+<polymer-element name="paper-card">
+<template>
+
+  <style>
+
+    :host {
+      display: block;
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+    }
+
+    #pcard {
+      margin: 0;
+      background-color:#FFFFFF;
+      border-radius:4px;
+      color:#000000;
+      border:1px solid #F2F2F2;
+      padding:0px;
+      text-align:left;
+      width: 100%;
+      height: 100%;
+    }
+
+    #shaded {
+      opacity: 0;
+      display: block;
+      border-radius:4px;
+      position: absolute;
+      padding:0;
+      margin:0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left :0;
+      background: rgba(0,0,0,0.1);
+    }
+
+    #image {
+      -webkit-user-select: none;
+      display: block;
+      opacity: 0.5;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 30%;
+    }
+
+    paper-ripple {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+
+    @-webkit-keyframes addOverlay {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes removeOverlay {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .overlay-in {
+      -webkit-animation: addOverlay 0.2s ease-in 1 forwards;
+    }
+    .overlay-out {
+      -webkit-animation: removeOverlay 0.2s ease-out 1 forwards;
+    }
+
+  </style>
+
+
+  
+    <paper-shadow z="{{zdepth}}" id="pcard" animated="{{animated}}"
+    on-mouseover="{{hovered}}" on-mouseout="{{unHovered}}">
+      
+      <template if="{{enableOverlay}}">
+        <div id="shaded">
+          <img id="image" src="{{overlayImage}}">
+            <paper-ripple class="recenteringTouch"></paper-ripple>
+          </img>
+        </div>
+      </template>
+      
+      <template if="{{!enableOverlay}}">
+        <paper-ripple class="recenteringTouch"></paper-ripple>
+      </template>
+      
+      <content></content>
+    </paper-shadow>
+  
+
+</template>
+<script>
+
+  Polymer('paper-card', {
+
+    publish: {
+
+      /**
+       * Amount of shadow of the card.
+       *
+       * @attribute zdepth
+       * @type int
+       * @default 1
+       */
+      zdepth: 1,
+
+       /**
+       * Increase shadow by 1 on mouse hover, if possible.
+       *
+       * @attribute enableHover
+       * @type boolean
+       * @default false
+       */
+      enableHover: false,
+
+      /**
+       * Animate the shadow increase/decrease from hovering
+       *
+       * @attribute animated
+       * @type boolean
+       * @default true
+       */
+      animated: true,
+
+      /**
+       * Enable an animated overlay on hover
+       *
+       * @attribute enableOverlay
+       * @type boolean
+       * @default false
+       */
+      enableOverlay: false,
+
+      /**
+       * Path to image to be added to animated overlay on hover
+       *
+       * @attribute overlayImage
+       * @type string
+       * @default ""
+       */
+      overlayImage: ""
+    },
+    
+     /**
+     * On-hover function
+     * @method hovered
+     */
+    hovered: function() {
+      if (this.enableOverlay) {
+        this.$.shaded.className = 'overlay-in';
+      }
+      if( this.enableHover && this.zdepth < 5 ) {
+          this.$.pcard.setZ(this.zdepth + 1);
+      }
+    },
+
+    /**
+     * On-unhover function
+     * @method unHovered
+     */
+    unHovered: function() {
+      if ( this.enableOverlay) {
+        this.$.shaded.className = 'overlay-out';
+      } 
+      if ( this.enableHover && this.zdepth > 0 ) {
+        this.$.pcard.setZ(this.zdepth - 1);
+      }
+    }
+});
+
+</script>
+</polymer-element>

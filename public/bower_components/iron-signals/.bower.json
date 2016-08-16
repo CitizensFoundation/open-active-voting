@@ -34,6 +34,5 @@
   },
   "_source": "https://github.com/PolymerElements/iron-signals.git",
   "_target": "~1.0.3",
-  "_originalSource": "iron-signals",
-  "_direct": true
+  "_originalSource": "iron-signals"
 }

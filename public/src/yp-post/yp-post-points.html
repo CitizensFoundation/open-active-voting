@@ -11,7 +11,7 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
-<link rel="import" href="../yp-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html">
 <link rel="import" href="../yp-point/yp-point.html">
 
 <dom-module id="yp-post-points">
@@ -163,6 +163,10 @@
           width: 310px;
         }
       }
+
+      .topContainer {
+        background-color: #fbfbfb;
+      }
     </style>
 
     <iron-media-query query="(min-width: 985px)" query-matches="{{largeMode}}"></iron-media-query>
@@ -178,10 +182,6 @@
             <div class="point">
 
               <div id="pointUpMaterial" elevation="0" class="pointText" animated>
-                <paper-textarea id="up_point" on-tap="focusUpPoint" on-focus="focusTextArea" on-blur="blurTextArea"
-                                bind-value="{{textValueUp}}" value=[[textValueUp]] label="[[t('point.for')]]"
-                                char-counter rows="2"
-                                max-rows="3" maxlength="500"></paper-textarea>
 
                 <template is="dom-if" if="[[ifLengthIsRight(textValueUp)]]">
                   <div class="addPointFab layout horizontal center-center">
@@ -203,11 +203,6 @@
             <div class="point">
 
               <div id="pointDownMaterial" elevation="0" class="pointText" animated>
-                <paper-textarea id="down_point" on-tap="focusDownPoint" on-focus="focusTextArea" on-blur="blurTextArea"
-                                bind-value="{{textValueDown}}" value=[[textValueDown]] label="[[t('point.against')]]"
-                                char-counter rows="2"
-                                max-rows="5" maxlength="500"></paper-textarea>
-
                 <template is="dom-if" if="[[ifLengthIsRight(textValueDown)]]">
                   <div class="addPointFab layout horizontal center-center">
                     <paper-button icon="add" mini="" z="3" on-tap="addPointDown"
@@ -229,16 +224,6 @@
       </template>
       <template is="dom-if" if="[[!largeMode]]">
         <div id="pointUpOrDownMaterial" elevation="0" class="pointText" animated>
-          <paper-textarea id="mobileUpOrDownPoint" on-tap="focusDownPoint" on-focus="focusTextArea" on-blur="blurTextArea"
-                          bind-value="{{textValueMobileUpOrDown}}" value=[[textValueMobileUpOrDown]] label="[[labelMobileUpOrDown]]"
-                          char-counter rows="2"
-                          max-rows="3" maxlength="500"></paper-textarea>
-          <div class="layout horizontal center-center">
-            <paper-radio-group id="upOrDown" attribute-for-selected="name" selected="{{pointUpOrDownSelected}}">
-              <paper-radio-button name="pointFor">[[t('point.for')]]</paper-radio-button>
-              <paper-radio-button name="pointAgainst">[[t('point.against')]]</paper-radio-button>
-            </paper-radio-group>
-          </div>
           <template is="dom-if" if="[[ifLengthIsRight(textValueMobileUpOrDown)]]">
             <div class="addPointFab layout horizontal center-center mobileFab">
               <paper-fab icon="add" mini="" z="3" on-tap="addMobilePointUpOrDown"
@@ -255,8 +240,8 @@
     </template>
 
     <div hidden class="layout horizontal center-center">
-      <yp-ajax id="ajax" on-response="_response"></yp-ajax>
-      <yp-ajax id="newPointAjax" method="POST" url="/api/points" on-response="_newPointResponse"></yp-ajax>
+      <oav-ajax id="ajax" on-response="_response"></oav-ajax>
+      <oav-ajax id="newPointAjax" method="POST" url="/api/points" on-response="_newPointResponse"></oav-ajax>
     </div>
 
     <paper-toast id="newPointToast" text="[[newPointTextCombined]]"></paper-toast>
@@ -338,15 +323,15 @@
         _postChanged: function (newPost) {
           // Remove any manually inserted points when the list is updated
           if (newPost) {
-            this.$.ajax.url = '/api/posts/' + newPost.id + '/points';
+            var params = '/api/posts/' + newPost.id + '/points';
+            this.$.ajax.url = '/votes/better_iceland_proxy';
+            this.$.ajax.params = { params: params };
             this.$.ajax.generateRequest();
           }
         },
 
         _response: function (event, detail) {
           this.set('points', detail.response);
-          this.removeElementsByClass(this, 'inserted-outside-list');
-
           if (this.points.length > 0) {
             this.set('upPoints', this.points.filter(function (x) {
               return x.value > 0;
@@ -415,17 +400,7 @@
         },
 
         addPoint: function (content, value) {
-          if (window.appUser.loggedIn() === true) {
-            this.$.newPointAjax.url = "/api/points/" + this.post.group_id;
-            this.$.newPointAjax.body = {
-              postId: this.post.id,
-              content: content,
-              value: value
-            };
-            this.$.newPointAjax.generateRequest();
-          } else {
-            window.appUser.loginForNewPoint(this, {content: content, value: value});
-          }
+
         },
 
         focusUpPoint: function () {

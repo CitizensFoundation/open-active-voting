@@ -25,11 +25,13 @@
 <link rel="import" href="yp-post-users.html">
 <link rel="import" href="yp-post-cover-media.html">
 <link rel="import" href="yp-post-user-images.html">
+<link rel="import" href="yp-post-card.html">
 
 <dom-module id="yp-post">
   <template>
     <style>
       :host {
+        background-color: #fbfbfb;
       }
 
       .container {
@@ -182,7 +184,7 @@
         }
       }
 
-      yp-ajax {
+      oav-ajax {
         background-color: var(--primary-background-color);
       }
 
@@ -198,6 +200,7 @@
 
       .topContainer {
         margin-top: 16px;
+        background-color: #fafafa;
       }
 
       .tabs {
@@ -362,7 +365,7 @@
     </div>
 
     <div class="layout horizontal center-center">
-      <yp-ajax id="ajax" on-response="_response"></yp-ajax>
+      <oav-ajax id="ajax" on-response="_response"></oav-ajax>
     </div>
   </template>
 
@@ -373,8 +376,7 @@
         is: 'yp-post',
 
         behaviors: [
-          Polymer.appHelpers,
-          Polymer.ypThemeBehavior
+          Polymer.appHelpers
         ],
 
         properties: {
@@ -425,6 +427,18 @@
           createFabIcon: {
             type: String,
             value: null
+          },
+
+          postIdRoutePath: {
+            type: Object,
+            observer: '_postIdRoutePathChanged'
+          },
+
+        },
+
+        _postIdRoutePathChanged: function (newPathForId) {
+          if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/post") {
+            this.set('postId', newPathForId.path.slice(1));
           }
         },
 
@@ -518,35 +532,20 @@
         },
 
         _getPost: function () {
-          this.$.ajax.url = '/api/posts/' + this.postId;
+          var params = '/api/posts/' + this.postId;
+          this.$.ajax.url = '/votes/better_iceland_proxy';
+          this.$.ajax.params = { params: params };
           this.$$('#ajax').retryMethodAfter401Login = this._getPost.bind(this);
           this.$.ajax.generateRequest();
         },
 
         _response: function (event, detail, sender) {
           this.set("post", detail.response);
-          if (this.post.Group.theme_id!=null) {
-            this.setTheme(this.post.Group.theme_id);
-          } else if (this.post.Group.Community && this.post.Group.Community.theme_id!=null) {
-            this.setTheme(this.post.Group.Community.theme_id);
-          }
-
-          if (this.post.Group.configuration && this.post.Group.configuration.canAddNewPosts!=undefined) {
-            if (this.post.Group.configuration.canAddNewPosts===true) {
-              this.set('createFabIcon',"lightbulb-outline");
-            }
-          } else {
-            this.set('createFabIcon',"lightbulb-outline");
-          }
 
           if (this.post.description === null) {
             this.post.description = this.post.Points[0].content;
             this.post.Points.shift();
           }
-          this.fire("change-header", { headerTitle: this.truncate(this.post.Group.name,80),
-                                       documentTitle: this.post.name,
-                                       headerDescription: '',//this.truncate(this.post.Group.objectives,45),
-                                       backPath: "#!/group/" + this.post.group_id });
         },
 
         selectedChanged: function (selected, oldValue) {

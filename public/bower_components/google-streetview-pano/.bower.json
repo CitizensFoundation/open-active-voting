@@ -1,0 +1,40 @@
+{
+  "name": "google-streetview-pano",
+  "homepage": "https://googlewebcomponents.github.io/google-streetview-pano",
+  "description": "Google Maps street view web component",
+  "main": "google-streetview-pano.html",
+  "authors": [
+    "Rob Dodson"
+  ],
+  "license": "Apache2",
+  "ignore": [
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "streetview",
+    "apis",
+    "google-maps",
+    "google"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "google-apis": "GoogleWebComponents/google-apis#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+  },
+  "_release": "59deec4443",
+  "_resolution": {
+    "type": "branch",
+    "branch": "timings-fix-maps-api-callback",
+    "commit": "59deec4443bcbbb35581b546f0a46b0f580c22d4"
+  },
+  "_source": "https://github.com/rbjarnason/google-streetview-pano.git",
+  "_target": "timings-fix-maps-api-callback",
+  "_originalSource": "https://github.com/rbjarnason/google-streetview-pano.git"
+}

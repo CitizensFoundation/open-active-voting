@@ -84,6 +84,18 @@ class VotesController < ApplicationController
     end
   end
 
+  def better_iceland_proxy
+    post_url = "https://www.betraisland.is"+params[:params]
+    encoded_url = URI.encode(post_url)
+    uri = URI(encoded_url)
+    res = Net::HTTP.get(uri)
+    post_json = JSON.parse(res)
+    puts post_json
+    respond_to do |format|
+      format.json { render :json => post_json }
+    end
+  end
+
   # Get the ballot and display it to the user
   def get_ballot
     # Write a fake identity when not running in production mode

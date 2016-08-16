@@ -1,0 +1,23 @@
+{
+  "name": "paper-card",
+  "private": false,
+  "main": "paper-card.html",
+  "ignore": [
+    "README.md"
+  ],
+  "dependencies": {
+    "paper-shadow": "Polymer/paper-shadow#master",
+    "paper-ripple": "Polymer/paper-ripple#master"
+  },
+  "homepage": "https://github.com/andytuwm/paper-card",
+  "version": "0.1.5",
+  "_release": "0.1.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.5",
+    "commit": "092df7a4e6766a6acc26d42447811fcf2a844998"
+  },
+  "_source": "https://github.com/andytuwm/paper-card.git",
+  "_target": "~0.1.5",
+  "_originalSource": "paper-card"
+}

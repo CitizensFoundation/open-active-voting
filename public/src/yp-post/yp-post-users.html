@@ -5,9 +5,9 @@
 
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="../yp-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html">
 <link rel="import" href="../yp-user/yp-user-image.html">
-<link rel="import" href="../yp-ajax/yp-ajax.html">
+<link rel="import" href="../oav-ajax/oav-ajax.html">
 
 <dom-module id="yp-post-users">
   <template>
@@ -47,7 +47,7 @@
       </div>
 
     </template>
-    <yp-ajax id="endorsementAjax" use-dialog="false" on-response="_response" handle-as="json"></yp-ajax>
+    <oav-ajax id="endorsementAjax" use-dialog="false" on-response="_response" handle-as="json"></oav-ajax>
   </template>
 
   <script>

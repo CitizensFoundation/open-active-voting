@@ -43,6 +43,5 @@
   },
   "_source": "https://github.com/PolymerElements/paper-dialog-scrollable.git",
   "_target": "~1.1.5",
-  "_originalSource": "paper-dialog-scrollable",
-  "_direct": true
+  "_originalSource": "paper-dialog-scrollable"
 }

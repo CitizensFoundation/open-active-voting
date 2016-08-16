@@ -17,7 +17,7 @@
 <link rel="import" href="../../bower_components/paper-share-buttons/paper-share-twitter.html">
 <link rel="import" href="../../bower_components/paper-share-buttons/paper-share-google.html">
 
-<link rel="import" href="../yp-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="yp-post-actions">
 
@@ -176,11 +176,6 @@
         background-color: #FFF;
       }
 
-      paper-share-facebook {
-        padding: 0;
-        margin: 0;
-      }
-
       @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
         .action-debate {
           display: none;
@@ -190,7 +185,6 @@
 
     <iron-media-query query="(max-width: 420px)" query-matches="{{small}}"></iron-media-query>
 
-    <yp-ajax id="endorseAjax" method="POST" on-response="_endorseResponse"></yp-ajax>
     <paper-material elevation="[[elevationPlusOne]]" floating$="[[floating]]" animated class="action-bar">
       <div id="actionUp" class="action-up">
         <paper-icon-button disabled="[[allDisabled]]" title="[[t('post.up_vote')]]" icon$="[[endorseModeIcon(endorseMode,'up')]]" class="action-icon up-vote-icon largeButton" on-tap="upVote"></paper-icon-button>
@@ -211,15 +205,6 @@
       <div class="share" >
         <paper-icon-button title="[[t('post.shareInfo')]]" icon="social:share" on-tap="_toggleShare" class="shareIcon" id="shareButton"></paper-icon-button>
       </div>
-      <template is="dom-if" if="[[showShareButtons]]">
-        <div class="layout horizontal shareButtonContainer">
-          <paper-material elevation="5" class="shareShare">
-            <paper-share-facebook link$="[[_postUrl(post)]]" class="shareButton"></paper-share-facebook>
-            <paper-share-google link$="[[_postUrl(post)]]" class="shareButton"></paper-share-google>
-            <paper-share-twitter link$="[[_postUrl(post)]]" class="shareButton"></paper-share-twitter>
-          </paper-material>
-        </div>
-      </template>
     </paper-material>
 
     <iron-signals on-iron-signal-got-endorsements-and-qualities="_updateEndorsementsFromSignal"></iron-signals>
@@ -275,12 +260,7 @@
 
         allDisabled: {
           type: Boolean,
-          value: false
-        },
-
-        showShareButtons: {
-          type: Boolean,
-          value: false
+          value: true
         }
       },
 
@@ -335,11 +315,7 @@
       },
 
       _updateEndorsements: function () {
-        if (window.appUser.loggedIn() && window.appUser.user && window.appUser.user.Endorsements) {
-          var thisPostsEndorsement = window.appUser.endorsementPostsIndex[this.post.id];
-          if (thisPostsEndorsement)
-            this._setEndorsement(thisPostsEndorsement.value);
-        }
+
       },
 
       endorseModeIcon: function (endorseMode, upDown) {

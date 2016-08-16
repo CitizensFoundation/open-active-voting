@@ -4,6 +4,7 @@
   "fragments": [
     "src/oav-select-voting-area/oav-select-voting-area.html",
     "src/oav-area-ballot/oav-area-ballot.html",
-    "src/oav-area-ballot/oav-voting-completed.html"
+    "src/oav-area-ballot/oav-voting-completed.html",
+    "src/yp-post/yp-post.html"
   ]
 }

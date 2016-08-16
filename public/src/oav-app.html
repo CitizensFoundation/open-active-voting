@@ -1,6 +1,6 @@
 <!--
 @license
-  Copyright (C) 2010-2016 City of Reykjavik, Íbúar ses
+  Copyright (C) 2010-2016 Íbúar ses
   Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
 
   This program is free software: you can redistribute it and/or modify
@@ -163,6 +163,7 @@
           <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
           <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
           <oav-voting-completed name="voting-completed"></oav-voting-completed>
+          <yp-post id="post" budget-element="[[budgetElement]]" post-id-route-path="[[subroute]]" name="post"></yp-post>
         </iron-pages>
       </div>
     </app-header-layout>
@@ -279,7 +280,11 @@
       _pageChanged: function(page) {
         // load page import on demand.
         if (page && page!='select-voting-area') {
-          this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
+          if (page=='post') {
+            this.importHref(this.resolveUrl('yp-' + page + '/yp-' + page + '.html'), null, null, true);
+          } else {
+            this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
+          }
           this.set('showExit', true);
           if (page=='voting-completed') {
             this.set('title', this.localize('voting_completed'));

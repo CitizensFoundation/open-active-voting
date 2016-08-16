@@ -240,6 +240,13 @@ constructor() {
 }
 ```
 
+NOTE: If you use direct initialization, the property will be set _after_ the `ready()` method is called. If you use the `value` attribute of the `@property` decorator, it will be called before `ready()`:
+
+```TypeScript
+@property({type: number, value: 42})
+myprop: number;  // will be initialized with value before ready() is called
+```
+
 While you can specify `computed` and `observer` in a property definition,
 there are the specific decorators `@computed` and `@observe` that are easier to use.
 
@@ -579,6 +586,8 @@ Contributions are welcome.
 If you find bugs or want to improve it, just send a pull request.
 
 # Change log <a name="changelog"></a>
+- v0.1.28 (Aug 8, 2015)
+  - Added `unlisten()` to API
 - v0.1.19 (Sep 16, 2015)
   - Extended `@behavior` to work with plain JavaScript objects (in addition to TypeScript classes)
 - v0.1.17 (Sep 14, 2015)

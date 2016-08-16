@@ -1,0 +1,12 @@
+{
+  "name": "paper-card",
+  "private": false,
+  "main": "paper-card.html",
+  "ignore": [
+    "README.md"
+    ],
+  "dependencies": {
+    "paper-shadow": "Polymer/paper-shadow#master",
+    "paper-ripple": "Polymer/paper-ripple#master"
+  }
+}
