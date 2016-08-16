@@ -37,7 +37,8 @@
     "paper-map-info": "~1.0.8",
     "lodash-import": "~0.0.2",
     "paper-card": "~0.1.5",
-    "google-streetview-pano": "https://github.com/rbjarnason/google-streetview-pano.git#timings-fix-maps-api-callback"
+    "google-streetview-pano": "https://github.com/rbjarnason/google-streetview-pano.git#timings-fix-maps-api-callback",
+    "lodash": "~4.15.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
