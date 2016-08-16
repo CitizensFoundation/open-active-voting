@@ -301,8 +301,13 @@
       },
 
       _ballotPostResponse: function (event, detail) {
-        this.reset();
-        window.location = "/#/voting-completed"
+        debugger;
+        if (detail.response.vote_ok==true && detail.response.error==false) {
+          this.reset();
+          window.location = "/#/voting-completed"
+        } else {
+          this.fire('oav-error', this.localize('error_could_not_post_vote'));
+        }
       },
 
       _areaIdRoutePathChanged: function (newPathForId) {

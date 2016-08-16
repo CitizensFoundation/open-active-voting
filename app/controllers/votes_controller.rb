@@ -129,13 +129,13 @@ class VotesController < ApplicationController
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = [:error=>false, :message=>t(:votes_post_results_4), :vote_ok=>true, :vote_count=> vote_count]
+        response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
       else
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
-        response = [:error=>true, :message=>t(:votes_post_results_2), :vote_ok=>false]
+        response = {:error=>true, :vote_ok=>false}
       end
     else
-      response = [:error=>true, :message=>t(:votes_timeout_1), :vote_ok=>false]
+      response = {:error=>true, :vote_ok=>false}
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
 
@@ -176,7 +176,7 @@ class VotesController < ApplicationController
       # Check and see if the response is a success
       if saml_validation_response==true
         parsed = Nokogiri.parse(@response.response.to_s)
-        puts national_identity_hash = parsed.root.xpath("//blarg:Attribute[@FriendlyName='Kennitala']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
+        national_identity_hash = parsed.root.xpath("//blarg:Attribute[@FriendlyName='Kennitala']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
         assertion_id = parsed.root.xpath("//blarg:Assertion/@ID", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).to_s
         if SamlAssertion.where(:assertion_id=>assertion_id).first
           raise "Duplicate SAML 2 assertion error"
@@ -200,11 +200,13 @@ class VotesController < ApplicationController
       #known_x509_cert_txt = known_x509_cert.to_s
       #test_x509_cert_txt = test_x509_cert.to_s
 
-      #raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert_txt} (#{test_x509_cert_txt.size}) |#{test_x509_cert_txt.encoding.name}|" unless known_x509_cert_txt == test_x509_cert_txt
+      #unless known_x509_cert_txt == test_x509_cert_txt
+        #raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert_txt} (#{test_x509_cert_txt.size}) |#{test_x509_cert_txt.encoding.name}|"
+      #end
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
-        session[:have_authenticated_and_been_approved]= true
+        session[:have_authenticated_and_been_approved] = true
         Rails.cache.write(request.session_options[:id], national_identity_hash)
       end
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
