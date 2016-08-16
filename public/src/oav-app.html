@@ -31,6 +31,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -134,6 +135,8 @@
       }
     </style>
 
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
     <oav-dialog-container id="dialogContainer"></oav-dialog-container>
 
     <app-location route="{{route}}" use-hash-as-path></app-location>
@@ -211,7 +214,13 @@
         areaName: String,
 
         budgetElement: Object,
-        currentBallot: Object
+
+        currentBallot: Object,
+
+        haveSetLanguage: {
+          type: Boolean,
+          value: false
+        }
       },
 
       listeners: {
@@ -268,14 +277,19 @@
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('./locales.json'));
+        this.loadLanguage(this.resolveUrl('./locales.json'));
       },
 
       _translationLoaded: function () {
-        Polymer.Base.async(function () {
-          document.title = this.localize('app_title');
-          this.set('title', this.localize('welcome_title'));
-        }.bind(this));
+        if (!this.haveSetLanguage) {
+          this.haveSetLanguage = true;
+          if (typeof(Storage) !== "undefined") {
+            var selectedLanguage = localStorage.getItem("selectedLanguage");
+            if (selectedLanguage) {
+              this.fire('iron-signal', {name: 'set-language', data: selectedLanguage});
+            }
+          }
+        }
       },
 
       _routeChanged: function (route) {

@@ -6,6 +6,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="oav-ajax">
@@ -25,6 +26,7 @@
     }
   </style>
   <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-spinner id="spinner" hidden$="[[!useSpinner]]"></paper-spinner>
 
@@ -121,7 +123,7 @@
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       },
 
       _response: function (event) {

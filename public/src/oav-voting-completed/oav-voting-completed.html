@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="oav-voting-completed">
@@ -35,6 +36,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
     <div class="layout vertical center-center">
       <paper-material class="layout vertical center-center" elevation="3">
         <div class="layout vertical center-center">
@@ -62,7 +65,7 @@
       ],
 
       attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       }
     })
   })();

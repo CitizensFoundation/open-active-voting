@@ -37,7 +37,8 @@
     "map_item_tab": "Item location",
     "budget_left_text": "{budget_left} millions left",
     "more_info_description": "Idea on idea website",
-    "close": "close"
+    "close": "close",
+    "vote": "Vote!"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -77,6 +78,7 @@
     "map_item_tab": "Staðsetning",
     "budget_left_text": "{budget_left} milljónir eftir",
     "more_info_description": "Hugmynd á hugmyndavef",
-    "close": "loka"
+    "close": "loka",
+    "vote": "Kjósa!"
   }
 }

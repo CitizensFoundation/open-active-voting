@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/google-map/google-map-marker.html">
@@ -74,7 +75,7 @@
         color: #FFF;
       }
     </style>
-
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
 
     <div class="layout vertical center-center topMapContainer">
@@ -154,6 +155,7 @@
         this.async(function () {
           this._resetMapHeight();
         }.bind(this));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       },
 
       _wideChanged: function () {

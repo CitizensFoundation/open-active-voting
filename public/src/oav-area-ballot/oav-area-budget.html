@@ -9,6 +9,7 @@
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="oav-area-budget">
@@ -147,6 +148,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
@@ -163,7 +166,7 @@
             <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
           </div>
           <div class="">
-            <paper-button id="votingButton" raised class="voteButton" on-tap="_submitVote">Kjósa!</paper-button>
+            <paper-button id="votingButton" raised class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
           </div>
         </div>
         <div id="votes" wide$="[[wide]]">
@@ -241,7 +244,7 @@
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       },
 
       _wideChanged: function (isWide) {

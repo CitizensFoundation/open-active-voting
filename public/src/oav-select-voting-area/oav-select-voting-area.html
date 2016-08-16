@@ -11,6 +11,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 <link rel="import" href="../oav-ajax/oav-ajax.html">
@@ -216,6 +217,18 @@
       padding-left: 2px;
     }
 
+    .langSelection {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+    }
+
+    .langImage {
+      cursor: pointer;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+
     @media (max-width: 640px) {
       .totalVoterCount {
         font-size: 17px;
@@ -231,6 +244,7 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
     <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
 
     <template is="dom-if" if="[[areas]]">
@@ -242,6 +256,10 @@
             <div class="selectInfoText flex">{{localize('app_title')}}</div>
             <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_1')}}</div>
             <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
+            <div class="langSelection layout horizontal">
+              <iron-image class="langImage" on-tap="_selectIcelandic" src="/images/isLang.png"></iron-image>
+              <iron-image class="langImage" on-tap="_selectEnglish" src="/images/enLang.png"></iron-image>
+            </div>
             <template is="dom-if" if="[[totalVoterCount]]">
               <div class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="face"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
             </template>
@@ -339,12 +357,22 @@
         totalVoterCount: Number
       },
 
+      _selectIcelandic: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'is'});
+        localStorage.setItem("selectedLanguage", 'is');
+      },
+
+      _selectEnglish: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'en'});
+        localStorage.setItem("selectedLanguage", 'en');
+      },
+
       _getAreaCount: function (areaId) {
         return this.formatNumber(this.areaVoterCount[areaId]);
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       },
 
       _areasResponse: function (event, detail) {

@@ -24,6 +24,18 @@
       }
     },
 
+    setLanguage: function (event, language) {
+      this.set('language', language);
+      window.selectedLanguage = language;
+    },
+
+    loadLanguage: function (path) {
+      this.loadResources(this.resolveUrl(path));
+      if (window.selectedLanguage) {
+        this.set('language', window.selectedLanguage);
+      }
+    },
+
     t: function (word) {
       return word;
     },

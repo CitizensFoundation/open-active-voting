@@ -9,6 +9,7 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
@@ -195,6 +196,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
     <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]">
       <div class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]"></div>
       <div>
@@ -356,7 +359,7 @@
       },
 
       attached: function() {
-        this.loadResources(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('../locales.json'));
       },
 
       _toggleInBudget: function (event) {
