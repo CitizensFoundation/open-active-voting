@@ -5,20 +5,20 @@
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
-<link rel="import" href="../../bower_components/lodash-element/lodash.js.html">
+<link rel="import" href="../../bower_components/lodash-import/lodash.js.html">
 
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-ballot-item.html">
 <link rel="import" href="encryption/ballot-encryption-behavior.html">
-<link rel="import" href="oav-ideas-map.html">
+<link rel="import" href="oav-items-map.html">
 
 <dom-module id="oav-area-ballot">
   <style include="iron-flex iron-flex-alignment">
@@ -194,7 +194,9 @@
           type: Object
         },
 
-        budgetBallotItems: Array
+        budgetBallotItems: Array,
+
+        wide: Boolean
       },
 
       _areaChanged: function (newArea) {

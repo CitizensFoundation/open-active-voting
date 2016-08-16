@@ -9,7 +9,6 @@
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
-<link rel="import" href="../oav-session/oav-session.html">
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 
 <dom-module id="oav-app-globals">
@@ -18,7 +17,6 @@
     <style>
     </style>
 
-    <oav-session id="session"></oav-session>
     <oav-ajax id="boot" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
 
     <iron-signals on-iron-signal-logged-in="_userLoggedIn"></iron-signals>
