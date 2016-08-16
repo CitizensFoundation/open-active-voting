@@ -198,6 +198,7 @@
       },
 
       ready: function() {
+        window.appBallot = this;
         this.loadResources(this.resolveUrl('../locales.json'));
       },
 
@@ -270,20 +271,33 @@
         this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
+      completePostingOfVote: function () {
+        var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
+          return item.id;
+        });
+        var encryptedVote = this.encryptVote(selectedItemIds);
+        if (encryptedVote) {
+          this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
+          this.$.postBallotAjax.generateRequest();
+        }
+      },
+
       _postVoteToServer: function () {
         if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
-            return item.id;
-          });
-          var encryptedVote = this.encryptVote(selectedItemIds);
-          if (encryptedVote) {
-            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
-            this.$.postBallotAjax.generateRequest();
-          }
+          this._openSamlLogin();
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
         }
+      },
+
+      _openSamlLogin: function () {
+        var url = 'https://innskraning.island.is/?id=kosning.kopavogur.is',
+                width = 1200,
+                height = 650,
+                top = (window.outerHeight - height) / 2,
+                left = (window.outerWidth - width) / 2;
+        window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
       },
 
       _ballotPostResponse: function (event, detail) {
