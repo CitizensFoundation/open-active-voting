@@ -41,8 +41,5 @@ Rails.application.configure do
   config.i18n.default_locale = :is
   config.cache_store = :dalli_store, '127.0.0.1:11211', { :namespace => "oav-#{Rails.env}",
                                                           :compress => true, :compress_threshold => 64*1024 }
-  config.serve_static_files = true
-  paths['public'] = File.join 'public', 'build', 'bundled'
-
 end
 
