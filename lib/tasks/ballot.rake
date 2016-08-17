@@ -360,12 +360,12 @@ namespace :ballot do
     smarinn.save
     import_area_data(smarinn.id, budget_data, 61)
 
-    fifuhvammur = BudgetBallotArea.create!(:name => "Fífuhvammur", :budget_amount => 37.0)
+    fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 37.0)
     I18n.locale = "is"
-    fifuhvammur.name = "Fífuhvammur"
+    fifuhvammur.name = "Lindir og Salir"
     fifuhvammur.save
     I18n.locale = "en"
-    fifuhvammur.name = "Fífuhvammur"
+    fifuhvammur.name = "Lindir og Salir"
     fifuhvammur.save
     import_area_data(fifuhvammur.id, budget_data, 86)
 

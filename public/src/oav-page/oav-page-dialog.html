@@ -57,7 +57,25 @@
         </template>
         <template is="dom-if" if="[[enLanguage]]">
           <div id="enContent">
-           Missing...
+            <ul>
+              <li>Voting will be open as of the 25th of August until the 4th of September for citizens, 16 years and older, who have legal domicile in Kópavogur.</li>
+              <li>Votes can be cast for ideas in one neighbourhood.</li>
+              <li>Votes can only be cast for projects that are within the funds allocated to that neighbourhood and citizens can only vote for one neighbourhood out of five.</li>
+              <li>The election takes place on a website where citizens authenticate themselves securely. Votes will be encrypted and can therefore not be traced to individuals.</li>
+              <li>This is not an e-referendum in the understanding of Article 107 of the Act on Local Governments No. 138 of 2011.</li>
+              <li>Kópavogur has five neighbourhoods: Kársnes, Digranes, Smárinn, Fífuhvammur (Lindir and Salir) and Vatnsendi.</li>
+              <li>Funding between the neighbourhoods has been allocated as follows:</li>
+              <ul>
+                <li>Kársnes: IKR 32 million.</li>
+                <li>Digranes: IKR 64 million.</li>
+                <li>Smárinn: IKR 23 million.</li>
+                <li>Fífuhvammur (Lindir and Salir): IKR 37 million.</li>
+                <li>Vatnsendi: IKR 44 million.</li>
+              </ul>
+              <li>The elections take place on the website www.kopavogur.is/okkarkopavogur</li>
+              <li>Please note that in order to vote citizens must have authentication via mobile phone or an IceKey. Further information on authentication can be viewed on www.audkenni.is and on the IceKey on www.island.is/islykill</li>
+              <li>If you need assistance in voting, please contact the customer service centre of the Municipality of Kópavogur, Fannborg 2 and the Library of Kópavogur Hamraborg 6a during the elections.</li>
+            </ul>
           </div>
         </template>
       </paper-dialog-scrollable>
@@ -99,7 +117,11 @@
       },
 
       open: function (title) {
-        this.set('title', "Okkar Kópavogur - Upplýsingar");
+        if (this.language=='is') {
+          this.set('title', "Okkar Kópavogur - Upplýsingar");
+        } else {
+          this.set('title', "Okkar Kópavogur - Information");
+        }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();
         this.$.dialog.notifyResize();
