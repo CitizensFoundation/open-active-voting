@@ -1,0 +1,13 @@
+<html><head><link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+
+<script src="pidcrypt_c.js"></script>
+<script src="pidcrypt_util_c.js"></script>
+<script src="asn1_c.js"></script>
+<script src="jsbn_c.js"></script>
+<script src="rng_c.js"></script>
+<script src="prng4_c.js"></script>
+<script src="rsa_c.js"></script>
+
+<script>Polymer.ballotEncryptionBehavior={certParser:function(r){var e=r.split("\n"),t=!1,i=!1,o="",a={};a.info="",a.salt="",a.b64="",a.aes=!1,a.mode="",a.bits=0;for(var l=0;l<e.length;l++)switch(o=e[l].substr(0,9),1==l&&"Proc-Type"!=o&&0==o.indexOf("M")&&(i=!0),o){case"-----BEGI":t=!0;break;case"Proc-Type":t&&(a.info=e[l]);break;case"DEK-Info:":if(t){var s=e[l].split(","),n=s[0].split(": "),p=n[1].split("-");a.aes="AES"==p[0],a.mode=p[2],a.bits=parseInt(p[1]),a.salt=s[1].substr(0,16),a.iv=s[1]}break;case"":t&&(i=!0);break;case"-----END ":t&&(i=!1,t=!1);break;default:t&&i&&(a.b64+=pidCryptUtil.stripLineFeeds(e[l]))}return a},encryptVote:function(r){var e;if(!window.appGlobals.votePublicKey)return this.fire("oav-error",this.localize("error_public_key_not_found")),null;var t=this.certParser(window.appGlobals.votePublicKey);if(!t.b64)return this.fire("oav-error",this.localize("error_invalid_public_key")),null;try{var i=pidCryptUtil.decodeBase64(t.b64),o=new pidCrypt.RSA,a=pidCrypt.ASN1.decode(pidCryptUtil.toByteArray(i)),l=a.toHexTree();return o.setPublicKeyFromASN(l),crypted=o.encrypt(JSON.stringify(r)),e=pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64)}catch(r){return this.fire("oav-error",this.localize("error_encryption","err",r)),null}}};</script>
+</head><body></body></html>

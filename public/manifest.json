@@ -1,6 +1,6 @@
 {
-  "name": "My App",
-  "short_name": "My App",
+  "name": "Open Active Voting",
+  "short_name": "OAV",
     "icons": [{
       "src": "images/app-icon-32.png",
       "type": "image/png",
@@ -24,6 +24,6 @@
     }],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#3f51b5",
-  "theme_color": "#3f51b5"
+  "background_color": "#e0e0e0",
+  "theme_color": "#21b851"
 }

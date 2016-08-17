@@ -1,0 +1,74 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../oav-behaviors/app-helpers.html">
+
+</head><body><dom-module id="yp-point-actions">
+
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        @apply(--layout-horizontal);
+      }
+
+      .action-text {
+        font-size: 12px;
+        padding-top: 12px;
+      }
+
+      .action-up {
+        @apply(--layout-horizontal);
+      }
+
+      .action-down {
+        @apply(--layout-horizontal);
+      }
+
+      .up-selected {
+        color: #444;
+      }
+
+      .down-selected {
+        color: #444;
+      }
+
+      .middle {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
+        @apply(--layout-center-justified);
+      }
+
+      .all-actions {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex);
+        @apply(--layout-start-justified);
+        color: #aaa;
+      }
+
+      .myButton {
+      --paper-icon-button {
+        width: 10px;
+        height: 10px;
+      }
+      }
+    </style>
+
+    <div class="all-actions" hidden$="[[hideNotHelpful]]">
+      <div id="actionUp" class="actionUp layout horizontal">
+        <paper-icon-button disabled="[[allDisabled]]" icon="arrow-upward" class="point-up-vote-icon myButton" on-tap="pointHelpful"></paper-icon-button>
+        <div class="action-text action-up">{{point.counter_quality_up}}</div>
+      </div>
+      <div id="actionDown" class="actionDown layout horizontal">
+        <paper-icon-button disabled="[[allDisabled]]" icon="arrow-downward" class="point-down-vote-icon myButton" on-tap="pointNotHelpful"></paper-icon-button>
+        <div class="action-text">{{point.counter_quality_down}}</div>
+      </div>
+    </div>
+
+  </template>
+  <script>Polymer({is:"yp-point-actions",behaviors:[Polymer.appHelpers],properties:{point:{type:Object,observer:"_onPointChanged"},hideNotHelpful:{type:Boolean,value:!1},pointQualityValue:{type:Number,value:0},allDisabled:{type:Boolean,value:!0}},observers:["_qualityChanged(point.counter_quality_up, point.counter_quality_down)"],_onPointChanged:function(t,e){},_updateQualitiesFromSignal:function(){},_updateQualities:function(){},_qualityChanged:function(t,e){},_resetClasses:function(){this.pointQualityValue>0?(this.$.actionUp.className+=" up-selected",this.removeClass(this.$.actionDown,"down-selected")):this.pointQualityValue<0?(this.$.actionDown.className+=" down-selected",this.removeClass(this.$.actionUp,"up-selected")):(this.removeClass(this.$.actionUp,"up-selected"),this.removeClass(this.$.actionDown,"down-selected"))},_setPointQuality:function(t){this.set("pointQualityValue",t),this._resetClasses()},_pointQualityResponse:function(t,e){this.set("allDisabled",!1);var i=e.response.pointQuality,o=e.response.oldPointQualityValue;this._setPointQuality(i.value),window.appUser.updatePointQualityForPost(this.point.id,i),o&&(o>0?this.set("point.counter_quality_up",this.point.counter_quality_up-1):o<0&&this.set("point.counter_quality_down",this.point.counter_quality_down-1)),i.value>0?this.set("point.counter_quality_up",this.point.counter_quality_up+1):i.value<0&&this.set("point.counter_quality_down",this.point.counter_quality_down+1)}});</script>
+</dom-module>
+</body></html>

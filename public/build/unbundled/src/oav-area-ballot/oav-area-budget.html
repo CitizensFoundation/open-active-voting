@@ -1,0 +1,185 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+</head><body><dom-module id="oav-area-budget">
+  <style include="iron-flex iron-flex-alignment">
+
+    :host {
+      width: 100%;
+    }
+
+    .budgetContainer {
+      height: 140px;
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+    }
+
+    .budgetContainer[wide] {
+      height: 238px;
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+    }
+
+    @media (max-width: 640px) {
+      .budgetContainer {
+        background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+      }
+    }
+
+    .budgetMaterial {
+      width: 300px;
+      background-color: rgba(249,249,249,1.0);
+      height: 108px;
+      margin: 5px 0px;
+      @apply(--layout-vertical);
+    }
+
+    .budgetMaterial[wide] {
+      width: 960px;
+      height: 184px;
+      margin: 10px 0px;
+      margin-top: 8px;
+      @apply(--layout-vertical);
+    }
+
+    #votes {
+      width: 300px;
+      background-color: #e0e0e0;
+      height: 51px;
+      @apply(--layout-horizontal);
+    }
+
+    #votes[wide] {
+      width: 960px;
+      height: 102px;
+    }
+
+    .budgetRuler {
+      background-color: rgba(249,249,249,1.0);
+      color: #111;
+      font-size: 14px;
+      padding: 4px;
+      padding-right: 8x;
+      padding-left: 8px;
+    }
+
+    .budgetRuler[wide] {
+      font-size: 18px;
+      padding: 8px;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    .budgetHeader {
+      background-color: #FFF;
+      color: #FFF;
+      font-size: 26px;
+      padding: 12px;
+    }
+
+    .info {
+      background-color: rgba(249,249,249,1.0);
+      padding: 4px;
+      font-size: 12px;
+      color: #111;
+    }
+
+    .info[wide] {
+      padding: 8px;
+      font-size: 19px;
+    }
+
+    paper-button.voteButton {
+      background-color: var(--app-accent-color);
+      color: #fff;
+      margin: 8px;
+      margin-right: 4px;
+    }
+
+    paper-button[disabled] {
+      background-color: #bbb;
+    }
+
+    .selectedInfo {
+      font-size: 12px;
+    }
+
+    .selectedInfo[wide] {
+      font-size: 19px;
+    }
+
+    #budgetLeftInfo {
+      font-size: 13px;
+    }
+
+    #budgetLeftInfo[wide] {
+      font-size: 19px;
+    }
+
+    .noItemsInfo {
+      width: 100%;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .noItemsInfo[wide] {
+      font-size: 24px;
+    }
+
+    .itemInBudget {
+      border-left: solid 3px;
+      border-left-color: var(--app-accent-color);
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
+    <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+    <div class="budgetContainer" wide$="[[wide]]">
+      <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
+        <div class="info layout horizontal" wide$="[[wide]]">
+          <div class="flex layout vertical center-center">
+            <template is="dom-if" if="[[!selectedBudget]]">
+              <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
+              <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
+            </template>
+            <template is="dom-if" if="[[selectedBudget]]">
+              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+            </template>
+            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
+          </div>
+          <div class="">
+            <paper-button id="votingButton" raised="" class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
+          </div>
+        </div>
+        <div id="votes" wide$="[[wide]]">
+          <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
+            <div>{{localize('no_items_selected')}}</div>
+          </div>
+        </div>
+      </paper-material>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>!function(){Polymer({is:"oav-area-budget",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{selectedItems:{type:Array,value:[],notify:!0},noSelectedItems:{type:Boolean,value:!0},areaName:{type:String},selectedBudget:{type:Number,value:0},totalBudget:{type:Number},budgetLeft:{type:Number,computed:"_budgetLeft(selectedBudget, totalBudget)"},votesWidth:{type:Number,value:960},wide:{type:Boolean,observer:"_wideChanged"},currentBallot:Object},observers:["_selectedItemsChanged(selectedItems.splices)"],_budgetLeft:function(e,t){return t-e},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_wideChanged:function(e){e?this.set("votesWidth",960):this.set("votesWidth",300),this._resetBudgetDiv(),this.selectedItems.forEach(function(e){this._addItemToDiv(e)}.bind(this))},_millionWord:function(){var e=this.__computeLocalize(this.language,this.resources,this.formats);return e(this.wide?"million":"million_short")},_submitVote:function(){this.currentBallot.fire("oav-submit-vote")},_selectedItemsChanged:function(){this.selectedItems&&this.selectedItems.length>0?(this.set("noSelectedItems",!1),this.$.votingButton.disabled=!1):(this.set("noSelectedItems",!0),this.$.votingButton.disabled=!0)},reset:function(){this._resetBudgetDiv(),this.set("selectedItems",[]),this.set("selectedBudget",0)},_resetBudgetDiv:function(){for(;this.$.votes.lastChild&&"noItems"!=this.$.votes.lastChild.id&&"budgetLeftInfo"!=this.$.votes.lastChild.id;)this.$.votes.removeChild(this.$.votes.lastChild)},_removeItemFromArray:function(e){var t=[];this.selectedItems.forEach(function(i){i.id!=e.id&&t.push(i)}),this.set("selectedItems",t)},_addItemToDiv:function(e){var t=parseInt(this.votesWidth*(e.price/this.totalBudget))-1*this.selectedItems.length,i=document.createElement("div");i.id="item_id_"+e.id,this.wide?i.style.height="100px":i.style.height="50px",i.style.width=t+"px",i.backgroundColor="#F00",i.style.position="relative",i.style.cursor="pointer";var s=document.createElement("iron-image");s.src=e.image_url,s.setAttribute("sizing","cover"),s.setAttribute("alt",e.name),s.setAttribute("title",e.name),s.title=e.name,s.style.borderLeft="solid 2px",s.style.borderRight="solid 2px",s.style.borderColor="#ff6500",this.wide?s.style.height="100px":s.style.height="50px",s.style.width=t+"px",i.appendChild(s);var o=document.createElement("paper-icon-button");o.setAttribute("icon","close"),o.icon="close",o.style.color="#FFF",o.style.height="42px",o.style.width="42px",o.style.opacity=0,o.addEventListener("tap",function(){this._removeItem(e.id)}.bind(this)),i.appendChild(o),o.style.position="absolute",o.style.top=0,o.style.right=0,i.addEventListener("mouseover",function(){o.style.opacity=1}),i.addEventListener("mouseout",function(){o.style.opacity=0}),i.addEventListener("tap",function(){this._removeItem(e.id)}.bind(this)),this.$.votes.appendChild(i)},_removeItemFromDiv:function(e){var t=this.$$("#item_id_"+e.id);console.log("SELECTED: "+t.id),t.parentNode.removeChild(t)},toggleBudgetItem:function(e){this.selectedItems.indexOf(e)>-1?(this._removeItemFromArray(e),this._removeItemFromDiv(e),this.set("selectedBudget",this.selectedBudget-e.price),this.currentBallot.fire("oav-item-de-selected-from-budget",{itemId:e.id})):this.selectedBudget+e.price<=this.totalBudget?(this.push("selectedItems",e),this._addItemToDiv(e),this.set("selectedBudget",this.selectedBudget+e.price),this.currentBallot.fire("oav-item-selected-in-budget",{itemId:e.id})):this.currentBallot.fire("oav-error",this.localize("error_does_not_fit_in_budget"))},_removeItem:function(e){this.selectedItems.forEach(function(t){t.id==e&&this.toggleBudgetItem(t)}.bind(this))},convertDots:function(e){return e.replace(".",",")}})}();</script>
+
+</body></html>

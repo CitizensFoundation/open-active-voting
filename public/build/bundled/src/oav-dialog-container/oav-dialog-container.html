@@ -1,0 +1,25 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html">
+<link rel="import" href="../oav-page/oav-page-dialog.html">
+
+</head><body><dom-module id="oav-dialog-container">
+  <template>
+    <style>
+      :host {
+        background-color: var(--primary-background-color);
+      }
+
+      #dialogs {
+        background-color: var(--primary-background-color) !important;
+      }
+    </style>
+
+    <div id="dialogs">
+      <oav-ajax-error-dialog id="errorDialog"></oav-ajax-error-dialog>
+      <oav-page-dialog id="page"></oav-page-dialog>
+    </div>
+  </template>
+
+  <script>Polymer({is:"oav-dialog-container",getDialog:function(i){return this.$$("#"+i)}});</script>
+</dom-module>
+</body></html>
