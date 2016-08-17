@@ -19,19 +19,20 @@
 <link rel="import" href="yp-post-card.html">
 
 <link rel="import" href="yp-post-points.html">
-<link rel="import" href="yp-post-user-images.html">
+
 
 <dom-module id="yp-post">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
-        background-color: #fbfbfb;
+        background-color: #e0e0e0;
+        height: 100% !important;
       }
 
       .container {
         padding-top: 0;
-        margin-top: -70px;
-        height: 100%;
+        margin-top: 0;
+        height: 100% !important;
       }
 
       .flex {
@@ -99,7 +100,6 @@
           width: 400px;
         }
       }
-
 
       .createFab {
         background-color: var(--accent-color);
@@ -179,7 +179,7 @@
       }
 
       oav-ajax {
-        background-color: var(--primary-background-color);
+        background-color: #e0e0e0;
       }
 
       .mapContainer {
@@ -193,8 +193,10 @@
       }
 
       .topContainer {
-        margin-top: 16px;
-        background-color: #fafafa;
+        padding-top: 24px;
+        background-color: #e0e0e0;
+        background-image: url("/images/CF-large.png");
+        background-repeat: repeat-x;
       }
 
       .tabs {
@@ -243,7 +245,7 @@
 
 
       .tabs {
-        width: 1100px;
+        width: 300px;
         padding-top: 8px;
         padding-bottom: 8px;
       }
@@ -317,11 +319,6 @@
               <span>[[localize('postTabsDebate')]]</span><div class="counterInfo" id="tabCountDebate"></div>
             </div>
           </paper-tab>
-          <paper-tab>
-            <div class="layout vertical center-center tabCounterContainer">
-              <span>[[localize('postTabsPhotos')]]</span><div class="counterInfo" id="tabCountPhotos"></div>
-            </div>
-          </paper-tab>
         </paper-tabs>
       </div>
 
@@ -329,13 +326,6 @@
         <div class="layout horizontal center-center">
           <yp-post-points id="pointsSection" post="[[post]]"></yp-post-points>
         </div>
-        <section>
-          <div class="layout vertical flex">
-            <div class="layout horizontal center-center">
-              <yp-post-user-images post="[[post]]"></yp-post-user-images>
-            </div>
-          </div>
-        </section>
       </iron-pages>
     </div>
 
@@ -496,7 +486,7 @@
 
         _postIdChanged: function (newValue, oldValue) {
           if (newValue) {
-            this.set("post",null);
+            this.set("post", null);
             this._getPost();
           } else {
             this.set("post",null);

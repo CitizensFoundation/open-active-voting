@@ -275,7 +275,6 @@
       },
 
       _exit: function () {
-        debugger;
         if (this.page=='post' && window.appLastArea) {
           window.location = window.appLastArea;
           window.appLastArea = null;
@@ -326,7 +325,9 @@
           } else {
             this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
           }
+
           this.set('showExit', true);
+
           if (page=='voting-completed') {
             this.set('title', this.localize('voting_completed'));
           }
@@ -336,12 +337,19 @@
             this.set('title', this.localize('welcome_title'));
           }
         }
+
         if (page && page=='area-ballot') {
           this.set('currentBallot', this.$$("#budgetBallot"));
           this.set('budgetElement', this.$$("#budget"));
           this.set('hideBudget', false);
         } else {
           this.set('hideBudget', true);
+        }
+
+        if (page=='select-voting-area') {
+          document.body.style.backgroundColor = "#21b851";
+        } else {
+          document.body.style.backgroundColor = "#e0e0e0";
         }
       }
     });
