@@ -2,6 +2,7 @@
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
@@ -17,12 +18,12 @@
 <link rel="import" href="../../bower_components/google-map/google-map-search.html">
 
 <link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <link rel="import" href="yp-post-points.html">
 <link rel="import" href="yp-post-actions.html">
-<link rel="import" href="yp-post-users.html">
 <link rel="import" href="yp-post-cover-media.html">
 <link rel="import" href="yp-post-user-images.html">
 <link rel="import" href="yp-post-card.html">
@@ -320,13 +321,13 @@
         <paper-tabs id="paper_tabs" class="tabs" selected="{{selected}}" focused>
           <paper-tab>
             <div class="layout vertical center-center tabCounterContainer">
-              <span>[[t('post.tabs.debate')]]</span><div class="counterInfo" id="tabCountDebate"></div>
+              <span>[[localize('post.tabs.debate')]]</span><div class="counterInfo" id="tabCountDebate"></div>
             </div>
           </paper-tab>
-          <paper-tab>[[t('post.tabs.location')]]</paper-tab>
+          <paper-tab>[[localize('post.tabs.location')]]</paper-tab>
           <paper-tab>
             <div class="layout vertical center-center tabCounterContainer">
-              <span>[[t('post.tabs.photos')]]</span><div class="counterInfo" id="tabCountPhotos"></div>
+              <span>[[localize('post.tabs.photos')]]</span><div class="counterInfo" id="tabCountPhotos"></div>
             </div>
           </paper-tab>
         </paper-tabs>
@@ -349,7 +350,7 @@
             </template>
             <template is="dom-if" if="[[post]]">
               <template is="dom-if" if="[[!post.location]]">
-                <h1 style="padding-top: 16px">[[t('post.noLocation')]]</h1>
+                <h1 style="padding-top: 16px">[[localize('post.noLocation')]]</h1>
               </template>
             </template>
           </div>
@@ -376,7 +377,8 @@
         is: 'yp-post',
 
         behaviors: [
-          Polymer.appHelpers
+          Polymer.appHelpers,
+          Polymer.AppLocalizeBehavior
         ],
 
         properties: {
@@ -432,8 +434,7 @@
           postIdRoutePath: {
             type: Object,
             observer: '_postIdRoutePathChanged'
-          },
-
+          }
         },
 
         _postIdRoutePathChanged: function (newPathForId) {
@@ -562,18 +563,6 @@
             this.set('mapActive', true);
           } else {
             this.set('mapActive', false);
-          }
-
-          if (this.post && selected != oldValue) {
-            if (selected == 0) {
-              page("#!/post/" + this.post.id + '/debate');
-            } else if (selected == 1) {
-              page("#!/post/" + this.post.id + '/news');
-            } else if (selected == 2) {
-              page("#!/post/" + this.post.id + '/location');
-            } else if (selected == 3) {
-              page("#!/post/" + this.post.id + '/photos');
-            }
           }
         },
 

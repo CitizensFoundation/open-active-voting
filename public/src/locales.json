@@ -38,7 +38,11 @@
     "budget_left_text": "{budget_left} millions left",
     "more_info_description": "Idea on idea website",
     "close": "close",
-    "vote": "Vote!"
+    "vote": "Vote!",
+    "post.tabs.debate": "Debate",
+    "post.tabs.location": "Location",
+    "post.tabs.photos": "Myndir",
+    "post.noLocation": "No location"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -79,6 +83,15 @@
     "budget_left_text": "{budget_left} milljónir eftir",
     "more_info_description": "Hugmynd á hugmyndavef",
     "close": "loka",
-    "vote": "Kjósa!"
+    "vote": "Kjósa!",
+    "post.tabs.debate": "Rök",
+    "post": {
+      "tabs": {
+        "debate": "Rök"
+      }
+    },
+    "post.tabs.location": "Staðsetning",
+    "post.tabs.photos": "Myndir",
+    "post.noLocation": "Engin staðsetning"
   }
 }

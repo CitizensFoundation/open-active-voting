@@ -1,7 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
@@ -10,12 +8,10 @@
 <link rel="import" href="../../bower_components/iron-icons/hardware-icons.html" >
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html" >
 <link rel="import" href="../../bower_components/iron-icons/notification-icons.html" >
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="../../bower_components/vaadin-icons/vaadin-icons.html" >
-
-<link rel="import" href="../../bower_components/paper-share-buttons/paper-share-facebook.html">
-<link rel="import" href="../../bower_components/paper-share-buttons/paper-share-twitter.html">
-<link rel="import" href="../../bower_components/paper-share-buttons/paper-share-google.html">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
@@ -187,34 +183,34 @@
 
     <paper-material elevation="[[elevationPlusOne]]" floating$="[[floating]]" animated class="action-bar">
       <div id="actionUp" class="action-up">
-        <paper-icon-button disabled="[[allDisabled]]" title="[[t('post.up_vote')]]" icon$="[[endorseModeIcon(endorseMode,'up')]]" class="action-icon up-vote-icon largeButton" on-tap="upVote"></paper-icon-button>
+        <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.up_vote')]]" icon$="[[endorseModeIcon(endorseMode,'up')]]" class="action-icon up-vote-icon largeButton" on-tap="upVote"></paper-icon-button>
         <div class="action-text up-text">{{formatNumber(post.counter_endorsements_up)}}</div>
       </div>
 
       <div class="action-debate layout vertical" hidden$="[[_hideDebate(small,forceSmall)]]">
-        <paper-icon-button disabled="[[allDisabled]]" title="[[t('post.debate')]]" icon="communication:chat-bubble-outline" class="action-icon debate-icon largeButton" on-tap="_goToPostIfNotHeader"></paper-icon-button>
+        <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.debate')]]" icon="communication:chat-bubble-outline" class="action-icon debate-icon largeButton" on-tap="_goToPostIfNotHeader"></paper-icon-button>
         <div class="action-text debate-text">{{formatNumber(post.counter_points)}}</div>
       </div>
 
       <div class="" hidden$="[[!_hideDebate(small,forceSmall)]]"></div>
 
       <div id="actionDown" class="action-down">
-        <paper-icon-button disabled="[[allDisabled]]" title="[[t('post.down_vote')]]" icon$="[[endorseModeIcon(endorseMode,'down')]]" class="action-icon down-vote-icon largeButton" on-tap="downVote"></paper-icon-button>
+        <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.down_vote')]]" icon$="[[endorseModeIcon(endorseMode,'down')]]" class="action-icon down-vote-icon largeButton" on-tap="downVote"></paper-icon-button>
         <div class="action-text down-text">{{formatNumber(post.counter_endorsements_down)}}</div>
       </div>
       <div class="share" >
-        <paper-icon-button title="[[t('post.shareInfo')]]" icon="social:share" on-tap="_toggleShare" class="shareIcon" id="shareButton"></paper-icon-button>
+        <paper-icon-button title$="[[t('post.shareInfo')]]" icon="social:share" on-tap="_toggleShare" class="shareIcon" id="shareButton"></paper-icon-button>
       </div>
     </paper-material>
 
-    <iron-signals on-iron-signal-got-endorsements-and-qualities="_updateEndorsementsFromSignal"></iron-signals>
   </template>
   <script>
     Polymer({
       is: 'yp-post-actions',
 
       behaviors: [
-        Polymer.appHelpers
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
@@ -261,7 +257,9 @@
         allDisabled: {
           type: Boolean,
           value: true
-        }
+        },
+
+        floating: Boolean
       },
 
       _goToPostIfNotHeader: function () {

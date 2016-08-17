@@ -303,7 +303,7 @@
       },
 
       resetFromBudget: function () {
-        console.log("resetFromBudget itemId: "+this.item.id);
+        //console.log("resetFromBudget itemId: "+this.item.id);
         if (this.budgetElement) {
           if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
             this.setInBudget();
@@ -339,22 +339,22 @@
       },
 
       setInBudget: function () {
-        console.log("setInBudget itemId: "+this.item.id);
+        //console.log("setInBudget itemId: "+this.item.id);
         this.set('selectedInBudget', true);
       },
 
       removeFromBudget: function () {
-        console.log("removeFromBudget itemId: "+this.item.id);
+        //console.log("removeFromBudget itemId: "+this.item.id);
         this.set('selectedInBudget', false);
       },
 
       setTooExpensive: function () {
-        console.log("setTooExpensive itemId: "+this.item.id);
+        //console.log("setTooExpensive itemId: "+this.item.id);
         this.set('toExpensiveForBudget', true);
       },
 
       setNotTooExpensive: function () {
-        console.log("setNotTooExpensive itemId: "+this.item.id);
+        //console.log("setNotTooExpensive itemId: "+this.item.id);
         this.set('toExpensiveForBudget', false);
       },
 
@@ -363,7 +363,7 @@
       },
 
       _toggleInBudget: function (event) {
-        console.log("_toggleInBudget itemId: "+this.item.id);
+        //console.log("_toggleInBudget itemId: "+this.item.id);
         this.fire('oav-toggle-item-in-budget', { item: this.item });
       }
     })

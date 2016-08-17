@@ -74,7 +74,7 @@
     </style>
 
     <paper-material elevation="2" class="layout vertical">
-      <iron-image title="[[image.description]]" sizing="cover" src$="[[_imageUrl(image)]]"></iron-image>
+      <iron-image title$="[[image.description]]" sizing="cover" src$="[[_imageUrl(image)]]"></iron-image>
       <div class="description">
         [[image.description]]
       </div>
@@ -82,12 +82,7 @@
         <div class="photographer">
           [[image.photographer_name]]
         </div>
-        <div class="editMenu layout horizontal flex end-justified" hidden$="[[!hasImageAccess(image, post)]]">
-          <paper-icon-button icon="create" on-tap="_openEdit"></paper-icon-button>
-          <paper-icon-button icon="clear" on-tap="_openDelete"></paper-icon-button>
-        </div>
       </div>
-      <yp-point-comment-list image="[[image]]"></yp-point-comment-list>
     </paper-material>
   </template>
 

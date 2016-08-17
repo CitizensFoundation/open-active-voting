@@ -37,7 +37,11 @@
     },
 
     t: function (word) {
-      return word;
+      if (this.localize) {
+        return this.localize(word);
+      } else {
+        return "Missing localize"
+      }
     },
 
     getLocale: function () {
