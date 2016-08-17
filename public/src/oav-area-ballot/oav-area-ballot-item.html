@@ -301,6 +301,7 @@
 
       _itemChanged: function (newItem) {
         if (newItem) {
+          console.log("Item changed");
           this.resetFromBudget();
         }
       },
@@ -310,6 +311,7 @@
         if (this.budgetElement) {
           if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
             this.setInBudget();
+            this.setNotTooExpensive();
           } else {
             var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
             if (this.item.price>budgetLeft) {

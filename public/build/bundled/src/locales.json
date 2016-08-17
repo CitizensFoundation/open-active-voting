@@ -42,7 +42,9 @@
     "postTabsDebate": "Debate",
     "postTabsLocation": "Location",
     "postTabsPhotos": "Myndir",
-    "postNoLocation": "No location"
+    "postNoLocation": "No location",
+    "number_of_voters": "Total voters",
+    "number_of_votes": "Number of votes submitted in this neighborhood"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -87,6 +89,8 @@
     "postTabsDebate": "Rök",
     "postTabsLocation": "Staðsetning",
     "postTabsPhotos": "Myndir",
-    "postNoLocation": "Engin staðsetning"
+    "postNoLocation": "Engin staðsetning",
+    "number_of_voters": "Heildarfjöldi kjósenda",
+    "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi"
   }
 }
