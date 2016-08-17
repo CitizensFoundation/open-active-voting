@@ -1,0 +1,308 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../../oav-app.html"></head><body><dom-module id="oav-select-voting-area">
+  <style include="iron-flex iron-flex-alignment">
+
+    :host {
+      width: 100%;
+      height: 100%;
+      background-color: var(--app-kopavogur-green-grass);
+    }
+
+    #area_options {
+      background-color: var(--app-kopavogur-green-grass);
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+    }
+
+    h3 {
+      font-size: 18px;
+      padding: 16px;
+    }
+
+    paper-fab {
+      padding: 32px;
+      color: #FFF;
+    }
+
+    paper-fab.label {
+      font-size: 30px;
+      color: #FFF;
+    }
+
+    .infoImage {
+      width: 400px;
+      height: 225px;
+    }
+
+    .topMaterial {
+      width: 400px;
+      height: 225px;
+      background-color: #FFF;
+      margin: 32px;
+    }
+
+    .mainContainer {
+      width: 100%;
+      height: 100%;
+      background-color: var(--app-kopavogur-green-grass);
+    }
+
+    .imageContainer {
+      height: 280px;
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("/images/CF-large.png");
+    }
+
+    .selectInfoText {
+      font-size: 21px;
+      padding: 16px;
+      background-color: var(--app-primary-color);
+      color: #FFF;
+      margin: 0;
+    }
+
+    .selectInfoTextSmaller {
+      font-size: 16px;
+      padding-top: 0px;
+      padding: 8px;
+    }
+
+    .areaOptions {
+      margin-top: 32px;
+    }
+
+    .voteNumberForKarsnes {
+      position: absolute;
+      top: 120px;
+      left: 30px;
+      color: #ce8716;
+    }
+
+    .voteNumberForDigranes {
+      position: absolute;
+      top: 45px;
+      right: 140px;
+      color: #69b559;
+    }
+
+    .voteNumberForSmarinn {
+      position: absolute;
+      top: 205px;
+      left: 100px;
+      color: #44a3bc;
+    }
+
+    .voteNumberForLindir {
+      position: absolute;
+      top: 275px;
+      left: 210px;
+      color: #ecd344;
+    }
+
+    .voteNumberForVatnsendi {
+      position: absolute;
+      bottom: 60px;
+      left: 340px;
+      color: #cc511f;
+    }
+
+    .voteNumberGeneral {
+      padding-left: 4px;
+      font-size: 28px;
+    }
+
+    .checkIcon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .voteNumberForKarsnesMobile {
+      position: absolute;
+      top: 55px;
+      right: 16px;
+      color: #ce8716;
+    }
+
+    .voteNumberForDigranesMobile {
+      position: absolute;
+      top: 100px;
+      left: 20px;
+      color: #69b559;
+    }
+
+    .voteNumberForSmarinnMobile {
+      position: absolute;
+      top: 385px;
+      left: 20px;
+      color: #44a3bc;
+    }
+
+    .voteNumberForLindirMobile {
+      position: absolute;
+      top: 270px;
+      right: 32px;
+      color: #ecd344;
+    }
+
+    .voteNumberForVatnsendiMobile {
+      position: absolute;
+      bottom: 265px;
+      left: 20px;
+      color: #cc511f;
+    }
+
+    .voteNumberGeneralMobile {
+      padding-left: 3px;
+      font-size: 22px;
+    }
+
+    .checkIconMobile {
+      width: 35px;
+      height: 35px;
+    }
+
+    @media (max-width: 640px) {
+      .selectInfoText {
+        font-size: 18px;
+      }
+      .selectInfoTextSmaller {
+        font-size: 15px;
+      }
+    }
+
+    .mobileMaterial {
+      width: 320px;
+      padding: 0;
+      margin: 0;
+      margin-top: 24px;
+      height: 100%;
+      padding-top: 8px;
+      background-color: #FFF;
+    }
+
+    .totalVoters {
+      position: absolute;
+      bottom: 4px;
+      right: 8px;
+      color: #888;
+    }
+
+    .totalVoterIcon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .totalVoterCount {
+      font-size: 19px;
+      padding-top: 2px;
+      padding-left: 2px;
+    }
+
+    .langSelection {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+    }
+
+    .langImage {
+      cursor: pointer;
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .totalVoterCount {
+        font-size: 17px;
+        padding-left: 0px;
+      }
+
+      .totalVoterIcon {
+        width: 30px;
+        height: 30px;
+      }
+
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+
+    <template is="dom-if" if="[[areas]]">
+
+      <div class="layout vertical center-center mainContainer">
+
+        <div class="layout horizontal imageContainer wrap">
+          <paper-material elevation="5" class="topMaterial">
+            <div class="selectInfoText flex">{{localize('app_title')}}</div>
+            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_1')}}</div>
+            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
+            <div class="langSelection layout horizontal">
+              <iron-image class="langImage" on-tap="_selectIcelandic" src="/images/isLang.png"></iron-image>
+              <iron-image class="langImage" on-tap="_selectEnglish" src="/images/enLang.png"></iron-image>
+            </div>
+            <template is="dom-if" if="[[totalVoterCount]]">
+              <div class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="face"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
+            </template>
+          </paper-material>
+
+          <paper-material elevation="5" class="topMaterial" hidden$="[[!wide]]">
+            <iron-image sizing="contain" class="infoImage" src="https://yrpri6-production.s3.amazonaws.com/IC/00/wo-retina.png"></iron-image>
+          </paper-material>
+        </div>
+
+        <template is="dom-if" if="[[wide]]" restamp="">
+          <paper-material elevation="5" class="areaOptions">
+            <div class="layout vertical center-center">
+              <img id="imageMapKopavogur" src="/images/kopavogurMap.png" border="0" width="686" height="550" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
+              <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
+                <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none" target="_self">
+                <area alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" shape="poly" coords="356,290,452,266,367,192,355,135,321,141,296,158,277,180,262,206,259,221,295,220,310,235,308,253,333,265" style="outline:none" target="_self">
+                <area alt="Smárinn" title="Smárinn" href="/#/area-ballot/3" shape="poly" coords="196,130,215,128,248,117,271,118,290,123,334,115,359,125,330,133,313,142,298,154,278,171,269,183,251,215,244,216,204,191,180,186,179,162,190,151" style="outline:none" target="_self">
+                <area alt="Digranes" title="Digranes" href="/#/area-ballot/2" shape="poly" coords="196,123,212,123,242,112,256,112,272,114,293,117,306,116,337,113,359,120,395,114,414,99,421,83,425,61,414,52,415,37,403,30,333,23,233,14,216,23,210,35,196,52,186,61,182,66,176,82,185,102" style="outline:none" target="_self">
+                <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="23,21,53,20,55,37,69,36,89,30,102,29,104,39,119,40,129,36,140,38,157,33,166,36,188,22,207,27,202,44,187,53,178,62,173,84,179,103,187,126,188,139,176,126,167,123,141,116,94,106,71,103,50,81,47,70,41,53,32,55,20,34" style="outline:none" target="_self">
+              </map>
+            </div>
+            <template is="dom-if" if="[[areaVoterCount]]" restamp="">
+              <div class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
+              <div class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="face"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+            </template>
+          </paper-material>
+        </template>
+      </div>
+
+      <template is="dom-if" if="[[!wide]]">
+        <div class="layout vertical center-center">
+          <paper-material elevation="5" class="mobileMaterial">
+            <img class="mobileImage" id="Image-Maps-Com-image-maps-2016-08-11-121816" src="/images/kopavogurMapMobile.png" border="0" width="320" height="831" orgwidth="320" orgheight="831" usemap="#image-maps-2016-08-11-121816" alt="">
+            <map name="image-maps-2016-08-11-121816" id="ImageMapsCom-image-maps-2016-08-11-121816">
+              <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="68,6,100,6,102,20,116,21,136,15,151,12,147,21,162,23,172,20,183,21,198,18,206,18,224,7,241,8,242,28,230,37,217,46,212,62,230,112,226,121,218,116,212,104,185,98,136,87,114,84,97,66,97,53,88,36,80,37,70,27,66,7" style="outline:none" target="_self">
+              <area alt="Digranes" title="Digranes" href="/#/area-ballot/2" shape="poly" coords="100,127,234,137,262,143,270,153,266,160,275,168,273,196,257,214,240,221,216,225,201,218,172,224,160,224,117,217,106,221,88,228,73,231,61,230,43,193,46,175,65,158,77,140" style="outline:none" target="_self">
+              <area alt="Lindir &amp; Salir" title="Lindir &amp; Salir" href="/#/area-ballot/4" shape="poly" coords="170,236,174,287,186,301,205,321,235,341,258,364,236,371,221,374,192,383,176,385,166,387,160,371,131,348,128,333,120,322,84,323,75,312,100,275,135,245" style="outline:none" target="_self">
+              <area alt="Smárinn" title="Smárinn" href="/#/area-ballot/3" shape="poly" coords="153,407,198,416,234,408,261,416,240,426,215,433,201,445,185,461,174,474,164,490,155,508,131,490,113,480,95,477,88,473,88,452,97,441,103,422,128,420" style="outline:none" target="_self">
+              <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="105,576,187,504,217,513,240,516,263,511,281,512,295,505,303,522,291,540,277,546,260,545,247,571,260,577,265,591,251,602,233,606,224,616,220,623,221,632,238,660,263,682,283,676,285,690,276,694,248,726,246,745,143,823,136,824,126,798,113,634,14,607,17,596" style="outline:none" target="_self">
+            </map>
+            <template is="dom-if" if="[[areaVoterCount]]" restamp="">
+              <div class="voteNumberForKarsnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+              <div class="voteNumberForDigranesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+              <div class="voteNumberForSmarinnMobile layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+              <div class="voteNumberForLindirMobile layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+              <div class="voteNumberForVatnsendiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="face"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
+            </template>
+          </paper-material>
+        </div>
+      </template>
+    </template>
+
+    <oav-ajax id="getAreasAjax" auto="" url="/votes/get_areas" on-response="_areasResponse"></oav-ajax>
+  </template>
+
+</dom-module>
+
+<script>!function(){Polymer({is:"oav-select-voting-area",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{areas:{type:Array,value:[]},imageMapImageUrl:{type:String},imageMapData:{type:String},language:{value:"is"},wide:Boolean,areaVoterCount:Object,totalVoterCount:Number},_selectIcelandic:function(){this.fire("iron-signal",{name:"set-language",data:"is"}),localStorage.setItem("selectedLanguage","is")},_selectEnglish:function(){this.fire("iron-signal",{name:"set-language",data:"en"}),localStorage.setItem("selectedLanguage","en")},_getAreaCount:function(e){return this.formatNumber(this.areaVoterCount[e])},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_areasResponse:function(e,t){this.set("areas",t.response.areas),this.set("areaVoterCount",t.response.area_voter_count),this.set("totalVoterCount",this.formatNumber(t.response.total_voter_count))}})}();</script>
+
+</body></html>
