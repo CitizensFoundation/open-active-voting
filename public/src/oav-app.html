@@ -151,7 +151,7 @@
     <app-header-layout>
       <app-header fixed effects="waterfall">
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
-          <paper-icon-button icon="close" on-tap="_exitToHome"></paper-icon-button>
+          <paper-icon-button icon="close" on-tap="_exit"></paper-icon-button>
         </div>
         <div class="helpIconInBudget">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
@@ -274,8 +274,14 @@
         dialog.showErrorDialog(detail);
       },
 
-      _exitToHome: function () {
-        window.location = "/#/";
+      _exit: function () {
+        debugger;
+        if (this.page=='post' && window.appLastArea) {
+          window.location = window.appLastArea;
+          window.appLastArea = null;
+        } else {
+          window.location = "/#/";
+        }
       },
 
       _setTitle: function (event, detail) {

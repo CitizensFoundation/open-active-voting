@@ -411,6 +411,10 @@
           }
         },
 
+        attached: function () {
+          this.loadLanguage(this.resolveUrl('../locales.json'));
+        },
+
         _postIdRoutePathChanged: function (newPathForId) {
           if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/post") {
             this.set('postId', newPathForId.path.slice(1));

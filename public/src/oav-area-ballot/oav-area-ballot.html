@@ -218,8 +218,11 @@
         this._resetBallotItems();
         this.set('budgetBallotItems', null);
         this.set('area', null);
-        this.set('areaId', null);
         this.fire('oav-set-area', { areaName: null, totalBudget: null });
+        var list =  this.$$("#ironList");
+        if (list) {
+          list.fire('iron-resize');
+        }
       },
 
       _resetBallotItems: function () {
@@ -325,6 +328,7 @@
       },
 
       _areaIdChanged: function (newAreaId, oldAreaId) {
+        debugger;
         if (newAreaId) {
           this.reset();
           this.$.getBallotAjax.params = { area_id: newAreaId };

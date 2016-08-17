@@ -223,9 +223,7 @@
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
-          <a href$="/#/post/[[item.idea_id]]">
-            <paper-icon-button title$="{{localize('more_info_description')}}" class="externalInfoIcon" icon="info-outline"></paper-icon-button>
-          </a>
+          <paper-icon-button on-tap="_showPost" title$="{{localize('more_info_description')}}" class="externalInfoIcon" icon="info-outline"></paper-icon-button>
         </div>
       </div>
       <div class="buttons">
@@ -294,6 +292,11 @@
           type: Boolean,
           value: false
         }
+      },
+
+      _showPost: function () {
+        window.appLastArea = '/'+window.location.hash;
+        window.location = "/#/post/"+this.item.idea_id;
       },
 
       _itemChanged: function (newItem) {
