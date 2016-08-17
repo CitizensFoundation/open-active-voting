@@ -73,12 +73,8 @@
       color: #333;
     }
 
-    .tabsContainer {
-      width: 100%;
-    }
 
     paper-tabs {
-      width: 100%;
       margin: 8px;
       margin-right: 16px;
       margin-left: 16px;
@@ -86,13 +82,16 @@
 
     paper-tab {
       font-size: 22px !important;
-      margin-left: 16px;
-      margin-right: 16px;
+      margin-left: 24px;
+      margin-right: 24px;
+      width: 320px;
     }
 
     @media (max-width: 1000px) {
       paper-tab {
         font-size: 15px !important;
+        margin-left: 16px;
+        margin-right: 16px;
       }
     }
   </style>
@@ -103,7 +102,7 @@
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="topContainer layout vertical">
 
-      <div class="layout horizontal center-justified tabsContainer">
+      <div class="layout horizontal center-center tabsContainer">
         <paper-tabs selected="{{selectedView}}">
           <paper-tab>
             <template is="dom-if" if="[[wide]]">
