@@ -52,12 +52,31 @@
               <li>Við vekjum athygli á því að til að geta kosið þarf að vera með auðkenni í síma eða íslykil. Allar nánari upplýsingar um auðkenni má nálgast á www.audkenni.is og um íslykil á www.island.is/islykill</li>
               <li>Aðstoð við að kjósa er hægt að fá í Þjónustuveri Kópavogsbæjar, Fannborg 2, og á Bókasafni Kópavogs Hamraborg 6a á meðan kosning stendur yfir.</li>
               <li> llar nánari upplýsingar um verkefnið Okkar Kópavogur má nálgast á www.kopavogur.is/okkarkopavogur eða í Þjónustuveri Kópavogsbæjar, sími 570-1500.</li>
+              <li>Myndir sem fylgja hugmyndum á kosningasíðu eru ekki dæmi um endanlega útfærslu á framkvæmd.</li>
             </ul>
           </div>
         </template>
         <template is="dom-if" if="[[enLanguage]]">
           <div id="enContent">
-           Missing...
+            <ul>
+              <li>Voting will be open as of the 25th of August until the 4th of September for citizens, 16 years and older, who have legal domicile in Kópavogur.</li>
+              <li>Votes can be cast for ideas in one neighbourhood.</li>
+              <li>Votes can only be cast for projects that are within the funds allocated to that neighbourhood and citizens can only vote for one neighbourhood out of five.</li>
+              <li>The election takes place on a website where citizens authenticate themselves securely. Votes will be encrypted and can therefore not be traced to individuals.</li>
+              <li>This is not an e-referendum in the understanding of Article 107 of the Act on Local Governments No. 138 of 2011.</li>
+              <li>Kópavogur has five neighbourhoods: Kársnes, Digranes, Smárinn, Fífuhvammur (Lindir and Salir) and Vatnsendi.</li>
+              <li>Funding between the neighbourhoods has been allocated as follows:</li>
+              <ul>
+                <li>Kársnes: IKR 32 million.</li>
+                <li>Digranes: IKR 64 million.</li>
+                <li>Smárinn: IKR 23 million.</li>
+                <li>Fífuhvammur (Lindir and Salir): IKR 37 million.</li>
+                <li>Vatnsendi: IKR 44 million.</li>
+              </ul>
+              <li>The elections take place on the website www.kopavogur.is/okkarkopavogur</li>
+              <li>Please note that in order to vote citizens must have authentication via mobile phone or an IceKey. Further information on authentication can be viewed on&nbsp;www.audkenni.is&nbsp;and on the IceKey on&nbsp;www.island.is/islykill</li>
+              <li>If you need assistance in voting, please contact the customer service centre of the Municipality of Kópavogur, Fannborg 2 and the Library of Kópavogur Hamraborg 6a during the elections.</li>
+            </ul>
           </div>
         </template>
       </paper-dialog-scrollable>
@@ -67,6 +86,6 @@
     </paper-dialog>
   </template>
 
-  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String},isLanguage:{type:Boolean,computed:'_isLanguage("is", language)'},enLanguage:{type:Boolean,computed:'_isLanguage("en", language)'}},_isLanguage:function(e,a){return e==a},open:function(e){this.set("title","Okkar Kópavogur - Upplýsingar"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_close:function(){this.set("title",null)}});</script>
+  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String}},open:function(i){"is"==this.language?this.set("title","Okkar Kópavogur - Upplýsingar"):this.set("title","Okkar Kópavogur - Information"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_close:function(){this.set("title",null)}});</script>
 </dom-module>
 </body></html>

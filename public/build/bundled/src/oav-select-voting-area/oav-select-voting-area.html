@@ -41,8 +41,6 @@
     }
 
     .mainContainer {
-      width: 100%;
-      height: 100%;
       background-color: var(--app-kopavogur-green-grass);
     }
 
@@ -54,9 +52,15 @@
       background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-large.png");
     }
 
+    @media (max-width: 600px) {
+      .imageContainer {
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png");
+      }
+    }
+
     .selectInfoText {
       font-size: 21px;
-      padding: 16px;
+      padding: 8px;
       background-color: var(--app-primary-color);
       color: #FFF;
       margin: 0;
@@ -64,7 +68,6 @@
 
     .selectInfoTextSmaller {
       font-size: 16px;
-      padding-top: 0px;
       padding: 8px;
     }
 
@@ -162,23 +165,13 @@
       height: 35px;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       .selectInfoText {
         font-size: 18px;
       }
       .selectInfoTextSmaller {
-        font-size: 15px;
+        font-size: 16px;
       }
-    }
-
-    .mobileMaterial {
-      width: 320px;
-      padding: 0;
-      margin: 0;
-      margin-top: 24px;
-      height: 100%;
-      padding-top: 8px;
-      background-color: #FFF;
     }
 
     .totalVoters {
@@ -201,8 +194,11 @@
 
     .langSelection {
       position: absolute;
-      bottom: 4px;
-      left: 4px;
+      bottom: 8px;
+      left: 8px;
+      cursor: pointer;
+      font-style: italic;
+      font-size: 14px;
     }
 
     .langImage {
@@ -211,7 +207,7 @@
       margin-left: 8px;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
       .totalVoterCount {
         font-size: 17px;
         padding-left: 0px;
@@ -222,7 +218,41 @@
         height: 30px;
       }
 
+      .mobileLogo {
+        width: 240px;
+        height: 100px;
+        margin-top: 32px;
+      }
+
+      .topMaterial {
+        max-width: 320px;
+        max-height: 120px;
+        margin-bottom: 16px;
+        background-color: #f5f5f5;
+      }
+
+      .mobileMaterial {
+        width: 320px;
+        padding: 0;
+        margin: 0;
+        margin-top: 24px;
+        padding-top: 8px;
+        background-color: #fff;
+      }
     }
+
+    .desktopLogo {
+      width: 260px;
+      height: 120px;
+    }
+
+    .logoHolder {
+      background-color: #66c7db;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+
   </style>
 
   <template>
@@ -234,18 +264,24 @@
       <div class="layout vertical center-center mainContainer">
 
         <div class="layout horizontal imageContainer wrap">
-          <paper-material elevation="5" class="topMaterial">
-            <div class="selectInfoText flex">{{localize('app_title')}}</div>
-            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_1')}}</div>
-            <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
-            <div class="langSelection layout horizontal">
-              <iron-image class="langImage" on-tap="_selectIcelandic" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/isLang.png"></iron-image>
-              <iron-image class="langImage" on-tap="_selectEnglish" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/enLang.png"></iron-image>
+          <div class="layout vertical">
+            <div class="layout horizontal center-center">
+              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/okkarKopaVogurTransparent.png"></iron-image>
             </div>
-            <template is="dom-if" if="[[totalVoterCount]]">
-              <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="assignment-turned-in"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
-            </template>
-          </paper-material>
+            <paper-material elevation="3" class="topMaterial">
+              <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
+                <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/okkarKopaVogurTransparent.png"></iron-image>
+              </div>
+              <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
+              <div class="langSelection layout horizontal">
+                <div hidden$="[[isLanguage]]" on-tap="_selectIcelandic">Íslenska</div>
+                <div hidden$="[[enLanguage]]" on-tap="_selectEnglish">English</div>
+              </div>
+              <template is="dom-if" if="[[totalVoterCount]]">
+                <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="assignment-turned-in"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
+              </template>
+            </paper-material>
+          </div>
 
           <paper-material elevation="5" class="topMaterial" hidden$="[[!wide]]">
             <iron-image sizing="contain" class="infoImage" src="https://yrpri6-production.s3.amazonaws.com/IC/00/wo-retina.png"></iron-image>
