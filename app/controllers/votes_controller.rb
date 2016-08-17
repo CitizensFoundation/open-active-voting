@@ -19,6 +19,7 @@
 require 'digest/sha1'
 require 'nokogiri'
 require 'base64'
+require 'ruby-saml'
 
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
