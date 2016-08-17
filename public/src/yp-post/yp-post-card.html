@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html" >
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html" >
@@ -8,13 +9,11 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html" >
 
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
 <link rel="import" href="../../bower_components/google-streetview-pano/google-streetview-pano.html">
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
-
 
 <link rel="import" href="yp-post-actions.html">
 <link rel="import" href="yp-post-cover-media.html">
@@ -24,7 +23,7 @@
 
   <template>
 
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
       }
 
@@ -208,8 +207,6 @@
           </div>
         </paper-material>
       </div>
-      <template is="dom-if" if="[[headerMode]]">
-      </template>
     </template>
   </template>
 
@@ -246,33 +243,10 @@
         trimmedDescription: {
           type: String,
           computed: '_trimmedDescription(post, post.description)'
-        },
-
-        hasPostAccess: {
-          type: Boolean,
-          value: false,
-          notify: true,
-          computed: '_hasPostAccess(post, gotAdminRights)'
         }
+
       },
 
-      _hasPostAccess: function(post, gotAdminRights) {
-        if (post && gotAdminRights) {
-          if (this.checkPostAccess(post)!=null) {
-            return true
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      },
-
-      goToPostIfNotHeader: function () {
-        if (!this.headerMode) {
-          this.goToPost();
-        }
-      },
 
       _trimmedDescription: function (post, description) {
         if (post) {
@@ -289,8 +263,6 @@
       },
 
       _refresh: function () {
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("postEdit");
-        dialog.selected = 0;
         this.fire('refresh');
       },
 
@@ -304,38 +276,8 @@
         else if (detail.item.id=="moveMenuItem")
           this._openMovePost();
         this.selectedMenuItem = null;
-      },
-
-      _openMovePost: function () {
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("postMove");
-        dialog.setupAndOpen(this.post, this._refresh.bind(this));
-      },
-
-      _openPostStatusChange: function () {
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("postStatusChangeEdit");
-        dialog.setup(this.post, null, this._refresh.bind(this));
-        dialog.open('new', { postId: this.post.id, statusChange: true });
-      },
-
-      _openEdit: function () {
-        window.appGlobals.activity('open', 'post.new');
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("postEdit");
-        dialog.setup(this.post, this.post.Group, false, this._refresh.bind(this));
-        dialog.open('edit', { postId: this.post.id });
-      },
-
-      _openDelete: function () {
-        window.appGlobals.activity('open', 'post.delete');
-        var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("deleteDialog");
-        dialog.setup('/api/posts/', this.post.id,
-          this.t('post.deleteConfirmation'),
-          this._onDeleted.bind(this));
-        dialog.open();
-      },
-
-      _onDeleted: function () {
-        page("#!/group/"+this.post.group_id);
       }
+
     });
   </script>
 </dom-module>

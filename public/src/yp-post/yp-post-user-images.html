@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
@@ -14,7 +15,7 @@
 
 <dom-module id="yp-post-user-images">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       paper-button {
         margin-top: 32px;
         margin-bottom: 8px;
@@ -48,7 +49,7 @@
     (function () {
       Polymer({
 
-        is: 'yp-post-user-images',
+        is: 'yp-post-user-imagess',
 
         behaviors: [
           Polymer.appHelpers
@@ -78,13 +79,6 @@
             this.$.ajax.params = { params: params };
             this.$.ajax.generateRequest();
           }
-        },
-
-        _newImage: function () {
-          window.appGlobals.activity('open', 'newUserImage');
-          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("userImageEdit");
-          dialog.setup(this.post, null, true, this._refresh.bind(this));
-          dialog.open('new', { postId: this.post.id,  userImages: true });
         },
 
         _response: function (event, detail) {

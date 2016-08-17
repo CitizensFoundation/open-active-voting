@@ -262,20 +262,6 @@
         floating: Boolean
       },
 
-      _goToPostIfNotHeader: function () {
-        if (!this.headerMode) {
-          this.goToPost();
-         }
-      },
-
-      _postUrl: function (post) {
-        if (post) {
-          return encodeURIComponent("https://"+window.location.host+"/#!/post/"+post.id);
-        } else {
-          console.warn("Can't find post for action");
-        }
-      },
-
       _toggleShare: function () {
         this.set('showShareButtons', !this.showShareButtons);
       },
@@ -308,10 +294,6 @@
         }
       },
 
-      _updateEndorsementsFromSignal: function () {
-        this._updateEndorsements();
-      },
-
       _updateEndorsements: function () {
 
       },
@@ -334,22 +316,6 @@
         }
       },
 
-      _setEndorsement: function (value) {
-        this.endorseValue = value;
-        if (this.endorseMode=='love') {
-          if (value > 0) {
-            this.$.actionUp.className += ' ' + 'love-up-selected';
-            this.removeClass(this.$.actionDown, 'love-up-selected');
-          } else if (value < 0) {
-            this.$.actionDown.className += ' ' + 'love-up-selected';
-            this.removeClass(this.$.actionUp,'love-up-selected');
-          } else {
-            this.removeClass(this.$.actionUp,'love-up-selected');
-            this.removeClass(this.$.actionDown, 'love-up-selected');
-          }
-        }
-      },
-
       _endorseResponse: function (event, detail) {
         this.set('allDisabled', false);
         var endorsement = detail.response.endorsement;
@@ -368,38 +334,10 @@
           this.set('post.counter_endorsements_down', this.post.counter_endorsements_down+1);
       },
 
-      generateEndorsementFromLogin: function (value) {
-        if (!window.appUser.endorsementPostsIndex[this.post.id]) {
-          this.generateEndorsement(value);
-        }
-      },
-
-      generateEndorsement: function (value) {
-        if (window.appUser.loggedIn()===true) {
-          this.$.endorseAjax.url = '/api/posts/' + this.post.id + '/endorse';
-          this.$.endorseAjax.body = { post_id: this.post.id, value: value };
-          if (this.endorseValue === value) {
-            this.$.endorseAjax.method = 'DELETE';
-          } else {
-            this.$.endorseAjax.method = 'POST';
-          }
-          this.$.endorseAjax.generateRequest();
-        } else {
-          this.set('allDisabled', false);
-          window.appUser.loginForEndorse(this, { value: value } );
-        }
-      },
-
       upVote: function (event) {
-        this.set('allDisabled', true);
-        this.generateEndorsement(1);
-        window.appGlobals.activity('clicked', 'endorse_up', this.post.id);
       },
 
       downVote: function (event) {
-        this.set('allDisabled', true);
-        this.generateEndorsement(-1);
-        window.appGlobals.activity('clicked', 'endorse_down', this.post.id);
       },
 
       computeActionClass: function (small) {

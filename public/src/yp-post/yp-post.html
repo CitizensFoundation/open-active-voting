@@ -9,24 +9,17 @@
 
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
-<link rel="import" href="../../bower_components/google-map/google-map-search.html">
-
-<link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
-<link rel="import" href="yp-post-points.html">
 <link rel="import" href="yp-post-actions.html">
-<link rel="import" href="yp-post-cover-media.html">
-<link rel="import" href="yp-post-user-images.html">
+
 <link rel="import" href="yp-post-card.html">
+
+<link rel="import" href="yp-post-points.html">
+<link rel="import" href="yp-post-user-images.html">
 
 <dom-module id="yp-post">
   <template>
@@ -321,13 +314,12 @@
         <paper-tabs id="paper_tabs" class="tabs" selected="{{selected}}" focused>
           <paper-tab>
             <div class="layout vertical center-center tabCounterContainer">
-              <span>[[localize('post.tabs.debate')]]</span><div class="counterInfo" id="tabCountDebate"></div>
+              <span>[[localize('postTabsDebate')]]</span><div class="counterInfo" id="tabCountDebate"></div>
             </div>
           </paper-tab>
-          <paper-tab>[[localize('post.tabs.location')]]</paper-tab>
           <paper-tab>
             <div class="layout vertical center-center tabCounterContainer">
-              <span>[[localize('post.tabs.photos')]]</span><div class="counterInfo" id="tabCountPhotos"></div>
+              <span>[[localize('postTabsPhotos')]]</span><div class="counterInfo" id="tabCountPhotos"></div>
             </div>
           </paper-tab>
         </paper-tabs>
@@ -337,24 +329,6 @@
         <div class="layout horizontal center-center">
           <yp-post-points id="pointsSection" post="[[post]]"></yp-post-points>
         </div>
-        <section>
-          <div class="layout horizontal center-center">
-            <template is="dom-if" if="[[post.location]]" restamp>
-              <template is="dom-if" if="[[mapActive]]" restamp>
-                <paper-material class="mapContainer" elevation="3">
-                  <google-map api-key="AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0" id="map" libraries="places" class="map" map-type="[[post.location.mapType]]" zoom="[[post.location.map_zoom]]" fit-to-markers>
-                    <google-map-marker latitude="[[post.location.latitude]]" longitude="[[post.location.longitude]]" id="marker"></google-map-marker>
-                  </google-map>
-                </paper-material>
-              </template>
-            </template>
-            <template is="dom-if" if="[[post]]">
-              <template is="dom-if" if="[[!post.location]]">
-                <h1 style="padding-top: 16px">[[localize('post.noLocation')]]</h1>
-              </template>
-            </template>
-          </div>
-        </section>
         <section>
           <div class="layout vertical flex">
             <div class="layout horizontal center-center">
@@ -443,13 +417,6 @@
           }
         },
 
-        _newPost: function () {
-          window.appGlobals.activity('open', 'newPost');
-          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("postEdit");
-          dialog.setup(null, this.post.Group, true, null);
-          dialog.open('new', { groupId: this.post.Group.id });
-        },
-
         _tabNameChanged: function (newValue, oldValue) {
           if (newValue && (newValue!=oldValue)) {
             if (newValue=='debate') {
@@ -536,7 +503,6 @@
           var params = '/api/posts/' + this.postId;
           this.$.ajax.url = '/votes/better_iceland_proxy';
           this.$.ajax.params = { params: params };
-          this.$$('#ajax').retryMethodAfter401Login = this._getPost.bind(this);
           this.$.ajax.generateRequest();
         },
 
@@ -553,20 +519,11 @@
           if (selected == 0)
             window.appGlobals.activity('open', 'pointsTab');
           else if (selected == 1)
-            window.appGlobals.activity('open', 'newsfeedTab');
-          else if (selected == 2)
-            window.appGlobals.activity('open', 'locationTab');
-          else if (selected == 3)
             window.appGlobals.activity('open', 'photosTab');
-
-          if (selected == 2) {
-            this.set('mapActive', true);
-          } else {
-            this.set('mapActive', false);
-          }
         },
 
         ready: function () {
+
         },
 
         computeUrl: function (post_id) {

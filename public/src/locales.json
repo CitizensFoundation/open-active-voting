@@ -39,10 +39,10 @@
     "more_info_description": "Idea on idea website",
     "close": "close",
     "vote": "Vote!",
-    "post.tabs.debate": "Debate",
-    "post.tabs.location": "Location",
-    "post.tabs.photos": "Myndir",
-    "post.noLocation": "No location"
+    "postTabsDebate": "Debate",
+    "postTabsLocation": "Location",
+    "postTabsPhotos": "Myndir",
+    "postNoLocation": "No location"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -84,14 +84,9 @@
     "more_info_description": "Hugmynd á hugmyndavef",
     "close": "loka",
     "vote": "Kjósa!",
-    "post.tabs.debate": "Rök",
-    "post": {
-      "tabs": {
-        "debate": "Rök"
-      }
-    },
-    "post.tabs.location": "Staðsetning",
-    "post.tabs.photos": "Myndir",
-    "post.noLocation": "Engin staðsetning"
+    "postTabsDebate": "Rök",
+    "postTabsLocation": "Staðsetning",
+    "postTabsPhotos": "Myndir",
+    "postNoLocation": "Engin staðsetning"
   }
 }

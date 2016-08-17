@@ -10,19 +10,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>paper-card</title>
-
-  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../iron-component-page/iron-component-page.html">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>paper-card tests</title>
+  <script src="../../web-component-tester/browser.js"></script>
 </head>
 <body>
-
-<iron-component-page></iron-component-page>
-
+  <script>
+    WCT.loadSuites([
+      'basic.html',
+      'basic.html?dom=shadow'
+    ]);
+  </script>
 </body>
 </html>

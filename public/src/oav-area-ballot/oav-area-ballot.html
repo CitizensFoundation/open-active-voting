@@ -310,7 +310,6 @@
       },
 
       _ballotPostResponse: function (event, detail) {
-        debugger;
         if (detail.response.vote_ok==true && detail.response.error==false) {
           this.reset();
           window.location = "/#/voting-completed"
