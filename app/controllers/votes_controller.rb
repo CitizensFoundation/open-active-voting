@@ -177,7 +177,7 @@ class VotesController < ApplicationController
       # Check and see if the response is a success
       if saml_validation_response==true
         parsed = Nokogiri.parse(@response.response.to_s)
-        national_identity_hash = parsed.root.xpath("//blarg:Attribute[@FriendlyName='Kennitala']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
+        national_identity_hash = parsed.root.xpath("//blarg:Attribute[@FriendlyName='SSN']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
         assertion_id = parsed.root.xpath("//blarg:Assertion/@ID", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).to_s
         if SamlAssertion.where(:assertion_id=>assertion_id).first
           raise "Duplicate SAML 2 assertion error"
