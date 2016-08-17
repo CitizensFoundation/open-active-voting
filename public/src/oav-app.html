@@ -156,7 +156,6 @@
         <div class="helpIconInBudget">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
         </div>
-
         <div class="budgetContainer" hidden$="[[hideBudget]]">
           <oav-area-budget id="budget" area-name="[[areaName]]" total-budget="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
@@ -317,7 +316,7 @@
         return this.$$("#dialogContainer").getDialog(name);
       },
 
-      _pageChanged: function(page) {
+      _pageChanged: function(page, oldPage) {
         // Page import on demand.
         if (page && page!='select-voting-area') {
           if (page=='post') {
@@ -344,6 +343,16 @@
           document.body.style.backgroundColor = "#21b851";
         } else {
           document.body.style.backgroundColor = "#e0e0e0";
+        }
+
+        // Reset post if needed
+        if (oldPage=='post' && this.$.post) {
+          this.$.post.reset();
+        }
+
+        // Reset pages if needed
+        if (oldPage=='area-ballot' && this.$.budgetBallot) {
+          this.$.budgetBallot.selectedView = 0;
         }
       }
     });

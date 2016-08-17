@@ -401,6 +401,11 @@
           }
         },
 
+        reset: function () {
+          this.set('post', null);
+          this.set('postId', null);
+        },
+
         attached: function () {
           this.loadLanguage(this.resolveUrl('../locales.json'));
         },
