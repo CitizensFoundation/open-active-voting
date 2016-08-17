@@ -240,7 +240,13 @@
       ],
 
       _budgetLeft: function (selectedBudget, totalBudget) {
-        return totalBudget-selectedBudget;
+        var budgetLeft = totalBudget-selectedBudget;
+        console.log(budgetLeft);
+        if (budgetLeft>0) {
+          return budgetLeft;
+        } else {
+          return '0';
+        }
       },
 
       attached: function() {
@@ -339,7 +345,7 @@
         var paperIcon = document.createElement("paper-icon-button");
         paperIcon.setAttribute("icon", "close");
         paperIcon.icon = "close";
-        paperIcon.style.color = "#FFF";
+        paperIcon.style.color = "#ff6500";
         paperIcon.style.height = "42px";
         paperIcon.style.width = "42px";
         paperIcon.style.opacity = 0;
