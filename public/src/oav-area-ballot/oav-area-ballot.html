@@ -94,6 +94,7 @@
         margin-right: 16px;
       }
     }
+
   </style>
 
   <template>
@@ -101,7 +102,6 @@
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="topContainer layout vertical">
-
       <div class="layout horizontal center-center tabsContainer">
         <paper-tabs selected="{{selectedView}}">
           <paper-tab>
@@ -394,7 +394,10 @@
         this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         this.async(function () {
           this.$$("#ironList").fire('iron-resize');
-        },10);
+        },500);
+        this.async(function () {
+          this.$$("#ironList").fire('iron-resize');
+        },2000);
       }
     })
   })();
