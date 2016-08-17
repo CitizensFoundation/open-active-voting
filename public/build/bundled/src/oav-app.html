@@ -4338,7 +4338,7 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("/images/CF-large.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-large.png");
     }
 
     .selectInfoText {
@@ -4526,8 +4526,8 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
             <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_1')}}</div>
             <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
             <div class="langSelection layout horizontal">
-              <iron-image class="langImage" on-tap="_selectIcelandic" src="/images/isLang.png"></iron-image>
-              <iron-image class="langImage" on-tap="_selectEnglish" src="/images/enLang.png"></iron-image>
+              <iron-image class="langImage" on-tap="_selectIcelandic" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/isLang.png"></iron-image>
+              <iron-image class="langImage" on-tap="_selectEnglish" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/enLang.png"></iron-image>
             </div>
             <template is="dom-if" if="[[totalVoterCount]]">
               <div class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="face"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
@@ -4542,7 +4542,7 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
         <template is="dom-if" if="[[wide]]" restamp="">
           <paper-material elevation="5" class="areaOptions">
             <div class="layout vertical center-center">
-              <img id="imageMapKopavogur" src="/images/kopavogurMap.png" border="0" width="686" height="550" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
+              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogurMap.png" border="0" width="686" height="550" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
               <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
                 <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none" target="_self">
                 <area alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" shape="poly" coords="356,290,452,266,367,192,355,135,321,141,296,158,277,180,262,206,259,221,295,220,310,235,308,253,333,265" style="outline:none" target="_self">
@@ -4565,7 +4565,7 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
       <template is="dom-if" if="[[!wide]]">
         <div class="layout vertical center-center">
           <paper-material elevation="5" class="mobileMaterial">
-            <img class="mobileImage" id="Image-Maps-Com-image-maps-2016-08-11-121816" src="/images/kopavogurMapMobile.png" border="0" width="320" height="831" orgwidth="320" orgheight="831" usemap="#image-maps-2016-08-11-121816" alt="">
+            <img class="mobileImage" id="Image-Maps-Com-image-maps-2016-08-11-121816" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogurMapMobile.png" border="0" width="320" height="831" orgwidth="320" orgheight="831" usemap="#image-maps-2016-08-11-121816" alt="">
             <map name="image-maps-2016-08-11-121816" id="ImageMapsCom-image-maps-2016-08-11-121816">
               <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="68,6,100,6,102,20,116,21,136,15,151,12,147,21,162,23,172,20,183,21,198,18,206,18,224,7,241,8,242,28,230,37,217,46,212,62,230,112,226,121,218,116,212,104,185,98,136,87,114,84,97,66,97,53,88,36,80,37,70,27,66,7" style="outline:none" target="_self">
               <area alt="Digranes" title="Digranes" href="/#/area-ballot/2" shape="poly" coords="100,127,234,137,262,143,270,153,266,160,275,168,273,196,257,214,240,221,216,225,201,218,172,224,160,224,117,217,106,221,88,228,73,231,61,230,43,193,46,175,65,158,77,140" style="outline:none" target="_self">
