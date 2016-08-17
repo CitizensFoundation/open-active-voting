@@ -99,22 +99,7 @@
       properties: {
         title: {
           type: String
-        },
-
-        isLanguage: {
-          type: Boolean,
-          computed: '_isLanguage("is", language)'
-        },
-
-        enLanguage: {
-          type: Boolean,
-          computed: '_isLanguage("en", language)'
         }
-
-      },
-
-      _isLanguage: function (testForLanguage, selectedLanguage) {
-        return (testForLanguage==selectedLanguage);
       },
 
       open: function (title) {

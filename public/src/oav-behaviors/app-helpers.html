@@ -21,7 +21,21 @@
     properties: {
       language: {
         value: 'is'
+      },
+
+      isLanguage: {
+        type: Boolean,
+        computed: '_isLanguage("is", language)'
+      },
+
+      enLanguage: {
+        type: Boolean,
+        computed: '_isLanguage("en", language)'
       }
+    },
+
+    _isLanguage: function (testForLanguage, selectedLanguage) {
+      return (testForLanguage==selectedLanguage);
     },
 
     setLanguage: function (event, language) {
