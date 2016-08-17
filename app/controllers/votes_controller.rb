@@ -19,7 +19,7 @@
 require 'digest/sha1'
 require 'nokogiri'
 require 'base64'
-require 'ruby-saml'
+require Rails.root.join('lib','ruby-saml','lib','ruby-saml').to_s
 
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
