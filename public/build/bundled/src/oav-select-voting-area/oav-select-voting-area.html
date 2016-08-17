@@ -278,7 +278,7 @@
                 <div hidden$="[[enLanguage]]" on-tap="_selectEnglish">English</div>
               </div>
               <template is="dom-if" if="[[totalVoterCount]]">
-                <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="assignment-turned-in"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
+                <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
               </template>
             </paper-material>
           </div>
@@ -301,11 +301,11 @@
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
             </template>
           </paper-material>
         </template>
@@ -323,11 +323,11 @@
               <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="105,576,187,504,217,513,240,516,263,511,281,512,295,505,303,522,291,540,277,546,260,545,247,571,260,577,265,591,251,602,233,606,224,616,220,623,221,632,238,660,263,682,283,676,285,690,276,694,248,726,246,745,143,823,136,824,126,798,113,634,14,607,17,596" style="outline:none" target="_self">
             </map>
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinnMobile layout horizontal"><iron-icon class="checkIconMobile" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindirMobile layout horizontal"><iron-icon class="checkIconMobile" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="assignment-turned-in"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinnMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindirMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
             </template>
           </paper-material>
         </div>
