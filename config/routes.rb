@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get "votes/authentication_options"
   post "votes/authenticate_from_island_is"
+  post 'authenticate_from_island_is', to: 'votes#authenticate_from_island_is'
 
   get "votes/ballot"
   get "votes/get_areas"
