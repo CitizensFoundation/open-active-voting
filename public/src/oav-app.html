@@ -318,26 +318,19 @@
       },
 
       _pageChanged: function(page) {
-        // load page import on demand.
+        // Page import on demand.
         if (page && page!='select-voting-area') {
           if (page=='post') {
             this.importHref(this.resolveUrl('yp-' + page + '/yp-' + page + '.html'), null, null, true);
           } else {
             this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
           }
-
           this.set('showExit', true);
-
-          if (page=='voting-completed') {
-            this.set('title', this.localize('voting_completed'));
-          }
         } else {
           this.set('showExit', false);
-          if (this.localize) {
-            this.set('title', this.localize('welcome_title'));
-          }
         }
 
+        // Setup top ballot if needed
         if (page && page=='area-ballot') {
           this.set('currentBallot', this.$$("#budgetBallot"));
           this.set('budgetElement', this.$$("#budget"));
@@ -346,6 +339,7 @@
           this.set('hideBudget', true);
         }
 
+        // Set background color
         if (page=='select-voting-area') {
           document.body.style.backgroundColor = "#21b851";
         } else {
