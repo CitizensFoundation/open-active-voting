@@ -326,7 +326,7 @@ namespace :ballot do
 
     config=BudgetConfig.new
     config.timeout_in_seconds = 600
-    config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=11999a35-5dde-41a0-9456-99712eb39430&returnUrl=https%3A%2F%2Fkosning.kopavogur.is%2Fauthenticate_from_island_is"
     config.public_key = public_key
     config.save
 
