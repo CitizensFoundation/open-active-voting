@@ -113,19 +113,19 @@
         background-color: var(--app-primary-color);
       }
 
-      @media (max-width: 960px) {
+      @media (max-width: 1024px) {
         :host {
           width: 600px;
         }
 
         .postCard {
-          width: 600px;
+          width: 580px;
           @apply(--layout-wrap);
         }
 
         yp-post-cover-media {
-          width: 420px;
-          height: 232px;
+          width: 400px;
+          height: 212px;
         }
 
         .voting {
@@ -164,23 +164,52 @@
         }
 
         @media (max-width: 420px) {
+          :host {
+            width: 280px;
+          }
+
+          .postCard {
+            height: 100% !important;
+            width: 280px !important;
+          }
+
+          yp-post-cover-media {
+            width: 280px !important;
+            height: 150px !important;
+          }
+
+          .card-actions {
+            left: 0;
+            width: 260px;
+          }
+
+          .post-name {
+            font-size: 18px;
+          }
+
+          .description {
+            font-size: 15px;
+          }
+        }
+
+      @media (max-width: 320px) {
         :host {
-          width: 304px;
+          width: 240px;
         }
 
         .postCard {
           height: 100% !important;
-          width: 304px !important;
+          width: 240px !important;
         }
 
         yp-post-cover-media {
-          width: 304px !important;
-          height: 168px !important;
+          width: 240px !important;
+          height: 128px !important;
         }
 
         .card-actions {
           left: 0;
-          width: 280px;
+          width: 260px;
         }
 
         .post-name {
@@ -191,6 +220,7 @@
           font-size: 15px;
         }
       }
+
     </style>
 
     <template is="dom-if" if="[[post]]" restamp>
