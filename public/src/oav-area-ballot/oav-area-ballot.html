@@ -198,6 +198,13 @@
         wide: Boolean
       },
 
+      refreshList: function () {
+        var list = this.$$("#ironList");
+        if (list) {
+          list.fire('iron-resize');
+        }
+      },
+
       _areaChanged: function (newArea) {
         debugger;
       },
@@ -394,10 +401,7 @@
         this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         this.async(function () {
           this.$$("#ironList").fire('iron-resize');
-        },500);
-        this.async(function () {
-          this.$$("#ironList").fire('iron-resize');
-        },2000);
+        }, 10);
       }
     })
   })();

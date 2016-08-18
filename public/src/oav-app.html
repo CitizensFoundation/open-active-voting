@@ -350,6 +350,11 @@
           this.$.post.reset();
         }
 
+        // Refresh list when returning back to a ballot
+        if (page=='area-ballot' && this.$.budgetBallot) {
+          this.$.budgetBallot.refreshList();
+        }
+
         // Reset ballot tab view to list
         if (oldPage=='area-ballot' && this.$.budgetBallot && page!='post') {
           this.$.budgetBallot.selectedView = 0;

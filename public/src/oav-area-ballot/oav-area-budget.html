@@ -24,7 +24,7 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png");
     }
 
     .budgetContainer[wide] {
@@ -32,12 +32,15 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://yrpri6-production.s3.amazonaws.com/cZ/xw/CF-large.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-medium-minimal.png");
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 1100px) {
       .budgetContainer {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png") !important;
+      }
+      .budgetContainer[wide] {
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png") !important;
       }
     }
 
@@ -50,7 +53,7 @@
     }
 
     .budgetMaterial[wide] {
-      width: 960px;
+      width: 940px;
       height: 184px;
       margin: 10px 0px;
       margin-top: 8px;
@@ -65,7 +68,7 @@
     }
 
     #votes[wide] {
-      width: 960px;
+      width: 940px;
       height: 102px;
     }
 
@@ -146,6 +149,20 @@
       border-left-color: var(--app-accent-color);
     }
 
+    .headerLogo {
+      width: 150px;
+      height: 70px;
+      padding: 0;
+      margin-left: 24px;
+    }
+
+    @media (min-width: 1000px) {
+      .headerContainer {
+        background-color: #66c7db;
+        color: #FFF;
+      }
+    }
+
   </style>
 
   <template>
@@ -154,7 +171,8 @@
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
-        <div class="info layout horizontal" wide$="[[wide]]">
+        <div class="info layout horizontal headerContainer" wide$="[[wide]]">
+          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/okkarKopaVogurTransparent.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
@@ -225,7 +243,7 @@
 
         votesWidth: {
           type: Number,
-          value: 960
+          value: 940
         },
 
         wide: {
@@ -256,7 +274,7 @@
 
       _wideChanged: function (isWide) {
         if (isWide) {
-          this.set('votesWidth', 960);
+          this.set('votesWidth', 940);
         } else {
           this.set('votesWidth', 300);
         }
@@ -331,8 +349,8 @@
         image.setAttribute('alt', item.name);
         image.setAttribute('title', item.name);
         image.title= item.name;
-        image.style.borderLeft = 'solid 2px';
-        image.style.borderRight = 'solid 2px';
+        image.style.borderLeft = 'solid 3px';
+        image.style.borderRight = 'solid 3px';
         image.style.borderColor = '#ff6500';
         if (this.wide) {
           image.style.height = '100px';
