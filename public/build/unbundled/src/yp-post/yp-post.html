@@ -139,7 +139,7 @@
         }
 
         yp-post-cover-media {
-          width: 320px !important;
+          width: 300px !important;
           height: 181px !important;
           padding-top: 16px;
           padding-left: 20px;
@@ -158,14 +158,14 @@
         }
 
         .description {
-          width: 320px;
+          width: 300px;
           padding: 8px;
           padding-left: 20px;
           padding-bottom: 16px;
         }
 
         yp-post-actions {
-          width: 320px;
+          width: 300px;
           padding-left: 20px;
         }
 
@@ -182,12 +182,6 @@
         background-color: #e0e0e0;
       }
 
-      .mapContainer {
-        margin: 24px;
-        width: 960px;
-        height: 500px;
-      }
-
       .counterInfo {
         font-size: 11px;
       }
@@ -195,54 +189,20 @@
       .topContainer {
         padding-top: 24px;
         background-color: #e0e0e0;
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-large.png");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-medium-minimal.png");
         background-repeat: repeat-x;
+      }
+
+
+      @media (max-width: 1100px) {
+        .topContainer {
+          background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png") !important;
+        }
       }
 
       .tabs {
         margin-top: 64px;
       }
-
-      @media (max-width: 934px) {
-        .mapContainer {
-          margin: 16px;
-          width: 800px;
-          height: 400px;
-        }
-      }
-
-      @media (max-width: 832px) {
-        .mapContainer {
-          margin: 8px;
-          width: 600px;
-          height: 340px;
-        }
-      }
-
-      @media (max-width: 632px) {
-        .mapContainer {
-          margin: 8px;
-          width: 400px;
-          height: 300px;
-        }
-      }
-
-      @media (max-width: 420px) {
-        .mapContainer {
-          margin: 8px;
-          width: 330px;
-          height: 250px;
-        }
-      }
-
-      @media (max-width: 360px) {
-        .mapContainer {
-          margin: 8px;
-          width: 280px;
-          height: 200px;
-        }
-      }
-
 
       .tabs {
         width: 300px;

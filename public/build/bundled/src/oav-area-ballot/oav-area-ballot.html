@@ -967,12 +967,12 @@
       .mapContainer {
         width: 100% !important;
         height: 100% !important;
-        margin-top: 24px;
+        margin-top: 16px;
       }
 
       .noMapContainer {
         padding: 8px;
-        margin: 24px;
+        margin: 16px;
         background-color: #FFF;
       }
 
@@ -1040,7 +1040,7 @@
     </div>
   </template>
 
-  <script>Polymer({is:"oav-items-map",behaviors:[Polymer.appHelpers],properties:{items:{type:Array,value:null,observer:"_itemsChanged"},budgetElement:{type:Object},selectedItem:{type:Object},noItems:{type:Boolean,value:!1},apiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},wide:{type:Boolean,observer:"_wideChanged"}},_itemsChanged:function(e){},_closeInfo:function(){this.$$("#myInfoCard").close()},attached:function(){this.async(function(){this._resetMapHeight()}.bind(this))},_wideChanged:function(){this._resetMapHeight()},_resetMapHeight:function(){var e=this.$$("#map");if(e){var t;t=this.wide?window.innerHeight-330:window.innerHeight-242,e.style.height=t+"px"}},setItemInBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&e.setInBudget()}},removeFromBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&this.$$("#ballotItem").removeFromBudget()}},checkIfSelectedItemToExpensive:function(e){if(this.selectedItem){var t=this.$$("#ballotItem");t&&(t.selectedInBudget||(this.selectedItem.price<=e?(t.setNotTooExpensive(),console.log("item id "+this.selectedItem.id+"Not Too Expensive")):this.selectedItem&&(console.log("item id "+this.selectedItem.id+"Too Expensive"),t.setTooExpensive())))}},markerClick:function(e){this.set("selectedItem",e.model.get("item"));this.selectedItem;this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker)}});</script>
+  <script>Polymer({is:"oav-items-map",behaviors:[Polymer.appHelpers],properties:{items:{type:Array,value:null,observer:"_itemsChanged"},budgetElement:{type:Object},selectedItem:{type:Object},noItems:{type:Boolean,value:!1},apiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},wide:{type:Boolean,observer:"_wideChanged"}},_itemsChanged:function(e){},_closeInfo:function(){this.$$("#myInfoCard").close()},attached:function(){this.async(function(){this._resetMapHeight()}.bind(this))},_wideChanged:function(){this._resetMapHeight()},_resetMapHeight:function(){var e=this.$$("#map");if(e){var t;t=this.wide?window.innerHeight-322:window.innerHeight-236,e.style.height=t+"px"}},setItemInBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&e.setInBudget()}},removeFromBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&this.$$("#ballotItem").removeFromBudget()}},checkIfSelectedItemToExpensive:function(e){if(this.selectedItem){var t=this.$$("#ballotItem");t&&(t.selectedInBudget||(this.selectedItem.price<=e?(t.setNotTooExpensive(),console.log("item id "+this.selectedItem.id+"Not Too Expensive")):this.selectedItem&&(console.log("item id "+this.selectedItem.id+"Too Expensive"),t.setTooExpensive())))}},markerClick:function(e){this.set("selectedItem",e.model.get("item"));this.selectedItem;this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker)}});</script>
 </dom-module></div><dom-module id="oav-area-ballot">
   <style include="iron-flex iron-flex-alignment">
 
@@ -1102,7 +1102,7 @@
     }
 
     paper-tab {
-      font-size: 22px !important;
+      font-size: 21px !important;
       margin-left: 24px;
       margin-right: 24px;
       width: 320px;
@@ -1116,6 +1116,13 @@
       }
     }
 
+    @media (max-width: 360px) {
+      paper-tab {
+        font-size: 14px !important;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+    }
   </style>
 
   <template>
