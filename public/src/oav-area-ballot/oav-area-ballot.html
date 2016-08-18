@@ -122,13 +122,11 @@
       <template is="dom-if" if="[[budgetBallotItems]]" restamp>
         <iron-pages role="main" selected="{{selectedView}}">
           <section>
-            <iron-list id="ironList" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
-              <template>
-                <div class="itemContainer">
-                  <oav-area-ballot-item budget-element="{{budgetElement}}" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
-                </div>
+            <div id="itemContainer" class="layout horizontal center-center wrap">
+              <template is="dom-repeat" id="domRepeat" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
+                <oav-area-ballot-item budget-element="{{budgetElement}}" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
               </template>
-            </iron-list>
+            </div>
           </section>
           <section>
             <oav-items-map id="itemsMap" budget-element="[[budgetElement]]" items="[[budgetBallotItems]]"></oav-items-map>
@@ -199,7 +197,7 @@
       },
 
       refreshList: function () {
-        var list = this.$$("#ironList");
+        var list = this.$$("#domRepeat");
         if (list) {
           list.fire('iron-resize');
         }
@@ -225,19 +223,18 @@
         this.set('budgetBallotItems', null);
         this.set('area', null);
         this.fire('oav-set-area', { areaName: null, totalBudget: null });
-        var list =  this.$$("#ironList");
+        var list =  this.$$("#domRepeat");
         if (list) {
           list.fire('iron-resize');
         }
       },
 
       _resetBallotItems: function () {
-        var list = this.$$("#ironList");
-        if (list) {
-          var listItems = list.$$("#items");
-          if (listItems) {
-            for (var i = 1; i < listItems.children.length; i++) {
-              var listItem = listItems.children[i].children[0];
+        var listItems = this.$$("#itemContainer");
+        if (listItems) {
+          for (var i = 0; i < listItems.children.length; i++) {
+            var listItem = listItems.children[i];
+            if (listItem.id != 'domRepeat') {
               listItem.setNotTooExpensive();
               listItem.removeFromBudget();
             }
@@ -250,10 +247,10 @@
       },
 
       _itemSelectedInBudget: function (event, detail) {
-        var listItems = this.$$("#ironList").$$("#items");
-        for (var i = 1; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i].children[0];
-          if (listItem.item.id == detail.itemId) {
+        var listItems = this.$$("#itemContainer");
+        for (var i = 0; i < listItems.children.length; i++) {
+          var listItem = listItems.children[i];
+          if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
             listItem.setInBudget();
             this.$$("#itemsMap").setItemInBudget(listItem.item);
           }
@@ -262,10 +259,10 @@
       },
 
       _itemDeSelectedFromBudget: function (event, detail) {
-        var listItems = this.$$("#ironList").$$("#items");
-        for (var i = 1; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i].children[0];
-          if (listItem.item.id == detail.itemId) {
+        var listItems = this.$$("#itemContainer");
+        for (var i = 0; i < listItems.children.length; i++) {
+          var listItem = listItems.children[i];
+          if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
             listItem.removeFromBudget();
             this.$$("#itemsMap").removeFromBudget(listItem.item);
           }
@@ -275,10 +272,10 @@
 
       _setStateOfRemainingItems: function () {
         var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-        var listItems = this.$$("#ironList").$$("#items");
-        for (var i = 1; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i].children[0];
-          if (!listItem.selectedInBudget) {
+        var listItems = this.$$("#itemContainer");
+        for (var i = 0; i < listItems.children.length; i++) {
+          var listItem = listItems.children[i];
+          if (listItem.id != 'domRepeat' && !listItem.selectedInBudget) {
             if (listItem.item.price<=budgetLeft) {
               listItem.setNotTooExpensive();
             } else {
@@ -400,7 +397,7 @@
         this.fire('oav-set-title', localizeMethod('ballot_area_name', 'area_name', this.area.name));
         this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         this.async(function () {
-          this.$$("#ironList").fire('iron-resize');
+          this.$$("#domRepeat").fire('iron-resize');
         }, 10);
       }
     })

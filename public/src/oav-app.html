@@ -351,7 +351,7 @@
         }
 
         // Refresh list when returning back to a ballot
-        if (page=='area-ballot' && this.$.budgetBallot) {
+        if (page=='area-ballot' && this.$.budgetBallot && this.$.budgetBallot.refreshList) {
           this.$.budgetBallot.refreshList();
         }
 
