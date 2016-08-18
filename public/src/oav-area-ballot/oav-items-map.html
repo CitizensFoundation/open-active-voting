@@ -213,7 +213,11 @@
       markerClick: function(e) {
         this.set('selectedItem', e.model.get('item'));
         var a = this.selectedItem;
-        this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
+        if (e.srcElement) {
+          this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
+        } else {
+          this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);
+        }
       }
     });
   </script>
