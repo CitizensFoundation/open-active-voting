@@ -45,11 +45,17 @@
     }
 
     .budgetMaterial {
-      width: 290px;
+      width: 288px;
       background-color: rgba(249,249,249,1.0);
       height: 108px;
       margin: 5px 0px;
       @apply(--layout-vertical);
+    }
+
+    @media (max-width: 340px) {
+      .budgetMaterial {
+        width: 250px;
+      }
     }
 
     .budgetMaterial[wide] {
@@ -61,11 +67,18 @@
     }
 
     #votes {
-      width: 290px;
+      width: 288px;
       background-color: #e0e0e0;
       height: 51px;
       @apply(--layout-horizontal);
     }
+
+    @media (max-width: 340px) {
+      #votes {
+        width: 250px;
+      }
+    }
+
 
     #votes[wide] {
       width: 940px;
@@ -169,6 +182,7 @@
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(max-width: 340px)" query-matches="{{mini}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
@@ -251,6 +265,11 @@
           observer: '_wideChanged'
         },
 
+        mini: {
+          type: Boolean,
+          observer: '_wideChanged'
+        },
+
         currentBallot: Object
       },
 
@@ -273,10 +292,12 @@
       },
 
       _wideChanged: function (isWide) {
-        if (isWide) {
+        if (this.wide) {
           this.set('votesWidth', 940);
+        } else if (this.mini) {
+          this.set('votesWidth', 250);
         } else {
-          this.set('votesWidth', 290);
+          this.set('votesWidth', 288);
         }
         this._resetBudgetDiv();
         this.selectedItems.forEach(function (item) {
@@ -330,7 +351,11 @@
       },
 
       _addItemToDiv: function (item) {
-        var itemWidth = parseInt(this.votesWidth * (item.price / this.totalBudget))-(1*this.selectedItems.length);
+        var itemWidth = parseInt(this.votesWidth * (item.price / this.totalBudget));
+
+        if (!this.wide) {
+          itemWidth -= 1;
+        }
         var container = document.createElement("div");
         container.id = "item_id_"+item.id;
         if (this.wide) {
