@@ -14,16 +14,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require "rubygems"
-require "test/unit"
+require "test_helper"
 require "watir-webdriver"
 require 'test_helper'
 require "#{Rails.root}/db/seeds.rb"
 
-class VoteThroughBrowsers < ActionController::IntegrationTest
+class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   def setup
-    @max_browsers = 4
-    @max_votes = 50
-    @area_ids = [1,3,6,7]
+    @max_browsers = 1
+    @max_votes = 6
+    @area_ids = [1,2,3]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -75,19 +75,30 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     @votes.each do |vote|
       browser = @browsers[rand(@browsers.length)]
       @current_area_id = area_id = @area_ids[rand(@area_ids.length)]
-      browser.goto "http://localhost:3000/votes/force_session_id"
-      browser.goto "http://localhost:3000/votes/get_ballot?area_id=#{area_id}"
+      browser.goto "http://localhost:3000/#/area-ballot/#{area_id}"
       retry_count = 0
       user_votes = nil
       begin
         setup_checkboxes(browser,vote)
         user_votes = {:area_id=>area_id, :votes=>get_user_votes(browser)}
-        browser.button.click
+        script = "(function() {
+          var voteElements = document
+                        .querySelector('oav-app')
+                        .$$('oav-area-budget')
+                        .querySelectorAll('.budgetBallotVote');
+          var voteIds = [];
+          Array.from(voteElements).forEach(voteElement => {
+            var voteId = voteElement.id.split('_').pop();
+            voteIds.push(voteId);
+          });
+          return voteIds;
+        })();"
+        browser.execute_script(script)
       rescue
         retry unless (retry_count += 1) > 40
       end
       @user_browser_votes[browser] << user_votes
-      browser.div(:id => "thank_you_message").wait_until_present
+      sleep 3
     end
     assert all_vote_match?(all_votes), "All individual votes matched"
     assert unique_vote_match?, "All unique votes matched"
@@ -96,9 +107,14 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
 
   def get_user_votes(browser)
     votes = []
-    browser.elements(:class, "vote_class").each do |element|
-      votes << element.id.split("_")[1].to_i
-    end
+    script = "(function() {
+      var voteElements = document
+                    .querySelector('oav-app')
+                    .$$('oav-area-budget')
+                    .$$('#votingButton').click();
+      })();"
+
+    votes = browser.execute_script(script)
     puts "VOTES FROM BROWSER: #{[votes.sort]}"
     [votes.sort]
   end
@@ -196,6 +212,34 @@ class VoteThroughBrowsers < ActionController::IntegrationTest
     browser.elements(:class, "ballot_option").each do |element|
       all_options << element.id
     end
+
+    script = "(function() {
+      var voteElements = document
+                    .querySelector('oav-app')
+                    .$$('oav-area-ballot')
+                    .querySelectorAll('.ballotAreaItem');
+      var allItems = [];
+      Array.from(allItems).forEach(item => {
+        allItems.push(item);
+      });
+      var maximum = 20;
+      var minimum = 7;
+      var size = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+      var shuffledItems = allItems.slice(0), i = allItems.length, min = i - size, temp, index;
+      while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffledItems[index];
+        shuffledItems[index] = shuffledItems[i];
+        shuffledItems[i] = temp;
+      }
+      shuffledItems = shuffledItems.slice(min);
+      Array.from(shuffledItems).forEach(item => {
+        item.$$('#addToBudgetButton').click();
+      });
+    })();"
+
+    browser.execute_script(script)
+
     puts "All options in browser #{all_options.sort}"
     vote_types.each do |vote|
       vote.each do |checkbox_to_set|
