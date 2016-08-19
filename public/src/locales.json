@@ -43,7 +43,7 @@
     "postTabsLocation": "Location",
     "postTabsPhotos": "Myndir",
     "postNoLocation": "No location",
-    "number_of_voters": "Total voters",
+    "number_of_voters": "Total number of valid votes",
     "number_of_votes": "Number of votes submitted in this neighborhood"
   },
   "is": {
@@ -90,7 +90,7 @@
     "postTabsLocation": "Staðsetning",
     "postTabsPhotos": "Myndir",
     "postNoLocation": "Engin staðsetning",
-    "number_of_voters": "Heildarfjöldi kjósenda",
+    "number_of_voters": "Heildarfjöldi gildra atkvæða",
     "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi"
   }
 }
