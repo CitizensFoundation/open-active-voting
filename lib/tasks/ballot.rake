@@ -279,7 +279,7 @@ namespace :ballot do
       post_json = JSON.parse(res)
       if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
         #puts post_json["PostHeaderImages"][0]
-        image_url = JSON.parse(post_json["PostHeaderImages"][0]["formats"])[0]
+        image_url = JSON.parse(post_json["PostHeaderImages"][post_json["PostHeaderImages"].length-1]["formats"])[0]
         puts image_url
       else
         image_url = "https://i.imgur.com/sdsFAoT.png"
@@ -369,7 +369,7 @@ namespace :ballot do
     fifuhvammur.save
     import_area_data(fifuhvammur.id, budget_data, 86)
 
-    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 37.0)
+    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 44.0)
     I18n.locale = "is"
     vatnsendi.name = "Vatnsendi"
     vatnsendi.save
