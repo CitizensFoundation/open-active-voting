@@ -142,8 +142,9 @@
       </template>
 
       <div class="layout horizontal center-center">
-        <!-- DISABLE THIS FOR PRODUCTION USE -->
-        <oav-ajax id="fakeLoginAjax" auto url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
+
+        <!-- DISABLE IN PRODUCTION USE -->
+        <oav-ajax id="fakeLoginAjax" url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
         <!-- FAKE LOGIN ENDS -->
 
         <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
@@ -216,6 +217,9 @@
 
       ready: function() {
         window.appBallot = this;
+        if (LOAD_TESTING_MODE) {
+          this.$.fakeLoginAjax.generateRequest();
+        }
       },
 
       attached: function () {
@@ -305,7 +309,9 @@
       },
 
       _postVoteToServer: function () {
-        if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+        if (LOAD_TESTING_MODE) {
+          this.completePostingOfVote();
+        } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
           this._openSamlLogin();
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
@@ -333,6 +339,9 @@
           window.location = "/#/voting-completed"
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
+        }
+        if (LOAD_TESTING_MODE) {
+          this.$.fakeLoginAjax.generateRequest();
         }
       },
 

@@ -25,16 +25,16 @@ if Rails.env.test? or Rails.env.development? or Rails.env.production?
   BudgetBallotArea.delete_all
 
   @neighborhoods=Hash.new
-  @neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"27.232.046", :ideas=>[] }
-  @neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"46.416.346", :ideas=>[]  }
-  @neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt",                  :budget_amount=>"18.710.919", :ideas=>[]  }
-  @neighborhoods[4] = { :id=>4 ,:name=>"Grafarvogur",                 :budget_amount=>"41.262.636", :ideas=>[] }
-  @neighborhoods[5] = { :id=>5 ,:name=>"Háaleiti og Bústaðir",        :budget_amount=>"34.143.815", :ideas=>[]  }
-  @neighborhoods[6] = { :id=>6 ,:name=>"Hlíðar",                      :budget_amount=>"25.765.742", :ideas=>[]  }
-  @neighborhoods[7] = { :id=>7 ,:name=>"Kjalarnes",                   :budget_amount=>"9.028.419", :ideas=>[]  }
-  @neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"36.888.194", :ideas=>[]  }
-  @neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"23.463.701", :ideas=>[] }
-  @neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"37.087.717", :ideas=>[]  }
+  @neighborhoods[1] = { :id=>1 ,:name=>"Árbær",                       :budget_amount=>"27", :ideas=>[] }
+  @neighborhoods[2] = { :id=>2 ,:name=>"Breiðholt",                   :budget_amount=>"46", :ideas=>[]  }
+  @neighborhoods[3] = { :id=>3 ,:name=>"Grafarholt",                  :budget_amount=>"18", :ideas=>[]  }
+  @neighborhoods[4] = { :id=>4 ,:name=>"Grafarvogur",                 :budget_amount=>"41", :ideas=>[] }
+  @neighborhoods[5] = { :id=>5 ,:name=>"Háaleiti og Bústaðir",        :budget_amount=>"34", :ideas=>[]  }
+  @neighborhoods[6] = { :id=>6 ,:name=>"Hlíðar",                      :budget_amount=>"25", :ideas=>[]  }
+  @neighborhoods[7] = { :id=>7 ,:name=>"Kjalarnes",                   :budget_amount=>"9", :ideas=>[]  }
+  @neighborhoods[8] = { :id=>8 ,:name=>"Laugardalur",                 :budget_amount=>"36", :ideas=>[]  }
+  @neighborhoods[9] = { :id=>9 ,:name=>"Miðborg",                     :budget_amount=>"23", :ideas=>[] }
+  @neighborhoods[10] ={ :id=>10,:name=>"Vesturbær",                   :budget_amount=>"37", :ideas=>[]  }
 
   @neighborhoods[1][:ideas] << {:id=>1, :letter=>"a", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1726-endurnyjun-leikvalla", :description=>I18n.t(:new_project_description_id_1), :name=>I18n.t(:new_project_name_id_1), :price=>7.0}
   @neighborhoods[1][:ideas] << {:id=>2, :letter=>"b", :link=>"http://betri-hverfi-arbaer.betrireykjavik.is/ideas/1758-lysing-a-gongustig-fra-arbaejarlaug-ad-ogurhvarfi", :description=>I18n.t(:new_project_description_id_2), :name=>I18n.t(:new_project_name_id_2), :price=>15.0}
@@ -280,14 +280,18 @@ if Rails.env.test? or Rails.env.development? or Rails.env.production?
     budget_ballot_area = BudgetBallotArea.create!(:budget_amount=>(area[:budget_amount].gsub(".","").to_f).round(1))
     budget_ballot_area.name = area[:name]
     budget_ballot_area.save
-   # area[:ideas].each do |idea|
-   #   budget_ballot = BudgetBallotItem.create!(:idea_url=>idea[:link], :price=>idea[:price], :idea_id => idea[:id])
-   #   budget_ballot.name = idea[:name]
-   #   budget_ballot.idea_id = idea[:id]
-   #   budget_ballot.budget_ballot_area_id = budget_ballot_area.id
-   #   budget_ballot.description = idea[:description]
-   #   budget_ballot.save
-   # end
+    puts budget_ballot_area.name
+    puts budget_ballot_area.id
+    area[:ideas].each do |idea|
+      budget_ballot = BudgetBallotItem.create!(
+                                               :budget_ballot_area_id =>budget_ballot_area.id,
+                                               :idea_url=>idea[:link],
+                                               :price=>idea[:price],
+                                               :idea_id => idea[:id])
+      budget_ballot.name = idea[:name]
+      budget_ballot.description = idea[:description]
+      budget_ballot.save
+    end
   end
 else
   BudgetConfig.delete_all

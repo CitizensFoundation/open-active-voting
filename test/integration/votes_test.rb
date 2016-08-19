@@ -22,8 +22,8 @@ require "#{Rails.root}/db/seeds.rb"
 class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   def setup
     @max_browsers = 1
-    @max_votes = 6
-    @area_ids = [1,2,3]
+    @max_votes = 1
+    @area_ids = [1]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -76,29 +76,20 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
       browser = @browsers[rand(@browsers.length)]
       @current_area_id = area_id = @area_ids[rand(@area_ids.length)]
       browser.goto "http://localhost:3000/#/area-ballot/#{area_id}"
+      sleep 3
       retry_count = 0
       user_votes = nil
-      begin
-        setup_checkboxes(browser,vote)
-        user_votes = {:area_id=>area_id, :votes=>get_user_votes(browser)}
-        script = "(function() {
-          var voteElements = document
-                        .querySelector('oav-app')
-                        .$$('oav-area-budget')
-                        .querySelectorAll('.budgetBallotVote');
-          var voteIds = [];
-          Array.from(voteElements).forEach(voteElement => {
-            var voteId = voteElement.id.split('_').pop();
-            voteIds.push(voteId);
-          });
-          return voteIds;
-        })();"
-        browser.execute_script(script)
-      rescue
-        retry unless (retry_count += 1) > 40
-      end
+      setup_checkboxes(browser,vote)
+      user_votes = {:area_id=>area_id, :votes=>get_user_votes(browser)}
+      script = "(function() {
+      var voteElements = document
+                    .querySelector('oav-app')
+                    .querySelector('oav-area-budget')
+                    .querySelector('#votingButton').click();
+      })();"
+      browser.execute_script(script)
       @user_browser_votes[browser] << user_votes
-      sleep 3
+      sleep 1
     end
     assert all_vote_match?(all_votes), "All individual votes matched"
     assert unique_vote_match?, "All unique votes matched"
@@ -106,33 +97,43 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   end
 
   def get_user_votes(browser)
+    puts "get_user_votes"
     votes = []
-    script = "(function() {
-      var voteElements = document
-                    .querySelector('oav-app')
-                    .$$('oav-area-budget')
-                    .$$('#votingButton').click();
-      })();"
 
-    votes = browser.execute_script(script)
-    puts "VOTES FROM BROWSER: #{[votes.sort]}"
-    [votes.sort]
+     script = "
+        var app = document.querySelector('oav-app')
+        var budget = app.querySelector('oav-area-budget');
+        var voteElements = budget.querySelectorAll('.budgetBallotVote');
+        var voteIds = [];
+        Array.from(voteElements).forEach(voteElement => {
+          var voteId = voteElement.id.split('_').pop();
+          voteIds.push(parseInt(voteId));
+        });
+        return voteIds;"
+     votes = browser.execute_script(script)
+
+     puts "exec script before"
+
+     puts "exec script before"
+     puts "VOTES FROM BROWSER: #{votes.sort}"
+    votes.sort
   end
 
   def all_votes
-    all_votes = []
+    all_votes_array = []
     @user_browser_votes.each do |browsers,vote_values|
       vote_values.each do |vote_value|
-        all_votes<<vote_value[:votes]
+        all_votes_array<<vote_value[:votes]
       end
     end
-  all_votes
+    puts "ALL V "+all_votes_array.to_s
+    all_votes_array
   end
 
   def get_unique_votes(area_id)
     unique_votes = []
-    @user_browser_votes.each do |browsers,vote_values|
-      unique_votes<<vote_values.last[:votes] if vote_values.last and vote_values.last[:area_id] == area_id
+    @user_browser_votes.each do |browsers,vote|
+      unique_votes<<vote.last[:votes] if vote and vote.last[:area_id] == area_id
     end
     unique_votes
   end
@@ -148,12 +149,12 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
       database_count.write_counted_unencrypted_audit_report
       #puts database_count.inspect
       test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-      test_count.count_all_test_votes(get_unique_votes(area_id),area_id)
+      test_count.count_all_test_votes_from_browser(get_unique_votes(area_id),area_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
       #puts test_count.inspect
-      puts "Test: ct: #{test_count.idea_ids_count} == #{database_count.idea_ids_count}"
+      puts "Test: ct: #{test_count.item_ids_count} == #{database_count.item_ids_count}"
 
-      match = (test_count.idea_ids_count == database_count.idea_ids_count) ? true : false
+      match = (test_count.item_ids_count == database_count.item_ids_count) ? true : false
       unless match
         puts "FAILED"
         all_passed = false
@@ -176,20 +177,21 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
     all_passed
   end
 
-  def all_vote_match?(votes)
-    votes.each do |vote| puts vote.inspect end # DEBUG
+  def all_vote_match?(browser_votes)
+    puts "All browser votes"
+    browser_votes.each do |vote| puts vote.inspect end # DEBUG
 
+    puts "Counting all database votes"
     database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
     database_count.count_all_votes
-    puts "From database: #{database_count.idea_ids_count}"
-    puts database_count.idea_ids_count.inspect
-    puts Vote.count
+    puts "All counted votes from database: #{Vote.count} #{database_count.item_ids_count}"
+
+    puts "Counting all browser votes"
     test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
-    test_count.count_all_test_votes(votes)
-    puts "From browser: #{test_count.idea_ids_count}"
-    puts test_count.idea_ids_count.inspect
-    puts votes.count
-    (test_count.idea_ids_count == database_count.idea_ids_count) ? true : false
+    test_count.count_all_test_votes_from_browser(browser_votes)
+    puts "All counted votes from browser: #{browser_votes.count} #{test_count.item_ids_count}"
+
+    (test_count.item_ids_count == database_count.item_ids_count) ? true : false
   end
 
   def setup_votes
@@ -203,25 +205,18 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
                               seen[x]=x
                               x
                             }
-      @votes << [votes]
+      @votes << votes
     end
   end
 
-  def setup_checkboxes(browser,vote_types)
-    all_options = []
-    browser.elements(:class, "ballot_option").each do |element|
-      all_options << element.id
-    end
-
+  def setup_checkboxes(browser,vote)
+    puts "setup_checkboxes"
+    sleep 1
     script = "(function() {
-      var voteElements = document
-                    .querySelector('oav-app')
-                    .$$('oav-area-ballot')
-                    .querySelectorAll('.ballotAreaItem');
-      var allItems = [];
-      Array.from(allItems).forEach(item => {
-        allItems.push(item);
-      });
+      var app = document.querySelector('oav-app')
+      var ballot = app.querySelector('oav-area-ballot');
+      var allItems = Array.prototype.slice.call(ballot.querySelectorAll('.ballotAreaItem'));
+
       var maximum = 20;
       var minimum = 7;
       var size = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
@@ -233,24 +228,16 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
         shuffledItems[i] = temp;
       }
       shuffledItems = shuffledItems.slice(min);
-      Array.from(shuffledItems).forEach(item => {
-        item.$$('#addToBudgetButton').click();
-      });
+      var arrayLength = shuffledItems.length;
+      for (var i = 0; i < arrayLength; i++) {
+        shuffledItems[i].$$('#addToBudgetButton').click();
+      }
     })();"
+
+    puts "Execute script"
 
     browser.execute_script(script)
 
-    puts "All options in browser #{all_options.sort}"
-    vote_types.each do |vote|
-      vote.each do |checkbox_to_set|
-        retry_count = 0
-        begin
-          browser.li(:id => all_options.sample).click
-        rescue
-          checkbox_to_set -= rand(4)+1
-          retry unless (retry_count += 1) > 12
-        end
-      end
-    end
+    puts "All options in browser"
   end
 end

@@ -96,7 +96,7 @@ class BudgetVoteCounting
       csv << [""]
       csv << ["Allir taldir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dagsetning","Kosin verkefna IDs"]
-      FinalSplitVote.find(:all, :include=>:vote, :conditions=>["final_split_votes.area_id = ?",@area_id], :order=>"votes.created_at").each do |final_vote|
+      FinalSplitVote.where(["final_split_votes.area_id = ?",@area_id]).includes(:vote).order("votes.created_at").all.each do |final_vote|
         begin
           csv << [final_vote.area_id,final_vote.vote.created_at]+BudgetVoteHelper.new(final_vote.payload_data, @private_key_file, final_vote).unencryped_vote_for_audit_csv
         rescue Exception => e
@@ -111,19 +111,18 @@ class BudgetVoteCounting
 
   # For testing only, count all votes, including duplicates from the same identity
   def count_all_votes
-    Vote.find(:all, :order=>"created_at").each do |vote|
+    Vote.order("created_at").all.each do |vote|
       vote.generated_vote_checksum = Vote.generate_encrypted_checksum(vote.user_id_hash, vote.payload_data, vote.client_ip_address, vote.area_id, vote.session_id)
       process_vote(vote)
     end
   end
 
   # For testing only, count test votes
-  def count_all_test_votes(test_votes,area_id=nil,write_out_path=nil)
+  def count_all_test_votes_from_browser(test_votes,area_id=nil,write_out_path=nil)
     @area_id = area_id
     test_votes.each do |vote|
       decrypted_vote = BudgetVoteHelper.new(vote, @private_key_file, vote)
-      decrypted_vote.unpack_without_encryption
-      add_votes(decrypted_vote)
+      add_votes(decrypted_vote.unpack_without_encryption)
     end
     if area_id
       select_top_items_that_still_fit_budget
@@ -142,6 +141,8 @@ class BudgetVoteCounting
 
     # Go through all the items in the order of votes and selected the ones that still fit the budget
     @item_ids_count.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
+      puts @area_id
+      puts item_id
       item_price = BudgetBallotItem.get_item_price(@area_id,item_id)
 
       # Check if item still fits into what is left of the budget and add it to selected if it does
@@ -157,13 +158,12 @@ class BudgetVoteCounting
   # Decrypt and add votes from ballot to total
   def process_vote(vote)
     decrypted_vote = BudgetVoteHelper.new(vote.payload_data, @private_key_file, vote)
-    decrypted_vote.unpack
-    add_votes(decrypted_vote)
+    add_votes(decrypted_vote.unpack)
   end
 
   # Add all the decrypted votes from this ballot
-  def add_votes(vote)
-    item_array = JSON.parse(vote)
+  def add_votes(item_array)
+    puts item_array.to_s
     item_array.each do |item_id|
       raise "Voted ballot item not found" unless BudgetBallotItem.where(:id=>item_id).first
       # If the counting hash for item does not exists created it
@@ -209,7 +209,7 @@ class BudgetVoteCounting
       csv << [""]
       csv << ["Allir innsendir atkvæðaseðlar"]
       csv << ["Hverfa ID","Dulkóðuð kennitala","Dagsetning","IP tala","Dulkóðað atkvæði"]
-      Vote.find(:all, :conditions=>["area_id = ?",@area_id], :order=>"created_at").each do |vote|
+      Vote.where(["area_id = ?",@area_id]).order("created_at").all.each do |vote|
         csv << [vote.area_id,vote.user_id_hash,vote.created_at,vote.client_ip_address,vote.payload_data]
       end
     end

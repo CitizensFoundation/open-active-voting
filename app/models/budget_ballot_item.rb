@@ -25,7 +25,7 @@ class BudgetBallotItem < ActiveRecord::Base
 
   ALLOWED_BALLOT_CHARACTERS = ('a'..'z').to_a+['0','1','2','3','4','5','6','7','8','9']
 
-  def self.ideas(area_id)
+  def self.items(area_id)
     BudgetBallotArea.find(area_id).budget_ballots_items
   end
 
@@ -40,23 +40,23 @@ class BudgetBallotItem < ActiveRecord::Base
     BudgetBallotArea.find(area_id).name
   end
 
-  def self.get_idea_name(area_id,id)
-    # Get the given idea name
+  def self.get_item_name(area_id,id)
+    # Get the given item name
     BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.name
   end
 
-  def self.get_idea_description(area_id, id)
-    # Get the given idea description
+  def self.get_item_description(area_id, id)
+    # Get the given item description
     BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.description
   end
 
-  def self.get_idea_link(area_id, idea_id)
-    # Get the given idea link
-    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.idea_url
+  def self.get_item_link(area_id, id)
+    # Get the given item link
+    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.item_url
   end
 
-  def self.get_idea_price(area_id, idea_id)
-    # Get the given idea price
-    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :idea_id=>idea_id).first.price
+  def self.get_item_price(area_id, id)
+    # Get the given item price
+    BudgetBallotItem.where(:budget_ballot_area_id=>area_id, :id=>id).first.price
   end
 end
