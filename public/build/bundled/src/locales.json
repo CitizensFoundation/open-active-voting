@@ -43,7 +43,7 @@
     "postTabsLocation": "Location",
     "postTabsPhotos": "Myndir",
     "postNoLocation": "No location",
-    "number_of_voters": "Total voters",
+    "number_of_voters": "Total number of valid votes",
     "number_of_votes": "Number of votes submitted in this neighborhood"
   },
   "is": {
@@ -68,8 +68,8 @@
     "ballot_area_name": "Kjóstu hugmyndir fyrir {area_name}",
     "selected_items_info": "Þú hefur valið {number_of_items} hugmyndir fyrir {selectedBudget} milljónir",
     "selected_items_info_mobile": "{number_of_items} hugmyndir fyrir {selectedBudget} milljónir",
-    "budget_info_text": "Kjóstu hugmyndir fyrir {area_name}",
-    "budget_info_text_mobile": "Hugmyndir fyrir {area_name}",
+    "budget_info_text": "Kjóstu hugmyndir - {area_name}",
+    "budget_info_text_mobile": "Kjóstu - {area_name}",
     "no_items_selected": "Engin hugmynd valin...",
     "voting_completed": "Atkvæði þitt hefur verið móttekið",
     "add_to_budget": "Bæta við hugmynd",
@@ -90,7 +90,7 @@
     "postTabsLocation": "Staðsetning",
     "postTabsPhotos": "Myndir",
     "postNoLocation": "Engin staðsetning",
-    "number_of_voters": "Heildarfjöldi kjósenda",
+    "number_of_voters": "Heildarfjöldi gildra atkvæða",
     "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi"
   }
 }
