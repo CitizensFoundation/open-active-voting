@@ -33,7 +33,7 @@ class VotesController < ApplicationController
   def force_session_id
     if ENV["LOAD_TESTING_MODE"]=="true"
       session[:have_authenticated_and_been_approved] = true
-      Rails.cache.write(request.session_options[:id],params[:ssn])
+      Rails.cache.write(request.session_options[:id],request.session_options[:id])
     end
 
      respond_to do |format|
@@ -140,7 +140,9 @@ class VotesController < ApplicationController
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
 
-    reset_session
+    if ENV["LOAD_TESTING_MODE"]!="true"
+      reset_session
+    end
 
     respond_to do |format|
       format.json { render :json => response }

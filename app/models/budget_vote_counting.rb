@@ -141,8 +141,6 @@ class BudgetVoteCounting
 
     # Go through all the items in the order of votes and selected the ones that still fit the budget
     @item_ids_count.sort_by{|p| [-p[1], p[0]]}.each do |item_id,vote_count|
-      puts @area_id
-      puts item_id
       item_price = BudgetBallotItem.get_item_price(@area_id,item_id)
 
       # Check if item still fits into what is left of the budget and add it to selected if it does

@@ -21,9 +21,9 @@ require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   def setup
-    @max_browsers = 1
-    @max_votes = 1
-    @area_ids = [1]
+    @max_browsers = 10
+    @max_votes = 50
+    @area_ids = [1,3]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
     if !!(RbConfig::CONFIG['host_os'] =~ /mingw|mswin32|cygwin/)
@@ -34,7 +34,7 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
       @browser_types = [:chrome]
     else
       @browser_types = [:firefox]
-      #@browser_types = [:firefox,:chrome]
+      #@browser_types = [:firefox, :chrome]
     end
 
     if ENV['HEADLESS']
@@ -58,8 +58,6 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
 
     FileUtils.rm_rf File.join(Rails.root.join("test","results"))
     Dir.mkdir(File.join(Rails.root.join("test","results")))
-
-    setup_votes
   end
 
   def teardown
@@ -72,14 +70,15 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   end
 
   test "vote_through_firefox_and_chrome" do
-    @votes.each do |vote|
+    (1..@max_votes).each do |index|
       browser = @browsers[rand(@browsers.length)]
       @current_area_id = area_id = @area_ids[rand(@area_ids.length)]
+      browser.goto "http://localhost:3000"
       browser.goto "http://localhost:3000/#/area-ballot/#{area_id}"
       sleep 3
       retry_count = 0
       user_votes = nil
-      setup_checkboxes(browser,vote)
+      setup_checkboxes(browser)
       user_votes = {:area_id=>area_id, :votes=>get_user_votes(browser)}
       script = "(function() {
       var voteElements = document
@@ -111,9 +110,6 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
         });
         return voteIds;"
      votes = browser.execute_script(script)
-
-     puts "exec script before"
-
      puts "exec script before"
      puts "VOTES FROM BROWSER: #{votes.sort}"
     votes.sort
@@ -139,20 +135,22 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   end
 
   def unique_vote_match?
+    puts "All votes for unique_vote_match?"
     votes.each do |vote| puts vote.inspect end # DEBUG
     all_passed = true
     Vote.split_and_generate_final_votes!
     @area_ids.each do |area_id|
-      puts "NEIGHBORHOOD ID #{area_id}"
+      puts "Area id #{area_id}"
+      puts "Count unique votes from database"
       database_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       @database_csv_filenames << database_count.count_unique_votes(area_id)
       database_count.write_counted_unencrypted_audit_report
-      #puts database_count.inspect
+
       test_count = BudgetVoteCounting.new(Rails.root.join('test','keys','privkey.pem'))
       test_count.count_all_test_votes_from_browser(get_unique_votes(area_id),area_id)
       @test_csv_filenames << test_count.write_voting_results_report("test_voting_results.csv")
-      #puts test_count.inspect
-      puts "Test: ct: #{test_count.item_ids_count} == #{database_count.item_ids_count}"
+
+      puts "Test: Browser: #{test_count.item_ids_count} == Database: #{database_count.item_ids_count}"
 
       match = (test_count.item_ids_count == database_count.item_ids_count) ? true : false
       unless match
@@ -194,22 +192,7 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
     (test_count.item_ids_count == database_count.item_ids_count) ? true : false
   end
 
-  def setup_votes
-    @max_votes.times do
-      seen = {}
-      votes = (1..(rand(7)+2)).map { |n|
-                              x = rand(12)+1
-                              while (seen[x])
-                                x = rand(12)+1
-                              end
-                              seen[x]=x
-                              x
-                            }
-      @votes << votes
-    end
-  end
-
-  def setup_checkboxes(browser,vote)
+  def setup_checkboxes(browser)
     puts "setup_checkboxes"
     sleep 1
     script = "(function() {

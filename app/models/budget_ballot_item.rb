@@ -31,8 +31,7 @@ class BudgetBallotItem < ActiveRecord::Base
 
   def self.get_area_budget(area_id)
     # Get the given neighborhood budget
-    budget = BudgetBallotArea.find(area_id).budget_amount
-    (budget/"1.000.000".gsub(".","").to_f).round(1)
+    BudgetBallotArea.find(area_id).budget_amount
   end
 
   def self.get_area_name(area_id)
