@@ -21,8 +21,8 @@ require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   def setup
-    @max_browsers = 10
-    @max_votes = 50
+    @max_browsers = 3 
+    @max_votes = 12
     @area_ids = [1,3]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
