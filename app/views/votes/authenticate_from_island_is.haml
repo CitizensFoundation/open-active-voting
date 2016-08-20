@@ -13,5 +13,7 @@
         %button#closeButton{:onclick => "window.close()"} Loka glugga
     - else
       :javascript
+        alert('Before message');
         window.opener.postMessage("samlLogin","*");
+        alert('After message');
         window.close();
