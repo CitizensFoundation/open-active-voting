@@ -65,13 +65,6 @@ class VotesController < ApplicationController
     end
   end
 
-  def authentication_options
-    @error=true
-    respond_to do |format|
-      format.html
-    end
-  end
-
   # Get the voting areas
   def get_areas
     respond_to do |format|
