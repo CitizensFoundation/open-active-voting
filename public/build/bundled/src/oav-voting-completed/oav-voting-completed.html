@@ -4,10 +4,9 @@
     paper-material {
       background-color: var(--paper-green-700);
       color: #FFF;
-      font-size: 28px;
+      font-size: 26px;
       margin: 48px;
-      padding: 48px;
-      max-width: 300px;
+      max-width: 400px;
     }
 
     .smaller {
@@ -25,20 +24,87 @@
       }
     }
 
+    .mainContainer {
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-large.png");
+      background-repeat: repeat-x;
+    }
+
+    @media (max-width: 600px) {
+      .mainContainer {
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/CF-small.png");
+      }
+    }
+
+
+    @media (max-width: 600px) {
+
+      .mobileLogo {
+        width: 240px;
+        height: 100px;
+        margin-top: 32px;
+      }
+
+      .topMaterial {
+        max-width: 320px;
+        margin-bottom: 16px;
+      }
+
+      .mobileMaterial {
+        width: 320px;
+        padding: 0;
+        margin: 0;
+        margin-top: 24px;
+        padding-top: 8px;
+        background-color: #fff;
+      }
+    }
+
+    .desktopLogo {
+      width: 260px;
+      height: 120px;
+    }
+
+    .logoHolder {
+      background-color: #66c7db;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    .completedText {
+      padding: 16px;
+    }
+
+    .fb-like {
+      padding-top: 16px;
+      color: #eee;
+    }
+
   </style>
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
 
-    <div class="layout vertical center-center">
-      <paper-material class="layout vertical center-center" elevation="3">
-        <div class="layout vertical center-center">
-          <div>{{localize('thank_you_1')}}</div>
-          <div class="smaller">{{localize('thank_you_2')}}</div>
-          <div class="smaller">{{localize('thank_you_3')}}</div>
-          <div class="smaller">Dreifa á Facebook...</div>
+    <div class="layout vertical center-center mainContainer">
+      <div class="layout vertical">
+        <div class="layout horizontal center-center">
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/okkarKopaVogurTransparent.png"></iron-image>
         </div>
-      </paper-material>
+        <paper-material elevation="3" class="topMaterial">
+          <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
+            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/okkarKopaVogurTransparent.png"></iron-image>
+          </div>
+          <div class="completedText">
+            <div>{{localize('thank_you_1')}}</div>
+            <div class="smaller">{{localize('thank_you_2')}}</div>
+            <div class="smaller">{{localize('thank_you_3')}}</div>
+            <div class="fb-like" data-href="https://kosning.kopavogur.is/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+          </div>
+        </paper-material>
+      </div>
     </div>
 
   </template>
