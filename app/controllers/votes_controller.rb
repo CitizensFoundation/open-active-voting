@@ -41,6 +41,12 @@ class VotesController < ApplicationController
      end
   end
 
+  def test_opener
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # Logout and reset the session
   def logout
     reset_session
