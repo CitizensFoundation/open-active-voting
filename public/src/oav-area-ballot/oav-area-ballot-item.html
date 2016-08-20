@@ -193,6 +193,13 @@
     google-map {
       z-index: 90;
     }
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .itemSelectedFrame {
+        z-index: 1;
+        display: none;
+      }
+    }
   </style>
 
   <template>
