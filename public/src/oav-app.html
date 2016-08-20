@@ -331,7 +331,7 @@
         }
 
         // Set background color
-        if (page=='select-voting-area') {
+        if (page=='select-voting-area' || page=='voting-completed') {
           document.body.style.backgroundColor = "#21b851";
         } else {
           document.body.style.backgroundColor = "#e0e0e0";
@@ -350,6 +350,12 @@
         // Reset ballot tab view to list
         if (oldPage=='area-ballot' && this.$.budgetBallot && page!='post') {
           this.$.budgetBallot.selectedView = 0;
+        }
+
+        if (page) {
+          this.async(function () {
+            window.appGlobals.activity('open', 'page', window.location.href);
+          });
         }
       }
     });

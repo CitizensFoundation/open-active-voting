@@ -211,6 +211,7 @@
       },
 
       markerClick: function(e) {
+        window.appGlobals.activity('clicked', 'marker');
         this.set('selectedItem', e.model.get('item'));
         var a = this.selectedItem;
         if (e.srcElement) {

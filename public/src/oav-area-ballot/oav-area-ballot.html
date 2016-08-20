@@ -192,7 +192,8 @@
 
         selectedView: {
           type: Number,
-          value: 0
+          value: 0,
+          observer: '_selectedViewChanged'
         },
 
         budgetElement: {
@@ -202,6 +203,14 @@
         budgetBallotItems: Array,
 
         wide: Boolean
+      },
+
+      _selectedViewChanged: function (view) {
+        if (view && view==0) {
+
+        } else if (view && view==1) {
+
+        }
       },
 
       refreshList: function () {

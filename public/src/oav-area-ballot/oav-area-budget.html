@@ -315,6 +315,7 @@
       },
 
       _submitVote: function () {
+        window.appGlobals.activity('click', 'submitVote');
         this.currentBallot.fire('oav-submit-vote');
       },
 
@@ -423,6 +424,7 @@
       },
 
       toggleBudgetItem: function (item) {
+        window.appGlobals.activity('toggle', 'vote');
         if (this.selectedItems.indexOf(item) > -1) {
           this._removeItemFromArray(item);
           this._removeItemFromDiv(item);
