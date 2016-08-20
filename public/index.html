@@ -41,24 +41,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     })();
 
-    // Setup message handlers for saml authentication in another window
-
-    // Create IE + others compatible event handler
-    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-    var eventer = window[eventMethod];
-    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-    console.log("Have created event listener for samlLogin");
-
-    // Listen to message from child window
-    eventer(messageEvent,function(e) {
-      console.log("Have started voting completion");
-      if (e.data=='samlLogin' && window.appBallot) {
-        window.appBallot.completePostingOfVote();
-        console.log("Have finished voting completion");
-      }
-    },false);
-
     // load pre-caching service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
@@ -87,6 +69,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
   <oav-app id="oavApp"></oav-app>
+
+  <script src="src/app.js"></script>
 
 </body>
 </html>

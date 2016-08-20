@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #root 'votes#check_authentication'
   #root :to => redirect('/build/bundled/index.html')
 
-  get "votes/authentication_options"
+  get "votes/test_opener"
   post "votes/authenticate_from_island_is"
   post 'authenticate_from_island_is', to: 'votes#authenticate_from_island_is'
 
