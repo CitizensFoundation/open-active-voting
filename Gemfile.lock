@@ -109,8 +109,6 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
-    p3p (1.2.0)
-      rack
     passenger (5.0.29)
       rack
       rake (>= 0.8.1)
@@ -207,7 +205,6 @@ DEPENDENCIES
   memcachier
   mysql2
   nokogiri (= 1.6.8)
-  p3p
   passenger
   psych
   rails (= 4.2.5)

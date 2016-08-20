@@ -37,5 +37,7 @@ module OpenActiveVotingApp
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths << Rails.root.join('lib')
+
+    config.action_dispatch.default_headers.merge!('P3P' => "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"")
   end
 end
