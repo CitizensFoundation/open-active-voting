@@ -321,7 +321,8 @@
 
       _openSamlLogin: function () {
         var url = window.appGlobals.configFromServer.rsk_url;
-        if (this.language=='en') {
+        url = '/votes/authentication_options';
+        if (false && this.language=='en') {
           url+='&siteLanguage=en';
         }
 

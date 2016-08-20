@@ -1,17 +1,19 @@
-#flash.popup
-  - if flash[:notice]
-    %h2.flash
-      = flash[:notice]
-    %br
-
-#content_wrapper
-  #content_authentication
-    #welcome
-      = raw t :introduction
-
-    #timeline
-      = raw t :timeline_1
-
-    #authentication_options
-      = raw t :choose_authentication
-      = link_to image_tag("/assets/island.is.png", :class => "auth_logos", :alt=>"Island.is auðkenning"), @island_is_url
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Innskráning
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
+  %body
+    - if !@error
+      %p
+        = @error
+      %p
+        %button#closeButton{:onclick => "window.close()"} Loka glugga
+    - else
+      :javascript
+        alert('Before message');
+        window.opener.postMessage("samlLogin","*");
+        alert('After message');
+        window.close();
