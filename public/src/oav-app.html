@@ -249,21 +249,6 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
-
-        // Create IE + others compatible event handler
-        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-        var eventer = window[eventMethod];
-        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-        console.log("Have created event listener for samlLogin");
-
-        // Listen to message from child window
-        eventer(messageEvent,function(e) {
-          if (e.data=='samlLogin' && window.appBallot) {
-            window.appBallot.completePostingOfVote();
-            console.log("Have started voting completion");
-          }
-        },false);
       },
 
       _help: function () {
