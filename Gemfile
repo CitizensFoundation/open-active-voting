@@ -36,6 +36,7 @@ gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4
 gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem 'memcachier'
 gem "passenger"
+gem "p3p"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
