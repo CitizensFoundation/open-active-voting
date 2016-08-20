@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#fff">
   <link rel="manifest" href="/manifest.json">
 
-  <script>LOAD_TESTING_MODE=null,window.Polymer={lazyRegister:!0},function(){if("registerElement"in document&&"import"in document.createElement("link")&&"content"in document.createElement("template"));else{var e=document.createElement("script");e.src="/bower_components/webcomponentsjs/webcomponents-lite.min.js",document.head.appendChild(e)}}(),"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/service-worker.js")});</script>
+  <script>LOAD_TESTING_MODE=null,window.Polymer={lazyRegister:!0},function(){if("registerElement"in document&&"import"in document.createElement("link")&&"content"in document.createElement("template"));else{var e=document.createElement("script");e.src="/bower_components/webcomponentsjs/webcomponents-lite.min.js",document.head.appendChild(e)}}();var eventMethod=window.addEventListener?"addEventListener":"attachEvent",eventer=window[eventMethod],messageEvent="attachEvent"==eventMethod?"onmessage":"message";console.log("Have created event listener for samlLogin"),eventer(messageEvent,function(e){console.log("Have started voting completion"),"samlLogin"==e.data&&window.appBallot&&(window.appBallot.completePostingOfVote(),console.log("Have finished voting completion"))},!1),"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/service-worker.js")});</script>
 
   <link rel="import" href="src/oav-app.html">
 
