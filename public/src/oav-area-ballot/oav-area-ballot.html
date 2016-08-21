@@ -102,6 +102,7 @@
         margin-right: 16px;
       }
     }
+
   </style>
 
   <template>
@@ -233,7 +234,7 @@
       },
 
       attached: function () {
-        this.loadLanguage(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('/locales.json'));
       },
 
       reset: function () {
@@ -319,10 +320,12 @@
       },
 
       _postVoteToServer: function () {
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+        dialog.open();
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote();
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          this._openSamlLogin();
+          //this._openSamlLogin();
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
@@ -344,6 +347,9 @@
       },
 
       _ballotPostResponse: function (event, detail) {
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+        dialog.close();
+
         if (detail.response.vote_ok==true && detail.response.error==false) {
           this.reset();
           window.location = "/#/voting-completed"

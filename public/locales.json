@@ -31,6 +31,7 @@
     "thank_you_2": "Your vote has been received and you have been logged out.",
     "thank_you_3": "You can vote again until September 4th but only the last vote is valid. Thanks for participating. Results will be published on www.kopavogur.is",
     "million": "million",
+    "millions": "millions",
     "million_short": "m.",
     "image_item_tab": "Item image",
     "description_item_tab": "Item description",
@@ -44,7 +45,8 @@
     "postTabsPhotos": "Myndir",
     "postNoLocation": "No location",
     "number_of_voters": "Total number of valid votes",
-    "number_of_votes": "Number of votes submitted in this neighborhood"
+    "number_of_votes": "Number of votes submitted in this neighborhood",
+    "auth_dialog": "Authenticating and sending in vote"
   },
   "is": {
     "welcome_title": "Okkar Kópavogur – Taktu þátt!",
@@ -78,6 +80,7 @@
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
     "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 4. september. Niðurstöður kosninga verða birtar á heimasíðu Kópavogsbæjar.",
     "million": "milljón",
+    "millions": "milljónir",
     "million_short": "mkr",
     "image_item_tab": "Mynd",
     "description_item_tab": "Nánari upplýsingar",
@@ -91,6 +94,7 @@
     "postTabsPhotos": "Myndir",
     "postNoLocation": "Engin staðsetning",
     "number_of_voters": "Heildarfjöldi gildra atkvæða",
-    "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi"
+    "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi",
+    "auth_dialog": "Innskráning og innsending á atkvæði"
   }
 }

@@ -13,8 +13,8 @@
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
-      background-color: var(--paper-green-700);
-      color: #FFF;
+      background-color: #fbfbfb;
+      color: #222;
       font-size: 26px;
       margin: 48px;
       max-width: 400px;
@@ -61,6 +61,7 @@
       .topMaterial {
         max-width: 320px;
         margin-bottom: 16px;
+        margin-top: 24px;
       }
 
       .mobileMaterial {
@@ -86,6 +87,7 @@
 
     .completedText {
       padding: 16px;
+      text-align: center;
     }
 
     .fb-like {
@@ -136,7 +138,7 @@
       ],
 
       attached: function() {
-        this.loadLanguage(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('/locales.json'));
       }
     })
   })();

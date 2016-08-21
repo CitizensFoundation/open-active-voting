@@ -274,7 +274,7 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]<span class="priceCurrency"> {{localize('millions')}}</span></div>
         <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
@@ -415,7 +415,7 @@
       },
 
       attached: function() {
-        this.loadLanguage(this.resolveUrl('../locales.json'));
+        this.loadLanguage(this.resolveUrl('/locales.json'));
       },
 
       _toggleInBudget: function (event) {
