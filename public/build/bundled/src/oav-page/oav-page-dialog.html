@@ -89,6 +89,6 @@
     </paper-dialog>
   </template>
 
-  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String}},open:function(i){"is"==this.language?this.set("title","Okkar Kópavogur - Upplýsingar"):this.set("title","Okkar Kópavogur - Information"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_close:function(){this.set("title",null)}});</script>
+  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String}},open:function(i){"is"==this.language?this.set("title","Okkar Kópavogur - Upplýsingar"):this.set("title","Okkar Kópavogur - Information"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("/locales.json"))},_close:function(){this.set("title",null)}});</script>
 </dom-module>
 </body></html>
