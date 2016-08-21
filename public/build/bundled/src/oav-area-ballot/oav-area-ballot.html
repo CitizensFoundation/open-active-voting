@@ -76,7 +76,12 @@
     .itemContent[small] {
       width: 260px !important;
       height: 277px;
-      margin: 16px;
+      margin: 0;
+    }
+
+    .itemContent[small][tiny] {
+      width: 220px !important;
+      height: 220px;
     }
 
     .itemSelectedFrame {
@@ -93,6 +98,11 @@
     .itemSelectedFrame[small] {
       width: 254px;
       height: 271px;
+    }
+
+    .itemSelectedFrame[small][tiny] {
+      width: 214px;
+      height: 214px;
     }
 
     .buttons {
@@ -115,6 +125,11 @@
       height: 146px;
     }
 
+    iron-image[small][tiny] {
+      width: 220px;
+      height: 124px;
+    }
+
     google-map {
       height: 169px;
       width: 300px;
@@ -124,6 +139,12 @@
     google-map[small] {
       width: 260px;
       height: 146px;
+      z-index: 0 !important;
+    }
+
+    google-map[small][tiny] {
+      width: 220px;
+      height: 124px;
     }
 
     .descriptionContainer {
@@ -136,6 +157,14 @@
     .descriptionContainer[small] {
       width: 260px;
       height: 146px;
+      padding-right: 8px;
+    }
+
+
+    .descriptionContainer[small][tiny] {
+      width: 220px;
+      height: 124px;
+      font-size: 12px;
     }
 
     .description {
@@ -150,10 +179,14 @@
     }
 
     .name[small] {
-      font-size: 18px;
+      font-size: 17px;
       padding-top: 4px;
       padding-right: 4px;
       padding-top: 4px;
+    }
+
+    .name[small][tiny] {
+      font-size: 14px;
     }
 
     .price {
@@ -167,6 +200,11 @@
     .price[small] {
       left: 70px;
     }
+
+    .price[small][tiny] {
+      left: 42px;
+    }
+
 
     .priceCurrency {
       font-size: 23px;
@@ -216,6 +254,10 @@
       top: 98px;
     }
 
+    .infoLinks[small][tiny] {
+      top: 78px;
+    }
+
     .externalInfoIcon {
       color: #999;
       width: 45px;
@@ -244,29 +286,30 @@
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+    <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
-    <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]">
-      <div class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]"></div>
+    <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
+      <div class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
       <div>
-        <iron-image small$="[[small]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
+        <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <template is="dom-if" if="[[mapTabSelected]]" restamp="">
-          <google-map small$="[[small]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers="">
+          <google-map small$="[[small]]" tiny$="[[tiny]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers="">
             <template is="dom-repeat" items="[[item.locations]]" as="location">
               <google-map-marker latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker"></google-map-marker>
             </template>
           </google-map>
         </template>
-        <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" small$="[[small]]">
+        <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]">
           <div class="description">[[item.description]]</div>
         </div>
       </div>
-      <div class="infoLinks" small$="[[small]]">
+      <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
         <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
-        <div class="name" small$="[[small]]">[[item.name]]</div>
+        <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
@@ -274,7 +317,7 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]<span class="priceCurrency"> milljónir</span></div>
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
@@ -282,7 +325,7 @@
   </template>
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-area-ballot-item",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{item:{type:Object,observer:"_itemChanged"},elevation:Number,budgetElement:{type:Object},selectedInBudget:{type:Boolean,value:!1},toExpensiveForBudget:{type:Boolean,value:!1},googleMapsApiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},imageTabSelected:{type:Boolean,value:!0},descriptionTabSelected:{type:Boolean,value:!1},mapTabSelected:{type:Boolean,value:!1},small:{type:Boolean,value:!1}},_showPost:function(){window.appLastArea="/"+window.location.hash,window.location="/#/post/"+this.item.idea_id},_itemChanged:function(e){e&&this.resetFromBudget()},resetFromBudget:function(){if(this.budgetElement)if(this.budgetElement.selectedItems.indexOf(this.item)>-1)this.setInBudget(),this.setNotTooExpensive();else{var e=this.budgetElement.totalBudget-this.budgetElement.selectedBudget;this.item.price>e?this.setTooExpensive():this.setNotTooExpensive(),this.removeFromBudget()}this._setImageMode()},_setImageMode:function(){this.set("imageTabSelected",!0),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!1)},_setMapMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!0)},_setDescriptionMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!0),this.set("mapTabSelected",!1)},setInBudget:function(){this.set("selectedInBudget",!0)},removeFromBudget:function(){this.set("selectedInBudget",!1)},setTooExpensive:function(){this.set("toExpensiveForBudget",!0)},setNotTooExpensive:function(){this.set("toExpensiveForBudget",!1)},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_toggleInBudget:function(e){this.fire("oav-toggle-item-in-budget",{item:this.item})}})}();</script>
+<script>!function(){Polymer({is:"oav-area-ballot-item",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{item:{type:Object,observer:"_itemChanged"},elevation:Number,budgetElement:{type:Object},selectedInBudget:{type:Boolean,value:!1},toExpensiveForBudget:{type:Boolean,value:!1},googleMapsApiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},imageTabSelected:{type:Boolean,value:!0},descriptionTabSelected:{type:Boolean,value:!1},mapTabSelected:{type:Boolean,value:!1},small:{type:Boolean,value:!1},tiny:{type:Boolean,value:!1}},_showPost:function(){window.appLastArea="/"+window.location.hash,window.location="/#/post/"+this.item.idea_id},_itemChanged:function(e){e&&this.resetFromBudget()},resetFromBudget:function(){if(this.budgetElement)if(this.budgetElement.selectedItems.indexOf(this.item)>-1)this.setInBudget(),this.setNotTooExpensive();else{var e=this.budgetElement.totalBudget-this.budgetElement.selectedBudget;this.item.price>e?this.setTooExpensive():this.setNotTooExpensive(),this.removeFromBudget()}this._setImageMode()},_setImageMode:function(){this.set("imageTabSelected",!0),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!1)},_setMapMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!0)},_setDescriptionMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!0),this.set("mapTabSelected",!1)},setInBudget:function(){this.set("selectedInBudget",!0)},removeFromBudget:function(){this.set("selectedInBudget",!1)},setTooExpensive:function(){this.set("toExpensiveForBudget",!0)},setNotTooExpensive:function(){this.set("toExpensiveForBudget",!1)},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},_toggleInBudget:function(e){this.fire("oav-toggle-item-in-budget",{item:this.item})}})}();</script>
 
 <script>function pidCrypt(){function t(t){t||(t=8);for(var s=new Array(t),r=[],i=0;i<256;i++)r[i]=i;for(i=0;i<s.length;i++)s[i]=r[Math.floor(Math.random()*r.length)];return s}this.setDefaults=function(){this.params.nBits=256,this.params.salt=t(8),this.params.salt=pidCryptUtil.byteArray2String(this.params.salt),this.params.salt=pidCryptUtil.convertToHex(this.params.salt),this.params.blockSize=16,this.params.UTF8=!0,this.params.A0_PAD=!0},this.debug=!0,this.params={},this.params.dataIn="",this.params.dataOut="",this.params.decryptIn="",this.params.decryptOut="",this.params.encryptIn="",this.params.encryptOut="",this.params.key="",this.params.iv="",this.params.clear=!0,this.setDefaults(),this.errors="",this.warnings="",this.infos="",this.debugMsg="",this.setParams=function(t){t||(t={});for(var s in t)this.params[s]=t[s]},this.getParams=function(){return this.params},this.getParam=function(t){return this.params[t]||""},this.clearParams=function(){this.params={}},this.getNBits=function(){return this.params.nBits},this.getOutput=function(){return this.params.dataOut},this.setError=function(t){this.error=t},this.appendError=function(t){return this.errors+=t,""},this.getErrors=function(){return this.errors},this.isError=function(){return this.errors.length>0},this.appendInfo=function(t){return this.infos+=t,""},this.getInfos=function(){return this.infos},this.setDebug=function(t){this.debug=t},this.appendDebug=function(t){return this.debugMsg+=t,""},this.isDebug=function(){return this.debug},this.getAllMessages=function(t){var s={lf:"\n",clr_mes:!1,verbose:15};t||(t=s);for(var r in s)"undefined"==typeof t[r]&&(t[r]=s[r]);var i="",a="";for(var e in this.params){switch(e){case"encryptOut":a=pidCryptUtil.toByteArray(this.params[e].toString()),a=pidCryptUtil.fragment(a.join(),64,t.lf);break;case"key":case"iv":a=pidCryptUtil.formatHex(this.params[e],48);break;default:a=pidCryptUtil.fragment(this.params[e].toString(),64,t.lf)}i+="<p><b>"+e+"</b>:<pre>"+a+"</pre></p>"}return this.debug&&(i+="debug: "+this.debug+t.lf),this.errors.length>0&&1==(1&t.verbose)&&(i+="Errors:"+t.lf+this.errors+t.lf),this.warnings.length>0&&2==(2&t.verbose)&&(i+="Warnings:"+t.lf+this.warnings+t.lf),this.infos.length>0&&4==(4&t.verbose)&&(i+="Infos:"+t.lf+this.infos+t.lf),this.debug&&8==(8&t.verbose)&&(i+="Debug messages:"+t.lf+this.debugMsg+t.lf),t.clr_mes&&(this.errors=this.infos=this.warnings=this.debug=""),i},this.getRandomBytes=function(s){return t(s)}}</script>
 <script>pidCryptUtil={},pidCryptUtil.encodeBase64=function(r,t){r||(r="");var e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t="undefined"!=typeof t&&t;var n,o,i,a,d,f,c,u,C,h,p,l=[],g="";if(h=t?pidCryptUtil.encodeUTF8(r):r,C=h.length%3,C>0)for(;C++<3;)g+="=",h+="\0";for(C=0;C<h.length;C+=3)n=h.charCodeAt(C),o=h.charCodeAt(C+1),i=h.charCodeAt(C+2),a=n<<16|o<<8|i,d=a>>18&63,f=a>>12&63,c=a>>6&63,u=63&a,l[C/3]=e.charAt(d)+e.charAt(f)+e.charAt(c)+e.charAt(u);return p=l.join(""),p=p.slice(0,p.length-g.length)+g},pidCryptUtil.decodeBase64=function(r,t){r||(r="");var e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t="undefined"!=typeof t&&t;var n,o,i,a,d,f,c,u,C,h,p=[];h=t?pidCryptUtil.decodeUTF8(r):r;for(var l=0;l<h.length;l+=4)a=e.indexOf(h.charAt(l)),d=e.indexOf(h.charAt(l+1)),f=e.indexOf(h.charAt(l+2)),c=e.indexOf(h.charAt(l+3)),u=a<<18|d<<12|f<<6|c,n=u>>>16&255,o=u>>>8&255,i=255&u,p[l/4]=String.fromCharCode(n,o,i),64==c&&(p[l/4]=String.fromCharCode(n,o)),64==f&&(p[l/4]=String.fromCharCode(n));return C=p.join(""),C=t?pidCryptUtil.decodeUTF8(C):C},pidCryptUtil.encodeUTF8=function(r){return r||(r=""),r=r.replace(/[\u0080-\u07ff]/g,function(r){var t=r.charCodeAt(0);return String.fromCharCode(192|t>>6,128|63&t)}),r=r.replace(/[\u0800-\uffff]/g,function(r){var t=r.charCodeAt(0);return String.fromCharCode(224|t>>12,128|t>>6&63,128|63&t)})},pidCryptUtil.decodeUTF8=function(r){return r||(r=""),r=r.replace(/[\u00c0-\u00df][\u0080-\u00bf]/g,function(r){var t=(31&r.charCodeAt(0))<<6|63&r.charCodeAt(1);return String.fromCharCode(t)}),r=r.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,function(r){var t=(15&r.charCodeAt(0))<<12|(63&r.charCodeAt(1))<<6|63&r.charCodeAt(2);return String.fromCharCode(t)})},pidCryptUtil.convertToHex=function(r){r||(r="");for(var t="",e="",n=0;n<r.length;n++)e=r.charCodeAt(n).toString(16),t+=1==e.length?"0"+e:e;return t},pidCryptUtil.convertFromHex=function(r){r||(r="");for(var t="",e=0;e<r.length;e+=2)t+=String.fromCharCode(parseInt(r.substring(e,e+2),16));return t},pidCryptUtil.stripLineFeeds=function(r){r||(r="");var t="";return t=r.replace(/\n/g,""),t=t.replace(/\r/g,"")},pidCryptUtil.toByteArray=function(r){r||(r="");for(var t=[],e=0;e<r.length;e++)t[e]=r.charCodeAt(e);return t},pidCryptUtil.fragment=function(r,t,e){if(r||(r=""),!t||t>=r.length)return r;e||(e="\n");for(var n="",o=0;o<r.length;o+=t)n+=r.substr(o,t)+e;return n},pidCryptUtil.formatHex=function(r,t){r||(r=""),t||(t=45);for(var e="",n=r.toLowerCase(),o=0;o<n.length;o+=2)e+=n.substr(o,2)+":";return n=this.fragment(e,t)},pidCryptUtil.byteArray2String=function(r){for(var t="",e=0;e<r.length;e++)t+=String.fromCharCode(r[e]);return t};</script>
@@ -1027,7 +1070,7 @@
 
       <template is="dom-if" if="[[items]]" restamp="">
         <div class="mapContainer">
-          <google-map id="map" api-key="[[apiKey]]" fit-to-markers="">
+          <google-map disable-default-ui$="[[tiny]]" id="map" api-key="[[apiKey]]" fit-to-markers="">
             <template is="dom-repeat" items="[[items]]" as="item">
               <template is="dom-repeat" items="[[item.locations]]" as="location">
                 <google-map-marker click-events="" item="[[item]]" latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
@@ -1044,7 +1087,7 @@
     </div>
   </template>
 
-  <script>Polymer({is:"oav-items-map",behaviors:[Polymer.appHelpers],properties:{items:{type:Array,value:null,observer:"_itemsChanged"},budgetElement:{type:Object},selectedItem:{type:Object},noItems:{type:Boolean,value:!1},apiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},wide:{type:Boolean,observer:"_wideChanged"}},_itemsChanged:function(e){},_closeInfo:function(){this.$$("#myInfoCard").close()},attached:function(){this.async(function(){this._resetMapHeight()}.bind(this))},_wideChanged:function(){this._resetMapHeight()},_resetMapHeight:function(){var e=this.$$("#map");if(e){var t;t=this.wide?window.innerHeight-322:window.innerHeight-236,e.style.height=t+"px"}},setItemInBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&e.setInBudget()}},removeFromBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&this.$$("#ballotItem").removeFromBudget()}},checkIfSelectedItemToExpensive:function(e){if(this.selectedItem){var t=this.$$("#ballotItem");t&&(t.selectedInBudget||(this.selectedItem.price<=e?(t.setNotTooExpensive(),console.log("item id "+this.selectedItem.id+"Not Too Expensive")):this.selectedItem&&(console.log("item id "+this.selectedItem.id+"Too Expensive"),t.setTooExpensive())))}},markerClick:function(e){window.appGlobals.activity("clicked","marker"),this.set("selectedItem",e.model.get("item"));this.selectedItem;e.srcElement?this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker):this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker)}});</script>
+  <script>Polymer({is:"oav-items-map",behaviors:[Polymer.appHelpers],properties:{items:{type:Array,value:null,observer:"_itemsChanged"},budgetElement:{type:Object},selectedItem:{type:Object},noItems:{type:Boolean,value:!1},apiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},wide:{type:Boolean,observer:"_wideChanged"}},_itemsChanged:function(e){},_closeInfo:function(){this.$$("#myInfoCard").close()},attached:function(){this.async(function(){this.resetMapHeight()}.bind(this))},_wideChanged:function(){this.resetMapHeight()},resetMapHeight:function(){var e=this.$$("#map"),t=window.innerHeight;if(e){var i;i=this.wide?t-322:t-236,e.style.height=i+"px"}},setItemInBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&e.setInBudget()}},removeFromBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&this.$$("#ballotItem").removeFromBudget()}},checkIfSelectedItemToExpensive:function(e){if(this.selectedItem){var t=this.$$("#ballotItem");t&&(t.selectedInBudget||(this.selectedItem.price<=e?(t.setNotTooExpensive(),console.log("item id "+this.selectedItem.id+"Not Too Expensive")):this.selectedItem&&(console.log("item id "+this.selectedItem.id+"Too Expensive"),t.setTooExpensive())))}},markerClick:function(e){window.appGlobals.activity("clicked","marker"),this.set("selectedItem",e.model.get("item"));this.selectedItem;e.srcElement?this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker):this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);var t=this.$$("#myInfoCard").$$("#infocarddiv");t.children[1].style.zIndex="20"}});</script>
 </dom-module></div><dom-module id="oav-area-ballot">
   <style include="iron-flex iron-flex-alignment">
 
@@ -1180,6 +1223,6 @@
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-area-ballot",behaviors:[Polymer.appHelpers,Polymer.ballotEncryptionBehavior,Polymer.AppLocalizeBehavior],listeners:{"oav-toggle-item-in-budget":"_toggleItemInBudget","oav-submit-vote":"_postVoteToServer","oav-item-selected-in-budget":"_itemSelectedInBudget","oav-item-de-selected-from-budget":"_itemDeSelectedFromBudget"},properties:{area:{type:Object},areaId:{type:String,observer:"_areaIdChanged"},areaIdRoutePath:{type:Object,observer:"_areaIdRoutePathChanged"},selectedView:{type:Number,value:0,observer:"_selectedViewChanged"},budgetElement:{type:Object},budgetBallotItems:Array,wide:Boolean},_selectedViewChanged:function(e){},refreshList:function(){var e=this.$$("#domRepeat");e&&e.fire("iron-resize")},_areaChanged:function(e){},ready:function(){window.appBallot=this,LOAD_TESTING_MODE&&this.$.fakeLoginAjax.generateRequest()},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},reset:function(){this.budgetElement&&this.budgetElement.reset(),this._resetBallotItems(),this.set("budgetBallotItems",null),this.set("area",null),this.fire("oav-set-area",{areaName:null,totalBudget:null});var e=this.$$("#domRepeat");e&&e.fire("iron-resize")},_resetBallotItems:function(){var e=this.$$("#itemContainer");if(e)for(var t=0;t<e.children.length;t++){var a=e.children[t];"domRepeat"!=a.id&&(a.setNotTooExpensive(),a.removeFromBudget())}},_toggleItemInBudget:function(e,t){this.budgetElement.toggleBudgetItem(t.item)},_itemSelectedInBudget:function(e,t){for(var a=this.$$("#itemContainer"),o=0;o<a.children.length;o++){var i=a.children[o];"domRepeat"!=i.id&&i.item.id==t.itemId&&(i.setInBudget(),this.$$("#itemsMap").setItemInBudget(i.item))}this._setStateOfRemainingItems()},_itemDeSelectedFromBudget:function(e,t){for(var a=this.$$("#itemContainer"),o=0;o<a.children.length;o++){var i=a.children[o];"domRepeat"!=i.id&&i.item.id==t.itemId&&(i.removeFromBudget(),this.$$("#itemsMap").removeFromBudget(i.item))}this._setStateOfRemainingItems()},_setStateOfRemainingItems:function(){for(var e=this.budgetElement.totalBudget-this.budgetElement.selectedBudget,t=this.$$("#itemContainer"),a=0;a<t.children.length;a++){var o=t.children[a];"domRepeat"==o.id||o.selectedInBudget||(o.item.price<=e?o.setNotTooExpensive():o.setTooExpensive())}this.$$("#itemsMap").checkIfSelectedItemToExpensive(e)},completePostingOfVote:function(){var e=_.map(this.budgetElement.selectedItems,function(e){return e.id}),t=this.encryptVote(e);t&&(this.$.postBallotAjax.body={encrypted_vote:t,area_id:this.area.id},this.$.postBallotAjax.generateRequest())},_postVoteToServer:function(){LOAD_TESTING_MODE?this.completePostingOfVote():this.budgetElement.selectedItems&&this.budgetElement.selectedItems.length>0?this._openSamlLogin():(this.fire("oav-error",this.localize("error_no_items_selected")),console.error("error_no_items_selected"))},_openSamlLogin:function(){var e=window.appGlobals.configFromServer.rsk_url;"en"==this.language&&(e+="&siteLanguage=en");var t=1200,a=650,o=(window.outerHeight-a)/2,i=(window.outerWidth-t)/2;window.open(e,"saml_login","width="+t+",height="+a+",scrollbars=0,top="+o+",left="+i)},_ballotPostResponse:function(e,t){1==t.response.vote_ok&&0==t.response.error?(this.reset(),window.location="/#/voting-completed"):this.fire("oav-error",this.localize("error_could_not_post_vote")),LOAD_TESTING_MODE&&this.$.fakeLoginAjax.generateRequest()},_areaIdRoutePathChanged:function(e){e&&e.prefix&&"/area-ballot"==e.prefix&&this.set("areaId",e.path.slice(1))},_areaIdChanged:function(e,t){e&&(this.reset(),this.$.getBallotAjax.params={area_id:e},this.$.getBallotAjax.generateRequest())},_randomImage:function(){var e=["https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png","https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png","https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png","https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png","https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png","https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png","https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png","https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png","https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png","https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png","https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png","https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png","https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"],t=Math.floor(Math.random()*e.length);return e[t]},_setupLocationsAndTranslation:function(e){for(var t=e.length,a=0;a<t;a++){if(e[a].locations&&""!=e[a].locations){for(var o=[],i=e[a].locations.replace(" ","").split(","),n=0;n<i.length;)o.push({latitude:i[n],longitude:i[n+1]}),n+=2;e[a].locations=o}else e[a].locations=[];e[a].name=e[a]["name_"+this.language],e[a].description=e[a]["description_"+this.language],e[a].image_url&&e[a].image_url.indexOf("imgur")>-1}return e},_ballotResponse:function(e,t){this.set("area",t.response.area),this.set("budgetBallotItems",this._setupLocationsAndTranslation(t.response.budget_ballot_items));var a=this.__computeLocalize(this.language,this.resources,this.formats);this.fire("oav-set-title",a("ballot_area_name","area_name",this.area.name)),this.fire("oav-set-area",{areaName:this.area.name,totalBudget:this.area.budget_amount}),this.async(function(){this.$$("#domRepeat").fire("iron-resize")},10)}})}();</script>
+<script>!function(){Polymer({is:"oav-area-ballot",behaviors:[Polymer.appHelpers,Polymer.ballotEncryptionBehavior,Polymer.AppLocalizeBehavior],listeners:{"oav-toggle-item-in-budget":"_toggleItemInBudget","oav-submit-vote":"_postVoteToServer","oav-item-selected-in-budget":"_itemSelectedInBudget","oav-item-de-selected-from-budget":"_itemDeSelectedFromBudget"},properties:{area:{type:Object},areaId:{type:String,observer:"_areaIdChanged"},areaIdRoutePath:{type:Object,observer:"_areaIdRoutePathChanged"},selectedView:{type:Number,value:0,observer:"_selectedViewChanged"},budgetElement:{type:Object},budgetBallotItems:Array,wide:Boolean},_selectedViewChanged:function(e){e&&0==e?window.appGlobals.activity("click","ideasTab"):e&&1==e&&window.appGlobals.activity("click","mapTab")},refreshList:function(){var e=this.$$("#domRepeat");e&&e.fire("iron-resize")},_areaChanged:function(e){},ready:function(){window.appBallot=this,LOAD_TESTING_MODE&&this.$.fakeLoginAjax.generateRequest()},attached:function(){this.loadLanguage(this.resolveUrl("../locales.json"))},reset:function(){this.budgetElement&&this.budgetElement.reset(),this._resetBallotItems(),this.set("budgetBallotItems",null),this.set("area",null),this.fire("oav-set-area",{areaName:null,totalBudget:null});var e=this.$$("#domRepeat");e&&e.fire("iron-resize")},_resetBallotItems:function(){var e=this.$$("#itemContainer");if(e)for(var t=0;t<e.children.length;t++){var a=e.children[t];"domRepeat"!=a.id&&(a.setNotTooExpensive(),a.removeFromBudget())}},_toggleItemInBudget:function(e,t){this.budgetElement.toggleBudgetItem(t.item)},_itemSelectedInBudget:function(e,t){for(var a=this.$$("#itemContainer"),i=0;i<a.children.length;i++){var o=a.children[i];"domRepeat"!=o.id&&o.item.id==t.itemId&&(o.setInBudget(),this.$$("#itemsMap").setItemInBudget(o.item))}this._setStateOfRemainingItems()},_itemDeSelectedFromBudget:function(e,t){for(var a=this.$$("#itemContainer"),i=0;i<a.children.length;i++){var o=a.children[i];"domRepeat"!=o.id&&o.item.id==t.itemId&&(o.removeFromBudget(),this.$$("#itemsMap").removeFromBudget(o.item))}this._setStateOfRemainingItems()},_setStateOfRemainingItems:function(){for(var e=this.budgetElement.totalBudget-this.budgetElement.selectedBudget,t=this.$$("#itemContainer"),a=0;a<t.children.length;a++){var i=t.children[a];"domRepeat"==i.id||i.selectedInBudget||(i.item.price<=e?i.setNotTooExpensive():i.setTooExpensive())}this.$$("#itemsMap").checkIfSelectedItemToExpensive(e)},completePostingOfVote:function(){var e=_.map(this.budgetElement.selectedItems,function(e){return e.id}),t=this.encryptVote(e);t&&(this.$.postBallotAjax.body={encrypted_vote:t,area_id:this.area.id},this.$.postBallotAjax.generateRequest())},_postVoteToServer:function(){LOAD_TESTING_MODE?this.completePostingOfVote():this.budgetElement.selectedItems&&this.budgetElement.selectedItems.length>0?this._openSamlLogin():(this.fire("oav-error",this.localize("error_no_items_selected")),console.error("error_no_items_selected"))},_openSamlLogin:function(){var e=window.appGlobals.configFromServer.rsk_url;"en"==this.language&&(e+="&siteLanguage=en");var t=1200,a=650,i=(window.outerHeight-a)/2,o=(window.outerWidth-t)/2;window.open(e,"saml_login","width="+t+",height="+a+",scrollbars=0,top="+i+",left="+o)},_ballotPostResponse:function(e,t){1==t.response.vote_ok&&0==t.response.error?(this.reset(),window.location="/#/voting-completed"):this.fire("oav-error",this.localize("error_could_not_post_vote")),LOAD_TESTING_MODE&&this.$.fakeLoginAjax.generateRequest()},_areaIdRoutePathChanged:function(e){e&&e.prefix&&"/area-ballot"==e.prefix&&this.set("areaId",e.path.slice(1))},_areaIdChanged:function(e,t){e&&(this.reset(),this.$.getBallotAjax.params={area_id:e},this.$.getBallotAjax.generateRequest())},_randomImage:function(){var e=["https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png","https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png","https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png","https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png","https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png","https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png","https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png","https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png","https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png","https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png","https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png","https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png","https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"],t=Math.floor(Math.random()*e.length);return e[t]},_setupLocationsAndTranslation:function(e){for(var t=e.length,a=0;a<t;a++){if(e[a].locations&&""!=e[a].locations){for(var i=[],o=e[a].locations.replace(" ","").split(","),n=0;n<o.length;)i.push({latitude:o[n],longitude:o[n+1]}),n+=2;e[a].locations=i}else e[a].locations=[];e[a].name=e[a]["name_"+this.language],e[a].description=e[a]["description_"+this.language],e[a].image_url&&e[a].image_url.indexOf("imgur")>-1}return e},_ballotResponse:function(e,t){this.set("area",t.response.area),this.set("budgetBallotItems",this._setupLocationsAndTranslation(t.response.budget_ballot_items));var a=this.__computeLocalize(this.language,this.resources,this.formats);this.fire("oav-set-title",a("ballot_area_name","area_name",this.area.name)),this.fire("oav-set-area",{areaName:this.area.name,totalBudget:this.area.budget_amount}),this.async(function(){this.$$("#domRepeat").fire("iron-resize")},10)}})}();</script>
 
 </body></html>
