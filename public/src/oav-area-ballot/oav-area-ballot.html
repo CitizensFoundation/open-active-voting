@@ -325,7 +325,7 @@
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote();
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          //this._openSamlLogin();
+          this._openSamlLogin();
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');

@@ -20,7 +20,7 @@
     "items_on_map": "Maps",
     "ballot_area_name": "Choose projects for {area_name}",
     "selected_items_info": "You have selected {number_of_items} for a total of {selectedBudget} millions",
-    "selected_items_info_mobile": "{number_of_items} - total {selectedBudget} millions",
+    "selected_items_info_mobile": "{number_of_items} ideas - total {selectedBudget} millions",
     "budget_info_text": "Vote ideas for {area_name}",
     "budget_info_text_mobile": "Projects for {area_name}",
     "no_items_selected": "No items selected",
