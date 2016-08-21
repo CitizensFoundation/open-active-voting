@@ -60,7 +60,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // Listen to message from child window
     eventer(messageEvent,function(e) {
-      console.log("Have started voting completion");
       if (e.data=='samlLogin' && window.appBallot) {
         window.appBallot.completePostingOfVote();
         console.log("Have finished voting completion");
