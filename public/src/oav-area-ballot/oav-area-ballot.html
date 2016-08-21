@@ -207,9 +207,10 @@
 
       _selectedViewChanged: function (view) {
         if (view && view==0) {
-
+          window.appGlobals.activity('click', 'ideasTab');
         } else if (view && view==1) {
-
+          window.appGlobals.activity('click', 'mapTab');
+          //this.$$("#itemsMap").resetMapHeight();
         }
       },
 

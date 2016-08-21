@@ -89,7 +89,7 @@
 
       <template is="dom-if" if="[[items]]" restamp>
         <div class="mapContainer">
-          <google-map id="map" api-key="[[apiKey]]" fit-to-markers>
+          <google-map disable-default-ui$="[[tiny]]" id="map" api-key="[[apiKey]]" fit-to-markers>
             <template is="dom-repeat" items="[[items]]" as="item">
               <template is="dom-repeat" items="[[item.locations]]" as="location">
                 <google-map-marker click-events item="[[item]]" latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
@@ -154,22 +154,23 @@
 
       attached: function () {
         this.async(function () {
-          this._resetMapHeight();
+          this.resetMapHeight();
         }.bind(this));
       },
 
       _wideChanged: function () {
-        this._resetMapHeight();
+        this.resetMapHeight();
       },
 
-      _resetMapHeight: function () {
+      resetMapHeight: function () {
         var map = this.$$("#map");
+        var windowHeight = window.innerHeight;
         if (map) {
           var height;
           if (this.wide) {
-            height = window.innerHeight - 322;
+            height = windowHeight - 322;
           } else {
-            height = window.innerHeight - 236;
+            height = windowHeight - 236;
           }
           map.style.height = height + 'px';
         }
@@ -219,6 +220,9 @@
         } else {
           this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);
         }
+        var infocardDiv = this.$$("#myInfoCard").$$("#infocarddiv");
+        debugger;
+        infocardDiv.children[1].style.zIndex = "20";
       }
     });
   </script>
