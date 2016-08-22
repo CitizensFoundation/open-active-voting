@@ -24,6 +24,8 @@ module OpenActiveVotingApp
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
 
+    config.assets.enabled = false
+
     # Set default locale to Icelandic
     config.i18n.locale = :is
 
