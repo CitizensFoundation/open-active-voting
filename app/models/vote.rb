@@ -20,7 +20,7 @@ class Vote < ActiveRecord::Base
 
   def self.generate_encrypted_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
     # Create an encrypted checksum for voter id, encrypted ballot data, remote ip, area and session ids.
-    @@public_key =  OpenSSL::PKey::RSA.new(BudgetConfig.current.public_key) unless @@public_key
+    @@public_key =  OpenSSL::PKey::RSA.new(BudgetConfig.current.public_key)
     vote_checksum = Vote.generate_checksum(voter_identity_hash,payload_data,remote_ip,area_id,session_id)
     Rails.logger.info("Public key: #{@@public_key} Checksum: #{vote_checksum}")
     encrypted = Base64.encode64(@@public_key.public_encrypt(vote_checksum))

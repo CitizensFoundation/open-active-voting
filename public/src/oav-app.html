@@ -372,7 +372,9 @@
         if (page) {
           this.async(function () {
             window.appGlobals.activity('open', 'page', window.location.href);
-            ga('send', 'pageview');
+            ga('send', 'pageview', {
+              'page': location.pathname + location.search  + location.hash
+            });
           });
         }
       }
