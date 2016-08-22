@@ -147,7 +147,6 @@
         tail="{{subroute}}"></app-route>
 
     <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
-
     <app-header-layout>
       <app-header fixed effects="waterfall">
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
@@ -161,8 +160,13 @@
         </div>
       </app-header>
       <div>
+        <template is="dom-if" if="[[_loadTestingMode()]]">
+          <div class="layout vertical center-center">
+            <h1 style="color: #F00;">LOAD TESTING MODE</h1>
+          </div>
+        </template>
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <oav-select-voting-area name="select-voting-area"></oav-select-voting-area>
+          <oav-select-voting-area id="selectVotingArea" name="select-voting-area"></oav-select-voting-area>
           <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
           <oav-voting-completed name="voting-completed"></oav-voting-completed>
           <yp-post id="post" budget-element="[[budgetElement]]" post-id-route-path="[[subroute]]" name="post"></yp-post>
@@ -242,6 +246,10 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+      },
+
+      _loadTestingMode: function () {
+        return LOAD_TESTING_MODE==true;
       },
 
       _help: function () {
@@ -348,6 +356,16 @@
         // Cancel login polling if needed
         if (oldPage=='area-ballot' && this.$.budgetBallot) {
           this.$.budgetBallot.cancelLoginPolling();
+        }
+
+        // Do not allow access to voting-completed from a reload
+        if (page=='voting-completed' && oldPage!='area-ballot') {
+          window.location = "/";
+        }
+
+        // Refresh counts if coming from voting-completed
+        if (oldPage=='voting-completed' && this.$.selectVotingArea) {
+          this.$.selectVotingArea.refreshAreaCounters();
         }
 
         // Send page info to Google Analytics
