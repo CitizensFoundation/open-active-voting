@@ -348,7 +348,7 @@
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 400)
+            }.bind(this), 1900)
           }
         }
       },
