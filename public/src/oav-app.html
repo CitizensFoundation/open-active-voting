@@ -345,6 +345,12 @@
           this.$.budgetBallot.selectedView = 0;
         }
 
+        // Cancel login polling if needed
+        if (oldPage=='area-ballot' && this.$.budgetBallot) {
+          this.$.budgetBallot.cancelLoginPolling();
+        }
+
+        // Send page info to Google Analytics
         if (page) {
           this.async(function () {
             window.appGlobals.activity('open', 'page', window.location.href);

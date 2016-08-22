@@ -150,6 +150,7 @@
 
         <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
         <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
+        <oav-ajax id="pollForLoginAjax" url="/votes/is_logged_in" on-response="_isLoggedInResponse"></oav-ajax>
       </div>
     </div>
   </template>
@@ -203,7 +204,12 @@
 
         budgetBallotItems: Array,
 
-        wide: Boolean
+        wide: Boolean,
+
+        isPollingForLogin: {
+          type: Boolean,
+          value: false
+        }
       },
 
       _selectedViewChanged: function (view) {
@@ -211,7 +217,6 @@
           window.appGlobals.activity('click', 'ideasTab');
         } else if (view && view==1) {
           window.appGlobals.activity('click', 'mapTab');
-          //this.$$("#itemsMap").resetMapHeight();
         }
       },
 
@@ -220,10 +225,6 @@
         if (list) {
           list.fire('iron-resize');
         }
-      },
-
-      _areaChanged: function (newArea) {
-        debugger;
       },
 
       ready: function() {
@@ -308,6 +309,43 @@
         this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
+
+      _postVoteToServer: function () {
+        if (LOAD_TESTING_MODE) {
+          this.completePostingOfVote();
+        } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+          dialog.open();
+          this._openSamlLogin();
+          this.set('isPollingForLogin', true);
+          this._pollForLoginAjax();
+        } else {
+          this.fire('oav-error', this.localize('error_no_items_selected'));
+          console.error('error_no_items_selected');
+        }
+      },
+
+      _pollForLoginAjax: function () {
+        if (this.isPollingForLogin===true) {
+          this.$.pollForLoginAjax.generateRequest();
+        }
+      },
+
+      cancelLoginPolling: function () {
+        this.set('isPollingForLogin', false);
+      },
+
+      _isLoggedInResponse: function (event, detail) {
+        if (detail.response.isLoggedin===true) {
+          this.cancelLoginPolling();
+          this.completePostingOfVote();
+        } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
+          this.async(function () {
+            this._pollForLoginAjax();
+          }.bind(this), 1500)
+        }
+      },
+
       completePostingOfVote: function () {
         var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
           return item.id;
@@ -316,19 +354,6 @@
         if (encryptedVote) {
           this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
           this.$.postBallotAjax.generateRequest();
-        }
-      },
-
-      _postVoteToServer: function () {
-        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.open();
-        if (LOAD_TESTING_MODE) {
-          this.completePostingOfVote();
-        } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          this._openSamlLogin();
-        } else {
-          this.fire('oav-error', this.localize('error_no_items_selected'));
-          console.error('error_no_items_selected');
         }
       },
 
@@ -347,6 +372,7 @@
       },
 
       _ballotPostResponse: function (event, detail) {
+        this.cancelLoginPolling();
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
         dialog.close();
 
@@ -376,24 +402,24 @@
       },
 
       _randomImage: function () {
-          var myRandomImages = [
-              "https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png",
-              "https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"
-            ];
+        var myRandomImages = [
+          "https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png",
+          "https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"
+        ];
 
-          var randomNum = Math.floor(Math.random() * myRandomImages.length);
-          return myRandomImages[randomNum];
+        var randomNum = Math.floor(Math.random() * myRandomImages.length);
+        return myRandomImages[randomNum];
       },
 
       _setupLocationsAndTranslation: function (budgetBallotItems) {

@@ -74,6 +74,15 @@ class VotesController < ApplicationController
     end
   end
 
+
+  # Am I logged in?
+  def is_logged_in
+    respond_to do |format|
+      format.json { render :json => { isLoggedin: (request.session_options[:id] and Rails.cache.read(request.session_options[:id])!=nil) }}
+    end
+  end
+
+  # Proxy for ideas from better iceland
   def better_iceland_proxy
     post_url = "https://www.betraisland.is"+params[:params]
     encoded_url = URI.encode(post_url)

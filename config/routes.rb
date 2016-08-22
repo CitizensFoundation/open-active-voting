@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   #root :to => redirect('/build/bundled/index.html')
 
   post "votes/authenticate_from_island_is"
-  post 'authenticate_from_island_is', to: 'votes#authenticate_from_island_is'
+  post "authenticate_from_island_is", to: "votes#authenticate_from_island_is"
 
+  get "votes/is_logged_in"
   get "votes/ballot"
   get "votes/get_areas"
   get "votes/boot"
