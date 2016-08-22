@@ -209,6 +209,11 @@
         isPollingForLogin: {
           type: Boolean,
           value: false
+        },
+
+        isSendingBallot: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -343,20 +348,23 @@
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 1700)
+            }.bind(this), 400)
           }
         }
       },
 
       completePostingOfVote: function () {
         this.cancelLoginPolling();
-        var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
-          return item.id;
-        });
-        var encryptedVote = this.encryptVote(selectedItemIds);
-        if (encryptedVote) {
-          this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
-          this.$.postBallotAjax.generateRequest();
+        if (this.isSendingBallot===false) {
+          var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
+            return item.id;
+          });
+          var encryptedVote = this.encryptVote(selectedItemIds);
+          if (encryptedVote) {
+            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
+            this.$.postBallotAjax.generateRequest();
+            this.set('isSendingBallot', true);
+          }
         }
       },
 
@@ -376,6 +384,7 @@
 
       _ballotPostResponse: function (event, detail) {
         this.cancelLoginPolling();
+        this.set('isSendingBallot', false);
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
         dialog.close();
 
