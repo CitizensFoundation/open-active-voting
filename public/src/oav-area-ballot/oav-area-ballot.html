@@ -349,6 +349,7 @@
       },
 
       completePostingOfVote: function () {
+        this.cancelLoginPolling();
         var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
           return item.id;
         });
