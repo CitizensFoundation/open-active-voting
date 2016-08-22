@@ -937,6 +937,7 @@ var r=t.propertyDataFromStyles(n._styles,this),i=!this.__notStyleScopeCacheable;
   </template>
 </dom-module>
 <script>!function(){function n(n,t){var a=new CustomEvent("iron-signal-"+n,{bubbles:!1,detail:t});i.forEach(function(n){n.dispatchEvent(a)})}Polymer({is:"iron-signals",attached:function(){i.push(this)},detached:function(){var n=i.indexOf(this);n>=0&&i.splice(n,1)}});var i=[];document.addEventListener("iron-signal",function(i){n(i.detail.name,i.detail.data)})}();</script>
+<script>Polymer({is:"iron-media-query",properties:{queryMatches:{type:Boolean,value:!1,readOnly:!0,notify:!0},query:{type:String,observer:"queryChanged"},full:{type:Boolean,value:!1},_boundMQHandler:{value:function(){return this.queryHandler.bind(this)}},_mq:{value:null}},attached:function(){this.style.display="none",this.queryChanged()},detached:function(){this._remove()},_add:function(){this._mq&&this._mq.addListener(this._boundMQHandler)},_remove:function(){this._mq&&this._mq.removeListener(this._boundMQHandler),this._mq=null},queryChanged:function(){this._remove();var e=this.query;e&&(this.full||"("===e[0]||(e="("+e+")"),this._mq=window.matchMedia(e),this._add(),this.queryHandler(this._mq))},queryHandler:function(e){this._setQueryMatches(e.matches)}});</script>
 <style is="custom-style">
 
   :root {
@@ -1187,7 +1188,6 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 <g id="web-asset"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"></path></g>
 </defs></svg>
 </iron-iconset-svg>
-<script>Polymer({is:"iron-media-query",properties:{queryMatches:{type:Boolean,value:!1,readOnly:!0,notify:!0},query:{type:String,observer:"queryChanged"},full:{type:Boolean,value:!1},_boundMQHandler:{value:function(){return this.queryHandler.bind(this)}},_mq:{value:null}},attached:function(){this.style.display="none",this.queryChanged()},detached:function(){this._remove()},_add:function(){this._mq&&this._mq.addListener(this._boundMQHandler)},_remove:function(){this._mq&&this._mq.removeListener(this._boundMQHandler),this._mq=null},queryChanged:function(){this._remove();var e=this.query;e&&(this.full||"("===e[0]||(e="("+e+")"),this._mq=window.matchMedia(e),this._add(),this.queryHandler(this._mq))},queryHandler:function(e){this._setQueryMatches(e.matches)}});</script>
 <style is="custom-style">
 
   :root {
