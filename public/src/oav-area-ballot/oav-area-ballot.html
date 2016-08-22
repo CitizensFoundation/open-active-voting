@@ -336,13 +336,15 @@
       },
 
       _isLoggedInResponse: function (event, detail) {
-        if (detail.response.isLoggedin===true) {
-          this.cancelLoginPolling();
-          this.completePostingOfVote();
-        } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
-          this.async(function () {
-            this._pollForLoginAjax();
-          }.bind(this), 1500)
+        if (this.isPollingForLogin===true) {
+          if (detail.response.isLoggedin===true) {
+            this.cancelLoginPolling();
+            this.completePostingOfVote();
+          } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
+            this.async(function () {
+              this._pollForLoginAjax();
+            }.bind(this), 1500)
+          }
         }
       },
 
