@@ -116,16 +116,17 @@
             <div>{{localize('thank_you_1')}}</div>
             <div class="smaller">{{localize('thank_you_2')}}</div>
             <div class="smaller">{{localize('thank_you_3')}}</div>
-            <div class="fb-like" data-href="https://kosning.kopavogur.is/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+            <div id="id=" textwithfacebook"="">
+              <div class="fb-like" data-href="https://kosning.kopavogur.is/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+             </div>
           </div>
         </paper-material>
       </div>
     </div>
-
   </template>
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-voting-completed",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))}})}();</script>
+<script>!function(){Polymer({is:"oav-voting-completed",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json")),FB.XFBML.parse(this.$$("#textWithFacebook"))}})}();</script>
 
 </body></html>
