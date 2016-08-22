@@ -149,9 +149,8 @@ class VotesController < ApplicationController
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
 
-    if ENV["LOAD_TESTING_MODE"]!="true"
-      reset_session
-    end
+    Rails.cache.write(request.session_options[:id], nil)
+    reset_session
 
     respond_to do |format|
       format.json { render :json => response }
