@@ -15,9 +15,7 @@
       :javascript
         try {
           window.opener.postMessage("samlLogin","*");
-          localStorage.setItem("samlLoginCompleted", true);
           window.close();
         } catch(err) {
-          localStorage.setItem("samlLoginCompleted", true);
           window.close();
         }
