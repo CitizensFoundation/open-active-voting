@@ -1,7 +1,7 @@
 {
   "en": {
-    "welcome_title": "Our Kópavogur – Participate!",
-    "app_title": "Our Kópavogur – Participate!",
+    "welcome_title": "My neighborhood – Participate!",
+    "app_title": "My neighborhood – Participate!",
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
     "choose_a_neighbourhood_1": "",
@@ -49,8 +49,8 @@
     "auth_dialog": "Authenticating and sending in vote"
   },
   "is": {
-    "welcome_title": "Okkar Kópavogur – Taktu þátt!",
-    "app_title": "Okkar Kópavogur – Taktu þátt!",
+    "welcome_title": "Hverfið mitt – Taktu þátt!",
+    "app_title": "Hverfið mitt – Taktu þátt!",
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
     "choose_a_neighbourhood_1": "",
@@ -78,7 +78,7 @@
     "remove_from_budget": "Taka út hugmynd",
     "thank_you_1": "Takk fyrir þátttökuna!",
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
-    "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 4. september. Niðurstöður kosninga verða birtar á heimasíðu Kópavogsbæjar.",
+    "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 4. september. Niðurstöður kosninga verða birtar á heimasíðu Reykjavíkurborgar.",
     "million": "milljón",
     "millions": "milljónir",
     "million_short": "mkr",
