@@ -1,5 +1,6 @@
 {
   "en": {
+    "moreInformation": "More information",
     "welcome_title": "My neighborhood – Participate!",
     "app_title": "My neighborhood – Participate!",
     "voting_areas": "Choose neighborhood",
@@ -49,6 +50,7 @@
     "auth_dialog": "Authenticating and sending in vote"
   },
   "is": {
+    "moreInformation": "Nánari upplýsingar",
     "welcome_title": "Hverfið mitt – Taktu þátt!",
     "app_title": "Hverfið mitt – Taktu þátt!",
     "voting_areas": "Veldu hverfi",

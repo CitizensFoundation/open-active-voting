@@ -458,7 +458,7 @@
             //budgetBallotItems[i].image_url = this._randomImage();
           }
         }
-        return budgetBallotItems;
+        return _.shuffle(budgetBallotItems);
       },
 
       _ballotResponse: function (event, detail) {

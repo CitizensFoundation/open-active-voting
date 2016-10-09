@@ -264,7 +264,7 @@
           </google-map>
         </template>
         <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]" tiny$="[[tiny]]">
-          <div class="description">[[item.description]]</div>
+          <div id="description" class="description">[[item.description]]</div>
         </div>
       </div>
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
@@ -361,6 +361,13 @@
       _itemChanged: function (newItem) {
         if (newItem) {
           this.resetFromBudget();
+          var noLinksIds = [-1,-2,-3];
+          var descriptionText = newItem.description;
+          if ((!noLinksIds.indexOf(newItem.id) > -1) && newItem.description) {
+            var itemLink = 'https://amazon.com/oav_5_3_bucket/moreProjectInformation_'+newItem.id+'.pdf';
+            descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + this.localize('moreInformation') + '</a>';
+          }
+          this.$$("description").innerHTML = descriptionText;
         }
       },
 
