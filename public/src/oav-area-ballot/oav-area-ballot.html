@@ -375,6 +375,9 @@
       },
 
       completePostingOfVote: function (encryptedVotes) {
+        if (!encryptedVotes) {
+          encryptedVotes = this._createEncryptedVotes();
+        }
         this.cancelLoginPolling();
         if (this.isSendingBallot===false) {
           var encryptedVote = encryptedVotes;
@@ -382,7 +385,11 @@
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
             this.$.postBallotAjax.generateRequest();
             this.set('isSendingBallot', true);
+          } else {
+            console.error("No encrypted votes!");
           }
+        } else {
+          console.warn("Already sending ballot");
         }
       },
 
