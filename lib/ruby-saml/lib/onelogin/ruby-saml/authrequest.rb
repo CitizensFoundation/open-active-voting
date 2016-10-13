@@ -1,18 +1,33 @@
-require "uuid"
+require "rexml/document"
 
 require "onelogin/ruby-saml/logging"
+require "onelogin/ruby-saml/saml_message"
+require "onelogin/ruby-saml/utils"
 
+# Only supports SAML 2.0
 module OneLogin
   module RubySaml
   include REXML
+
+    # SAML2 Authentication. AuthNRequest (SSO SP initiated, Builder)
+    #
     class Authrequest < SamlMessage
 
-      attr_reader :uuid # Can be obtained if neccessary
+      # AuthNRequest ID
+      attr_reader :uuid
 
+      # Initializes the AuthNRequest. An Authrequest Object that is an extension of the SamlMessage class.
+      # Asigns an ID, a random uuid.
+      #
       def initialize
-        @uuid = "_" + UUID.new.generate
+        @uuid = OneLogin::RubySaml::Utils.uuid
       end
 
+      # Creates the AuthNRequest string.
+      # @param settings [OneLogin::RubySaml::Settings|nil] Toolkit settings
+      # @param params [Hash] Some extra parameters to be added in the GET for example the RelayState
+      # @return [String] AuthNRequest string that includes the SAMLRequest
+      #
       def create(settings, params = {})
         params = create_params(settings, params)
         params_prefix = (settings.idp_sso_target_url =~ /\?/) ? '&' : '?'
@@ -24,8 +39,16 @@ module OneLogin
         @login_url = settings.idp_sso_target_url + request_params
       end
 
+      # Creates the Get parameters for the request.
+      # @param settings [OneLogin::RubySaml::Settings|nil] Toolkit settings
+      # @param params [Hash] Some extra parameters to be added in the GET for example the RelayState
+      # @return [Hash] Parameters
+      #
       def create_params(settings, params={})
-        params = {} if params.nil?
+        # The method expects :RelayState but sometimes we get 'RelayState' instead.
+        # Based on the HashWithIndifferentAccess value in Rails we could experience
+        # conflicts so this line will solve them.
+        relay_state = params[:RelayState] || params['RelayState']
 
         request_doc = create_authentication_xml_doc(settings)
         request_doc.context[:attribute_quote] = :quote if settings.double_quote_xml_attribute_values
@@ -40,12 +63,15 @@ module OneLogin
         request_params = {"SAMLRequest" => base64_request}
 
         if settings.security[:authn_requests_signed] && !settings.security[:embed_sign] && settings.private_key
-          params['SigAlg']    = XMLSecurity::Document::SHA1
-          url_string          = "SAMLRequest=#{CGI.escape(base64_request)}"
-          url_string         += "&RelayState=#{CGI.escape(params['RelayState'])}" if params['RelayState']
-          url_string         += "&SigAlg=#{CGI.escape(params['SigAlg'])}"
-          private_key         = settings.get_sp_key()
-          signature           = private_key.sign(XMLSecurity::BaseDocument.new.algorithm(settings.security[:signature_method]).new, url_string)
+          params['SigAlg']    = settings.security[:signature_method]
+          url_string = OneLogin::RubySaml::Utils.build_query(
+            :type => 'SAMLRequest',
+            :data => base64_request,
+            :relay_state => relay_state,
+            :sig_alg => params['SigAlg']
+          )
+          sign_algorithm = XMLSecurity::BaseDocument.new.algorithm(settings.security[:signature_method])
+          signature = settings.get_sp_key.sign(sign_algorithm.new, url_string)
           params['Signature'] = encode(signature)
         end
 
@@ -56,7 +82,16 @@ module OneLogin
         request_params
       end
 
+      # Creates the SAMLRequest String.
+      # @param settings [OneLogin::RubySaml::Settings|nil] Toolkit settings
+      # @return [String] The SAMLRequest String.
+      #
       def create_authentication_xml_doc(settings)
+        document = create_xml_document(settings)
+        sign_document(document, settings)
+      end
+
+      def create_xml_document(settings)
         time = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
 
         request_doc = XMLSecurity::Document.new
@@ -101,8 +136,11 @@ module OneLogin
           }
 
           if settings.authn_context != nil
-            class_ref = requested_context.add_element "saml:AuthnContextClassRef"
-            class_ref.text = settings.authn_context
+            authn_contexts = settings.authn_context.is_a?(Array) ? settings.authn_context : [settings.authn_context]
+            authn_contexts.each do |authn_context|
+              class_ref = requested_context.add_element "saml:AuthnContextClassRef"
+              class_ref.text = authn_context
+            end
           end
           # add saml:AuthnContextDeclRef element
           if settings.authn_context_decl_ref != nil
@@ -111,14 +149,18 @@ module OneLogin
           end
         end
 
-        # embebed sign
+        request_doc
+      end
+
+      def sign_document(document, settings)
+        # embed signature
         if settings.security[:authn_requests_signed] && settings.private_key && settings.certificate && settings.security[:embed_sign] 
-          private_key = settings.get_sp_key()
-          cert = settings.get_sp_cert()
-          request_doc.sign_document(private_key, cert, settings.security[:signature_method], settings.security[:digest_method])
+          private_key = settings.get_sp_key
+          cert = settings.get_sp_cert
+          document.sign_document(private_key, cert, settings.security[:signature_method], settings.security[:digest_method])
         end
 
-        request_doc
+        document
       end
 
     end
