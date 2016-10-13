@@ -343,7 +343,7 @@
       },
 
       _isInAppiOS: function () {
-        return true;// /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
       },
 
       _pollForLoginAjax: function () {

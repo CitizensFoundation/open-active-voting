@@ -13,7 +13,7 @@
         %button#closeButton{:onclick => "window.close()"} Loka glugga
     - else
       :javascript
-        if (true || /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent)) {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent)) {
           window.location = "/#/area-ballot/completePostingOfVoteFromSafariInApp"
         } else {
           try {
