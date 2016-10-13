@@ -316,12 +316,18 @@
         this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
+      _clearLocalVoteStorage: function () {
+        localStorage.setItem('oav-encrypted-votes', null);
+        localStorage.setItem('oav-encrypted-votes-area-id', null);
+      },
+
       _postVoteToServer: function () {
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
           if (this._isInAppiOS()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
+            localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
             window.location = this._getSamlUrlWithLanguage();
           } else {
             var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
@@ -374,15 +380,25 @@
         return this.encryptVote(selectedItemIds);
       },
 
-      completePostingOfVote: function (encryptedVotes) {
+      completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
         if (!encryptedVotes) {
           encryptedVotes = this._createEncryptedVotes();
         }
         this.cancelLoginPolling();
+
+        var areaId;
+        if (this.area) {
+          areaId = this.area.id;
+        } else if (localStorageAreaId) {
+          areaId = localStorageAreaId;
+        } else {
+          console.error("No area id in complete voting");
+        }
+
         if (this.isSendingBallot===false) {
           var encryptedVote = encryptedVotes;
           if (encryptedVote) {
-            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
+            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
             this.$.postBallotAjax.generateRequest();
             this.set('isSendingBallot', true);
           } else {
@@ -394,7 +410,7 @@
       },
 
       _completePostingOfVoteFromSafariInApp: function () {
-        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'));
+        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'));
       },
 
       _getSamlUrlWithLanguage: function () {
@@ -420,6 +436,8 @@
         this.set('isSendingBallot', false);
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
         dialog.close();
+
+        this._clearLocalVoteStorage();
 
         if (detail.response.vote_ok==true && detail.response.error==false) {
           this.reset();
