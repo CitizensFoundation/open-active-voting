@@ -352,14 +352,6 @@
 
       _isLoggedInResponse: function (event, detail) {
         if (this.isPollingForLogin===true) {
-          if (this.popupWindow) {
-            try {
-              this.popupWindow.close();
-              this.popupWindow = null;
-            } catch (error) {
-              console.error(error);
-            }
-          }
           if (detail.response.isLoggedin===true) {
             this.cancelLoginPolling();
             this.completePostingOfVote(this._createEncryptedVotes());
@@ -404,6 +396,7 @@
 
       _openSamlLogin: function () {
         var url = this._getSamlUrlWithLanguage();
+        alert(url);
         var     width = 1200,
                 height = 650,
                 top = (window.outerHeight - height) / 2,
