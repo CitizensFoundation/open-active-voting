@@ -206,6 +206,7 @@ module XMLSecurity
       )
 
       if cert_element
+        Rails.logger.info("Found cert element")
         base64_cert = cert_element.text
         cert_text = Base64.decode64(base64_cert)
         begin
@@ -220,6 +221,8 @@ module XMLSecurity
           fingerprint_alg = OpenSSL::Digest::SHA1.new
         end
         fingerprint = fingerprint_alg.hexdigest(cert.to_der)
+        Rails.logger.info("Cert fingerprint")
+        Rails.logger.info(fingerprint)
 
         # check cert matches registered idp cert
         if fingerprint != idp_cert_fingerprint.gsub(/[^a-zA-Z0-9]/,"").downcase
