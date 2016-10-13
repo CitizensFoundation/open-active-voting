@@ -214,7 +214,9 @@
         isSendingBallot: {
           type: Boolean,
           value: false
-        }
+        },
+
+        popupWindow: Object
       },
 
       _selectedViewChanged: function (view) {
@@ -341,6 +343,14 @@
 
       _isLoggedInResponse: function (event, detail) {
         if (this.isPollingForLogin===true) {
+          if (this.popupWindow) {
+            try {
+              this.popupWindow.close();
+              this.popupWindow = null;
+            } catch (error) {
+              console.error(error);
+            }
+          }
           if (detail.response.isLoggedin===true) {
             this.cancelLoginPolling();
             this.completePostingOfVote();
@@ -378,7 +388,7 @@
                 top = (window.outerHeight - height) / 2,
                 left = (window.outerWidth - width) / 2;
 
-        window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
+        this.popupWindow = window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
       },
 
       _ballotPostResponse: function (event, detail) {
