@@ -14,8 +14,10 @@
     - else
       :javascript
         try {
-          window.opener.postMessage("samlLogin","*");
-          window.close();
+          setTimeout(function () {
+            window.opener.postMessage("samlLogin","*");
+            window.close();
+          }, 400);
         } catch(err) {
-          window.close();
+          setTimeout(window.close, 400);
         }
