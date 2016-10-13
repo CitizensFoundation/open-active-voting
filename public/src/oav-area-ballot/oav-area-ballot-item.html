@@ -364,8 +364,8 @@
           var noLinksIds = [-1,-2,-3];
           var descriptionText = newItem.description;
           if ((!noLinksIds.indexOf(newItem.id) > -1) && newItem.description) {
-            var itemLink = 'https://amazon.com/oav_5_3_bucket/moreProjectInformation_'+newItem.id+'.pdf';
-            descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + this.localize('moreInformation') + '</a>';
+            var itemLink = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
+            descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + 'Frumhönnun PDF' + '</a>';
           }
           this.$$("description").innerHTML = descriptionText;
         }
