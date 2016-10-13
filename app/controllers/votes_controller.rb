@@ -182,7 +182,7 @@ class VotesController < ApplicationController
     @response.settings = saml_settings
     begin
       # SAML verification
-      saml_validation_response = @response.validate!
+      saml_validation_response = @response.is_valid?
 
       Rails.logger.info("SAML validation response: #{saml_validation_response}")
 
