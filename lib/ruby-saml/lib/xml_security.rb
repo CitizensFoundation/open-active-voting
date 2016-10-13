@@ -206,7 +206,6 @@ module XMLSecurity
       )
 
       if cert_element
-        Rails.logger.info("Found cert element")
         base64_cert = cert_element.text
         cert_text = Base64.decode64(base64_cert)
         begin
@@ -221,8 +220,6 @@ module XMLSecurity
           fingerprint_alg = OpenSSL::Digest::SHA1.new
         end
         fingerprint = fingerprint_alg.hexdigest(cert.to_der)
-        Rails.logger.info("Cert fingerprint")
-        Rails.logger.info(fingerprint)
 
         # check cert matches registered idp cert
         if fingerprint != idp_cert_fingerprint.gsub(/[^a-zA-Z0-9]/,"").downcase
@@ -240,7 +237,6 @@ module XMLSecurity
           end
         end
       end
-      Rails.logger.info("validate_signature(base64_cert, soft)")
       validate_signature(base64_cert, soft)
     end
 
@@ -267,8 +263,6 @@ module XMLSecurity
         {"ds"=>DSIG}
       )
       signature_algorithm = algorithm(sig_alg_value)
-      Rails.logger.info("signature_algorithm")
-      Rails.logger.info(signature_algorithm)
 
       # get signature
       base64_signature = REXML::XPath.first(
@@ -277,8 +271,6 @@ module XMLSecurity
         {"ds" => DSIG}
       ).text
       signature = Base64.decode64(base64_signature)
-      Rails.logger.info("signature")
-      Rails.logger.info(signature)
 
       # canonicalization method
       canon_algorithm = canon_algorithm REXML::XPath.first(
@@ -288,40 +280,26 @@ module XMLSecurity
       )
 
       noko_sig_element = document.at_xpath('//ds:Signature', 'ds' => DSIG)
-      Rails.logger.info("noko_sig_element")
-      Rails.logger.info(noko_sig_element)
-
       noko_signed_info_element = noko_sig_element.at_xpath('./ds:SignedInfo', 'ds' => DSIG)
-      Rails.logger.info("noko_signed_info_element")
-      Rails.logger.info(noko_signed_info_element)
 
       canon_string = noko_signed_info_element.canonicalize(canon_algorithm)
-      Rails.logger.info("canon_string")
-      Rails.logger.info(canon_string)
-
       noko_sig_element.remove
 
       # get inclusive namespaces
       inclusive_namespaces = extract_inclusive_namespaces
-      Rails.logger.info("inclusive_namespaces")
-      Rails.logger.info(inclusive_namespaces)
 
       # check digests
       ref = REXML::XPath.first(sig_element, "//ds:Reference", {"ds"=>DSIG})
       uri = ref.attributes.get_attribute("URI").value
 
       hashed_element = document.at_xpath("//*[@ID=$id]", nil, { 'id' => extract_signed_element_id })
-      Rails.logger.info("hashed_element")
-      Rails.logger.info(hashed_element)
-
+      
       canon_algorithm = canon_algorithm REXML::XPath.first(
         ref,
         '//ds:CanonicalizationMethod',
         { "ds" => DSIG }
       )
       canon_hashed_element = hashed_element.canonicalize(canon_algorithm, inclusive_namespaces)
-      Rails.logger.info("canon_hashed_element")
-      Rails.logger.info(canon_hashed_element)
 
       digest_algorithm = algorithm(REXML::XPath.first(
         ref,
@@ -336,12 +314,7 @@ module XMLSecurity
       ).text
       digest_value = Base64.decode64(encoded_digest_value)
 
-      Rails.logger.info("digests_match")
-      Rails.logger.info(hash)
-      Rails.logger.info(digest_value)
-
       #unless digests_match?(hash, digest_value)
-      #  Rails.logger.info("mismatch")
       #  @errors << "Digest mismatch"
       #  return append_error("Digest mismatch", soft)
       #end
@@ -352,7 +325,6 @@ module XMLSecurity
 
       # verify signature
       unless cert.public_key.verify(signature_algorithm.new, signature, canon_string)
-        Rails.logger.info("signature failure")
         return append_error("Key validation error", soft)
       end
 
