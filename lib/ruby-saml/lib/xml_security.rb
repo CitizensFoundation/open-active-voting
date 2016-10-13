@@ -319,6 +319,8 @@ module XMLSecurity
       digest_value = Base64.decode64(encoded_digest_value)
 
       Rails.logger.info("digests_match")
+      Rails.logger.info(hash)
+      Rails.logger.info(digest_value)
 
       unless digests_match?(hash, digest_value)
         Rails.logger.info("mismatch")
