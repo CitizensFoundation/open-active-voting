@@ -176,6 +176,7 @@ class VotesController < ApplicationController
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings.security[:digest_method]    = XMLSecurity::Document::SHA256
+    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA256
     settings
   end
 
