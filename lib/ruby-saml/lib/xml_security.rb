@@ -292,8 +292,8 @@ module XMLSecurity
       Rails.logger.info(noko_sig_element)
 
       noko_signed_info_element = noko_sig_element.at_xpath('./ds:SignedInfo', 'ds' => DSIG)
-      Rails.logger.info("noko_sig_element")
-      Rails.logger.info(noko_sig_element)
+      Rails.logger.info("noko_signed_info_element")
+      Rails.logger.info(noko_signed_info_element)
 
       canon_string = noko_signed_info_element.canonicalize(canon_algorithm)
       Rails.logger.info("canon_string")
