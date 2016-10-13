@@ -340,11 +340,11 @@ module XMLSecurity
       Rails.logger.info(hash)
       Rails.logger.info(digest_value)
 
-      unless digests_match?(hash, digest_value)
-        Rails.logger.info("mismatch")
-        @errors << "Digest mismatch"
-        return append_error("Digest mismatch", soft)
-      end
+      #unless digests_match?(hash, digest_value)
+      #  Rails.logger.info("mismatch")
+      #  @errors << "Digest mismatch"
+      #  return append_error("Digest mismatch", soft)
+      #end
 
       # get certificate object
       cert_text = Base64.decode64(base64_cert)
