@@ -1,6 +1,6 @@
 {
   "name": "iron-image",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "license": "http://polymer.github.io/LICENSE.txt",
   "description": "An image-displaying element with lots of convenient features",
   "private": true,
@@ -31,11 +31,11 @@
   "main": "iron-image.html",
   "ignore": [],
   "homepage": "https://github.com/PolymerElements/iron-image",
-  "_release": "1.2.4",
+  "_release": "1.2.5",
   "_resolution": {
     "type": "version",
-    "tag": "v1.2.4",
-    "commit": "b8049819a9d176f1467b213d12985fe01c2738c0"
+    "tag": "v1.2.5",
+    "commit": "d0699b5adf7a60d5d294c07d8765e3a3c5781b8c"
   },
   "_source": "https://github.com/PolymerElements/iron-image.git",
   "_target": "~1.2.3",
