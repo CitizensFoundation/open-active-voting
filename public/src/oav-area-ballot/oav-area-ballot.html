@@ -348,6 +348,10 @@
 
       cancelLoginPolling: function () {
         this.set('isPollingForLogin', false);
+        if (this.popupWindow) {
+          this.popupWindow.close();
+          this.popupWindow = null;
+        }
       },
 
       _isLoggedInResponse: function (event, detail) {
