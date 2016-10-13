@@ -318,17 +318,26 @@
 
       _postVoteToServer: function () {
         if (LOAD_TESTING_MODE) {
-          this.completePostingOfVote();
+          this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-          dialog.open();
-          this._openSamlLogin();
-          this.set('isPollingForLogin', true);
-          this._pollForLoginAjax();
+          if (this._isInAppiOS()) {
+            localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
+            window.location = this._getSamlUrlWithLanguage();
+          } else {
+            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+            dialog.open();
+            this._openSamlLogin();
+            this.set('isPollingForLogin', true);
+            this._pollForLoginAjax();
+          }
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
         }
+      },
+
+      _isInAppiOS: function () {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
       },
 
       _pollForLoginAjax: function () {
@@ -353,7 +362,7 @@
           }
           if (detail.response.isLoggedin===true) {
             this.cancelLoginPolling();
-            this.completePostingOfVote();
+            this.completePostingOfVote(this._createEncryptedVotes());
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
@@ -362,13 +371,17 @@
         }
       },
 
-      completePostingOfVote: function () {
+      _createEncryptedVotes: function () {
+        var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
+          return item.id;
+        });
+        return this.encryptVote(selectedItemIds);
+      },
+
+      completePostingOfVote: function (encryptedVotes) {
         this.cancelLoginPolling();
         if (this.isSendingBallot===false) {
-          var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
-            return item.id;
-          });
-          var encryptedVote = this.encryptVote(selectedItemIds);
+          var encryptedVote = encryptedVotes;
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
             this.$.postBallotAjax.generateRequest();
@@ -377,12 +390,20 @@
         }
       },
 
-      _openSamlLogin: function () {
+      _completePostingOfVoteFromSafariInApp: function () {
+        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'));
+      },
+
+      _getSamlUrlWithLanguage: function () {
         var url = window.appGlobals.configFromServer.rsk_url;
         if (this.language=='en') {
           url+='&siteLanguage=en';
         }
+        return url;
+      },
 
+      _openSamlLogin: function () {
+        var url = this._getSamlUrlWithLanguage();
         var     width = 1200,
                 height = 650,
                 top = (window.outerHeight - height) / 2,
@@ -411,7 +432,11 @@
 
       _areaIdRoutePathChanged: function (newPathForId) {
         if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/area-ballot") {
-          this.set('areaId', newPathForId.path.slice(1));
+          if (newPathForId.path.slice(1)=='completePostingOfVoteFromSafariInApp') {
+            this._completePostingOfVoteFromSafariInApp();
+          } else {
+            this.set('areaId', newPathForId.path.slice(1));
+          }
         }
       },
 
