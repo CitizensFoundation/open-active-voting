@@ -671,7 +671,8 @@ module OneLogin
         end
 
         if sig_elements.size != 1
-          return append_error(error_msg)
+          Rails.logger.info("Cant find element")
+          return append_error("Invalid Signature on SAML Response - Cant find element")
         end
 
         opts = {}
@@ -679,8 +680,11 @@ module OneLogin
         opts[:cert] = settings.get_idp_cert
         fingerprint = settings.get_fingerprint
 
+        Rails.logger.info(fingerprint)
+
         unless fingerprint && doc.validate_document(fingerprint, @soft, opts)          
-          return append_error(error_msg)
+          Rails.logger.info("Fingerprint does not match")
+          return append_error("Invalid Signature on SAML Response - Fingerprint does not match #{fingerprint}")
         end
 
         true
