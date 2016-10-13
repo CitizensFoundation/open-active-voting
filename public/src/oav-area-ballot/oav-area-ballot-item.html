@@ -361,13 +361,18 @@
       _itemChanged: function (newItem) {
         if (newItem) {
           this.resetFromBudget();
-          var noLinksIds = [-1,-2,-3];
-          var descriptionText = newItem.description;
-          if ((!noLinksIds.indexOf(newItem.id) > -1) && newItem.description) {
-            var itemLink = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
-            descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + 'Frumhönnun PDF' + '</a>';
-          }
-          this.$$("description").innerHTML = descriptionText;
+          this.async(function () {
+            var noLinksIds = [-1,-2,-3];
+            var descriptionText = newItem.description;
+            if ((!noLinksIds.indexOf(newItem.id) > -1) && newItem.description) {
+              var itemLink = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
+              descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + 'Frumhönnun PDF' + '</a>';
+            }
+            var description = this.$$("description");
+            if (description) {
+              description.innerHTML = descriptionText;
+            }
+          });
         }
       },
 
