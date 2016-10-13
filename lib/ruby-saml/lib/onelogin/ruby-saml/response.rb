@@ -680,6 +680,8 @@ module OneLogin
         opts[:cert] = settings.get_idp_cert
         fingerprint = settings.get_fingerprint
 
+        Rails.logger.info(settings.idp_cert_fingerprint_algorithm)
+
         Rails.logger.info(fingerprint)
 
         unless fingerprint && doc.validate_document(fingerprint, @soft, opts)          

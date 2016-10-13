@@ -172,7 +172,8 @@ class VotesController < ApplicationController
     settings.issuer                         = request.host
     settings.idp_sso_target_url             = @config.saml_idp_sso_target_url
     settings.idp_cert_fingerprint           = @config.saml_idp_cert_fingerprint
-    settings.name_identifier_format         = @config.saml_name_identifier_format
+    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     settings
   end
