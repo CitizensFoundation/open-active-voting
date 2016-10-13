@@ -240,6 +240,7 @@ module XMLSecurity
           end
         end
       end
+      Rails.logger.info("validate_signature(base64_cert, soft)")
       validate_signature(base64_cert, soft)
     end
 
@@ -317,7 +318,10 @@ module XMLSecurity
       ).text
       digest_value = Base64.decode64(encoded_digest_value)
 
+      Rails.logger.info("digests_match")
+
       unless digests_match?(hash, digest_value)
+        Rails.logger.info("mismatch")
         @errors << "Digest mismatch"
         return append_error("Digest mismatch", soft)
       end
@@ -328,6 +332,7 @@ module XMLSecurity
 
       # verify signature
       unless cert.public_key.verify(signature_algorithm.new, signature, canon_string)
+        Rails.logger.info("signature failure")
         return append_error("Key validation error", soft)
       end
 
