@@ -1,14 +1,15 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.2.2"></head><body><dom-module id="oav-select-voting-area">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.2.3"></head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
 
     :host {
       width: 100%;
       height: 100%;
-      background-color: var(--app-kopavogur-green-grass);
+      background-color: var(--app-main-backround-color);
+
     }
 
     #area_options {
-      background-color: var(--app-kopavogur-green-grass);
+      background-color: var(--app-main-backround-color);
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
     }
@@ -41,7 +42,7 @@
     }
 
     .mainContainer {
-      background-color: var(--app-kopavogur-green-grass);
+      background-color: var(--app-main-backround-color);
     }
 
     .imageContainer {
@@ -54,7 +55,8 @@
 
     @media (max-width: 600px) {
       .imageContainer {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Small.png");
+        background-image: none;
+        background-color: #e0e0e0;
       }
     }
 
@@ -72,7 +74,7 @@
     }
 
     .areaOptions {
-      margin-top: 32px;
+      margin-top: 48px;
     }
 
     .voteNumberForKarsnes {
@@ -242,6 +244,7 @@
     .logoHolder {
       padding-bottom: 8px;
       padding-top: 8px;
+      background-color: #f0f0f0;
     }
 
     @media (max-width: 320px) {
@@ -304,7 +307,7 @@
         <template is="dom-if" if="[[wide]]" restamp="">
           <paper-material elevation="5" class="areaOptions">
             <div class="layout vertical center-center">
-              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Rvk_kort_02.png" border="0" width="686" height="550" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
+              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Rvik_kort_4.png" border="0" width="882" height="597" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
               <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
                 <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none;" target="_self">
                 <area alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" shape="poly" coords="356,290,452,266,367,192,355,135,321,141,296,158,277,180,262,206,259,221,295,220,310,235,308,253,333,265" style="outline:none;" target="_self">
