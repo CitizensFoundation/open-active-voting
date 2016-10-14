@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html"></head><body><dom-module id="oav-select-voting-area">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.2.1"></head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
 
     :host {
@@ -306,11 +306,11 @@
             <div class="layout vertical center-center">
               <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Rvk_kort_02.png" border="0" width="686" height="550" orgwidth="686" orgheight="550" usemap="#image-maps-2016-08-04-135857" alt="">
               <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
-                <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none" target="_self">
-                <area alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" shape="poly" coords="356,290,452,266,367,192,355,135,321,141,296,158,277,180,262,206,259,221,295,220,310,235,308,253,333,265" style="outline:none" target="_self">
-                <area alt="Smárinn" title="Smárinn" href="/#/area-ballot/3" shape="poly" coords="196,130,215,128,248,117,271,118,290,123,334,115,359,125,330,133,313,142,298,154,278,171,269,183,251,215,244,216,204,191,180,186,179,162,190,151" style="outline:none" target="_self">
-                <area alt="Digranes" title="Digranes" href="/#/area-ballot/2" shape="poly" coords="196,123,212,123,242,112,256,112,272,114,293,117,306,116,337,113,359,120,395,114,414,99,421,83,425,61,414,52,415,37,403,30,333,23,233,14,216,23,210,35,196,52,186,61,182,66,176,82,185,102" style="outline:none" target="_self">
-                <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="23,21,53,20,55,37,69,36,89,30,102,29,104,39,119,40,129,36,140,38,157,33,166,36,188,22,207,27,202,44,187,53,178,62,173,84,179,103,187,126,188,139,176,126,167,123,141,116,94,106,71,103,50,81,47,70,41,53,32,55,20,34" style="outline:none" target="_self">
+                <area alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" shape="poly" coords="362,296,371,307,468,323,475,497,494,537,610,444,610,428,648,382,578,325,588,300,621,287,625,271,618,251,627,235,655,229,672,208,660,190,607,199,552,193,464,270" style="outline:none;" target="_self">
+                <area alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" shape="poly" coords="356,290,452,266,367,192,355,135,321,141,296,158,277,180,262,206,259,221,295,220,310,235,308,253,333,265" style="outline:none;" target="_self">
+                <area alt="Smárinn" title="Smárinn" href="/#/area-ballot/3" shape="poly" coords="196,130,215,128,248,117,271,118,290,123,334,115,359,125,330,133,313,142,298,154,278,171,269,183,251,215,244,216,204,191,180,186,179,162,190,151" style="outline:none;" target="_self">
+                <area alt="Digranes" title="Digranes" href="/#/area-ballot/2" shape="poly" coords="196,123,212,123,242,112,256,112,272,114,293,117,306,116,337,113,359,120,395,114,414,99,421,83,425,61,414,52,415,37,403,30,333,23,233,14,216,23,210,35,196,52,186,61,182,66,176,82,185,102" style="outline:none;" target="_self">
+                <area alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" shape="poly" coords="23,21,53,20,55,37,69,36,89,30,102,29,104,39,119,40,129,36,140,38,157,33,166,36,188,22,207,27,202,44,187,53,178,62,173,84,179,103,187,126,188,139,176,126,167,123,141,116,94,106,71,103,50,81,47,70,41,53,32,55,20,34" style="outline:none;" target="_self">
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
@@ -371,6 +371,76 @@
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-select-voting-area",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{areas:{type:Array,value:[]},imageMapImageUrl:{type:String},imageMapData:{type:String},language:{value:"is"},wide:Boolean,areaVoterCount:Object,totalVoterCount:Number},refreshAreaCounters:function(){this.$.getAreasAjax.generateRequest()},_selectIcelandic:function(){this.fire("iron-signal",{name:"set-language",data:"is"}),localStorage.setItem("selectedLanguage","is")},_selectEnglish:function(){this.fire("iron-signal",{name:"set-language",data:"en"}),localStorage.setItem("selectedLanguage","en")},_getAreaCount:function(e){return this.formatNumber(this.areaVoterCount[e])},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_areasResponse:function(e,t){this.set("areas",t.response.areas),this.set("areaVoterCount",null),this.async(function(){this.set("areaVoterCount",t.response.area_voter_count),this.set("totalVoterCount",this.formatNumber(t.response.total_voter_count))}.bind(this))}})}();</script>
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-select-voting-area',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+
+        areas: {
+          type: Array,
+          value: []
+        },
+
+        imageMapImageUrl: {
+          type: String
+        },
+
+        imageMapData: {
+          type: String
+        },
+
+        language: {
+          value: 'is'
+        },
+
+        wide: Boolean,
+
+        areaVoterCount: Object,
+        totalVoterCount: Number
+      },
+
+      refreshAreaCounters: function () {
+        this.$.getAreasAjax.generateRequest();
+      },
+
+      _selectIcelandic: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'is'});
+        localStorage.setItem("selectedLanguage", 'is');
+      },
+
+      _selectEnglish: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'en'});
+        localStorage.setItem("selectedLanguage", 'en');
+      },
+
+      _getAreaCount: function (areaId) {
+        return this.formatNumber(this.areaVoterCount[areaId]);
+      },
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      _areasResponse: function (event, detail) {
+        this.set('areas', detail.response.areas);
+        this.set('areaVoterCount', null);
+        this.async(function () {
+          this.set('areaVoterCount', detail.response.area_voter_count);
+          this.set('totalVoterCount', this.formatNumber(detail.response.total_voter_count));
+        }.bind(this));
+
+      }
+    })
+  })();
+
+</script>
 
 </body></html>

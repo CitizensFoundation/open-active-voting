@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="communication" size="24">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.2.1"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="communication" size="24">
 <svg><defs>
 <g id="business"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"></path></g>
 <g id="call"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></g>
@@ -344,8 +344,189 @@
     </paper-material>
 
   </template>
-  <script>Polymer({is:"yp-post-actions",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{post:{type:Object,observer:"_onPostChanged"},small:{type:Boolean,value:!1},headerMode:{type:Boolean,value:!1},forceSmall:{type:Boolean,value:!1},endorseMode:{type:String,value:"love"},endorseValue:{type:Number,value:0},elevation:{type:Number,value:3},elevationPlusOne:{type:Number,computed:"_elevationPlusOne(elevation)"},allDisabled:{type:Boolean,value:!0},floating:Boolean},_toggleShare:function(){this.set("showShareButtons",!this.showShareButtons)},_shareMouseOver:function(){this.set("showShareButtons",!0)},_shareMouseOut:function(){this.async(function(){this.set("showShareButtons",!1)},1200)},_elevationPlusOne:function(e){return e<5?e+1:e},_hideDebate:function(e,o){return e||o},_onPostChanged:function(e,o){e&&this._updateEndorsements()},_updateEndorsements:function(){},endorseModeIcon:function(e,o){return"thumbs"==e&&"up"==o?"thumb-up":"thumbs"==e&&"down"==o?"thumb-down":"love"==e&&"up"==o?"favorite":"love"==e&&"down"==o?"notification:do-not-disturb":"arrow"==e&&"up"==o?"hardware:keyboard-arrow-down":"arrow"==e&&"down"==o?"hardware:keyboard-arrow-up":void 0},_endorseResponse:function(e,o){this.set("allDisabled",!1);var t=o.response.endorsement,n=o.response.oldEndorsementValue;this._setEndorsement(t.value),window.appUser.updateEndorsementForPost(this.post.id,t),n&&(n>0?this.set("post.counter_endorsements_up",this.post.counter_endorsements_up-1):n<0&&this.set("post.counter_endorsements_down",this.post.counter_endorsements_down-1)),t.value>0?this.set("post.counter_endorsements_up",this.post.counter_endorsements_up+1):t.value<0&&this.set("post.counter_endorsements_down",this.post.counter_endorsements_down+1)},upVote:function(e){},downVote:function(e){},computeActionClass:function(e){return"action-bar"},ready:function(){this.endorseMode&&(this.$.actionDown.className+=" love-down",this.$.actionUp.className+=" love-up")}});</script>
+  <script>
+    Polymer({
+      is: 'yp-post-actions',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+        post: {
+          type: Object,
+          observer: '_onPostChanged'
+        },
+
+        small: {
+          type: Boolean,
+          value: false
+        },
+
+        headerMode: {
+          type: Boolean,
+          value: false
+        },
+
+        forceSmall: {
+          type: Boolean,
+          value: false
+        },
+
+        endorseMode: {
+          type: String,
+          value: 'love'
+        },
+
+        endorseValue: {
+          type: Number,
+          value: 0
+        },
+
+        elevation: {
+          type: Number,
+          value: 3
+        },
+
+        elevationPlusOne: {
+          type: Number,
+          computed: '_elevationPlusOne(elevation)'
+        },
+
+        allDisabled: {
+          type: Boolean,
+          value: true
+        },
+
+        floating: Boolean
+      },
+
+      _toggleShare: function () {
+        this.set('showShareButtons', !this.showShareButtons);
+      },
+
+      _shareMouseOver: function () {
+        this.set('showShareButtons', true);
+      },
+
+      _shareMouseOut: function () {
+        this.async(function () {
+          this.set('showShareButtons', false);
+        },1200);
+      },
+
+      _elevationPlusOne: function (elevation) {
+        if (elevation<5) {
+          return elevation + 1;
+        } else {
+          return elevation;
+        }
+      },
+
+      _hideDebate: function (small, forceSmall) {
+        return (small || forceSmall)
+      },
+
+      _onPostChanged: function (newValue, oldValue) {
+        if (newValue) {
+          this._updateEndorsements();
+        }
+      },
+
+      _updateEndorsements: function () {
+
+      },
+
+      endorseModeIcon: function (endorseMode, upDown) {
+        if (endorseMode=='thumbs' && upDown=='up') {
+          return 'thumb-up';
+        } else if (endorseMode=='thumbs' && upDown=='down') {
+          return 'thumb-down';
+        } else if (endorseMode=='love' && upDown=='up') {
+//          return 'favorite';
+//          return 'favorite';
+          return 'favorite';
+        } else if (endorseMode=='love' && upDown=='down') {
+          return 'notification:do-not-disturb';
+        } else if (endorseMode=='arrow' && upDown=='up') {
+          return 'hardware:keyboard-arrow-down';
+        } else if (endorseMode=='arrow' && upDown=='down') {
+          return 'hardware:keyboard-arrow-up';
+        }
+      },
+
+      _endorseResponse: function (event, detail) {
+        this.set('allDisabled', false);
+        var endorsement = detail.response.endorsement;
+        var oldEndorsementValue = detail.response.oldEndorsementValue;
+        this._setEndorsement(endorsement.value);
+        window.appUser.updateEndorsementForPost(this.post.id, endorsement);
+        if (oldEndorsementValue) {
+          if (oldEndorsementValue>0)
+            this.set('post.counter_endorsements_up', this.post.counter_endorsements_up-1);
+          else if (oldEndorsementValue<0)
+            this.set('post.counter_endorsements_down', this.post.counter_endorsements_down-1);
+        }
+        if (endorsement.value>0)
+          this.set('post.counter_endorsements_up', this.post.counter_endorsements_up+1);
+        else if (endorsement.value<0)
+          this.set('post.counter_endorsements_down', this.post.counter_endorsements_down+1);
+      },
+
+      upVote: function (event) {
+      },
+
+      downVote: function (event) {
+      },
+
+      computeActionClass: function (small) {
+        return small ? 'action-bar' : 'action-bar';
+      },
+
+      ready: function() {
+        if (this.endorseMode) {
+          this.$.actionDown.className += ' ' + 'love-down';
+          this.$.actionUp.className += ' ' + 'love-up';
+        }
+      }
+    });
+  </script>
 </dom-module>
+<!--
+Element for generating a Google Maps Street View Panorama.
+
+##### Example
+
+    <google-streetview-pano
+      pano-id="CWskcsTEZBNXaD8gG-zATA"
+      heading="330"
+      pitch="-2"
+      zoom="0.8"
+      disable-default-ui>
+    </google-streetview-pano>
+
+There are tons of great panoramas on the [Google Maps | Views page](https://www.google.com/maps/views/home?gl=us)
+
+To grab a panorama, look at its url in the address bar. For example:
+
+google.com/maps/views/view/102684927602131521305/photo/**1szTnskrdKIAAAGuu3fZRw**
+
+The hash in bold is the `pano-id`. You'll often need to dial in the `heading`, `pitch` and `zoom` manually.
+
+You can also use the position attribute and set it to a position with a computed value. Example: { lat: 42.345573, lng: -71.098326 }
+
+    <google-streetview-pano
+      position="[[_myComputedPosition()]]"
+      heading="330"
+      pitch="-2"
+      zoom="0.8"
+      disable-default-ui>
+    </google-streetview-pano>
+
+@demo
+-->
+
 <dom-module id="google-streetview-pano" assetpath="../../bower_components/google-streetview-pano/">
   <style>
     :host {
@@ -361,7 +542,223 @@
   </template>
 </dom-module>
 
-<script>"use strict";Polymer({is:"google-streetview-pano",properties:{apiKey:String,clientId:String,language:String,libraries:{type:String,value:"places"},version:{type:String,value:"3.exp"},panoId:{type:String,observer:"_panoIdChanged"},position:{type:Object,observer:"_positionChanged"},heading:{type:Number,value:45},pitch:{type:Number,value:-2},zoom:{type:Number,value:1},disableDefaultUi:{type:Boolean,value:!1},disableAutoPan:{type:Boolean,value:!1}},pano:null,rAFid:null,_mapApiLoaded:function(){this.async(function(){this.pano=new google.maps.StreetViewPanorama(this.$.pano,this._getPanoOptions()),this.pano.setVisible(!0),this.disableAutoPan||(this.rAFid=requestAnimationFrame(this.update.bind(this)))})},_getPanoOptions:function(){var t={pano:this.panoId,position:this.position,pov:{heading:this.heading,pitch:this.pitch},disableDefaultUI:this.disableDefaultUi,zoom:this.zoom};return t},update:function(){this.rAFid=requestAnimationFrame(this.update.bind(this));var t=this.pano.getPov();t.heading+=.03,this.pano.setPov(t)},_autoUpdate:function(){this.disableAutoPan||this.update()},reset:function(){var t=this.pano.getPov();t.heading=this.heading,t.pitch=this.pitch,this.pano.setPov(t)},detached:function(){this.stop()},stop:function(){cancelAnimationFrame(this.rAFid)},_autoStop:function(){this.disableAutoPan||this.stop()},_panoIdChanged:function(t,i){this.pano&&(this.pano.setPano(t),this.reset())},_positionChanged:function(t,i){this.pano&&(this.pano.setPosition(t),this.reset())}});</script>
+<script>
+  "use strict";
+
+  Polymer({
+
+    is: 'google-streetview-pano',
+
+    properties: {
+      /**
+       * A Maps API key. To obtain an API key, see developers.google.com/maps/documentation/javascript/tutorial#api_key.
+       */
+      apiKey: String,
+
+      /**
+       * A Maps API for Business Client ID. To obtain a Maps API for Business Client ID, see developers.google.com/maps/documentation/business/.
+       * If set, a Client ID will take precedence over an API Key.
+       */
+      clientId: String,
+
+      /**
+       * The localized language to load the Maps API with. For more information
+       * see https://developers.google.com/maps/documentation/javascript/basics#Language
+       *
+       * Note: the Maps API defaults to the preferred language setting of the browser.
+       * Use this parameter to override that behavior.
+       *
+       */
+      language: String,
+
+      /**
+       * A comma separated list (e.g. "places,geometry") of libraries to load
+       * with this map. Defaults to "places". For more information see
+       * https://developers.google.com/maps/documentation/javascript/libraries.
+       *
+       */
+      libraries: {
+        type: String,
+        value: "places"
+      },
+
+      /**
+       * Version of the Google Maps API to use.
+       *
+       */
+      version: {
+        type: String,
+        value: '3.exp'
+      },
+
+      /**
+       * Specifies which photosphere to load
+       *
+       *
+       */
+      panoId: {
+        type: String,
+        observer: '_panoIdChanged'
+      },
+
+      /**
+       * Specifies which position to load
+       *
+       *
+       */
+      position: {
+        type: Object,
+        observer: '_positionChanged'
+      },
+
+      /**
+       * The camera heading in degrees relative to true north. True north is 0°, east is 90°, south is 180°, west is 270°.
+       */
+      heading: {
+        type: Number,
+        value: 45
+      },
+
+      /**
+       * The camera pitch in degrees, relative to the street view vehicle. Ranges from 90° (directly upwards) to -90° (directly downwards).
+       */
+      pitch: {
+        type: Number,
+        value: -2
+      },
+
+      /**
+       * Sets the zoom level of the panorama. Fully zoomed-out is level 0, where the field of view is 180 degrees.
+       */
+      zoom: {
+        type: Number,
+        value: 1
+      },
+
+      /**
+       * If true, disables all default UI.
+       */
+      disableDefaultUi: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * If true, disables the auto panning animation
+       */
+      disableAutoPan: {
+        type: Boolean,
+        value: false
+      }
+
+    },
+
+    pano: null,
+    rAFid: null,
+
+    /**
+     * Called when the Google Maps API has loaded.
+     */
+    _mapApiLoaded: function() {
+      this.async(function () {
+        this.pano = new google.maps.StreetViewPanorama(this.$.pano, this._getPanoOptions());
+        this.pano.setVisible(true);
+
+        if (this.disableAutoPan) {
+          return;
+        }
+        // Kickoff the rotating animation
+        this.rAFid = requestAnimationFrame(this.update.bind(this));
+      });
+    },
+
+    /**
+     * Returns the an object with the current panorama configurations.
+     */
+    _getPanoOptions: function() {
+      var panoOptions = {
+        pano: this.panoId,
+        position: this.position,
+        pov: {
+          heading: this.heading,
+          pitch: this.pitch
+        },
+        disableDefaultUI: this.disableDefaultUi,
+        zoom: this.zoom
+      };
+
+      return panoOptions;
+    },
+
+    /**
+     * Fired every rAF. Updates the heading to create a slow pan effect
+     * Will be canceled by mouse enter or calling stop()
+     */
+    update: function() {
+      this.rAFid = requestAnimationFrame(this.update.bind(this));
+      var pov = this.pano.getPov();
+      pov.heading += 0.03;
+      this.pano.setPov(pov);
+    },
+
+    _autoUpdate: function() {
+      if (this.disableAutoPan) {
+        return;
+      }
+
+      this.update();
+    },
+
+    /**
+     * Reset the pov for the panorama.
+     * @method reset
+     */
+    reset: function() {
+      var pov = this.pano.getPov();
+      pov.heading = this.heading;
+      pov.pitch = this.pitch;
+      this.pano.setPov(pov);
+    },
+
+    /**
+     * Stop the animation when the element is detached
+     * @method detached
+     */
+    detached: function () {
+      this.stop();
+    },
+    
+    /**
+     * Cancel the slow panning animation.
+     * @method stop
+     */
+    stop: function() {
+      cancelAnimationFrame(this.rAFid);
+    },
+
+    _autoStop: function() {
+      if (this.disableAutoPan) {
+        return;
+      }
+
+      this.stop();
+    },
+
+    _panoIdChanged: function(newVal, oldVal) {
+      if (this.pano) {
+        this.pano.setPano(newVal);
+        this.reset();
+      }
+    },
+
+    _positionChanged: function(newVal, oldVal) {
+      if (this.pano) {
+        this.pano.setPosition(newVal);
+        this.reset();
+      }
+    }
+  });
+</script>
 <dom-module id="yp-post-cover-media" assetpath="/">
 
   <template>
@@ -441,9 +838,220 @@
     </template>
 
 
-  <script>Polymer({is:"yp-post-cover-media",behaviors:[Polymer.appHelpers],properties:{post:{type:Object,notify:!0,observer:"_postChanged"},noneActive:{type:Boolean,computed:"_isNoneActive(post)"},categoryActive:{type:Boolean,computed:"_isCategoryActive(post)"},imageActive:{type:Boolean,computed:"_isImageActive(post)"},mapActive:{type:Boolean,computed:"_isMapActive(post, post.location, post.location.latitude)"},streetViewActive:{type:Boolean,computed:"_isStreetViewActive(post, post.location, post.location.latitude)"},latitude:{type:Number,computed:"_getLatitute(post.location.latitude)"},longitude:{type:Number,computed:"_getLongitude(post.location.longitude)"},mapPosition:{type:Object,computed:"_getMapPosition(post.location)"}},_getLatitute:function(t){return t?t:0},_getLongitude:function(t){return t?t:0},_isNoneActive:function(t){return!!this._withCoverMediaType(t,"none")},_isCategoryActive:function(t){return!!this._withCoverMediaType(t,"category")},_isImageActive:function(t){return!!this._withCoverMediaType(t,"image")},_isMapActive:function(t,e,o){return!!(o&&e&&this._withCoverMediaType(t,"map"))},_isStreetViewActive:function(t,e,o){return!!(o&&e&&this._withCoverMediaType(t,"streetView"))},_postChanged:function(t,e){},_zoomLevel:function(t){return t?t.location.map_zoom:"10"},_mapType:function(t){return t&&t.location?t.location.mapType:null},_withCoverMediaType:function(t,e){return!!t&&("none"==e?this.post&&!this.post.Category&&(!this.post.cover_media_type||"none"==this.post.cover_media_type):!("category"!=e||!this.post.Category||this.post.cover_media_type&&"none"!=this.post.cover_media_type)||this.post&&this.post.cover_media_type==e)},_getMapPosition:function(t){return t?{lat:t.latitude,lng:t.longitude}:{lat:0,lng:0}},postImagePath:function(){return this.getImageFormatUrl(this.post.PostHeaderImages,0)},getCategoryImagePath:function(t){return t&&t.Category&&t.Category.CategoryIconImages?this.getImageFormatUrl(t.Category.CategoryIconImages,0):""}});</script>
+  <script>
+    Polymer({
+      is: 'yp-post-cover-media',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+
+        post: {
+          type: Object,
+          notify: true,
+          observer: "_postChanged"
+        },
+
+        noneActive: {
+          type: Boolean,
+          computed: '_isNoneActive(post)'
+        },
+
+        categoryActive: {
+          type: Boolean,
+          computed: '_isCategoryActive(post)'
+        },
+
+        imageActive: {
+          type: Boolean,
+          computed: '_isImageActive(post)'
+        },
+
+        mapActive: {
+          type: Boolean,
+          computed: '_isMapActive(post, post.location, post.location.latitude)'
+        },
+
+        streetViewActive: {
+          type: Boolean,
+          computed: '_isStreetViewActive(post, post.location, post.location.latitude)'
+        },
+
+        latitude: {
+          type: Number,
+          computed: '_getLatitute(post.location.latitude)'
+        },
+
+        longitude: {
+          type: Number,
+          computed: '_getLongitude(post.location.longitude)'
+        },
+
+        mapPosition: {
+          type: Object,
+          computed: '_getMapPosition(post.location)'
+        }
+      },
+
+      _getLatitute: function (latitude) {
+        if (latitude)
+          return latitude;
+        else
+          return 0
+      },
+
+      _getLongitude: function (longitude) {
+        if (longitude)
+          return longitude;
+        else
+          return 0
+      },
+
+      _isNoneActive: function (post) {
+        if (this._withCoverMediaType(post, 'none'))
+          return true
+        else
+          return false
+      },
+
+      _isCategoryActive: function (post) {
+        if (this._withCoverMediaType(post, 'category'))
+          return true
+        else
+          return false
+      },
+
+      _isImageActive: function (post) {
+        if (this._withCoverMediaType(post,'image'))
+          return true
+        else
+          return false
+      },
+
+      _isMapActive: function (post, postLocation, lat) {
+        if (lat && postLocation && this._withCoverMediaType(post,'map'))
+          return true
+        else
+          return false
+      },
+
+      _isStreetViewActive: function (post, postLocation, lat) {
+        if (lat && postLocation && this._withCoverMediaType(post,'streetView'))
+          return true
+        else
+          return false
+      },
+
+      _postChanged: function(newValue, oldValue) {
+        //debugger;
+      },
+
+      _zoomLevel: function (post) {
+        if (post)
+          return post.location.map_zoom;
+        else
+          return "10";
+      },
+
+      _mapType: function (post) {
+        if (post && post.location)
+          return post.location.mapType;
+        else
+          return null;
+      },
+
+      _withCoverMediaType: function (post, mediaType) {
+        if (!post)
+          return false;
+        if (mediaType == 'none') {
+          return (this.post && (!this.post.Category && (!this.post.cover_media_type || this.post.cover_media_type == 'none')));
+        } else  if ((mediaType=='category' && this.post.Category) && (!this.post.cover_media_type || this.post.cover_media_type == 'none')) {
+          return true;
+        } else {
+          return (this.post && this.post.cover_media_type == mediaType);
+        }
+      },
+
+      _getMapPosition: function (location) {
+        if (location) {
+          return { lat: location.latitude, lng: location.longitude }
+        } else {
+          return { lat: 0, lng: 0 }
+        }
+      },
+
+      postImagePath: function () {
+        return this.getImageFormatUrl(this.post.PostHeaderImages, 0);
+      },
+
+      getCategoryImagePath: function (post) {
+        if (post && post.Category && post.Category.CategoryIconImages) {
+          return this.getImageFormatUrl(post.Category.CategoryIconImages, 0);
+        } else {
+          return "";
+        }
+      }
+    });
+  </script>
 </dom-module>
-<script>Polymer.YpPostBehavior={properties:{post:{type:Object,notify:!0},endorseMode:{type:String},image:{type:Boolean,value:!0},elevation:{type:Number,value:1}},postName:function(t){return t&&t.name?this.truncate(this.trim(t.name),100):t?t.short_name:""},postDescription:function(t){return t&&t.description?this.truncate(this.trim(t.description),500,"..."):t&&t.Points&&t.Points[0]?this.truncate(this.trim(t.Points[0].content),500,"..."):""},getCategoryImagePath:function(t){return t.Category&&t.Category.CategoryIconImages?this.getImageFormatUrl(t.Category.CategoryIconImages,0):""}};</script>
+<script>
+  /**
+   * @polymerBehavior YpPostBehavior
+   */
+  Polymer.YpPostBehavior = {
+
+    properties: {
+      post: {
+        type: Object,
+        notify: true
+      },
+
+      endorseMode: {
+        type: String
+      },
+
+      image: {
+        type: Boolean,
+        value: true
+      },
+
+      elevation: {
+        type: Number,
+        value: 1
+      }
+    },
+
+    postName: function (post) {
+      if (post && post.name) {
+        return this.truncate(this.trim(post.name), 100);
+      } else if (post) {
+        return post.short_name;
+      } else {
+        return "";
+      }
+    },
+
+    postDescription: function (post) {
+      if (post && post.description) {
+        return this.truncate(this.trim(post.description), 500, '...');
+      } else if (post && post.Points && post.Points[0]) {
+        return  this.truncate(this.trim(post.Points[0].content), 500, '...');
+      } else {
+        return '';
+      }
+    },
+
+    getCategoryImagePath: function (post) {
+      if (post.Category && post.Category.CategoryIconImages) {
+        return this.getImageFormatUrl(post.Category.CategoryIconImages, 0);
+      } else {
+        return "";
+      }
+    }
+  }
+</script>
 <dom-module id="yp-post-card" assetpath="/">
 
   <template>
@@ -670,8 +1278,108 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-post-card",behaviors:[Polymer.appHelpers,Polymer.YpPostBehavior],properties:{selectedMenuItem:{type:String},headerMode:{type:Boolean,value:!1},elevation:{type:Number,value:2},post:{type:Object,notify:!0},trimmedDescription:{type:String,computed:"_trimmedDescription(post, post.description)"}},_trimmedDescription:function(e,t){return e?this.postDescription(e):""},updateDescriptionIfEmpty:function(e){this.post.description&&""!=this.post.description||this.set("post.description",e)},_refresh:function(){this.fire("refresh")},_menuSelection:function(e,t){"editMenuItem"==t.item.id?this._openEdit():"deleteMenuItem"==t.item.id?this._openDelete():"statusChangeMenuItem"==t.item.id?this._openPostStatusChange():"moveMenuItem"==t.item.id&&this._openMovePost(),this.selectedMenuItem=null}});</script>
+  <script>
+    Polymer({
+      is: 'yp-post-card',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.YpPostBehavior
+      ],
+
+      properties: {
+
+        selectedMenuItem: {
+          type: String
+        },
+
+        headerMode: {
+          type: Boolean,
+          value: false
+        },
+
+        elevation: {
+          type: Number,
+          value: 2
+        },
+
+        post: {
+          type: Object,
+          notify: true
+        },
+
+        trimmedDescription: {
+          type: String,
+          computed: '_trimmedDescription(post, post.description)'
+        }
+
+      },
+
+
+      _trimmedDescription: function (post, description) {
+        if (post) {
+          return this.postDescription(post);
+        } else {
+          return "";
+        }
+      },
+
+      updateDescriptionIfEmpty: function (description) {
+        if (!this.post.description || this.post.description=='') {
+          this.set('post.description', description);
+        }
+      },
+
+      _refresh: function () {
+        this.fire('refresh');
+      },
+
+      _menuSelection: function (event, detail) {
+        if (detail.item.id=="editMenuItem")
+          this._openEdit();
+        else if (detail.item.id=="deleteMenuItem")
+          this._openDelete();
+        else if (detail.item.id=="statusChangeMenuItem")
+          this._openPostStatusChange();
+        else if (detail.item.id=="moveMenuItem")
+          this._openMovePost();
+        this.selectedMenuItem = null;
+      }
+
+    });
+  </script>
 </dom-module>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`iron-autogrow-textarea` is an element containing a textarea that grows in height as more
+lines of input are entered. Unless an explicit height or the `maxRows` property is set, it will
+never scroll.
+
+Example:
+
+    <iron-autogrow-textarea></iron-autogrow-textarea>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--iron-autogrow-textarea` | Mixin applied to the textarea | `{}`
+`--iron-autogrow-textarea-placeholder` | Mixin applied to the textarea placeholder | `{}`
+
+@group Iron Elements
+@hero hero.svg
+@demo demo/index.html
+-->
+
 <dom-module id="iron-autogrow-textarea" assetpath="../../bower_components/iron-autogrow-textarea/">
   <template>
     <style>
@@ -733,18 +1441,281 @@
       }
     </style>
 
-    
-    
+    <!-- the mirror sizes the input/textarea so it grows with typing -->
+    <!-- use &#160; instead &nbsp; of to allow this element to be used in XHTML -->
     <div id="mirror" class="mirror-text" aria-hidden="true">&nbsp;</div>
 
-    
+    <!-- size the input/textarea with a div, because the textarea has intrinsic size in ff -->
     <div class="textarea-container fit">
       <textarea id="textarea" name$="[[name]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" required$="[[required]]" disabled$="[[disabled]]" rows$="[[rows]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]"></textarea>
     </div>
   </template>
 </dom-module>
 
-<script>Polymer({is:"iron-autogrow-textarea",behaviors:[Polymer.IronFormElementBehavior,Polymer.IronValidatableBehavior,Polymer.IronControlState],properties:{bindValue:{observer:"_bindValueChanged",type:String},rows:{type:Number,value:1,observer:"_updateCached"},maxRows:{type:Number,value:0,observer:"_updateCached"},autocomplete:{type:String,value:"off"},autofocus:{type:Boolean,value:!1},inputmode:{type:String},placeholder:{type:String},readonly:{type:String},required:{type:Boolean},minlength:{type:Number},maxlength:{type:Number}},listeners:{input:"_onInput"},observers:["_onValueChanged(value)"],get textarea(){return this.$.textarea},get selectionStart(){return this.$.textarea.selectionStart},get selectionEnd(){return this.$.textarea.selectionEnd},set selectionStart(e){this.$.textarea.selectionStart=e},set selectionEnd(e){this.$.textarea.selectionEnd=e},validate:function(){if(!this.required&&""==this.value)return this.invalid=!1,!0;var e;return this.hasValidator()?e=Polymer.IronValidatableBehavior.validate.call(this,this.value):(e=this.$.textarea.validity.valid,this.invalid=!e),this.fire("iron-input-validate"),e},_bindValueChanged:function(){var e=this.textarea;e&&(e.value!==this.bindValue&&(e.value=this.bindValue||0===this.bindValue?this.bindValue:""),this.value=this.bindValue,this.$.mirror.innerHTML=this._valueForMirror(),this.fire("bind-value-changed",{value:this.bindValue}))},_onInput:function(e){this.bindValue=e.path?e.path[0].value:e.target.value},_constrain:function(e){var t;for(e=e||[""],t=this.maxRows>0&&e.length>this.maxRows?e.slice(0,this.maxRows):e.slice(0);this.rows>0&&t.length<this.rows;)t.push("");return t.join("<br/>")+"&#160;"},_valueForMirror:function(){var e=this.textarea;if(e)return this.tokens=e&&e.value?e.value.replace(/&/gm,"&amp;").replace(/"/gm,"&quot;").replace(/'/gm,"&#39;").replace(/</gm,"&lt;").replace(/>/gm,"&gt;").split("\n"):[""],this._constrain(this.tokens)},_updateCached:function(){this.$.mirror.innerHTML=this._constrain(this.tokens)},_onValueChanged:function(){this.bindValue=this.value}});</script>
+<script>
+
+  Polymer({
+
+    is: 'iron-autogrow-textarea',
+
+    behaviors: [
+      Polymer.IronFormElementBehavior,
+      Polymer.IronValidatableBehavior,
+      Polymer.IronControlState
+    ],
+
+    properties: {
+
+      /**
+       * Use this property instead of `value` for two-way data binding.
+       * This property will be deprecated in the future. Use `value` instead.
+       * @type {string|number}
+       */
+      bindValue: {
+        observer: '_bindValueChanged',
+        type: String
+      },
+
+      /**
+       * The initial number of rows.
+       *
+       * @attribute rows
+       * @type number
+       * @default 1
+       */
+      rows: {
+        type: Number,
+        value: 1,
+        observer: '_updateCached'
+      },
+
+      /**
+       * The maximum number of rows this element can grow to until it
+       * scrolls. 0 means no maximum.
+       *
+       * @attribute maxRows
+       * @type number
+       * @default 0
+       */
+      maxRows: {
+       type: Number,
+       value: 0,
+       observer: '_updateCached'
+      },
+
+      /**
+       * Bound to the textarea's `autocomplete` attribute.
+       */
+      autocomplete: {
+        type: String,
+        value: 'off'
+      },
+
+      /**
+       * Bound to the textarea's `autofocus` attribute.
+       */
+      autofocus: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Bound to the textarea's `inputmode` attribute.
+       */
+      inputmode: {
+        type: String
+      },
+
+      /**
+       * Bound to the textarea's `placeholder` attribute.
+       */
+      placeholder: {
+        type: String
+      },
+
+      /**
+       * Bound to the textarea's `readonly` attribute.
+       */
+      readonly: {
+        type: String
+      },
+
+      /**
+       * Set to true to mark the textarea as required.
+       */
+      required: {
+        type: Boolean
+      },
+
+      /**
+       * The minimum length of the input value.
+       */
+      minlength: {
+        type: Number
+      },
+
+      /**
+       * The maximum length of the input value.
+       */
+      maxlength: {
+        type: Number
+      }
+
+    },
+
+    listeners: {
+      'input': '_onInput'
+    },
+
+    observers: [
+      '_onValueChanged(value)'
+    ],
+
+    /**
+     * Returns the underlying textarea.
+     * @type HTMLTextAreaElement
+     */
+    get textarea() {
+      return this.$.textarea;
+    },
+
+    /**
+     * Returns textarea's selection start.
+     * @type Number
+     */
+    get selectionStart() {
+      return this.$.textarea.selectionStart;
+    },
+
+    /**
+     * Returns textarea's selection end.
+     * @type Number
+     */
+    get selectionEnd() {
+      return this.$.textarea.selectionEnd;
+    },
+
+    /**
+     * Sets the textarea's selection start.
+     */
+    set selectionStart(value) {
+      this.$.textarea.selectionStart = value;
+    },
+
+    /**
+     * Sets the textarea's selection end.
+     */
+    set selectionEnd(value) {
+      this.$.textarea.selectionEnd = value;
+    },
+
+    /**
+     * Returns true if `value` is valid. The validator provided in `validator`
+     * will be used first, if it exists; otherwise, the `textarea`'s validity
+     * is used.
+     * @return {boolean} True if the value is valid.
+     */
+    validate: function() {
+      // Empty, non-required input is valid.
+      if (!this.required && this.value == '') {
+        this.invalid = false;
+        return true;
+      }
+
+      var valid;
+      if (this.hasValidator()) {
+        valid = Polymer.IronValidatableBehavior.validate.call(this, this.value);
+      } else {
+        valid = this.$.textarea.validity.valid;
+        this.invalid = !valid;
+      }
+      this.fire('iron-input-validate');
+      return valid;
+    },
+
+    _bindValueChanged: function() {
+      var textarea = this.textarea;
+      if (!textarea) {
+        return;
+      }
+
+      // If the bindValue changed manually, then we need to also update
+      // the underlying textarea's value. Otherwise this change was probably
+      // generated from the _onInput handler, and the two values are already
+      // the same.
+      if (textarea.value !== this.bindValue) {
+        textarea.value = !(this.bindValue || this.bindValue === 0) ? '' : this.bindValue;
+      }
+
+      this.value = this.bindValue;
+      this.$.mirror.innerHTML = this._valueForMirror();
+      // manually notify because we don't want to notify until after setting value
+      this.fire('bind-value-changed', {value: this.bindValue});
+    },
+
+    _onInput: function(event) {
+      this.bindValue = event.path ? event.path[0].value : event.target.value;
+    },
+
+    _constrain: function(tokens) {
+      var _tokens;
+      tokens = tokens || [''];
+      // Enforce the min and max heights for a multiline input to avoid measurement
+      if (this.maxRows > 0 && tokens.length > this.maxRows) {
+        _tokens = tokens.slice(0, this.maxRows);
+      } else {
+        _tokens = tokens.slice(0);
+      }
+      while (this.rows > 0 && _tokens.length < this.rows) {
+        _tokens.push('');
+      }
+      // Use &#160; instead &nbsp; of to allow this element to be used in XHTML.
+      return _tokens.join('<br/>') + '&#160;';
+    },
+
+    _valueForMirror: function() {
+      var input = this.textarea;
+      if (!input) {
+        return;
+      }
+      this.tokens = (input && input.value) ? input.value.replace(/&/gm, '&amp;').replace(/"/gm, '&quot;').replace(/'/gm, '&#39;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;').split('\n') : [''];
+      return this._constrain(this.tokens);
+    },
+
+    _updateCached: function() {
+      this.$.mirror.innerHTML = this._constrain(this.tokens);
+    },
+
+    _onValueChanged: function() {
+      this.bindValue = this.value;
+    }
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`<paper-textarea>` is a multi-line text field with Material Design styling.
+
+    <paper-textarea label="Textarea label"></paper-textarea>
+
+See `Polymer.PaperInputBehavior` for more API docs.
+
+### Validation
+
+Currently only `required` and `maxlength` validation is supported.
+
+### Styling
+
+See `Polymer.PaperInputContainer` for a list of custom properties used to
+style this element.
+-->
+
 <dom-module id="paper-textarea" assetpath="../../bower_components/paper-input/">
   <template>
     <style>
@@ -779,7 +1750,118 @@
   </template>
 </dom-module>
 
-<script>Polymer({is:"paper-textarea",behaviors:[Polymer.PaperInputBehavior,Polymer.IronFormElementBehavior],properties:{_ariaLabelledBy:{observer:"_ariaLabelledByChanged",type:String},_ariaDescribedBy:{observer:"_ariaDescribedByChanged",type:String},rows:{type:Number,value:1},maxRows:{type:Number,value:0}},_ariaLabelledByChanged:function(e){this.$.input.textarea.setAttribute("aria-labelledby",e)},_ariaDescribedByChanged:function(e){this.$.input.textarea.setAttribute("aria-describedby",e)},get _focusableElement(){return this.$.input.textarea}});</script>
+<script>
+  Polymer({
+    is: 'paper-textarea',
+
+    behaviors: [
+      Polymer.PaperInputBehavior,
+      Polymer.IronFormElementBehavior
+    ],
+
+    properties: {
+      _ariaLabelledBy: {
+        observer: '_ariaLabelledByChanged',
+        type: String
+      },
+
+      _ariaDescribedBy: {
+        observer: '_ariaDescribedByChanged',
+        type: String
+      },
+
+      /**
+       * The initial number of rows.
+       *
+       * @attribute rows
+       * @type number
+       * @default 1
+       */
+      rows: {
+        type: Number,
+        value: 1
+      },
+
+      /**
+       * The maximum number of rows this element can grow to until it
+       * scrolls. 0 means no maximum.
+       *
+       * @attribute maxRows
+       * @type number
+       * @default 0
+       */
+      maxRows: {
+       type: Number,
+       value: 0
+      }
+    },
+
+    _ariaLabelledByChanged: function(ariaLabelledBy) {
+      this.$.input.textarea.setAttribute('aria-labelledby', ariaLabelledBy);
+    },
+
+    _ariaDescribedByChanged: function(ariaDescribedBy) {
+      this.$.input.textarea.setAttribute('aria-describedby', ariaDescribedBy);
+    },
+
+    get _focusableElement() {
+      return this.$.input.textarea;
+    },
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+Material design: [Cards](https://www.google.com/design/spec/components/cards.html)
+
+`paper-card` is a container with a drop shadow.
+
+Example:
+
+    <paper-card heading="Card Title">
+      <div class="card-content">Some content</div>
+      <div class="card-actions">
+        <paper-button>Some action</paper-button>
+      </div>
+    </paper-card>
+
+Example - top card image:
+
+    <paper-card heading="Card Title" image="/path/to/image.png" alt="image">
+      ...
+    </paper-card>
+
+### Accessibility
+
+By default, the `aria-label` will be set to the value of the `heading` attribute.
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-card-background-color` | The background color of the card | `--primary-background-color`
+`--paper-card-header-color` | The color of the header text | `#000`
+`--paper-card-header` | Mixin applied to the card header section | `{}`
+`--paper-card-header-text` | Mixin applied to the title in the card header section | `{}`
+`--paper-card-header-image` | Mixin applied to the image in the card header section | `{}`
+`--paper-card-header-image-text` | Mixin applied to the text overlapping the image in the card header section | `{}`
+`--paper-card-content` | Mixin applied to the card content section| `{}`
+`--paper-card-actions` | Mixin applied to the card action section | `{}`
+`--paper-card` | Mixin applied to the card | `{}`
+
+@group Paper Elements
+@element paper-card
+@demo demo/index.html
+-->
+
 <dom-module id="paper-card" assetpath="../../bower_components/paper-card/">
   <template>
     <style include="paper-material">
@@ -857,7 +1939,109 @@
     <content></content>
   </template>
 
-  <script>Polymer({is:"paper-card",properties:{heading:{type:String,value:"",observer:"_headingChanged"},image:{type:String,value:""},alt:{type:String},preloadImage:{type:Boolean,value:!1},fadeImage:{type:Boolean,value:!1},placeholderImage:{type:String,value:null},elevation:{type:Number,value:1,reflectToAttribute:!0},animatedShadow:{type:Boolean,value:!1},animated:{type:Boolean,reflectToAttribute:!0,readOnly:!0,computed:"_computeAnimated(animatedShadow)"}},_headingChanged:function(e){this.getAttribute("aria-label");this.setAttribute("aria-label",e)},_computeHeadingClass:function(e){var t="title-text";return e&&(t+=" over-image"),t},_computeAnimated:function(e){return e}});</script>
+  <script>
+    Polymer({
+      is: 'paper-card',
+
+      properties: {
+        /**
+         * The title of the card.
+         */
+        heading: {
+          type: String,
+          value: '',
+          observer: '_headingChanged'
+        },
+
+        /**
+         * The url of the title image of the card.
+         */
+        image: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The text alternative of the card's title image.
+         */
+        alt: {
+          type: String
+        },
+
+        /**
+         * When `true`, any change to the image url property will cause the
+         * `placeholder` image to be shown until the image is fully rendered.
+         */
+        preloadImage: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * When `preloadImage` is true, setting `fadeImage` to true will cause the
+         * image to fade into place.
+         */
+        fadeImage: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * This image will be used as a background/placeholder until the src image has
+         * loaded. Use of a data-URI for placeholder is encouraged for instant rendering.
+         */
+        placeholderImage: {
+          type: String,
+          value: null
+        },
+
+        /**
+         * The z-depth of the card, from 0-5.
+         */
+        elevation: {
+          type: Number,
+          value: 1,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Set this to true to animate the card shadow when setting a new
+         * `z` value.
+         */
+        animatedShadow: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Read-only property used to pass down the `animatedShadow` value to
+         * the underlying paper-material style (since they have different names).
+         */
+        animated: {
+          type: Boolean,
+          reflectToAttribute: true,
+          readOnly: true,
+          computed: '_computeAnimated(animatedShadow)'
+        }
+      },
+
+      _headingChanged: function(heading) {
+        var label = this.getAttribute('aria-label');
+        this.setAttribute('aria-label', heading);
+      },
+
+      _computeHeadingClass: function(image) {
+        var cls = 'title-text';
+        if (image)
+          cls += ' over-image';
+        return cls;
+      },
+
+      _computeAnimated: function(animatedShadow) {
+        return animatedShadow;
+      }
+    });
+  </script>
 </dom-module>
 <dom-module id="yp-user-image" assetpath="../yp-user/">
   <template>
@@ -945,7 +2129,104 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-user-image",behaviors:[Polymer.appHelpers],properties:{small:{type:Boolean,value:!1},large:{type:Boolean,value:!1},veryLarge:{type:Boolean,value:!1},titleFromUser:{type:String},userTitle:{type:String,computed:"_computeUserTitle(user, title)"},user:{type:Object,observer:"_userChanged"},profileImageUrl:{type:String,value:null},noDefault:{type:Boolean,value:!1}},_computeUserTitle:function(e,r){return title?title:e.name},_userChanged:function(e,r){if(e&&e.UserProfileImages&&e.UserProfileImages.length>0){var o=this.getImageFormatUrl(e.UserProfileImages,0);o&&""!=o&&this.set("profileImageUrl",o)}},computeIf:function(e){return!1},computeClass:function(e){return this.small?"small rounded":this.large?"large rounded-more":this.veryLarge?"veryLarge rounded-even-more":"medium rounded"},computeFacebookSrc:function(e){return e?"https://graph.facebook.com/"+e.facebook_id+"/picture":(console.warn("Can't find user for computeFacebookSrc"),"")},usePlaceHolderImage:function(e){null==this.profileImageUrl&&null==e.facebook_id},ready:function(){}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-user-image',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        small: {
+          type: Boolean,
+          value: false
+        },
+
+        large: {
+          type: Boolean,
+          value: false
+        },
+
+        veryLarge: {
+          type: Boolean,
+          value: false
+        },
+
+        titleFromUser: {
+          type: String
+        },
+
+        userTitle: {
+          type: String,
+          computed: '_computeUserTitle(user, title)'
+        },
+
+        user: {
+          type: Object,
+          observer: "_userChanged"
+        },
+
+        profileImageUrl: {
+          type: String,
+          value: null
+        },
+
+        noDefault: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _computeUserTitle: function (user, titleFromUser) {
+        if (title) {
+          return title;
+        } else {
+          return user.name;
+        }
+      },
+
+      _userChanged: function (newUser, oldValue) {
+        if (newUser && newUser.UserProfileImages && newUser.UserProfileImages.length > 0) {
+          var formatUrl = this.getImageFormatUrl(newUser.UserProfileImages, 0);
+          if (formatUrl && formatUrl!="")
+            this.set('profileImageUrl', formatUrl);
+        }
+      },
+
+      computeIf: function (user) {
+        return false && !user.facebook_id && user.buddy_icon_file_name;
+      },
+
+      computeClass: function (small) {
+        if (this.small)
+          return 'small rounded';
+        else if (this.large)
+          return 'large rounded-more';
+        else if (this.veryLarge)
+          return 'veryLarge rounded-even-more';
+        else
+          return 'medium rounded';
+      },
+
+      computeFacebookSrc: function (user) {
+        if (user) {
+          return 'https://graph.facebook.com/' + user.facebook_id + '/picture';
+        } else {
+          console.warn("Can't find user for computeFacebookSrc");
+          return "";
+        }
+      },
+
+      usePlaceHolderImage: function (user) {
+        (this.profileImageUrl==null && user.facebook_id==null)
+      },
+
+      ready: function () {
+      }
+    });
+  </script>
 </dom-module>
 <dom-module id="yp-user-with-organization" assetpath="../yp-user/">
   <template>
@@ -1006,7 +2287,59 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-user-with-organization",behaviors:[Polymer.appHelpers],properties:{user:{type:Object},titleDate:{type:Date},userTitle:{type:String,computed:"_computeUserTitle(user, titleDate)"},inverted:{type:Boolean,value:!1}},_computeUserTitle:function(e,n){return e.name+" "+moment(n).fromNow()},_organizationName:function(e){return e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].name?e.OrganizationUsers[0].name:null},_organizationImageUrl:function(e){if(e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].OrganizationLogoImages&&e.OrganizationUsers[0].OrganizationLogoImages.length>0){var n=this.getImageFormatUrl(e.OrganizationUsers[0].OrganizationLogoImages,2);return n}return null}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-user-with-organization',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        user: {
+          type: Object
+        },
+
+        titleDate: {
+          type: Date
+        },
+
+        userTitle: {
+          type: String,
+          computed: '_computeUserTitle(user, titleDate)'
+        },
+
+        inverted: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _computeUserTitle: function (user, titleDate) {
+        return user.name + ' ' + moment(titleDate).fromNow();
+      },
+
+      _organizationName: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 && user.OrganizationUsers[0].name) {
+          return user.OrganizationUsers[0].name;
+        } else {
+          return null;
+        }
+      },
+
+      _organizationImageUrl: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 &&
+          user.OrganizationUsers[0].OrganizationLogoImages &&
+          user.OrganizationUsers[0].OrganizationLogoImages.length > 0) {
+          var url = this.getImageFormatUrl(user.OrganizationUsers[0].OrganizationLogoImages, 2);
+          return url;
+        } else {
+          return null;
+        }
+      }
+    });
+  </script>
 </dom-module>
 <dom-module id="yp-point-actions" assetpath="../yp-point/">
 
@@ -1070,7 +2403,91 @@
     </div>
 
   </template>
-  <script>Polymer({is:"yp-point-actions",behaviors:[Polymer.appHelpers],properties:{point:{type:Object,observer:"_onPointChanged"},hideNotHelpful:{type:Boolean,value:!1},pointQualityValue:{type:Number,value:0},allDisabled:{type:Boolean,value:!0}},observers:["_qualityChanged(point.counter_quality_up, point.counter_quality_down)"],_onPointChanged:function(t,e){},_updateQualitiesFromSignal:function(){},_updateQualities:function(){},_qualityChanged:function(t,e){},_resetClasses:function(){this.pointQualityValue>0?(this.$.actionUp.className+=" up-selected",this.removeClass(this.$.actionDown,"down-selected")):this.pointQualityValue<0?(this.$.actionDown.className+=" down-selected",this.removeClass(this.$.actionUp,"up-selected")):(this.removeClass(this.$.actionUp,"up-selected"),this.removeClass(this.$.actionDown,"down-selected"))},_setPointQuality:function(t){this.set("pointQualityValue",t),this._resetClasses()},_pointQualityResponse:function(t,e){this.set("allDisabled",!1);var i=e.response.pointQuality,o=e.response.oldPointQualityValue;this._setPointQuality(i.value),window.appUser.updatePointQualityForPost(this.point.id,i),o&&(o>0?this.set("point.counter_quality_up",this.point.counter_quality_up-1):o<0&&this.set("point.counter_quality_down",this.point.counter_quality_down-1)),i.value>0?this.set("point.counter_quality_up",this.point.counter_quality_up+1):i.value<0&&this.set("point.counter_quality_down",this.point.counter_quality_down+1)}});</script>
+  <script>
+    Polymer({
+      is: 'yp-point-actions',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        point: {
+          type: Object,
+          observer: "_onPointChanged"
+        },
+
+        hideNotHelpful: {
+          type: Boolean,
+          value: false
+        },
+
+        pointQualityValue: {
+          type: Number,
+          value: 0
+        },
+
+        allDisabled: {
+          type: Boolean,
+          value: true
+        }
+      },
+
+      observers: [
+        '_qualityChanged(point.counter_quality_up, point.counter_quality_down)'
+      ],
+
+      _onPointChanged: function (newValue, oldValue) {
+      },
+
+      _updateQualitiesFromSignal: function () {
+      },
+
+      _updateQualities: function () {
+      },
+
+      _qualityChanged: function (a, b) {
+        // TODO: Fix where you can't vote up a newstory just after posting
+        //this._resetClasses();
+      },
+
+      _resetClasses: function () {
+        if (this.pointQualityValue > 0) {
+          this.$.actionUp.className += " " + "up-selected";
+          this.removeClass(this.$.actionDown, "down-selected");
+        } else if (this.pointQualityValue < 0) {
+          this.$.actionDown.className += " " + "down-selected";
+          this.removeClass(this.$.actionUp,"up-selected");
+        } else {
+          this.removeClass(this.$.actionUp,"up-selected");
+          this.removeClass(this.$.actionDown, "down-selected");
+        }
+      },
+
+      _setPointQuality: function (value) {
+        this.set('pointQualityValue', value);
+        this._resetClasses();
+      },
+
+      _pointQualityResponse: function (event, detail) {
+        this.set('allDisabled', false);
+        var pointQuality = detail.response.pointQuality;
+        var oldPointQualityValue = detail.response.oldPointQualityValue;
+        this._setPointQuality(pointQuality.value);
+        window.appUser.updatePointQualityForPost(this.point.id, pointQuality);
+        if (oldPointQualityValue) {
+          if (oldPointQualityValue>0)
+            this.set('point.counter_quality_up', this.point.counter_quality_up-1);
+          else if (oldPointQualityValue<0)
+            this.set('point.counter_quality_down', this.point.counter_quality_down-1);
+        }
+        if (pointQuality.value>0)
+          this.set('point.counter_quality_up', this.point.counter_quality_up+1);
+        else if (pointQuality.value<0)
+          this.set('point.counter_quality_down', this.point.counter_quality_down+1)
+      }
+    });
+  </script>
 </dom-module>
 <dom-module id="yp-point" assetpath="../yp-point/">
 
@@ -1136,7 +2553,85 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-point",properties:{point:{type:Object,notify:!0,observer:"_pointChanged"},user:{type:Object,value:null},hideUser:{type:Boolean,value:!1}},_pointChanged:function(n,e){n?this.user=this.point.PointRevisions[0].User:this.user=null},loginName:function(){return this.point.PointRevisions[0].User.name},upVote:function(n){return n?0==n.value||n.value>0:(console.warn("Can't find point for upVote"),!1)},downVote:function(n){return n?0==n.value||n.value<0:(console.warn("Can't find point for upVote"),!1)},computeClass:function(n){var e="description ";return n?e+=n.value>0?"for":"against":(console.warn("Can't find point for upVote"),e)}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-point',
+
+      properties: {
+
+        point: {
+          type: Object,
+          notify: true,
+          observer: "_pointChanged"
+        },
+
+
+
+        user: {
+          type: Object,
+          value: null
+        },
+
+        hideUser: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _pointChanged: function(newValue, oldValue) {
+        if (newValue) {
+          this.user = this.point.PointRevisions[0].User;
+        } else {
+          this.user = null;
+        }
+      },
+
+      loginName: function () {
+        return this.point.PointRevisions[0].User.name;
+      },
+
+      upVote: function(point) {
+        if (point) {
+          if (point.value == 0) {
+            return true;
+          } else {
+            return point.value>0;
+          }
+        } else {
+          console.warn("Can't find point for upVote");
+          return false;
+        }
+      },
+
+      downVote: function(point) {
+        if (point) {
+          if (point.value == 0) {
+            return true;
+          } else {
+            return point.value<0;
+          }
+        } else {
+          console.warn("Can't find point for upVote");
+          return false;
+        }
+      },
+
+      computeClass: function (point) {
+        var ret = 'description ';
+        if (point) {
+          if (point.value>0)
+            ret += 'for';
+          else
+            ret += 'against';
+          return ret;
+        } else {
+          console.warn("Can't find point for upVote");
+          return ret;
+        }
+      }
+    });
+  </script>
 </dom-module>
 <dom-module id="yp-post-points" assetpath="/">
   <template>
@@ -1355,7 +2850,186 @@
   </template>
 
 
-  <script>!function(){Polymer({is:"yp-post-points",behaviors:[Polymer.appHelpers],properties:{downPoints:{type:Array,value:function(){return[]}},upPoints:{type:Array,value:function(){return[]}},textValueUp:{type:String},textValueDown:{type:String},newPointTextCombined:{type:String},post:{type:Object,observer:"_postChanged"},points:{type:Array,value:null},largeMode:{type:Boolean,value:!1},textValueMobileUpOrDown:String,labelMobileUpOrDown:String,pointUpOrDownSelected:{type:String,observer:"_pointUpOrDownSelectedChanged",value:"pointFor"}},_pointUpOrDownSelectedChanged:function(t){"pointFor"==t?this.set("labelMobileUpOrDown",this.t("point.for")):"pointAgainst"==t&&this.set("labelMobileUpOrDown",this.t("point.against"))},_postChanged:function(t){if(this.set("downPoints",null),this.set("upPoints",null),t){var n="/api/posts/"+t.id+"/points";this.$.ajax.url="/votes/better_iceland_proxy",this.$.ajax.params={params:n},this.$.ajax.generateRequest()}},_response:function(t,n){this.set("points",n.response),this.points.length>0?(this.set("upPoints",this.points.filter(function(t){return t.value>0})),this.set("downPoints",this.points.filter(function(t){return t.value<0}))):(this.set("upPoints",[]),this.set("downPoints",[])),this.fire("yp-debate-info",{count:this.upPoints.length+this.downPoints.length,firstPoint:this.upPoints[0]}),this.set("points",this.interleaveArrays(this.upPoints,this.downPoints))},_insertNewPoint:function(t){this.largeMode?t.value>0?this.unshift("upPoints",t):t.value<0&&this.unshift("downPoints",t):this.unshift("points",t)},_newPointResponse:function(t,n){var i=n.response;i.value>0?(this.newPointTextCombined=this.t("point.forAdded")+" "+this.truncate(i.content,21),this.set("textValueUp","")):(this.newPointTextCombined=this.t("point.againstAdded")+" "+this.truncate(i.content,21),this.set("textValueDown","")),this.set("textValueMobileUpOrDown",""),this._insertNewPoint(i),this.set("post.counter_points",this.post.counter_points+1),this.$.newPointToast.show()},addPointUp:function(){this.addPoint(this.textValueUp,1),window.appGlobals.activity("add","pointUp")},addPointDown:function(){this.addPoint(this.textValueDown,-1),window.appGlobals.activity("add","pointDown")},addMobilePointUpOrDown:function(){"pointFor"==this.pointUpOrDownSelected?(this.addPoint(this.textValueMobileUpOrDown,1),window.appGlobals.activity("add","pointUp")):"pointAgainst"==this.pointUpOrDownSelected&&(this.addPoint(this.textValueMobileUpOrDown,-1),window.appGlobals.activity("add","pointDown"))},addPoint:function(t,n){},focusUpPoint:function(){window.appGlobals.activity("focus","pointUp")},focusDownPoint:function(){window.appGlobals.activity("focus","pointDown")},focusTextArea:function(t){t.currentTarget.parentElement.elevation=4},blurTextArea:function(t){event.currentTarget.parentElement.elevation=0},ifLengthIsRight:function(t){return t.length>6}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post-points',
+
+        behaviors: [
+          Polymer.appHelpers
+        ],
+
+        properties: {
+
+          downPoints: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          },
+
+          upPoints: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          },
+
+          textValueUp: {
+            type: String
+          },
+
+          textValueDown: {
+            type: String
+          },
+
+          newPointTextCombined: {
+            type: String
+          },
+
+          post: {
+            type: Object,
+            observer: "_postChanged"
+          },
+
+          points: {
+            type: Array,
+            value: null
+          },
+
+          largeMode: {
+            type: Boolean,
+            value: false
+          },
+
+          textValueMobileUpOrDown: String,
+
+          labelMobileUpOrDown: String,
+
+          pointUpOrDownSelected: {
+            type: String,
+            observer: '_pointUpOrDownSelectedChanged',
+            value: 'pointFor'
+          }
+        },
+
+        _pointUpOrDownSelectedChanged: function (newValue) {
+          if (newValue=='pointFor') {
+            this.set('labelMobileUpOrDown', this.t('point.for'));
+          } else if (newValue=='pointAgainst') {
+            this.set('labelMobileUpOrDown', this.t('point.against'));
+          }
+        },
+
+        _postChanged: function (newPost) {
+          // Remove any manually inserted points when the list is updated
+          this.set('downPoints', null);
+          this.set('upPoints', null);
+          if (newPost) {
+            var params = '/api/posts/' + newPost.id + '/points';
+            this.$.ajax.url = '/votes/better_iceland_proxy';
+            this.$.ajax.params = { params: params };
+            this.$.ajax.generateRequest();
+          }
+        },
+
+        _response: function (event, detail) {
+          this.set('points', detail.response);
+          if (this.points.length > 0) {
+            this.set('upPoints', this.points.filter(function (x) {
+              return x.value > 0;
+            }));
+            this.set('downPoints', this.points.filter(function (x) {
+              return x.value < 0;
+            }));
+          } else {
+            this.set('upPoints', []);
+            this.set('downPoints', []);
+          }
+
+          this.fire('yp-debate-info', {
+            count: this.upPoints.length + this.downPoints.length,
+            firstPoint: this.upPoints[0]
+          });
+
+          this.set('points', this.interleaveArrays(this.upPoints, this.downPoints));
+        },
+
+        _insertNewPoint: function (point) {
+          if (this.largeMode) {
+            if (point.value > 0) {
+              this.unshift('upPoints', point);
+            } else if (point.value < 0) {
+              this.unshift('downPoints', point);
+            }
+          } else {
+            this.unshift('points', point);
+          }
+        },
+
+        _newPointResponse: function (event, detail) {
+          var point = detail.response;
+          if (point.value > 0) {
+            this.newPointTextCombined = this.t("point.forAdded") + " " + this.truncate(point.content, 21);
+            this.set("textValueUp", "");
+          } else {
+            this.newPointTextCombined = this.t("point.againstAdded") + " " + this.truncate(point.content, 21);
+            this.set("textValueDown", "");
+          }
+          this.set("textValueMobileUpOrDown", "");
+          this._insertNewPoint(point);
+          this.set('post.counter_points', this.post.counter_points + 1);
+          this.$.newPointToast.show();
+        },
+
+        addPointUp: function () {
+          this.addPoint(this.textValueUp, 1);
+          window.appGlobals.activity('add', 'pointUp');
+        },
+
+        addPointDown: function () {
+          this.addPoint(this.textValueDown, -1);
+          window.appGlobals.activity('add', 'pointDown');
+        },
+
+        addMobilePointUpOrDown: function () {
+          if (this.pointUpOrDownSelected=='pointFor') {
+            this.addPoint(this.textValueMobileUpOrDown, 1);
+            window.appGlobals.activity('add', 'pointUp');
+          } else if (this.pointUpOrDownSelected=='pointAgainst') {
+            this.addPoint(this.textValueMobileUpOrDown, -1);
+            window.appGlobals.activity('add', 'pointDown');
+          }
+        },
+
+        addPoint: function (content, value) {
+
+        },
+
+        focusUpPoint: function () {
+          window.appGlobals.activity('focus', 'pointUp');
+        },
+
+        focusDownPoint: function () {
+          window.appGlobals.activity('focus', 'pointDown');
+        },
+
+        focusTextArea: function (event) {
+          event.currentTarget.parentElement.elevation = 4;
+        },
+
+        blurTextArea: function (e) {
+          event.currentTarget.parentElement.elevation = 0;
+        },
+
+        ifLengthIsRight: function (textValue) {
+          return textValue.length > 6;
+        }
+
+      });
+    }());
+  </script>
 </dom-module>
 </div><dom-module id="yp-post">
   <template>
@@ -1630,6 +3304,202 @@
     </div>
   </template>
 
-  <script>!function(){Polymer({is:"yp-post",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{postId:{type:Number,value:null,observer:"_postIdChanged"},post:{type:Object,value:null,notify:!0,observer:"_postChanged"},selected:{type:Number,value:0,observer:"selectedChanged"},small:{type:Boolean},method:{type:String},mapActive:{type:Boolean,value:!1},postTabName:{type:String,value:null,observer:"_tabNameChanged"},wideWidth:{type:Boolean,value:!1},createFabIcon:{type:String,value:null},postIdRoutePath:{type:Object,observer:"_postIdRoutePathChanged"}},reset:function(){this.set("post",null),this.set("postId",null)},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_postIdRoutePathChanged:function(t){t&&t.prefix&&"/post"==t.prefix&&this.set("postId",t.path.slice(1))},_tabNameChanged:function(t,e){t&&t!=e&&("debate"==t?this.set("selected",0):"news"==t?this.set("selected",1):"location"==t?this.set("selected",2):"photos"==t&&this.set("selected",3))},listeners:{"yp-debate-info":"_updateDebateInfo","yp-post-image-count":"_updatePostImageCount"},_updatePostImageCount:function(t,e){var o=this.$$("#tabCountPhotos");o&&(o.innerHTML=this.formatNumber(e))},_updateDebateInfo:function(t,e){var o=this.$$("#tabCountDebate");o&&(o.innerHTML=this.formatNumber(e.count)),this.$.postCard.updateDescriptionIfEmpty(e.firstPoint.content)},_mainContainerClasses:function(t){return t?"layout horizontal wrap":"layout horizontal center-center"},_headerClasses:function(t){return t?"layout vertical postHeader wrap":"layout horizontal postHeader"},postName:function(t){return t&&t.name?this.truncate(this.trim(t.name),200):t?t.short_name:void 0},postDescription:function(t){return t&&t.description?this.truncate(this.trim(t.description),1e4,"..."):""},_refresh:function(){this.$.ajax.generateRequest()},_postChanged:function(t,e){},_postIdChanged:function(t,e){t?(this.set("post",null),this._getPost()):this.set("post",null)},_getPost:function(){var t="/api/posts/"+this.postId;this.$.ajax.url="/votes/better_iceland_proxy",this.$.ajax.params={params:t},this.$.ajax.generateRequest()},_response:function(t,e,o){this.set("post",e.response),null===this.post.description&&(this.post.description=this.post.Points[0].content,this.post.Points.shift())},selectedChanged:function(t,e){0==t?window.appGlobals.activity("open","pointsTab"):1==t&&window.appGlobals.activity("open","photosTab")},ready:function(){},computeUrl:function(t){return"/api/posts/"+t}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post',
+
+        behaviors: [
+          Polymer.appHelpers,
+          Polymer.AppLocalizeBehavior
+        ],
+
+        properties: {
+
+          postId: {
+            type: Number,
+            value: null,
+            observer: "_postIdChanged"
+          },
+
+          post: {
+            type: Object,
+            value: null,
+            notify: true,
+            observer: "_postChanged"
+          },
+
+          selected: {
+            type: Number,
+            value: 0,
+            observer: 'selectedChanged'
+          },
+
+          small: {
+            type: Boolean
+          },
+
+          method: {
+            type: String
+          },
+
+          mapActive: {
+            type: Boolean,
+            value: false
+          },
+
+          postTabName: {
+            type: String,
+            value: null,
+            observer: '_tabNameChanged'
+          },
+
+          wideWidth: {
+            type: Boolean,
+            value: false
+          },
+
+          createFabIcon: {
+            type: String,
+            value: null
+          },
+
+          postIdRoutePath: {
+            type: Object,
+            observer: '_postIdRoutePathChanged'
+          }
+        },
+
+        reset: function () {
+          this.set('post', null);
+          this.set('postId', null);
+        },
+
+        attached: function () {
+          this.loadLanguage(this.resolveUrl('/src/locales.json'));
+        },
+
+        _postIdRoutePathChanged: function (newPathForId) {
+          if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/post") {
+            this.set('postId', newPathForId.path.slice(1));
+          }
+        },
+
+        _tabNameChanged: function (newValue, oldValue) {
+          if (newValue && (newValue!=oldValue)) {
+            if (newValue=='debate') {
+              this.set('selected', 0);
+            } else if (newValue=='news') {
+              this.set('selected', 1);
+            } else if (newValue=='location') {
+              this.set('selected', 2);
+            } else if (newValue=='photos') {
+              this.set('selected', 3);
+            }
+          }
+        },
+
+        listeners: {
+          'yp-debate-info': '_updateDebateInfo',
+          'yp-post-image-count': '_updatePostImageCount'
+        },
+
+        _updatePostImageCount: function (event, imageCount) {
+          var tabCounter = this.$$('#tabCountPhotos');
+          if (tabCounter) {
+            tabCounter.innerHTML = this.formatNumber(imageCount);
+          }
+        },
+
+        _updateDebateInfo: function (event, detail) {
+          var tabCounter = this.$$('#tabCountDebate');
+          if (tabCounter) {
+            tabCounter.innerHTML = this.formatNumber(detail.count);
+          }
+          this.$.postCard.updateDescriptionIfEmpty(detail.firstPoint.content);
+        },
+
+        _mainContainerClasses: function(small) {
+          if (small) {
+            return "layout horizontal wrap";
+          } else {
+            return "layout horizontal center-center";
+          }
+        },
+
+        _headerClasses: function(small) {
+          if (small) {
+            return "layout vertical postHeader wrap";
+          } else {
+            return "layout horizontal postHeader";
+          }
+        },
+
+        postName: function (post) {
+          if (post && post.name) {
+            return this.truncate(this.trim(post.name), 200);
+          } else if (post) {
+            return post.short_name;
+          }
+        },
+
+        postDescription: function (post) {
+          if (post && post.description) {
+            return this.truncate(this.trim(post.description), 10000, '...');
+          } else {
+            return "";
+          }
+        },
+
+        _refresh: function () {
+          this.$.ajax.generateRequest();
+        },
+
+        _postChanged: function (newValue, oldValue) {
+        },
+
+        _postIdChanged: function (newValue, oldValue) {
+          if (newValue) {
+            this.set("post", null);
+            this._getPost();
+          } else {
+            this.set("post",null);
+          }
+        },
+
+        _getPost: function () {
+          var params = '/api/posts/' + this.postId;
+          this.$.ajax.url = '/votes/better_iceland_proxy';
+          this.$.ajax.params = { params: params };
+          this.$.ajax.generateRequest();
+        },
+
+        _response: function (event, detail, sender) {
+          this.set("post", detail.response);
+
+          if (this.post.description === null) {
+            this.post.description = this.post.Points[0].content;
+            this.post.Points.shift();
+          }
+        },
+
+        selectedChanged: function (selected, oldValue) {
+          if (selected == 0)
+            window.appGlobals.activity('open', 'pointsTab');
+          else if (selected == 1)
+            window.appGlobals.activity('open', 'photosTab');
+        },
+
+        ready: function () {
+
+        },
+
+        computeUrl: function (post_id) {
+          return '/api/posts/' + post_id;
+        }
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

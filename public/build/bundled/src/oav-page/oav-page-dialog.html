@@ -1,15 +1,15 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.2.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.2.1">
 
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.2.1">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.2.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.2.1">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=5.2.1">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.2.1">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html?v=5.2.1">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.2.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.2.1">
 
 </head><body><dom-module id="oav-page-dialog">
   <template>
@@ -89,6 +89,43 @@
     </paper-dialog>
   </template>
 
-  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String}},open:function(i){"is"==this.language?this.set("title","Okkar Kópavogur - Upplýsingar"):this.set("title","Okkar Kópavogur - Information"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_close:function(){this.set("title",null)}});</script>
+  <script>
+    Polymer({
+
+      is: 'oav-page-dialog',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+        title: {
+          type: String
+        }
+      },
+
+      open: function (title) {
+        if (this.language=='is') {
+          this.set('title', "Okkar Kópavogur - Upplýsingar");
+        } else {
+          this.set('title', "Okkar Kópavogur - Information");
+        }
+        //this.$.content.innerHTML = content;
+        this.$.dialog.fit();
+        this.$.dialog.notifyResize();
+        this.$.dialog.open();
+      },
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      _close: function () {
+        this.set('title', null);
+       //this.$.content.innerHTML = '';
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

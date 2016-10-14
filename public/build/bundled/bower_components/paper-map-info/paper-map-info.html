@@ -1,10 +1,64 @@
-<html><head><script src="../underscore/underscore.js"></script>
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer-ts/polymer-ts.html">
-<link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
+<!--
+@license
+Copyright (c) 2016 Murray Lisook. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+--><!--
+The `paper-map-info` element renders an infowindow on a Google Map.
 
+Why you ask?  Because the native infowindow does not support event handlers
+within the infowindow, e.g. <paper-button on-tap="doStuff">Stuff</paper-button>.
 
+<paper-map-info> is more composable. It should work with any elements and event bindings.
+You could even include <iron-pages> inside the window.
+
+Hopefully, this is a temporary solution and the issues with interactive content
+in the native infowindow will be resolved. It is being worked on.
+
+<b>Example</b>:
+
+<google-map latitude="40.7555" longitude="-73.985" on-google-map-ready="_mapReady" fit-to-markers>
+  <template is="dom-repeat" items="[[friends]]" as="f">
+    <google-map-marker click-events latitude="[[f.lat]]" longitude="[[f.lng]]" on-google-map-marker-click="_markerClick">
+    </google-map-marker>
+  </template>
+  <paper-map-info id="myinfocard" fade-in>
+    <div class="layout horizontal">
+      <img src$="[[selectedFriend.picture]]" alt$="[[selectedFriend.name]]" >
+      <paper-icon-button icon="communication:chat" on-tap="_startFriendChat"></paper-icon-button>
+    </div>
+  </paper-map-info>
+</google-map>
+
+_markerClick: function(e) {
+  this.selectedFriend = e.model.get('f');
+  this.$.myinfocard.showInfoWindow(e.srcElement.marker);
+},
+_startFriendChat: function(e) {
+  ... do something with this.selectedFriend to chat
+}
+
+--><html><head><script src="../underscore/underscore.js"></script>
+<link rel="import" href="../polymer/polymer.html?v=5.2.1">
+<link rel="import" href="../polymer-ts/polymer-ts.html?v=5.2.1">
+<link rel="import" href="../paper-material/paper-material.html?v=5.2.1">
+<link rel="import" href="../iron-icon/iron-icon.html?v=5.2.1">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <paper-map-info></paper-map-info>
+
+Example:
+
+    <paper-map-info>
+      <h2>Hello paper-map-info</h2>
+    </paper-map-info>
+
+@demo demo/index.html
+@hero hero.svg
+-->
 
 </head><body><dom-module id="paper-map-info">
   <template>

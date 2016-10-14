@@ -1,9 +1,110 @@
-<html><head><link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../helpers/helpers.html">
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><html><head><link rel="import" href="../../polymer/polymer.html?v=5.2.1">
+<link rel="import" href="../helpers/helpers.html?v=5.2.1">
 
+<!--
+app-scrollpos-control is a manager for saving and restoring the scroll position when multiple
+pages are sharing the same document scroller.
 
+Example:
+
+```html
+<app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+
+<app-drawer-layout>
+
+  <app-drawer>
+    <paper-menu selected="{{page}}">
+      <paper-item>Home</paper-item>
+      <paper-item>About</paper-item>
+      <paper-item>Schedule</paper-item>
+      <paper-item>Account</paper-item>
+    </paper-menu>
+  </app-drawer>
+
+  <div>
+    <app-toolbar>
+      <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+    </app-toolbar>
+    <iron-pages selected="{{page}}">
+      <sample-content size="100"></sample-content>
+      <sample-content size="100"></sample-content>
+      <sample-content size="100"></sample-content>
+      <sample-content size="100"></sample-content>
+    </iron-pages>
+  </div>
+
+</app-drawer-layout>
+```
+
+@group App Elements
+@element app-scrollpos-control
+@demo app-scrollpos-control/demo/index.html
+-->
 
 </head><body><dom-module id="app-scrollpos-control">
-  <script>Polymer({is:"app-scrollpos-control",properties:{selected:{type:String,observer:"_selectedChanged"},reset:{type:Boolean,value:!1}},observers:["_updateScrollPos(selected, reset)"],created:function(){this._scrollposMap={}},_selectedChanged:function(e,o){null!=o&&(this._scrollposMap[o]={x:window.pageXOffset,y:window.pageYOffset})},_updateScrollPos:function(e,o){this.debounce("_updateScrollPos",function(){var e=this._scrollposMap[this.selected];null==e||this.reset?this._scrollTo(0,0):this._scrollTo(e.x,e.y)})},_scrollTo:function(e,o){Polymer.AppLayout.scroll({left:e,top:o,behavior:"silent"})}});</script>
+  <script>
+    Polymer({
+      is: 'app-scrollpos-control',
+
+      properties: {
+        /**
+         * The selected page.
+         */
+        selected: {
+          type: String,
+          observer: '_selectedChanged'
+        },
+
+        /**
+         * Reset the scroll position to 0.
+         */
+        reset: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      observers: [
+        '_updateScrollPos(selected, reset)'
+      ],
+
+      created: function() {
+        this._scrollposMap = {};
+      },
+
+      _selectedChanged: function(selected, old) {
+        if (old != null) {
+          this._scrollposMap[old] = {x: window.pageXOffset, y: window.pageYOffset};
+        }
+      },
+
+      _updateScrollPos: function(selected, reset) {
+        this.debounce('_updateScrollPos', function() {
+          var pos = this._scrollposMap[this.selected];
+          if (pos != null && !this.reset) {
+            this._scrollTo(pos.x, pos.y);
+          } else {
+            this._scrollTo(0, 0);
+          }
+        });
+      },
+
+      _scrollTo: function(x, y) {
+        Polymer.AppLayout.scroll({
+          left: x,
+          top: y,
+          behavior: 'silent'
+        });
+      }
+    });
+  </script>
 </dom-module>
 </body></html>
