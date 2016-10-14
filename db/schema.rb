@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725111036) do
+ActiveRecord::Schema.define(version: 20161014010049) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "resource_id",   limit: 255,   null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20160725111036) do
   add_index "budget_ballot_item_translations", ["locale"], name: "index_budget_ballot_item_translations_on_locale", using: :btree
 
   create_table "budget_ballot_items", force: :cascade do |t|
-    t.string   "idea_url",                  limit: 255
+    t.string   "idea_url",              limit: 255
     t.float    "price",                 limit: 24,  null: false
     t.integer  "idea_id",               limit: 4,   null: false
     t.integer  "budget_ballot_area_id", limit: 4,   null: false
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20160725111036) do
     t.text     "public_key",                          limit: 65535
     t.text     "known_x509_cert",                     limit: 65535
     t.text     "areas_imagemap",                      limit: 65535
+    t.text     "counting_progress",                   limit: 65535
   end
 
   create_table "final_split_votes", force: :cascade do |t|
