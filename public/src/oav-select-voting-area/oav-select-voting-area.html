@@ -99,39 +99,74 @@
       margin-top: 48px;
     }
 
-    .voteNumberForKarsnes {
+    .voteNumberForVesturbaer {
       position: absolute;
       top: 120px;
       left: 30px;
-      color: #ce8716;
+      color: #95c11a;
     }
 
-    .voteNumberForDigranes {
+    .voteNumberForMidborg {
       position: absolute;
       top: 45px;
       right: 140px;
-      color: #69b559;
+      color: #2ba9e0;
     }
 
-    .voteNumberForSmarinn {
+    .voteNumberForHlidar {
       position: absolute;
       top: 205px;
       left: 100px;
-      color: #44a3bc;
+      color: #f39100;
     }
 
-    .voteNumberForLindir {
+    .voteNumberForHaaleiti {
       position: absolute;
       top: 275px;
       left: 210px;
-      color: #ecd344;
+      color: #10a19a;
     }
 
-    .voteNumberForVatnsendi {
+    .voteNumberForLaugardalur {
       position: absolute;
       bottom: 60px;
       left: 340px;
-      color: #cc511f;
+      color: #be6a95;
+    }
+
+    .voteNumberForBreidholt {
+      position: absolute;
+      top: 120px;
+      left: 30px;
+      color: #0e70b8;
+    }
+
+    .voteNumberForArbaer {
+      position: absolute;
+      top: 45px;
+      right: 140px;
+      color: #bfc005;
+    }
+
+    .voteNumberForGrafarvogur {
+      position: absolute;
+      top: 205px;
+      left: 100px;
+      color: #da616b;
+    }
+
+    .voteNumberForGrafarholt {
+      position: absolute;
+      top: 275px;
+      left: 210px;
+      color: #10a19a;
+    }
+
+    .voteNumberForKjalarnes {
+      position: absolute;
+      bottom: 60px;
+      left: 340px;
+      color: #2aac65;
     }
 
     .voteNumberGeneral {
@@ -144,33 +179,45 @@
       height: 40px;
     }
 
-    .voteNumberForKarsnesMobile {
-      color: #ce8716;
-      padding-top: 16px;
-      padding-left: 8px;
+    .voteNumberForVesturbaerMobile {
+      color: #95c11a;
     }
 
-    .voteNumberForDigranesMobile {
-      color: #69b559;
-      padding-top: 16px;
-      padding-left: 8px;
+    .voteNumberForMidborgMobile {
+      color: #2ba9e0;
     }
 
-    .voteNumberForSmarinnMobile {
-      color: #44a3bc;
-      padding-top: 8px;
-      padding-right: 8px;
+    .voteNumberForHlidarMobile {
+      color: #f39100;
     }
 
-    .voteNumberForLindirMobile {
-      color: #ecd344;
-      padding-top: 32px;
+    .voteNumberForHaaleitiMobile {
+      color: #10a19a;
     }
 
-    .voteNumberForVatnsendiMobile {
-      color: #cc511f;
+    .voteNumberForLaugardalurMobile {
+      color: #be6a95;
     }
 
+    .voteNumberForBreidholtMobile {
+      color: #0e70b8;
+    }
+
+    .voteNumberForArbaerMobile {
+      color: #bfc005;
+    }
+
+    .voteNumberForGrafarvogurMobile {
+      color: #da616b;
+    }
+
+    .voteNumberForGrafarholtMobile {
+      color: #10a19a;
+    }
+
+    .voteNumberForKjalarnesMobile {
+      color: #2aac65;
+    }
     .voteNumberGeneralMobile {
       padding-left: 3px;
       font-size: 22px;
@@ -344,11 +391,16 @@
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaer layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidbaer layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidar layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleiti layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalur layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholt layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaer layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogur layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholt layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div>
             </template>
           </paper-material>
         </template>
