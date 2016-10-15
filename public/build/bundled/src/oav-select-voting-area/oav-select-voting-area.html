@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.2.5"></head><body><dom-module id="oav-select-voting-area">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.4.1"></head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
 
     :host {
@@ -56,7 +56,7 @@
     @media (max-width: 600px) {
       .imageContainer {
         background-image: none;
-        background-color: #e0e0e0;
+        background-color: #f0f0f0;
       }
     }
 
@@ -77,44 +77,80 @@
       margin-top: 48px;
     }
 
-    .voteNumberForKarsnes {
+    .voteNumberForVesturbaer {
       position: absolute;
-      top: 120px;
-      left: 30px;
-      color: #ce8716;
+      top: 244px;
+      right: 746px;
+      color: #95c11a;
     }
 
-    .voteNumberForDigranes {
+    .voteNumberForMidborg {
       position: absolute;
-      top: 45px;
-      right: 140px;
-      color: #69b559;
+      top: 356px;
+      right: 662px;
+      color: #2ba9e0;
     }
 
-    .voteNumberForSmarinn {
+    .voteNumberForHlidar {
       position: absolute;
-      top: 205px;
-      left: 100px;
-      color: #44a3bc;
+      top: 196px;
+      right: 516px;
+      color: #f39100;
     }
 
-    .voteNumberForLindir {
+    .voteNumberForHaaleiti {
       position: absolute;
-      top: 275px;
-      left: 210px;
-      color: #ecd344;
+      top: 332px;
+      left: 546px;
+      color: #10a19a;
     }
 
-    .voteNumberForVatnsendi {
+    .voteNumberForLaugardalur {
       position: absolute;
-      bottom: 60px;
-      left: 340px;
-      color: #cc511f;
+      top: 160px;
+      right: 444px;
+      color: #be6a95;
+    }
+
+    .voteNumberForBreidholt {
+      position: absolute;
+      bottom: 22px;
+      left: 648px;
+      color: #0e70b8;
+    }
+
+    .voteNumberForArbaer {
+      position: absolute;
+      bottom: 110px;
+      left: 728px;
+      color: #bfc005;
+    }
+
+    .voteNumberForGrafarvogur {
+      position: absolute;
+      top: 175px;
+      left: 620px;
+      color: #da616b;
+      direction: ltr;
+    }
+
+    .voteNumberForGrafarholt {
+      position: absolute;
+      bottom: 138px;
+      left: 765px;
+      color: #cc902f;
+    }
+
+    .voteNumberForKjalarnes {
+      position: absolute;
+      top: 32px;
+      right: 358px;
+      color: #2aac65;
     }
 
     .voteNumberGeneral {
       padding-left: 4px;
-      font-size: 28px;
+      font-size: 15px;
     }
 
     .checkIcon {
@@ -122,36 +158,52 @@
       height: 40px;
     }
 
-    .voteNumberForKarsnesMobile {
-      color: #ce8716;
-      padding-top: 16px;
-      padding-left: 8px;
+    .voteNumberForVesturbaerMobile {
+      color: #95c11a;
     }
 
-    .voteNumberForDigranesMobile {
-      color: #69b559;
-      padding-top: 16px;
-      padding-left: 8px;
+    .voteNumberForMidborgMobile {
+      color: #2ba9e0;
     }
 
-    .voteNumberForSmarinnMobile {
-      color: #44a3bc;
+    .voteNumberForHlidarMobile {
+      color: #f39100;
+    }
+
+    .voteNumberForHaaleitiMobile {
       padding-top: 8px;
-      padding-right: 8px;
+      color: #10a19a;
     }
 
-    .voteNumberForLindirMobile {
-      color: #ecd344;
-      padding-top: 32px;
+    .voteNumberForLaugardalurMobile {
+      color: #be6a95;
+      padding-bottom: 8px;
     }
 
-    .voteNumberForVatnsendiMobile {
-      color: #cc511f;
+    .voteNumberForBreidholtMobile {
+      color: #0e70b8;
+    }
+
+    .voteNumberForArbaerMobile {
+      color: #bfc005;
+    }
+
+    .voteNumberForGrafarvogurMobile {
+      color: #da616b;
+    }
+
+    .voteNumberForGrafarholtMobile {
+      color: #cc902f;
+    }
+
+    .voteNumberForKjalarnesMobile {
+      color: #2aac65;
+      padding-bottom: 16px;
     }
 
     .voteNumberGeneralMobile {
       padding-left: 3px;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .checkIconMobile {
@@ -159,7 +211,7 @@
       height: 35px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
       .selectInfoText {
         font-size: 18px;
       }
@@ -201,7 +253,7 @@
       margin-left: 8px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
       .totalVoterCount {
         font-size: 17px;
         padding-left: 0px;
@@ -233,6 +285,10 @@
         background-color: #fff;
         padding-top: 16px;
         padding-bottom: 16px;
+      }
+
+      .mobileBackground {
+        background-color: #f0f0f0;
       }
     }
 
@@ -268,12 +324,11 @@
     .mobileIronImage {
       padding-bottom: 12px;
     }
-
   </style>
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
-    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(min-width: 800px)" query-matches="{{wide}}"></iron-media-query>
 
     <template is="dom-if" if="[[areas]]">
 
@@ -322,52 +377,92 @@
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindir layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIcon" icon="verified-user"></iron-icon><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaer layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborg layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidar layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleiti layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaer layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnes layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div>
             </template>
           </paper-material>
         </template>
       </div>
 
       <template is="dom-if" if="[[!wide]]">
-        <div class="layout vertical center-center">
+        <div class="layout vertical center-center mobileBackground">
           <paper-material elevation="5" class="mobileMaterial layout vertical center-center">
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
               <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForKarsnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
                 <a href="/#/area-ballot/1">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogur_kort_mobile_karsnes.png"></iron-image>
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Vesturb%C3%A6r.png"></iron-image>
                 </a>
               </div>
 
               <div class="layout horizontal">
                 <a href="/#/area-ballot/2">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogur_kort_mobile_digranes.png"></iron-image>
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Midbaer.png"></iron-image>
                 </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForDigranesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborgMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
               </div>
 
               <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForSmarinnMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidarMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
                 <a href="/#/area-ballot/3">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogur_kort_mobile_smarinn.png"></iron-image>
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Hlidar.png"></iron-image>
                 </a>
               </div>
 
               <div class="layout horizontal">
                 <a href="/#/area-ballot/4">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogur_kort_mobile_lindir.png"></iron-image>
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HaaleitiBust.png"></iron-image>
                 </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForLindirMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleitiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
               </div>
 
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVatnsendiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
               <a href="/#/area-ballot/5">
-                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/kopavogur_kort_mobile_vatnsendi.png"></iron-image>
+                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Laugardalur.png"></iron-image>
               </a>
+
+
+              <div class="layout horizontal">
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
+                <a href="/#/area-ballot/6">
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Breidholt.png"></iron-image>
+                </a>
+              </div>
+
+              <div class="layout horizontal">
+                <a href="/#/area-ballot/7">
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Arbaer.png"></iron-image>
+                </a>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
+              </div>
+
+              <div class="layout horizontal">
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
+                <a href="/#/area-ballot/8">
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Grafarvogur.png"></iron-image>
+                </a>
+              </div>
+
+              <div class="layout horizontal">
+                <a href="/#/area-ballot/9">
+                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/GrafarhUlfars.png"></iron-image>
+                </a>
+                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
+              </div>
+
+              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
+              <a href="/#/area-ballot/10">
+                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Kjalarnes.png"></iron-image>
+              </a>
+
             </template>
           </paper-material>
         </div>
@@ -441,7 +536,7 @@
         this.set('areas', detail.response.areas);
         this.set('areaVoterCount', null);
         this.async(function () {
-          //this.set('areaVoterCount', detail.response.area_voter_count);
+          this.set('areaVoterCount', detail.response.area_voter_count);
           this.set('totalVoterCount', this.formatNumber(detail.response.total_voter_count));
         }.bind(this));
 
