@@ -56,6 +56,12 @@
       height: 225px;
     }
 
+    @media (max-width: 940px) {
+      .infoImageContainer {
+        display: none;
+      }
+    }
+
     .topMaterial {
       width: 400px;
       height: 225px;
@@ -376,7 +382,7 @@
             </paper-material>
           </div>
 
-          <paper-material elevation="3" class="topMaterial" hidden$="[[!wide]]">
+          <paper-material elevation="3" class="topMaterial infoImageContainer" hidden$="[[!wide]]">
             <iron-image sizing="contain" class="infoImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/hausMynd.png"></iron-image>
           </paper-material>
         </div>
