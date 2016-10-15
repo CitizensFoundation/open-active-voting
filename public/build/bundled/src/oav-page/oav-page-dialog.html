@@ -1,15 +1,18 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.4.1">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.4.1">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.4.2">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.4.2">
 
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.4.1">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.4.1">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.4.1">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=5.4.1">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.4.1">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html?v=5.4.1">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.4.1">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.4.2">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.4.2">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.4.2">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=5.4.2">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.4.2">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html?v=5.4.2">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.4.2">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.4.1">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.4.2">
+
+<link rel="import" href="hm_2016_is_help.html?v=5.4.2">
+<link rel="import" href="hm_2016_en_help.html?v=5.4.2">
 
 </head><body><dom-module id="oav-page-dialog">
   <template>
@@ -33,12 +36,12 @@
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
-            <link rel="import" href="hm_2016_is_help.html?v=5.4.1">
+            <hm-2016-is-help></hm-2016-is-help>
           </div>
         </template>
         <template is="dom-if" if="[[enLanguage]]">
           <div id="enContent">
-            <link rel="import" href="hm_2016_en_help.html?v=5.4.1">
+            <hm-2016-en-help></hm-2016-en-help>
           </div>
         </template>
       </paper-dialog-scrollable>
