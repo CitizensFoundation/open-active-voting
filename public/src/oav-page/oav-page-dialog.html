@@ -11,6 +11,9 @@
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
+<link rel="import" href="hm_2016_is_help.html">
+<link rel="import" href="hm_2016_en_help.html">
+
 <dom-module id="oav-page-dialog">
   <template>
     <style>
@@ -33,12 +36,12 @@
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
-            <link rel="import" href="hm_2016_is_help.html">
+            <hm-2016-is-help></hm-2016-is-help>
           </div>
         </template>
         <template is="dom-if" if="[[enLanguage]]">
           <div id="enContent">
-            <link rel="import" href="hm_2016_en_help.html">
+            <hm-2016-en-help></hm-2016-en-help>
           </div>
         </template>
       </paper-dialog-scrollable>
