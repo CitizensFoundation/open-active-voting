@@ -161,7 +161,7 @@ class BudgetVoteCounting
 
   # Add all the decrypted votes from this ballot
   def add_votes(item_array)
-    puts item_array.to_s
+    #puts item_array.to_s
     item_array.each do |item_id|
       raise "Voted ballot item not found" unless BudgetBallotItem.where(:id=>item_id).first
       # If the counting hash for item does not exists created it
