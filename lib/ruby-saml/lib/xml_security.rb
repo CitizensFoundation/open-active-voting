@@ -328,7 +328,7 @@ module XMLSecurity
       Rails.logger.info "COUNT"
       ssn_count = document.to_s.scan(/UserSSN/).count
       Rails.logger.info ssn_count
-      if ssn_count>1
+      if ssn_count>0
         return append_error("Duplicate SSN parameters", soft)
       end
 
