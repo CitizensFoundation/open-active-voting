@@ -11128,7 +11128,7 @@ in every element that needs to use them.
 
   Sample use:
 
-      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.4.43">
+      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.4.44">
       <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
 
       <div class="layout horizontal layout-start">
@@ -22007,7 +22007,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.4.43">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.4.44">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -22015,7 +22015,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.4.43">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.4.44">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -24901,7 +24901,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.4.43" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.4.44" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -27538,8 +27538,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.4.43">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.4.43">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.4.44">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.4.44">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -28385,6 +28385,388 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><script>
+  /**
+   * `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
+   *
+   * @polymerBehavior Polymer.PaperInkyFocusBehavior
+   */
+  Polymer.PaperInkyFocusBehaviorImpl = {
+    observers: [
+      '_focusedChanged(receivedFocusFromKeyboard)'
+    ],
+
+    _focusedChanged: function(receivedFocusFromKeyboard) {
+      if (receivedFocusFromKeyboard) {
+        this.ensureRipple();
+      }
+      if (this.hasRipple()) {
+        this._ripple.holdDown = receivedFocusFromKeyboard;
+      }
+    },
+
+    _createRipple: function() {
+      var ripple = Polymer.PaperRippleBehavior._createRipple();
+      ripple.id = 'ink';
+      ripple.setAttribute('center', '');
+      ripple.classList.add('circle');
+      return ripple;
+    }
+  };
+
+  /** @polymerBehavior Polymer.PaperInkyFocusBehavior */
+  Polymer.PaperInkyFocusBehavior = [
+    Polymer.IronButtonState,
+    Polymer.IronControlState,
+    Polymer.PaperRippleBehavior,
+    Polymer.PaperInkyFocusBehaviorImpl
+  ];
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+Material design: [Icon toggles](https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons)
+
+`paper-icon-button` is a button with an image placed at the center. When the user touches
+the button, a ripple effect emanates from the center of the button.
+
+`paper-icon-button` includes a default icon set.  Use `icon` to specify which icon
+from the icon set to use.
+
+    <paper-icon-button icon="menu"></paper-icon-button>
+
+See [`iron-iconset`](iron-iconset) for more information about
+how to use a custom icon set.
+
+Example:
+
+    <link href="path/to/iron-icons/iron-icons.html?v=5.4.44" rel="import">
+
+    <paper-icon-button icon="favorite"></paper-icon-button>
+    <paper-icon-button src="star.png"></paper-icon-button>
+
+To use `paper-icon-button` as a link, wrap it in an anchor tag. Since `paper-icon-button`
+will already receive focus, you may want to prevent the anchor tag from receiving focus
+as well by setting its tabindex to -1.
+
+    <a href="https://www.polymer-project.org" tabindex="-1">
+      <paper-icon-button icon="polymer"></paper-icon-button>
+    </a>
+
+### Styling
+
+Style the button with CSS as you would a normal DOM element. If you are using the icons
+provided by `iron-icons`, they will inherit the foreground color of the button.
+
+    /* make a red "favorite" button */
+    <paper-icon-button icon="favorite" style="color: red;"></paper-icon-button>
+
+By default, the ripple is the same color as the foreground at 25% opacity. You may
+customize the color using the `--paper-icon-button-ink-color` custom property.
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-icon-button-disabled-text` | The color of the disabled button | `--disabled-text-color`
+`--paper-icon-button-ink-color` | Selected/focus ripple color | `--primary-text-color`
+`--paper-icon-button` | Mixin for a button | `{}`
+`--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
+`--paper-icon-button-hover` | Mixin for button on hover | `{}`
+
+@group Paper Elements
+@element paper-icon-button
+@demo demo/index.html
+-->
+
+<dom-module id="paper-icon-button" assetpath="../bower_components/paper-icon-button/">
+  <template strip-whitespace="">
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+        padding: 8px;
+        outline: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 0;
+        line-height: 1;
+
+        width: 40px;
+        height: 40px;
+
+        /* NOTE: Both values are needed, since some phones require the value to be `transparent`. */
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
+
+        /* Because of polymer/2558, this style has lower specificity than * */
+        box-sizing: border-box !important;
+
+        @apply(--paper-icon-button);
+      }
+
+      :host #ink {
+        color: var(--paper-icon-button-ink-color, --primary-text-color);
+        opacity: 0.6;
+      }
+
+      :host([disabled]) {
+        color: var(--paper-icon-button-disabled-text, --disabled-text-color);
+        pointer-events: none;
+        cursor: auto;
+
+        @apply(--paper-icon-button-disabled);
+      }
+
+      :host(:hover) {
+        @apply(--paper-icon-button-hover);
+      }
+
+      iron-icon {
+        --iron-icon-width: 100%;
+        --iron-icon-height: 100%;
+      }
+    </style>
+
+    <iron-icon id="icon" src="[[src]]" icon="[[icon]]" alt$="[[alt]]"></iron-icon>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'paper-icon-button',
+
+      hostAttributes: {
+        role: 'button',
+        tabindex: '0'
+      },
+
+      behaviors: [
+        Polymer.PaperInkyFocusBehavior
+      ],
+
+      properties: {
+        /**
+         * The URL of an image for the icon. If the src property is specified,
+         * the icon property should not be.
+         */
+        src: {
+          type: String
+        },
+
+        /**
+         * Specifies the icon name or index in the set of icons available in
+         * the icon's icon set. If the icon property is specified,
+         * the src property should not be.
+         */
+        icon: {
+          type: String
+        },
+
+        /**
+         * Specifies the alternate text for the button, for accessibility.
+         */
+        alt: {
+          type: String,
+          observer: "_altChanged"
+        }
+      },
+
+      _altChanged: function(newValue, oldValue) {
+        var label = this.getAttribute('aria-label');
+
+        // Don't stomp over a user-set aria-label.
+        if (!label || oldValue == label) {
+          this.setAttribute('aria-label', newValue);
+        }
+      }
+    });
+  </script>
+</dom-module>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`paper-tab` is styled to look like a tab.  It should be used in conjunction with
+`paper-tabs`.
+
+Example:
+
+    <paper-tabs selected="0">
+      <paper-tab>TAB 1</paper-tab>
+      <paper-tab>TAB 2</paper-tab>
+      <paper-tab>TAB 3</paper-tab>
+    </paper-tabs>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-tab-ink` | Ink color | `--paper-yellow-a100`
+`--paper-tab` | Mixin applied to the tab | `{}`
+`--paper-tab-content` | Mixin applied to the tab content | `{}`
+`--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
+
+This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
+
+-->
+
+<dom-module id="paper-tab" assetpath="../bower_components/paper-tabs/">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-inline);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
+        @apply(--layout-flex-auto);
+
+        position: relative;
+        padding: 0 12px;
+        overflow: hidden;
+        cursor: pointer;
+        vertical-align: middle;
+
+        @apply(--paper-font-common-base);
+        @apply(--paper-tab);
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+
+      :host([link]) {
+        padding: 0;
+      }
+
+      .tab-content {
+        height: 100%;
+        transform: translateZ(0);
+          -webkit-transform: translateZ(0);
+        transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--layout-flex-auto);
+        @apply(--paper-tab-content);
+      }
+
+      :host(:not(.iron-selected)) > .tab-content {
+        opacity: 0.8;
+
+        @apply(--paper-tab-content-unselected);
+      }
+
+      :host(:focus) .tab-content {
+        opacity: 1;
+        font-weight: 700;
+      }
+
+      paper-ripple {
+        color: var(--paper-tab-ink, --paper-yellow-a100);
+      }
+
+      .tab-content > ::content > a {
+        @apply(--layout-flex-auto);
+
+        height: 100%;
+      }
+    </style>
+
+    <div class="tab-content">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'paper-tab',
+
+      behaviors: [
+        Polymer.IronControlState,
+        Polymer.IronButtonState,
+        Polymer.PaperRippleBehavior
+      ],
+
+      properties: {
+
+        /**
+         * If true, the tab will forward keyboard clicks (enter/space) to
+         * the first anchor element found in its descendants
+         */
+        link: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        }
+
+      },
+
+      hostAttributes: {
+        role: 'tab'
+      },
+
+      listeners: {
+        down: '_updateNoink',
+        tap: '_onTap'
+      },
+
+      attached: function() {
+        this._updateNoink();
+      },
+
+      get _parentNoink () {
+        var parent = Polymer.dom(this).parentNode;
+        return !!parent && !!parent.noink;
+      },
+
+      _updateNoink: function() {
+        this.noink = !!this.noink || !!this._parentNoink;
+      },
+
+      _onTap: function(event) {
+        if (this.link) {
+          var anchor = this.queryEffectiveChildren('a');
+
+          if (!anchor) {
+            return;
+          }
+
+          // Don't get stuck in a loop delegating
+          // the listener from the child anchor
+          if (event.target === anchor) {
+            return;
+          }
+
+          anchor.click();
+        }
+      }
+
+    });
+  </script>
+</dom-module>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><script>
   /** @polymerBehavior Polymer.IronMultiSelectableBehavior */
   Polymer.IronMultiSelectableBehaviorImpl = {
     properties: {
@@ -28979,394 +29361,12 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script>
-  /**
-   * `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
-   *
-   * @polymerBehavior Polymer.PaperInkyFocusBehavior
-   */
-  Polymer.PaperInkyFocusBehaviorImpl = {
-    observers: [
-      '_focusedChanged(receivedFocusFromKeyboard)'
-    ],
-
-    _focusedChanged: function(receivedFocusFromKeyboard) {
-      if (receivedFocusFromKeyboard) {
-        this.ensureRipple();
-      }
-      if (this.hasRipple()) {
-        this._ripple.holdDown = receivedFocusFromKeyboard;
-      }
-    },
-
-    _createRipple: function() {
-      var ripple = Polymer.PaperRippleBehavior._createRipple();
-      ripple.id = 'ink';
-      ripple.setAttribute('center', '');
-      ripple.classList.add('circle');
-      return ripple;
-    }
-  };
-
-  /** @polymerBehavior Polymer.PaperInkyFocusBehavior */
-  Polymer.PaperInkyFocusBehavior = [
-    Polymer.IronButtonState,
-    Polymer.IronControlState,
-    Polymer.PaperRippleBehavior,
-    Polymer.PaperInkyFocusBehaviorImpl
-  ];
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-Material design: [Icon toggles](https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons)
-
-`paper-icon-button` is a button with an image placed at the center. When the user touches
-the button, a ripple effect emanates from the center of the button.
-
-`paper-icon-button` includes a default icon set.  Use `icon` to specify which icon
-from the icon set to use.
-
-    <paper-icon-button icon="menu"></paper-icon-button>
-
-See [`iron-iconset`](iron-iconset) for more information about
-how to use a custom icon set.
-
-Example:
-
-    <link href="path/to/iron-icons/iron-icons.html?v=5.4.43" rel="import">
-
-    <paper-icon-button icon="favorite"></paper-icon-button>
-    <paper-icon-button src="star.png"></paper-icon-button>
-
-To use `paper-icon-button` as a link, wrap it in an anchor tag. Since `paper-icon-button`
-will already receive focus, you may want to prevent the anchor tag from receiving focus
-as well by setting its tabindex to -1.
-
-    <a href="https://www.polymer-project.org" tabindex="-1">
-      <paper-icon-button icon="polymer"></paper-icon-button>
-    </a>
-
-### Styling
-
-Style the button with CSS as you would a normal DOM element. If you are using the icons
-provided by `iron-icons`, they will inherit the foreground color of the button.
-
-    /* make a red "favorite" button */
-    <paper-icon-button icon="favorite" style="color: red;"></paper-icon-button>
-
-By default, the ripple is the same color as the foreground at 25% opacity. You may
-customize the color using the `--paper-icon-button-ink-color` custom property.
-
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-icon-button-disabled-text` | The color of the disabled button | `--disabled-text-color`
-`--paper-icon-button-ink-color` | Selected/focus ripple color | `--primary-text-color`
-`--paper-icon-button` | Mixin for a button | `{}`
-`--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
-`--paper-icon-button-hover` | Mixin for button on hover | `{}`
-
-@group Paper Elements
-@element paper-icon-button
-@demo demo/index.html
--->
-
-<dom-module id="paper-icon-button" assetpath="../bower_components/paper-icon-button/">
-  <template strip-whitespace="">
-    <style>
-      :host {
-        display: inline-block;
-        position: relative;
-        padding: 8px;
-        outline: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        cursor: pointer;
-        z-index: 0;
-        line-height: 1;
-
-        width: 40px;
-        height: 40px;
-
-        /* NOTE: Both values are needed, since some phones require the value to be `transparent`. */
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-tap-highlight-color: transparent;
-
-        /* Because of polymer/2558, this style has lower specificity than * */
-        box-sizing: border-box !important;
-
-        @apply(--paper-icon-button);
-      }
-
-      :host #ink {
-        color: var(--paper-icon-button-ink-color, --primary-text-color);
-        opacity: 0.6;
-      }
-
-      :host([disabled]) {
-        color: var(--paper-icon-button-disabled-text, --disabled-text-color);
-        pointer-events: none;
-        cursor: auto;
-
-        @apply(--paper-icon-button-disabled);
-      }
-
-      :host(:hover) {
-        @apply(--paper-icon-button-hover);
-      }
-
-      iron-icon {
-        --iron-icon-width: 100%;
-        --iron-icon-height: 100%;
-      }
-    </style>
-
-    <iron-icon id="icon" src="[[src]]" icon="[[icon]]" alt$="[[alt]]"></iron-icon>
-  </template>
-
-  <script>
-    Polymer({
-      is: 'paper-icon-button',
-
-      hostAttributes: {
-        role: 'button',
-        tabindex: '0'
-      },
-
-      behaviors: [
-        Polymer.PaperInkyFocusBehavior
-      ],
-
-      properties: {
-        /**
-         * The URL of an image for the icon. If the src property is specified,
-         * the icon property should not be.
-         */
-        src: {
-          type: String
-        },
-
-        /**
-         * Specifies the icon name or index in the set of icons available in
-         * the icon's icon set. If the icon property is specified,
-         * the src property should not be.
-         */
-        icon: {
-          type: String
-        },
-
-        /**
-         * Specifies the alternate text for the button, for accessibility.
-         */
-        alt: {
-          type: String,
-          observer: "_altChanged"
-        }
-      },
-
-      _altChanged: function(newValue, oldValue) {
-        var label = this.getAttribute('aria-label');
-
-        // Don't stomp over a user-set aria-label.
-        if (!label || oldValue == label) {
-          this.setAttribute('aria-label', newValue);
-        }
-      }
-    });
-  </script>
-</dom-module>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><iron-iconset-svg name="paper-tabs" size="24">
 <svg><defs>
 <g id="chevron-left"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></g>
 <g id="chevron-right"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></g>
 </defs></svg>
 </iron-iconset-svg>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`paper-tab` is styled to look like a tab.  It should be used in conjunction with
-`paper-tabs`.
-
-Example:
-
-    <paper-tabs selected="0">
-      <paper-tab>TAB 1</paper-tab>
-      <paper-tab>TAB 2</paper-tab>
-      <paper-tab>TAB 3</paper-tab>
-    </paper-tabs>
-
-### Styling
-
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-tab-ink` | Ink color | `--paper-yellow-a100`
-`--paper-tab` | Mixin applied to the tab | `{}`
-`--paper-tab-content` | Mixin applied to the tab content | `{}`
-`--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
-
-This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
-In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
-
--->
-
-<dom-module id="paper-tab" assetpath="../bower_components/paper-tabs/">
-  <template>
-    <style>
-      :host {
-        @apply(--layout-inline);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
-        @apply(--layout-flex-auto);
-
-        position: relative;
-        padding: 0 12px;
-        overflow: hidden;
-        cursor: pointer;
-        vertical-align: middle;
-
-        @apply(--paper-font-common-base);
-        @apply(--paper-tab);
-      }
-
-      :host(:focus) {
-        outline: none;
-      }
-
-      :host([link]) {
-        padding: 0;
-      }
-
-      .tab-content {
-        height: 100%;
-        transform: translateZ(0);
-          -webkit-transform: translateZ(0);
-        transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        @apply(--layout-flex-auto);
-        @apply(--paper-tab-content);
-      }
-
-      :host(:not(.iron-selected)) > .tab-content {
-        opacity: 0.8;
-
-        @apply(--paper-tab-content-unselected);
-      }
-
-      :host(:focus) .tab-content {
-        opacity: 1;
-        font-weight: 700;
-      }
-
-      paper-ripple {
-        color: var(--paper-tab-ink, --paper-yellow-a100);
-      }
-
-      .tab-content > ::content > a {
-        @apply(--layout-flex-auto);
-
-        height: 100%;
-      }
-    </style>
-
-    <div class="tab-content">
-      <content></content>
-    </div>
-  </template>
-
-  <script>
-    Polymer({
-      is: 'paper-tab',
-
-      behaviors: [
-        Polymer.IronControlState,
-        Polymer.IronButtonState,
-        Polymer.PaperRippleBehavior
-      ],
-
-      properties: {
-
-        /**
-         * If true, the tab will forward keyboard clicks (enter/space) to
-         * the first anchor element found in its descendants
-         */
-        link: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        }
-
-      },
-
-      hostAttributes: {
-        role: 'tab'
-      },
-
-      listeners: {
-        down: '_updateNoink',
-        tap: '_onTap'
-      },
-
-      attached: function() {
-        this._updateNoink();
-      },
-
-      get _parentNoink () {
-        var parent = Polymer.dom(this).parentNode;
-        return !!parent && !!parent.noink;
-      },
-
-      _updateNoink: function() {
-        this.noink = !!this.noink || !!this._parentNoink;
-      },
-
-      _onTap: function(event) {
-        if (this.link) {
-          var anchor = this.queryEffectiveChildren('a');
-
-          if (!anchor) {
-            return;
-          }
-
-          // Don't get stuck in a loop delegating
-          // the listener from the child anchor
-          if (event.target === anchor) {
-            return;
-          }
-
-          anchor.click();
-        }
-      }
-
-    });
-  </script>
-</dom-module>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -32240,6 +32240,2497 @@ If you're seeing the message "You have included the Google Maps API multiple tim
   });
 
 </script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><script>
+  /**
+  Polymer.IronFormElementBehavior enables a custom element to be included
+  in an `iron-form`.
+
+  @demo demo/index.html
+  @polymerBehavior
+  */
+  Polymer.IronFormElementBehavior = {
+
+    properties: {
+      /**
+       * Fired when the element is added to an `iron-form`.
+       *
+       * @event iron-form-element-register
+       */
+
+      /**
+       * Fired when the element is removed from an `iron-form`.
+       *
+       * @event iron-form-element-unregister
+       */
+
+      /**
+       * The name of this element.
+       */
+      name: {
+        type: String
+      },
+
+      /**
+       * The value for this element.
+       */
+      value: {
+        notify: true,
+        type: String
+      },
+
+      /**
+       * Set to true to mark the input as required. If used in a form, a
+       * custom element that uses this behavior should also use
+       * Polymer.IronValidatableBehavior and define a custom validation method.
+       * Otherwise, a `required` element will always be considered valid.
+       * It's also strongly recommended to provide a visual style for the element
+       * when its value is invalid.
+       */
+      required: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * The form that the element is registered to.
+       */
+      _parentForm: {
+        type: Object
+      }
+    },
+
+    attached: function() {
+      // Note: the iron-form that this element belongs to will set this
+      // element's _parentForm property when handling this event.
+      this.fire('iron-form-element-register');
+    },
+
+    detached: function() {
+      if (this._parentForm) {
+        this._parentForm.fire('iron-form-element-unregister', {target: this});
+      }
+    }
+
+  };
+
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`iron-a11y-announcer` is a singleton element that is intended to add a11y
+to features that require on-demand announcement from screen readers. In
+order to make use of the announcer, it is best to request its availability
+in the announcing element.
+
+Example:
+
+    Polymer({
+
+      is: 'x-chatty',
+
+      attached: function() {
+        // This will create the singleton element if it has not
+        // been created yet:
+        Polymer.IronA11yAnnouncer.requestAvailability();
+      }
+    });
+
+After the `iron-a11y-announcer` has been made available, elements can
+make announces by firing bubbling `iron-announce` events.
+
+Example:
+
+    this.fire('iron-announce', {
+      text: 'This is an announcement!'
+    }, { bubbles: true });
+
+Note: announcements are only audible if you have a screen reader enabled.
+
+@group Iron Elements
+@demo demo/index.html
+-->
+
+<dom-module id="iron-a11y-announcer" assetpath="../bower_components/iron-a11y-announcer/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: fixed;
+        clip: rect(0px,0px,0px,0px);
+      }
+    </style>
+    <div aria-live$="[[mode]]">[[_text]]</div>
+  </template>
+
+  <script>
+
+    (function() {
+      'use strict';
+
+      Polymer.IronA11yAnnouncer = Polymer({
+        is: 'iron-a11y-announcer',
+
+        properties: {
+
+          /**
+           * The value of mode is used to set the `aria-live` attribute
+           * for the element that will be announced. Valid values are: `off`,
+           * `polite` and `assertive`.
+           */
+          mode: {
+            type: String,
+            value: 'polite'
+          },
+
+          _text: {
+            type: String,
+            value: ''
+          }
+        },
+
+        created: function() {
+          if (!Polymer.IronA11yAnnouncer.instance) {
+            Polymer.IronA11yAnnouncer.instance = this;
+          }
+
+          document.body.addEventListener('iron-announce', this._onIronAnnounce.bind(this));
+        },
+
+        /**
+         * Cause a text string to be announced by screen readers.
+         *
+         * @param {string} text The text that should be announced.
+         */
+        announce: function(text) {
+          this._text = '';
+          this.async(function() {
+            this._text = text;
+          }, 100);
+        },
+
+        _onIronAnnounce: function(event) {
+          if (event.detail && event.detail.text) {
+            this.announce(event.detail.text);
+          }
+        }
+      });
+
+      Polymer.IronA11yAnnouncer.instance = null;
+
+      Polymer.IronA11yAnnouncer.requestAvailability = function() {
+        if (!Polymer.IronA11yAnnouncer.instance) {
+          Polymer.IronA11yAnnouncer.instance = document.createElement('iron-a11y-announcer');
+        }
+
+        document.body.appendChild(Polymer.IronA11yAnnouncer.instance);
+      };
+    })();
+
+  </script>
+</dom-module>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><script>
+  /**
+   * Singleton IronMeta instance.
+   */
+  Polymer.IronValidatableBehaviorMeta = null;
+
+  /**
+   * `Use Polymer.IronValidatableBehavior` to implement an element that validates user input.
+   * Use the related `Polymer.IronValidatorBehavior` to add custom validation logic to an iron-input.
+   *
+   * By default, an `<iron-form>` element validates its fields when the user presses the submit button.
+   * To validate a form imperatively, call the form's `validate()` method, which in turn will
+   * call `validate()` on all its children. By using `Polymer.IronValidatableBehavior`, your
+   * custom element will get a public `validate()`, which
+   * will return the validity of the element, and a corresponding `invalid` attribute,
+   * which can be used for styling.
+   *
+   * To implement the custom validation logic of your element, you must override
+   * the protected `_getValidity()` method of this behaviour, rather than `validate()`.
+   * See [this](https://github.com/PolymerElements/iron-form/blob/master/demo/simple-element.html)
+   * for an example.
+   *
+   * ### Accessibility
+   *
+   * Changing the `invalid` property, either manually or by calling `validate()` will update the
+   * `aria-invalid` attribute.
+   *
+   * @demo demo/index.html
+   * @polymerBehavior
+   */
+  Polymer.IronValidatableBehavior = {
+
+    properties: {
+
+      /**
+       * Name of the validator to use.
+       */
+      validator: {
+        type: String
+      },
+
+      /**
+       * True if the last call to `validate` is invalid.
+       */
+      invalid: {
+        notify: true,
+        reflectToAttribute: true,
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * This property is deprecated and should not be used. Use the global
+       * validator meta singleton, `Polymer.IronValidatableBehaviorMeta` instead.
+       */
+      _validatorMeta: {
+        type: Object
+      },
+
+      /**
+       * Namespace for this validator. This property is deprecated and should
+       * not be used. For all intents and purposes, please consider it a
+       * read-only, config-time property.
+       */
+      validatorType: {
+        type: String,
+        value: 'validator'
+      },
+
+      _validator: {
+        type: Object,
+        computed: '__computeValidator(validator)'
+      }
+    },
+
+    observers: [
+      '_invalidChanged(invalid)'
+    ],
+
+    registered: function() {
+      Polymer.IronValidatableBehaviorMeta = new Polymer.IronMeta({type: 'validator'});
+    },
+
+    _invalidChanged: function() {
+      if (this.invalid) {
+        this.setAttribute('aria-invalid', 'true');
+      } else {
+        this.removeAttribute('aria-invalid');
+      }
+    },
+
+    /**
+     * @return {boolean} True if the validator `validator` exists.
+     */
+    hasValidator: function() {
+      return this._validator != null;
+    },
+
+    /**
+     * Returns true if the `value` is valid, and updates `invalid`. If you want
+     * your element to have custom validation logic, do not override this method;
+     * override `_getValidity(value)` instead.
+
+     * @param {Object} value The value to be validated. By default, it is passed
+     * to the validator's `validate()` function, if a validator is set.
+     * @return {boolean} True if `value` is valid.
+     */
+    validate: function(value) {
+      this.invalid = !this._getValidity(value);
+      return !this.invalid;
+    },
+
+    /**
+     * Returns true if `value` is valid.  By default, it is passed
+     * to the validator's `validate()` function, if a validator is set. You
+     * should override this method if you want to implement custom validity
+     * logic for your element.
+     *
+     * @param {Object} value The value to be validated.
+     * @return {boolean} True if `value` is valid.
+     */
+
+    _getValidity: function(value) {
+      if (this.hasValidator()) {
+        return this._validator.validate(value);
+      }
+      return true;
+    },
+
+    __computeValidator: function() {
+      return Polymer.IronValidatableBehaviorMeta &&
+          Polymer.IronValidatableBehaviorMeta.byKey(this.validator);
+    }
+  };
+
+</script>
+<script>
+
+/*
+`<iron-input>` adds two-way binding and custom validators using `Polymer.IronValidatorBehavior`
+to `<input>`.
+
+### Two-way binding
+
+By default you can only get notified of changes to an `input`'s `value` due to user input:
+
+    <input value="{{myValue::input}}">
+
+`iron-input` adds the `bind-value` property that mirrors the `value` property, and can be used
+for two-way data binding. `bind-value` will notify if it is changed either by user input or by script.
+
+    <input is="iron-input" bind-value="{{myValue}}">
+
+### Custom validators
+
+You can use custom validators that implement `Polymer.IronValidatorBehavior` with `<iron-input>`.
+
+    <input is="iron-input" validator="my-custom-validator">
+
+### Stopping invalid input
+
+It may be desirable to only allow users to enter certain characters. You can use the
+`prevent-invalid-input` and `allowed-pattern` attributes together to accomplish this. This feature
+is separate from validation, and `allowed-pattern` does not affect how the input is validated.
+
+    <!-- only allow characters that match [0-9] -->
+    <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]">
+
+@hero hero.svg
+@demo demo/index.html
+*/
+
+  Polymer({
+
+    is: 'iron-input',
+
+    extends: 'input',
+
+    behaviors: [
+      Polymer.IronValidatableBehavior
+    ],
+
+    properties: {
+
+      /**
+       * Use this property instead of `value` for two-way data binding.
+       */
+      bindValue: {
+        observer: '_bindValueChanged',
+        type: String
+      },
+
+      /**
+       * Set to true to prevent the user from entering invalid input. If `allowedPattern` is set,
+       * any character typed by the user will be matched against that pattern, and rejected if it's not a match.
+       * Pasted input will have each character checked individually; if any character
+       * doesn't match `allowedPattern`, the entire pasted string will be rejected.
+       * If `allowedPattern` is not set, it will use the `type` attribute (only supported for `type=number`).
+       */
+      preventInvalidInput: {
+        type: Boolean
+      },
+
+      /**
+       * Regular expression that list the characters allowed as input.
+       * This pattern represents the allowed characters for the field; as the user inputs text,
+       * each individual character will be checked against the pattern (rather than checking
+       * the entire value as a whole). The recommended format should be a list of allowed characters;
+       * for example, `[a-zA-Z0-9.+-!;:]`
+       */
+      allowedPattern: {
+        type: String,
+        observer: "_allowedPatternChanged"
+      },
+
+      _previousValidInput: {
+        type: String,
+        value: ''
+      },
+
+      _patternAlreadyChecked: {
+        type: Boolean,
+        value: false
+      }
+
+    },
+
+    listeners: {
+      'input': '_onInput',
+      'keypress': '_onKeypress'
+    },
+
+    /** @suppress {checkTypes} */
+    registered: function() {
+      // Feature detect whether we need to patch dispatchEvent (i.e. on FF and IE).
+      if (!this._canDispatchEventOnDisabled()) {
+        this._origDispatchEvent = this.dispatchEvent;
+        this.dispatchEvent = this._dispatchEventFirefoxIE;
+      }
+    },
+
+    created: function() {
+      Polymer.IronA11yAnnouncer.requestAvailability();
+    },
+
+    _canDispatchEventOnDisabled: function() {
+      var input = document.createElement('input');
+      var canDispatch = false;
+      input.disabled = true;
+
+      input.addEventListener('feature-check-dispatch-event', function() {
+        canDispatch = true;
+      });
+
+      try {
+        input.dispatchEvent(new Event('feature-check-dispatch-event'));
+      } catch(e) {}
+
+      return canDispatch;
+    },
+
+    _dispatchEventFirefoxIE: function() {
+      // Due to Firefox bug, events fired on disabled form controls can throw
+      // errors; furthermore, neither IE nor Firefox will actually dispatch
+      // events from disabled form controls; as such, we toggle disable around
+      // the dispatch to allow notifying properties to notify
+      // See issue #47 for details
+      var disabled = this.disabled;
+      this.disabled = false;
+      this._origDispatchEvent.apply(this, arguments);
+      this.disabled = disabled;
+    },
+
+    get _patternRegExp() {
+      var pattern;
+      if (this.allowedPattern) {
+        pattern = new RegExp(this.allowedPattern);
+      } else {
+        switch (this.type) {
+          case 'number':
+            pattern = /[0-9.,e-]/;
+            break;
+        }
+      }
+      return pattern;
+    },
+
+    ready: function() {
+      this.bindValue = this.value;
+    },
+
+    /**
+     * @suppress {checkTypes}
+     */
+    _bindValueChanged: function() {
+      if (this.value !== this.bindValue) {
+        this.value = !(this.bindValue || this.bindValue === 0 || this.bindValue === false) ? '' : this.bindValue;
+      }
+      // manually notify because we don't want to notify until after setting value
+      this.fire('bind-value-changed', {value: this.bindValue});
+    },
+
+    _allowedPatternChanged: function() {
+      // Force to prevent invalid input when an `allowed-pattern` is set
+      this.preventInvalidInput = this.allowedPattern ? true : false;
+    },
+
+    _onInput: function() {
+      // Need to validate each of the characters pasted if they haven't
+      // been validated inside `_onKeypress` already.
+      if (this.preventInvalidInput && !this._patternAlreadyChecked) {
+        var valid = this._checkPatternValidity();
+        if (!valid) {
+          this._announceInvalidCharacter('Invalid string of characters not entered.');
+          this.value = this._previousValidInput;
+        }
+      }
+
+      this.bindValue = this.value;
+      this._previousValidInput = this.value;
+      this._patternAlreadyChecked = false;
+    },
+
+    _isPrintable: function(event) {
+      // What a control/printable character is varies wildly based on the browser.
+      // - most control characters (arrows, backspace) do not send a `keypress` event
+      //   in Chrome, but the *do* on Firefox
+      // - in Firefox, when they do send a `keypress` event, control chars have
+      //   a charCode = 0, keyCode = xx (for ex. 40 for down arrow)
+      // - printable characters always send a keypress event.
+      // - in Firefox, printable chars always have a keyCode = 0. In Chrome, the keyCode
+      //   always matches the charCode.
+      // None of this makes any sense.
+
+      // For these keys, ASCII code == browser keycode.
+      var anyNonPrintable =
+        (event.keyCode == 8)   ||  // backspace
+        (event.keyCode == 9)   ||  // tab
+        (event.keyCode == 13)  ||  // enter
+        (event.keyCode == 27);     // escape
+
+      // For these keys, make sure it's a browser keycode and not an ASCII code.
+      var mozNonPrintable =
+        (event.keyCode == 19)  ||  // pause
+        (event.keyCode == 20)  ||  // caps lock
+        (event.keyCode == 45)  ||  // insert
+        (event.keyCode == 46)  ||  // delete
+        (event.keyCode == 144) ||  // num lock
+        (event.keyCode == 145) ||  // scroll lock
+        (event.keyCode > 32 && event.keyCode < 41)   || // page up/down, end, home, arrows
+        (event.keyCode > 111 && event.keyCode < 124); // fn keys
+
+      return !anyNonPrintable && !(event.charCode == 0 && mozNonPrintable);
+    },
+
+    _onKeypress: function(event) {
+      if (!this.preventInvalidInput && this.type !== 'number') {
+        return;
+      }
+      var regexp = this._patternRegExp;
+      if (!regexp) {
+        return;
+      }
+
+      // Handle special keys and backspace
+      if (event.metaKey || event.ctrlKey || event.altKey)
+        return;
+
+      // Check the pattern either here or in `_onInput`, but not in both.
+      this._patternAlreadyChecked = true;
+
+      var thisChar = String.fromCharCode(event.charCode);
+      if (this._isPrintable(event) && !regexp.test(thisChar)) {
+        event.preventDefault();
+        this._announceInvalidCharacter('Invalid character ' + thisChar + ' not entered.');
+      }
+    },
+
+    _checkPatternValidity: function() {
+      var regexp = this._patternRegExp;
+      if (!regexp) {
+        return true;
+      }
+      for (var i = 0; i < this.value.length; i++) {
+        if (!regexp.test(this.value[i])) {
+          return false;
+        }
+      }
+      return true;
+    },
+
+    /**
+     * Returns true if `value` is valid. The validator provided in `validator` will be used first,
+     * then any constraints.
+     * @return {boolean} True if the value is valid.
+     */
+    validate: function() {
+      // First, check what the browser thinks. Some inputs (like type=number)
+      // behave weirdly and will set the value to "" if something invalid is
+      // entered, but will set the validity correctly.
+      var valid =  this.checkValidity();
+
+      // Only do extra checking if the browser thought this was valid.
+      if (valid) {
+        // Empty, required input is invalid
+        if (this.required && this.value === '') {
+          valid = false;
+        } else if (this.hasValidator()) {
+          valid = Polymer.IronValidatableBehavior.validate.call(this, this.value);
+        }
+      }
+
+      this.invalid = !valid;
+      this.fire('iron-input-validate');
+      return valid;
+    },
+
+    _announceInvalidCharacter: function(message) {
+      this.fire('iron-announce', { text: message });
+    }
+  });
+
+  /*
+  The `iron-input-validate` event is fired whenever `validate()` is called.
+  @event iron-input-validate
+  */
+
+</script><!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><script>
+
+  // Generate unique, monotonically increasing IDs for labels (needed by
+  // aria-labelledby) and add-ons.
+  Polymer.PaperInputHelper = {};
+  Polymer.PaperInputHelper.NextLabelID = 1;
+  Polymer.PaperInputHelper.NextAddonID = 1;
+
+  /**
+   * Use `Polymer.PaperInputBehavior` to implement inputs with `<paper-input-container>`. This
+   * behavior is implemented by `<paper-input>`. It exposes a number of properties from
+   * `<paper-input-container>` and `<input is="iron-input">` and they should be bound in your
+   * template.
+   *
+   * The input element can be accessed by the `inputElement` property if you need to access
+   * properties or methods that are not exposed.
+   * @polymerBehavior Polymer.PaperInputBehavior
+   */
+  Polymer.PaperInputBehaviorImpl = {
+
+    properties: {
+      /**
+       * Fired when the input changes due to user interaction.
+       *
+       * @event change
+       */
+
+      /**
+       * The label for this input. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * `<label>`'s content and `hidden` property, e.g.
+       * `<label hidden$="[[!label]]">[[label]]</label>` in your `template`
+       */
+      label: {
+        type: String
+      },
+
+      /**
+       * The value for this input. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<input is="iron-input">`'s `bindValue`
+       * property, or the value property of your input that is `notify:true`.
+       */
+      value: {
+        notify: true,
+        type: String
+      },
+
+      /**
+       * Set to true to disable this input. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * both the `<paper-input-container>`'s and the input's `disabled` property.
+       */
+      disabled: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Returns true if the value is invalid. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to both the
+       * `<paper-input-container>`'s and the input's `invalid` property.
+       *
+       * If `autoValidate` is true, the `invalid` attribute is managed automatically,
+       * which can clobber attempts to manage it manually.
+       */
+      invalid: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+
+      /**
+       * Set to true to prevent the user from entering invalid input. If you're
+       * using PaperInputBehavior to  implement your own paper-input-like element,
+       * bind this to `<input is="iron-input">`'s `preventInvalidInput` property.
+       */
+      preventInvalidInput: {
+        type: Boolean
+      },
+
+      /**
+       * Set this to specify the pattern allowed by `preventInvalidInput`. If
+       * you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `allowedPattern`
+       * property.
+       */
+      allowedPattern: {
+        type: String
+      },
+
+      /**
+       * The type of the input. The supported types are `text`, `number` and `password`.
+       * If you're using PaperInputBehavior to implement your own paper-input-like element,
+       * bind this to the `<input is="iron-input">`'s `type` property.
+       */
+      type: {
+        type: String
+      },
+
+      /**
+       * The datalist of the input (if any). This should match the id of an existing `<datalist>`.
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `list` property.
+       */
+      list: {
+        type: String
+      },
+
+      /**
+       * A pattern to validate the `input` with. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<input is="iron-input">`'s `pattern` property.
+       */
+      pattern: {
+        type: String
+      },
+
+      /**
+       * Set to true to mark the input as required. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<input is="iron-input">`'s `required` property.
+       */
+      required: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * The error message to display when the input is invalid. If you're using
+       * PaperInputBehavior to implement your own paper-input-like element,
+       * bind this to the `<paper-input-error>`'s content, if using.
+       */
+      errorMessage: {
+        type: String
+      },
+
+      /**
+       * Set to true to show a character counter.
+       */
+      charCounter: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Set to true to disable the floating label. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<paper-input-container>`'s `noLabelFloat` property.
+       */
+      noLabelFloat: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Set to true to always float the label. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<paper-input-container>`'s `alwaysFloatLabel` property.
+       */
+      alwaysFloatLabel: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Set to true to auto-validate the input value. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<paper-input-container>`'s `autoValidate` property.
+       */
+      autoValidate: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Name of the validator to use. If you're using PaperInputBehavior to
+       * implement your own paper-input-like element, bind this to
+       * the `<input is="iron-input">`'s `validator` property.
+       */
+      validator: {
+        type: String
+      },
+
+      // HTMLInputElement attributes for binding if needed
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `autocomplete` property.
+       */
+      autocomplete: {
+        type: String,
+        value: 'off'
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `autofocus` property.
+       */
+      autofocus: {
+        type: Boolean,
+        observer: '_autofocusChanged'
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `inputmode` property.
+       */
+      inputmode: {
+        type: String
+      },
+
+      /**
+       * The minimum length of the input value.
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `minlength` property.
+       */
+      minlength: {
+        type: Number
+      },
+
+      /**
+       * The maximum length of the input value.
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `maxlength` property.
+       */
+      maxlength: {
+        type: Number
+      },
+
+      /**
+       * The minimum (numeric or date-time) input value.
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `min` property.
+       */
+      min: {
+        type: String
+      },
+
+      /**
+       * The maximum (numeric or date-time) input value.
+       * Can be a String (e.g. `"2000-01-01"`) or a Number (e.g. `2`).
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `max` property.
+       */
+      max: {
+        type: String
+      },
+
+      /**
+       * Limits the numeric or date-time increments.
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `step` property.
+       */
+      step: {
+        type: String
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `name` property.
+       */
+      name: {
+        type: String
+      },
+
+      /**
+       * A placeholder string in addition to the label. If this is set, the label will always float.
+       */
+      placeholder: {
+        type: String,
+        // need to set a default so _computeAlwaysFloatLabel is run
+        value: ''
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `readonly` property.
+       */
+      readonly: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `size` property.
+       */
+      size: {
+        type: Number
+      },
+
+      // Nonstandard attributes for binding if needed
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `autocapitalize` property.
+       */
+      autocapitalize: {
+        type: String,
+        value: 'none'
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `autocorrect` property.
+       */
+      autocorrect: {
+        type: String,
+        value: 'off'
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `autosave` property,
+       * used with type=search.
+       */
+      autosave: {
+        type: String
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `results` property,
+       * used with type=search.
+       */
+      results: {
+        type: Number
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the `<input is="iron-input">`'s `accept` property,
+       * used with type=file.
+       */
+      accept: {
+        type: String
+      },
+
+      /**
+       * If you're using PaperInputBehavior to implement your own paper-input-like
+       * element, bind this to the`<input is="iron-input">`'s `multiple` property,
+       * used with type=file.
+       */
+      multiple: {
+        type: Boolean
+      },
+
+      _ariaDescribedBy: {
+        type: String,
+        value: ''
+      },
+
+      _ariaLabelledBy: {
+        type: String,
+        value: ''
+      }
+
+    },
+
+    listeners: {
+      'addon-attached': '_onAddonAttached',
+    },
+
+    keyBindings: {
+      'shift+tab:keydown': '_onShiftTabDown'
+    },
+
+    hostAttributes: {
+      tabindex: 0
+    },
+
+    /**
+     * Returns a reference to the input element.
+     */
+    get inputElement() {
+      return this.$.input;
+    },
+
+    /**
+     * Returns a reference to the focusable element.
+     */
+    get _focusableElement() {
+      return this.inputElement;
+    },
+
+    registered: function() {
+      // These types have some default placeholder text; overlapping
+      // the label on top of it looks terrible. Auto-float the label in this case.
+      this._typesThatHaveText = ["date", "datetime", "datetime-local", "month",
+          "time", "week", "file"];
+    },
+
+    attached: function() {
+      this._updateAriaLabelledBy();
+
+      if (this.inputElement &&
+          this._typesThatHaveText.indexOf(this.inputElement.type) !== -1) {
+        this.alwaysFloatLabel = true;
+      }
+    },
+
+    _appendStringWithSpace: function(str, more) {
+      if (str) {
+        str = str + ' ' + more;
+      } else {
+        str = more;
+      }
+      return str;
+    },
+
+    _onAddonAttached: function(event) {
+      var target = event.path ? event.path[0] : event.target;
+      if (target.id) {
+        this._ariaDescribedBy = this._appendStringWithSpace(this._ariaDescribedBy, target.id);
+      } else {
+        var id = 'paper-input-add-on-' + Polymer.PaperInputHelper.NextAddonID++;
+        target.id = id;
+        this._ariaDescribedBy = this._appendStringWithSpace(this._ariaDescribedBy, id);
+      }
+    },
+
+    /**
+     * Validates the input element and sets an error style if needed.
+     *
+     * @return {boolean}
+     */
+    validate: function() {
+      return this.inputElement.validate();
+    },
+
+    /**
+     * Forward focus to inputElement. Overriden from IronControlState.
+     */
+    _focusBlurHandler: function(event) {
+      Polymer.IronControlState._focusBlurHandler.call(this, event);
+
+      // Forward the focus to the nested input.
+      if (this.focused && !this._shiftTabPressed)
+        this._focusableElement.focus();
+    },
+
+    /**
+     * Handler that is called when a shift+tab keypress is detected by the menu.
+     *
+     * @param {CustomEvent} event A key combination event.
+     */
+    _onShiftTabDown: function(event) {
+      var oldTabIndex = this.getAttribute('tabindex');
+      this._shiftTabPressed = true;
+      this.setAttribute('tabindex', '-1');
+      this.async(function() {
+        this.setAttribute('tabindex', oldTabIndex);
+        this._shiftTabPressed = false;
+      }, 1);
+    },
+
+    /**
+     * If `autoValidate` is true, then validates the element.
+     */
+    _handleAutoValidate: function() {
+      if (this.autoValidate)
+        this.validate();
+    },
+
+    /**
+     * Restores the cursor to its original position after updating the value.
+     * @param {string} newValue The value that should be saved.
+     */
+    updateValueAndPreserveCaret: function(newValue) {
+      // Not all elements might have selection, and even if they have the
+      // right properties, accessing them might throw an exception (like for
+      // <input type=number>)
+      try {
+        var start = this.inputElement.selectionStart;
+        this.value = newValue;
+
+        // The cursor automatically jumps to the end after re-setting the value,
+        // so restore it to its original position.
+        this.inputElement.selectionStart = start;
+        this.inputElement.selectionEnd = start;
+      } catch (e) {
+        // Just set the value and give up on the caret.
+        this.value = newValue;
+      }
+    },
+
+    _computeAlwaysFloatLabel: function(alwaysFloatLabel, placeholder) {
+      return placeholder || alwaysFloatLabel;
+    },
+
+    _updateAriaLabelledBy: function() {
+      var label = Polymer.dom(this.root).querySelector('label');
+      if (!label) {
+        this._ariaLabelledBy = '';
+        return;
+      }
+      var labelledBy;
+      if (label.id) {
+        labelledBy = label.id;
+      } else {
+        labelledBy = 'paper-input-label-' + Polymer.PaperInputHelper.NextLabelID++;
+        label.id = labelledBy;
+      }
+      this._ariaLabelledBy = labelledBy;
+    },
+
+    _onChange:function(event) {
+      // In the Shadow DOM, the `change` event is not leaked into the
+      // ancestor tree, so we must do this manually.
+      // See https://w3c.github.io/webcomponents/spec/shadow/#events-that-are-not-leaked-into-ancestor-trees.
+      if (this.shadowRoot) {
+        this.fire(event.type, {sourceEvent: event}, {
+          node: this,
+          bubbles: event.bubbles,
+          cancelable: event.cancelable
+        });
+      }
+    },
+
+    _autofocusChanged: function() {
+      // Firefox doesn't respect the autofocus attribute if it's applied after
+      // the page is loaded (Chrome/WebKit do respect it), preventing an
+      // autofocus attribute specified in markup from taking effect when the
+      // element is upgraded. As a workaround, if the autofocus property is set,
+      // and the focus hasn't already been moved elsewhere, we take focus.
+      if (this.autofocus && this._focusableElement) {
+
+        // In IE 11, the default document.activeElement can be the page's
+        // outermost html element, but there are also cases (under the
+        // polyfill?) in which the activeElement is not a real HTMLElement, but
+        // just a plain object. We identify the latter case as having no valid
+        // activeElement.
+        var activeElement = document.activeElement;
+        var isActiveElementValid = activeElement instanceof HTMLElement;
+
+        // Has some other element has already taken the focus?
+        var isSomeElementActive = isActiveElementValid &&
+            activeElement !== document.body &&
+            activeElement !== document.documentElement; /* IE 11 */
+        if (!isSomeElementActive) {
+          // No specific element has taken the focus yet, so we can take it.
+          this._focusableElement.focus();
+        }
+      }
+    }
+  }
+
+  /** @polymerBehavior */
+  Polymer.PaperInputBehavior = [
+    Polymer.IronControlState,
+    Polymer.IronA11yKeysBehavior,
+    Polymer.PaperInputBehaviorImpl
+  ];
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><script>
+
+  /**
+   * Use `Polymer.PaperInputAddonBehavior` to implement an add-on for `<paper-input-container>`. A
+   * add-on appears below the input, and may display information based on the input value and
+   * validity such as a character counter or an error message.
+   * @polymerBehavior
+   */
+  Polymer.PaperInputAddonBehavior = {
+
+    hostAttributes: {
+      'add-on': ''
+    },
+
+    attached: function() {
+      this.fire('addon-attached');
+    },
+
+    /**
+     * The function called by `<paper-input-container>` when the input value or validity changes.
+     * @param {{
+     *   inputElement: (Element|undefined),
+     *   value: (string|undefined),
+     *   invalid: boolean
+     * }} state -
+     *     inputElement: The input element.
+     *     value: The input value.
+     *     invalid: True if the input value is invalid.
+     */
+    update: function(state) {
+    }
+
+  };
+
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`<paper-input-char-counter>` is a character counter for use with `<paper-input-container>`. It
+shows the number of characters entered in the input and the max length if it is specified.
+
+    <paper-input-container>
+      <input is="iron-input" maxlength="20">
+      <paper-input-char-counter></paper-input-char-counter>
+    </paper-input-container>
+
+### Styling
+
+The following mixin is available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-input-char-counter` | Mixin applied to the element | `{}`
+-->
+
+<dom-module id="paper-input-char-counter" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        float: right;
+
+        @apply(--paper-font-caption);
+        @apply(--paper-input-char-counter);
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      :host-context([dir="rtl"]) {
+        float: left;
+      }
+    </style>
+
+    <span>[[_charCounterStr]]</span>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'paper-input-char-counter',
+
+    behaviors: [
+      Polymer.PaperInputAddonBehavior
+    ],
+
+    properties: {
+      _charCounterStr: {
+        type: String,
+        value: '0'
+      }
+    },
+
+    /**
+     * This overrides the update function in PaperInputAddonBehavior.
+     * @param {{
+     *   inputElement: (Element|undefined),
+     *   value: (string|undefined),
+     *   invalid: boolean
+     * }} state -
+     *     inputElement: The input element.
+     *     value: The input value.
+     *     invalid: True if the input value is invalid.
+     */
+    update: function(state) {
+      if (!state.inputElement) {
+        return;
+      }
+
+      state.value = state.value || '';
+
+      var counter = state.value.toString().length.toString();
+
+      if (state.inputElement.hasAttribute('maxlength')) {
+        counter += '/' + state.inputElement.getAttribute('maxlength');
+      }
+
+      this._charCounterStr = counter;
+    }
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`<paper-input-container>` is a container for a `<label>`, an `<input is="iron-input">` or
+`<textarea>` and optional add-on elements such as an error message or character
+counter, used to implement Material Design text fields.
+
+For example:
+
+    <paper-input-container>
+      <label>Your name</label>
+      <input is="iron-input">
+    </paper-input-container>
+
+Do not wrap `<paper-input-container>` around elements that already include it, such as `<paper-input>`.
+Doing so may cause events to bounce infintely between the container and its contained element.
+
+### Listening for input changes
+
+By default, it listens for changes on the `bind-value` attribute on its children nodes and perform
+tasks such as auto-validating and label styling when the `bind-value` changes. You can configure
+the attribute it listens to with the `attr-for-value` attribute.
+
+### Using a custom input element
+
+You can use a custom input element in a `<paper-input-container>`, for example to implement a
+compound input field like a social security number input. The custom input element should have the
+`paper-input-input` class, have a `notify:true` value property and optionally implements
+`Polymer.IronValidatableBehavior` if it is validatable.
+
+    <paper-input-container attr-for-value="ssn-value">
+      <label>Social security number</label>
+      <ssn-input class="paper-input-input"></ssn-input>
+    </paper-input-container>
+
+
+If you're using a `<paper-input-container>` imperatively, it's important to make sure
+that you attach its children (the `iron-input` and the optional `label`) before you
+attach the `<paper-input-container>` itself, so that it can be set up correctly.
+
+### Validation
+
+If the `auto-validate` attribute is set, the input container will validate the input and update
+the container styling when the input value changes.
+
+### Add-ons
+
+Add-ons are child elements of a `<paper-input-container>` with the `add-on` attribute and
+implements the `Polymer.PaperInputAddonBehavior` behavior. They are notified when the input value
+or validity changes, and may implement functionality such as error messages or character counters.
+They appear at the bottom of the input.
+
+### Prefixes and suffixes
+These are child elements of a `<paper-input-container>` with the `prefix`
+or `suffix` attribute, and are displayed inline with the input, before or after.
+
+    <paper-input-container>
+      <div prefix>$</div>
+      <label>Total</label>
+      <input is="iron-input">
+      <paper-icon-button suffix icon="clear"></paper-icon-button>
+    </paper-input-container>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-input-container-color` | Label and underline color when the input is not focused | `--secondary-text-color`
+`--paper-input-container-focus-color` | Label and underline color when the input is focused | `--primary-color`
+`--paper-input-container-invalid-color` | Label and underline color when the input is is invalid | `--error-color`
+`--paper-input-container-input-color` | Input foreground color | `--primary-text-color`
+`--paper-input-container` | Mixin applied to the container | `{}`
+`--paper-input-container-disabled` | Mixin applied to the container when it's disabled | `{}`
+`--paper-input-container-label` | Mixin applied to the label | `{}`
+`--paper-input-container-label-focus` | Mixin applied to the label when the input is focused | `{}`
+`--paper-input-container-label-floating` | Mixin applied to the label when floating | `{}`
+`--paper-input-container-input` | Mixin applied to the input | `{}`
+`--paper-input-container-underline` | Mixin applied to the underline | `{}`
+`--paper-input-container-underline-focus` | Mixin applied to the underline when the input is focused | `{}`
+`--paper-input-container-underline-disabled` | Mixin applied to the underline when the input is disabled | `{}`
+`--paper-input-prefix` | Mixin applied to the input prefix | `{}`
+`--paper-input-suffix` | Mixin applied to the input suffix | `{}`
+
+This element is `display:block` by default, but you can set the `inline` attribute to make it
+`display:inline-block`.
+-->
+
+<dom-module id="paper-input-container" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 0;
+
+        @apply(--paper-input-container);
+      }
+
+      :host([inline]) {
+        display: inline-block;
+      }
+
+      :host([disabled]) {
+        pointer-events: none;
+        opacity: 0.33;
+
+        @apply(--paper-input-container-disabled);
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      .floated-label-placeholder {
+        @apply(--paper-font-caption);
+      }
+
+      .underline {
+        position: relative;
+      }
+
+      .focused-line {
+        @apply(--layout-fit);
+
+        background: var(--paper-input-container-focus-color, --primary-color);
+        height: 2px;
+
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-transform: scale3d(0,1,1);
+        transform: scale3d(0,1,1);
+
+        @apply(--paper-input-container-underline-focus);
+      }
+
+      .underline.is-highlighted .focused-line {
+        -webkit-transform: none;
+        transform: none;
+        -webkit-transition: -webkit-transform 0.25s;
+        transition: transform 0.25s;
+
+        @apply(--paper-transition-easing);
+      }
+
+      .underline.is-invalid .focused-line {
+        background: var(--paper-input-container-invalid-color, --error-color);
+        -webkit-transform: none;
+        transform: none;
+        -webkit-transition: -webkit-transform 0.25s;
+        transition: transform 0.25s;
+
+        @apply(--paper-transition-easing);
+      }
+
+      .unfocused-line {
+        @apply(--layout-fit);
+
+        background: var(--paper-input-container-color, --secondary-text-color);
+        height: 1px;
+
+        @apply(--paper-input-container-underline);
+      }
+
+      :host([disabled]) .unfocused-line {
+        border-bottom: 1px dashed;
+        border-color: var(--paper-input-container-color, --secondary-text-color);
+        background: transparent;
+
+        @apply(--paper-input-container-underline-disabled);
+      }
+
+      .label-and-input-container {
+        @apply(--layout-flex-auto);
+        @apply(--layout-relative);
+
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .input-content {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+
+        position: relative;
+      }
+
+      .input-content ::content label,
+      .input-content ::content .paper-input-label {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        font: inherit;
+        color: var(--paper-input-container-color, --secondary-text-color);
+        -webkit-transition: -webkit-transform 0.25s, width 0.25s;
+        transition: transform 0.25s, width 0.25s;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+
+        @apply(--paper-font-common-nowrap);
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-label);
+        @apply(--paper-transition-easing);
+      }
+
+      .input-content.label-is-floating ::content label,
+      .input-content.label-is-floating ::content .paper-input-label {
+        -webkit-transform: translateY(-75%) scale(0.75);
+        transform: translateY(-75%) scale(0.75);
+
+        /* Since we scale to 75/100 of the size, we actually have 100/75 of the
+        original space now available */
+        width: 133%;
+
+        @apply(--paper-input-container-label-floating);
+      }
+
+      :host-context([dir="rtl"]) .input-content.label-is-floating ::content label,
+      :host-context([dir="rtl"]) .input-content.label-is-floating ::content .paper-input-label {
+        /* TODO(noms): Figure out why leaving the width at 133% before the animation
+         * actually makes
+         * it wider on the right side, not left side, as you would expect in RTL */
+        width: 100%;
+        -webkit-transform-origin: right top;
+        transform-origin: right top;
+      }
+
+      .input-content.label-is-highlighted ::content label,
+      .input-content.label-is-highlighted ::content .paper-input-label {
+        color: var(--paper-input-container-focus-color, --primary-color);
+
+        @apply(--paper-input-container-label-focus);
+      }
+
+      .input-content.is-invalid ::content label,
+      .input-content.is-invalid ::content .paper-input-label {
+        color: var(--paper-input-container-invalid-color, --error-color);
+      }
+
+      .input-content.label-is-hidden ::content label,
+      .input-content.label-is-hidden ::content .paper-input-label {
+        visibility: hidden;
+      }
+
+      .input-content ::content input,
+      .input-content ::content textarea,
+      .input-content ::content iron-autogrow-textarea,
+      .input-content ::content .paper-input-input {
+        position: relative; /* to make a stacking context */
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        background: transparent;
+        border: none;
+        color: var(--paper-input-container-input-color, --primary-text-color);
+        -webkit-appearance: none;
+        text-align: inherit;
+        vertical-align: bottom;
+
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-input);
+      }
+
+      ::content [prefix] {
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-input-prefix);
+        @apply(--layout-flex-none);
+      }
+
+      ::content [suffix] {
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-input-suffix);
+        @apply(--layout-flex-none);
+      }
+
+      /* Firefox sets a min-width on the input, which can cause layout issues */
+      .input-content ::content input {
+        min-width: 0;
+      }
+
+      .input-content ::content textarea {
+        resize: none;
+      }
+
+      .add-on-content {
+        position: relative;
+      }
+
+      .add-on-content.is-invalid ::content * {
+        color: var(--paper-input-container-invalid-color, --error-color);
+      }
+
+      .add-on-content.is-highlighted ::content * {
+        color: var(--paper-input-container-focus-color, --primary-color);
+      }
+    </style>
+
+    <template is="dom-if" if="[[!noLabelFloat]]">
+      <div class="floated-label-placeholder" aria-hidden="true">&nbsp;</div>
+    </template>
+
+    <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]">
+      <content select="[prefix]" id="prefix"></content>
+
+      <div class="label-and-input-container" id="labelAndInputContainer">
+        <content select=":not([add-on]):not([prefix]):not([suffix])"></content>
+      </div>
+
+      <content select="[suffix]"></content>
+    </div>
+
+    <div class$="[[_computeUnderlineClass(focused,invalid)]]">
+      <div class="unfocused-line"></div>
+      <div class="focused-line"></div>
+    </div>
+
+    <div class$="[[_computeAddOnContentClass(focused,invalid)]]">
+      <content id="addOnContent" select="[add-on]"></content>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'paper-input-container',
+
+    properties: {
+      /**
+       * Set to true to disable the floating label. The label disappears when the input value is
+       * not null.
+       */
+      noLabelFloat: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Set to true to always float the floating label.
+       */
+      alwaysFloatLabel: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * The attribute to listen for value changes on.
+       */
+      attrForValue: {
+        type: String,
+        value: 'bind-value'
+      },
+
+      /**
+       * Set to true to auto-validate the input value when it changes.
+       */
+      autoValidate: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * True if the input is invalid. This property is set automatically when the input value
+       * changes if auto-validating, or when the `iron-input-validate` event is heard from a child.
+       */
+      invalid: {
+        observer: '_invalidChanged',
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * True if the input has focus.
+       */
+      focused: {
+        readOnly: true,
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+
+      _addons: {
+        type: Array
+        // do not set a default value here intentionally - it will be initialized lazily when a
+        // distributed child is attached, which may occur before configuration for this element
+        // in polyfill.
+      },
+
+      _inputHasContent: {
+        type: Boolean,
+        value: false
+      },
+
+      _inputSelector: {
+        type: String,
+        value: 'input,textarea,.paper-input-input'
+      },
+
+      _boundOnFocus: {
+        type: Function,
+        value: function() {
+          return this._onFocus.bind(this);
+        }
+      },
+
+      _boundOnBlur: {
+        type: Function,
+        value: function() {
+          return this._onBlur.bind(this);
+        }
+      },
+
+      _boundOnInput: {
+        type: Function,
+        value: function() {
+          return this._onInput.bind(this);
+        }
+      },
+
+      _boundValueChanged: {
+        type: Function,
+        value: function() {
+          return this._onValueChanged.bind(this);
+        }
+      }
+    },
+
+    listeners: {
+      'addon-attached': '_onAddonAttached',
+      'iron-input-validate': '_onIronInputValidate'
+    },
+
+    get _valueChangedEvent() {
+      return this.attrForValue + '-changed';
+    },
+
+    get _propertyForValue() {
+      return Polymer.CaseMap.dashToCamelCase(this.attrForValue);
+    },
+
+    get _inputElement() {
+      return Polymer.dom(this).querySelector(this._inputSelector);
+    },
+
+    get _inputElementValue() {
+      return this._inputElement[this._propertyForValue] || this._inputElement.value;
+    },
+
+    ready: function() {
+      if (!this._addons) {
+        this._addons = [];
+      }
+      this.addEventListener('focus', this._boundOnFocus, true);
+      this.addEventListener('blur', this._boundOnBlur, true);
+    },
+
+    attached: function() {
+      if (this.attrForValue) {
+        this._inputElement.addEventListener(this._valueChangedEvent, this._boundValueChanged);
+      } else {
+        this.addEventListener('input', this._onInput);
+      }
+
+      // Only validate when attached if the input already has a value.
+      if (this._inputElementValue != '') {
+        this._handleValueAndAutoValidate(this._inputElement);
+      } else {
+        this._handleValue(this._inputElement);
+      }
+    },
+
+    _onAddonAttached: function(event) {
+      if (!this._addons) {
+        this._addons = [];
+      }
+      var target = event.target;
+      if (this._addons.indexOf(target) === -1) {
+        this._addons.push(target);
+        if (this.isAttached) {
+          this._handleValue(this._inputElement);
+        }
+      }
+    },
+
+    _onFocus: function() {
+      this._setFocused(true);
+    },
+
+    _onBlur: function() {
+      this._setFocused(false);
+      this._handleValueAndAutoValidate(this._inputElement);
+    },
+
+    _onInput: function(event) {
+      this._handleValueAndAutoValidate(event.target);
+    },
+
+    _onValueChanged: function(event) {
+      this._handleValueAndAutoValidate(event.target);
+    },
+
+    _handleValue: function(inputElement) {
+      var value = this._inputElementValue;
+
+      // type="number" hack needed because this.value is empty until it's valid
+      if (value || value === 0 || (inputElement.type === 'number' && !inputElement.checkValidity())) {
+        this._inputHasContent = true;
+      } else {
+        this._inputHasContent = false;
+      }
+
+      this.updateAddons({
+        inputElement: inputElement,
+        value: value,
+        invalid: this.invalid
+      });
+    },
+
+    _handleValueAndAutoValidate: function(inputElement) {
+      if (this.autoValidate) {
+        var valid;
+        if (inputElement.validate) {
+          valid = inputElement.validate(this._inputElementValue);
+        } else {
+          valid = inputElement.checkValidity();
+        }
+        this.invalid = !valid;
+      }
+
+      // Call this last to notify the add-ons.
+      this._handleValue(inputElement);
+    },
+
+    _onIronInputValidate: function(event) {
+      this.invalid = this._inputElement.invalid;
+    },
+
+    _invalidChanged: function() {
+      if (this._addons) {
+        this.updateAddons({invalid: this.invalid});
+      }
+    },
+
+    /**
+     * Call this to update the state of add-ons.
+     * @param {Object} state Add-on state.
+     */
+    updateAddons: function(state) {
+      for (var addon, index = 0; addon = this._addons[index]; index++) {
+        addon.update(state);
+      }
+    },
+
+    _computeInputContentClass: function(noLabelFloat, alwaysFloatLabel, focused, invalid, _inputHasContent) {
+      var cls = 'input-content';
+      if (!noLabelFloat) {
+        var label = this.querySelector('label');
+
+        if (alwaysFloatLabel || _inputHasContent) {
+          cls += ' label-is-floating';
+          // If the label is floating, ignore any offsets that may have been
+          // applied from a prefix element.
+          this.$.labelAndInputContainer.style.position = 'static';
+
+          if (invalid) {
+            cls += ' is-invalid';
+          } else if (focused) {
+            cls += " label-is-highlighted";
+          }
+        } else {
+          // When the label is not floating, it should overlap the input element.
+          if (label) {
+            this.$.labelAndInputContainer.style.position = 'relative';
+          }
+        }
+      } else {
+        if (_inputHasContent) {
+          cls += ' label-is-hidden';
+        }
+      }
+      return cls;
+    },
+
+    _computeUnderlineClass: function(focused, invalid) {
+      var cls = 'underline';
+      if (invalid) {
+        cls += ' is-invalid';
+      } else if (focused) {
+        cls += ' is-highlighted'
+      }
+      return cls;
+    },
+
+    _computeAddOnContentClass: function(focused, invalid) {
+      var cls = 'add-on-content';
+      if (invalid) {
+        cls += ' is-invalid';
+      } else if (focused) {
+        cls += ' is-highlighted'
+      }
+      return cls;
+    }
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`<paper-input-error>` is an error message for use with `<paper-input-container>`. The error is
+displayed when the `<paper-input-container>` is `invalid`.
+
+    <paper-input-container>
+      <input is="iron-input" pattern="[0-9]*">
+      <paper-input-error>Only numbers are allowed!</paper-input-error>
+    </paper-input-container>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-input-container-invalid-color` | The foreground color of the error | `--error-color`
+`--paper-input-error`                   | Mixin applied to the error        | `{}`
+-->
+
+<dom-module id="paper-input-error" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        visibility: hidden;
+
+        color: var(--paper-input-container-invalid-color, --error-color);
+
+        @apply(--paper-font-caption);
+        @apply(--paper-input-error);
+        position: absolute;
+        left:0;
+        right:0;
+      }
+
+      :host([invalid]) {
+        visibility: visible;
+      };
+    </style>
+
+    <content></content>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'paper-input-error',
+
+    behaviors: [
+      Polymer.PaperInputAddonBehavior
+    ],
+
+    properties: {
+      /**
+       * True if the error is showing.
+       */
+      invalid: {
+        readOnly: true,
+        reflectToAttribute: true,
+        type: Boolean
+      }
+    },
+
+    /**
+     * This overrides the update function in PaperInputAddonBehavior.
+     * @param {{
+     *   inputElement: (Element|undefined),
+     *   value: (string|undefined),
+     *   invalid: boolean
+     * }} state -
+     *     inputElement: The input element.
+     *     value: The input value.
+     *     invalid: True if the input value is invalid.
+     */
+    update: function(state) {
+      this._setInvalid(state.invalid);
+    }
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+Material design: [Text fields](https://www.google.com/design/spec/components/text-fields.html)
+
+`<paper-input>` is a single-line text field with Material Design styling.
+
+    <paper-input label="Input label"></paper-input>
+
+It may include an optional error message or character counter.
+
+    <paper-input error-message="Invalid input!" label="Input label"></paper-input>
+    <paper-input char-counter label="Input label"></paper-input>
+
+It can also include custom prefix or suffix elements, which are displayed
+before or after the text input itself. In order for an element to be
+considered as a prefix, it must have the `prefix` attribute (and similarly
+for `suffix`).
+
+    <paper-input label="total">
+      <div prefix>$</div>
+      <paper-icon-button suffix icon="clear"></paper-icon-button>
+    </paper-input>
+
+A `paper-input` can use the native `type=search` or `type=file` features.
+However, since we can't control the native styling of the input (search icon,
+file button, date placeholder, etc.), in these cases the label will be
+automatically floated. The `placeholder` attribute can still be used for
+additional informational text.
+
+    <paper-input label="search!" type="search"
+        placeholder="search for cats" autosave="test" results="5">
+    </paper-input>
+
+See `Polymer.PaperInputBehavior` for more API docs.
+
+### Focus
+
+To focus a paper-input, you can call the native `focus()` method as long as the
+paper input has a tab index.
+
+### Styling
+
+See `Polymer.PaperInputContainer` for a list of custom properties used to
+style this element.
+
+
+@group Paper Elements
+@element paper-input
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<dom-module id="paper-input" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host([focused]) {
+        outline: none;
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      input::-webkit-input-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input:-moz-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input::-moz-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input:-ms-input-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      label {
+        pointer-events: none;
+      }
+    </style>
+
+    <paper-input-container no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
+
+      <content select="[prefix]"></content>
+
+      <label hidden$="[[!label]]" aria-hidden="true" for="input">[[label]]</label>
+
+      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
+
+      <content select="[suffix]"></content>
+
+      <template is="dom-if" if="[[errorMessage]]">
+        <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
+      </template>
+
+      <template is="dom-if" if="[[charCounter]]">
+        <paper-input-char-counter></paper-input-char-counter>
+      </template>
+
+    </paper-input-container>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'paper-input',
+
+    behaviors: [
+      Polymer.IronFormElementBehavior,
+      Polymer.PaperInputBehavior
+    ]
+  });
+</script>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+Material design: [Snackbards & toasts](https://www.google.com/design/spec/components/snackbars-toasts.html)
+
+`paper-toast` provides a subtle notification toast. Only one `paper-toast` will
+be visible on screen.
+
+Use `opened` to show the toast:
+
+Example:
+
+    <paper-toast text="Hello world!" opened></paper-toast>
+
+Also `open()` or `show()` can be used to show the toast:
+
+Example:
+
+    <paper-button on-click="openToast">Open Toast</paper-button>
+    <paper-toast id="toast" text="Hello world!"></paper-toast>
+
+    ...
+
+    openToast: function() {
+      this.$.toast.open();
+    }
+
+Set `duration` to 0, a negative number or Infinity to persist the toast on screen:
+
+Example:
+
+    <paper-toast text="Terms and conditions" opened duration="0">
+      <a href="#">Show more</a>
+    </paper-toast>
+
+
+### Styling
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-toast-background-color` | The paper-toast background-color | `#323232`
+`--paper-toast-color` | The paper-toast color | `#f1f1f1`
+
+This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
+
+@group Paper Elements
+@element paper-toast
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="paper-toast" assetpath="../bower_components/paper-toast/">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: fixed;
+        background-color: var(--paper-toast-background-color, #323232);
+        color: var(--paper-toast-color, #f1f1f1);
+        min-height: 48px;
+        min-width: 288px;
+        padding: 16px 24px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        border-radius: 2px;
+        margin: 12px;
+        font-size: 14px;
+        cursor: default;
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        opacity: 0;
+        -webkit-transform: translateY(100px);
+        transform: translateY(100px);
+        @apply(--paper-font-common-base);
+      }
+
+      :host(.capsule) {
+        border-radius: 24px;
+      }
+
+      :host(.fit-bottom) {
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      :host(.paper-toast-open) {
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+      }
+    </style>
+
+    <span id="label">{{text}}</span>
+    <content></content>
+  </template>
+
+  <script>
+    (function() {
+      // Keeps track of the toast currently opened.
+      var currentToast = null;
+
+      Polymer({
+        is: 'paper-toast',
+
+        behaviors: [
+          Polymer.IronOverlayBehavior
+        ],
+
+        properties: {
+          /**
+           * The element to fit `this` into.
+           * Overridden from `Polymer.IronFitBehavior`.
+           */
+          fitInto: {
+            type: Object,
+            value: window,
+            observer: '_onFitIntoChanged'
+          },
+
+          /**
+           * The orientation against which to align the dropdown content
+           * horizontally relative to `positionTarget`.
+           * Overridden from `Polymer.IronFitBehavior`.
+           */
+          horizontalAlign: {
+            type: String,
+            value: 'left'
+          },
+
+          /**
+           * The orientation against which to align the dropdown content
+           * vertically relative to `positionTarget`.
+           * Overridden from `Polymer.IronFitBehavior`.
+           */
+          verticalAlign: {
+            type: String,
+            value: 'bottom'
+          },
+
+          /**
+           * The duration in milliseconds to show the toast.
+           * Set to `0`, a negative number, or `Infinity`, to disable the
+           * toast auto-closing.
+           */
+          duration: {
+            type: Number,
+            value: 3000
+          },
+
+          /**
+           * The text to display in the toast.
+           */
+          text: {
+            type: String,
+            value: ''
+          },
+
+          /**
+           * Overridden from `IronOverlayBehavior`.
+           * Set to false to enable closing of the toast by clicking outside it.
+           */
+          noCancelOnOutsideClick: {
+            type: Boolean,
+            value: true
+          },
+
+          /**
+           * Overridden from `IronOverlayBehavior`.
+           * Set to true to disable auto-focusing the toast or child nodes with
+           * the `autofocus` attribute` when the overlay is opened.
+           */
+          noAutoFocus: {
+            type: Boolean,
+            value: true
+          }
+        },
+
+        listeners: {
+          'transitionend': '__onTransitionEnd'
+        },
+
+        /**
+         * Read-only. Deprecated. Use `opened` from `IronOverlayBehavior`.
+         * @property visible
+         * @deprecated
+         */
+        get visible() {
+          Polymer.Base._warn('`visible` is deprecated, use `opened` instead');
+          return this.opened;
+        },
+
+        /**
+         * Read-only. Can auto-close if duration is a positive finite number.
+         * @property _canAutoClose
+         */
+        get _canAutoClose() {
+          return this.duration > 0 && this.duration !== Infinity;
+        },
+
+        created: function() {
+          this._autoClose = null;
+          Polymer.IronA11yAnnouncer.requestAvailability();
+        },
+
+        /**
+         * Show the toast. Without arguments, this is the same as `open()` from `IronOverlayBehavior`.
+         * @param {(Object|string)=} properties Properties to be set before opening the toast.
+         * e.g. `toast.show('hello')` or `toast.show({text: 'hello', duration: 3000})`
+         */
+        show: function(properties) {
+          if (typeof properties == 'string') {
+            properties = { text: properties };
+          }
+          for (var property in properties) {
+            if (property.indexOf('_') === 0) {
+              Polymer.Base._warn('The property "' + property + '" is private and was not set.');
+            } else if (property in this) {
+              this[property] = properties[property];
+            } else {
+              Polymer.Base._warn('The property "' + property + '" is not valid.');
+            }
+          }
+          this.open();
+        },
+
+        /**
+         * Hide the toast. Same as `close()` from `IronOverlayBehavior`.
+         */
+        hide: function() {
+          this.close();
+        },
+
+        /**
+         * Called on transitions of the toast, indicating a finished animation
+         * @private
+         */
+        __onTransitionEnd: function(e) {
+          // there are different transitions that are happening when opening and
+          // closing the toast. The last one so far is for `opacity`.
+          // This marks the end of the transition, so we check for this to determine if this
+          // is the correct event.
+          if (e && e.target === this && e.propertyName === 'opacity') {
+            if (this.opened) {
+              this._finishRenderOpened();
+            } else {
+              this._finishRenderClosed();
+            }
+          }
+        },
+
+        /**
+         * Overridden from `IronOverlayBehavior`.
+         * Called when the value of `opened` changes.
+         */
+        _openedChanged: function() {
+          if (this._autoClose !== null) {
+            this.cancelAsync(this._autoClose);
+            this._autoClose = null;
+          }
+          if (this.opened) {
+            if (currentToast && currentToast !== this) {
+              currentToast.close();
+            }
+            currentToast = this;
+            this.fire('iron-announce', {
+              text: this.text
+            });
+            if (this._canAutoClose) {
+              this._autoClose = this.async(this.close, this.duration);
+            }
+          } else if (currentToast === this) {
+            currentToast = null;
+          }
+          Polymer.IronOverlayBehaviorImpl._openedChanged.apply(this, arguments);
+        },
+
+        /**
+         * Overridden from `IronOverlayBehavior`.
+         */
+        _renderOpened: function() {
+          this.classList.add('paper-toast-open');
+        },
+
+        /**
+         * Overridden from `IronOverlayBehavior`.
+         */
+        _renderClosed: function() {
+          this.classList.remove('paper-toast-open');
+        },
+
+        /**
+         * @private
+         */
+        _onFitIntoChanged: function(fitInto) {
+          this.positionTarget = fitInto;
+        }
+
+        /**
+         * Fired when `paper-toast` is opened.
+         *
+         * @event 'iron-announce'
+         * @param {{text: string}} detail Contains text that will be announced.
+         */
+      });
+    })();
+  </script>
+</dom-module>
 <dom-module id="oav-area-budget" assetpath="oav-area-ballot/">
   <style include="iron-flex iron-flex-alignment">
 
@@ -34822,14 +37313,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.4.43">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.4.44">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.4.43">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.4.44">
    * ```
    *
    * ### Consuming effects
@@ -35600,7 +38091,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.4.43">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.4.44">
 ```
 
 #### List of effects
@@ -36637,443 +39128,6 @@ Example:
     });
   </script>
 </dom-module>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`iron-a11y-announcer` is a singleton element that is intended to add a11y
-to features that require on-demand announcement from screen readers. In
-order to make use of the announcer, it is best to request its availability
-in the announcing element.
-
-Example:
-
-    Polymer({
-
-      is: 'x-chatty',
-
-      attached: function() {
-        // This will create the singleton element if it has not
-        // been created yet:
-        Polymer.IronA11yAnnouncer.requestAvailability();
-      }
-    });
-
-After the `iron-a11y-announcer` has been made available, elements can
-make announces by firing bubbling `iron-announce` events.
-
-Example:
-
-    this.fire('iron-announce', {
-      text: 'This is an announcement!'
-    }, { bubbles: true });
-
-Note: announcements are only audible if you have a screen reader enabled.
-
-@group Iron Elements
-@demo demo/index.html
--->
-
-<dom-module id="iron-a11y-announcer" assetpath="../bower_components/iron-a11y-announcer/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        position: fixed;
-        clip: rect(0px,0px,0px,0px);
-      }
-    </style>
-    <div aria-live$="[[mode]]">[[_text]]</div>
-  </template>
-
-  <script>
-
-    (function() {
-      'use strict';
-
-      Polymer.IronA11yAnnouncer = Polymer({
-        is: 'iron-a11y-announcer',
-
-        properties: {
-
-          /**
-           * The value of mode is used to set the `aria-live` attribute
-           * for the element that will be announced. Valid values are: `off`,
-           * `polite` and `assertive`.
-           */
-          mode: {
-            type: String,
-            value: 'polite'
-          },
-
-          _text: {
-            type: String,
-            value: ''
-          }
-        },
-
-        created: function() {
-          if (!Polymer.IronA11yAnnouncer.instance) {
-            Polymer.IronA11yAnnouncer.instance = this;
-          }
-
-          document.body.addEventListener('iron-announce', this._onIronAnnounce.bind(this));
-        },
-
-        /**
-         * Cause a text string to be announced by screen readers.
-         *
-         * @param {string} text The text that should be announced.
-         */
-        announce: function(text) {
-          this._text = '';
-          this.async(function() {
-            this._text = text;
-          }, 100);
-        },
-
-        _onIronAnnounce: function(event) {
-          if (event.detail && event.detail.text) {
-            this.announce(event.detail.text);
-          }
-        }
-      });
-
-      Polymer.IronA11yAnnouncer.instance = null;
-
-      Polymer.IronA11yAnnouncer.requestAvailability = function() {
-        if (!Polymer.IronA11yAnnouncer.instance) {
-          Polymer.IronA11yAnnouncer.instance = document.createElement('iron-a11y-announcer');
-        }
-
-        document.body.appendChild(Polymer.IronA11yAnnouncer.instance);
-      };
-    })();
-
-  </script>
-</dom-module>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-Material design: [Snackbards & toasts](https://www.google.com/design/spec/components/snackbars-toasts.html)
-
-`paper-toast` provides a subtle notification toast. Only one `paper-toast` will
-be visible on screen.
-
-Use `opened` to show the toast:
-
-Example:
-
-    <paper-toast text="Hello world!" opened></paper-toast>
-
-Also `open()` or `show()` can be used to show the toast:
-
-Example:
-
-    <paper-button on-click="openToast">Open Toast</paper-button>
-    <paper-toast id="toast" text="Hello world!"></paper-toast>
-
-    ...
-
-    openToast: function() {
-      this.$.toast.open();
-    }
-
-Set `duration` to 0, a negative number or Infinity to persist the toast on screen:
-
-Example:
-
-    <paper-toast text="Terms and conditions" opened duration="0">
-      <a href="#">Show more</a>
-    </paper-toast>
-
-
-### Styling
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-toast-background-color` | The paper-toast background-color | `#323232`
-`--paper-toast-color` | The paper-toast color | `#f1f1f1`
-
-This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
-In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
-
-@group Paper Elements
-@element paper-toast
-@demo demo/index.html
-@hero hero.svg
--->
-
-<dom-module id="paper-toast" assetpath="../bower_components/paper-toast/">
-  <template>
-    <style>
-      :host {
-        display: block;
-        position: fixed;
-        background-color: var(--paper-toast-background-color, #323232);
-        color: var(--paper-toast-color, #f1f1f1);
-        min-height: 48px;
-        min-width: 288px;
-        padding: 16px 24px;
-        box-sizing: border-box;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        border-radius: 2px;
-        margin: 12px;
-        font-size: 14px;
-        cursor: default;
-        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-        transition: transform 0.3s, opacity 0.3s;
-        opacity: 0;
-        -webkit-transform: translateY(100px);
-        transform: translateY(100px);
-        @apply(--paper-font-common-base);
-      }
-
-      :host(.capsule) {
-        border-radius: 24px;
-      }
-
-      :host(.fit-bottom) {
-        width: 100%;
-        min-width: 0;
-        border-radius: 0;
-        margin: 0;
-      }
-
-      :host(.paper-toast-open) {
-        opacity: 1;
-        -webkit-transform: translateY(0px);
-        transform: translateY(0px);
-      }
-    </style>
-
-    <span id="label">{{text}}</span>
-    <content></content>
-  </template>
-
-  <script>
-    (function() {
-      // Keeps track of the toast currently opened.
-      var currentToast = null;
-
-      Polymer({
-        is: 'paper-toast',
-
-        behaviors: [
-          Polymer.IronOverlayBehavior
-        ],
-
-        properties: {
-          /**
-           * The element to fit `this` into.
-           * Overridden from `Polymer.IronFitBehavior`.
-           */
-          fitInto: {
-            type: Object,
-            value: window,
-            observer: '_onFitIntoChanged'
-          },
-
-          /**
-           * The orientation against which to align the dropdown content
-           * horizontally relative to `positionTarget`.
-           * Overridden from `Polymer.IronFitBehavior`.
-           */
-          horizontalAlign: {
-            type: String,
-            value: 'left'
-          },
-
-          /**
-           * The orientation against which to align the dropdown content
-           * vertically relative to `positionTarget`.
-           * Overridden from `Polymer.IronFitBehavior`.
-           */
-          verticalAlign: {
-            type: String,
-            value: 'bottom'
-          },
-
-          /**
-           * The duration in milliseconds to show the toast.
-           * Set to `0`, a negative number, or `Infinity`, to disable the
-           * toast auto-closing.
-           */
-          duration: {
-            type: Number,
-            value: 3000
-          },
-
-          /**
-           * The text to display in the toast.
-           */
-          text: {
-            type: String,
-            value: ''
-          },
-
-          /**
-           * Overridden from `IronOverlayBehavior`.
-           * Set to false to enable closing of the toast by clicking outside it.
-           */
-          noCancelOnOutsideClick: {
-            type: Boolean,
-            value: true
-          },
-
-          /**
-           * Overridden from `IronOverlayBehavior`.
-           * Set to true to disable auto-focusing the toast or child nodes with
-           * the `autofocus` attribute` when the overlay is opened.
-           */
-          noAutoFocus: {
-            type: Boolean,
-            value: true
-          }
-        },
-
-        listeners: {
-          'transitionend': '__onTransitionEnd'
-        },
-
-        /**
-         * Read-only. Deprecated. Use `opened` from `IronOverlayBehavior`.
-         * @property visible
-         * @deprecated
-         */
-        get visible() {
-          Polymer.Base._warn('`visible` is deprecated, use `opened` instead');
-          return this.opened;
-        },
-
-        /**
-         * Read-only. Can auto-close if duration is a positive finite number.
-         * @property _canAutoClose
-         */
-        get _canAutoClose() {
-          return this.duration > 0 && this.duration !== Infinity;
-        },
-
-        created: function() {
-          this._autoClose = null;
-          Polymer.IronA11yAnnouncer.requestAvailability();
-        },
-
-        /**
-         * Show the toast. Without arguments, this is the same as `open()` from `IronOverlayBehavior`.
-         * @param {(Object|string)=} properties Properties to be set before opening the toast.
-         * e.g. `toast.show('hello')` or `toast.show({text: 'hello', duration: 3000})`
-         */
-        show: function(properties) {
-          if (typeof properties == 'string') {
-            properties = { text: properties };
-          }
-          for (var property in properties) {
-            if (property.indexOf('_') === 0) {
-              Polymer.Base._warn('The property "' + property + '" is private and was not set.');
-            } else if (property in this) {
-              this[property] = properties[property];
-            } else {
-              Polymer.Base._warn('The property "' + property + '" is not valid.');
-            }
-          }
-          this.open();
-        },
-
-        /**
-         * Hide the toast. Same as `close()` from `IronOverlayBehavior`.
-         */
-        hide: function() {
-          this.close();
-        },
-
-        /**
-         * Called on transitions of the toast, indicating a finished animation
-         * @private
-         */
-        __onTransitionEnd: function(e) {
-          // there are different transitions that are happening when opening and
-          // closing the toast. The last one so far is for `opacity`.
-          // This marks the end of the transition, so we check for this to determine if this
-          // is the correct event.
-          if (e && e.target === this && e.propertyName === 'opacity') {
-            if (this.opened) {
-              this._finishRenderOpened();
-            } else {
-              this._finishRenderClosed();
-            }
-          }
-        },
-
-        /**
-         * Overridden from `IronOverlayBehavior`.
-         * Called when the value of `opened` changes.
-         */
-        _openedChanged: function() {
-          if (this._autoClose !== null) {
-            this.cancelAsync(this._autoClose);
-            this._autoClose = null;
-          }
-          if (this.opened) {
-            if (currentToast && currentToast !== this) {
-              currentToast.close();
-            }
-            currentToast = this;
-            this.fire('iron-announce', {
-              text: this.text
-            });
-            if (this._canAutoClose) {
-              this._autoClose = this.async(this.close, this.duration);
-            }
-          } else if (currentToast === this) {
-            currentToast = null;
-          }
-          Polymer.IronOverlayBehaviorImpl._openedChanged.apply(this, arguments);
-        },
-
-        /**
-         * Overridden from `IronOverlayBehavior`.
-         */
-        _renderOpened: function() {
-          this.classList.add('paper-toast-open');
-        },
-
-        /**
-         * Overridden from `IronOverlayBehavior`.
-         */
-        _renderClosed: function() {
-          this.classList.remove('paper-toast-open');
-        },
-
-        /**
-         * @private
-         */
-        _onFitIntoChanged: function(fitInto) {
-          this.positionTarget = fitInto;
-        }
-
-        /**
-         * Fired when `paper-toast` is opened.
-         *
-         * @event 'iron-announce'
-         * @param {{text: string}} detail Contains text that will be announced.
-         */
-      });
-    })();
-  </script>
-</dom-module>
 <dom-module id="oav-app-globals" assetpath="oav-app-globals/">
 
   <template>
@@ -37283,2060 +39337,6 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
 
 </script>
 
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script>
-  /**
-  Polymer.IronFormElementBehavior enables a custom element to be included
-  in an `iron-form`.
-
-  @demo demo/index.html
-  @polymerBehavior
-  */
-  Polymer.IronFormElementBehavior = {
-
-    properties: {
-      /**
-       * Fired when the element is added to an `iron-form`.
-       *
-       * @event iron-form-element-register
-       */
-
-      /**
-       * Fired when the element is removed from an `iron-form`.
-       *
-       * @event iron-form-element-unregister
-       */
-
-      /**
-       * The name of this element.
-       */
-      name: {
-        type: String
-      },
-
-      /**
-       * The value for this element.
-       */
-      value: {
-        notify: true,
-        type: String
-      },
-
-      /**
-       * Set to true to mark the input as required. If used in a form, a
-       * custom element that uses this behavior should also use
-       * Polymer.IronValidatableBehavior and define a custom validation method.
-       * Otherwise, a `required` element will always be considered valid.
-       * It's also strongly recommended to provide a visual style for the element
-       * when its value is invalid.
-       */
-      required: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * The form that the element is registered to.
-       */
-      _parentForm: {
-        type: Object
-      }
-    },
-
-    attached: function() {
-      // Note: the iron-form that this element belongs to will set this
-      // element's _parentForm property when handling this event.
-      this.fire('iron-form-element-register');
-    },
-
-    detached: function() {
-      if (this._parentForm) {
-        this._parentForm.fire('iron-form-element-unregister', {target: this});
-      }
-    }
-
-  };
-
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script>
-  /**
-   * Singleton IronMeta instance.
-   */
-  Polymer.IronValidatableBehaviorMeta = null;
-
-  /**
-   * `Use Polymer.IronValidatableBehavior` to implement an element that validates user input.
-   * Use the related `Polymer.IronValidatorBehavior` to add custom validation logic to an iron-input.
-   *
-   * By default, an `<iron-form>` element validates its fields when the user presses the submit button.
-   * To validate a form imperatively, call the form's `validate()` method, which in turn will
-   * call `validate()` on all its children. By using `Polymer.IronValidatableBehavior`, your
-   * custom element will get a public `validate()`, which
-   * will return the validity of the element, and a corresponding `invalid` attribute,
-   * which can be used for styling.
-   *
-   * To implement the custom validation logic of your element, you must override
-   * the protected `_getValidity()` method of this behaviour, rather than `validate()`.
-   * See [this](https://github.com/PolymerElements/iron-form/blob/master/demo/simple-element.html)
-   * for an example.
-   *
-   * ### Accessibility
-   *
-   * Changing the `invalid` property, either manually or by calling `validate()` will update the
-   * `aria-invalid` attribute.
-   *
-   * @demo demo/index.html
-   * @polymerBehavior
-   */
-  Polymer.IronValidatableBehavior = {
-
-    properties: {
-
-      /**
-       * Name of the validator to use.
-       */
-      validator: {
-        type: String
-      },
-
-      /**
-       * True if the last call to `validate` is invalid.
-       */
-      invalid: {
-        notify: true,
-        reflectToAttribute: true,
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * This property is deprecated and should not be used. Use the global
-       * validator meta singleton, `Polymer.IronValidatableBehaviorMeta` instead.
-       */
-      _validatorMeta: {
-        type: Object
-      },
-
-      /**
-       * Namespace for this validator. This property is deprecated and should
-       * not be used. For all intents and purposes, please consider it a
-       * read-only, config-time property.
-       */
-      validatorType: {
-        type: String,
-        value: 'validator'
-      },
-
-      _validator: {
-        type: Object,
-        computed: '__computeValidator(validator)'
-      }
-    },
-
-    observers: [
-      '_invalidChanged(invalid)'
-    ],
-
-    registered: function() {
-      Polymer.IronValidatableBehaviorMeta = new Polymer.IronMeta({type: 'validator'});
-    },
-
-    _invalidChanged: function() {
-      if (this.invalid) {
-        this.setAttribute('aria-invalid', 'true');
-      } else {
-        this.removeAttribute('aria-invalid');
-      }
-    },
-
-    /**
-     * @return {boolean} True if the validator `validator` exists.
-     */
-    hasValidator: function() {
-      return this._validator != null;
-    },
-
-    /**
-     * Returns true if the `value` is valid, and updates `invalid`. If you want
-     * your element to have custom validation logic, do not override this method;
-     * override `_getValidity(value)` instead.
-
-     * @param {Object} value The value to be validated. By default, it is passed
-     * to the validator's `validate()` function, if a validator is set.
-     * @return {boolean} True if `value` is valid.
-     */
-    validate: function(value) {
-      this.invalid = !this._getValidity(value);
-      return !this.invalid;
-    },
-
-    /**
-     * Returns true if `value` is valid.  By default, it is passed
-     * to the validator's `validate()` function, if a validator is set. You
-     * should override this method if you want to implement custom validity
-     * logic for your element.
-     *
-     * @param {Object} value The value to be validated.
-     * @return {boolean} True if `value` is valid.
-     */
-
-    _getValidity: function(value) {
-      if (this.hasValidator()) {
-        return this._validator.validate(value);
-      }
-      return true;
-    },
-
-    __computeValidator: function() {
-      return Polymer.IronValidatableBehaviorMeta &&
-          Polymer.IronValidatableBehaviorMeta.byKey(this.validator);
-    }
-  };
-
-</script>
-<script>
-
-/*
-`<iron-input>` adds two-way binding and custom validators using `Polymer.IronValidatorBehavior`
-to `<input>`.
-
-### Two-way binding
-
-By default you can only get notified of changes to an `input`'s `value` due to user input:
-
-    <input value="{{myValue::input}}">
-
-`iron-input` adds the `bind-value` property that mirrors the `value` property, and can be used
-for two-way data binding. `bind-value` will notify if it is changed either by user input or by script.
-
-    <input is="iron-input" bind-value="{{myValue}}">
-
-### Custom validators
-
-You can use custom validators that implement `Polymer.IronValidatorBehavior` with `<iron-input>`.
-
-    <input is="iron-input" validator="my-custom-validator">
-
-### Stopping invalid input
-
-It may be desirable to only allow users to enter certain characters. You can use the
-`prevent-invalid-input` and `allowed-pattern` attributes together to accomplish this. This feature
-is separate from validation, and `allowed-pattern` does not affect how the input is validated.
-
-    <!-- only allow characters that match [0-9] -->
-    <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]">
-
-@hero hero.svg
-@demo demo/index.html
-*/
-
-  Polymer({
-
-    is: 'iron-input',
-
-    extends: 'input',
-
-    behaviors: [
-      Polymer.IronValidatableBehavior
-    ],
-
-    properties: {
-
-      /**
-       * Use this property instead of `value` for two-way data binding.
-       */
-      bindValue: {
-        observer: '_bindValueChanged',
-        type: String
-      },
-
-      /**
-       * Set to true to prevent the user from entering invalid input. If `allowedPattern` is set,
-       * any character typed by the user will be matched against that pattern, and rejected if it's not a match.
-       * Pasted input will have each character checked individually; if any character
-       * doesn't match `allowedPattern`, the entire pasted string will be rejected.
-       * If `allowedPattern` is not set, it will use the `type` attribute (only supported for `type=number`).
-       */
-      preventInvalidInput: {
-        type: Boolean
-      },
-
-      /**
-       * Regular expression that list the characters allowed as input.
-       * This pattern represents the allowed characters for the field; as the user inputs text,
-       * each individual character will be checked against the pattern (rather than checking
-       * the entire value as a whole). The recommended format should be a list of allowed characters;
-       * for example, `[a-zA-Z0-9.+-!;:]`
-       */
-      allowedPattern: {
-        type: String,
-        observer: "_allowedPatternChanged"
-      },
-
-      _previousValidInput: {
-        type: String,
-        value: ''
-      },
-
-      _patternAlreadyChecked: {
-        type: Boolean,
-        value: false
-      }
-
-    },
-
-    listeners: {
-      'input': '_onInput',
-      'keypress': '_onKeypress'
-    },
-
-    /** @suppress {checkTypes} */
-    registered: function() {
-      // Feature detect whether we need to patch dispatchEvent (i.e. on FF and IE).
-      if (!this._canDispatchEventOnDisabled()) {
-        this._origDispatchEvent = this.dispatchEvent;
-        this.dispatchEvent = this._dispatchEventFirefoxIE;
-      }
-    },
-
-    created: function() {
-      Polymer.IronA11yAnnouncer.requestAvailability();
-    },
-
-    _canDispatchEventOnDisabled: function() {
-      var input = document.createElement('input');
-      var canDispatch = false;
-      input.disabled = true;
-
-      input.addEventListener('feature-check-dispatch-event', function() {
-        canDispatch = true;
-      });
-
-      try {
-        input.dispatchEvent(new Event('feature-check-dispatch-event'));
-      } catch(e) {}
-
-      return canDispatch;
-    },
-
-    _dispatchEventFirefoxIE: function() {
-      // Due to Firefox bug, events fired on disabled form controls can throw
-      // errors; furthermore, neither IE nor Firefox will actually dispatch
-      // events from disabled form controls; as such, we toggle disable around
-      // the dispatch to allow notifying properties to notify
-      // See issue #47 for details
-      var disabled = this.disabled;
-      this.disabled = false;
-      this._origDispatchEvent.apply(this, arguments);
-      this.disabled = disabled;
-    },
-
-    get _patternRegExp() {
-      var pattern;
-      if (this.allowedPattern) {
-        pattern = new RegExp(this.allowedPattern);
-      } else {
-        switch (this.type) {
-          case 'number':
-            pattern = /[0-9.,e-]/;
-            break;
-        }
-      }
-      return pattern;
-    },
-
-    ready: function() {
-      this.bindValue = this.value;
-    },
-
-    /**
-     * @suppress {checkTypes}
-     */
-    _bindValueChanged: function() {
-      if (this.value !== this.bindValue) {
-        this.value = !(this.bindValue || this.bindValue === 0 || this.bindValue === false) ? '' : this.bindValue;
-      }
-      // manually notify because we don't want to notify until after setting value
-      this.fire('bind-value-changed', {value: this.bindValue});
-    },
-
-    _allowedPatternChanged: function() {
-      // Force to prevent invalid input when an `allowed-pattern` is set
-      this.preventInvalidInput = this.allowedPattern ? true : false;
-    },
-
-    _onInput: function() {
-      // Need to validate each of the characters pasted if they haven't
-      // been validated inside `_onKeypress` already.
-      if (this.preventInvalidInput && !this._patternAlreadyChecked) {
-        var valid = this._checkPatternValidity();
-        if (!valid) {
-          this._announceInvalidCharacter('Invalid string of characters not entered.');
-          this.value = this._previousValidInput;
-        }
-      }
-
-      this.bindValue = this.value;
-      this._previousValidInput = this.value;
-      this._patternAlreadyChecked = false;
-    },
-
-    _isPrintable: function(event) {
-      // What a control/printable character is varies wildly based on the browser.
-      // - most control characters (arrows, backspace) do not send a `keypress` event
-      //   in Chrome, but the *do* on Firefox
-      // - in Firefox, when they do send a `keypress` event, control chars have
-      //   a charCode = 0, keyCode = xx (for ex. 40 for down arrow)
-      // - printable characters always send a keypress event.
-      // - in Firefox, printable chars always have a keyCode = 0. In Chrome, the keyCode
-      //   always matches the charCode.
-      // None of this makes any sense.
-
-      // For these keys, ASCII code == browser keycode.
-      var anyNonPrintable =
-        (event.keyCode == 8)   ||  // backspace
-        (event.keyCode == 9)   ||  // tab
-        (event.keyCode == 13)  ||  // enter
-        (event.keyCode == 27);     // escape
-
-      // For these keys, make sure it's a browser keycode and not an ASCII code.
-      var mozNonPrintable =
-        (event.keyCode == 19)  ||  // pause
-        (event.keyCode == 20)  ||  // caps lock
-        (event.keyCode == 45)  ||  // insert
-        (event.keyCode == 46)  ||  // delete
-        (event.keyCode == 144) ||  // num lock
-        (event.keyCode == 145) ||  // scroll lock
-        (event.keyCode > 32 && event.keyCode < 41)   || // page up/down, end, home, arrows
-        (event.keyCode > 111 && event.keyCode < 124); // fn keys
-
-      return !anyNonPrintable && !(event.charCode == 0 && mozNonPrintable);
-    },
-
-    _onKeypress: function(event) {
-      if (!this.preventInvalidInput && this.type !== 'number') {
-        return;
-      }
-      var regexp = this._patternRegExp;
-      if (!regexp) {
-        return;
-      }
-
-      // Handle special keys and backspace
-      if (event.metaKey || event.ctrlKey || event.altKey)
-        return;
-
-      // Check the pattern either here or in `_onInput`, but not in both.
-      this._patternAlreadyChecked = true;
-
-      var thisChar = String.fromCharCode(event.charCode);
-      if (this._isPrintable(event) && !regexp.test(thisChar)) {
-        event.preventDefault();
-        this._announceInvalidCharacter('Invalid character ' + thisChar + ' not entered.');
-      }
-    },
-
-    _checkPatternValidity: function() {
-      var regexp = this._patternRegExp;
-      if (!regexp) {
-        return true;
-      }
-      for (var i = 0; i < this.value.length; i++) {
-        if (!regexp.test(this.value[i])) {
-          return false;
-        }
-      }
-      return true;
-    },
-
-    /**
-     * Returns true if `value` is valid. The validator provided in `validator` will be used first,
-     * then any constraints.
-     * @return {boolean} True if the value is valid.
-     */
-    validate: function() {
-      // First, check what the browser thinks. Some inputs (like type=number)
-      // behave weirdly and will set the value to "" if something invalid is
-      // entered, but will set the validity correctly.
-      var valid =  this.checkValidity();
-
-      // Only do extra checking if the browser thought this was valid.
-      if (valid) {
-        // Empty, required input is invalid
-        if (this.required && this.value === '') {
-          valid = false;
-        } else if (this.hasValidator()) {
-          valid = Polymer.IronValidatableBehavior.validate.call(this, this.value);
-        }
-      }
-
-      this.invalid = !valid;
-      this.fire('iron-input-validate');
-      return valid;
-    },
-
-    _announceInvalidCharacter: function(message) {
-      this.fire('iron-announce', { text: message });
-    }
-  });
-
-  /*
-  The `iron-input-validate` event is fired whenever `validate()` is called.
-  @event iron-input-validate
-  */
-
-</script><!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script>
-
-  // Generate unique, monotonically increasing IDs for labels (needed by
-  // aria-labelledby) and add-ons.
-  Polymer.PaperInputHelper = {};
-  Polymer.PaperInputHelper.NextLabelID = 1;
-  Polymer.PaperInputHelper.NextAddonID = 1;
-
-  /**
-   * Use `Polymer.PaperInputBehavior` to implement inputs with `<paper-input-container>`. This
-   * behavior is implemented by `<paper-input>`. It exposes a number of properties from
-   * `<paper-input-container>` and `<input is="iron-input">` and they should be bound in your
-   * template.
-   *
-   * The input element can be accessed by the `inputElement` property if you need to access
-   * properties or methods that are not exposed.
-   * @polymerBehavior Polymer.PaperInputBehavior
-   */
-  Polymer.PaperInputBehaviorImpl = {
-
-    properties: {
-      /**
-       * Fired when the input changes due to user interaction.
-       *
-       * @event change
-       */
-
-      /**
-       * The label for this input. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * `<label>`'s content and `hidden` property, e.g.
-       * `<label hidden$="[[!label]]">[[label]]</label>` in your `template`
-       */
-      label: {
-        type: String
-      },
-
-      /**
-       * The value for this input. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<input is="iron-input">`'s `bindValue`
-       * property, or the value property of your input that is `notify:true`.
-       */
-      value: {
-        notify: true,
-        type: String
-      },
-
-      /**
-       * Set to true to disable this input. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * both the `<paper-input-container>`'s and the input's `disabled` property.
-       */
-      disabled: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Returns true if the value is invalid. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to both the
-       * `<paper-input-container>`'s and the input's `invalid` property.
-       *
-       * If `autoValidate` is true, the `invalid` attribute is managed automatically,
-       * which can clobber attempts to manage it manually.
-       */
-      invalid: {
-        type: Boolean,
-        value: false,
-        notify: true
-      },
-
-      /**
-       * Set to true to prevent the user from entering invalid input. If you're
-       * using PaperInputBehavior to  implement your own paper-input-like element,
-       * bind this to `<input is="iron-input">`'s `preventInvalidInput` property.
-       */
-      preventInvalidInput: {
-        type: Boolean
-      },
-
-      /**
-       * Set this to specify the pattern allowed by `preventInvalidInput`. If
-       * you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `allowedPattern`
-       * property.
-       */
-      allowedPattern: {
-        type: String
-      },
-
-      /**
-       * The type of the input. The supported types are `text`, `number` and `password`.
-       * If you're using PaperInputBehavior to implement your own paper-input-like element,
-       * bind this to the `<input is="iron-input">`'s `type` property.
-       */
-      type: {
-        type: String
-      },
-
-      /**
-       * The datalist of the input (if any). This should match the id of an existing `<datalist>`.
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `list` property.
-       */
-      list: {
-        type: String
-      },
-
-      /**
-       * A pattern to validate the `input` with. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<input is="iron-input">`'s `pattern` property.
-       */
-      pattern: {
-        type: String
-      },
-
-      /**
-       * Set to true to mark the input as required. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<input is="iron-input">`'s `required` property.
-       */
-      required: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * The error message to display when the input is invalid. If you're using
-       * PaperInputBehavior to implement your own paper-input-like element,
-       * bind this to the `<paper-input-error>`'s content, if using.
-       */
-      errorMessage: {
-        type: String
-      },
-
-      /**
-       * Set to true to show a character counter.
-       */
-      charCounter: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Set to true to disable the floating label. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<paper-input-container>`'s `noLabelFloat` property.
-       */
-      noLabelFloat: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Set to true to always float the label. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<paper-input-container>`'s `alwaysFloatLabel` property.
-       */
-      alwaysFloatLabel: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Set to true to auto-validate the input value. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<paper-input-container>`'s `autoValidate` property.
-       */
-      autoValidate: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Name of the validator to use. If you're using PaperInputBehavior to
-       * implement your own paper-input-like element, bind this to
-       * the `<input is="iron-input">`'s `validator` property.
-       */
-      validator: {
-        type: String
-      },
-
-      // HTMLInputElement attributes for binding if needed
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `autocomplete` property.
-       */
-      autocomplete: {
-        type: String,
-        value: 'off'
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `autofocus` property.
-       */
-      autofocus: {
-        type: Boolean,
-        observer: '_autofocusChanged'
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `inputmode` property.
-       */
-      inputmode: {
-        type: String
-      },
-
-      /**
-       * The minimum length of the input value.
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `minlength` property.
-       */
-      minlength: {
-        type: Number
-      },
-
-      /**
-       * The maximum length of the input value.
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `maxlength` property.
-       */
-      maxlength: {
-        type: Number
-      },
-
-      /**
-       * The minimum (numeric or date-time) input value.
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `min` property.
-       */
-      min: {
-        type: String
-      },
-
-      /**
-       * The maximum (numeric or date-time) input value.
-       * Can be a String (e.g. `"2000-01-01"`) or a Number (e.g. `2`).
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `max` property.
-       */
-      max: {
-        type: String
-      },
-
-      /**
-       * Limits the numeric or date-time increments.
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `step` property.
-       */
-      step: {
-        type: String
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `name` property.
-       */
-      name: {
-        type: String
-      },
-
-      /**
-       * A placeholder string in addition to the label. If this is set, the label will always float.
-       */
-      placeholder: {
-        type: String,
-        // need to set a default so _computeAlwaysFloatLabel is run
-        value: ''
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `readonly` property.
-       */
-      readonly: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `size` property.
-       */
-      size: {
-        type: Number
-      },
-
-      // Nonstandard attributes for binding if needed
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `autocapitalize` property.
-       */
-      autocapitalize: {
-        type: String,
-        value: 'none'
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `autocorrect` property.
-       */
-      autocorrect: {
-        type: String,
-        value: 'off'
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `autosave` property,
-       * used with type=search.
-       */
-      autosave: {
-        type: String
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `results` property,
-       * used with type=search.
-       */
-      results: {
-        type: Number
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the `<input is="iron-input">`'s `accept` property,
-       * used with type=file.
-       */
-      accept: {
-        type: String
-      },
-
-      /**
-       * If you're using PaperInputBehavior to implement your own paper-input-like
-       * element, bind this to the`<input is="iron-input">`'s `multiple` property,
-       * used with type=file.
-       */
-      multiple: {
-        type: Boolean
-      },
-
-      _ariaDescribedBy: {
-        type: String,
-        value: ''
-      },
-
-      _ariaLabelledBy: {
-        type: String,
-        value: ''
-      }
-
-    },
-
-    listeners: {
-      'addon-attached': '_onAddonAttached',
-    },
-
-    keyBindings: {
-      'shift+tab:keydown': '_onShiftTabDown'
-    },
-
-    hostAttributes: {
-      tabindex: 0
-    },
-
-    /**
-     * Returns a reference to the input element.
-     */
-    get inputElement() {
-      return this.$.input;
-    },
-
-    /**
-     * Returns a reference to the focusable element.
-     */
-    get _focusableElement() {
-      return this.inputElement;
-    },
-
-    registered: function() {
-      // These types have some default placeholder text; overlapping
-      // the label on top of it looks terrible. Auto-float the label in this case.
-      this._typesThatHaveText = ["date", "datetime", "datetime-local", "month",
-          "time", "week", "file"];
-    },
-
-    attached: function() {
-      this._updateAriaLabelledBy();
-
-      if (this.inputElement &&
-          this._typesThatHaveText.indexOf(this.inputElement.type) !== -1) {
-        this.alwaysFloatLabel = true;
-      }
-    },
-
-    _appendStringWithSpace: function(str, more) {
-      if (str) {
-        str = str + ' ' + more;
-      } else {
-        str = more;
-      }
-      return str;
-    },
-
-    _onAddonAttached: function(event) {
-      var target = event.path ? event.path[0] : event.target;
-      if (target.id) {
-        this._ariaDescribedBy = this._appendStringWithSpace(this._ariaDescribedBy, target.id);
-      } else {
-        var id = 'paper-input-add-on-' + Polymer.PaperInputHelper.NextAddonID++;
-        target.id = id;
-        this._ariaDescribedBy = this._appendStringWithSpace(this._ariaDescribedBy, id);
-      }
-    },
-
-    /**
-     * Validates the input element and sets an error style if needed.
-     *
-     * @return {boolean}
-     */
-    validate: function() {
-      return this.inputElement.validate();
-    },
-
-    /**
-     * Forward focus to inputElement. Overriden from IronControlState.
-     */
-    _focusBlurHandler: function(event) {
-      Polymer.IronControlState._focusBlurHandler.call(this, event);
-
-      // Forward the focus to the nested input.
-      if (this.focused && !this._shiftTabPressed)
-        this._focusableElement.focus();
-    },
-
-    /**
-     * Handler that is called when a shift+tab keypress is detected by the menu.
-     *
-     * @param {CustomEvent} event A key combination event.
-     */
-    _onShiftTabDown: function(event) {
-      var oldTabIndex = this.getAttribute('tabindex');
-      this._shiftTabPressed = true;
-      this.setAttribute('tabindex', '-1');
-      this.async(function() {
-        this.setAttribute('tabindex', oldTabIndex);
-        this._shiftTabPressed = false;
-      }, 1);
-    },
-
-    /**
-     * If `autoValidate` is true, then validates the element.
-     */
-    _handleAutoValidate: function() {
-      if (this.autoValidate)
-        this.validate();
-    },
-
-    /**
-     * Restores the cursor to its original position after updating the value.
-     * @param {string} newValue The value that should be saved.
-     */
-    updateValueAndPreserveCaret: function(newValue) {
-      // Not all elements might have selection, and even if they have the
-      // right properties, accessing them might throw an exception (like for
-      // <input type=number>)
-      try {
-        var start = this.inputElement.selectionStart;
-        this.value = newValue;
-
-        // The cursor automatically jumps to the end after re-setting the value,
-        // so restore it to its original position.
-        this.inputElement.selectionStart = start;
-        this.inputElement.selectionEnd = start;
-      } catch (e) {
-        // Just set the value and give up on the caret.
-        this.value = newValue;
-      }
-    },
-
-    _computeAlwaysFloatLabel: function(alwaysFloatLabel, placeholder) {
-      return placeholder || alwaysFloatLabel;
-    },
-
-    _updateAriaLabelledBy: function() {
-      var label = Polymer.dom(this.root).querySelector('label');
-      if (!label) {
-        this._ariaLabelledBy = '';
-        return;
-      }
-      var labelledBy;
-      if (label.id) {
-        labelledBy = label.id;
-      } else {
-        labelledBy = 'paper-input-label-' + Polymer.PaperInputHelper.NextLabelID++;
-        label.id = labelledBy;
-      }
-      this._ariaLabelledBy = labelledBy;
-    },
-
-    _onChange:function(event) {
-      // In the Shadow DOM, the `change` event is not leaked into the
-      // ancestor tree, so we must do this manually.
-      // See https://w3c.github.io/webcomponents/spec/shadow/#events-that-are-not-leaked-into-ancestor-trees.
-      if (this.shadowRoot) {
-        this.fire(event.type, {sourceEvent: event}, {
-          node: this,
-          bubbles: event.bubbles,
-          cancelable: event.cancelable
-        });
-      }
-    },
-
-    _autofocusChanged: function() {
-      // Firefox doesn't respect the autofocus attribute if it's applied after
-      // the page is loaded (Chrome/WebKit do respect it), preventing an
-      // autofocus attribute specified in markup from taking effect when the
-      // element is upgraded. As a workaround, if the autofocus property is set,
-      // and the focus hasn't already been moved elsewhere, we take focus.
-      if (this.autofocus && this._focusableElement) {
-
-        // In IE 11, the default document.activeElement can be the page's
-        // outermost html element, but there are also cases (under the
-        // polyfill?) in which the activeElement is not a real HTMLElement, but
-        // just a plain object. We identify the latter case as having no valid
-        // activeElement.
-        var activeElement = document.activeElement;
-        var isActiveElementValid = activeElement instanceof HTMLElement;
-
-        // Has some other element has already taken the focus?
-        var isSomeElementActive = isActiveElementValid &&
-            activeElement !== document.body &&
-            activeElement !== document.documentElement; /* IE 11 */
-        if (!isSomeElementActive) {
-          // No specific element has taken the focus yet, so we can take it.
-          this._focusableElement.focus();
-        }
-      }
-    }
-  }
-
-  /** @polymerBehavior */
-  Polymer.PaperInputBehavior = [
-    Polymer.IronControlState,
-    Polymer.IronA11yKeysBehavior,
-    Polymer.PaperInputBehaviorImpl
-  ];
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script>
-
-  /**
-   * Use `Polymer.PaperInputAddonBehavior` to implement an add-on for `<paper-input-container>`. A
-   * add-on appears below the input, and may display information based on the input value and
-   * validity such as a character counter or an error message.
-   * @polymerBehavior
-   */
-  Polymer.PaperInputAddonBehavior = {
-
-    hostAttributes: {
-      'add-on': ''
-    },
-
-    attached: function() {
-      this.fire('addon-attached');
-    },
-
-    /**
-     * The function called by `<paper-input-container>` when the input value or validity changes.
-     * @param {{
-     *   inputElement: (Element|undefined),
-     *   value: (string|undefined),
-     *   invalid: boolean
-     * }} state -
-     *     inputElement: The input element.
-     *     value: The input value.
-     *     invalid: True if the input value is invalid.
-     */
-    update: function(state) {
-    }
-
-  };
-
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`<paper-input-char-counter>` is a character counter for use with `<paper-input-container>`. It
-shows the number of characters entered in the input and the max length if it is specified.
-
-    <paper-input-container>
-      <input is="iron-input" maxlength="20">
-      <paper-input-char-counter></paper-input-char-counter>
-    </paper-input-container>
-
-### Styling
-
-The following mixin is available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-input-char-counter` | Mixin applied to the element | `{}`
--->
-
-<dom-module id="paper-input-char-counter" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        float: right;
-
-        @apply(--paper-font-caption);
-        @apply(--paper-input-char-counter);
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      :host-context([dir="rtl"]) {
-        float: left;
-      }
-    </style>
-
-    <span>[[_charCounterStr]]</span>
-  </template>
-</dom-module>
-
-<script>
-  Polymer({
-    is: 'paper-input-char-counter',
-
-    behaviors: [
-      Polymer.PaperInputAddonBehavior
-    ],
-
-    properties: {
-      _charCounterStr: {
-        type: String,
-        value: '0'
-      }
-    },
-
-    /**
-     * This overrides the update function in PaperInputAddonBehavior.
-     * @param {{
-     *   inputElement: (Element|undefined),
-     *   value: (string|undefined),
-     *   invalid: boolean
-     * }} state -
-     *     inputElement: The input element.
-     *     value: The input value.
-     *     invalid: True if the input value is invalid.
-     */
-    update: function(state) {
-      if (!state.inputElement) {
-        return;
-      }
-
-      state.value = state.value || '';
-
-      var counter = state.value.toString().length.toString();
-
-      if (state.inputElement.hasAttribute('maxlength')) {
-        counter += '/' + state.inputElement.getAttribute('maxlength');
-      }
-
-      this._charCounterStr = counter;
-    }
-  });
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`<paper-input-container>` is a container for a `<label>`, an `<input is="iron-input">` or
-`<textarea>` and optional add-on elements such as an error message or character
-counter, used to implement Material Design text fields.
-
-For example:
-
-    <paper-input-container>
-      <label>Your name</label>
-      <input is="iron-input">
-    </paper-input-container>
-
-Do not wrap `<paper-input-container>` around elements that already include it, such as `<paper-input>`.
-Doing so may cause events to bounce infintely between the container and its contained element.
-
-### Listening for input changes
-
-By default, it listens for changes on the `bind-value` attribute on its children nodes and perform
-tasks such as auto-validating and label styling when the `bind-value` changes. You can configure
-the attribute it listens to with the `attr-for-value` attribute.
-
-### Using a custom input element
-
-You can use a custom input element in a `<paper-input-container>`, for example to implement a
-compound input field like a social security number input. The custom input element should have the
-`paper-input-input` class, have a `notify:true` value property and optionally implements
-`Polymer.IronValidatableBehavior` if it is validatable.
-
-    <paper-input-container attr-for-value="ssn-value">
-      <label>Social security number</label>
-      <ssn-input class="paper-input-input"></ssn-input>
-    </paper-input-container>
-
-
-If you're using a `<paper-input-container>` imperatively, it's important to make sure
-that you attach its children (the `iron-input` and the optional `label`) before you
-attach the `<paper-input-container>` itself, so that it can be set up correctly.
-
-### Validation
-
-If the `auto-validate` attribute is set, the input container will validate the input and update
-the container styling when the input value changes.
-
-### Add-ons
-
-Add-ons are child elements of a `<paper-input-container>` with the `add-on` attribute and
-implements the `Polymer.PaperInputAddonBehavior` behavior. They are notified when the input value
-or validity changes, and may implement functionality such as error messages or character counters.
-They appear at the bottom of the input.
-
-### Prefixes and suffixes
-These are child elements of a `<paper-input-container>` with the `prefix`
-or `suffix` attribute, and are displayed inline with the input, before or after.
-
-    <paper-input-container>
-      <div prefix>$</div>
-      <label>Total</label>
-      <input is="iron-input">
-      <paper-icon-button suffix icon="clear"></paper-icon-button>
-    </paper-input-container>
-
-### Styling
-
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-input-container-color` | Label and underline color when the input is not focused | `--secondary-text-color`
-`--paper-input-container-focus-color` | Label and underline color when the input is focused | `--primary-color`
-`--paper-input-container-invalid-color` | Label and underline color when the input is is invalid | `--error-color`
-`--paper-input-container-input-color` | Input foreground color | `--primary-text-color`
-`--paper-input-container` | Mixin applied to the container | `{}`
-`--paper-input-container-disabled` | Mixin applied to the container when it's disabled | `{}`
-`--paper-input-container-label` | Mixin applied to the label | `{}`
-`--paper-input-container-label-focus` | Mixin applied to the label when the input is focused | `{}`
-`--paper-input-container-label-floating` | Mixin applied to the label when floating | `{}`
-`--paper-input-container-input` | Mixin applied to the input | `{}`
-`--paper-input-container-underline` | Mixin applied to the underline | `{}`
-`--paper-input-container-underline-focus` | Mixin applied to the underline when the input is focused | `{}`
-`--paper-input-container-underline-disabled` | Mixin applied to the underline when the input is disabled | `{}`
-`--paper-input-prefix` | Mixin applied to the input prefix | `{}`
-`--paper-input-suffix` | Mixin applied to the input suffix | `{}`
-
-This element is `display:block` by default, but you can set the `inline` attribute to make it
-`display:inline-block`.
--->
-
-<dom-module id="paper-input-container" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: block;
-        padding: 8px 0;
-
-        @apply(--paper-input-container);
-      }
-
-      :host([inline]) {
-        display: inline-block;
-      }
-
-      :host([disabled]) {
-        pointer-events: none;
-        opacity: 0.33;
-
-        @apply(--paper-input-container-disabled);
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      .floated-label-placeholder {
-        @apply(--paper-font-caption);
-      }
-
-      .underline {
-        position: relative;
-      }
-
-      .focused-line {
-        @apply(--layout-fit);
-
-        background: var(--paper-input-container-focus-color, --primary-color);
-        height: 2px;
-
-        -webkit-transform-origin: center center;
-        transform-origin: center center;
-        -webkit-transform: scale3d(0,1,1);
-        transform: scale3d(0,1,1);
-
-        @apply(--paper-input-container-underline-focus);
-      }
-
-      .underline.is-highlighted .focused-line {
-        -webkit-transform: none;
-        transform: none;
-        -webkit-transition: -webkit-transform 0.25s;
-        transition: transform 0.25s;
-
-        @apply(--paper-transition-easing);
-      }
-
-      .underline.is-invalid .focused-line {
-        background: var(--paper-input-container-invalid-color, --error-color);
-        -webkit-transform: none;
-        transform: none;
-        -webkit-transition: -webkit-transform 0.25s;
-        transition: transform 0.25s;
-
-        @apply(--paper-transition-easing);
-      }
-
-      .unfocused-line {
-        @apply(--layout-fit);
-
-        background: var(--paper-input-container-color, --secondary-text-color);
-        height: 1px;
-
-        @apply(--paper-input-container-underline);
-      }
-
-      :host([disabled]) .unfocused-line {
-        border-bottom: 1px dashed;
-        border-color: var(--paper-input-container-color, --secondary-text-color);
-        background: transparent;
-
-        @apply(--paper-input-container-underline-disabled);
-      }
-
-      .label-and-input-container {
-        @apply(--layout-flex-auto);
-        @apply(--layout-relative);
-
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .input-content {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-
-        position: relative;
-      }
-
-      .input-content ::content label,
-      .input-content ::content .paper-input-label {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        font: inherit;
-        color: var(--paper-input-container-color, --secondary-text-color);
-        -webkit-transition: -webkit-transform 0.25s, width 0.25s;
-        transition: transform 0.25s, width 0.25s;
-        -webkit-transform-origin: left top;
-        transform-origin: left top;
-
-        @apply(--paper-font-common-nowrap);
-        @apply(--paper-font-subhead);
-        @apply(--paper-input-container-label);
-        @apply(--paper-transition-easing);
-      }
-
-      .input-content.label-is-floating ::content label,
-      .input-content.label-is-floating ::content .paper-input-label {
-        -webkit-transform: translateY(-75%) scale(0.75);
-        transform: translateY(-75%) scale(0.75);
-
-        /* Since we scale to 75/100 of the size, we actually have 100/75 of the
-        original space now available */
-        width: 133%;
-
-        @apply(--paper-input-container-label-floating);
-      }
-
-      :host-context([dir="rtl"]) .input-content.label-is-floating ::content label,
-      :host-context([dir="rtl"]) .input-content.label-is-floating ::content .paper-input-label {
-        /* TODO(noms): Figure out why leaving the width at 133% before the animation
-         * actually makes
-         * it wider on the right side, not left side, as you would expect in RTL */
-        width: 100%;
-        -webkit-transform-origin: right top;
-        transform-origin: right top;
-      }
-
-      .input-content.label-is-highlighted ::content label,
-      .input-content.label-is-highlighted ::content .paper-input-label {
-        color: var(--paper-input-container-focus-color, --primary-color);
-
-        @apply(--paper-input-container-label-focus);
-      }
-
-      .input-content.is-invalid ::content label,
-      .input-content.is-invalid ::content .paper-input-label {
-        color: var(--paper-input-container-invalid-color, --error-color);
-      }
-
-      .input-content.label-is-hidden ::content label,
-      .input-content.label-is-hidden ::content .paper-input-label {
-        visibility: hidden;
-      }
-
-      .input-content ::content input,
-      .input-content ::content textarea,
-      .input-content ::content iron-autogrow-textarea,
-      .input-content ::content .paper-input-input {
-        position: relative; /* to make a stacking context */
-        outline: none;
-        box-shadow: none;
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        background: transparent;
-        border: none;
-        color: var(--paper-input-container-input-color, --primary-text-color);
-        -webkit-appearance: none;
-        text-align: inherit;
-        vertical-align: bottom;
-
-        @apply(--paper-font-subhead);
-        @apply(--paper-input-container-input);
-      }
-
-      ::content [prefix] {
-        @apply(--paper-font-subhead);
-
-        @apply(--paper-input-prefix);
-        @apply(--layout-flex-none);
-      }
-
-      ::content [suffix] {
-        @apply(--paper-font-subhead);
-
-        @apply(--paper-input-suffix);
-        @apply(--layout-flex-none);
-      }
-
-      /* Firefox sets a min-width on the input, which can cause layout issues */
-      .input-content ::content input {
-        min-width: 0;
-      }
-
-      .input-content ::content textarea {
-        resize: none;
-      }
-
-      .add-on-content {
-        position: relative;
-      }
-
-      .add-on-content.is-invalid ::content * {
-        color: var(--paper-input-container-invalid-color, --error-color);
-      }
-
-      .add-on-content.is-highlighted ::content * {
-        color: var(--paper-input-container-focus-color, --primary-color);
-      }
-    </style>
-
-    <template is="dom-if" if="[[!noLabelFloat]]">
-      <div class="floated-label-placeholder" aria-hidden="true">&nbsp;</div>
-    </template>
-
-    <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]">
-      <content select="[prefix]" id="prefix"></content>
-
-      <div class="label-and-input-container" id="labelAndInputContainer">
-        <content select=":not([add-on]):not([prefix]):not([suffix])"></content>
-      </div>
-
-      <content select="[suffix]"></content>
-    </div>
-
-    <div class$="[[_computeUnderlineClass(focused,invalid)]]">
-      <div class="unfocused-line"></div>
-      <div class="focused-line"></div>
-    </div>
-
-    <div class$="[[_computeAddOnContentClass(focused,invalid)]]">
-      <content id="addOnContent" select="[add-on]"></content>
-    </div>
-  </template>
-</dom-module>
-
-<script>
-  Polymer({
-    is: 'paper-input-container',
-
-    properties: {
-      /**
-       * Set to true to disable the floating label. The label disappears when the input value is
-       * not null.
-       */
-      noLabelFloat: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * Set to true to always float the floating label.
-       */
-      alwaysFloatLabel: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * The attribute to listen for value changes on.
-       */
-      attrForValue: {
-        type: String,
-        value: 'bind-value'
-      },
-
-      /**
-       * Set to true to auto-validate the input value when it changes.
-       */
-      autoValidate: {
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * True if the input is invalid. This property is set automatically when the input value
-       * changes if auto-validating, or when the `iron-input-validate` event is heard from a child.
-       */
-      invalid: {
-        observer: '_invalidChanged',
-        type: Boolean,
-        value: false
-      },
-
-      /**
-       * True if the input has focus.
-       */
-      focused: {
-        readOnly: true,
-        type: Boolean,
-        value: false,
-        notify: true
-      },
-
-      _addons: {
-        type: Array
-        // do not set a default value here intentionally - it will be initialized lazily when a
-        // distributed child is attached, which may occur before configuration for this element
-        // in polyfill.
-      },
-
-      _inputHasContent: {
-        type: Boolean,
-        value: false
-      },
-
-      _inputSelector: {
-        type: String,
-        value: 'input,textarea,.paper-input-input'
-      },
-
-      _boundOnFocus: {
-        type: Function,
-        value: function() {
-          return this._onFocus.bind(this);
-        }
-      },
-
-      _boundOnBlur: {
-        type: Function,
-        value: function() {
-          return this._onBlur.bind(this);
-        }
-      },
-
-      _boundOnInput: {
-        type: Function,
-        value: function() {
-          return this._onInput.bind(this);
-        }
-      },
-
-      _boundValueChanged: {
-        type: Function,
-        value: function() {
-          return this._onValueChanged.bind(this);
-        }
-      }
-    },
-
-    listeners: {
-      'addon-attached': '_onAddonAttached',
-      'iron-input-validate': '_onIronInputValidate'
-    },
-
-    get _valueChangedEvent() {
-      return this.attrForValue + '-changed';
-    },
-
-    get _propertyForValue() {
-      return Polymer.CaseMap.dashToCamelCase(this.attrForValue);
-    },
-
-    get _inputElement() {
-      return Polymer.dom(this).querySelector(this._inputSelector);
-    },
-
-    get _inputElementValue() {
-      return this._inputElement[this._propertyForValue] || this._inputElement.value;
-    },
-
-    ready: function() {
-      if (!this._addons) {
-        this._addons = [];
-      }
-      this.addEventListener('focus', this._boundOnFocus, true);
-      this.addEventListener('blur', this._boundOnBlur, true);
-    },
-
-    attached: function() {
-      if (this.attrForValue) {
-        this._inputElement.addEventListener(this._valueChangedEvent, this._boundValueChanged);
-      } else {
-        this.addEventListener('input', this._onInput);
-      }
-
-      // Only validate when attached if the input already has a value.
-      if (this._inputElementValue != '') {
-        this._handleValueAndAutoValidate(this._inputElement);
-      } else {
-        this._handleValue(this._inputElement);
-      }
-    },
-
-    _onAddonAttached: function(event) {
-      if (!this._addons) {
-        this._addons = [];
-      }
-      var target = event.target;
-      if (this._addons.indexOf(target) === -1) {
-        this._addons.push(target);
-        if (this.isAttached) {
-          this._handleValue(this._inputElement);
-        }
-      }
-    },
-
-    _onFocus: function() {
-      this._setFocused(true);
-    },
-
-    _onBlur: function() {
-      this._setFocused(false);
-      this._handleValueAndAutoValidate(this._inputElement);
-    },
-
-    _onInput: function(event) {
-      this._handleValueAndAutoValidate(event.target);
-    },
-
-    _onValueChanged: function(event) {
-      this._handleValueAndAutoValidate(event.target);
-    },
-
-    _handleValue: function(inputElement) {
-      var value = this._inputElementValue;
-
-      // type="number" hack needed because this.value is empty until it's valid
-      if (value || value === 0 || (inputElement.type === 'number' && !inputElement.checkValidity())) {
-        this._inputHasContent = true;
-      } else {
-        this._inputHasContent = false;
-      }
-
-      this.updateAddons({
-        inputElement: inputElement,
-        value: value,
-        invalid: this.invalid
-      });
-    },
-
-    _handleValueAndAutoValidate: function(inputElement) {
-      if (this.autoValidate) {
-        var valid;
-        if (inputElement.validate) {
-          valid = inputElement.validate(this._inputElementValue);
-        } else {
-          valid = inputElement.checkValidity();
-        }
-        this.invalid = !valid;
-      }
-
-      // Call this last to notify the add-ons.
-      this._handleValue(inputElement);
-    },
-
-    _onIronInputValidate: function(event) {
-      this.invalid = this._inputElement.invalid;
-    },
-
-    _invalidChanged: function() {
-      if (this._addons) {
-        this.updateAddons({invalid: this.invalid});
-      }
-    },
-
-    /**
-     * Call this to update the state of add-ons.
-     * @param {Object} state Add-on state.
-     */
-    updateAddons: function(state) {
-      for (var addon, index = 0; addon = this._addons[index]; index++) {
-        addon.update(state);
-      }
-    },
-
-    _computeInputContentClass: function(noLabelFloat, alwaysFloatLabel, focused, invalid, _inputHasContent) {
-      var cls = 'input-content';
-      if (!noLabelFloat) {
-        var label = this.querySelector('label');
-
-        if (alwaysFloatLabel || _inputHasContent) {
-          cls += ' label-is-floating';
-          // If the label is floating, ignore any offsets that may have been
-          // applied from a prefix element.
-          this.$.labelAndInputContainer.style.position = 'static';
-
-          if (invalid) {
-            cls += ' is-invalid';
-          } else if (focused) {
-            cls += " label-is-highlighted";
-          }
-        } else {
-          // When the label is not floating, it should overlap the input element.
-          if (label) {
-            this.$.labelAndInputContainer.style.position = 'relative';
-          }
-        }
-      } else {
-        if (_inputHasContent) {
-          cls += ' label-is-hidden';
-        }
-      }
-      return cls;
-    },
-
-    _computeUnderlineClass: function(focused, invalid) {
-      var cls = 'underline';
-      if (invalid) {
-        cls += ' is-invalid';
-      } else if (focused) {
-        cls += ' is-highlighted'
-      }
-      return cls;
-    },
-
-    _computeAddOnContentClass: function(focused, invalid) {
-      var cls = 'add-on-content';
-      if (invalid) {
-        cls += ' is-invalid';
-      } else if (focused) {
-        cls += ' is-highlighted'
-      }
-      return cls;
-    }
-  });
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`<paper-input-error>` is an error message for use with `<paper-input-container>`. The error is
-displayed when the `<paper-input-container>` is `invalid`.
-
-    <paper-input-container>
-      <input is="iron-input" pattern="[0-9]*">
-      <paper-input-error>Only numbers are allowed!</paper-input-error>
-    </paper-input-container>
-
-### Styling
-
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-input-container-invalid-color` | The foreground color of the error | `--error-color`
-`--paper-input-error`                   | Mixin applied to the error        | `{}`
--->
-
-<dom-module id="paper-input-error" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        visibility: hidden;
-
-        color: var(--paper-input-container-invalid-color, --error-color);
-
-        @apply(--paper-font-caption);
-        @apply(--paper-input-error);
-        position: absolute;
-        left:0;
-        right:0;
-      }
-
-      :host([invalid]) {
-        visibility: visible;
-      };
-    </style>
-
-    <content></content>
-  </template>
-</dom-module>
-
-<script>
-  Polymer({
-    is: 'paper-input-error',
-
-    behaviors: [
-      Polymer.PaperInputAddonBehavior
-    ],
-
-    properties: {
-      /**
-       * True if the error is showing.
-       */
-      invalid: {
-        readOnly: true,
-        reflectToAttribute: true,
-        type: Boolean
-      }
-    },
-
-    /**
-     * This overrides the update function in PaperInputAddonBehavior.
-     * @param {{
-     *   inputElement: (Element|undefined),
-     *   value: (string|undefined),
-     *   invalid: boolean
-     * }} state -
-     *     inputElement: The input element.
-     *     value: The input value.
-     *     invalid: True if the input value is invalid.
-     */
-    update: function(state) {
-      this._setInvalid(state.invalid);
-    }
-  });
-</script>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-Material design: [Text fields](https://www.google.com/design/spec/components/text-fields.html)
-
-`<paper-input>` is a single-line text field with Material Design styling.
-
-    <paper-input label="Input label"></paper-input>
-
-It may include an optional error message or character counter.
-
-    <paper-input error-message="Invalid input!" label="Input label"></paper-input>
-    <paper-input char-counter label="Input label"></paper-input>
-
-It can also include custom prefix or suffix elements, which are displayed
-before or after the text input itself. In order for an element to be
-considered as a prefix, it must have the `prefix` attribute (and similarly
-for `suffix`).
-
-    <paper-input label="total">
-      <div prefix>$</div>
-      <paper-icon-button suffix icon="clear"></paper-icon-button>
-    </paper-input>
-
-A `paper-input` can use the native `type=search` or `type=file` features.
-However, since we can't control the native styling of the input (search icon,
-file button, date placeholder, etc.), in these cases the label will be
-automatically floated. The `placeholder` attribute can still be used for
-additional informational text.
-
-    <paper-input label="search!" type="search"
-        placeholder="search for cats" autosave="test" results="5">
-    </paper-input>
-
-See `Polymer.PaperInputBehavior` for more API docs.
-
-### Focus
-
-To focus a paper-input, you can call the native `focus()` method as long as the
-paper input has a tab index.
-
-### Styling
-
-See `Polymer.PaperInputContainer` for a list of custom properties used to
-style this element.
-
-
-@group Paper Elements
-@element paper-input
-@hero hero.svg
-@demo demo/index.html
--->
-
-<dom-module id="paper-input" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-
-      :host([focused]) {
-        outline: none;
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      input::-webkit-input-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input:-moz-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input::-moz-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input:-ms-input-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      label {
-        pointer-events: none;
-      }
-    </style>
-
-    <paper-input-container no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
-
-      <content select="[prefix]"></content>
-
-      <label hidden$="[[!label]]" aria-hidden="true" for="input">[[label]]</label>
-
-      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
-
-      <content select="[suffix]"></content>
-
-      <template is="dom-if" if="[[errorMessage]]">
-        <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
-      </template>
-
-      <template is="dom-if" if="[[charCounter]]">
-        <paper-input-char-counter></paper-input-char-counter>
-      </template>
-
-    </paper-input-container>
-  </template>
-</dom-module>
-
-<script>
-  Polymer({
-    is: 'paper-input',
-
-    behaviors: [
-      Polymer.IronFormElementBehavior,
-      Polymer.PaperInputBehavior
-    ]
-  });
-</script>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.

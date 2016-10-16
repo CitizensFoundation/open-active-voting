@@ -1,6 +1,6 @@
 {
   "name": "open-active-voting",
-  "version": "5.4.43",
+  "version": "5.4.44",
   "devDependencies": {
     "del": "^2.2.1",
     "gulp": "gulpjs/gulp#4.0",
