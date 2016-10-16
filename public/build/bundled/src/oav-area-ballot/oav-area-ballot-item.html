@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.4.38">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.4.39">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.4.38">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.4.38">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.4.39">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.4.39">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.4.38">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.4.38">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.4.39">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.4.39">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.4.38">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.4.38">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.4.38">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.4.38">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.4.39">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.4.39">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.4.39">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.4.39">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.4.38">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.4.38">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.4.39">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.4.39">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.4.38">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.4.38">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.4.39">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.4.39">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.4.38">
-<link rel="import" href="oav-area-budget.html?v=5.4.38">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.4.39">
+<link rel="import" href="oav-area-budget.html?v=5.4.39">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -128,11 +128,12 @@
     .descriptionContainer[small][tiny] {
       width: 220px;
       height: 124px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .description {
       padding: 8px;
+      font-size: 17px;
     }
 
     .name {
@@ -264,12 +265,15 @@
           </google-map>
         </template>
         <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]">
-          <div id="description" class="description">[[item.description]]</div>
+          <div id="description" class="description">
+            [[item.description]]
+          </div>
         </div>
       </div>
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
         <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
+        <paper-icon-button hidden$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
         <paper-icon-button title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
@@ -301,6 +305,11 @@
       ],
 
       properties: {
+        IDEAS_WITH_NO_PDFS: {
+          type: Array,
+          value: [10, 12, 15, 11]
+        },
+
         item: {
           type: Object,
           observer: '_itemChanged'
@@ -342,6 +351,11 @@
           value: false
         },
 
+        descriptionPdfLink: {
+          type: String,
+          computed: '_descriptionPdfLink(item)'
+        },
+
         small: {
           type: Boolean,
           value: false
@@ -353,28 +367,33 @@
         }
       },
 
+      _openPdf: function () {
+        if (this.descriptionPdfLink) {
+          window.open(this.descriptionPdfLink, '_blank');
+        }
+      },
+
       _showPost: function () {
         window.appLastArea = '/'+window.location.hash;
         window.location = "/#/post/"+this.item.idea_id;
       },
 
+      _descriptionPdfLink: function (newItem) {
+        if (newItem && window.appGlobals && window.appGlobals.configFromServer && window.appGlobals.configFromServer.ideas_without_pdfs) {
+          var ideasWithOutPdfs = JSON.parse(window.appGlobals.configFromServer.ideas_without_pdfs);
+          if (!ideasWithOutPdfs || ideasWithOutPdfs.indexOf(parseInt(newItem.id)) > -1) {
+            return null;
+          } else {
+            return 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
+          }
+        } else {
+          return null;
+        }
+      },
+
       _itemChanged: function (newItem) {
         if (newItem) {
           this.resetFromBudget();
-          this.async(function () {
-            var noLinksIds = [-1,-2,-3];
-            var descriptionText = newItem.description;
-            if ((!noLinksIds.indexOf(newItem.id) > -1) && newItem.description) {
-              var itemLink = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
-              descriptionText = newItem.description + ' ' + '<a target="_blank" href="'+itemLink+'">' + 'Frumhönnun PDF' + '</a>';
-            }
-            var description = this.$$("description");
-            if (description) {
-              description.innerHTML = descriptionText;
-            } else {
-              console.error("Can't find description to add");
-            }
-          }, 100);
         }
       },
 
