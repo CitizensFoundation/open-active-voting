@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014010049) do
+ActiveRecord::Schema.define(version: 20161016003455) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "resource_id",   limit: 255,   null: false
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20161014010049) do
     t.text     "known_x509_cert",                     limit: 65535
     t.text     "areas_imagemap",                      limit: 65535
     t.text     "counting_progress",                   limit: 65535
+    t.text     "ideas_without_pdfs",                  limit: 65535
   end
 
   create_table "final_split_votes", force: :cascade do |t|
