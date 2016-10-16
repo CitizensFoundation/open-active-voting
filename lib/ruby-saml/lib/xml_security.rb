@@ -324,10 +324,10 @@ module XMLSecurity
       cert = OpenSSL::X509::Certificate.new(cert_text)
 
       # Verify that we only have on instance of "SSN"
-      puts document
-      puts "COUNT"
+      Rails.logger.info document
+      Rails.logger.info "COUNT"
       ssn_count = document.count "['SSN']"
-      puts ssn_count
+      Rails.logged.info ssn_count
       if ssn_count>1
         return append_error("Duplicate SSN parameters", soft)
       end
