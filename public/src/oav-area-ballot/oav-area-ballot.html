@@ -347,6 +347,7 @@
 
       _pollForLoginAjax: function () {
         if (this.isPollingForLogin===true) {
+          this.$.pollForLoginAjax.params = {time: new Date().getTime()};
           this.$.pollForLoginAjax.generateRequest();
         }
       },
