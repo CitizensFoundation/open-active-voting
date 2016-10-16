@@ -326,7 +326,7 @@ module XMLSecurity
       # Verify that we only have on instance of "SSN"
       Rails.logger.info document
       Rails.logger.info "COUNT"
-      ssn_count = document.count "\"UserSSN\""
+      ssn_count = document.count "UserSSN"
       Rails.logger.info ssn_count
       if ssn_count>1
         return append_error("Duplicate SSN parameters", soft)
