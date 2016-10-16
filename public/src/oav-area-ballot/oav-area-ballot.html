@@ -215,6 +215,11 @@
           value: false
         },
 
+        haveSentBallot: {
+          type: Boolean,
+          value: false
+        },
+
         popupWindow: Object
       },
 
@@ -248,6 +253,7 @@
         if (this.budgetElement) {
           this.budgetElement.reset();
         }
+        this.set('haveSentBallot', false);
         this._resetBallotItems();
         this.set('budgetBallotItems', null);
         this.set('area', null);
@@ -364,7 +370,7 @@
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 1900)
+            }.bind(this), 2500)
           }
         }
       },
@@ -391,12 +397,13 @@
           console.error("No area id in complete voting");
         }
 
-        if (this.isSendingBallot===false) {
+        if (this.isSendingBallot===false && this.haveSentBallot===false) {
           var encryptedVote = encryptedVotes;
           if (encryptedVote) {
             this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
             this.$.postBallotAjax.generateRequest();
             this.set('isSendingBallot', true);
+            this.set('haveSentBallot', true);
           } else {
             console.error("No encrypted votes!");
           }
