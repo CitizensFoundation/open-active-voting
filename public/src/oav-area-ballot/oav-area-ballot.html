@@ -353,10 +353,6 @@
 
       cancelLoginPolling: function () {
         this.set('isPollingForLogin', false);
-        if (this.popupWindow) {
-          this.popupWindow.close();
-          this.popupWindow = null;
-        }
       },
 
       _isLoggedInResponse: function (event, detail) {
@@ -427,7 +423,7 @@
                 top = (window.outerHeight - height) / 2,
                 left = (window.outerWidth - width) / 2;
 
-        this.popupWindow = window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
+        window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
       },
 
       _ballotPostResponse: function (event, detail) {
