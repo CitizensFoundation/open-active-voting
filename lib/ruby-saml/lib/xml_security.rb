@@ -323,6 +323,15 @@ module XMLSecurity
       cert_text = Base64.decode64(base64_cert)
       cert = OpenSSL::X509::Certificate.new(cert_text)
 
+      # Verify that we only have on instance of "SSN"
+      puts document
+      puts "COUNT"
+      ssn_count = document.count "['SSN']"
+      puts ssn_count
+      if ssn_count>1
+        return append_error("Duplicate SSN parameters", soft)
+      end
+
       # verify signature
       unless cert.public_key.verify(signature_algorithm.new, signature, canon_string)
         return append_error("Key validation error", soft)
