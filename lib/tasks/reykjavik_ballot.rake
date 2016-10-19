@@ -14,7 +14,7 @@ end
 namespace :reykjavik_ballot do
 
   def create_budget_ballot_item(area_id, budget_data, row_number)
-    #puts budget_data[row_number]
+    puts budget_data[row_number]
     name_is = budget_data[row_number][3]
     puts name_is
     price = budget_data[row_number][4]
@@ -78,10 +78,10 @@ namespace :reykjavik_ballot do
     puts "========================================================="
   end
 
-  def import_area_data(area_id, budget_data, start_row_number)
+  def import_area_data(area_id, budget_data, start_row_number, total_number_of_rows=20)
     current_row_number = start_row_number -1
 
-    while current_row_number < start_row_number+19  do
+    while current_row_number < start_row_number+(total_number_of_rows-1)  do
       create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end
@@ -113,7 +113,7 @@ namespace :reykjavik_ballot do
     I18n.locale = "en"
     midborg.name = "Miðborg"
     midborg.save
-    import_area_data(midborg.id, budget_data, 35)
+    import_area_data(midborg.id, budget_data, 35, 13)
 
     hlidar = BudgetBallotArea.create!(:budget_amount => 39.0)
     I18n.locale = "is"
@@ -177,7 +177,7 @@ namespace :reykjavik_ballot do
     I18n.locale = "en"
     grafarholt.name = "Grafarholt og Úlfarsárdalur"
     grafarholt.save
-    import_area_data(grafarholt.id, budget_data, 205)
+    import_area_data(grafarholt.id, budget_data, 205, 17)
 
     kjalarnes = BudgetBallotArea.create!(:budget_amount => 14.0)
     I18n.locale = "is"
@@ -186,6 +186,6 @@ namespace :reykjavik_ballot do
     I18n.locale = "en"
     kjalarnes.name = "Kjalarnes"
     kjalarnes.save
-    import_area_data(kjalarnes.id, budget_data, 227)
+    import_area_data(kjalarnes.id, budget_data, 227, 19)
   end
 end
