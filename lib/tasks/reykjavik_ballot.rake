@@ -22,7 +22,7 @@ namespace :reykjavik_ballot do
     price = budget_data[row_number][4]
     price = price.gsub(',','')
     price = price.gsub(' kr.','')
-    price = price.to_i / 1000000
+    price = price.to_f / 1000000.0
     puts price
     locations = budget_data[row_number][8]
     puts locations
