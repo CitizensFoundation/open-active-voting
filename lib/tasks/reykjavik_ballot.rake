@@ -5,6 +5,8 @@ require "csv"
 require 'net/http'
 require 'net/https'
 
+# docker run --net=host -e "RAILS_ENV=production" -e "infile=/var/import/oav_reykjavik_ballot_data_v_1.csv"  -v /root/open-active-voting:/home/app/oav_website -v /root/import:/var/import yrpri/oav4.6.14 /bin/sh -c "cd /home/app/oav_website;rake reykjavik_ballot:reset_votes_all_ballot_data_from_csv"
+
 class Array
   def shuffle
     sort_by { rand }
@@ -93,7 +95,9 @@ namespace :reykjavik_ballot do
     Vote.delete_all
     FinalSplitVote.delete_all
     BudgetBallotItem.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
     BudgetBallotArea.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
     vesturbaer = BudgetBallotArea.create!(:budget_amount => 56.0)
