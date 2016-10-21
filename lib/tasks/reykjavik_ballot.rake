@@ -156,7 +156,7 @@ namespace :reykjavik_ballot do
 
     import_area_data(breidholt.id, budget_data, 129)
 
-    arbaer = BudgetBallotArea.create!(:budget_amount => 42.0)
+    arbaer = BudgetBallotArea.create!(:budget_amount => 47.0)
     I18n.locale = "is"
     arbaer.name = "Árbær"
     arbaer.save
