@@ -180,6 +180,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport (~> 4.2, >= 4.2.7.1)
   airbrake
   awesome_print
   byebug
@@ -209,4 +210,4 @@ RUBY VERSION
    ruby 2.2.5p319
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
