@@ -1,20 +1,20 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.1">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-map-info/paper-map-info.html?v=5.9.1">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../bower_components/paper-map-info/paper-map-info.html">
 
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.9.1">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.1">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.1">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.9.1">
-<link rel="import" href="oav-area-ballot-item.html?v=5.9.1">
+<link rel="import" href="../oav-behaviors/app-helpers.html">
+<link rel="import" href="oav-area-ballot-item.html">
 
 </head><body><dom-module id="oav-items-map">
   <template>
@@ -106,123 +106,5 @@
     </div>
   </template>
 
-  <script>
-    Polymer({
-      is: 'oav-items-map',
-
-      behaviors: [
-        Polymer.appHelpers
-      ],
-
-      properties: {
-        items: {
-          type: Array,
-          value: null,
-          observer: '_itemsChanged'
-        },
-
-        budgetElement: {
-          type: Object
-        },
-
-        selectedItem: {
-          type: Object
-        },
-
-        noItems: {
-          type: Boolean,
-          value: false
-        },
-
-        apiKey: {
-          type: String,
-          value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
-        },
-
-        wide: {
-          type: Boolean,
-          observer: '_wideChanged'
-        }
-      },
-
-      _itemsChanged: function (newItems) {
-      },
-
-      _closeInfo: function () {
-        this.$$("#myInfoCard").close();
-      },
-
-      attached: function () {
-        this.async(function () {
-          this.resetMapHeight();
-        }.bind(this));
-      },
-
-      _wideChanged: function () {
-        this.resetMapHeight();
-      },
-
-      resetMapHeight: function () {
-        var map = this.$$("#map");
-        var windowHeight = window.innerHeight;
-        if (map) {
-          var height;
-          if (this.wide) {
-            height = windowHeight - 322;
-          } else {
-            height = windowHeight - 236;
-          }
-          map.style.height = height + 'px';
-        }
-      },
-
-      setItemInBudget: function (item) {
-        if (this.selectedItem && this.selectedItem.id == item.id) {
-          var item = this.$$("#ballotItem");
-          if (item) {
-            item.setInBudget();
-          }
-        }
-      },
-
-      removeFromBudget: function (item) {
-        if (this.selectedItem && this.selectedItem.id == item.id) {
-          var item = this.$$("#ballotItem");
-          if (item) {
-            this.$$("#ballotItem").removeFromBudget();
-          }
-        }
-      },
-
-      checkIfSelectedItemToExpensive: function(budgetLeft) {
-        if (this.selectedItem) {
-          var item = this.$$("#ballotItem");
-          if (item) {
-            if (!item.selectedInBudget) {
-              if (this.selectedItem.price<=budgetLeft) {
-                item.setNotTooExpensive();
-                console.log("item id "+this.selectedItem.id+ "Not Too Expensive");
-              } else if (this.selectedItem) {
-                console.log("item id "+this.selectedItem.id+ "Too Expensive");
-                item.setTooExpensive();
-              }
-            }
-          }
-        }
-      },
-
-      markerClick: function(e) {
-        window.appGlobals.activity('clicked', 'marker');
-        this.set('selectedItem', e.model.get('item'));
-        var a = this.selectedItem;
-        if (e.srcElement) {
-          this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
-        } else {
-          this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);
-        }
-        var infocardDiv = this.$$("#myInfoCard").$$("#infocarddiv");
-        infocardDiv.children[1].style.zIndex = "20";
-      }
-    });
-  </script>
+  <script>Polymer({is:"oav-items-map",behaviors:[Polymer.appHelpers],properties:{items:{type:Array,value:null,observer:"_itemsChanged"},budgetElement:{type:Object},selectedItem:{type:Object},noItems:{type:Boolean,value:!1},apiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},wide:{type:Boolean,observer:"_wideChanged"}},_itemsChanged:function(e){},_closeInfo:function(){this.$$("#myInfoCard").close()},attached:function(){this.async(function(){this.resetMapHeight()}.bind(this))},_wideChanged:function(){this.resetMapHeight()},resetMapHeight:function(){var e=this.$$("#map"),t=window.innerHeight;if(e){var i;i=this.wide?t-322:t-236,e.style.height=i+"px"}},setItemInBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&e.setInBudget()}},removeFromBudget:function(e){if(this.selectedItem&&this.selectedItem.id==e.id){var e=this.$$("#ballotItem");e&&this.$$("#ballotItem").removeFromBudget()}},checkIfSelectedItemToExpensive:function(e){if(this.selectedItem){var t=this.$$("#ballotItem");t&&(t.selectedInBudget||(this.selectedItem.price<=e?(t.setNotTooExpensive(),console.log("item id "+this.selectedItem.id+"Not Too Expensive")):this.selectedItem&&(console.log("item id "+this.selectedItem.id+"Too Expensive"),t.setTooExpensive())))}},markerClick:function(e){window.appGlobals.activity("clicked","marker"),this.set("selectedItem",e.model.get("item"));this.selectedItem;e.srcElement?this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker):this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);var t=this.$$("#myInfoCard").$$("#infocarddiv");t.children[1].style.zIndex="20"}});</script>
 </dom-module></body></html>

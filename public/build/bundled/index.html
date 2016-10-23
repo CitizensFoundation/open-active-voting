@@ -1,14 +1,6 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,user-scalable=yes">
 
   <meta property="og:title" content="Hverfið mitt 2016 - rafræn kosning">
   <meta property="og:description" content="Hverfið mitt 2016 er samráðsverkefni íbúa og stjórnsýslu um forgangsröðun og úthlutun fjármagns til smærri nýframkvæmda- og viðhaldsverkefna í hverfum Reykjavíkurborgar. Taktu þátt :)">
@@ -25,61 +17,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="theme-color" content="#fff">
   <link rel="manifest" href="/manifest.json">
 
-  <script>
-    LOAD_TESTING_MODE = null;
-    window.selectedLanguage = "is";
-    // setup Polymer options
-    window.Polymer = { lazyRegister: true };
+  <script>LOAD_TESTING_MODE=null,window.selectedLanguage="is",window.Polymer={lazyRegister:!0},function(){if("registerElement"in document&&"import"in document.createElement("link")&&"content"in document.createElement("template"));else{var e=document.createElement("script");e.src="/bower_components/webcomponentsjs/webcomponents-lite.min.js",document.head.appendChild(e)}}();var eventMethod=window.addEventListener?"addEventListener":"attachEvent",eventer=window[eventMethod],messageEvent="attachEvent"==eventMethod?"onmessage":"message";console.log("Have created event listener for samlLogin"),eventer(messageEvent,function(e){"samlLogin"==e.data&&window.appBallot&&(window.appBallot.completePostingOfVote(),console.log("Have finished voting completion"))},!1),function(e,n,t,o,a,i,s){e.GoogleAnalyticsObject=a,e[a]=e[a]||function(){(e[a].q=e[a].q||[]).push(arguments)},e[a].l=1*new Date,i=n.createElement(t),s=n.getElementsByTagName(t)[0],i.async=1,i.src=o,s.parentNode.insertBefore(i,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-29922184-1","auto"),ga("send","pageview"),"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/service-worker.js")});</script>
 
-    // load webcomponents polyfills
-    (function() {
-      if ('registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template')) {
-        // browser has web components
-      } else {
-        // polyfill web components
-        var e = document.createElement('script');
-        e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
-        document.head.appendChild(e);
-      }
-    })();
-
-    // Setup message handlers for saml authentication in another window
-
-    // Create IE + others compatible event handler
-    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-    var eventer = window[eventMethod];
-    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-    console.log("Have created event listener for samlLogin");
-
-    // Listen to message from child window
-    eventer(messageEvent,function(e) {
-      if (e.data=='samlLogin' && window.appBallot) {
-        window.appBallot.completePostingOfVote();
-        console.log("Have finished voting completion");
-      }
-    },false);
-
-    // Setup Google Analytics
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-29922184-1', 'auto');
-    ga('send', 'pageview');
-
-    // Load pre-caching service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
-  </script>
-
-  <link rel="import" href="src/oav-app.html?v=5.9.1">
+  <link rel="import" href="src/oav-app.html">
 
   <style>
 
@@ -100,16 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <div id="fb-root"></div>
 
-  <script>
-    // Setup Facebook Like library
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/is_IS/sdk.js#xfbml=1&version=v2.7&appId=121570364590896";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+  <script>!function(e,t,n){var o,s=e.getElementsByTagName(t)[0];e.getElementById(n)||(o=e.createElement(t),o.id=n,o.src="//connect.facebook.net/is_IS/sdk.js#xfbml=1&version=v2.7&appId=121570364590896",s.parentNode.insertBefore(o,s))}(document,"script","facebook-jssdk");</script>
 
 
 </body></html>

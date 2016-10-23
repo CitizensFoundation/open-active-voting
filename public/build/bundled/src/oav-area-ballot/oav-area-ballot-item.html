@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.1">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.1">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.1">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.1">
-<link rel="import" href="oav-area-budget.html?v=5.9.1">
+<link rel="import" href="../oav-ajax/oav-ajax.html">
+<link rel="import" href="oav-area-budget.html">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -293,178 +293,6 @@
   </template>
 </dom-module>
 
-<script>
-  (function() {
-    Polymer({
-
-      is: 'oav-area-ballot-item',
-
-      behaviors: [
-        Polymer.appHelpers,
-        Polymer.AppLocalizeBehavior
-      ],
-
-      properties: {
-        IDEAS_WITH_NO_PDFS: {
-          type: Array,
-          value: [10, 12, 15, 11]
-        },
-
-        item: {
-          type: Object,
-          observer: '_itemChanged'
-        },
-
-        elevation: Number,
-
-        budgetElement: {
-          type: Object
-        },
-
-        selectedInBudget: {
-          type: Boolean,
-          value: false
-        },
-
-        toExpensiveForBudget: {
-          type: Boolean,
-          value: false
-        },
-
-        googleMapsApiKey: {
-          type: String,
-          value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
-        },
-
-        imageTabSelected: {
-          type: Boolean,
-          value: true
-        },
-
-        descriptionTabSelected: {
-          type: Boolean,
-          value: false
-        },
-
-        mapTabSelected: {
-          type: Boolean,
-          value: false
-        },
-
-        descriptionPdfLink: {
-          type: String,
-          computed: '_descriptionPdfLink(item)'
-        },
-
-        small: {
-          type: Boolean,
-          value: false
-        },
-
-        tiny: {
-          type: Boolean,
-          value: false
-        }
-      },
-
-      _openPdf: function () {
-        if (this.descriptionPdfLink) {
-          window.open(this.descriptionPdfLink, '_blank');
-        }
-      },
-
-      _showPost: function () {
-        window.appLastArea = '/'+window.location.hash;
-        window.location = "/#/post/"+this.item.idea_id;
-      },
-
-      _descriptionPdfLink: function (newItem) {
-        if (newItem && window.appGlobals && window.appGlobals.configFromServer && window.appGlobals.configFromServer.ideas_without_pdfs) {
-          var ideasWithOutPdfs = JSON.parse(window.appGlobals.configFromServer.ideas_without_pdfs);
-          if (!ideasWithOutPdfs || ideasWithOutPdfs.indexOf(parseInt(newItem.id)) > -1) {
-            return null;
-          } else {
-            return 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
-          }
-        } else {
-          return null;
-        }
-      },
-
-      _itemChanged: function (newItem) {
-        if (newItem) {
-          this.resetFromBudget();
-        }
-      },
-
-      resetFromBudget: function () {
-        //console.log("resetFromBudget itemId: "+this.item.id);
-        if (this.budgetElement) {
-          if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
-            this.setInBudget();
-            this.setNotTooExpensive();
-          } else {
-            var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-            if (this.item.price>budgetLeft) {
-              this.setTooExpensive()
-            } else {
-              this.setNotTooExpensive()
-            }
-            this.removeFromBudget()
-          }
-        }
-        this._setImageMode();
-      },
-
-      _setImageMode: function () {
-        this.set('imageTabSelected', true);
-        this.set('descriptionTabSelected', false);
-        this.set('mapTabSelected', false);
-      },
-
-      _setMapMode: function () {
-        this.set('imageTabSelected', false);
-        this.set('descriptionTabSelected', false);
-        this.set('mapTabSelected', true);
-      },
-
-      _setDescriptionMode: function () {
-        this.set('imageTabSelected', false);
-        this.set('descriptionTabSelected', true);
-        this.set('mapTabSelected', false);
-      },
-
-      setInBudget: function () {
-        //console.log("setInBudget itemId: "+this.item.id);
-        this.set('selectedInBudget', true);
-      },
-
-      removeFromBudget: function () {
-        //console.log("removeFromBudget itemId: "+this.item.id);
-        this.set('selectedInBudget', false);
-      },
-
-      setTooExpensive: function () {
-        //console.log("setTooExpensive itemId: "+this.item.id);
-        this.set('toExpensiveForBudget', true);
-      },
-
-      setNotTooExpensive: function () {
-        //console.log("setNotTooExpensive itemId: "+this.item.id);
-        this.set('toExpensiveForBudget', false);
-      },
-
-      attached: function() {
-        this.loadLanguage(this.resolveUrl('/src/locales.json'));
-      },
-
-      _toggleInBudget: function (event) {
-        //console.log("_toggleInBudget itemId: "+this.item.id);
-        this.fire('oav-toggle-item-in-budget', { item: this.item });
-      }
-    })
-  })();
-
-</script>
+<script>!function(){Polymer({is:"oav-area-ballot-item",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{IDEAS_WITH_NO_PDFS:{type:Array,value:[10,12,15,11]},item:{type:Object,observer:"_itemChanged"},elevation:Number,budgetElement:{type:Object},selectedInBudget:{type:Boolean,value:!1},toExpensiveForBudget:{type:Boolean,value:!1},googleMapsApiKey:{type:String,value:"AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"},imageTabSelected:{type:Boolean,value:!0},descriptionTabSelected:{type:Boolean,value:!1},mapTabSelected:{type:Boolean,value:!1},descriptionPdfLink:{type:String,computed:"_descriptionPdfLink(item)"},small:{type:Boolean,value:!1},tiny:{type:Boolean,value:!1}},_openPdf:function(){this.descriptionPdfLink&&window.open(this.descriptionPdfLink,"_blank")},_showPost:function(){window.appLastArea="/"+window.location.hash,window.location="/#/post/"+this.item.idea_id},_descriptionPdfLink:function(e){if(e&&window.appGlobals&&window.appGlobals.configFromServer&&window.appGlobals.configFromServer.ideas_without_pdfs){var t=JSON.parse(window.appGlobals.configFromServer.ideas_without_pdfs);return!t||t.indexOf(parseInt(e.id))>-1?null:"https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_"+e.id+".pdf"}return null},_itemChanged:function(e){e&&this.resetFromBudget()},resetFromBudget:function(){if(this.budgetElement)if(this.budgetElement.selectedItems.indexOf(this.item)>-1)this.setInBudget(),this.setNotTooExpensive();else{var e=this.budgetElement.totalBudget-this.budgetElement.selectedBudget;this.item.price>e?this.setTooExpensive():this.setNotTooExpensive(),this.removeFromBudget()}this._setImageMode()},_setImageMode:function(){this.set("imageTabSelected",!0),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!1)},_setMapMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!1),this.set("mapTabSelected",!0)},_setDescriptionMode:function(){this.set("imageTabSelected",!1),this.set("descriptionTabSelected",!0),this.set("mapTabSelected",!1)},setInBudget:function(){this.set("selectedInBudget",!0)},removeFromBudget:function(){this.set("selectedInBudget",!1)},setTooExpensive:function(){this.set("toExpensiveForBudget",!0)},setNotTooExpensive:function(){this.set("toExpensiveForBudget",!1)},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_toggleInBudget:function(e){this.fire("oav-toggle-item-in-budget",{item:this.item})}})}();</script>
 
 </body></html>

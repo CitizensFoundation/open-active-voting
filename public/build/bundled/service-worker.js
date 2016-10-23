@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html?v=5.9.1","36632b5509a5bcca2f828333f6035b3c"],["/src/oav-app.html?v=5.9.1","daf44e3eb71db3ae058e05a13a0d2742"],["/src/oav-area-ballot/oav-area-ballot.html?v=5.9.1","7466147f6dbe7638e4aee46d24561ae5"],["/src/oav-select-voting-area/oav-select-voting-area.html?v=5.9.1","b9a98f4c866ddcc88ded6d1c9412870c"],["/src/oav-voting-completed/oav-voting-completed.html?v=5.9.1","a208ca6566c7963741c832f0654c5649"],["/src/yp-post/yp-post.html?v=5.9.1","6cb080a176f5a0d772f68a0fcdcd1f14"]];
+var PrecacheConfig = [["/index.html","9609f564c41361b94709d3148092e0c6"],["/src/oav-app.html","3267ed7e74ad88bc412fd5fe81c8e3ab"],["/src/oav-area-ballot/oav-area-ballot.html","6bb81a849a9360ebde34df4f9e78e3b5"],["/src/oav-select-voting-area/oav-select-voting-area.html","520d43c57d935f7a116d808842d7705a"],["/src/oav-voting-completed/oav-voting-completed.html","3ed6a7d81ab59db127512567cefad70a"],["/src/yp-post/yp-post.html","62018714896e0d499c8e4e9e9e35127a"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -216,7 +216,7 @@ self.addEventListener('fetch', function(event) {
       cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
     }
 
-    var navigateFallback = '/index_yp.html';
+    var navigateFallback = '/index.html';
     // Ideally, this would check for event.request.mode === 'navigate', but that is not widely
     // supported yet:
     // https://code.google.com/p/chromium/issues/detail?id=540967
