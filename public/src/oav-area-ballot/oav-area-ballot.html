@@ -253,7 +253,6 @@
         if (this.budgetElement) {
           this.budgetElement.reset();
         }
-        this.set('haveSentBallot', false);
         this._resetBallotItems();
         this.set('budgetBallotItems', null);
         this.set('area', null);
@@ -370,7 +369,7 @@
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 2500)
+            }.bind(this), 250)
           }
         }
       },
@@ -467,6 +466,7 @@
       _areaIdChanged: function (newAreaId, oldAreaId) {
         if (newAreaId) {
           this.reset();
+          this.set('haveSentBallot', false);
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
         }
