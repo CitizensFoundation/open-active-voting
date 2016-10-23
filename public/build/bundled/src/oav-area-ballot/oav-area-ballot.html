@@ -4096,7 +4096,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 250)
+            }.bind(this), 500)
           }
         }
       },
