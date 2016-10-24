@@ -387,7 +387,7 @@
       _descriptionPdfLink: function (newItem) {
         if (newItem && window.appGlobals && window.appGlobals.configFromServer && window.appGlobals.configFromServer.ideas_without_pdfs) {
           var ideasWithOutPdfs = JSON.parse(window.appGlobals.configFromServer.ideas_without_pdfs);
-          if (!ideasWithOutPdfs || ideasWithOutPdfs.indexOf(parseInt(newItem.id)) > -1) {
+          if (!ideasWithOutPdfs || ideasWithOutPdfs.indexOf(parseInt(newItem.idea_id)) > -1) {
             return null;
           } else {
             return 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.idea_id+'.pdf';
