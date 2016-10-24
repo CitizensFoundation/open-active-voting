@@ -285,7 +285,10 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]<span class="priceCurrency"> {{localize('millions')}}</span></div>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
+          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
+        </div>
         <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
@@ -364,6 +367,14 @@
         tiny: {
           type: Boolean,
           value: false
+        }
+      },
+
+      _priceIsOne: function (price) {
+        if (price && price==1.0) {
+          return true;
+        } else {
+          return false;
         }
       },
 

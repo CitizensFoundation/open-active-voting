@@ -191,8 +191,14 @@
               <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
             </template>
             <template is="dom-if" if="[[selectedBudget]]">
-              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
-              <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+              <div hidden$="[[!selectedBudgetIsOne]]">
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+              </div>
+              <div hidden$="[[selectedBudgetIsOne]]">
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+              </div>
             </template>
             <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
           </div>
@@ -253,6 +259,11 @@
           computed: '_budgetLeft(selectedBudget, totalBudget)'
         },
 
+        selectedBudgetIsOne: {
+          type: Boolean,
+          computed: '_selectedBudgetIsOne(selectedBudget)'
+        },
+
         votesWidth: {
           type: Number,
           value: 940
@@ -274,6 +285,10 @@
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+
+      _selectedBudgetIsOne: function (selectedBudget) {
+        return (selectedBudget && selectedBudget==1.0);
+      },
 
       _budgetLeft: function (selectedBudget, totalBudget) {
         var budgetLeft = totalBudget-selectedBudget;
@@ -299,7 +314,7 @@
         }
         this._resetBudgetDiv();
         this.selectedItems.forEach(function (item) {
-           this._addItemToDiv(item);
+          this._addItemToDiv(item);
         }.bind(this));
       },
 

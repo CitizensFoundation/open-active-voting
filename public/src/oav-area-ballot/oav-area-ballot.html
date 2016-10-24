@@ -369,7 +369,7 @@
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
-            }.bind(this), 500)
+            }.bind(this), 1500)
           }
         }
       },
@@ -393,21 +393,25 @@
         } else if (localStorageAreaId) {
           areaId = localStorageAreaId;
         } else {
-          console.error("No area id in complete voting");
+          console.warn("No area id in complete voting");
         }
 
-        if (this.isSendingBallot===false && this.haveSentBallot===false) {
-          var encryptedVote = encryptedVotes;
-          if (encryptedVote) {
-            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
-            this.$.postBallotAjax.generateRequest();
-            this.set('isSendingBallot', true);
-            this.set('haveSentBallot', true);
+        if (areaId) {
+          if (this.isSendingBallot===false && this.haveSentBallot===false) {
+            var encryptedVote = encryptedVotes;
+            if (encryptedVote) {
+              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
+              this.$.postBallotAjax.generateRequest();
+              this.set('isSendingBallot', true);
+              this.set('haveSentBallot', true);
+            } else {
+              console.error("No encrypted votes!");
+            }
           } else {
-            console.error("No encrypted votes!");
+            console.warn("Already sending ballot");
           }
         } else {
-          console.warn("Already sending ballot");
+          console.warn("Not sending as no area id");
         }
       },
 
