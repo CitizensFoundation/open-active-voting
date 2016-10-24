@@ -308,11 +308,6 @@
       ],
 
       properties: {
-        IDEAS_WITH_NO_PDFS: {
-          type: Array,
-          value: [10, 12, 15, 11]
-        },
-
         item: {
           type: Object,
           observer: '_itemChanged'
@@ -395,7 +390,7 @@
           if (!ideasWithOutPdfs || ideasWithOutPdfs.indexOf(parseInt(newItem.id)) > -1) {
             return null;
           } else {
-            return 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.id+'.pdf';
+            return 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/moreProjectInformation_'+newItem.idea_id+'.pdf';
           }
         } else {
           return null;
