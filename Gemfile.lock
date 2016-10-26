@@ -196,7 +196,6 @@ DEPENDENCIES
   passenger
   psych
   rails (= 4.2.7.1)
-  rake
   ruby-saml!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
