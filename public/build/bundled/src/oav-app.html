@@ -2458,9 +2458,6 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 
   <script>Polymer({is:"iron-pages",behaviors:[Polymer.IronResizableBehavior,Polymer.IronSelectableBehavior],properties:{activateEvent:{type:String,value:null}},observers:["_selectedPageChanged(selected)"],_selectedPageChanged:function(e,a){this.async(this.notifyResize)}});</script>
 </dom-module>
-<script>Polymer.IronMultiSelectableBehaviorImpl={properties:{multi:{type:Boolean,value:!1,observer:"multiChanged"},selectedValues:{type:Array,notify:!0},selectedItems:{type:Array,readOnly:!0,notify:!0}},observers:["_updateSelected(selectedValues.splices)"],select:function(e){this.multi?this.selectedValues?this._toggleSelected(e):this.selectedValues=[e]:this.selected=e},multiChanged:function(e){this._selection.multi=e},get _shouldUpdateSelection(){return null!=this.selected||null!=this.selectedValues&&this.selectedValues.length},_updateAttrForSelected:function(){this.multi?this._shouldUpdateSelection&&(this.selectedValues=this.selectedItems.map(function(e){return this._indexToValue(this.indexOf(e))},this).filter(function(e){return null!=e},this)):Polymer.IronSelectableBehavior._updateAttrForSelected.apply(this)},_updateSelected:function(){this.multi?this._selectMulti(this.selectedValues):this._selectSelected(this.selected)},_selectMulti:function(e){if(e){var t=this._valuesToItems(e);this._selection.clear(t);for(var l=0;l<t.length;l++)this._selection.setItemSelected(t[l],!0);if(this.fallbackSelection&&this.items.length&&!this._selection.get().length){var s=this._valueToItem(this.fallbackSelection);s&&(this.selectedValues=[this.fallbackSelection])}}else this._selection.clear()},_selectionChange:function(){var e=this._selection.get();this.multi?this._setSelectedItems(e):(this._setSelectedItems([e]),this._setSelectedItem(e))},_toggleSelected:function(e){var t=this.selectedValues.indexOf(e),l=t<0;l?this.push("selectedValues",e):this.splice("selectedValues",t,1)},_valuesToItems:function(e){return null==e?null:e.map(function(e){return this._valueToItem(e)},this)}},Polymer.IronMultiSelectableBehavior=[Polymer.IronSelectableBehavior,Polymer.IronMultiSelectableBehaviorImpl];</script>
-<script>Polymer.IronMenuBehaviorImpl={properties:{focusedItem:{observer:"_focusedItemChanged",readOnly:!0,type:Object},attrForItemTitle:{type:String}},_SEARCH_RESET_TIMEOUT_MS:1e3,hostAttributes:{role:"menu",tabindex:"0"},observers:["_updateMultiselectable(multi)"],listeners:{focus:"_onFocus",keydown:"_onKeydown","iron-items-changed":"_onIronItemsChanged"},keyBindings:{up:"_onUpKey",down:"_onDownKey",esc:"_onEscKey","shift+tab:keydown":"_onShiftTabDown"},attached:function(){this._resetTabindices()},select:function(e){this._defaultFocusAsync&&(this.cancelAsync(this._defaultFocusAsync),this._defaultFocusAsync=null);var t=this._valueToItem(e);t&&t.hasAttribute("disabled")||(this._setFocusedItem(t),Polymer.IronMultiSelectableBehaviorImpl.select.apply(this,arguments))},_resetTabindices:function(){var e=this.multi?this.selectedItems&&this.selectedItems[0]:this.selectedItem;this.items.forEach(function(t){t.setAttribute("tabindex",t===e?"0":"-1")},this)},_updateMultiselectable:function(e){e?this.setAttribute("aria-multiselectable","true"):this.removeAttribute("aria-multiselectable")},_focusWithKeyboardEvent:function(e){this.cancelDebouncer("_clearSearchText");var t=this._searchText||"",s=e.key&&1==e.key.length?e.key:String.fromCharCode(e.keyCode);t+=s.toLocaleLowerCase();for(var i,o=t.length,n=0;i=this.items[n];n++)if(!i.hasAttribute("disabled")){var r=this.attrForItemTitle||"textContent",a=(i[r]||i.getAttribute(r)||"").trim();if(!(a.length<o)&&a.slice(0,o).toLocaleLowerCase()==t){this._setFocusedItem(i);break}}this._searchText=t,this.debounce("_clearSearchText",this._clearSearchText,this._SEARCH_RESET_TIMEOUT_MS)},_clearSearchText:function(){this._searchText=""},_focusPrevious:function(){for(var e=this.items.length,t=Number(this.indexOf(this.focusedItem)),s=1;s<e+1;s++){var i=this.items[(t-s+e)%e];if(!i.hasAttribute("disabled")){var o=Polymer.dom(i).getOwnerRoot()||document;if(this._setFocusedItem(i),Polymer.dom(o).activeElement==i)return}}},_focusNext:function(){for(var e=this.items.length,t=Number(this.indexOf(this.focusedItem)),s=1;s<e+1;s++){var i=this.items[(t+s)%e];if(!i.hasAttribute("disabled")){var o=Polymer.dom(i).getOwnerRoot()||document;if(this._setFocusedItem(i),Polymer.dom(o).activeElement==i)return}}},_applySelection:function(e,t){t?e.setAttribute("aria-selected","true"):e.removeAttribute("aria-selected"),Polymer.IronSelectableBehavior._applySelection.apply(this,arguments)},_focusedItemChanged:function(e,t){t&&t.setAttribute("tabindex","-1"),e&&(e.setAttribute("tabindex","0"),e.focus())},_onIronItemsChanged:function(e){e.detail.addedNodes.length&&this._resetTabindices()},_onShiftTabDown:function(e){var t=this.getAttribute("tabindex");Polymer.IronMenuBehaviorImpl._shiftTabPressed=!0,this._setFocusedItem(null),this.setAttribute("tabindex","-1"),this.async(function(){this.setAttribute("tabindex",t),Polymer.IronMenuBehaviorImpl._shiftTabPressed=!1},1)},_onFocus:function(e){if(!Polymer.IronMenuBehaviorImpl._shiftTabPressed){var t=Polymer.dom(e).rootTarget;(t===this||"undefined"==typeof t.tabIndex||this.isLightDescendant(t))&&(this._defaultFocusAsync=this.async(function(){var e=this.multi?this.selectedItems&&this.selectedItems[0]:this.selectedItem;this._setFocusedItem(null),e?this._setFocusedItem(e):this.items[0]&&this._focusNext()}))}},_onUpKey:function(e){this._focusPrevious(),e.detail.keyboardEvent.preventDefault()},_onDownKey:function(e){this._focusNext(),e.detail.keyboardEvent.preventDefault()},_onEscKey:function(e){this.focusedItem.blur()},_onKeydown:function(e){this.keyboardEventMatchesKeys(e,"up down esc")||this._focusWithKeyboardEvent(e),e.stopPropagation()},_activateHandler:function(e){Polymer.IronSelectableBehavior._activateHandler.call(this,e),e.stopPropagation()}},Polymer.IronMenuBehaviorImpl._shiftTabPressed=!1,Polymer.IronMenuBehavior=[Polymer.IronMultiSelectableBehavior,Polymer.IronA11yKeysBehavior,Polymer.IronMenuBehaviorImpl];</script>
-<script>Polymer.IronMenubarBehaviorImpl={hostAttributes:{role:"menubar"},keyBindings:{left:"_onLeftKey",right:"_onRightKey"},_onUpKey:function(e){this.focusedItem.click(),e.detail.keyboardEvent.preventDefault()},_onDownKey:function(e){this.focusedItem.click(),e.detail.keyboardEvent.preventDefault()},get _isRTL(){return"rtl"===window.getComputedStyle(this).direction},_onLeftKey:function(e){this._isRTL?this._focusNext():this._focusPrevious(),e.detail.keyboardEvent.preventDefault()},_onRightKey:function(e){this._isRTL?this._focusPrevious():this._focusNext(),e.detail.keyboardEvent.preventDefault()},_onKeydown:function(e){this.keyboardEventMatchesKeys(e,"up down left right esc")||this._focusWithKeyboardEvent(e)}},Polymer.IronMenubarBehavior=[Polymer.IronMenuBehavior,Polymer.IronMenubarBehaviorImpl];</script>
 <script>Polymer.PaperInkyFocusBehaviorImpl={observers:["_focusedChanged(receivedFocusFromKeyboard)"],_focusedChanged:function(e){e&&this.ensureRipple(),this.hasRipple()&&(this._ripple.holdDown=e)},_createRipple:function(){var e=Polymer.PaperRippleBehavior._createRipple();return e.id="ink",e.setAttribute("center",""),e.classList.add("circle"),e}},Polymer.PaperInkyFocusBehavior=[Polymer.IronButtonState,Polymer.IronControlState,Polymer.PaperRippleBehavior,Polymer.PaperInkyFocusBehaviorImpl];</script>
 <dom-module id="paper-icon-button" assetpath="../bower_components/paper-icon-button/">
   <template strip-whitespace="">
@@ -2519,12 +2516,6 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 
   <script>Polymer({is:"paper-icon-button",hostAttributes:{role:"button",tabindex:"0"},behaviors:[Polymer.PaperInkyFocusBehavior],properties:{src:{type:String},icon:{type:String},alt:{type:String,observer:"_altChanged"}},_altChanged:function(t,e){var r=this.getAttribute("aria-label");r&&e!=r||this.setAttribute("aria-label",t)}});</script>
 </dom-module>
-<iron-iconset-svg name="paper-tabs" size="24">
-<svg><defs>
-<g id="chevron-left"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></g>
-<g id="chevron-right"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></g>
-</defs></svg>
-</iron-iconset-svg>
 <dom-module id="paper-tab" assetpath="../bower_components/paper-tabs/">
   <template>
     <style>
@@ -2592,6 +2583,15 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 
   <script>Polymer({is:"paper-tab",behaviors:[Polymer.IronControlState,Polymer.IronButtonState,Polymer.PaperRippleBehavior],properties:{link:{type:Boolean,value:!1,reflectToAttribute:!0}},hostAttributes:{role:"tab"},listeners:{down:"_updateNoink",tap:"_onTap"},attached:function(){this._updateNoink()},get _parentNoink(){var t=Polymer.dom(this).parentNode;return!!t&&!!t.noink},_updateNoink:function(){this.noink=!!this.noink||!!this._parentNoink},_onTap:function(t){if(this.link){var e=this.queryEffectiveChildren("a");if(!e)return;if(t.target===e)return;e.click()}}});</script>
 </dom-module>
+<script>Polymer.IronMultiSelectableBehaviorImpl={properties:{multi:{type:Boolean,value:!1,observer:"multiChanged"},selectedValues:{type:Array,notify:!0},selectedItems:{type:Array,readOnly:!0,notify:!0}},observers:["_updateSelected(selectedValues.splices)"],select:function(e){this.multi?this.selectedValues?this._toggleSelected(e):this.selectedValues=[e]:this.selected=e},multiChanged:function(e){this._selection.multi=e},get _shouldUpdateSelection(){return null!=this.selected||null!=this.selectedValues&&this.selectedValues.length},_updateAttrForSelected:function(){this.multi?this._shouldUpdateSelection&&(this.selectedValues=this.selectedItems.map(function(e){return this._indexToValue(this.indexOf(e))},this).filter(function(e){return null!=e},this)):Polymer.IronSelectableBehavior._updateAttrForSelected.apply(this)},_updateSelected:function(){this.multi?this._selectMulti(this.selectedValues):this._selectSelected(this.selected)},_selectMulti:function(e){if(e){var t=this._valuesToItems(e);this._selection.clear(t);for(var l=0;l<t.length;l++)this._selection.setItemSelected(t[l],!0);if(this.fallbackSelection&&this.items.length&&!this._selection.get().length){var s=this._valueToItem(this.fallbackSelection);s&&(this.selectedValues=[this.fallbackSelection])}}else this._selection.clear()},_selectionChange:function(){var e=this._selection.get();this.multi?this._setSelectedItems(e):(this._setSelectedItems([e]),this._setSelectedItem(e))},_toggleSelected:function(e){var t=this.selectedValues.indexOf(e),l=t<0;l?this.push("selectedValues",e):this.splice("selectedValues",t,1)},_valuesToItems:function(e){return null==e?null:e.map(function(e){return this._valueToItem(e)},this)}},Polymer.IronMultiSelectableBehavior=[Polymer.IronSelectableBehavior,Polymer.IronMultiSelectableBehaviorImpl];</script>
+<script>Polymer.IronMenuBehaviorImpl={properties:{focusedItem:{observer:"_focusedItemChanged",readOnly:!0,type:Object},attrForItemTitle:{type:String}},_SEARCH_RESET_TIMEOUT_MS:1e3,hostAttributes:{role:"menu",tabindex:"0"},observers:["_updateMultiselectable(multi)"],listeners:{focus:"_onFocus",keydown:"_onKeydown","iron-items-changed":"_onIronItemsChanged"},keyBindings:{up:"_onUpKey",down:"_onDownKey",esc:"_onEscKey","shift+tab:keydown":"_onShiftTabDown"},attached:function(){this._resetTabindices()},select:function(e){this._defaultFocusAsync&&(this.cancelAsync(this._defaultFocusAsync),this._defaultFocusAsync=null);var t=this._valueToItem(e);t&&t.hasAttribute("disabled")||(this._setFocusedItem(t),Polymer.IronMultiSelectableBehaviorImpl.select.apply(this,arguments))},_resetTabindices:function(){var e=this.multi?this.selectedItems&&this.selectedItems[0]:this.selectedItem;this.items.forEach(function(t){t.setAttribute("tabindex",t===e?"0":"-1")},this)},_updateMultiselectable:function(e){e?this.setAttribute("aria-multiselectable","true"):this.removeAttribute("aria-multiselectable")},_focusWithKeyboardEvent:function(e){this.cancelDebouncer("_clearSearchText");var t=this._searchText||"",s=e.key&&1==e.key.length?e.key:String.fromCharCode(e.keyCode);t+=s.toLocaleLowerCase();for(var i,o=t.length,n=0;i=this.items[n];n++)if(!i.hasAttribute("disabled")){var r=this.attrForItemTitle||"textContent",a=(i[r]||i.getAttribute(r)||"").trim();if(!(a.length<o)&&a.slice(0,o).toLocaleLowerCase()==t){this._setFocusedItem(i);break}}this._searchText=t,this.debounce("_clearSearchText",this._clearSearchText,this._SEARCH_RESET_TIMEOUT_MS)},_clearSearchText:function(){this._searchText=""},_focusPrevious:function(){for(var e=this.items.length,t=Number(this.indexOf(this.focusedItem)),s=1;s<e+1;s++){var i=this.items[(t-s+e)%e];if(!i.hasAttribute("disabled")){var o=Polymer.dom(i).getOwnerRoot()||document;if(this._setFocusedItem(i),Polymer.dom(o).activeElement==i)return}}},_focusNext:function(){for(var e=this.items.length,t=Number(this.indexOf(this.focusedItem)),s=1;s<e+1;s++){var i=this.items[(t+s)%e];if(!i.hasAttribute("disabled")){var o=Polymer.dom(i).getOwnerRoot()||document;if(this._setFocusedItem(i),Polymer.dom(o).activeElement==i)return}}},_applySelection:function(e,t){t?e.setAttribute("aria-selected","true"):e.removeAttribute("aria-selected"),Polymer.IronSelectableBehavior._applySelection.apply(this,arguments)},_focusedItemChanged:function(e,t){t&&t.setAttribute("tabindex","-1"),e&&(e.setAttribute("tabindex","0"),e.focus())},_onIronItemsChanged:function(e){e.detail.addedNodes.length&&this._resetTabindices()},_onShiftTabDown:function(e){var t=this.getAttribute("tabindex");Polymer.IronMenuBehaviorImpl._shiftTabPressed=!0,this._setFocusedItem(null),this.setAttribute("tabindex","-1"),this.async(function(){this.setAttribute("tabindex",t),Polymer.IronMenuBehaviorImpl._shiftTabPressed=!1},1)},_onFocus:function(e){if(!Polymer.IronMenuBehaviorImpl._shiftTabPressed){var t=Polymer.dom(e).rootTarget;(t===this||"undefined"==typeof t.tabIndex||this.isLightDescendant(t))&&(this._defaultFocusAsync=this.async(function(){var e=this.multi?this.selectedItems&&this.selectedItems[0]:this.selectedItem;this._setFocusedItem(null),e?this._setFocusedItem(e):this.items[0]&&this._focusNext()}))}},_onUpKey:function(e){this._focusPrevious(),e.detail.keyboardEvent.preventDefault()},_onDownKey:function(e){this._focusNext(),e.detail.keyboardEvent.preventDefault()},_onEscKey:function(e){this.focusedItem.blur()},_onKeydown:function(e){this.keyboardEventMatchesKeys(e,"up down esc")||this._focusWithKeyboardEvent(e),e.stopPropagation()},_activateHandler:function(e){Polymer.IronSelectableBehavior._activateHandler.call(this,e),e.stopPropagation()}},Polymer.IronMenuBehaviorImpl._shiftTabPressed=!1,Polymer.IronMenuBehavior=[Polymer.IronMultiSelectableBehavior,Polymer.IronA11yKeysBehavior,Polymer.IronMenuBehaviorImpl];</script>
+<script>Polymer.IronMenubarBehaviorImpl={hostAttributes:{role:"menubar"},keyBindings:{left:"_onLeftKey",right:"_onRightKey"},_onUpKey:function(e){this.focusedItem.click(),e.detail.keyboardEvent.preventDefault()},_onDownKey:function(e){this.focusedItem.click(),e.detail.keyboardEvent.preventDefault()},get _isRTL(){return"rtl"===window.getComputedStyle(this).direction},_onLeftKey:function(e){this._isRTL?this._focusNext():this._focusPrevious(),e.detail.keyboardEvent.preventDefault()},_onRightKey:function(e){this._isRTL?this._focusPrevious():this._focusNext(),e.detail.keyboardEvent.preventDefault()},_onKeydown:function(e){this.keyboardEventMatchesKeys(e,"up down left right esc")||this._focusWithKeyboardEvent(e)}},Polymer.IronMenubarBehavior=[Polymer.IronMenuBehavior,Polymer.IronMenubarBehaviorImpl];</script>
+<iron-iconset-svg name="paper-tabs" size="24">
+<svg><defs>
+<g id="chevron-left"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></g>
+<g id="chevron-right"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></g>
+</defs></svg>
+</iron-iconset-svg>
 <dom-module id="paper-tabs" assetpath="../bower_components/paper-tabs/">
   <template>
     <style>
@@ -3232,6 +3232,424 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 </dom-module>
 
 <script>Polymer({is:"google-map",properties:{apiKey:String,mapsUrl:{type:String},clientId:String,latitude:{type:Number,value:37.77493,notify:!0,reflectToAttribute:!0},map:{type:Object,notify:!0,value:null},longitude:{type:Number,value:-122.41942,notify:!0,reflectToAttribute:!0},kml:{type:String,value:null,observer:"_loadKml"},zoom:{type:Number,value:10,observer:"_zoomChanged",notify:!0},noAutoTilt:{type:Boolean,value:!1},mapType:{type:String,value:"roadmap",observer:"_mapTypeChanged",notify:!0},version:{type:String,value:"3.exp"},disableDefaultUi:{type:Boolean,value:!1,observer:"_disableDefaultUiChanged"},disableMapTypeControl:{type:Boolean,value:!1,observer:"_disableMapTypeControlChanged"},disableStreetViewControl:{type:Boolean,value:!1,observer:"_disableStreetViewControlChanged"},fitToMarkers:{type:Boolean,value:!1,observer:"_fitToMarkersChanged"},disableZoom:{type:Boolean,value:!1,observer:"_disableZoomChanged"},styles:{type:Object,value:function(){return{}}},maxZoom:{type:Number,observer:"_maxZoomChanged"},minZoom:{type:Number,observer:"_minZoomChanged"},signedIn:{type:Boolean,value:!1},language:{type:String},clickEvents:{type:Boolean,value:!1,observer:"_clickEventsChanged"},dragEvents:{type:Boolean,value:!1,observer:"_dragEventsChanged"},mouseEvents:{type:Boolean,value:!1,observer:"_mouseEventsChanged"},additionalMapOptions:{type:Object,value:function(){return{}}},markers:{type:Array,value:function(){return[]},readOnly:!0},objects:{type:Array,value:function(){return[]},readOnly:!0},singleInfoWindow:{type:Boolean,value:!1}},behaviors:[Polymer.IronResizableBehavior],listeners:{"iron-resize":"resize"},observers:["_debounceUpdateCenter(latitude, longitude)"],attached:function(){this._initGMap()},detached:function(){this._markersChildrenListener&&(this.unlisten(this.$.selector,"items-changed","_updateMarkers"),this._markersChildrenListener=null),this._objectsMutationObserver&&(this._objectsMutationObserver.disconnect(),this._objectsMutationObserver=null)},_initGMap:function(){this.map||this.$.api.libraryLoaded===!0&&this.isAttached&&(this.map=new google.maps.Map(this.$.map,this._getMapOptions()),this._listeners={},this._updateCenter(),this._loadKml(),this._updateMarkers(),this._updateObjects(),this._addMapListeners(),this.fire("google-map-ready"))},_mapApiLoaded:function(){this._initGMap()},_getMapOptions:function(){var e={zoom:this.zoom,tilt:this.noAutoTilt?0:45,mapTypeId:this.mapType,disableDefaultUI:this.disableDefaultUi,mapTypeControl:!this.disableDefaultUi&&!this.disableMapTypeControl,streetViewControl:!this.disableDefaultUi&&!this.disableStreetViewControl,disableDoubleClickZoom:this.disableZoom,scrollwheel:!this.disableZoom,styles:this.styles,maxZoom:Number(this.maxZoom),minZoom:Number(this.minZoom)};null!=this.getAttribute("draggable")&&(e.draggable=this.draggable);for(var t in this.additionalMapOptions)e[t]=this.additionalMapOptions[t];return e},_attachChildrenToMap:function(e){if(this.map)for(var t,i=0;t=e[i];++i)t.map=this.map},_observeMarkers:function(){this._markersChildrenListener||(this._markersChildrenListener=this.listen(this.$.selector,"items-changed","_updateMarkers"))},_updateMarkers:function(){var e=Array.prototype.slice.call(Polymer.dom(this.$.markers).getDistributedNodes());if(e.length===this.markers.length){var t=e.filter(function(e){return this.markers&&this.markers.indexOf(e)===-1}.bind(this));if(0===t.length)return void(this._markersChildrenListener||this._observeMarkers())}this._observeMarkers(),this.markers=this._setMarkers(e),this._attachChildrenToMap(this.markers),this.fitToMarkers&&this._fitToMarkersChanged()},_observeObjects:function(){this._objectsMutationObserver||(this._objectsMutationObserver=new MutationObserver(this._updateObjects.bind(this)),this._objectsMutationObserver.observe(this,{childList:!0}))},_updateObjects:function(){var e=Array.prototype.slice.call(Polymer.dom(this.$.objects).getDistributedNodes());if(e.length===this.objects.length){var t=e.filter(function(e){return this.objects.indexOf(e)===-1}.bind(this));if(0===t.length)return void this._observeObjects()}this._observeObjects(),this._setObjects(e),this._attachChildrenToMap(this.objects)},clear:function(){for(var e,t=0;e=this.markers[t];++t)e.marker.setMap(null)},resize:function(){if(this.map){var e=this.latitude,t=this.longitude;google.maps.event.trigger(this.map,"resize"),this.latitude=e,this.longitude=t,this.fitToMarkers&&this._fitToMarkersChanged()}},_loadKml:function(){if(this.map&&this.kml){new google.maps.KmlLayer({url:this.kml,map:this.map})}},_debounceUpdateCenter:function(){this.debounce("updateCenter",this._updateCenter)},_updateCenter:function(){if(this.cancelDebouncer("updateCenter"),this.map&&void 0!==this.latitude&&void 0!==this.longitude){var e=Number(this.latitude);if(isNaN(e))throw new TypeError("latitude must be a number");var t=Number(this.longitude);if(isNaN(t))throw new TypeError("longitude must be a number");var i=new google.maps.LatLng(e,t),s=this.map.getCenter();s?(s=new google.maps.LatLng(s.lat(),s.lng()),s.equals(i)||this.map.panTo(i)):this.map.setCenter(i)}},_zoomChanged:function(){this.map&&this.map.setZoom(Number(this.zoom))},_idleEvent:function(){this.map?this._forwardEvent("idle"):this._clearListener("idle")},_clickEventsChanged:function(){this.map&&(this.clickEvents?(this._forwardEvent("click"),this._forwardEvent("dblclick"),this._forwardEvent("rightclick")):(this._clearListener("click"),this._clearListener("dblclick"),this._clearListener("rightclick")))},_dragEventsChanged:function(){this.map&&(this.dragEvents?(this._forwardEvent("drag"),this._forwardEvent("dragend"),this._forwardEvent("dragstart")):(this._clearListener("drag"),this._clearListener("dragend"),this._clearListener("dragstart")))},_mouseEventsChanged:function(){this.map&&(this.mouseEvents?(this._forwardEvent("mousemove"),this._forwardEvent("mouseout"),this._forwardEvent("mouseover")):(this._clearListener("mousemove"),this._clearListener("mouseout"),this._clearListener("mouseover")))},_maxZoomChanged:function(){this.map&&this.map.setOptions({maxZoom:Number(this.maxZoom)})},_minZoomChanged:function(){this.map&&this.map.setOptions({minZoom:Number(this.minZoom)})},_mapTypeChanged:function(){this.map&&this.map.setMapTypeId(this.mapType)},_disableDefaultUiChanged:function(){this.map&&this.map.setOptions({disableDefaultUI:this.disableDefaultUi})},_disableMapTypeControlChanged:function(){this.map&&this.map.setOptions({mapTypeControl:!this.disableMapTypeControl})},_disableStreetViewControlChanged:function(){this.map&&this.map.setOptions({streetViewControl:!this.disableStreetViewControl})},_disableZoomChanged:function(){this.map&&this.map.setOptions({disableDoubleClickZoom:this.disableZoom,scrollwheel:!this.disableZoom})},attributeChanged:function(e){if(this.map)switch(e){case"draggable":this.map.setOptions({draggable:this.draggable})}},_fitToMarkersChanged:function(){if(this.map&&this.fitToMarkers&&this.markers.length>0){for(var e,t=new google.maps.LatLngBounds,i=0;e=this.markers[i];++i)t.extend(new google.maps.LatLng(e.latitude,e.longitude));this.markers.length>1&&this.map.fitBounds(t),this.map.setCenter(t.getCenter())}},_addMapListeners:function(){google.maps.event.addListener(this.map,"center_changed",function(){var e=this.map.getCenter();this.latitude=e.lat(),this.longitude=e.lng()}.bind(this)),google.maps.event.addListener(this.map,"zoom_changed",function(){this.zoom=this.map.getZoom()}.bind(this)),google.maps.event.addListener(this.map,"maptypeid_changed",function(){this.mapType=this.map.getMapTypeId()}.bind(this)),this._clickEventsChanged(),this._dragEventsChanged(),this._mouseEventsChanged(),this._idleEvent()},_clearListener:function(e){this._listeners[e]&&(google.maps.event.removeListener(this._listeners[e]),this._listeners[e]=null)},_forwardEvent:function(e){this._listeners[e]=google.maps.event.addListener(this.map,e,function(t){this.fire("google-map-"+e,t)}.bind(this))},_deselectMarker:function(e,t){var i=this.$.selector.indexOf(e.target);this.singleInfoWindow?this.$.selector.selected=null:this.$.selector.selectedValues&&(this.$.selector.selectedValues=this.$.selector.selectedValues.filter(function(e){return e!==i}))}});</script>
+<script>Polymer.IronFormElementBehavior={properties:{name:{type:String},value:{notify:!0,type:String},required:{type:Boolean,value:!1},_parentForm:{type:Object}},attached:function(){this.fire("iron-form-element-register")},detached:function(){this._parentForm&&this._parentForm.fire("iron-form-element-unregister",{target:this})}};</script>
+<dom-module id="iron-a11y-announcer" assetpath="../bower_components/iron-a11y-announcer/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: fixed;
+        clip: rect(0px,0px,0px,0px);
+      }
+    </style>
+    <div aria-live$="[[mode]]">[[_text]]</div>
+  </template>
+
+  <script>!function(){"use strict";Polymer.IronA11yAnnouncer=Polymer({is:"iron-a11y-announcer",properties:{mode:{type:String,value:"polite"},_text:{type:String,value:""}},created:function(){Polymer.IronA11yAnnouncer.instance||(Polymer.IronA11yAnnouncer.instance=this),document.body.addEventListener("iron-announce",this._onIronAnnounce.bind(this))},announce:function(n){this._text="",this.async(function(){this._text=n},100)},_onIronAnnounce:function(n){n.detail&&n.detail.text&&this.announce(n.detail.text)}}),Polymer.IronA11yAnnouncer.instance=null,Polymer.IronA11yAnnouncer.requestAvailability=function(){Polymer.IronA11yAnnouncer.instance||(Polymer.IronA11yAnnouncer.instance=document.createElement("iron-a11y-announcer")),document.body.appendChild(Polymer.IronA11yAnnouncer.instance)}}();</script>
+</dom-module>
+<script>Polymer.IronValidatableBehaviorMeta=null,Polymer.IronValidatableBehavior={properties:{validator:{type:String},invalid:{notify:!0,reflectToAttribute:!0,type:Boolean,value:!1},_validatorMeta:{type:Object},validatorType:{type:String,value:"validator"},_validator:{type:Object,computed:"__computeValidator(validator)"}},observers:["_invalidChanged(invalid)"],registered:function(){Polymer.IronValidatableBehaviorMeta=new Polymer.IronMeta({type:"validator"})},_invalidChanged:function(){this.invalid?this.setAttribute("aria-invalid","true"):this.removeAttribute("aria-invalid")},hasValidator:function(){return null!=this._validator},validate:function(a){return this.invalid=!this._getValidity(a),!this.invalid},_getValidity:function(a){return!this.hasValidator()||this._validator.validate(a)},__computeValidator:function(){return Polymer.IronValidatableBehaviorMeta&&Polymer.IronValidatableBehaviorMeta.byKey(this.validator)}};</script>
+<script>Polymer({is:"iron-input",extends:"input",behaviors:[Polymer.IronValidatableBehavior],properties:{bindValue:{observer:"_bindValueChanged",type:String},preventInvalidInput:{type:Boolean},allowedPattern:{type:String,observer:"_allowedPatternChanged"},_previousValidInput:{type:String,value:""},_patternAlreadyChecked:{type:Boolean,value:!1}},listeners:{input:"_onInput",keypress:"_onKeypress"},registered:function(){this._canDispatchEventOnDisabled()||(this._origDispatchEvent=this.dispatchEvent,this.dispatchEvent=this._dispatchEventFirefoxIE)},created:function(){Polymer.IronA11yAnnouncer.requestAvailability()},_canDispatchEventOnDisabled:function(){var e=document.createElement("input"),t=!1;e.disabled=!0,e.addEventListener("feature-check-dispatch-event",function(){t=!0});try{e.dispatchEvent(new Event("feature-check-dispatch-event"))}catch(e){}return t},_dispatchEventFirefoxIE:function(){var e=this.disabled;this.disabled=!1,this._origDispatchEvent.apply(this,arguments),this.disabled=e},get _patternRegExp(){var e;if(this.allowedPattern)e=new RegExp(this.allowedPattern);else switch(this.type){case"number":e=/[0-9.,e-]/}return e},ready:function(){this.bindValue=this.value},_bindValueChanged:function(){this.value!==this.bindValue&&(this.value=this.bindValue||0===this.bindValue||this.bindValue===!1?this.bindValue:""),this.fire("bind-value-changed",{value:this.bindValue})},_allowedPatternChanged:function(){this.preventInvalidInput=!!this.allowedPattern},_onInput:function(){if(this.preventInvalidInput&&!this._patternAlreadyChecked){var e=this._checkPatternValidity();e||(this._announceInvalidCharacter("Invalid string of characters not entered."),this.value=this._previousValidInput)}this.bindValue=this.value,this._previousValidInput=this.value,this._patternAlreadyChecked=!1},_isPrintable:function(e){var t=8==e.keyCode||9==e.keyCode||13==e.keyCode||27==e.keyCode,i=19==e.keyCode||20==e.keyCode||45==e.keyCode||46==e.keyCode||144==e.keyCode||145==e.keyCode||e.keyCode>32&&e.keyCode<41||e.keyCode>111&&e.keyCode<124;return!(t||0==e.charCode&&i)},_onKeypress:function(e){if(this.preventInvalidInput||"number"===this.type){var t=this._patternRegExp;if(t&&!(e.metaKey||e.ctrlKey||e.altKey)){this._patternAlreadyChecked=!0;var i=String.fromCharCode(e.charCode);this._isPrintable(e)&&!t.test(i)&&(e.preventDefault(),this._announceInvalidCharacter("Invalid character "+i+" not entered."))}}},_checkPatternValidity:function(){var e=this._patternRegExp;if(!e)return!0;for(var t=0;t<this.value.length;t++)if(!e.test(this.value[t]))return!1;return!0},validate:function(){var e=this.checkValidity();return e&&(this.required&&""===this.value?e=!1:this.hasValidator()&&(e=Polymer.IronValidatableBehavior.validate.call(this,this.value))),this.invalid=!e,this.fire("iron-input-validate"),e},_announceInvalidCharacter:function(e){this.fire("iron-announce",{text:e})}});</script>
+<script>Polymer.PaperInputHelper={},Polymer.PaperInputHelper.NextLabelID=1,Polymer.PaperInputHelper.NextAddonID=1,Polymer.PaperInputBehaviorImpl={properties:{label:{type:String},value:{notify:!0,type:String},disabled:{type:Boolean,value:!1},invalid:{type:Boolean,value:!1,notify:!0},preventInvalidInput:{type:Boolean},allowedPattern:{type:String},type:{type:String},list:{type:String},pattern:{type:String},required:{type:Boolean,value:!1},errorMessage:{type:String},charCounter:{type:Boolean,value:!1},noLabelFloat:{type:Boolean,value:!1},alwaysFloatLabel:{type:Boolean,value:!1},autoValidate:{type:Boolean,value:!1},validator:{type:String},autocomplete:{type:String,value:"off"},autofocus:{type:Boolean,observer:"_autofocusChanged"},inputmode:{type:String},minlength:{type:Number},maxlength:{type:Number},min:{type:String},max:{type:String},step:{type:String},name:{type:String},placeholder:{type:String,value:""},readonly:{type:Boolean,value:!1},size:{type:Number},autocapitalize:{type:String,value:"none"},autocorrect:{type:String,value:"off"},autosave:{type:String},results:{type:Number},accept:{type:String},multiple:{type:Boolean},_ariaDescribedBy:{type:String,value:""},_ariaLabelledBy:{type:String,value:""}},listeners:{"addon-attached":"_onAddonAttached"},keyBindings:{"shift+tab:keydown":"_onShiftTabDown"},hostAttributes:{tabindex:0},get inputElement(){return this.$.input},get _focusableElement(){return this.inputElement},registered:function(){this._typesThatHaveText=["date","datetime","datetime-local","month","time","week","file"]},attached:function(){this._updateAriaLabelledBy(),this.inputElement&&this._typesThatHaveText.indexOf(this.inputElement.type)!==-1&&(this.alwaysFloatLabel=!0)},_appendStringWithSpace:function(e,t){return e=e?e+" "+t:t},_onAddonAttached:function(e){var t=e.path?e.path[0]:e.target;if(t.id)this._ariaDescribedBy=this._appendStringWithSpace(this._ariaDescribedBy,t.id);else{var a="paper-input-add-on-"+Polymer.PaperInputHelper.NextAddonID++;t.id=a,this._ariaDescribedBy=this._appendStringWithSpace(this._ariaDescribedBy,a)}},validate:function(){return this.inputElement.validate()},_focusBlurHandler:function(e){Polymer.IronControlState._focusBlurHandler.call(this,e),this.focused&&!this._shiftTabPressed&&this._focusableElement.focus()},_onShiftTabDown:function(e){var t=this.getAttribute("tabindex");this._shiftTabPressed=!0,this.setAttribute("tabindex","-1"),this.async(function(){this.setAttribute("tabindex",t),this._shiftTabPressed=!1},1)},_handleAutoValidate:function(){this.autoValidate&&this.validate()},updateValueAndPreserveCaret:function(e){try{var t=this.inputElement.selectionStart;this.value=e,this.inputElement.selectionStart=t,this.inputElement.selectionEnd=t}catch(t){this.value=e}},_computeAlwaysFloatLabel:function(e,t){return t||e},_updateAriaLabelledBy:function(){var e=Polymer.dom(this.root).querySelector("label");if(!e)return void(this._ariaLabelledBy="");var t;e.id?t=e.id:(t="paper-input-label-"+Polymer.PaperInputHelper.NextLabelID++,e.id=t),this._ariaLabelledBy=t},_onChange:function(e){this.shadowRoot&&this.fire(e.type,{sourceEvent:e},{node:this,bubbles:e.bubbles,cancelable:e.cancelable})},_autofocusChanged:function(){if(this.autofocus&&this._focusableElement){var e=document.activeElement,t=e instanceof HTMLElement,a=t&&e!==document.body&&e!==document.documentElement;a||this._focusableElement.focus()}}},Polymer.PaperInputBehavior=[Polymer.IronControlState,Polymer.IronA11yKeysBehavior,Polymer.PaperInputBehaviorImpl];</script>
+<script>Polymer.PaperInputAddonBehavior={hostAttributes:{"add-on":""},attached:function(){this.fire("addon-attached")},update:function(t){}};</script>
+<dom-module id="paper-input-char-counter" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        float: right;
+
+        @apply(--paper-font-caption);
+        @apply(--paper-input-char-counter);
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      :host-context([dir="rtl"]) {
+        float: left;
+      }
+    </style>
+
+    <span>[[_charCounterStr]]</span>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"paper-input-char-counter",behaviors:[Polymer.PaperInputAddonBehavior],properties:{_charCounterStr:{type:String,value:"0"}},update:function(t){if(t.inputElement){t.value=t.value||"";var e=t.value.toString().length.toString();t.inputElement.hasAttribute("maxlength")&&(e+="/"+t.inputElement.getAttribute("maxlength")),this._charCounterStr=e}}});</script>
+<dom-module id="paper-input-container" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 0;
+
+        @apply(--paper-input-container);
+      }
+
+      :host([inline]) {
+        display: inline-block;
+      }
+
+      :host([disabled]) {
+        pointer-events: none;
+        opacity: 0.33;
+
+        @apply(--paper-input-container-disabled);
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      .floated-label-placeholder {
+        @apply(--paper-font-caption);
+      }
+
+      .underline {
+        position: relative;
+      }
+
+      .focused-line {
+        @apply(--layout-fit);
+
+        background: var(--paper-input-container-focus-color, --primary-color);
+        height: 2px;
+
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-transform: scale3d(0,1,1);
+        transform: scale3d(0,1,1);
+
+        @apply(--paper-input-container-underline-focus);
+      }
+
+      .underline.is-highlighted .focused-line {
+        -webkit-transform: none;
+        transform: none;
+        -webkit-transition: -webkit-transform 0.25s;
+        transition: transform 0.25s;
+
+        @apply(--paper-transition-easing);
+      }
+
+      .underline.is-invalid .focused-line {
+        background: var(--paper-input-container-invalid-color, --error-color);
+        -webkit-transform: none;
+        transform: none;
+        -webkit-transition: -webkit-transform 0.25s;
+        transition: transform 0.25s;
+
+        @apply(--paper-transition-easing);
+      }
+
+      .unfocused-line {
+        @apply(--layout-fit);
+
+        background: var(--paper-input-container-color, --secondary-text-color);
+        height: 1px;
+
+        @apply(--paper-input-container-underline);
+      }
+
+      :host([disabled]) .unfocused-line {
+        border-bottom: 1px dashed;
+        border-color: var(--paper-input-container-color, --secondary-text-color);
+        background: transparent;
+
+        @apply(--paper-input-container-underline-disabled);
+      }
+
+      .label-and-input-container {
+        @apply(--layout-flex-auto);
+        @apply(--layout-relative);
+
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .input-content {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+
+        position: relative;
+      }
+
+      .input-content ::content label,
+      .input-content ::content .paper-input-label {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        font: inherit;
+        color: var(--paper-input-container-color, --secondary-text-color);
+        -webkit-transition: -webkit-transform 0.25s, width 0.25s;
+        transition: transform 0.25s, width 0.25s;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+
+        @apply(--paper-font-common-nowrap);
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-label);
+        @apply(--paper-transition-easing);
+      }
+
+      .input-content.label-is-floating ::content label,
+      .input-content.label-is-floating ::content .paper-input-label {
+        -webkit-transform: translateY(-75%) scale(0.75);
+        transform: translateY(-75%) scale(0.75);
+
+        /* Since we scale to 75/100 of the size, we actually have 100/75 of the
+        original space now available */
+        width: 133%;
+
+        @apply(--paper-input-container-label-floating);
+      }
+
+      :host-context([dir="rtl"]) .input-content.label-is-floating ::content label,
+      :host-context([dir="rtl"]) .input-content.label-is-floating ::content .paper-input-label {
+        /* TODO(noms): Figure out why leaving the width at 133% before the animation
+         * actually makes
+         * it wider on the right side, not left side, as you would expect in RTL */
+        width: 100%;
+        -webkit-transform-origin: right top;
+        transform-origin: right top;
+      }
+
+      .input-content.label-is-highlighted ::content label,
+      .input-content.label-is-highlighted ::content .paper-input-label {
+        color: var(--paper-input-container-focus-color, --primary-color);
+
+        @apply(--paper-input-container-label-focus);
+      }
+
+      .input-content.is-invalid ::content label,
+      .input-content.is-invalid ::content .paper-input-label {
+        color: var(--paper-input-container-invalid-color, --error-color);
+      }
+
+      .input-content.label-is-hidden ::content label,
+      .input-content.label-is-hidden ::content .paper-input-label {
+        visibility: hidden;
+      }
+
+      .input-content ::content input,
+      .input-content ::content textarea,
+      .input-content ::content iron-autogrow-textarea,
+      .input-content ::content .paper-input-input {
+        position: relative; /* to make a stacking context */
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        background: transparent;
+        border: none;
+        color: var(--paper-input-container-input-color, --primary-text-color);
+        -webkit-appearance: none;
+        text-align: inherit;
+        vertical-align: bottom;
+
+        @apply(--paper-font-subhead);
+        @apply(--paper-input-container-input);
+      }
+
+      ::content [prefix] {
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-input-prefix);
+        @apply(--layout-flex-none);
+      }
+
+      ::content [suffix] {
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-input-suffix);
+        @apply(--layout-flex-none);
+      }
+
+      /* Firefox sets a min-width on the input, which can cause layout issues */
+      .input-content ::content input {
+        min-width: 0;
+      }
+
+      .input-content ::content textarea {
+        resize: none;
+      }
+
+      .add-on-content {
+        position: relative;
+      }
+
+      .add-on-content.is-invalid ::content * {
+        color: var(--paper-input-container-invalid-color, --error-color);
+      }
+
+      .add-on-content.is-highlighted ::content * {
+        color: var(--paper-input-container-focus-color, --primary-color);
+      }
+    </style>
+
+    <template is="dom-if" if="[[!noLabelFloat]]">
+      <div class="floated-label-placeholder" aria-hidden="true">&nbsp;</div>
+    </template>
+
+    <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]">
+      <content select="[prefix]" id="prefix"></content>
+
+      <div class="label-and-input-container" id="labelAndInputContainer">
+        <content select=":not([add-on]):not([prefix]):not([suffix])"></content>
+      </div>
+
+      <content select="[suffix]"></content>
+    </div>
+
+    <div class$="[[_computeUnderlineClass(focused,invalid)]]">
+      <div class="unfocused-line"></div>
+      <div class="focused-line"></div>
+    </div>
+
+    <div class$="[[_computeAddOnContentClass(focused,invalid)]]">
+      <content id="addOnContent" select="[add-on]"></content>
+    </div>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"paper-input-container",properties:{noLabelFloat:{type:Boolean,value:!1},alwaysFloatLabel:{type:Boolean,value:!1},attrForValue:{type:String,value:"bind-value"},autoValidate:{type:Boolean,value:!1},invalid:{observer:"_invalidChanged",type:Boolean,value:!1},focused:{readOnly:!0,type:Boolean,value:!1,notify:!0},_addons:{type:Array},_inputHasContent:{type:Boolean,value:!1},_inputSelector:{type:String,value:"input,textarea,.paper-input-input"},_boundOnFocus:{type:Function,value:function(){return this._onFocus.bind(this)}},_boundOnBlur:{type:Function,value:function(){return this._onBlur.bind(this)}},_boundOnInput:{type:Function,value:function(){return this._onInput.bind(this)}},_boundValueChanged:{type:Function,value:function(){return this._onValueChanged.bind(this)}}},listeners:{"addon-attached":"_onAddonAttached","iron-input-validate":"_onIronInputValidate"},get _valueChangedEvent(){return this.attrForValue+"-changed"},get _propertyForValue(){return Polymer.CaseMap.dashToCamelCase(this.attrForValue)},get _inputElement(){return Polymer.dom(this).querySelector(this._inputSelector)},get _inputElementValue(){return this._inputElement[this._propertyForValue]||this._inputElement.value},ready:function(){this._addons||(this._addons=[]),this.addEventListener("focus",this._boundOnFocus,!0),this.addEventListener("blur",this._boundOnBlur,!0)},attached:function(){this.attrForValue?this._inputElement.addEventListener(this._valueChangedEvent,this._boundValueChanged):this.addEventListener("input",this._onInput),""!=this._inputElementValue?this._handleValueAndAutoValidate(this._inputElement):this._handleValue(this._inputElement)},_onAddonAttached:function(t){this._addons||(this._addons=[]);var n=t.target;this._addons.indexOf(n)===-1&&(this._addons.push(n),this.isAttached&&this._handleValue(this._inputElement))},_onFocus:function(){this._setFocused(!0)},_onBlur:function(){this._setFocused(!1),this._handleValueAndAutoValidate(this._inputElement)},_onInput:function(t){this._handleValueAndAutoValidate(t.target)},_onValueChanged:function(t){this._handleValueAndAutoValidate(t.target)},_handleValue:function(t){var n=this._inputElementValue;n||0===n||"number"===t.type&&!t.checkValidity()?this._inputHasContent=!0:this._inputHasContent=!1,this.updateAddons({inputElement:t,value:n,invalid:this.invalid})},_handleValueAndAutoValidate:function(t){if(this.autoValidate){var n;n=t.validate?t.validate(this._inputElementValue):t.checkValidity(),this.invalid=!n}this._handleValue(t)},_onIronInputValidate:function(t){this.invalid=this._inputElement.invalid},_invalidChanged:function(){this._addons&&this.updateAddons({invalid:this.invalid})},updateAddons:function(t){for(var n,e=0;n=this._addons[e];e++)n.update(t)},_computeInputContentClass:function(t,n,e,i,a){var u="input-content";if(t)a&&(u+=" label-is-hidden");else{var o=this.querySelector("label");n||a?(u+=" label-is-floating",this.$.labelAndInputContainer.style.position="static",i?u+=" is-invalid":e&&(u+=" label-is-highlighted")):o&&(this.$.labelAndInputContainer.style.position="relative")}return u},_computeUnderlineClass:function(t,n){var e="underline";return n?e+=" is-invalid":t&&(e+=" is-highlighted"),e},_computeAddOnContentClass:function(t,n){var e="add-on-content";return n?e+=" is-invalid":t&&(e+=" is-highlighted"),e}});</script>
+<dom-module id="paper-input-error" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        visibility: hidden;
+
+        color: var(--paper-input-container-invalid-color, --error-color);
+
+        @apply(--paper-font-caption);
+        @apply(--paper-input-error);
+        position: absolute;
+        left:0;
+        right:0;
+      }
+
+      :host([invalid]) {
+        visibility: visible;
+      };
+    </style>
+
+    <content></content>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"paper-input-error",behaviors:[Polymer.PaperInputAddonBehavior],properties:{invalid:{readOnly:!0,reflectToAttribute:!0,type:Boolean}},update:function(e){this._setInvalid(e.invalid)}});</script>
+<dom-module id="paper-input" assetpath="../bower_components/paper-input/">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host([focused]) {
+        outline: none;
+      }
+
+      :host([hidden]) {
+        display: none !important;
+      }
+
+      input::-webkit-input-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input:-moz-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input::-moz-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      input:-ms-input-placeholder {
+        color: var(--paper-input-container-color, --secondary-text-color);
+      }
+
+      label {
+        pointer-events: none;
+      }
+    </style>
+
+    <paper-input-container no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
+
+      <content select="[prefix]"></content>
+
+      <label hidden$="[[!label]]" aria-hidden="true" for="input">[[label]]</label>
+
+      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
+
+      <content select="[suffix]"></content>
+
+      <template is="dom-if" if="[[errorMessage]]">
+        <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
+      </template>
+
+      <template is="dom-if" if="[[charCounter]]">
+        <paper-input-char-counter></paper-input-char-counter>
+      </template>
+
+    </paper-input-container>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"paper-input",behaviors:[Polymer.IronFormElementBehavior,Polymer.PaperInputBehavior]});</script>
+<dom-module id="paper-toast" assetpath="../bower_components/paper-toast/">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: fixed;
+        background-color: var(--paper-toast-background-color, #323232);
+        color: var(--paper-toast-color, #f1f1f1);
+        min-height: 48px;
+        min-width: 288px;
+        padding: 16px 24px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        border-radius: 2px;
+        margin: 12px;
+        font-size: 14px;
+        cursor: default;
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        opacity: 0;
+        -webkit-transform: translateY(100px);
+        transform: translateY(100px);
+        @apply(--paper-font-common-base);
+      }
+
+      :host(.capsule) {
+        border-radius: 24px;
+      }
+
+      :host(.fit-bottom) {
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      :host(.paper-toast-open) {
+        opacity: 1;
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+      }
+    </style>
+
+    <span id="label">{{text}}</span>
+    <content></content>
+  </template>
+
+  <script>!function(){var e=null;Polymer({is:"paper-toast",behaviors:[Polymer.IronOverlayBehavior],properties:{fitInto:{type:Object,value:window,observer:"_onFitIntoChanged"},horizontalAlign:{type:String,value:"left"},verticalAlign:{type:String,value:"bottom"},duration:{type:Number,value:3e3},text:{type:String,value:""},noCancelOnOutsideClick:{type:Boolean,value:!0},noAutoFocus:{type:Boolean,value:!0}},listeners:{transitionend:"__onTransitionEnd"},get visible(){return Polymer.Base._warn("`visible` is deprecated, use `opened` instead"),this.opened},get _canAutoClose(){return this.duration>0&&this.duration!==1/0},created:function(){this._autoClose=null,Polymer.IronA11yAnnouncer.requestAvailability()},show:function(e){"string"==typeof e&&(e={text:e});for(var t in e)0===t.indexOf("_")?Polymer.Base._warn('The property "'+t+'" is private and was not set.'):t in this?this[t]=e[t]:Polymer.Base._warn('The property "'+t+'" is not valid.');this.open()},hide:function(){this.close()},__onTransitionEnd:function(e){e&&e.target===this&&"opacity"===e.propertyName&&(this.opened?this._finishRenderOpened():this._finishRenderClosed())},_openedChanged:function(){null!==this._autoClose&&(this.cancelAsync(this._autoClose),this._autoClose=null),this.opened?(e&&e!==this&&e.close(),e=this,this.fire("iron-announce",{text:this.text}),this._canAutoClose&&(this._autoClose=this.async(this.close,this.duration))):e===this&&(e=null),Polymer.IronOverlayBehaviorImpl._openedChanged.apply(this,arguments)},_renderOpened:function(){this.classList.add("paper-toast-open")},_renderClosed:function(){this.classList.remove("paper-toast-open")},_onFitIntoChanged:function(e){this.positionTarget=e}})}();</script>
+</dom-module>
 <dom-module id="oav-area-budget" assetpath="oav-area-ballot/">
   <style include="iron-flex iron-flex-alignment">
 
@@ -3824,69 +4242,6 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 <dom-module id="app-scrollpos-control" assetpath="../bower_components/app-layout/app-scrollpos-control/">
   <script>Polymer({is:"app-scrollpos-control",properties:{selected:{type:String,observer:"_selectedChanged"},reset:{type:Boolean,value:!1}},observers:["_updateScrollPos(selected, reset)"],created:function(){this._scrollposMap={}},_selectedChanged:function(e,o){null!=o&&(this._scrollposMap[o]={x:window.pageXOffset,y:window.pageYOffset})},_updateScrollPos:function(e,o){this.debounce("_updateScrollPos",function(){var e=this._scrollposMap[this.selected];null==e||this.reset?this._scrollTo(0,0):this._scrollTo(e.x,e.y)})},_scrollTo:function(e,o){Polymer.AppLayout.scroll({left:e,top:o,behavior:"silent"})}});</script>
 </dom-module>
-<dom-module id="iron-a11y-announcer" assetpath="../bower_components/iron-a11y-announcer/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        position: fixed;
-        clip: rect(0px,0px,0px,0px);
-      }
-    </style>
-    <div aria-live$="[[mode]]">[[_text]]</div>
-  </template>
-
-  <script>!function(){"use strict";Polymer.IronA11yAnnouncer=Polymer({is:"iron-a11y-announcer",properties:{mode:{type:String,value:"polite"},_text:{type:String,value:""}},created:function(){Polymer.IronA11yAnnouncer.instance||(Polymer.IronA11yAnnouncer.instance=this),document.body.addEventListener("iron-announce",this._onIronAnnounce.bind(this))},announce:function(n){this._text="",this.async(function(){this._text=n},100)},_onIronAnnounce:function(n){n.detail&&n.detail.text&&this.announce(n.detail.text)}}),Polymer.IronA11yAnnouncer.instance=null,Polymer.IronA11yAnnouncer.requestAvailability=function(){Polymer.IronA11yAnnouncer.instance||(Polymer.IronA11yAnnouncer.instance=document.createElement("iron-a11y-announcer")),document.body.appendChild(Polymer.IronA11yAnnouncer.instance)}}();</script>
-</dom-module>
-<dom-module id="paper-toast" assetpath="../bower_components/paper-toast/">
-  <template>
-    <style>
-      :host {
-        display: block;
-        position: fixed;
-        background-color: var(--paper-toast-background-color, #323232);
-        color: var(--paper-toast-color, #f1f1f1);
-        min-height: 48px;
-        min-width: 288px;
-        padding: 16px 24px;
-        box-sizing: border-box;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        border-radius: 2px;
-        margin: 12px;
-        font-size: 14px;
-        cursor: default;
-        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-        transition: transform 0.3s, opacity 0.3s;
-        opacity: 0;
-        -webkit-transform: translateY(100px);
-        transform: translateY(100px);
-        @apply(--paper-font-common-base);
-      }
-
-      :host(.capsule) {
-        border-radius: 24px;
-      }
-
-      :host(.fit-bottom) {
-        width: 100%;
-        min-width: 0;
-        border-radius: 0;
-        margin: 0;
-      }
-
-      :host(.paper-toast-open) {
-        opacity: 1;
-        -webkit-transform: translateY(0px);
-        transform: translateY(0px);
-      }
-    </style>
-
-    <span id="label">{{text}}</span>
-    <content></content>
-  </template>
-
-  <script>!function(){var e=null;Polymer({is:"paper-toast",behaviors:[Polymer.IronOverlayBehavior],properties:{fitInto:{type:Object,value:window,observer:"_onFitIntoChanged"},horizontalAlign:{type:String,value:"left"},verticalAlign:{type:String,value:"bottom"},duration:{type:Number,value:3e3},text:{type:String,value:""},noCancelOnOutsideClick:{type:Boolean,value:!0},noAutoFocus:{type:Boolean,value:!0}},listeners:{transitionend:"__onTransitionEnd"},get visible(){return Polymer.Base._warn("`visible` is deprecated, use `opened` instead"),this.opened},get _canAutoClose(){return this.duration>0&&this.duration!==1/0},created:function(){this._autoClose=null,Polymer.IronA11yAnnouncer.requestAvailability()},show:function(e){"string"==typeof e&&(e={text:e});for(var t in e)0===t.indexOf("_")?Polymer.Base._warn('The property "'+t+'" is private and was not set.'):t in this?this[t]=e[t]:Polymer.Base._warn('The property "'+t+'" is not valid.');this.open()},hide:function(){this.close()},__onTransitionEnd:function(e){e&&e.target===this&&"opacity"===e.propertyName&&(this.opened?this._finishRenderOpened():this._finishRenderClosed())},_openedChanged:function(){null!==this._autoClose&&(this.cancelAsync(this._autoClose),this._autoClose=null),this.opened?(e&&e!==this&&e.close(),e=this,this.fire("iron-announce",{text:this.text}),this._canAutoClose&&(this._autoClose=this.async(this.close,this.duration))):e===this&&(e=null),Polymer.IronOverlayBehaviorImpl._openedChanged.apply(this,arguments)},_renderOpened:function(){this.classList.add("paper-toast-open")},_renderClosed:function(){this.classList.remove("paper-toast-open")},_onFitIntoChanged:function(e){this.positionTarget=e}})}();</script>
-</dom-module>
 <dom-module id="oav-app-globals" assetpath="oav-app-globals/">
 
   <template>
@@ -3923,361 +4278,6 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 
 <script>!function(){Polymer({is:"oav-ajax-error-dialog",properties:{errorText:{type:String,value:""}},showErrorDialog:function(r){this.errorText=r,this.$$("#error").open();this.$$("#error")},resetErrorText:function(r){this.$.error.close(),this.$.errorText=""}})}();</script>
 
-<script>Polymer.IronFormElementBehavior={properties:{name:{type:String},value:{notify:!0,type:String},required:{type:Boolean,value:!1},_parentForm:{type:Object}},attached:function(){this.fire("iron-form-element-register")},detached:function(){this._parentForm&&this._parentForm.fire("iron-form-element-unregister",{target:this})}};</script>
-<script>Polymer.IronValidatableBehaviorMeta=null,Polymer.IronValidatableBehavior={properties:{validator:{type:String},invalid:{notify:!0,reflectToAttribute:!0,type:Boolean,value:!1},_validatorMeta:{type:Object},validatorType:{type:String,value:"validator"},_validator:{type:Object,computed:"__computeValidator(validator)"}},observers:["_invalidChanged(invalid)"],registered:function(){Polymer.IronValidatableBehaviorMeta=new Polymer.IronMeta({type:"validator"})},_invalidChanged:function(){this.invalid?this.setAttribute("aria-invalid","true"):this.removeAttribute("aria-invalid")},hasValidator:function(){return null!=this._validator},validate:function(a){return this.invalid=!this._getValidity(a),!this.invalid},_getValidity:function(a){return!this.hasValidator()||this._validator.validate(a)},__computeValidator:function(){return Polymer.IronValidatableBehaviorMeta&&Polymer.IronValidatableBehaviorMeta.byKey(this.validator)}};</script>
-<script>Polymer({is:"iron-input",extends:"input",behaviors:[Polymer.IronValidatableBehavior],properties:{bindValue:{observer:"_bindValueChanged",type:String},preventInvalidInput:{type:Boolean},allowedPattern:{type:String,observer:"_allowedPatternChanged"},_previousValidInput:{type:String,value:""},_patternAlreadyChecked:{type:Boolean,value:!1}},listeners:{input:"_onInput",keypress:"_onKeypress"},registered:function(){this._canDispatchEventOnDisabled()||(this._origDispatchEvent=this.dispatchEvent,this.dispatchEvent=this._dispatchEventFirefoxIE)},created:function(){Polymer.IronA11yAnnouncer.requestAvailability()},_canDispatchEventOnDisabled:function(){var e=document.createElement("input"),t=!1;e.disabled=!0,e.addEventListener("feature-check-dispatch-event",function(){t=!0});try{e.dispatchEvent(new Event("feature-check-dispatch-event"))}catch(e){}return t},_dispatchEventFirefoxIE:function(){var e=this.disabled;this.disabled=!1,this._origDispatchEvent.apply(this,arguments),this.disabled=e},get _patternRegExp(){var e;if(this.allowedPattern)e=new RegExp(this.allowedPattern);else switch(this.type){case"number":e=/[0-9.,e-]/}return e},ready:function(){this.bindValue=this.value},_bindValueChanged:function(){this.value!==this.bindValue&&(this.value=this.bindValue||0===this.bindValue||this.bindValue===!1?this.bindValue:""),this.fire("bind-value-changed",{value:this.bindValue})},_allowedPatternChanged:function(){this.preventInvalidInput=!!this.allowedPattern},_onInput:function(){if(this.preventInvalidInput&&!this._patternAlreadyChecked){var e=this._checkPatternValidity();e||(this._announceInvalidCharacter("Invalid string of characters not entered."),this.value=this._previousValidInput)}this.bindValue=this.value,this._previousValidInput=this.value,this._patternAlreadyChecked=!1},_isPrintable:function(e){var t=8==e.keyCode||9==e.keyCode||13==e.keyCode||27==e.keyCode,i=19==e.keyCode||20==e.keyCode||45==e.keyCode||46==e.keyCode||144==e.keyCode||145==e.keyCode||e.keyCode>32&&e.keyCode<41||e.keyCode>111&&e.keyCode<124;return!(t||0==e.charCode&&i)},_onKeypress:function(e){if(this.preventInvalidInput||"number"===this.type){var t=this._patternRegExp;if(t&&!(e.metaKey||e.ctrlKey||e.altKey)){this._patternAlreadyChecked=!0;var i=String.fromCharCode(e.charCode);this._isPrintable(e)&&!t.test(i)&&(e.preventDefault(),this._announceInvalidCharacter("Invalid character "+i+" not entered."))}}},_checkPatternValidity:function(){var e=this._patternRegExp;if(!e)return!0;for(var t=0;t<this.value.length;t++)if(!e.test(this.value[t]))return!1;return!0},validate:function(){var e=this.checkValidity();return e&&(this.required&&""===this.value?e=!1:this.hasValidator()&&(e=Polymer.IronValidatableBehavior.validate.call(this,this.value))),this.invalid=!e,this.fire("iron-input-validate"),e},_announceInvalidCharacter:function(e){this.fire("iron-announce",{text:e})}});</script>
-<script>Polymer.PaperInputHelper={},Polymer.PaperInputHelper.NextLabelID=1,Polymer.PaperInputHelper.NextAddonID=1,Polymer.PaperInputBehaviorImpl={properties:{label:{type:String},value:{notify:!0,type:String},disabled:{type:Boolean,value:!1},invalid:{type:Boolean,value:!1,notify:!0},preventInvalidInput:{type:Boolean},allowedPattern:{type:String},type:{type:String},list:{type:String},pattern:{type:String},required:{type:Boolean,value:!1},errorMessage:{type:String},charCounter:{type:Boolean,value:!1},noLabelFloat:{type:Boolean,value:!1},alwaysFloatLabel:{type:Boolean,value:!1},autoValidate:{type:Boolean,value:!1},validator:{type:String},autocomplete:{type:String,value:"off"},autofocus:{type:Boolean,observer:"_autofocusChanged"},inputmode:{type:String},minlength:{type:Number},maxlength:{type:Number},min:{type:String},max:{type:String},step:{type:String},name:{type:String},placeholder:{type:String,value:""},readonly:{type:Boolean,value:!1},size:{type:Number},autocapitalize:{type:String,value:"none"},autocorrect:{type:String,value:"off"},autosave:{type:String},results:{type:Number},accept:{type:String},multiple:{type:Boolean},_ariaDescribedBy:{type:String,value:""},_ariaLabelledBy:{type:String,value:""}},listeners:{"addon-attached":"_onAddonAttached"},keyBindings:{"shift+tab:keydown":"_onShiftTabDown"},hostAttributes:{tabindex:0},get inputElement(){return this.$.input},get _focusableElement(){return this.inputElement},registered:function(){this._typesThatHaveText=["date","datetime","datetime-local","month","time","week","file"]},attached:function(){this._updateAriaLabelledBy(),this.inputElement&&this._typesThatHaveText.indexOf(this.inputElement.type)!==-1&&(this.alwaysFloatLabel=!0)},_appendStringWithSpace:function(e,t){return e=e?e+" "+t:t},_onAddonAttached:function(e){var t=e.path?e.path[0]:e.target;if(t.id)this._ariaDescribedBy=this._appendStringWithSpace(this._ariaDescribedBy,t.id);else{var a="paper-input-add-on-"+Polymer.PaperInputHelper.NextAddonID++;t.id=a,this._ariaDescribedBy=this._appendStringWithSpace(this._ariaDescribedBy,a)}},validate:function(){return this.inputElement.validate()},_focusBlurHandler:function(e){Polymer.IronControlState._focusBlurHandler.call(this,e),this.focused&&!this._shiftTabPressed&&this._focusableElement.focus()},_onShiftTabDown:function(e){var t=this.getAttribute("tabindex");this._shiftTabPressed=!0,this.setAttribute("tabindex","-1"),this.async(function(){this.setAttribute("tabindex",t),this._shiftTabPressed=!1},1)},_handleAutoValidate:function(){this.autoValidate&&this.validate()},updateValueAndPreserveCaret:function(e){try{var t=this.inputElement.selectionStart;this.value=e,this.inputElement.selectionStart=t,this.inputElement.selectionEnd=t}catch(t){this.value=e}},_computeAlwaysFloatLabel:function(e,t){return t||e},_updateAriaLabelledBy:function(){var e=Polymer.dom(this.root).querySelector("label");if(!e)return void(this._ariaLabelledBy="");var t;e.id?t=e.id:(t="paper-input-label-"+Polymer.PaperInputHelper.NextLabelID++,e.id=t),this._ariaLabelledBy=t},_onChange:function(e){this.shadowRoot&&this.fire(e.type,{sourceEvent:e},{node:this,bubbles:e.bubbles,cancelable:e.cancelable})},_autofocusChanged:function(){if(this.autofocus&&this._focusableElement){var e=document.activeElement,t=e instanceof HTMLElement,a=t&&e!==document.body&&e!==document.documentElement;a||this._focusableElement.focus()}}},Polymer.PaperInputBehavior=[Polymer.IronControlState,Polymer.IronA11yKeysBehavior,Polymer.PaperInputBehaviorImpl];</script>
-<script>Polymer.PaperInputAddonBehavior={hostAttributes:{"add-on":""},attached:function(){this.fire("addon-attached")},update:function(t){}};</script>
-<dom-module id="paper-input-char-counter" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        float: right;
-
-        @apply(--paper-font-caption);
-        @apply(--paper-input-char-counter);
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      :host-context([dir="rtl"]) {
-        float: left;
-      }
-    </style>
-
-    <span>[[_charCounterStr]]</span>
-  </template>
-</dom-module>
-
-<script>Polymer({is:"paper-input-char-counter",behaviors:[Polymer.PaperInputAddonBehavior],properties:{_charCounterStr:{type:String,value:"0"}},update:function(t){if(t.inputElement){t.value=t.value||"";var e=t.value.toString().length.toString();t.inputElement.hasAttribute("maxlength")&&(e+="/"+t.inputElement.getAttribute("maxlength")),this._charCounterStr=e}}});</script>
-<dom-module id="paper-input-container" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: block;
-        padding: 8px 0;
-
-        @apply(--paper-input-container);
-      }
-
-      :host([inline]) {
-        display: inline-block;
-      }
-
-      :host([disabled]) {
-        pointer-events: none;
-        opacity: 0.33;
-
-        @apply(--paper-input-container-disabled);
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      .floated-label-placeholder {
-        @apply(--paper-font-caption);
-      }
-
-      .underline {
-        position: relative;
-      }
-
-      .focused-line {
-        @apply(--layout-fit);
-
-        background: var(--paper-input-container-focus-color, --primary-color);
-        height: 2px;
-
-        -webkit-transform-origin: center center;
-        transform-origin: center center;
-        -webkit-transform: scale3d(0,1,1);
-        transform: scale3d(0,1,1);
-
-        @apply(--paper-input-container-underline-focus);
-      }
-
-      .underline.is-highlighted .focused-line {
-        -webkit-transform: none;
-        transform: none;
-        -webkit-transition: -webkit-transform 0.25s;
-        transition: transform 0.25s;
-
-        @apply(--paper-transition-easing);
-      }
-
-      .underline.is-invalid .focused-line {
-        background: var(--paper-input-container-invalid-color, --error-color);
-        -webkit-transform: none;
-        transform: none;
-        -webkit-transition: -webkit-transform 0.25s;
-        transition: transform 0.25s;
-
-        @apply(--paper-transition-easing);
-      }
-
-      .unfocused-line {
-        @apply(--layout-fit);
-
-        background: var(--paper-input-container-color, --secondary-text-color);
-        height: 1px;
-
-        @apply(--paper-input-container-underline);
-      }
-
-      :host([disabled]) .unfocused-line {
-        border-bottom: 1px dashed;
-        border-color: var(--paper-input-container-color, --secondary-text-color);
-        background: transparent;
-
-        @apply(--paper-input-container-underline-disabled);
-      }
-
-      .label-and-input-container {
-        @apply(--layout-flex-auto);
-        @apply(--layout-relative);
-
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .input-content {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-
-        position: relative;
-      }
-
-      .input-content ::content label,
-      .input-content ::content .paper-input-label {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        font: inherit;
-        color: var(--paper-input-container-color, --secondary-text-color);
-        -webkit-transition: -webkit-transform 0.25s, width 0.25s;
-        transition: transform 0.25s, width 0.25s;
-        -webkit-transform-origin: left top;
-        transform-origin: left top;
-
-        @apply(--paper-font-common-nowrap);
-        @apply(--paper-font-subhead);
-        @apply(--paper-input-container-label);
-        @apply(--paper-transition-easing);
-      }
-
-      .input-content.label-is-floating ::content label,
-      .input-content.label-is-floating ::content .paper-input-label {
-        -webkit-transform: translateY(-75%) scale(0.75);
-        transform: translateY(-75%) scale(0.75);
-
-        /* Since we scale to 75/100 of the size, we actually have 100/75 of the
-        original space now available */
-        width: 133%;
-
-        @apply(--paper-input-container-label-floating);
-      }
-
-      :host-context([dir="rtl"]) .input-content.label-is-floating ::content label,
-      :host-context([dir="rtl"]) .input-content.label-is-floating ::content .paper-input-label {
-        /* TODO(noms): Figure out why leaving the width at 133% before the animation
-         * actually makes
-         * it wider on the right side, not left side, as you would expect in RTL */
-        width: 100%;
-        -webkit-transform-origin: right top;
-        transform-origin: right top;
-      }
-
-      .input-content.label-is-highlighted ::content label,
-      .input-content.label-is-highlighted ::content .paper-input-label {
-        color: var(--paper-input-container-focus-color, --primary-color);
-
-        @apply(--paper-input-container-label-focus);
-      }
-
-      .input-content.is-invalid ::content label,
-      .input-content.is-invalid ::content .paper-input-label {
-        color: var(--paper-input-container-invalid-color, --error-color);
-      }
-
-      .input-content.label-is-hidden ::content label,
-      .input-content.label-is-hidden ::content .paper-input-label {
-        visibility: hidden;
-      }
-
-      .input-content ::content input,
-      .input-content ::content textarea,
-      .input-content ::content iron-autogrow-textarea,
-      .input-content ::content .paper-input-input {
-        position: relative; /* to make a stacking context */
-        outline: none;
-        box-shadow: none;
-        padding: 0;
-        width: 100%;
-        max-width: 100%;
-        background: transparent;
-        border: none;
-        color: var(--paper-input-container-input-color, --primary-text-color);
-        -webkit-appearance: none;
-        text-align: inherit;
-        vertical-align: bottom;
-
-        @apply(--paper-font-subhead);
-        @apply(--paper-input-container-input);
-      }
-
-      ::content [prefix] {
-        @apply(--paper-font-subhead);
-
-        @apply(--paper-input-prefix);
-        @apply(--layout-flex-none);
-      }
-
-      ::content [suffix] {
-        @apply(--paper-font-subhead);
-
-        @apply(--paper-input-suffix);
-        @apply(--layout-flex-none);
-      }
-
-      /* Firefox sets a min-width on the input, which can cause layout issues */
-      .input-content ::content input {
-        min-width: 0;
-      }
-
-      .input-content ::content textarea {
-        resize: none;
-      }
-
-      .add-on-content {
-        position: relative;
-      }
-
-      .add-on-content.is-invalid ::content * {
-        color: var(--paper-input-container-invalid-color, --error-color);
-      }
-
-      .add-on-content.is-highlighted ::content * {
-        color: var(--paper-input-container-focus-color, --primary-color);
-      }
-    </style>
-
-    <template is="dom-if" if="[[!noLabelFloat]]">
-      <div class="floated-label-placeholder" aria-hidden="true">&nbsp;</div>
-    </template>
-
-    <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]">
-      <content select="[prefix]" id="prefix"></content>
-
-      <div class="label-and-input-container" id="labelAndInputContainer">
-        <content select=":not([add-on]):not([prefix]):not([suffix])"></content>
-      </div>
-
-      <content select="[suffix]"></content>
-    </div>
-
-    <div class$="[[_computeUnderlineClass(focused,invalid)]]">
-      <div class="unfocused-line"></div>
-      <div class="focused-line"></div>
-    </div>
-
-    <div class$="[[_computeAddOnContentClass(focused,invalid)]]">
-      <content id="addOnContent" select="[add-on]"></content>
-    </div>
-  </template>
-</dom-module>
-
-<script>Polymer({is:"paper-input-container",properties:{noLabelFloat:{type:Boolean,value:!1},alwaysFloatLabel:{type:Boolean,value:!1},attrForValue:{type:String,value:"bind-value"},autoValidate:{type:Boolean,value:!1},invalid:{observer:"_invalidChanged",type:Boolean,value:!1},focused:{readOnly:!0,type:Boolean,value:!1,notify:!0},_addons:{type:Array},_inputHasContent:{type:Boolean,value:!1},_inputSelector:{type:String,value:"input,textarea,.paper-input-input"},_boundOnFocus:{type:Function,value:function(){return this._onFocus.bind(this)}},_boundOnBlur:{type:Function,value:function(){return this._onBlur.bind(this)}},_boundOnInput:{type:Function,value:function(){return this._onInput.bind(this)}},_boundValueChanged:{type:Function,value:function(){return this._onValueChanged.bind(this)}}},listeners:{"addon-attached":"_onAddonAttached","iron-input-validate":"_onIronInputValidate"},get _valueChangedEvent(){return this.attrForValue+"-changed"},get _propertyForValue(){return Polymer.CaseMap.dashToCamelCase(this.attrForValue)},get _inputElement(){return Polymer.dom(this).querySelector(this._inputSelector)},get _inputElementValue(){return this._inputElement[this._propertyForValue]||this._inputElement.value},ready:function(){this._addons||(this._addons=[]),this.addEventListener("focus",this._boundOnFocus,!0),this.addEventListener("blur",this._boundOnBlur,!0)},attached:function(){this.attrForValue?this._inputElement.addEventListener(this._valueChangedEvent,this._boundValueChanged):this.addEventListener("input",this._onInput),""!=this._inputElementValue?this._handleValueAndAutoValidate(this._inputElement):this._handleValue(this._inputElement)},_onAddonAttached:function(t){this._addons||(this._addons=[]);var n=t.target;this._addons.indexOf(n)===-1&&(this._addons.push(n),this.isAttached&&this._handleValue(this._inputElement))},_onFocus:function(){this._setFocused(!0)},_onBlur:function(){this._setFocused(!1),this._handleValueAndAutoValidate(this._inputElement)},_onInput:function(t){this._handleValueAndAutoValidate(t.target)},_onValueChanged:function(t){this._handleValueAndAutoValidate(t.target)},_handleValue:function(t){var n=this._inputElementValue;n||0===n||"number"===t.type&&!t.checkValidity()?this._inputHasContent=!0:this._inputHasContent=!1,this.updateAddons({inputElement:t,value:n,invalid:this.invalid})},_handleValueAndAutoValidate:function(t){if(this.autoValidate){var n;n=t.validate?t.validate(this._inputElementValue):t.checkValidity(),this.invalid=!n}this._handleValue(t)},_onIronInputValidate:function(t){this.invalid=this._inputElement.invalid},_invalidChanged:function(){this._addons&&this.updateAddons({invalid:this.invalid})},updateAddons:function(t){for(var n,e=0;n=this._addons[e];e++)n.update(t)},_computeInputContentClass:function(t,n,e,i,a){var u="input-content";if(t)a&&(u+=" label-is-hidden");else{var o=this.querySelector("label");n||a?(u+=" label-is-floating",this.$.labelAndInputContainer.style.position="static",i?u+=" is-invalid":e&&(u+=" label-is-highlighted")):o&&(this.$.labelAndInputContainer.style.position="relative")}return u},_computeUnderlineClass:function(t,n){var e="underline";return n?e+=" is-invalid":t&&(e+=" is-highlighted"),e},_computeAddOnContentClass:function(t,n){var e="add-on-content";return n?e+=" is-invalid":t&&(e+=" is-highlighted"),e}});</script>
-<dom-module id="paper-input-error" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: inline-block;
-        visibility: hidden;
-
-        color: var(--paper-input-container-invalid-color, --error-color);
-
-        @apply(--paper-font-caption);
-        @apply(--paper-input-error);
-        position: absolute;
-        left:0;
-        right:0;
-      }
-
-      :host([invalid]) {
-        visibility: visible;
-      };
-    </style>
-
-    <content></content>
-  </template>
-</dom-module>
-
-<script>Polymer({is:"paper-input-error",behaviors:[Polymer.PaperInputAddonBehavior],properties:{invalid:{readOnly:!0,reflectToAttribute:!0,type:Boolean}},update:function(e){this._setInvalid(e.invalid)}});</script>
-<dom-module id="paper-input" assetpath="../bower_components/paper-input/">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-
-      :host([focused]) {
-        outline: none;
-      }
-
-      :host([hidden]) {
-        display: none !important;
-      }
-
-      input::-webkit-input-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input:-moz-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input::-moz-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      input:-ms-input-placeholder {
-        color: var(--paper-input-container-color, --secondary-text-color);
-      }
-
-      label {
-        pointer-events: none;
-      }
-    </style>
-
-    <paper-input-container no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
-
-      <content select="[prefix]"></content>
-
-      <label hidden$="[[!label]]" aria-hidden="true" for="input">[[label]]</label>
-
-      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
-
-      <content select="[suffix]"></content>
-
-      <template is="dom-if" if="[[errorMessage]]">
-        <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
-      </template>
-
-      <template is="dom-if" if="[[charCounter]]">
-        <paper-input-char-counter></paper-input-char-counter>
-      </template>
-
-    </paper-input-container>
-  </template>
-</dom-module>
-
-<script>Polymer({is:"paper-input",behaviors:[Polymer.IronFormElementBehavior,Polymer.PaperInputBehavior]});</script>
 <dom-module id="paper-dialog-scrollable" assetpath="../bower_components/paper-dialog-scrollable/">
 
   <template>
@@ -4330,12 +4330,12 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 <script>Polymer({is:"paper-dialog-scrollable",properties:{dialogElement:{type:Object}},listeners:{"scrollable.scroll":"_scroll"},get scrollTarget(){return this.$.scrollable},ready:function(){this._ensureTarget()},attached:function(){this.classList.add("no-padding"),this._ensureTarget(),requestAnimationFrame(this._scroll.bind(this))},_scroll:function(){this.toggleClass("is-scrolled",this.scrollTarget.scrollTop>0),this.toggleClass("can-scroll",this.scrollTarget.offsetHeight<this.scrollTarget.scrollHeight),this.toggleClass("scrolled-to-bottom",this.scrollTarget.scrollTop+this.scrollTarget.offsetHeight>=this.scrollTarget.scrollHeight)},_ensureTarget:function(){this.dialogElement=this.dialogElement||Polymer.dom(this).parentNode,this.dialogElement&&this.dialogElement.behaviors&&this.dialogElement.behaviors.indexOf(Polymer.PaperDialogBehaviorImpl)>=0?(this.dialogElement.sizingTarget=this.scrollTarget,this.scrollTarget.classList.remove("fit")):this.dialogElement&&this.scrollTarget.classList.add("fit")}});</script>
 <dom-module id="hm-2016-is-help" assetpath="oav-page/">
   <template>
-      <li>Frá og með 3. til 17. nóvember verður opið fyrir kosningar þar sem íbúar, fæddir árið 2000 eða fyrr, með lögheimili í Reykjavík geta kosið áfram hugmyndir í einu hverfi Reykjavíkur.</li>
+      <li>Frá og með 3. til 17. nóvember 2016 verður opið fyrir kosningar þar sem íbúar, fæddir árið 2000 eða fyrr, með lögheimili í Reykjavík geta kosið áfram hugmyndir í einu hverfi Reykjavíkur.</li>
       <li>Hægt er að kjósa áfram hugmyndir fyrir þá upphæð sem hverju hverfi hefur verið úthlutað.</li>
       <li>Íbúar geta aðeins kosið í einu hverfi af tíu.</li>
       <li>Kosning fer fram á vefsvæði þar sem íbúi auðkennir sig með öruggum hætti og verður atkvæði hans dulkóðað. Því er ekki hægt að tengja atkvæði við einstaklinga.</li>
       <li>Ekki er um að ræða íbúakosningu í skilningi 107. gr. sveitarstjórnarlaga nr. 138 frá 2011.</li>
-      <li>Hverfi Reykjavíkur eru tíu: Versturbær, Miðborg, Hlíðar, Laugardalur, Háaleiti-Bústaðir, Breiðholt, Árbær, Grafarvogur, Grafarholt-Úlfarsárdalur og Kjalarnes.</li>
+      <li>Hverfi Reykjavíkur eru tíu: Vesturbær, Miðborg, Hlíðar, Laugardalur, Háaleiti-Bústaðir, Breiðholt, Árbær, Grafarvogur, Grafarholt-Úlfarsárdalur og Kjalarnes.</li>
       <li>Fjármagn hverfanna skiptist á eftirfarandi hátt: ( allar tölur eru námundaðar í heilar tölur)</li>
       <ul>
           <li>Vesturbær: 56 milljónir</li>
@@ -4347,12 +4347,12 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
           <li>Árbær: 47 milljónir</li>
           <li>Grafarvogur: 61 milljónir</li>
           <li>Grafarholt-Úlfarsárdalur: 29 milljónir</li>
-          <li>Kjalarnes: IKR 14 milljónir</li>
+          <li>Kjalarnes: 14 milljónir</li>
       </ul>
       <li>Við vekjum athygli á því að til að geta kosið þarf að vera með auðkenni í síma eða íslykil. Allar nánari upplýsingar um auðkenni má nálgast á www.audkenni.is og um íslykil á www.island.is/islykill</li>
       <li>Kosning fer fram á vefsíðunni kosning.reykjavik.is</li>
-      <li>Aðstoð við að kjósa er hægt að fá í Þjónustuveri Reykjavíkurborgar, Borgartúni 12-14, og á öllum sex þjónustumiðstöðvum Reykjavíkurborgar á meðan kosning stendur yfir. Nánari upplýsingar um þjónustumiðstöðvar borgarinnar er hægt að nálgast á http://reykjavik.is/thjonustumidstodvar</li>
-      <li>Allar nánari upplýsingar um verkefnið Hverfið mitt 2016 má nálgast á www.hverfidmitt.is  eða í Þjónustuveri Reykjavíkurborgar sími 411-1111.</li>
+      <li>Aðstoð við að kjósa er hægt að fá í Þjónustuveri Reykjavíkurborgar, Borgartúni 12-14, og á öllum fimm þjónustumiðstöðvum Reykjavíkurborgar á meðan kosning stendur yfir. Nánari upplýsingar um þjónustumiðstöðvar borgarinnar er hægt að nálgast á http://reykjavik.is/thjonustumidstodvar</li>
+      <li>Allar nánari Upplýsingar um verkefnið Hverfið mitt 2016 ásamt ítarlegum leiðbeingum og reglum kosninganna má nálgast á www.hverfidmitt.is  eða í Þjónustuveri Reykjavíkurborgar sími 411-1111. </li>
       <li>Hægt er að senda inn fyrirspurnir og ábendingar á meðan kosningu stendur  betrireykjavik@ibuar.is</li>
       <li>Myndir sem fylgja hugmyndum á kosningasíðu eru ekki dæmi um endanlega útfærslu á framkvæmd.</li>
       <li>Staðsetning hugmynda getur tekið breytingum.</li>
@@ -4362,13 +4362,13 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
 <dom-module id="hm-2016-en-help" assetpath="oav-page/">
   <template>
       <ul>
-          <li>Voting will be open as of the 3rd of November until the 17th of November for citizens, born in year 2000 or sooner, who have legal domicile in Reykjavik.</li>
+          <li>Voting will be open as of the 3rd of November until the 17th of November 2016 for citizens, born in year 2000 or sooner, who have legal domicile in Reykjavik.</li>
           <li>Votes can be cast for ideas in one neighbourhood.</li>
-          <li>Votes can only be cast for projects that are within the funds allocated to that neighbourhood and citizens can only vote for one neighbourhood out of ten.</li>
+          <li>Votes can only be cast for projects that are within the funds allocated to that neighborhood and citizens can only vote for one neighborhood out of ten.</li>
           <li>The election takes place on a website where citizens authenticate themselves securely. Votes will be encrypted and can therefore not be traced to individuals.</li>
           <li>This is not an e-referendum in the understanding of Article 107 of the Act on Local Governments No. 138 of 2011.</li>
           <li>Reykjavik has ten neighbourhoods: Vesturbær, Miðborg, Hlíðar, Laugardalur, Háaleiti-Bústaðir, Breiðholt, Árbær, Grafarvogur, Grafarholt- Úlfarsárdalur and Kjalarnes.</li>
-          <li>Funding between the neighbourhoods has been allocated as follows (approximately estimated):</li>
+          <li>Funding between the neighborhoods has been allocated as follows (approximately estimated):</li>
           <ul>
               <li>Vesturbær: IKR 56 million.</li>
               <li>Miðborg: IKR 34 million.</li>
@@ -4382,10 +4382,10 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
               <li>Kjalarnes: IKR 14 million.</li>
           </ul>
           <li>The elections take place on the website kosning.reykjavik.is</li>
-          <li>Please note that in order to vote citizens must have authentication via mobile phone or an IceKey. Further information on authentication can be viewed on www.audkenni.is and on the IceKey on www.island.is/islykill</li>
-          <li>If you need assistance in voting, please contact the customer service centre of the Municipality of Reykjavik, Borgartún 12-14 and at the six municipal service centers  during the elections, for further information visit http://reykjavik.is/en/municipal-service-centres</li>
+          <li>Please note that in order to vote citizens must have authentication via mobile phone or an IceKey. Further information on authentication can be viewed on&nbsp;www.audkenni.is&nbsp;and on the IceKey on&nbsp;www.island.is/islykill</li>
+          <li>If you need assistance in voting, please contact the customer service center of the Municipality of Reykjavik, Borgartún 12-14 and at the five municipal service centers  during the elections, for further information visit http://reykjavik.is/en/municipal-service-centres</li>
           <li>If any problems occur during the voting process please contact us on betrireykjavik@ibuar.is</li>
-          <li>Photos on the voting page is only example, not an example of final version.</li>
+          <li>Photos on the voting page are only example, not an example of final version.</li>
           <li>Location you are voting for can change in the final version.</li>
       </ul>
   </template>
@@ -5016,10 +5016,20 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
         height: 50px;
       }
 
+      paper-icon-button.closeButton {
+        width: 58px;
+        height: 58px;
+      }
+
       @media (max-width: 640px) {
         paper-icon-button {
           width: 40px;
           height: 40px;
+        }
+
+        paper-icon-button.closeButton {
+          width: 46px;
+          height: 46px;
         }
       }
 
@@ -5055,7 +5065,7 @@ return 1===e?a[0]:e>=2&&4>=e?a[1]:a[2]},translate:function(e,a,t){var s=Md.words
     <app-header-layout>
       <app-header fixed="" effects="waterfall">
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
-          <paper-icon-button icon="close" on-tap="_exit"></paper-icon-button>
+          <paper-icon-button class="closeButton" icon="close" on-tap="_exit"></paper-icon-button>
         </div>
         <div class="helpIconInBudget">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
