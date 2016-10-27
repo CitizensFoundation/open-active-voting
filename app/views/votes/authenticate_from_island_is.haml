@@ -13,14 +13,14 @@
         %button#closeButton{:onclick => "window.close()"} Loka glugga
     - else
       :javascript
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent)) {
-          window.location = "/#/area-ballot/completePostingOfVoteFromSafariInApp"
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
+        var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
+        if (iOS || isIE11) {
+          window.location = "/#/area-ballot/completePostingOfVoteAfterRedirect"
         } else {
           try {
-            setTimeout(function () {
-              window.opener.postMessage("samlLogin","*");
-              window.close();
-            }, 400);
+            window.opener.postMessage("samlLogin","*");
+            window.close();
           } catch(err) {
             setTimeout(window.close, 400);
           }

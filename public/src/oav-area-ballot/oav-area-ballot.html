@@ -328,7 +328,7 @@
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          if (this._isInAppiOS()) {
+          if (this._isInAppiOSOrIE11()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
             localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
             window.location = this._getSamlUrlWithLanguage();
@@ -345,8 +345,10 @@
         }
       },
 
-      _isInAppiOS: function () {
-        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
+      _isInAppiOSOrIE11: function () {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
+        var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
+        return iOS || isIE11;
       },
 
       _pollForLoginAjax: function () {
@@ -414,7 +416,7 @@
         }
       },
 
-      _completePostingOfVoteFromSafariInApp: function () {
+      _completePostingOfVoteAfterRedirect: function () {
         this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'));
       },
 
@@ -458,8 +460,8 @@
 
       _areaIdRoutePathChanged: function (newPathForId) {
         if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/area-ballot") {
-          if (newPathForId.path.slice(1)=='completePostingOfVoteFromSafariInApp') {
-            this._completePostingOfVoteFromSafariInApp();
+          if (newPathForId.path.slice(1)=='completePostingOfVoteAfterRedirect') {
+            this._completePostingOfVoteAfterRedirect();
           } else {
             this.set('areaId', newPathForId.path.slice(1));
           }
