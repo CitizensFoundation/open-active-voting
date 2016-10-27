@@ -107,10 +107,20 @@
         height: 50px;
       }
 
+      paper-icon-button.closeButton {
+        width: 58px;
+        height: 58px;
+      }
+
       @media (max-width: 640px) {
         paper-icon-button {
           width: 40px;
           height: 40px;
+        }
+
+        paper-icon-button.closeButton {
+          width: 46px;
+          height: 46px;
         }
       }
 
@@ -150,7 +160,7 @@
     <app-header-layout>
       <app-header fixed effects="waterfall">
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
-          <paper-icon-button icon="close" on-tap="_exit"></paper-icon-button>
+          <paper-icon-button class="closeButton" icon="close" on-tap="_exit"></paper-icon-button>
         </div>
         <div class="helpIconInBudget">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
