@@ -20,7 +20,7 @@ namespace :counting do
   desc "Voting status"
   task(:status => :environment) do
     puts "Heildarfjöldi innsendra atkvæða #{Vote.count}"
-    puts "Heildarfjöldi kjósenda #{Vote.count('user_id_hash', :distinct => true)}"
+    puts "Heildarfjöldi kjósenda #{Vote.distinct.count(:user_id_hash)}"
   end
 
   desc "Count all votes"
@@ -31,7 +31,7 @@ namespace :counting do
     puts "Starting vote counting"
     puts "----------------------"
     puts "Total votes #{Vote.count}"
-    puts "Total voters #{Vote.count('user_id_hash', :distinct => true)}"
+    puts "Total voters #{Vote.distinct.count(:user_id_hash)}"
     puts
 
     puts "Splitting user id hash and vote and generating final votes database tables"
