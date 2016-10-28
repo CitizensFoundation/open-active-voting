@@ -49,7 +49,7 @@
     "postTabsPhotos": "Myndir",
     "postNoLocation": "No location",
     "number_of_voters": "Total number of valid votes",
-    "number_of_votes": "Number of votes submitted in this neighborhood",
+    "number_of_votes": "Number of voters in this neighborhood",
     "auth_dialog": "Authenticating and sending in vote"
   },
   "is": {
@@ -102,7 +102,7 @@
     "postTabsPhotos": "Myndir",
     "postNoLocation": "Engin staðsetning",
     "number_of_voters": "Heildarfjöldi gildra atkvæða",
-    "number_of_votes": "Fjöldi innsendra atkvæðaseðla í þetta hverfi",
+    "number_of_votes": "Fjöldi kjósenda í þessu hverfi",
     "auth_dialog": "Innskráning og innsending á atkvæði"
   }
 }
