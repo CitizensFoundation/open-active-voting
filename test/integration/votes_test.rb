@@ -21,8 +21,8 @@ require "#{Rails.root}/db/seeds.rb"
 
 class VoteThroughBrowsers < ActionDispatch::IntegrationTest
   def setup
-    @max_browsers = 3 
-    @max_votes = 12
+    @max_browsers = 5
+    @max_votes = 10
     @area_ids = [1,3]
     #@area_ids = [1,2,3] #,4,5,6,7,8,9,10]
 
@@ -33,7 +33,7 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
     elsif false
       @browser_types = [:chrome]
     else
-      @browser_types = [:firefox]
+      @browser_types = [:chrome]
       #@browser_types = [:firefox, :chrome]
     end
 
@@ -128,8 +128,10 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
 
   def get_unique_votes(area_id)
     unique_votes = []
-    @user_browser_votes.each do |browsers,vote|
-      unique_votes<<vote.last[:votes] if vote and vote.last[:area_id] == area_id
+    @user_browser_votes.each do |browsers,votes|
+      votes.each do |vote|
+        unique_votes<<vote[:votes] if vote and vote[:area_id] == area_id
+      end
     end
     unique_votes
   end
@@ -196,7 +198,7 @@ class VoteThroughBrowsers < ActionDispatch::IntegrationTest
     puts "setup_checkboxes"
     sleep 1
     script = "(function() {
-      var app = document.querySelector('oav-app')
+      var app = document.querySelector('oav-app');
       var ballot = app.querySelector('oav-area-ballot');
       var allItems = Array.prototype.slice.call(ballot.querySelectorAll('.ballotAreaItem'));
 
