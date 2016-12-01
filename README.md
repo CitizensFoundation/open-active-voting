@@ -2,8 +2,9 @@ Open Active Voting
 
 Simple ballot based voting system.
 
-Editor is here:
-https://github.com/rbjarnason/open-active-voting-editor
+Here is a live demo:
+https://ktest.betrireykjavik.is/
+
 
 Install Ubuntu dependencies
 ````bash
