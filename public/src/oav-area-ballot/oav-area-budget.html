@@ -25,7 +25,7 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/RvkBlar.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/Mos_CF-small.png");
     }
 
     .budgetContainer[wide] {
@@ -33,15 +33,15 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+      background-image: url("https://yrpri6-production.s3.amazonaws.com/DL/q9/qQ-large.png");
     }
 
     @media (max-width: 1100px) {
       .budgetContainer {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/RvkBlar.png");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/Mos_CF-small.png");
       }
       .budgetContainer[wide] {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+        background-image: url("https://yrpri6-production.s3.amazonaws.com/DL/q9/qQ-large.png");
       }
     }
 
@@ -184,7 +184,7 @@
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
-          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
