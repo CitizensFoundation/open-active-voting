@@ -128,7 +128,7 @@ class VotesController < ApplicationController
   # Encrypted vote posted by the user
   def post_vote
     # Try to read the vote identity and redirect to authentication error if not found
-    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]==true
 
       # Create an encrypted checksum
       encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
