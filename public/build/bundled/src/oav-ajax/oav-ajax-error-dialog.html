@@ -1,7 +1,7 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.10.1">
 
 </head><body><dom-module id="oav-ajax-error-dialog">
   <style>
@@ -24,6 +24,35 @@
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-ajax-error-dialog",properties:{errorText:{type:String,value:""}},showErrorDialog:function(r){this.errorText=r,this.$$("#error").open();this.$$("#error")},resetErrorText:function(r){this.$.error.close(),this.$.errorText=""}})}();</script>
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-ajax-error-dialog',
+
+
+      properties: {
+
+        errorText: {
+          type: String,
+          value: ""
+        }
+
+      },
+
+      showErrorDialog: function(errorText) {
+        this.errorText = errorText;
+        this.$$("#error").open();
+        var errorDialog = this.$$("#error");
+      },
+
+      resetErrorText: function(event) {
+        this.$.error.close();
+        this.$.errorText="";
+      }
+    })
+  })();
+
+</script>
 
 </body></html>

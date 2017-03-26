@@ -1,11 +1,11 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
 
 </head><body><dom-module id="yp-point-actions">
 
@@ -69,6 +69,90 @@
     </div>
 
   </template>
-  <script>Polymer({is:"yp-point-actions",behaviors:[Polymer.appHelpers],properties:{point:{type:Object,observer:"_onPointChanged"},hideNotHelpful:{type:Boolean,value:!1},pointQualityValue:{type:Number,value:0},allDisabled:{type:Boolean,value:!0}},observers:["_qualityChanged(point.counter_quality_up, point.counter_quality_down)"],_onPointChanged:function(t,e){},_updateQualitiesFromSignal:function(){},_updateQualities:function(){},_qualityChanged:function(t,e){},_resetClasses:function(){this.pointQualityValue>0?(this.$.actionUp.className+=" up-selected",this.removeClass(this.$.actionDown,"down-selected")):this.pointQualityValue<0?(this.$.actionDown.className+=" down-selected",this.removeClass(this.$.actionUp,"up-selected")):(this.removeClass(this.$.actionUp,"up-selected"),this.removeClass(this.$.actionDown,"down-selected"))},_setPointQuality:function(t){this.set("pointQualityValue",t),this._resetClasses()},_pointQualityResponse:function(t,e){this.set("allDisabled",!1);var i=e.response.pointQuality,o=e.response.oldPointQualityValue;this._setPointQuality(i.value),window.appUser.updatePointQualityForPost(this.point.id,i),o&&(o>0?this.set("point.counter_quality_up",this.point.counter_quality_up-1):o<0&&this.set("point.counter_quality_down",this.point.counter_quality_down-1)),i.value>0?this.set("point.counter_quality_up",this.point.counter_quality_up+1):i.value<0&&this.set("point.counter_quality_down",this.point.counter_quality_down+1)}});</script>
+  <script>
+    Polymer({
+      is: 'yp-point-actions',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        point: {
+          type: Object,
+          observer: "_onPointChanged"
+        },
+
+        hideNotHelpful: {
+          type: Boolean,
+          value: false
+        },
+
+        pointQualityValue: {
+          type: Number,
+          value: 0
+        },
+
+        allDisabled: {
+          type: Boolean,
+          value: true
+        }
+      },
+
+      observers: [
+        '_qualityChanged(point.counter_quality_up, point.counter_quality_down)'
+      ],
+
+      _onPointChanged: function (newValue, oldValue) {
+      },
+
+      _updateQualitiesFromSignal: function () {
+      },
+
+      _updateQualities: function () {
+      },
+
+      _qualityChanged: function (a, b) {
+        // TODO: Fix where you can't vote up a newstory just after posting
+        //this._resetClasses();
+      },
+
+      _resetClasses: function () {
+        if (this.pointQualityValue > 0) {
+          this.$.actionUp.className += " " + "up-selected";
+          this.removeClass(this.$.actionDown, "down-selected");
+        } else if (this.pointQualityValue < 0) {
+          this.$.actionDown.className += " " + "down-selected";
+          this.removeClass(this.$.actionUp,"up-selected");
+        } else {
+          this.removeClass(this.$.actionUp,"up-selected");
+          this.removeClass(this.$.actionDown, "down-selected");
+        }
+      },
+
+      _setPointQuality: function (value) {
+        this.set('pointQualityValue', value);
+        this._resetClasses();
+      },
+
+      _pointQualityResponse: function (event, detail) {
+        this.set('allDisabled', false);
+        var pointQuality = detail.response.pointQuality;
+        var oldPointQualityValue = detail.response.oldPointQualityValue;
+        this._setPointQuality(pointQuality.value);
+        window.appUser.updatePointQualityForPost(this.point.id, pointQuality);
+        if (oldPointQualityValue) {
+          if (oldPointQualityValue>0)
+            this.set('point.counter_quality_up', this.point.counter_quality_up-1);
+          else if (oldPointQualityValue<0)
+            this.set('point.counter_quality_down', this.point.counter_quality_down-1);
+        }
+        if (pointQuality.value>0)
+          this.set('point.counter_quality_up', this.point.counter_quality_up+1);
+        else if (pointQuality.value<0)
+          this.set('point.counter_quality_down', this.point.counter_quality_down+1)
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

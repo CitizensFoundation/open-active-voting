@@ -1,7 +1,168 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/lodash-import/lodash.js.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
+<link rel="import" href="../../bower_components/lodash-import/lodash.js.html?v=5.10.1">
 
 <script src="../../bower_components/moment/min/moment-with-locales.min.js"></script>
 
-<script>Array.prototype.chunk=function(e){var n=this;return[].concat.apply([],n.map(function(t,r){return r%e?[]:[n.slice(r,r+e)]}))},Polymer.appHelpers={properties:{language:{value:"is"},isLanguage:{type:Boolean,computed:'_isLanguage("is", language)'},enLanguage:{type:Boolean,computed:'_isLanguage("en", language)'}},_isLanguage:function(e,n){return e==n},setLanguage:function(e,n){this.set("language",n),window.selectedLanguage=n},loadLanguage:function(e){this.loadResources(this.resolveUrl(e)),window.selectedLanguage&&this.set("language",window.selectedLanguage)},t:function(e){return this.localize?this.localize(e):"Missing localize"},getLocale:function(){return window.locale},_googleMapsApiKey:function(){return window.location.hostname.indexOf("localhost")>-1?null:window.googleMapsApiKey},interleaveArrays:function(e,n){for(var t=[e,n],r=Math.max.apply(Math,t.map(function(e){return e.length})),a=[],o=0;o<r;++o)t.forEach(function(e){e.length>o&&a.push(e[o])});return a},cardMouseOver:function(e){e.currentTarget.elevation=5},cardMouseOut:function(e){e.currentTarget.elevation=1},getImageFormatUrl:function(e,n){if(!(e&&e.length>0))return"";var t=JSON.parse(e[e.length-1].formats);return t&&t.length>0?t[n]:void 0},getImageFormatNextUrl:function(e,n){if(!(e&&e.length>1))return"";var t=JSON.parse(e[e.length-2].formats);return t&&t.length>0?t[n]:void 0},formatNumber:function(e){return e?e.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","):"0"},getRandomNumber:function(e){return Math.floor(Math.random()*e+1)},getRandomFromArray:function(e){return e[Math.floor(Math.random()*e.length)]},padNumber:function(e){return("000"+e).substr(-3)},splitArray:function(e,n){return e.chunk(n)},truncate:function(e,n,t,r){if(n=n||255,e.length<=n)return e;if(t)e=e.substring(0,n);else{var a=e.lastIndexOf(" ",n);a===-1&&(a=n),e=e.substring(0,a)}return e+=void 0!==r&&null!==r?r:"..."},trim:function(e){return e.replace(/^\s*|\s*$/g,"")}};</script>
+<script>
+  Array.prototype.chunk = function(chunkSize) {
+    var array=this;
+    return [].concat.apply([],
+      array.map(function(elem,i) {
+        return i%chunkSize ? [] : [array.slice(i,i+chunkSize)];
+      })
+    );
+  };
+
+  /**
+   * @polymerBehavior appHelpers
+   */
+  Polymer.appHelpers = {
+
+    properties: {
+      language: {
+        value: 'is'
+      },
+
+      isLanguage: {
+        type: Boolean,
+        computed: '_isLanguage("is", language)'
+      },
+
+      enLanguage: {
+        type: Boolean,
+        computed: '_isLanguage("en", language)'
+      }
+    },
+
+    _isLanguage: function (testForLanguage, selectedLanguage) {
+      return (testForLanguage==selectedLanguage);
+    },
+
+    setLanguage: function (event, language) {
+      this.set('language', language);
+      window.selectedLanguage = language;
+    },
+
+    loadLanguage: function (path) {
+      this.loadResources(this.resolveUrl(path));
+      if (window.selectedLanguage) {
+        this.set('language', window.selectedLanguage);
+      }
+    },
+
+    t: function (word) {
+      if (this.localize) {
+        return this.localize(word);
+      } else {
+        return "Missing localize"
+      }
+    },
+
+    getLocale: function () {
+      return window.locale;
+    },
+
+    _googleMapsApiKey: function () {
+      if (window.location.hostname.indexOf('localhost') > -1) {
+        return null;
+      } else {
+        return window.googleMapsApiKey;
+      }
+    },
+
+    interleaveArrays: function (arrayA, arrayB) {
+      var arrs = [arrayA, arrayB];
+      var maxLength = Math.max.apply(Math, arrs.map(function (arr) {
+        return arr.length
+      }));
+      var result = [];
+      for (var i = 0; i < maxLength; ++i) {
+        arrs.forEach(function (arr) {
+          if (arr.length > i) {
+            result.push(arr[i])
+          }
+        })
+      }
+      return result
+    },
+
+    cardMouseOver: function (event) {
+      event.currentTarget.elevation = 5;
+    },
+
+    cardMouseOut: function (event) {
+      event.currentTarget.elevation = 1;
+    },
+
+    getImageFormatUrl: function(images, formatId) {
+      if (images && images.length>0) {
+        var formats = JSON.parse(images[images.length-1].formats);
+        if (formats && formats.length>0)
+          return formats[formatId];
+      } else {
+        return "";
+      }
+    },
+
+    getImageFormatNextUrl: function(images, formatId) {
+      if (images && images.length>1) {
+        var formats = JSON.parse(images[images.length-2].formats);
+        if (formats && formats.length>0)
+          return formats[formatId];
+      } else {
+        return "";
+      }
+    },
+
+    formatNumber: function (value) {
+      if (value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      } else {
+        return "0";
+      }
+    },
+
+    getRandomNumber: function (value) {
+      return Math.floor((Math.random() * value) + 1);
+    },
+
+    getRandomFromArray: function(items) {
+      return items[Math.floor(Math.random()*items.length)];
+    },
+
+    padNumber: function (value) {
+      return ('000' + value).substr(-3);
+    },
+
+    splitArray: function (a, n) {
+      return a.chunk(n);
+    },
+
+    truncate: function (input, length, killwords, end) {
+      var orig = input;
+      length = length || 255;
+
+      if (input.length <= length)
+        return input;
+
+      if (killwords) {
+        input = input.substring(0, length);
+      } else {
+        var idx = input.lastIndexOf(' ', length);
+        if (idx === -1) {
+          idx = length;
+        }
+
+        input = input.substring(0, idx);
+      }
+
+      input += (end !== undefined && end !== null) ? end : '...';
+      return input;
+    },
+
+    trim: function(input){
+      return input.replace(/^\s*|\s*$/g, '');
+    }
+  };
+</script>
 </head><body></body></html>

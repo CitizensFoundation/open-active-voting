@@ -1,23 +1,23 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/google-streetview-pano/google-streetview-pano.html">
-<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-streetview-pano/google-streetview-pano.html?v=5.10.1">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
 
-<link rel="import" href="yp-post-actions.html">
-<link rel="import" href="yp-post-cover-media.html">
-<link rel="import" href="yp-post-behaviors.html">
+<link rel="import" href="yp-post-actions.html?v=5.10.1">
+<link rel="import" href="yp-post-cover-media.html?v=5.10.1">
+<link rel="import" href="yp-post-behaviors.html?v=5.10.1">
 
 </head><body><dom-module id="yp-post-card">
 
@@ -245,6 +245,75 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-post-card",behaviors:[Polymer.appHelpers,Polymer.YpPostBehavior],properties:{selectedMenuItem:{type:String},headerMode:{type:Boolean,value:!1},elevation:{type:Number,value:2},post:{type:Object,notify:!0},trimmedDescription:{type:String,computed:"_trimmedDescription(post, post.description)"}},_trimmedDescription:function(e,t){return e?this.postDescription(e):""},updateDescriptionIfEmpty:function(e){this.post.description&&""!=this.post.description||this.set("post.description",e)},_refresh:function(){this.fire("refresh")},_menuSelection:function(e,t){"editMenuItem"==t.item.id?this._openEdit():"deleteMenuItem"==t.item.id?this._openDelete():"statusChangeMenuItem"==t.item.id?this._openPostStatusChange():"moveMenuItem"==t.item.id&&this._openMovePost(),this.selectedMenuItem=null}});</script>
+  <script>
+    Polymer({
+      is: 'yp-post-card',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.YpPostBehavior
+      ],
+
+      properties: {
+
+        selectedMenuItem: {
+          type: String
+        },
+
+        headerMode: {
+          type: Boolean,
+          value: false
+        },
+
+        elevation: {
+          type: Number,
+          value: 2
+        },
+
+        post: {
+          type: Object,
+          notify: true
+        },
+
+        trimmedDescription: {
+          type: String,
+          computed: '_trimmedDescription(post, post.description)'
+        }
+
+      },
+
+
+      _trimmedDescription: function (post, description) {
+        if (post) {
+          return this.postDescription(post);
+        } else {
+          return "";
+        }
+      },
+
+      updateDescriptionIfEmpty: function (description) {
+        if (!this.post.description || this.post.description=='') {
+          this.set('post.description', description);
+        }
+      },
+
+      _refresh: function () {
+        this.fire('refresh');
+      },
+
+      _menuSelection: function (event, detail) {
+        if (detail.item.id=="editMenuItem")
+          this._openEdit();
+        else if (detail.item.id=="deleteMenuItem")
+          this._openDelete();
+        else if (detail.item.id=="statusChangeMenuItem")
+          this._openPostStatusChange();
+        else if (detail.item.id=="moveMenuItem")
+          this._openMovePost();
+        this.selectedMenuItem = null;
+      }
+
+    });
+  </script>
 </dom-module>
 </body></html>

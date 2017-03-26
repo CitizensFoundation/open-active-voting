@@ -1,16 +1,16 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
 
-<link rel="import" href="../yp-point/yp-point.html">
+<link rel="import" href="../yp-point/yp-point.html?v=5.10.1">
 
 </head><body><dom-module id="yp-post-user-image-card">
   <template>
@@ -78,7 +78,7 @@
       <div class="description">
         [[image.description]]
       </div>
-      <div class="layout horizontal" style="width: 100%">
+      <div class="layout horizontal" style="width: 100%;">
         <div class="photographer">
           [[image.photographer_name]]
         </div>
@@ -86,6 +86,52 @@
     </paper-material>
   </template>
 
-  <script>!function(){Polymer({is:"yp-post-user-image-card",behaviors:[Polymer.appHelpers],properties:{image:{type:Object},post:{type:Object}},_openEdit:function(){window.appGlobals.activity("open","userImage.edit");var e=Polymer.dom(document).querySelector("yp-app").getDialog("userImageEdit");e.setup(this.post,this.image,!1,this._refresh.bind(this)),e.open("edit",{postId:this.post.id,userImages:!0})},_openDelete:function(){window.appGlobals.activity("open","userImage.delete");var e=Polymer.dom(document).querySelector("yp-app").getDialog("deleteDialog");e.setup("/api/images/",this.post.id+"/"+this.image.id+"/user_images",this.t("userImage.deleteConfirmation"),this._refresh.bind(this)),e.open()},_refresh:function(){this.fire("refresh")},_imageUrl:function(e){return this.getImageFormatUrl([e],0)}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post-user-image-card',
+
+        behaviors: [
+          Polymer.appHelpers
+        ],
+
+        properties: {
+
+          image: {
+            type: Object
+          },
+
+          post: {
+            type: Object
+          }
+        },
+
+        _openEdit: function () {
+          window.appGlobals.activity('open', 'userImage.edit');
+          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("userImageEdit");
+          dialog.setup(this.post, this.image, false, this._refresh.bind(this));
+          dialog.open('edit', { postId: this.post.id, userImages: true });
+        },
+
+        _openDelete: function () {
+          window.appGlobals.activity('open', 'userImage.delete');
+          var dialog = Polymer.dom(document).querySelector('yp-app').getDialog("deleteDialog");
+          dialog.setup('/api/images/', this.post.id+'/'+this.image.id+'/user_images',
+            this.t('userImage.deleteConfirmation'),
+            this._refresh.bind(this));
+          dialog.open();
+        },
+
+        _refresh: function () {
+          this.fire('refresh');
+        },
+
+        _imageUrl: function (image) {
+          return this.getImageFormatUrl([image], 0);
+        }
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

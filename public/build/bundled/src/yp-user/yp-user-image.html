@@ -1,6 +1,6 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../oav-behaviors/app-helpers.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
 
 </head><body><dom-module id="yp-user-image">
   <template>
@@ -88,6 +88,103 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-user-image",behaviors:[Polymer.appHelpers],properties:{small:{type:Boolean,value:!1},large:{type:Boolean,value:!1},veryLarge:{type:Boolean,value:!1},titleFromUser:{type:String},userTitle:{type:String,computed:"_computeUserTitle(user, title)"},user:{type:Object,observer:"_userChanged"},profileImageUrl:{type:String,value:null},noDefault:{type:Boolean,value:!1}},_computeUserTitle:function(e,r){return title?title:e.name},_userChanged:function(e,r){if(e&&e.UserProfileImages&&e.UserProfileImages.length>0){var o=this.getImageFormatUrl(e.UserProfileImages,0);o&&""!=o&&this.set("profileImageUrl",o)}},computeIf:function(e){return!1},computeClass:function(e){return this.small?"small rounded":this.large?"large rounded-more":this.veryLarge?"veryLarge rounded-even-more":"medium rounded"},computeFacebookSrc:function(e){return e?"https://graph.facebook.com/"+e.facebook_id+"/picture":(console.warn("Can't find user for computeFacebookSrc"),"")},usePlaceHolderImage:function(e){null==this.profileImageUrl&&null==e.facebook_id},ready:function(){}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-user-image',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        small: {
+          type: Boolean,
+          value: false
+        },
+
+        large: {
+          type: Boolean,
+          value: false
+        },
+
+        veryLarge: {
+          type: Boolean,
+          value: false
+        },
+
+        titleFromUser: {
+          type: String
+        },
+
+        userTitle: {
+          type: String,
+          computed: '_computeUserTitle(user, title)'
+        },
+
+        user: {
+          type: Object,
+          observer: "_userChanged"
+        },
+
+        profileImageUrl: {
+          type: String,
+          value: null
+        },
+
+        noDefault: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _computeUserTitle: function (user, titleFromUser) {
+        if (title) {
+          return title;
+        } else {
+          return user.name;
+        }
+      },
+
+      _userChanged: function (newUser, oldValue) {
+        if (newUser && newUser.UserProfileImages && newUser.UserProfileImages.length > 0) {
+          var formatUrl = this.getImageFormatUrl(newUser.UserProfileImages, 0);
+          if (formatUrl && formatUrl!="")
+            this.set('profileImageUrl', formatUrl);
+        }
+      },
+
+      computeIf: function (user) {
+        return false && !user.facebook_id && user.buddy_icon_file_name;
+      },
+
+      computeClass: function (small) {
+        if (this.small)
+          return 'small rounded';
+        else if (this.large)
+          return 'large rounded-more';
+        else if (this.veryLarge)
+          return 'veryLarge rounded-even-more';
+        else
+          return 'medium rounded';
+      },
+
+      computeFacebookSrc: function (user) {
+        if (user) {
+          return 'https://graph.facebook.com/' + user.facebook_id + '/picture';
+        } else {
+          console.warn("Can't find user for computeFacebookSrc");
+          return "";
+        }
+      },
+
+      usePlaceHolderImage: function (user) {
+        (this.profileImageUrl==null && user.facebook_id==null)
+      },
+
+      ready: function () {
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

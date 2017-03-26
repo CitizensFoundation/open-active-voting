@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
-<link rel="import" href="../oav-ajax/oav-ajax.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.1">
 
-<link rel="import" href="../yp-point/yp-point.html">
-<link rel="import" href="yp-post-user-image-card.html">
+<link rel="import" href="../yp-point/yp-point.html?v=5.10.1">
+<link rel="import" href="yp-post-user-image-card.html?v=5.10.1">
 
 </head><body><dom-module id="yp-post-user-images">
   <template>
@@ -45,6 +45,50 @@
     </div>
   </template>
 
-  <script>!function(){Polymer({is:"yp-post-user-imagess",behaviors:[Polymer.appHelpers],properties:{images:{type:Array,value:null},post:{type:Object,observer:"_postChanged"}},_refresh:function(){this.$.ajax.generateRequest()},_postChanged:function(e){if(e){var s="/api/images/"+e.id+"/user_images";this.$.ajax.url="/votes/better_iceland_proxy",this.$.ajax.params={params:s},this.$.ajax.generateRequest()}},_response:function(e,s){this.set("images",s.response),this.images&&this.images.length>0&&this.fire("yp-post-image-count",this.images.length)}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post-user-imagess',
+
+        behaviors: [
+          Polymer.appHelpers
+        ],
+
+        properties: {
+
+          images: {
+            type: Array,
+            value: null
+          },
+
+          post: {
+            type: Object,
+            observer: '_postChanged'
+          }
+        },
+
+        _refresh: function () {
+          this.$.ajax.generateRequest();
+        },
+
+        _postChanged: function (newPost) {
+          if (newPost) {
+            var params = '/api/images/' + newPost.id + '/user_images';
+            this.$.ajax.url = '/votes/better_iceland_proxy';
+            this.$.ajax.params = { params: params };
+            this.$.ajax.generateRequest();
+          }
+        },
+
+        _response: function (event, detail) {
+          this.set('images', detail.response);
+          if (this.images && this.images.length>0) {
+            this.fire('yp-post-image-count', this.images.length);
+          }
+        }
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

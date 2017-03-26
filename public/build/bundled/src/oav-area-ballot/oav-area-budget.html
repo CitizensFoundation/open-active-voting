@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
 
 </head><body><dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
@@ -25,7 +25,7 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/RvkBlar.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/Mos_CF-small.png");
     }
 
     .budgetContainer[wide] {
@@ -33,15 +33,15 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+      background-image: url("https://yrpri6-production.s3.amazonaws.com/DL/q9/qQ-large.png");
     }
 
     @media (max-width: 1100px) {
       .budgetContainer {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/RvkBlar.png");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/Mos_CF-small.png");
       }
       .budgetContainer[wide] {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+        background-image: url("https://yrpri6-production.s3.amazonaws.com/DL/q9/qQ-large.png");
       }
     }
 
@@ -171,8 +171,8 @@
     }
 
     .headerContainer {
-      background-color: #f0f0f0;
-      color: #444;
+      background-color: #bbb;
+      color: #FFF;
     }
   </style>
 
@@ -184,7 +184,7 @@
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
-          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
@@ -217,6 +217,258 @@
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-area-budget",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{selectedItems:{type:Array,value:[],notify:!0},noSelectedItems:{type:Boolean,value:!0},areaName:{type:String},selectedBudget:{type:Number,value:0},totalBudget:{type:Number},budgetLeft:{type:Number,computed:"_budgetLeft(selectedBudget, totalBudget)"},selectedBudgetIsOne:{type:Boolean,computed:"_selectedBudgetIsOne(selectedBudget)"},votesWidth:{type:Number,value:940},wide:{type:Boolean,observer:"_wideChanged"},mini:{type:Boolean,observer:"_wideChanged"},currentBallot:Object},observers:["_selectedItemsChanged(selectedItems.splices)"],_selectedBudgetIsOne:function(e){return e&&1==e},_budgetLeft:function(e,t){var i=t-e;return console.log(i),i>0?i:"0"},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_wideChanged:function(e){this.wide?this.set("votesWidth",940):this.mini?this.set("votesWidth",250):this.set("votesWidth",288),this._resetBudgetDiv(),this.selectedItems.forEach(function(e){this._addItemToDiv(e)}.bind(this))},_millionWord:function(){var e=this.__computeLocalize(this.language,this.resources,this.formats);return e(this.wide?"million":"million_short")},_submitVote:function(){window.appGlobals.activity("click","submitVote"),this.currentBallot.fire("oav-submit-vote")},_selectedItemsChanged:function(){this.selectedItems&&this.selectedItems.length>0?(this.set("noSelectedItems",!1),this.$.votingButton.disabled=!1):(this.set("noSelectedItems",!0),this.$.votingButton.disabled=!0)},reset:function(){this._resetBudgetDiv(),this.set("selectedItems",[]),this.set("selectedBudget",0)},_resetBudgetDiv:function(){for(;this.$.votes.lastChild&&"noItems"!=this.$.votes.lastChild.id&&"budgetLeftInfo"!=this.$.votes.lastChild.id;)this.$.votes.removeChild(this.$.votes.lastChild)},_removeItemFromArray:function(e){var t=[];this.selectedItems.forEach(function(i){i.id!=e.id&&t.push(i)}),this.set("selectedItems",t)},_addItemToDiv:function(e){var t=parseInt(this.votesWidth*(e.price/this.totalBudget));this.wide||(t-=1);var i=document.createElement("div");i.id="item_id_"+e.id,this.wide?i.style.height="100px":i.style.height="50px",i.style.width=t+"px",i.className="budgetBallotVote",i.backgroundColor="#F00",i.style.position="relative",i.style.cursor="pointer";var s=document.createElement("iron-image");s.src=e.image_url,s.setAttribute("sizing","cover"),s.setAttribute("alt",e.name),s.setAttribute("title",e.name),s.title=e.name,s.style.borderLeft="solid 3px",s.style.borderRight="solid 3px",s.style.borderColor="#ff6500",this.wide?s.style.height="100px":s.style.height="50px",s.style.width=t+"px",i.appendChild(s);var o=document.createElement("paper-icon-button");o.setAttribute("icon","close"),o.icon="close",o.style.color="#ff6500",o.style.height="42px",o.style.width="42px",o.style.opacity=0,o.addEventListener("tap",function(){this._removeItem(e.id)}.bind(this)),i.appendChild(o),o.style.position="absolute",o.style.top=0,o.style.right=0,i.addEventListener("mouseover",function(){o.style.opacity=1}),i.addEventListener("mouseout",function(){o.style.opacity=0}),i.addEventListener("tap",function(){this._removeItem(e.id)}.bind(this)),this.$.votes.appendChild(i)},_removeItemFromDiv:function(e){var t=this.$$("#item_id_"+e.id);console.log("SELECTED: "+t.id),t.parentNode.removeChild(t)},toggleBudgetItem:function(e){window.appGlobals.activity("toggle","vote"),this.selectedItems.indexOf(e)>-1?(this._removeItemFromArray(e),this._removeItemFromDiv(e),this.set("selectedBudget",this.selectedBudget-e.price),this.currentBallot.fire("oav-item-de-selected-from-budget",{itemId:e.id})):this.selectedBudget+e.price<=this.totalBudget?(this.push("selectedItems",e),this._addItemToDiv(e),this.set("selectedBudget",this.selectedBudget+e.price),this.currentBallot.fire("oav-item-selected-in-budget",{itemId:e.id})):this.currentBallot.fire("oav-error",this.localize("error_does_not_fit_in_budget"))},_removeItem:function(e){this.selectedItems.forEach(function(t){t.id==e&&this.toggleBudgetItem(t)}.bind(this))},convertDots:function(e){return e.replace(".",",")}})}();</script>
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-area-budget',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+
+        selectedItems: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+
+        noSelectedItems: {
+          type: Boolean,
+          value: true
+        },
+
+        areaName: {
+          type: String
+        },
+
+        selectedBudget: {
+          type: Number,
+          value: 0
+        },
+
+        totalBudget: {
+          type: Number
+        },
+
+        budgetLeft: {
+          type: Number,
+          computed: '_budgetLeft(selectedBudget, totalBudget)'
+        },
+
+        selectedBudgetIsOne: {
+          type: Boolean,
+          computed: '_selectedBudgetIsOne(selectedBudget)'
+        },
+
+        votesWidth: {
+          type: Number,
+          value: 940
+        },
+
+        wide: {
+          type: Boolean,
+          observer: '_wideChanged'
+        },
+
+        mini: {
+          type: Boolean,
+          observer: '_wideChanged'
+        },
+
+        currentBallot: Object
+      },
+
+      observers: [
+        '_selectedItemsChanged(selectedItems.splices)'
+      ],
+
+      _selectedBudgetIsOne: function (selectedBudget) {
+        return (selectedBudget && selectedBudget==1.0);
+      },
+
+      _budgetLeft: function (selectedBudget, totalBudget) {
+        var budgetLeft = totalBudget-selectedBudget;
+        console.log(budgetLeft);
+        if (budgetLeft>0) {
+          return budgetLeft;
+        } else {
+          return '0';
+        }
+      },
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      _wideChanged: function (isWide) {
+        if (this.wide) {
+          this.set('votesWidth', 940);
+        } else if (this.mini) {
+          this.set('votesWidth', 250);
+        } else {
+          this.set('votesWidth', 288);
+        }
+        this._resetBudgetDiv();
+        this.selectedItems.forEach(function (item) {
+          this._addItemToDiv(item);
+        }.bind(this));
+      },
+
+      _millionWord: function () {
+        var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
+        if (this.wide) {
+          return localizeMethod('million');
+        } else {
+          return localizeMethod('million_short');
+        }
+      },
+
+      _submitVote: function () {
+        window.appGlobals.activity('click', 'submitVote');
+        this.currentBallot.fire('oav-submit-vote');
+      },
+
+      _selectedItemsChanged: function () {
+        if (this.selectedItems && this.selectedItems.length>0) {
+          this.set('noSelectedItems', false);
+          this.$.votingButton.disabled = false;
+        } else {
+          this.set('noSelectedItems', true);
+          this.$.votingButton.disabled = true;
+        }
+      },
+
+      reset: function () {
+        this._resetBudgetDiv();
+        this.set('selectedItems', []);
+        this.set('selectedBudget', 0);
+      },
+
+      _resetBudgetDiv: function () {
+        while (this.$.votes.lastChild && this.$.votes.lastChild.id!='noItems' && this.$.votes.lastChild.id!='budgetLeftInfo') {
+          this.$.votes.removeChild(this.$.votes.lastChild);
+        }
+      },
+
+      _removeItemFromArray: function (item) {
+        var newArray = [];
+        this.selectedItems.forEach(function (i) {
+          if (i.id!=item.id) {
+            newArray.push(i);
+          }
+        });
+        this.set('selectedItems', newArray);
+      },
+
+      _addItemToDiv: function (item) {
+        var itemWidth = parseInt(this.votesWidth * (item.price / this.totalBudget));
+
+        if (!this.wide) {
+          itemWidth -= 1;
+        }
+        var container = document.createElement("div");
+        container.id = "item_id_"+item.id;
+        if (this.wide) {
+          container.style.height = '100px';
+        } else {
+          container.style.height = '50px';
+        }
+        container.style.width = itemWidth + 'px';
+        container.className = 'budgetBallotVote';
+        container.backgroundColor = "#F00";
+        container.style.position = "relative";
+        container.style.cursor = "pointer";
+
+        var image = document.createElement("iron-image");
+        image.src = item.image_url;
+        image.setAttribute("sizing", "cover");
+        image.setAttribute('alt', item.name);
+        image.setAttribute('title', item.name);
+        image.title= item.name;
+        image.style.borderLeft = 'solid 3px';
+        image.style.borderRight = 'solid 3px';
+        image.style.borderColor = '#ff6500';
+        if (this.wide) {
+          image.style.height = '100px';
+        } else {
+          image.style.height = '50px';
+        }
+        image.style.width = itemWidth + 'px';
+
+        container.appendChild(image);
+
+        var paperIcon = document.createElement("paper-icon-button");
+        paperIcon.setAttribute("icon", "close");
+        paperIcon.icon = "close";
+        paperIcon.style.color = "#ff6500";
+        paperIcon.style.height = "42px";
+        paperIcon.style.width = "42px";
+        paperIcon.style.opacity = 0;
+        paperIcon.addEventListener('tap', function () {
+          this._removeItem(item.id);
+        }.bind(this));
+        container.appendChild(paperIcon);
+        paperIcon.style.position = "absolute";
+        paperIcon.style.top = 0;
+        paperIcon.style.right = 0;
+
+        container.addEventListener('mouseover', function () {
+          paperIcon.style.opacity = 1;
+        });
+        container.addEventListener('mouseout', function () {
+          paperIcon.style.opacity = 0;
+        });
+
+        container.addEventListener('tap', function () {
+          this._removeItem(item.id);
+        }.bind(this));
+
+        this.$.votes.appendChild(container);
+      },
+
+      _removeItemFromDiv: function (item) {
+        var selectedItemDiv = this.$$("#item_id_"+item.id);
+        console.log("SELECTED: "+selectedItemDiv.id);
+        selectedItemDiv.parentNode.removeChild(selectedItemDiv);
+      },
+
+      toggleBudgetItem: function (item) {
+        window.appGlobals.activity('toggle', 'vote');
+        if (this.selectedItems.indexOf(item) > -1) {
+          this._removeItemFromArray(item);
+          this._removeItemFromDiv(item);
+          this.set('selectedBudget', this.selectedBudget - item.price);
+          this.currentBallot.fire('oav-item-de-selected-from-budget', { itemId: item.id });
+        } else {
+          if (this.selectedBudget+item.price<=this.totalBudget) {
+            this.push('selectedItems', item);
+            this._addItemToDiv(item);
+            this.set('selectedBudget', this.selectedBudget + item.price);
+            this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });
+          } else {
+            this.currentBallot.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
+          }
+        }
+      },
+
+      _removeItem: function (itemId) {
+        this.selectedItems.forEach(function (item) {
+          if (item.id==itemId) {
+            this.toggleBudgetItem(item);
+          }
+        }.bind(this));
+      },
+
+      convertDots: function (num) {
+        return num.replace(".", ",");
+      }
+    })
+  })();
+
+</script>
 
 </body></html>

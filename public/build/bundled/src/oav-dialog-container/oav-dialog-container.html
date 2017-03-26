@@ -1,8 +1,8 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
 
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html">
-<link rel="import" href="../oav-page/oav-page-dialog.html">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=5.10.1">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=5.10.1">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -43,6 +43,29 @@
     </div>
   </template>
 
-  <script>Polymer({is:"oav-dialog-container",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},getDialog:function(o){return this.$$("#"+o)},closeAuthDialog:function(){this.$.authDialog.close();var o=Polymer.dom(document).querySelector("oav-app").$$("#budgetBallot");o.cancelLoginPolling()}});</script>
+  <script>
+    Polymer({
+      is: 'oav-dialog-container',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      getDialog: function (idName) {
+        return this.$$("#"+idName);
+      },
+
+      closeAuthDialog: function () {
+        this.$.authDialog.close();
+        var budgetBallot = Polymer.dom(document).querySelector('oav-app').$$("#budgetBallot");
+        budgetBallot.cancelLoginPolling();
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

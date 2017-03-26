@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.1"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -93,11 +93,11 @@
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
         <div class="layout horizontal center-center">
-          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
@@ -115,6 +115,24 @@
 
 </dom-module>
 
-<script>!function(){Polymer({is:"oav-voting-completed",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json")),FB.XFBML.parse(this.$$("#textWithFacebook"))}})}();</script>
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-voting-completed',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+        FB.XFBML.parse(this.$$("#textWithFacebook"));
+      }
+    })
+  })();
+
+</script>
 
 </body></html>

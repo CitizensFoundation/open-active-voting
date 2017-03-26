@@ -1,20 +1,20 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input-char-counter.html">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-input/paper-input-char-counter.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
-<link rel="import" href="../yp-point/yp-point.html">
-<link rel="import" href="../oav-ajax/oav-ajax.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
+<link rel="import" href="../yp-point/yp-point.html?v=5.10.1">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.1">
 
 </head><body><dom-module id="yp-post-points">
   <template>
@@ -233,6 +233,185 @@
   </template>
 
 
-  <script>!function(){Polymer({is:"yp-post-points",behaviors:[Polymer.appHelpers],properties:{downPoints:{type:Array,value:function(){return[]}},upPoints:{type:Array,value:function(){return[]}},textValueUp:{type:String},textValueDown:{type:String},newPointTextCombined:{type:String},post:{type:Object,observer:"_postChanged"},points:{type:Array,value:null},largeMode:{type:Boolean,value:!1},textValueMobileUpOrDown:String,labelMobileUpOrDown:String,pointUpOrDownSelected:{type:String,observer:"_pointUpOrDownSelectedChanged",value:"pointFor"}},_pointUpOrDownSelectedChanged:function(t){"pointFor"==t?this.set("labelMobileUpOrDown",this.t("point.for")):"pointAgainst"==t&&this.set("labelMobileUpOrDown",this.t("point.against"))},_postChanged:function(t){if(this.set("downPoints",null),this.set("upPoints",null),t){var n="/api/posts/"+t.id+"/points";this.$.ajax.url="/votes/better_iceland_proxy",this.$.ajax.params={params:n},this.$.ajax.generateRequest()}},_response:function(t,n){this.set("points",n.response),this.points.length>0?(this.set("upPoints",this.points.filter(function(t){return t.value>0})),this.set("downPoints",this.points.filter(function(t){return t.value<0}))):(this.set("upPoints",[]),this.set("downPoints",[])),this.fire("yp-debate-info",{count:this.upPoints.length+this.downPoints.length,firstPoint:this.upPoints[0]}),this.set("points",this.interleaveArrays(this.upPoints,this.downPoints))},_insertNewPoint:function(t){this.largeMode?t.value>0?this.unshift("upPoints",t):t.value<0&&this.unshift("downPoints",t):this.unshift("points",t)},_newPointResponse:function(t,n){var i=n.response;i.value>0?(this.newPointTextCombined=this.t("point.forAdded")+" "+this.truncate(i.content,21),this.set("textValueUp","")):(this.newPointTextCombined=this.t("point.againstAdded")+" "+this.truncate(i.content,21),this.set("textValueDown","")),this.set("textValueMobileUpOrDown",""),this._insertNewPoint(i),this.set("post.counter_points",this.post.counter_points+1),this.$.newPointToast.show()},addPointUp:function(){this.addPoint(this.textValueUp,1),window.appGlobals.activity("add","pointUp")},addPointDown:function(){this.addPoint(this.textValueDown,-1),window.appGlobals.activity("add","pointDown")},addMobilePointUpOrDown:function(){"pointFor"==this.pointUpOrDownSelected?(this.addPoint(this.textValueMobileUpOrDown,1),window.appGlobals.activity("add","pointUp")):"pointAgainst"==this.pointUpOrDownSelected&&(this.addPoint(this.textValueMobileUpOrDown,-1),window.appGlobals.activity("add","pointDown"))},addPoint:function(t,n){},focusUpPoint:function(){window.appGlobals.activity("focus","pointUp")},focusDownPoint:function(){window.appGlobals.activity("focus","pointDown")},focusTextArea:function(t){t.currentTarget.parentElement.elevation=4},blurTextArea:function(t){event.currentTarget.parentElement.elevation=0},ifLengthIsRight:function(t){return t.length>6}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post-points',
+
+        behaviors: [
+          Polymer.appHelpers
+        ],
+
+        properties: {
+
+          downPoints: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          },
+
+          upPoints: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          },
+
+          textValueUp: {
+            type: String
+          },
+
+          textValueDown: {
+            type: String
+          },
+
+          newPointTextCombined: {
+            type: String
+          },
+
+          post: {
+            type: Object,
+            observer: "_postChanged"
+          },
+
+          points: {
+            type: Array,
+            value: null
+          },
+
+          largeMode: {
+            type: Boolean,
+            value: false
+          },
+
+          textValueMobileUpOrDown: String,
+
+          labelMobileUpOrDown: String,
+
+          pointUpOrDownSelected: {
+            type: String,
+            observer: '_pointUpOrDownSelectedChanged',
+            value: 'pointFor'
+          }
+        },
+
+        _pointUpOrDownSelectedChanged: function (newValue) {
+          if (newValue=='pointFor') {
+            this.set('labelMobileUpOrDown', this.t('point.for'));
+          } else if (newValue=='pointAgainst') {
+            this.set('labelMobileUpOrDown', this.t('point.against'));
+          }
+        },
+
+        _postChanged: function (newPost) {
+          // Remove any manually inserted points when the list is updated
+          this.set('downPoints', null);
+          this.set('upPoints', null);
+          if (newPost) {
+            var params = '/api/posts/' + newPost.id + '/points';
+            this.$.ajax.url = '/votes/better_iceland_proxy';
+            this.$.ajax.params = { params: params };
+            this.$.ajax.generateRequest();
+          }
+        },
+
+        _response: function (event, detail) {
+          this.set('points', detail.response);
+          if (this.points.length > 0) {
+            this.set('upPoints', this.points.filter(function (x) {
+              return x.value > 0;
+            }));
+            this.set('downPoints', this.points.filter(function (x) {
+              return x.value < 0;
+            }));
+          } else {
+            this.set('upPoints', []);
+            this.set('downPoints', []);
+          }
+
+          this.fire('yp-debate-info', {
+            count: this.upPoints.length + this.downPoints.length,
+            firstPoint: this.upPoints[0]
+          });
+
+          this.set('points', this.interleaveArrays(this.upPoints, this.downPoints));
+        },
+
+        _insertNewPoint: function (point) {
+          if (this.largeMode) {
+            if (point.value > 0) {
+              this.unshift('upPoints', point);
+            } else if (point.value < 0) {
+              this.unshift('downPoints', point);
+            }
+          } else {
+            this.unshift('points', point);
+          }
+        },
+
+        _newPointResponse: function (event, detail) {
+          var point = detail.response;
+          if (point.value > 0) {
+            this.newPointTextCombined = this.t("point.forAdded") + " " + this.truncate(point.content, 21);
+            this.set("textValueUp", "");
+          } else {
+            this.newPointTextCombined = this.t("point.againstAdded") + " " + this.truncate(point.content, 21);
+            this.set("textValueDown", "");
+          }
+          this.set("textValueMobileUpOrDown", "");
+          this._insertNewPoint(point);
+          this.set('post.counter_points', this.post.counter_points + 1);
+          this.$.newPointToast.show();
+        },
+
+        addPointUp: function () {
+          this.addPoint(this.textValueUp, 1);
+          window.appGlobals.activity('add', 'pointUp');
+        },
+
+        addPointDown: function () {
+          this.addPoint(this.textValueDown, -1);
+          window.appGlobals.activity('add', 'pointDown');
+        },
+
+        addMobilePointUpOrDown: function () {
+          if (this.pointUpOrDownSelected=='pointFor') {
+            this.addPoint(this.textValueMobileUpOrDown, 1);
+            window.appGlobals.activity('add', 'pointUp');
+          } else if (this.pointUpOrDownSelected=='pointAgainst') {
+            this.addPoint(this.textValueMobileUpOrDown, -1);
+            window.appGlobals.activity('add', 'pointDown');
+          }
+        },
+
+        addPoint: function (content, value) {
+
+        },
+
+        focusUpPoint: function () {
+          window.appGlobals.activity('focus', 'pointUp');
+        },
+
+        focusDownPoint: function () {
+          window.appGlobals.activity('focus', 'pointDown');
+        },
+
+        focusTextArea: function (event) {
+          event.currentTarget.parentElement.elevation = 4;
+        },
+
+        blurTextArea: function (e) {
+          event.currentTarget.parentElement.elevation = 0;
+        },
+
+        ifLengthIsRight: function (textValue) {
+          return textValue.length > 6;
+        }
+
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

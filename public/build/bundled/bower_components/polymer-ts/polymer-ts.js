@@ -1,1 +1,324 @@
-function component(e,t){return function(r){r.prototype.is=e,void 0!==t&&(r.prototype.extends=t)}}function extend(e){return function(t){t.prototype.extends=e}}function template(e){return function(t){t.prototype.template=e}}function style(e){return function(t){t.prototype.style=e}}function hostAttributes(e){return function(t){t.prototype.hostAttributes=e}}function property(e){return function(t,r){if(t.properties=t.properties||{},"function"==typeof t[r]){var o=e.computed,n="get_computed_"+r;e.computed=n+"("+o+")",t.properties[r]=e,t[n]=t[r]}else t.properties[r]=e||{}}}function computed(e){return function(t,r){t.properties=t.properties||{};var o=e||{},n="get_computed_"+r,s=t[r].toString(),i=s.indexOf("("),p=s.indexOf(")"),a=s.substring(i+1,p);o.computed=n+"("+a+")",t.properties[r]=o,t[n]=t[r]}}function listen(e){return function(t,r){t.listeners=t.listeners||{},t.listeners[e]=r}}function behavior(e){return function(t){if("function"==typeof t){t.prototype.behaviors=t.prototype.behaviors||[];var r=void 0===e.prototype?e:e.prototype;t.prototype.behaviors.push(r)}else{t.behaviors=t.behaviors||[];var r=void 0===e.prototype?e:e.prototype;t.behaviors.push(r)}}}function observe(e){return e.indexOf(",")>0||e.indexOf(".")>0?function(t,r){t.observers=t.observers||[],t.observers.push(r+"("+e+")")}:function(t,r){t.properties=t.properties||{},t.properties[e]=t.properties[e]||{},t.properties[e].observer=r}}var polymer;!function(e){function t(){var t=function(){};window.polymer.Base=t,t.create=function(){throw"element not yet registered in Polymer"},t.register=function(t){t===!0?e.createClass(this):e.createElement(this)}}function r(e){function t(e,r){void 0!==r&&null!==r&&(Object.keys(r).map(function(t){e.hasOwnProperty(t)||(e[t]=r[t])}),t(e,r.__proto__))}if(void 0===e.prototype.is){var r=e.prototype,o=new e;if(!o.is)throw new Error("no name for "+e);r.is=o.is,o.extends&&(r.extends=o.extends),o.properties&&(r.properties=o.properties),o.listeners&&(r.listeners=o.listeners),o.observers&&(r.observers=o.observers),o.behaviors&&(r.behaviors=o.behaviors),o.hostAttributes&&(r.hostAttributes=o.hostAttributes),o.style&&(r.style=o.style),o.template&&(r.template=o.template)}var n=e.prototype;if(n.$custom_cons=function(){var t=this.$custom_cons_args;e.apply(this,t)},n.$custom_cons_args=[],void 0!==n.factoryImpl)throw"do not use factoryImpl() use constructor() instead";n.factoryImpl=function(){this.$custom_cons_args=arguments};var s="attached",i=n[s];return n[s]=function(){this.$custom_cons(),void 0!==i&&i.apply(this)},t(n,e.prototype.__proto__),n}function o(e){var t=document.createElement("dom-module"),r=e.prototype;t.id=r.is;var o="";void 0!==r.style&&(o+="<style>"+r.style+"</style>"),void 0!==r.template&&(o+="<template>"+r.template+"</template>"),t.innerHTML=o,t.createdCallback()}function n(t){if(e.isRegistered(t))throw"element already registered in Polymer";void 0===t.prototype.template&&void 0===t.prototype.style||e.createDomModule(t);var r=Polymer(e.prepareForRegistration(t));return t.create=function(){var e=Object.create(r.prototype);return r.apply(e,arguments)},r}function s(t){if(e.isRegistered(t))throw"element already registered in Polymer";void 0===t.prototype.template&&void 0===t.prototype.style||e.createDomModule(t);var r=Polymer.Class(e.prepareForRegistration(t));return t.create=function(){var e=Object.create(r.prototype);return r.apply(e,arguments)},r}function i(e){return void 0!==e.prototype.$custom_cons}e.createEs6PolymerBase=t,e.prepareForRegistration=r,e.createDomModule=o,e.createElement=n,e.createClass=s,e.isRegistered=i}(polymer||(polymer={})),polymer.createEs6PolymerBase();
+// PolymerTS - Polymer for TypeScript
+//
+// https://github.com/nippur72/PolymerTS
+//
+// Antonino Porcino, nino.porcino@gmail.com
+var polymer;
+(function (polymer) {
+    // create an ES6 inheritable Polymer.Base object, referenced as "polymer.Base"
+    function createEs6PolymerBase() {
+        // create a placeholder class
+        var pb = function () { };
+        // make it available as polymer.Base
+        window["polymer"]["Base"] = pb;
+        // add a default create method()
+        pb["create"] = function () {
+            throw "element not yet registered in Polymer";
+        };
+        // add a default create method()
+        pb["register"] = function (dontRegister) {
+            if (dontRegister === true)
+                polymer.createClass(this);
+            else
+                polymer.createElement(this);
+        };
+    }
+    polymer.createEs6PolymerBase = createEs6PolymerBase;
+    function prepareForRegistration(elementClass) {
+        // copies members from inheritance chain to Polymer object
+        function copyMembers(dest, source) {
+            if (source === undefined || source === null)
+                return;
+            Object.keys(source).map(function (member) {
+                // copy only if has not been defined
+                if (!dest.hasOwnProperty(member))
+                    dest[member] = source[member];
+            });
+            copyMembers(dest, source.__proto__);
+        }
+        // backward compatibility with TypeScript 1.4 (no decorators)
+        if (elementClass.prototype.is === undefined) {
+            var proto = elementClass.prototype;
+            var instance = new elementClass();
+            if (!instance.is) {
+                throw new Error("no name for " + elementClass);
+            }
+            proto.is = instance.is;
+            if (instance.extends) {
+                proto.extends = instance.extends;
+            }
+            if (instance.properties) {
+                proto.properties = instance.properties;
+            }
+            if (instance.listeners) {
+                proto.listeners = instance.listeners;
+            }
+            if (instance.observers) {
+                proto.observers = instance.observers;
+            }
+            if (instance.behaviors) {
+                proto.behaviors = instance.behaviors;
+            }
+            if (instance.hostAttributes) {
+                proto.hostAttributes = instance.hostAttributes;
+            }
+            if (instance.style) {
+                proto.style = instance.style;
+            }
+            if (instance.template) {
+                proto.template = instance.template;
+            }
+        }
+        var preparedElement = elementClass.prototype;
+        // artificial constructor: call constructor() and copies members
+        preparedElement["$custom_cons"] = function () {
+            // reads arguments coming from factoryImpl
+            var args = this.$custom_cons_args;
+            // applies class constructor on the polymer element (this)
+            elementClass.apply(this, args);
+        };
+        // arguments for artifical constructor
+        preparedElement["$custom_cons_args"] = [];
+        // modify "factoryImpl"
+        if (preparedElement["factoryImpl"] !== undefined) {
+            throw "do not use factoryImpl() use constructor() instead";
+        }
+        else {
+            preparedElement["factoryImpl"] = function () {
+                this.$custom_cons_args = arguments;
+            };
+        }
+        // modify "attached" event function
+        var attachToFunction = "attached";
+        var oldFunction = preparedElement[attachToFunction];
+        preparedElement[attachToFunction] = function () {
+            this.$custom_cons();
+            if (oldFunction !== undefined)
+                oldFunction.apply(this);
+        };
+        // copy inherited class members
+        copyMembers(preparedElement, elementClass.prototype.__proto__);
+        return preparedElement;
+    }
+    polymer.prepareForRegistration = prepareForRegistration;
+    /*
+    // see https://github.com/Polymer/polymer/issues/2114
+    export function createDomModule(definition: polymer.Element) {
+       var domModule: any = document.createElement('dom-module');
+ 
+       var proto = <any> definition.prototype;
+ 
+       domModule.id = proto.is;
+ 
+       // attaches style
+       if (proto.style !== undefined) {
+          var elemStyle = (<any> document).createElement('style', 'custom-style');
+          domModule.appendChild(elemStyle);
+          elemStyle.textContent = proto.style;
+       }
+ 
+       // attaches template
+       if (proto.template !== undefined) {
+          var elemTemplate = document.createElement('template');
+          domModule.appendChild(elemTemplate);
+          elemTemplate.innerHTML = proto.template;
+       }
+ 
+       // tells polymer the element has been created
+       domModule.createdCallback();
+    }
+    */
+    // a version that works in IE11 too
+    function createDomModule(definition) {
+        var domModule = document.createElement('dom-module');
+        var proto = definition.prototype;
+        domModule.id = proto.is;
+        var html = "";
+        if (proto.style !== undefined)
+            html += "<style>" + proto.style + "</style>";
+        if (proto.template !== undefined)
+            html += "<template>" + proto.template + "</template>";
+        domModule.innerHTML = html;
+        domModule.createdCallback();
+    }
+    polymer.createDomModule = createDomModule;
+    /*
+    // temporary version until https://github.com/Polymer/polymer/issues/2114 is fixed
+    export function createDomModule(definition: polymer.Element) {
+       var contentDoc = document.implementation.createHTMLDocument('template');
+ 
+       var domModule: any = document.createElement('dom-module');
+ 
+       var proto = <any> definition.prototype;
+ 
+       domModule.id = proto.is;
+ 
+       // attaches style
+       if (proto.style !== undefined) {
+          var elemStyle = (<any> document).createElement('style', 'custom-style');
+          domModule.appendChild(elemStyle);
+          elemStyle.textContent = proto.style;
+       }
+ 
+       // attaches template
+       if (proto.template !== undefined) {
+          var elemTemplate = document.createElement('template');
+          domModule.appendChild(elemTemplate);
+          contentDoc.body.innerHTML = proto.template;
+          while (contentDoc.body.firstChild) {
+            (<any>elemTemplate).content.appendChild(contentDoc.body.firstChild);
+          }
+       }
+ 
+       // tells polymer the element has been created
+       domModule.createdCallback();
+    }
+    */
+    function createElement(element) {
+        if (polymer.isRegistered(element)) {
+            throw "element already registered in Polymer";
+        }
+        if ((element.prototype).template !== undefined || (element.prototype).style !== undefined) {
+            polymer.createDomModule(element);
+        }
+        // register element and make available its constructor as "create()"
+        var maker = Polymer(polymer.prepareForRegistration(element));
+        element["create"] = function () {
+            var newOb = Object.create(maker.prototype);
+            return maker.apply(newOb, arguments);
+        };
+        return maker;
+    }
+    polymer.createElement = createElement;
+    function createClass(element) {
+        if (polymer.isRegistered(element)) {
+            throw "element already registered in Polymer";
+        }
+        if ((element.prototype).template !== undefined || (element.prototype).style !== undefined) {
+            polymer.createDomModule(element);
+        }
+        // register element and make available its constructor as "create()"
+        var maker = Polymer.Class(polymer.prepareForRegistration(element));
+        element["create"] = function () {
+            var newOb = Object.create(maker.prototype);
+            return maker.apply(newOb, arguments);
+        };
+        return maker;
+    }
+    polymer.createClass = createClass;
+    function isRegistered(element) {
+        return (element.prototype).$custom_cons !== undefined;
+    }
+    polymer.isRegistered = isRegistered;
+})(polymer || (polymer = {})); // end module
+// modifies Polymer.Base and makes it available as an ES6 class named polymer.Base
+polymer.createEs6PolymerBase();
+// @component decorator
+function component(tagname, extendsTag) {
+    return function (target) {
+        target.prototype["is"] = tagname;
+        if (extendsTag !== undefined) {
+            target.prototype["extends"] = extendsTag;
+        }
+    };
+}
+// @extend decorator
+function extend(tagname) {
+    return function (target) {
+        target.prototype["extends"] = tagname;
+    };
+}
+// @template decorator
+function template(templateString) {
+    return function (target) {
+        target.prototype["template"] = templateString;
+    };
+}
+// @style decorator
+function style(styleString) {
+    return function (target) {
+        target.prototype["style"] = styleString;
+    };
+}
+// @hostAttributes decorator
+function hostAttributes(attributes) {
+    return function (target) {
+        target.prototype["hostAttributes"] = attributes;
+    };
+}
+// @property decorator with automatic name for computed props
+function property(ob) {
+    return function (target, propertyKey) {
+        target.properties = target.properties || {};
+        if (typeof (target[propertyKey]) === "function") {
+            // property is function, treat it as a computed property
+            var params = ob["computed"];
+            var getterName = "get_computed_" + propertyKey;
+            ob["computed"] = getterName + "(" + params + ")";
+            target.properties[propertyKey] = ob;
+            target[getterName] = target[propertyKey];
+        }
+        else {
+            // normal property
+            target.properties[propertyKey] = ob || {};
+        }
+    };
+}
+// @computed decorator
+function computed(ob) {
+    return function (target, computedFuncName) {
+        target.properties = target.properties || {};
+        var propOb = ob || {};
+        var getterName = "get_computed_" + computedFuncName;
+        var funcText = target[computedFuncName].toString();
+        var start = funcText.indexOf("(");
+        var end = funcText.indexOf(")");
+        var propertiesList = funcText.substring(start + 1, end);
+        propOb["computed"] = getterName + "(" + propertiesList + ")";
+        target.properties[computedFuncName] = propOb;
+        target[getterName] = target[computedFuncName];
+    };
+}
+// @listen decorator
+function listen(eventName) {
+    return function (target, propertyKey) {
+        target.listeners = target.listeners || {};
+        target.listeners[eventName] = propertyKey;
+    };
+}
+// @behavior decorator
+function behavior(behaviorObject) {
+    return function (target) {
+        if (typeof (target) === "function") {
+            // decorator applied externally, target is the class object
+            target.prototype["behaviors"] = target.prototype["behaviors"] || [];
+            var beObject = behaviorObject.prototype === undefined ? behaviorObject : behaviorObject.prototype;
+            target.prototype["behaviors"].push(beObject);
+        }
+        else {
+            // decorator applied internally, target is class.prototype
+            target.behaviors = target.behaviors || [];
+            var beObject = behaviorObject.prototype === undefined ? behaviorObject : behaviorObject.prototype;
+            target.behaviors.push(beObject);
+        }
+    };
+}
+// @observe decorator
+function observe(observedProps) {
+    if (observedProps.indexOf(",") > 0 || observedProps.indexOf(".") > 0) {
+        // observing multiple properties or path
+        return function (target, observerFuncName) {
+            target.observers = target.observers || [];
+            target.observers.push(observerFuncName + "(" + observedProps + ")");
+        };
+    }
+    else {
+        // observing single property
+        return function (target, observerName) {
+            target.properties = target.properties || {};
+            target.properties[observedProps] = target.properties[observedProps] || {};
+            target.properties[observedProps].observer = observerName;
+        };
+    }
+}
+//# sourceMappingURL=polymer-ts.js.map

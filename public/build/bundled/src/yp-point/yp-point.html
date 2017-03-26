@@ -1,20 +1,20 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
-<link rel="import" href="../yp-user/yp-user-image.html">
-<link rel="import" href="../yp-user/yp-user-with-organization.html">
-<link rel="import" href="yp-point-actions.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
+<link rel="import" href="../yp-user/yp-user-image.html?v=5.10.1">
+<link rel="import" href="../yp-user/yp-user-with-organization.html?v=5.10.1">
+<link rel="import" href="yp-point-actions.html?v=5.10.1">
 
 </head><body><dom-module id="yp-point">
 
@@ -80,6 +80,84 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-point",properties:{point:{type:Object,notify:!0,observer:"_pointChanged"},user:{type:Object,value:null},hideUser:{type:Boolean,value:!1}},_pointChanged:function(n,e){n?this.user=this.point.User:this.user=null},loginName:function(){return this.point.PointRevisions[0].User.name},upVote:function(n){return n?0==n.value||n.value>0:(console.warn("Can't find point for upVote"),!1)},downVote:function(n){return n?0==n.value||n.value<0:(console.warn("Can't find point for upVote"),!1)},computeClass:function(n){var e="description ";return n?e+=n.value>0?"for":"against":(console.warn("Can't find point for upVote"),e)}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-point',
+
+      properties: {
+
+        point: {
+          type: Object,
+          notify: true,
+          observer: "_pointChanged"
+        },
+
+
+
+        user: {
+          type: Object,
+          value: null
+        },
+
+        hideUser: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _pointChanged: function(newValue, oldValue) {
+        if (newValue) {
+          this.user = this.point.User;
+        } else {
+          this.user = null;
+        }
+      },
+
+      loginName: function () {
+        return this.point.PointRevisions[0].User.name;
+      },
+
+      upVote: function(point) {
+        if (point) {
+          if (point.value == 0) {
+            return true;
+          } else {
+            return point.value>0;
+          }
+        } else {
+          console.warn("Can't find point for upVote");
+          return false;
+        }
+      },
+
+      downVote: function(point) {
+        if (point) {
+          if (point.value == 0) {
+            return true;
+          } else {
+            return point.value<0;
+          }
+        } else {
+          console.warn("Can't find point for upVote");
+          return false;
+        }
+      },
+
+      computeClass: function (point) {
+        var ret = 'description ';
+        if (point) {
+          if (point.value>0)
+            ret += 'for';
+          else
+            ret += 'against';
+          return ret;
+        } else {
+          console.warn("Can't find point for upVote");
+          return ret;
+        }
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

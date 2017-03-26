@@ -1,14 +1,14 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.1">
 
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.1">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html">
-<link rel="import" href="../yp-user/yp-user-image.html">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.1">
+<link rel="import" href="../yp-user/yp-user-image.html?v=5.10.1">
 
 </head><body><dom-module id="yp-user-with-organization">
   <template>
@@ -69,6 +69,58 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-user-with-organization",behaviors:[Polymer.appHelpers],properties:{user:{type:Object},titleDate:{type:Date},userTitle:{type:String,computed:"_computeUserTitle(user, titleDate)"},inverted:{type:Boolean,value:!1}},_computeUserTitle:function(e,n){return e.name+" "+moment(n).fromNow()},_organizationName:function(e){return e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].name?e.OrganizationUsers[0].name:null},_organizationImageUrl:function(e){if(e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].OrganizationLogoImages&&e.OrganizationUsers[0].OrganizationLogoImages.length>0){var n=this.getImageFormatUrl(e.OrganizationUsers[0].OrganizationLogoImages,2);return n}return null}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-user-with-organization',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        user: {
+          type: Object
+        },
+
+        titleDate: {
+          type: Date
+        },
+
+        userTitle: {
+          type: String,
+          computed: '_computeUserTitle(user, titleDate)'
+        },
+
+        inverted: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _computeUserTitle: function (user, titleDate) {
+        return user.name + ' ' + moment(titleDate).fromNow();
+      },
+
+      _organizationName: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 && user.OrganizationUsers[0].name) {
+          return user.OrganizationUsers[0].name;
+        } else {
+          return null;
+        }
+      },
+
+      _organizationImageUrl: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 &&
+          user.OrganizationUsers[0].OrganizationLogoImages &&
+          user.OrganizationUsers[0].OrganizationLogoImages.length > 0) {
+          var url = this.getImageFormatUrl(user.OrganizationUsers[0].OrganizationLogoImages, 2);
+          return url;
+        } else {
+          return null;
+        }
+      }
+    });
+  </script>
 </dom-module>
 </body></html>
