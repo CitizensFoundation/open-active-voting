@@ -323,11 +323,12 @@
         // Page import on demand.
         if (page && page!='select-voting-area') {
           if (page=='post') {
+            this.set('showExit', true);
             this.importHref(this.resolveUrl('yp-' + page + '/yp-' + page + '.html'), null, null, true);
           } else {
+            this.set('showExit', false);
             this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
           }
-          this.set('showExit', false);
         } else {
           this.set('showExit', false);
         }

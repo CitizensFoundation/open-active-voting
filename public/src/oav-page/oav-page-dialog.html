@@ -32,7 +32,6 @@
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-dialog id="dialog">
-      <h2>[[title]]</h2>
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
@@ -68,11 +67,6 @@
       },
 
       open: function (title) {
-        if (this.language=='is') {
-          this.set('title', "Hverfið mitt 2016 - Upplýsingar");
-        } else {
-          this.set('title', "My neighborhood 2016 - Information");
-        }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();
         this.$.dialog.notifyResize();
