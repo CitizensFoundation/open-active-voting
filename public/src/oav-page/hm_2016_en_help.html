@@ -4,8 +4,15 @@
           .infoHeader {
               line-height: normal;
           }
+
+          .langSelection {
+              cursor: pointer;
+          }
       </style>
       <h1 class="infoHeader">Okkar Mosó 2017 - Information</h1>
+      <div class="langSelection layout horizontal center-center">
+          <div on-tap="_selectIcelandic">Íslenska</div>
+      </div>
       <ul>
           <li>The election of Okkar Mosó is open from March 30th to 10th of april. Participation is open to all who have a minimum age of 16 in 2017 and domiciled in Mosfellsbær at the time of election.</li>
           <li>Participants can vote on ideas for a maximum of the 25 million devoted to the project.</li>
@@ -24,7 +31,11 @@
   </template>
   <script>
     Polymer({
-      is: 'hm-2016-en-help'
+      is: 'hm-2016-en-help',
+      _selectIcelandic: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'is'});
+        localStorage.setItem("selectedLanguage", 'is');
+      }
     });
   </script>
 </dom-module>

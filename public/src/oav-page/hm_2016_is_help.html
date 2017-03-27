@@ -4,8 +4,16 @@
           .infoHeader {
               line-height: normal;
           }
+
+          .langSelection {
+              cursor: pointer;
+          }
+
       </style>
       <h1 class="infoHeader">Okkar Mosó 2017 - Upplýsingar</h1>
+      <div class="langSelection layout horizontal center-center">
+          <div on-tap="_selectEnglish">English</div>
+      </div>
       <ul>
           <li>Kosning Okkar Mosó er opin frá og með 30. mars til 10. apríl. Þátttaka er opin öllum sem verða að lágmarki 16 ára á árinu 2017 og hafa lögheimili í Mosfellsbæ þegar kosningin fer fram.</li>
           <li>Hægt er að kjósa áfram hugmyndir fyrir að hámarki 25 milljónir sem varið er til verkefnisins.</li>
@@ -24,7 +32,11 @@
   </template>
   <script>
     Polymer({
-      is: 'hm-2016-is-help'
+      is: 'hm-2016-is-help',
+      _selectEnglish: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'en'});
+        localStorage.setItem("selectedLanguage", 'en');
+      }
     });
   </script>
 </dom-module>
