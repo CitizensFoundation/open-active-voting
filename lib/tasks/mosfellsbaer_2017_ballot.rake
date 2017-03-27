@@ -118,5 +118,9 @@ namespace :mosfellsbaer_2017_ballot do
     mosfellsbaer.save
 
     import_moso_area_data(mosfellsbaer.id, budget_data, 2)
+
+    config = BudgetConfig.first
+    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=fe7d5f61-84b1-47cb-b057-ec0f3f12b6d0&returnUrl=%20https%3A%2F%2Fkosning.mos.is%2Fauthenticate_from_island_is"
+    config.save
   end
 end
