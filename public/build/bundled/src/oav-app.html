@@ -11128,7 +11128,7 @@ in every element that needs to use them.
 
   Sample use:
 
-      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.10.4">
+      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.10.5">
       <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
 
       <div class="layout horizontal layout-start">
@@ -15319,7 +15319,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.10.4">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.10.5">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -15327,7 +15327,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.10.4">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.10.5">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -18213,7 +18213,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.10.4" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.10.5" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -20850,8 +20850,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.10.4">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.10.4">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.10.5">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.10.5">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -21757,7 +21757,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.10.4" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.10.5" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -30640,14 +30640,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.4">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.5">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.10.4">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.10.5">
    * ```
    *
    * ### Consuming effects
@@ -31418,7 +31418,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.4">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.5">
 ```
 
 #### List of effects
@@ -32846,10 +32846,18 @@ Custom property | Description | Default
           .infoHeader {
               line-height: normal;
           }
+
+          .langSelection {
+              cursor: pointer;
+          }
+
       </style>
       <h1 class="infoHeader">Okkar Mosó 2017 - Upplýsingar</h1>
+      <div class="langSelection layout horizontal center-center">
+          <div on-tap="_selectEnglish">English</div>
+      </div>
       <ul>
-          <li>Kosning Okkar Mosó er opin frá og með 30.mars til 10.apríl. Þátttaka er opin öllum sem verða að lágmarki 16 ára á árinu 2017 og hafa lögheimili í Mosfellsbæ þegar kosningin fer fram.</li>
+          <li>Kosning Okkar Mosó er opin frá og með 30. mars til 10. apríl. Þátttaka er opin öllum sem verða að lágmarki 16 ára á árinu 2017 og hafa lögheimili í Mosfellsbæ þegar kosningin fer fram.</li>
           <li>Hægt er að kjósa áfram hugmyndir fyrir að hámarki 25 milljónir sem varið er til verkefnisins.</li>
           <li>Kosning fer fram á vefsvæði þar sem íbúi auðkennir sig með öruggum hætti og verður atkvæði hans dulkóðað. Því er ekki hægt að tengja atkvæði við einstaklinga.</li>
           <li>Ekki er um að ræða íbúakosningu í skilningi 107. gr. sveitarstjórnarlaga nr. 138 frá 2011.</li>
@@ -32866,7 +32874,11 @@ Custom property | Description | Default
   </template>
   <script>
     Polymer({
-      is: 'hm-2016-is-help'
+      is: 'hm-2016-is-help',
+      _selectEnglish: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'en'});
+        localStorage.setItem("selectedLanguage", 'en');
+      }
     });
   </script>
 </dom-module>
@@ -32876,8 +32888,15 @@ Custom property | Description | Default
           .infoHeader {
               line-height: normal;
           }
+
+          .langSelection {
+              cursor: pointer;
+          }
       </style>
       <h1 class="infoHeader">Okkar Mosó 2017 - Information</h1>
+      <div class="langSelection layout horizontal center-center">
+          <div on-tap="_selectIcelandic">Íslenska</div>
+      </div>
       <ul>
           <li>The election of Okkar Mosó is open from March 30th to 10th of april. Participation is open to all who have a minimum age of 16 in 2017 and domiciled in Mosfellsbær at the time of election.</li>
           <li>Participants can vote on ideas for a maximum of the 25 million devoted to the project.</li>
@@ -32896,7 +32915,11 @@ Custom property | Description | Default
   </template>
   <script>
     Polymer({
-      is: 'hm-2016-en-help'
+      is: 'hm-2016-en-help',
+      _selectIcelandic: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'is'});
+        localStorage.setItem("selectedLanguage", 'is');
+      }
     });
   </script>
 </dom-module>
