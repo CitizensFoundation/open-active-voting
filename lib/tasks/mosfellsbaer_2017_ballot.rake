@@ -124,7 +124,7 @@ namespace :mosfellsbaer_2017_ballot do
     end
     config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=fe7d5f61-84b1-47cb-b057-ec0f3f12b6d0&returnUrl=%20https%3A%2F%2Fkosning.mos.is%2Fauthenticate_from_island_is"
     config.timeout_in_seconds = 600
-    config.saml_idp_cert_fingerprint = "3D:EE:51:23:24:AA:E1:7B:47:1C:D3:04:32:B3:86:3A:46:74:DA:83"
+    config.saml_idp_cert_fingerprint = "54:54:6C:A2:93:D0:AF:BF:11:5D:7C:8B:DC:4C:72:12:C8:99:80:95"
     config.save(:validate=>false)
   end
 end
