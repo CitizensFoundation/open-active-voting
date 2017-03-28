@@ -5,7 +5,7 @@ require "csv"
 require 'net/http'
 require 'net/https'
 
-# docker run --net=host -e "RAILS_ENV=production" -e "infile=/var/import/oav_mosfellsbaer_2017_ballot_data_v_1.csv"  -v /root/open-active-voting:/home/app/oav_website -v /root/import:/var/import yrpri/oav4.6.14 /bin/sh -c "cd /home/app/oav_website;rake mosfellsbaer_2017_ballot:reset_votes_all_ballot_data_from_csv"
+# docker run --net=host -e "RAILS_ENV=production" -e "infile=/var/import/okkarmosov1.csv"  -v /root/open-active-voting:/home/app/oav_website -v /root/import:/var/import oav2 /bin/sh -c "cd /home/app/oav_website;bundle exec rake db:drop;bundle exec rake db:create;bundle exec rake db:schema:load;bundle exec rake mosfellsbaer_2017_ballot:reset_votes_get_ballot_data_from_csv"
 
 class Array
   def shuffle
@@ -27,22 +27,22 @@ namespace :mosfellsbaer_2017_ballot do
     price = price.gsub(' kr.','')
     price = price.to_f / 1000000.0
     puts price
-    locations = budget_data[row_number][8]
+    locations = budget_data[row_number][5]
     puts locations
 
-    if budget_data[row_number][9]
-      puts budget_data[row_number][9]
-      locations = "#{locations},#{budget_data[row_number][9]}"
+    if budget_data[row_number][6]
+      puts budget_data[row_number][6]
+      locations = "#{locations},#{budget_data[row_number][6]}"
     end
 
-    description_is = budget_data[row_number][10]
+    description_is = budget_data[row_number][7]
     puts description_is
 
-    name_en = budget_data[row_number][15]
+    name_en = budget_data[row_number][9]
     puts name_en
 
-    description_en =  budget_data[row_number][16]
-    idea_url =  budget_data[row_number][17]
+    description_en =  budget_data[row_number][10]
+    idea_url =  budget_data[row_number][11]
     puts idea_url
 
     puts "IDEA iD #{idea_id}"
@@ -118,9 +118,13 @@ namespace :mosfellsbaer_2017_ballot do
     mosfellsbaer.save
 
     import_moso_area_data(mosfellsbaer.id, budget_data, 2)
-
     config = BudgetConfig.first
+    unless config
+      config = BudgetConfig.new
+    end
     config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=fe7d5f61-84b1-47cb-b057-ec0f3f12b6d0&returnUrl=%20https%3A%2F%2Fkosning.mos.is%2Fauthenticate_from_island_is"
-    config.save
+    config.timeout_in_seconds = 600
+    config.saml_idp_cert_fingerprint = "3D:EE:51:23:24:AA:E1:7B:47:1C:D3:04:32:B3:86:3A:46:74:DA:83"
+    config.save(:validate=>false)
   end
 end
