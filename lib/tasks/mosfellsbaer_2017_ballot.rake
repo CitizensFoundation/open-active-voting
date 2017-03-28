@@ -97,6 +97,14 @@ namespace :mosfellsbaer_2017_ballot do
     end
   end
 
+  desc "Clear all votes"
+  task(:empty_ballot_box => :environment) do
+    puts "Before: #{Vote.count}"
+    Vote.delete_all
+    FinalSplitVote.delete_all
+    puts "After: #{Vote.count}"
+  end
+
   desc "Reset All Ballot Data from CSV"
   task(:reset_votes_get_ballot_data_from_csv => :environment) do
 
