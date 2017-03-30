@@ -274,7 +274,7 @@
         <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button hidden$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
-        <paper-icon-button title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
+        <paper-icon-button hidden title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
@@ -285,9 +285,9 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
-          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
-          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[formatNumber(item.price)]]
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">GBP</span>
+          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">GBP</span>
         </div>
         <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
