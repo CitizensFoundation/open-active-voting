@@ -34,14 +34,30 @@ class VotesController < ApplicationController
   # This is a test method for load testing to allow load testing without the secure authentication
   def force_session_id
     if ENV["LOAD_TESTING_MODE"]=="true"
-      session[:have_authenticated_and_been_approved] = true
-      Rails.cache.write(request.session_options[:id],request.session_options[:id])
+      VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => request.session_options[:id])
     end
 
      respond_to do |format|
        format.json { render :json => [:ok => true ]}
      end
   end
+
+
+  # This is a method for running pilots with insecure client authentication
+  def insecure_email_login
+    ok = false
+    if ENV["INSECURE_CLIENT_AUTHENTICATION"]=="true" and params[:email] and params[:email].length>4
+      VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => params[:email])
+      Rails.logger.warning("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
+      ok = true
+    end
+
+    respond_to do |format|
+      format.json { render :json => [:ok => ok]}
+    end
+  end
+
+
 
   # Logout and reset the session
   def logout
@@ -128,31 +144,39 @@ class VotesController < ApplicationController
   # Encrypted vote posted by the user
   def post_vote
     # Try to read the vote identity and redirect to authentication error if not found
-    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id]) and session[:have_authenticated_and_been_approved]==true
+    if request.session_options[:id]
 
-      # Create an encrypted checksum
-      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
+      voter_identity_session = VoterIdentitySession.where(:session_id=>request.session_options[:id]).first
 
-      # Save the vote to the database
-      if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:encrypted_vote],
-                     :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
-                     :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+      if voter_identity_session and voter_identity_session.voter_identity and voter_identity_session.voter_identity != ""
+        voter_identity_hash = voter_identity_session.voter_identity
+        # Create an encrypted checksum
+        encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
 
-        # Count how many times this particular voter has voted
-        vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
-        Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
+        # Save the vote to the database
+        if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:encrypted_vote],
+                       :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
+                       :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+
+          # Count how many times this particular voter has voted
+          vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
+          Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
+          response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
+        else
+          Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
+          response = {:error=>true, :vote_ok=>false}
+        end
       else
-        Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
+        Rails.logger.error("Could not find session id: #{request.session_options[:id]}")
         response = {:error=>true, :vote_ok=>false}
       end
+      voter_identity_session.delete
+      reset_session
     else
       response = {:error=>true, :vote_ok=>false}
       Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
     end
 
-    Rails.cache.write(request.session_options[:id], nil)
-    reset_session
 
     respond_to do |format|
       format.json { render :json => response }
@@ -222,9 +246,9 @@ class VotesController < ApplicationController
 
       # Write the national identity hash to memcache under our session id
       if national_identity_hash and national_identity_hash!=""
-        session[:have_authenticated_and_been_approved] = true
-        Rails.cache.write(request.session_options[:id], national_identity_hash)
+        VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => national_identity_hash)
       end
+
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
 
       update_activity_time

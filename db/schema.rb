@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016003455) do
+ActiveRecord::Schema.define(version: 20170330170937) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "resource_id",   limit: 255,   null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
   end
 
   create_table "config", force: :cascade do |t|
-    t.string   "rsk_url",                             limit: 255,                   null: true
+    t.string   "rsk_url",                             limit: 255
     t.integer  "timeout_in_seconds",                  limit: 4,                     null: false
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
@@ -147,6 +147,15 @@ ActiveRecord::Schema.define(version: 20161016003455) do
 
   add_index "saml_assertions", ["assertion_id"], name: "index_saml_assertions_on_assertion_id", using: :btree
 
+  create_table "voter_identity_sessions", force: :cascade do |t|
+    t.string   "voter_identity", limit: 255, null: false
+    t.string   "session_id",     limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "voter_identity_sessions", ["session_id"], name: "index_voter_identity_sessions_on_session_id", using: :btree
+
   create_table "votes", force: :cascade do |t|
     t.integer  "area_id",                 limit: 4,     null: false
     t.string   "user_id_hash",            limit: 255,   null: false
@@ -156,6 +165,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.datetime "updated_at"
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
+    t.text     "client_user_agent",       limit: 65535
   end
 
   add_index "votes", ["area_id"], name: "index_votes_on_area_id", using: :btree
