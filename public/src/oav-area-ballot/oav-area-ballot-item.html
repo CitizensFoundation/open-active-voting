@@ -109,11 +109,11 @@
       width: 300px;
       overflow: hidden;
       margin-bottom: 7px;
-      background-color: #66c7db;
+      background-color: #1794b2;
       font-size: 18px;
       color: #FFF;
       font-weight: bold;
-      text-align: right;
+      text-align: justify;
       padding-right: 4px;
     }
 
@@ -285,8 +285,8 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[formatNumber(item.price)]]
-          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">GBP</span>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">£[[formatNumber(item.price)]]
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]"></span>
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]"></span>
         </div>
         <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
