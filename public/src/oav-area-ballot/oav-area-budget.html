@@ -215,15 +215,15 @@
             </template>
             <template is="dom-if" if="[[selectedBudget]]">
               <div hidden$="[[!selectedBudgetIsOne]]">
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudgetFormatted)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudgetFormatted)}}</div>
               </div>
               <div hidden$="[[selectedBudgetIsOne]]">
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudgetFormatted)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudgetFormatted)}}</div>
               </div>
             </template>
-            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
+            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeftFormatted)}}</div>
           </div>
           <div class="">
             <paper-button id="votingButton" raised class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
@@ -273,6 +273,11 @@
           value: 0
         },
 
+        selectedBudgetFormatted: {
+          type: String,
+          computed: '_selectedBudgetFormatted(selectedBudget)'
+        },
+
         totalBudget: {
           type: Number
         },
@@ -280,6 +285,11 @@
         budgetLeft: {
           type: Number,
           computed: '_budgetLeft(selectedBudget, totalBudget)'
+        },
+
+        budgetLeftFormatted: {
+          type: String,
+          computed: '_budgetLeftFormatted(budgetLeft)'
         },
 
         selectedBudgetIsOne: {
@@ -303,6 +313,18 @@
         },
 
         currentBallot: Object
+      },
+
+      _budgetLeftFormatted: function (value) {
+        if (value) {
+          return this.formatNumber(value)
+        }
+      },
+
+      _selectedBudgetFormatted: function (value) {
+        if (value) {
+          return this.formatNumber(value)
+        }
       },
 
       observers: [

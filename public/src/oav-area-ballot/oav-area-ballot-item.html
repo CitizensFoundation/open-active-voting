@@ -133,7 +133,7 @@
 
     .description {
       padding: 8px;
-      font-size: 17px;
+      font-size: 14px;
     }
 
     .name {
@@ -287,7 +287,7 @@
       <div class="buttons">
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[formatNumber(item.price)]]
           <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">GBP</span>
-          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">GBP</span>
+          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]"></span>
         </div>
         <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>

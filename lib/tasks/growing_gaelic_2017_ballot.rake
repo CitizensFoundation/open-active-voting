@@ -15,14 +15,14 @@ end
 
 namespace :growing_gaelic_2017_ballot do
 
-  def create_budget_moso_ballot_item(area_id, budget_data, row_number)
+  def create_budget_gaelic_ballot_item(area_id, budget_data, row_number)
     idea_id = budget_data[row_number][0]
     puts "HELLO"
     puts idea_id
     puts budget_data[row_number]
     price = budget_data[row_number][3]
     price = price.gsub(',','')
-    price = price.gsub(' kr.','')
+    price = price.gsub('£','')
     puts price
 
     name_en = budget_data[row_number][2]
@@ -55,7 +55,7 @@ namespace :growing_gaelic_2017_ballot do
     item = BudgetBallotItem.create!(:price=>price,
                                     :idea_id=>idea_id,
                                     :budget_ballot_area_id=>area_id,
-                                    :locations=>locations,
+                                    :locations=>nil,
                                     :image_url=>image_url,
                                     :idea_url=>idea_url)
 
