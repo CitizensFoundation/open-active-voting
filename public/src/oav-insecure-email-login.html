@@ -198,11 +198,10 @@
     },
 
     _checkedChanged: function (event, detail) {
-      debugger;
+
     },
 
     _confirmedChanged: function (value) {
-      debugger;
     },
 
     setUserSpinner: function (value) {
@@ -231,7 +230,6 @@
     },
 
     _validateAndSend: function(e) {
-      debugger;
       if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
         if (this.isValidPostcode(this.postCode)) {
           this.$$("#loginAjax").body = {email: this.email.toLowerCase() };

@@ -41,14 +41,14 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://yrpri6-production.s3.amazonaws.com/DL/q9/qQ-large.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3_with_logo.jpg");
       background-repeat: repeat-x;
     }
 
     @media (max-width: 600px) {
       .mainContainer {
         background-image: none;
-        background-color: #e0e0e0;
+        background-color: #1794b2;
       }
     }
 
@@ -82,9 +82,7 @@
     }
 
     .logoHolder {
-      background-color: #a0a0a0;
-      padding-bottom: 8px;
-      padding-top: 8px;
+      background-color: #1794b2;
     }
 
     .completedText {
@@ -106,18 +104,18 @@
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
         <div class="layout horizontal center-center">
-          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_mosfellsbaer_2017/OkkarMoso_Transparent.png"></iron-image>
+            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
             <div class="smaller">{{localize('thank_you_2')}}</div>
             <div class="smaller">{{localize('thank_you_3')}}</div>
             <div id="textWithFacebook">
-              <div class="fb-like" data-href="https://kosning.mos.is/"
+              <div class="fb-like" data-href="https://vote.abpb.co.uk/"
                    data-layout="button_count" data-action="like" data-size="large"
                    data-show-faces="false" data-share="true">
               </div>
