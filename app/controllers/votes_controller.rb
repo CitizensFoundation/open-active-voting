@@ -48,7 +48,7 @@ class VotesController < ApplicationController
     ok = false
     if ENV["INSECURE_CLIENT_AUTHENTICATION"]=="true" and params[:email] and params[:email].length>4
       VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => params[:email])
-      Rails.logger.warning("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
+      Rails.logger.warn("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
       ok = true
     end
 

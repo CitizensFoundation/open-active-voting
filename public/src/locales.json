@@ -1,9 +1,9 @@
 {
   "en": {
     "enterValidPostcode": "Please enter valid Argyll & Bute postcode",
-    "completeForm": "Please complete the form",
+    "completeForm": "Please complete the form with a valid email address and confirm your age",
     "authenticateAndVote": "Authenticate and vote",
-    "loginWithEmailAndPostCode": "Your information",
+    "loginWithEmailAndPostCode": "Please confirm recidency of Argyll & Bute",
     "userEmail": "Email",
     "postCode": "Argyll & Bute postcode",
     "confirmedSixteen": "Please confirm that you are 16 years or older",

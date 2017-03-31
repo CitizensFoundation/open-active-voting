@@ -7,6 +7,7 @@
 
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
@@ -40,17 +41,6 @@
         z-index: 9999;
       }
 
-      re-captcha {
-        padding-top: 28px;
-        padding-bottom: 28px;
-      }
-
-      .socialMediaLogin {
-        padding-top: 24px;
-        padding-bottom: 8px;
-        cursor: pointer;
-      }
-
       @media (max-width: 480px) {
         paper-dialog {
           padding: 0;
@@ -74,6 +64,13 @@
       .buttons {
         margin-left: 0;
         padding-left: 0;
+        color: var(--app-accent-color);
+        font-size: 18px;
+        padding-top: 8px;
+      }
+
+      .checkBox {
+        margin-top: 16px;
       }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
@@ -97,15 +94,15 @@
                          type="text"
                          label="[[localize('postCode')]]"
                          value="{{postCode}}"
-                         pattern="[[postCodeValidationPattern]]"
                          maxlength="8">
             </paper-input>
 
-            <paper-checkbox name="confirmedSixteen" checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
+            <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen"
+                            checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
           <div class="buttons">
-            <oav-ajax id="loginAjax" dispatch-error on-error="_loginError" method="POST" url="/api/users/login" on-response="_loginResponse"></oav-ajax>
+            <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
             <paper-button autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
           </div>
         </paper-dialog>
@@ -126,6 +123,7 @@
 
     behaviors: [
       Polymer.appHelpers,
+      Polymer.postCodesBehavior,
       Polymer.AppLocalizeBehavior
     ],
 
@@ -143,8 +141,9 @@
 
       confirmedSixteen: {
         type: Boolean,
-        value: false
-      }
+        value: false,
+        observer: '_confirmedChanged'
+      },
 
       postCodeValidationPattern: {
         type: String,
@@ -198,6 +197,14 @@
       }
     },
 
+    _checkedChanged: function (event, detail) {
+      debugger;
+    },
+
+    _confirmedChanged: function (value) {
+      debugger;
+    },
+
     setUserSpinner: function (value) {
       this.set('userSpinner', value)
     },
@@ -221,13 +228,13 @@
 
     setup: function (onLoginFunction) {
       this.set('onLoginFunction', onLoginFunction);
-      this._setTexts();
     },
 
     _validateAndSend: function(e) {
-      if (this.$$("#form").checkValidity() && this.email && this.postCode) {
+      debugger;
+      if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
         if (this.isValidPostcode(this.postCode)) {
-          this.$$("#loginAjax").body = {email: this.email };
+          this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
           this.$$("#loginAjax").generateRequest();
           return true;
         } else {
@@ -245,15 +252,8 @@
     },
 
     _loginCompleted: function (user) {
-      if (this.redirectTo)
-        this.redirectTo(this.redirectTo);
-      this.fire("login", user);
-      if (this.onLoginFunction) {
-        this.onLoginFunction(user);
-      } else {
-        window.appUser.setLoggedInUser(user);
-      }
-      this.fire('iron-signal', {name: 'logged-in', data: user});
+      this.onLoginFunction(user);
+      this.close();
     },
 
     open: function(redirectTo) {
@@ -266,7 +266,6 @@
           this.$$("#dialog").open();
         });
       });
-      window.appGlobals.sendLoginAndSignupToAnalytics(null, 'Signup/Login Opened', 'Undecided');
     },
 
     close: function() {

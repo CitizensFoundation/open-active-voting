@@ -329,21 +329,32 @@
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          if (this._isInAppiOSOrIE11()) {
-            localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
-            localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
-            window.location = this._getSamlUrlWithLanguage();
+          if (false) {
+            if (this._isInAppiOSOrIE11()) {
+              localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
+              localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
+              window.location = this._getSamlUrlWithLanguage();
+            } else {
+              var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+              dialog.open();
+              this._openSamlLogin();
+              this.set('isPollingForLogin', true);
+              this._pollForLoginAjax();
+            }
           } else {
-            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("oavInsecureEmailLogin");
+            dialog.setup(this._insecureEmailLoginCompleted.bind(this));
             dialog.open();
-            this._openSamlLogin();
-            this.set('isPollingForLogin', true);
-            this._pollForLoginAjax();
           }
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
         }
+      },
+
+      _insecureEmailLoginCompleted: function () {
+        this.cancelLoginPolling();
+        this.completePostingOfVote(this._createEncryptedVotes());
       },
 
       _isInAppiOSOrIE11: function () {

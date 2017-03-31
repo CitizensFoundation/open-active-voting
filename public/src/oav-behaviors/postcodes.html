@@ -17,7 +17,7 @@
     },
 
     isValidPostcode: function (postCode) {
-      postCode = postCode.replace(/\s/g, "_").toUpperCase();
+      postCode = postCode.replace(/\s/g, "").toUpperCase();
       return (this.postCodes.indexOf(postCode) > -1)
     }
   };
