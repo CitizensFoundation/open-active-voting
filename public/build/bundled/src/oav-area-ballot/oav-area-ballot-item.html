@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.9">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.10">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.10.9">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.9">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.10.10">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.10">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.9">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.9">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.10">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.10">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.9">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.10.9">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.9">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.10.9">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.10">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.10.10">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.10">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.10.10">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.9">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.9">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.10">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.10">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.10.9">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.10.9">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.10.10">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.10.10">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.9">
-<link rel="import" href="oav-area-budget.html?v=5.10.9">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.10">
+<link rel="import" href="oav-area-budget.html?v=5.10.10">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -133,7 +133,7 @@
 
     .description {
       padding: 8px;
-      font-size: 17px;
+      font-size: 14px;
     }
 
     .name {
@@ -274,7 +274,7 @@
         <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button hidden$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
-        <paper-icon-button title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
+        <paper-icon-button hidden="" title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
       <div class="layout horizontal">
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
@@ -285,9 +285,9 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
-          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
-          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[formatNumber(item.price)]]
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">GBP</span>
+          <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]"></span>
         </div>
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>

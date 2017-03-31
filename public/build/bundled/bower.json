@@ -38,7 +38,8 @@
     "lodash-import": "~0.0.2",
     "paper-card": "polymerelements/paper-card#1.1.2",
     "google-streetview-pano": "https://github.com/rbjarnason/google-streetview-pano.git#timings-fix-maps-api-callback",
-    "lodash": "*"
+    "lodash": "*",
+    "paper-checkbox": "^1.4.2"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
