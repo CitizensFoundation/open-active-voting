@@ -121,6 +121,16 @@
         height: 52px;
       }
 
+      paper-icon-button.largeButtonGo {
+        width: 46px;
+        height: 46px;
+        margin-top: 3px;
+        margin-left: 4px;
+        color: #444;
+      }
+
+
+
       .debate-icon::shadow #icon {
         padding-bottom: 0px;
         margin-top: 4px;
@@ -198,6 +208,10 @@
         <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.down_vote')]]" icon$="[[endorseModeIcon(endorseMode,'down')]]" class="action-icon down-vote-icon largeButton" on-tap="downVote"></paper-icon-button>
         <div class="action-text down-text">{{formatNumber(post.counter_endorsements_down)}}</div>
       </div>
+
+      <div id="actionGo" class="action-down">
+        <paper-icon-button title="Open in Your Priorites" icon="open-in-new" class="largeButtonGo" on-tap="goToPost"></paper-icon-button>
+      </div>
     </paper-material>
 
   </template>
@@ -257,6 +271,10 @@
         },
 
         floating: Boolean
+      },
+
+      goToPost: function () {
+        window.open("https://argyll-bute.yrpri.org/post/"+this.post.id, "_blank");
       },
 
       _toggleShare: function () {
