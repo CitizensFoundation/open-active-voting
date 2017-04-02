@@ -247,6 +247,10 @@
     paper-fab {
       z-index: 5;
     }
+
+    .withPointer {
+      cursor: pointer;
+    }
   </style>
 
   <template>
@@ -271,13 +275,13 @@
         </div>
       </div>
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
-        <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
-        <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
+        <paper-icon-button raised title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
+        <paper-icon-button raised title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
         <paper-icon-button hidden$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
         <paper-icon-button hidden title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
       </div>
-      <div class="layout horizontal">
-        <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
+      <div class="layout horizonta withPointer" on-tap="_showPost">
+        <div class="name" small$="[[small]]" on-tap="_showPost" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">

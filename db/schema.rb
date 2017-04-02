@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20170330170937) do
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
     t.text     "client_user_agent",       limit: 65535
+    t.string   "user_postcode",           limit: 255,   null: true
   end
 
   add_index "votes", ["area_id"], name: "index_votes_on_area_id", using: :btree
