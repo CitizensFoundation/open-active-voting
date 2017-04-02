@@ -50,6 +50,8 @@ class VotesController < ApplicationController
       VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => params[:email])
       Rails.logger.warn("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
       ok = true
+    else
+      Rails.logger.error("Trying to post to insecure_email_login without INSECURE_CLIENT_AUTHENTICATION being set")
     end
 
     respond_to do |format|
