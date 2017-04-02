@@ -72,13 +72,24 @@
       .checkBox {
         margin-top: 16px;
       }
+
+      paper-input {
+        --paper-input-container-focus-color: var(--app-accent-color);
+      }
+
+      paper-checkbox {
+        --paper-checkbox-checked-color: var(--app-accent-color);
+        padding-top: 8px;
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <div id="outer">
       <template is="dom-if" if="[[opened]]" restamp>
         <paper-dialog id="dialog" with-backdrop>
-          <h3>[[localize('loginWithEmailAndPostCode')]]</h3>
+          <div class="layout horizontal center-center">
+            <h2>[[localize('loginWithEmailAndPostCode')]]</h2>
+          </div>
 
           <form is="iron-form" id="form">
             <paper-input id="email"
@@ -101,7 +112,7 @@
                             checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
-          <div class="buttons">
+          <div class="buttons layout vertical">
             <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
             <paper-button autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
           </div>
