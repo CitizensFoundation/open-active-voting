@@ -352,9 +352,9 @@
         }
       },
 
-      _insecureEmailLoginCompleted: function () {
+      _insecureEmailLoginCompleted: function (user, userPostCode) {
         this.cancelLoginPolling();
-        this.completePostingOfVote(this._createEncryptedVotes());
+        this.completePostingOfVote(this._createEncryptedVotes(), null, userPostCode);
       },
 
       _isInAppiOSOrIE11: function () {
@@ -394,7 +394,7 @@
         return this.encryptVote(selectedItemIds);
       },
 
-      completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
+      completePostingOfVote: function (encryptedVotes, localStorageAreaId, userPostCode) {
         if (!encryptedVotes) {
           encryptedVotes = this._createEncryptedVotes();
         }
@@ -413,7 +413,7 @@
           if (this.isSendingBallot===false && this.haveSentBallot===false) {
             var encryptedVote = encryptedVotes;
             if (encryptedVote) {
-              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
+              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId, user_postcode: userPostCode};
               this.$.postBallotAjax.generateRequest();
               this.set('isSendingBallot', true);
               this.set('haveSentBallot', true);

@@ -154,18 +154,24 @@ class VotesController < ApplicationController
         # Create an encrypted checksum
         encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
 
+        Rails.logger.info("Encrypted_vote_checksum: #{encrypted_vote_checksum} i #{voter_identity} p #{params[:user_postcode]} #{request.user_agent}")
+
         # Save the vote to the database
         if Vote.create(:user_id_hash => voter_identity, :payload_data => params[:encrypted_vote],
                        :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
                        :client_user_agent => request.user_agent,
+                       :user_postcode => params[:user_postcode],
                        :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+
+          Rails.logger.info("Saved vote for session id: #{request.session_options[:id]} voter: #{voter_identity}")
 
           voter_identity_session.delete
           reset_session
 
           # Count how many times this particular voter has voted
           vote_count = Vote.where(:user_id_hash=>voter_identity).count
-          Rails.logger.info("Saved vote for session id: #{request.session_options[:id]} voter: #{voter_identity}")
+
+
           response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
         else
           Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
