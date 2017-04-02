@@ -1,25 +1,25 @@
-<html><head><link rel="import" href="../bower_components/polymer/polymer.html?v=5.10.12">
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html?v=5.10.13">
 
-<link rel="import" href="../bower_components/iron-form/iron-form.html?v=5.10.12">
-<link rel="import" href="../bower_components/iron-signals/iron-signals.html?v=5.10.12">
+<link rel="import" href="../bower_components/iron-form/iron-form.html?v=5.10.13">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html?v=5.10.13">
 
-<link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html?v=5.10.12">
+<link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html?v=5.10.13">
 
-<link rel="import" href="../bower_components/paper-input/paper-input.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-button/paper-button.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-material/paper-material.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html?v=5.10.12">
-<link rel="import" href="../bower_components/paper-toast/paper-toast.html?v=5.10.12">
+<link rel="import" href="../bower_components/paper-input/paper-input.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-button/paper-button.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-material/paper-material.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html?v=5.10.13">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html?v=5.10.13">
 
-<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.10.12">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.10.13">
 
-<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html?v=5.10.12">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html?v=5.10.13">
 
-<link rel="import" href="oav-behaviors/app-helpers.html?v=5.10.12">
-<link rel="import" href="oav-behaviors/postcodes.html?v=5.10.12">
-<link rel="import" href="oav-ajax/oav-ajax.html?v=5.10.12">
+<link rel="import" href="oav-behaviors/app-helpers.html?v=5.10.13">
+<link rel="import" href="oav-behaviors/postcodes.html?v=5.10.13">
+<link rel="import" href="oav-ajax/oav-ajax.html?v=5.10.13">
 
 
 <!-- THIS WEB COMPONENT IS ONLY TO BE USED IN SMALL PILOT PROJECTS WITH SMALL AMOUNTS OF TAXPAYER MONEY
@@ -72,13 +72,24 @@
       .checkBox {
         margin-top: 16px;
       }
+
+      paper-input {
+        --paper-input-container-focus-color: var(--app-accent-color);
+      }
+
+      paper-checkbox {
+        --paper-checkbox-checked-color: var(--app-accent-color);
+        padding-top: 8px;
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <div id="outer">
       <template is="dom-if" if="[[opened]]" restamp="">
         <paper-dialog id="dialog" with-backdrop="">
-          <h3>[[localize('loginWithEmailAndPostCode')]]</h3>
+          <div class="layout horizontal center-center">
+            <h2>[[localize('loginWithEmailAndPostCode')]]</h2>
+          </div>
 
           <form is="iron-form" id="form">
             <paper-input id="email" type="text" label="[[localize('userEmail')]]" value="{{email}}" minlength="5" pattern="[[emailValidationPattern]]" error-message="[[emailErrorMessage]]">
@@ -90,7 +101,7 @@
             <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen" checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
-          <div class="buttons">
+          <div class="buttons layout vertical">
             <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
             <paper-button autofocus="" on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
           </div>

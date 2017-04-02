@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.12">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.12">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.12">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.10.12">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.12">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.12">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.10.13">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.10.12">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.10.12">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.10.13">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.10.13">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.12">
-<link rel="import" href="oav-area-budget.html?v=5.10.12">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.10.13">
+<link rel="import" href="oav-area-budget.html?v=5.10.13">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -258,7 +258,7 @@
     <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
     <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
-      <div class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
+      <div on-tap="_toggleDescription" class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
       <div>
         <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <template is="dom-if" if="[[mapTabSelected]]" restamp="">
@@ -273,7 +273,7 @@
             [[item.description]]
           </div>
         </div>
-      </div>
+      
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
         <paper-icon-button raised="" title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button raised="" title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
@@ -296,8 +296,8 @@
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
-    </paper-material>
-  </template>
+    
+  </div></paper-material></template>
 </dom-module>
 
 <script>
@@ -424,6 +424,16 @@
           }
         }
         this._setImageMode();
+      },
+
+      _toggleDescription: function () {
+        if (this.imageTabSelected) {
+          this.set('imageTabSelected', false);
+          this.set('descriptionTabSelected', true);
+        } else {
+          this.set('imageTabSelected', true);
+          this.set('descriptionTabSelected', false);
+        }
       },
 
       _setImageMode: function () {

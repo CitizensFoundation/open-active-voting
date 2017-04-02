@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.12"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="maps" size="24">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.13"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="maps" size="24">
 <svg><defs>
 <g id="add-location"><path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm4 8h-3v3h-2v-3H8V8h3V5h2v3h3v2z"></path></g>
 <g id="beenhere"><path d="M19 1H5c-1.1 0-1.99.9-1.99 2L3 15.93c0 .69.35 1.3.88 1.66L12 23l8.11-5.41c.53-.36.88-.97.88-1.66L21 3c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"></path></g>
@@ -301,7 +301,7 @@
     <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
     <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
-      <div class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
+      <div on-tap="_toggleDescription" class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
       <div>
         <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <template is="dom-if" if="[[mapTabSelected]]" restamp="">
@@ -316,7 +316,7 @@
             [[item.description]]
           </div>
         </div>
-      </div>
+      
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
         <paper-icon-button raised="" title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button raised="" title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
@@ -339,8 +339,8 @@
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
       </div>
-    </paper-material>
-  </template>
+    
+  </div></paper-material></template>
 </dom-module>
 
 <script>
@@ -467,6 +467,16 @@
           }
         }
         this._setImageMode();
+      },
+
+      _toggleDescription: function () {
+        if (this.imageTabSelected) {
+          this.set('imageTabSelected', false);
+          this.set('descriptionTabSelected', true);
+        } else {
+          this.set('imageTabSelected', true);
+          this.set('descriptionTabSelected', false);
+        }
       },
 
       _setImageMode: function () {

@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.12"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.13"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -28,8 +28,15 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3_with_logo.jpg");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3-with-logo-2.jpg");
       background-repeat: repeat-x;
+    }
+
+
+    @media (max-width: 1350px) {
+      .mainContainer {
+        background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3.jpg");
+      }
     }
 
     @media (max-width: 600px) {

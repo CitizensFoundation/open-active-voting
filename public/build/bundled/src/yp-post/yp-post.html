@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.12"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="communication" size="24">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.10.13"></head><body><div hidden="" by-vulcanize=""><iron-iconset-svg name="communication" size="24">
 <svg><defs>
 <g id="business"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"></path></g>
 <g id="call"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></g>
@@ -264,6 +264,16 @@
         height: 52px;
       }
 
+      paper-icon-button.largeButtonGo {
+        width: 46px;
+        height: 46px;
+        margin-top: 3px;
+        margin-left: 4px;
+        color: #444;
+      }
+
+
+
       .debate-icon::shadow #icon {
         padding-bottom: 0px;
         margin-top: 4px;
@@ -341,6 +351,10 @@
         <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.down_vote')]]" icon$="[[endorseModeIcon(endorseMode,'down')]]" class="action-icon down-vote-icon largeButton" on-tap="downVote"></paper-icon-button>
         <div class="action-text down-text">{{formatNumber(post.counter_endorsements_down)}}</div>
       </div>
+
+      <div id="actionGo" class="action-down">
+        <paper-icon-button title="Open in Your Priorites" icon="open-in-new" class="largeButtonGo" on-tap="goToPost"></paper-icon-button>
+      </div>
     </paper-material>
 
   </template>
@@ -400,6 +414,10 @@
         },
 
         floating: Boolean
+      },
+
+      goToPost: function () {
+        window.open("https://argyll-bute.yrpri.org/post/"+this.post.id, "_blank");
       },
 
       _toggleShare: function () {
@@ -3199,12 +3217,12 @@ Custom property | Description | Default
       .topContainer {
         padding-top: 24px;
         background-color: #e0e0e0;
-        background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3_with_logo.jpg");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3-with-logo-2.jpg");
         background-repeat: repeat-x;
       }
 
 
-      @media (max-width: 1100px) {
+      @media (max-width: 1350px) {
         .topContainer {
           background-image: url("https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3.jpg") !important;
         }

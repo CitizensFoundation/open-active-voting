@@ -1,19 +1,19 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.12">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.10.12">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/iron-icons/notification-icons.html?v=5.10.12">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.12">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.12">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/iron-icons/notification-icons.html?v=5.10.13">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.10.13">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.10.13">
 
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.10.12">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=5.10.13">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.12">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=5.10.13">
 
 </head><body><dom-module id="yp-post-actions">
 
@@ -121,6 +121,16 @@
         height: 52px;
       }
 
+      paper-icon-button.largeButtonGo {
+        width: 46px;
+        height: 46px;
+        margin-top: 3px;
+        margin-left: 4px;
+        color: #444;
+      }
+
+
+
       .debate-icon::shadow #icon {
         padding-bottom: 0px;
         margin-top: 4px;
@@ -198,6 +208,10 @@
         <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.down_vote')]]" icon$="[[endorseModeIcon(endorseMode,'down')]]" class="action-icon down-vote-icon largeButton" on-tap="downVote"></paper-icon-button>
         <div class="action-text down-text">{{formatNumber(post.counter_endorsements_down)}}</div>
       </div>
+
+      <div id="actionGo" class="action-down">
+        <paper-icon-button title="Open in Your Priorites" icon="open-in-new" class="largeButtonGo" on-tap="goToPost"></paper-icon-button>
+      </div>
     </paper-material>
 
   </template>
@@ -257,6 +271,10 @@
         },
 
         floating: Boolean
+      },
+
+      goToPost: function () {
+        window.open("https://argyll-bute.yrpri.org/post/"+this.post.id, "_blank");
       },
 
       _toggleShare: function () {
