@@ -67,6 +67,10 @@ namespace :growing_gaelic_2017_ballot do
     item.name = name_en
     item.description = description_en
     item.save
+    I18n.locale = "is"
+    item.name = name_en
+    item.description = description_en
+    item.save
     puts "========================================================="
   end
 

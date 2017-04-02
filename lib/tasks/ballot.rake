@@ -99,13 +99,9 @@ end
 namespace :ballot do
 
   desc "Generate ids,letter and names"
-  task(:ids_to_letters => :environment) do
-    area_id = ENV['area_id'].to_i
-    ballot = BudgetBallotItem.current
-    puts "Construction"
-    ballot.areas[area_id][:ideas].each do |idea|
-      puts "#{idea[:letter]},#{idea[:id]},#{idea[:name]}"
-    end
+  task(:empty_ballot_box => :environment) do
+    FinalSplitVote.delete_all
+    Vote.delete_all
   end
 
   desc "Generate test ballots"
