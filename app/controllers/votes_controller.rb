@@ -46,6 +46,7 @@ class VotesController < ApplicationController
   # This is a method for running pilots with insecure client authentication
   def insecure_email_login
     ok = false
+    Rails.logger.debug("insecure_email_login: e #{ENV["INSECURE_CLIENT_AUTHENTICATION"]} #{params[:email]} #{params[:email].length>4}")
     if ENV["INSECURE_CLIENT_AUTHENTICATION"]=="true" and params[:email] and params[:email].length>4
       VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => params[:email])
       Rails.logger.warn("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
