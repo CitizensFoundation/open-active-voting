@@ -50,18 +50,25 @@
         font-size: 32px;
         font-weight: bold;
         margin-top: 16px;
+        margin-bottom: 8px;
       }
 
       @media (max-width: 600px) {
         .welcomeDialog {
           font-size: 17px;
-          max-width: 420px;
+          max-width: none;
+          width: 90%;
           padding: 8px;
           padding-top: 0;
           text-align: center;
         }
         .heading {
           font-size: 24px;
+        }
+
+        .welcomeText {
+          width: 80%;
+          max-width: none;
         }
 
         paper-button.continueButton {
