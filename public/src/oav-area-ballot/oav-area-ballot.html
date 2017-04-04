@@ -454,7 +454,9 @@
         this.cancelLoginPolling();
         this.set('isSendingBallot', false);
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.close();
+        if (dialog) {
+          dialog.close();
+        }
 
         this._clearLocalVoteStorage();
 

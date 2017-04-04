@@ -259,7 +259,6 @@
 
     <paper-material elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
       <div on-tap="_toggleDescription" class="itemSelectedFrame" selected$="[[selectedInBudget]]" small$="[[small]]" tiny$="[[tiny]]"></div>
-      <div>
         <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <template is="dom-if" if="[[mapTabSelected]]" restamp>
           <google-map small$="[[small]]" tiny$="[[tiny]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>

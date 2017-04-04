@@ -28,6 +28,11 @@
         text-align: center;
       }
 
+      .welcomeText {
+        width: 420px;
+        max-width: 420px;
+      }
+
       paper-button.continueButton {
         background-color: var(--app-accent-color);
         color: #fff;
@@ -77,9 +82,11 @@
         <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png"></img>
         <div class="layout vertical center-center welcomeDialog">
           <div class="heading">Welcome! Fàilte!</div>
-          <p>
-          Vote here by selecting multiple projects up to the value of £15,000. Happy with your choices? Click VOTE to submit. Need more info? Click ? at top right of screen.
-          </p>
+          <div class="layout horizontal welcomeText">
+            Vote here by selecting multiple projects up to the value of £15,000.
+            Happy with your choices? Click VOTE to submit.
+            Need more info? Click ? at top right of screen.
+          </div>
         </div>
         <div class="buttons layout vertical center-center">
           <paper-button raised class="continueButton" dialog-confirm autofocus on-tap="_continue">CONTINUE</paper-button>
