@@ -1,9 +1,10 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.13">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.10.14">
 
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.10.14">
 
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=5.10.13">
-<link rel="import" href="../oav-page/oav-page-dialog.html?v=5.10.13">
-<link rel="import" href="../oav-insecure-email-login.html?v=5.10.13">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=5.10.14">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=5.10.14">
+<link rel="import" href="../oav-insecure-email-login.html?v=5.10.14">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -16,27 +17,71 @@
         background-color: var(--primary-background-color) !important;
       }
 
-      .authDialog {
-        font-size: 24px;
-        padding: 24px;
-        line-height: 1;
+      .welcomeDialog {
+        font-size: 22px;
+        max-width: 420px;
+        padding: 8px;
+        padding-top: 0;
+        line-height: 1.3;
+        margin: 8px;
         text-align: center;
+      }
+
+      paper-button.continueButton {
+        background-color: var(--app-accent-color);
+        color: #fff;
+        margin: 8px;
+        margin-bottom: 16px;
+        font-size: 18px;
       }
 
       paper-spinner {
         width: 40px;
         height: 40px;
       }
+
+      .heading {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 600px) {
+        .welcomeDialog {
+          font-size: 17px;
+          max-width: 420px;
+          padding: 8px;
+          padding-top: 0;
+          text-align: center;
+        }
+        .heading {
+          font-size: 24px;
+        }
+
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+      }
+
+      .logo {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
     </style>
 
     <div id="dialogs">
-      <paper-dialog id="authDialog" modal="">
-        <div class="layout vertical center-center authDialog">
-          <p>[[localize('auth_dialog')]]</p>
-          <paper-spinner active=""></paper-spinner>
+      <paper-dialog id="welcomeDialog" modal="">
+        <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png">
+        <div class="layout vertical center-center welcomeDialog">
+          <div class="heading">Welcome! Fàilte!</div>
+          <p>
+          Vote here by selecting multiple projects up to the value of £15,000. Happy with your choices? Click VOTE to submit. Need more info? Click ? at top right of screen.
+          </p>
         </div>
-        <div class="buttons">
-          <paper-button dialog-confirm="" autofocus="" on-tap="closeAuthDialog">Hætta við</paper-button>
+        <div class="buttons layout vertical center-center">
+          <paper-button raised="" class="continueButton" dialog-confirm="" autofocus="" on-tap="_continue">CONTINUE</paper-button>
         </div>
       </paper-dialog>
       <oav-ajax-error-dialog id="errorDialog"></oav-ajax-error-dialog>
@@ -60,6 +105,14 @@
 
       getDialog: function (idName) {
         return this.$$("#"+idName);
+      },
+
+      _continue: function () {
+        this.$.welcomeDialog.close();
+      },
+
+      openWelcome: function () {
+        this.$.welcomeDialog.open();
       },
 
       closeAuthDialog: function () {

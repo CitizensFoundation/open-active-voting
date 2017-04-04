@@ -11128,7 +11128,7 @@ in every element that needs to use them.
 
   Sample use:
 
-      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.10.13">
+      <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html?v=5.10.14">
       <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
 
       <div class="layout horizontal layout-start">
@@ -15319,7 +15319,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.10.13">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.10.14">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -15327,7 +15327,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.10.13">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.10.14">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -18213,7 +18213,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.10.13" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.10.14" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -20850,8 +20850,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.10.13">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.10.13">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.10.14">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.10.14">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -21757,7 +21757,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.10.13" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.10.14" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -30685,14 +30685,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.13">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.14">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.10.13">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.10.14">
    * ```
    *
    * ### Consuming effects
@@ -31463,7 +31463,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.13">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.10.14">
 ```
 
 #### List of effects
@@ -32939,21 +32939,34 @@ Custom property | Description | Default
           }
       </style>
       <h1 class="infoHeader">Growing Gaelic 2017 - online vote</h1>
-      <ul>
-          <li>The election of Okkar Mosó is open from March 30th to 10th of april. Participation is open to all who have a minimum age of 16 in 2017 and domiciled in Mosfellsbær at the time of election.</li>
-          <li>Participants can vote on ideas for a maximum of the 25 million devoted to the project.</li>
-          <li>The election takes place on a secure website where residents identify themselves safely and vote are encrypted. It is not possible to link votes to individuals.</li>
-          <li>Please note that that the election is not defined as a citizens vote as prescribed in local municipality laws nr.137/2011.</li>
-          <li>Please note that to be able to vote every participant needs to have electronic authentication ID phone or Íslykill. See <a href="http://www.audkenni.is">www.audkenni.is</a> and <a href="http://www.island.is/islykill">www.island.is/islykill</a>  for further information on wehere ID’s can be acquired.</li>
-          <li>The election takes place on the website <a href="http://kosning.mos.is">kosning.mos.is</a></li>
-          <li>Assistance on voting can be obtained in Mosfellsbær service center, Þverholt 2 during the election period.</li>
-          <li>For further information about Okkar Mosó 2017 along with the guidelines and rules of the election can be obtained at <a href="http://www.mos.is/okkarmoso">www.mos.is/okkarmoso</a> in Mosfellsbær service center tel: 525-6700.</li>
-          <li>Queries and comments during the election period can be sent to <a href="mailto:betrireykjavik@ibuar.is">betrireykjavik@ibuar.is</a></li>
-          <li>Photos accompanying ideas on election page are not examples of the final implementation of the execution.</li>
-          <li>Location of ideas can change.</li>
-          <li>Projects will be designed, tendered and implemented from spring 2017 until 2018 based on the scope of projects.</li>
-          <li>Information about their progress will be communicated on the website <a href="http://mos.is">mos.is</a></li>
-      </ul>
+      <p>o find out more information about any of the projects, you can click on the picture to change it to some text information about the proposal.
+      Voting runs between 6th April and 6th May 2017 and is open to people over the age of 16 who live in Argyll and Bute.</p>
+
+      <p>o find out more information about any of the projects, you can click on the picture to change it to some text information about the proposal.
+      To find out more information about any of the projects, you can click on the picture to change it to some text information about the proposal..</p>
+
+      <p>Select a project by clicking on the + sign in the project box.  You can select more than one project up to the maximum of £15,000..</p>
+
+      <p>If you change your mind about a project, click on the - sign and it will be removed from your selection (the amount of funding remaining for you to allocate will automatically be adjusted again)..</p>
+
+      <p> A step by step “guide to voting” is available here (insert link)..</p>
+
+      <p>Voting takes place on a secure website.  It is not possible to link votes to individuals..</p>
+
+      <p>Projects will be delivered by 31st March 2018..</p>
+
+      <p>Participatory Budgeting is a way of involving communities in financial decisions.  There is a total of £15,000
+          available to “strengthen and grow Gaelic in Argyll and Bute” and we want the local community to decide how that should be allocated..</p>
+
+      <p>Between 6th February and 6th March people posted suggestions on an <a href="https://argyll-bute.yrpri.org/group/894/in_progress" target="_blank">ideas website</a>.
+          Constituted community groups, third sector organisations and public sector agencies were eligible to submit bids for funding to take these forward.
+          Vote for your favourite projects here..</p>
+
+      <p>This project has been funded by the Scottish Government.  This is part of the Council’s commitment to empower communities and will evaluate
+          the use of online tools for community involvement in decision making..</p>
+
+      <p>Queries and comments during the election period can be sent
+          to <a href="mailto:communitydevelopment@argyll-bute.gov.uk">communitydevelopment@argyll-bute.gov.uk</a></p>
   </template>
   <script>
     Polymer({
@@ -35137,27 +35150,71 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         background-color: var(--primary-background-color) !important;
       }
 
-      .authDialog {
-        font-size: 24px;
-        padding: 24px;
-        line-height: 1;
+      .welcomeDialog {
+        font-size: 22px;
+        max-width: 420px;
+        padding: 8px;
+        padding-top: 0;
+        line-height: 1.3;
+        margin: 8px;
         text-align: center;
+      }
+
+      paper-button.continueButton {
+        background-color: var(--app-accent-color);
+        color: #fff;
+        margin: 8px;
+        margin-bottom: 16px;
+        font-size: 18px;
       }
 
       paper-spinner {
         width: 40px;
         height: 40px;
       }
+
+      .heading {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 600px) {
+        .welcomeDialog {
+          font-size: 17px;
+          max-width: 420px;
+          padding: 8px;
+          padding-top: 0;
+          text-align: center;
+        }
+        .heading {
+          font-size: 24px;
+        }
+
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+      }
+
+      .logo {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
     </style>
 
     <div id="dialogs">
-      <paper-dialog id="authDialog" modal="">
-        <div class="layout vertical center-center authDialog">
-          <p>[[localize('auth_dialog')]]</p>
-          <paper-spinner active=""></paper-spinner>
+      <paper-dialog id="welcomeDialog" modal="">
+        <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png">
+        <div class="layout vertical center-center welcomeDialog">
+          <div class="heading">Welcome! Fàilte!</div>
+          <p>
+          Vote here by selecting multiple projects up to the value of £15,000. Happy with your choices? Click VOTE to submit. Need more info? Click ? at top right of screen.
+          </p>
         </div>
-        <div class="buttons">
-          <paper-button dialog-confirm="" autofocus="" on-tap="closeAuthDialog">Hætta við</paper-button>
+        <div class="buttons layout vertical center-center">
+          <paper-button raised="" class="continueButton" dialog-confirm="" autofocus="" on-tap="_continue">CONTINUE</paper-button>
         </div>
       </paper-dialog>
       <oav-ajax-error-dialog id="errorDialog"></oav-ajax-error-dialog>
@@ -35181,6 +35238,14 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
       getDialog: function (idName) {
         return this.$$("#"+idName);
+      },
+
+      _continue: function () {
+        this.$.welcomeDialog.close();
+      },
+
+      openWelcome: function () {
+        this.$.welcomeDialog.open();
       },
 
       closeAuthDialog: function () {
@@ -35951,6 +36016,8 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+        var dialogContainer = Polymer.dom(document).querySelector('oav-app').getDialog("welcomeDialog");
+        dialogContainer.open();
       },
 
       _loadTestingMode: function () {
