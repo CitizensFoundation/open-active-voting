@@ -29,7 +29,7 @@
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["/index.html?v=5.10.20","8416d9db6304b5de9fdf1a9b09512396"],["/src/oav-app.html?v=5.10.20","659d67b8b2d33f422dfd55ca2a027526"],["/src/oav-area-ballot/oav-area-ballot.html?v=5.10.20","f3aa4ac83911047bc6cc53c735c47213"],["/src/oav-select-voting-area/oav-select-voting-area.html?v=5.10.20","73c8615d907b47a25df816fe61f22eec"],["/src/oav-voting-completed/oav-voting-completed.html?v=5.10.20","abdc16bc246e490fabcc9c393cc6649f"],["/src/yp-post/yp-post.html?v=5.10.20","f1feffea9f5b585a1d1ff2b8a1dfc430"]];
+var PrecacheConfig = [["/index.html?v=5.10.21","8416d9db6304b5de9fdf1a9b09512396"],["/src/oav-app.html?v=5.10.21","ca6b88959ab1163ffd05727874426d7c"],["/src/oav-area-ballot/oav-area-ballot.html?v=5.10.21","f3aa4ac83911047bc6cc53c735c47213"],["/src/oav-select-voting-area/oav-select-voting-area.html?v=5.10.21","73c8615d907b47a25df816fe61f22eec"],["/src/oav-voting-completed/oav-voting-completed.html?v=5.10.21","abdc16bc246e490fabcc9c393cc6649f"],["/src/yp-post/yp-post.html?v=5.10.21","f1feffea9f5b585a1d1ff2b8a1dfc430"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
