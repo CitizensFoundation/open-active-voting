@@ -1,6 +1,6 @@
 {
   "name": "paper-button",
-  "version": "1.0.13",
+  "version": "1.0.15",
   "description": "Material design button",
   "authors": [
     "The Polymer Authors"
@@ -38,11 +38,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "ignore": [],
-  "_release": "1.0.13",
+  "_release": "1.0.15",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.13",
-    "commit": "649ac0c09fa74b5af258cb6debebba811024f7cc"
+    "tag": "v1.0.15",
+    "commit": "804937a43980511e232c44a134ed4fb8d71917ef"
   },
   "_source": "https://github.com/PolymerElements/paper-button.git",
   "_target": "~1.0.12",

@@ -204,8 +204,9 @@
 
     .infoIcon {
       color: var(--app-accent-color-light);
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
     }
 
     .infoLinks {
@@ -273,15 +274,15 @@
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
         <paper-icon-button title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></paper-icon-button>
         <paper-icon-button title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></paper-icon-button>
-        <paper-icon-button hidden$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
+        <paper-icon-button hiddesn$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
         <paper-icon-button title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></paper-icon-button>
+        <paper-icon-button raised on-tap="_showPost" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></paper-icon-button>
       </div>
       <div class="layout horizontal">
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
-          <paper-icon-button on-tap="_showPost" title$="{{localize('more_info_description')}}" class="externalInfoIcon" icon="info-outline"></paper-icon-button>
         </div>
       </div>
       <div class="buttons">
