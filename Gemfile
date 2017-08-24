@@ -5,7 +5,7 @@ ruby '2.2.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.9'
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
