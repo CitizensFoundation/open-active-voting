@@ -1,7 +1,7 @@
 {
-  "name": "app-drawer-template",
+  "name": "Open Active Voting",
   "authors": [
-    "The Polymer Authors"
+    "Citizens Foundation, Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir, City of Reykjavik"
   ],
   "private": true,
   "dependencies": {
@@ -38,7 +38,9 @@
     "lodash-import": "~0.0.2",
     "paper-card": "polymerelements/paper-card#1.1.2",
     "google-streetview-pano": "https://github.com/rbjarnason/google-streetview-pano.git#timings-fix-maps-api-callback",
-    "lodash": "*"
+    "lodash": "*",
+    "paper-item": "^2.0.0",
+    "paper-menu": "^1.3.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
