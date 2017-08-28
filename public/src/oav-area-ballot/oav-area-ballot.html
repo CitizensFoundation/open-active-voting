@@ -169,6 +169,7 @@
 
       listeners: {
         'oav-toggle-item-in-budget': '_toggleItemInBudget',
+        'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
         'oav-submit-vote': '_postVoteToServer',
         'oav-item-selected-in-budget': '_itemSelectedInBudget',
         'oav-item-de-selected-from-budget': '_itemDeSelectedFromBudget'
@@ -219,7 +220,12 @@
           value: false
         },
 
-        popupWindow: Object
+        popupWindow: Object,
+
+        favoriteItem: {
+          type: Object,
+          vlaue: null
+        }
       },
 
       _selectedViewChanged: function (view) {
@@ -275,6 +281,23 @@
         }
       },
 
+      _toggleFavoriteItem: function (event, detail) {
+        var item = detail.item;
+        window.appGlobals.activity('toggle', 'favorite');
+        if (this.favoriteItem != item) {
+          this.set('favoriteItem', item);
+          var listItems = this.$$("#itemContainer");
+          for (var i = 0; i < listItems.children.length; i++) {
+            var listItem = listItems.children[i];
+            if (listItem.id != 'domRepeat') {
+              listItem.resetFromBudget();
+            }
+          }
+        } else {
+          console.warn("Trying to set item as favorite a second time");
+        }
+      },
+
       _toggleItemInBudget: function (event, detail) {
         this.budgetElement.toggleBudgetItem(detail.item);
       },
@@ -296,6 +319,9 @@
         for (var i = 0; i < listItems.children.length; i++) {
           var listItem = listItems.children[i];
           if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
+            if (this.favoriteItem==listItem.item) {
+              this.set('favoriteItem', null);
+            }
             listItem.removeFromBudget();
             this.$$("#itemsMap").removeFromBudget(listItem.item);
           }

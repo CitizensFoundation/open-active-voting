@@ -20,6 +20,8 @@
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/google-map/google-map-marker.html">
 
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html">
+
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
 
@@ -188,11 +190,20 @@
       color: #fff;
     }
 
-    paper-fab.favoriteButton {
+    paper-fab.addFavoriteButton {
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: var(--paper-red-600);
+      background-color: var(--paper-blue-a100);
+      color: #fff;
+      padding: 0;
+    }
+
+    paper-fab.removeFavoriteButton {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background-color: var(--paper-blue-a400);
       color: #fff;
       padding: 0;
     }
@@ -343,9 +354,20 @@
           <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
         </div>
-        <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget"></paper-fab>
-        <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget"></paper-fab>
-        <paper-fab mini elevation="5" class="favoriteButton" hidden$="[[!selectedInBudget]]" title$="{{localize('select_favorite')}}" icon="favorite" on-tap="_toggleFavorite"></paper-fab>
+        <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]"
+                   disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget">
+        </paper-fab>
+        <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]"
+                   disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
+        </paper-fab>
+        <div class="favoriteButtons" hidden$="[[!selectedInBudget]]">
+          <paper-fab mini class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
+                     title$="{{localize('select_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+          </paper-fab>
+          <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
+                     title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+          </paper-fab>
+        </div>
       </div>
     </paper-material>
   </template>
@@ -359,7 +381,8 @@
 
       behaviors: [
         Polymer.appHelpers,
-        Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
+        Polymer.NeonAnimationRunnerBehavior
       ],
 
       properties: {
@@ -381,6 +404,11 @@
         },
 
         toExpensiveForBudget: {
+          type: Boolean,
+          value: false
+        },
+
+        isFavorite: {
           type: Boolean,
           value: false
         },
@@ -418,7 +446,45 @@
         tiny: {
           type: Boolean,
           value: false
+        },
+
+        animationConfig: {
+          value: function() {
+            return {
+              'entry1': {
+                name: 'slide-from-top-animation',
+                node: this.$.favoriteButton,
+                transformOrigin: "0 0"
+              },
+              'entry2': {
+                name: 'scale-up-animation',
+                node: this.$.favoriteButton,
+                axis: '',
+                timing: {duration: 2000}
+              },
+              'exit': [{
+                name: 'fade-in-animation',
+                node: this.$.favoriteButton,
+                timing: {duration: 2500}
+              },
+              {
+                name: 'scale-up-animation',
+                node: this.$.favoriteButton,
+                axis: 'y',
+                timing: {duration: 2000}
+              }
+                ]
+            }
+          }
         }
+      },
+
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+
+      _onNeonAnimationFinish: function() {
+        console.log("_onNeonAnimationFinish");
       },
 
       selectedInBudgetChanged: function (newValue, oldValue) {
@@ -473,6 +539,11 @@
           if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
             this.setInBudget();
             this.setNotTooExpensive();
+            if (this.budgetElement.currentBallot.favoriteItem==this.item) {
+              this.set('isFavorite', true);
+            } else {
+              this.set('isFavorite', false);
+            }
           } else {
             var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
             if (this.item.price>budgetLeft) {
@@ -480,7 +551,7 @@
             } else {
               this.setNotTooExpensive()
             }
-            this.removeFromBudget()
+            this.removeFromBudget();
           }
         }
         this._setImageMode();
@@ -515,11 +586,13 @@
       setInBudget: function () {
         //console.log("setInBudget itemId: "+this.item.id);
         this.set('selectedInBudget', true);
+        this.playAnimation('entry');
       },
 
       removeFromBudget: function () {
         //console.log("removeFromBudget itemId: "+this.item.id);
         this.set('selectedInBudget', false);
+        this.set('isFavorite', false);
       },
 
       setTooExpensive: function () {
@@ -534,6 +607,10 @@
 
       attached: function() {
         this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      _toggleFavorite: function () {
+        this.fire('oav-set-favorite-item-in-budget', { item: this.item });
       },
 
       _toggleInBudget: function (event) {
