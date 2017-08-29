@@ -405,7 +405,8 @@
         var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
           return item.id;
         });
-        return this.encryptVote(selectedItemIds);
+        return this.encryptVote({ selectedItemIds: selectedItemIds,
+                                  favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
       },
 
       completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
