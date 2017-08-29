@@ -224,7 +224,14 @@
 
         favoriteItem: {
           type: Object,
-          vlaue: null
+          value: null,
+          observer: '_favoriteItemChanged'
+        }
+      },
+
+      _favoriteItemChanged: function (newValue, oldValue) {
+        if (!newValue && oldValue) {
+          this.fire("oav-hide-favorite-item");
         }
       },
 
@@ -283,7 +290,11 @@
 
       _toggleFavoriteItem: function (event, detail) {
         var item = detail.item;
-        window.appGlobals.activity('toggle', 'favorite');
+        if (item) {
+          window.appGlobals.activity('toggle', 'favorite');
+        } else {
+          window.appGlobals.activity('detoggle', 'favorite');
+        }
         if (this.favoriteItem != item) {
           this.set('favoriteItem', item);
           var listItems = this.$$("#itemContainer");
@@ -324,7 +335,7 @@
             }
             listItem.removeFromBudget();
             this.$$("#itemsMap").removeFromBudget(listItem.item);
-          }q
+          }
         }
         this._setStateOfRemainingItems();
       },

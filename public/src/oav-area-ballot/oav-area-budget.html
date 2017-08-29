@@ -440,9 +440,9 @@
         var selectedItemDiv = this.$$("#item_id_"+item.id);
         if (selectedItemDiv) {
           var buttonRect = selectedItemDiv.getBoundingClientRect();
-          var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left + window.scrollX;
+          var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left;
           left = left-16;
-          var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top + window.scrollY;
+          var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top;
           top = top - 16;
           return { left: left, top: top }
         } else {
@@ -485,7 +485,6 @@
           }
         }
       },
-
 
       _removeItem: function (itemId) {
         this.selectedItems.forEach(function (item) {

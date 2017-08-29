@@ -46,7 +46,7 @@
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 
-<link rel="import" href="../bower_components/web-animations-js/web-animations-next.min.html">
+<link rel="import" href="../bower_components/web-animations-js/web-animations-next.min.js">
 
 <dom-module id="oav-app">
 
@@ -147,7 +147,7 @@
       }
 
       #favoriteIcon {
-        color: var(--paper-red-a400);
+        color: var(--paper-blue-a400);
         background-color: transparent;
         width: 42px;
         height: 42px;
@@ -258,7 +258,8 @@
         'oav-set-title': '_setTitle',
         'oav-error': '_errorHandler',
         'oav-set-area': '_setArea',
-        'oav-set-favorite-item-in-budget': '_toggleFavoriteItem'
+        'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
+        'oav-hide-favorite-item': '_hideFavoriteItem'
       },
 
       observers: [
@@ -270,23 +271,43 @@
         this.set('budgetElement', this.$$("#budget"));
       },
 
+      _hideFavoriteItem: function () {
+        this.$.favoriteIcon.hidden = true;
+      },
+
       _toggleFavoriteItem: function (event, detail) {
-        this.$.favoriteIcon.style.position = "absolute";
-        this.$.favoriteIcon.style.left = detail.budgetAnimPos.left+"px";
-        this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
+        if (detail.item) {
+          this.$.favoriteIcon.style.position = "absolute";
+          this.$.favoriteIcon.style.left = detail.orgAnimPos.left+"px";
+          this.$.favoriteIcon.style.top = detail.orgAnimPos.top+"px";
 
-        var transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
-        var transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
-        this.$.favoriteIcon.hidden = false;
+          var transformLeft = detail.budgetAnimPos.left-detail.orgAnimPos.left;
+          var transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
 
-        this.$.favoriteIcon.animate([
+          this.$.favoriteIcon.hidden = false;
 
-          { transform: 'translateY('+Math.abs(transformTop)+'px)' }
-        ], {
-          // timing options
-          duration: 2000,
-          iterations: Infinity
-        });
+          var translateY = 'translateY('+Math.floor(transformTop)+'px)';
+          var translateY2 = 'translateY('+Math.floor(transformTop)+'px)';
+          var translateX = 'translateX('+Math.floor(transformLeft)+'px)';
+
+//          debugger;
+
+          this.async(function () {
+            var animation = this.$.favoriteIcon.animate([
+              { transform: translateY, easing: 'ease-out' },
+              { transform: translateY2, easing: 'ease-out' }
+            ], {
+              duration: 400,
+              iterations: 1
+            });
+
+            animation.onfinish = function () {
+              this.$.favoriteIcon.style.position = "absolute";
+              this.$.favoriteIcon.style.left = detail.budgetAnimPos.left+"px";
+              this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
+            }.bind(this);
+          });
+        }
       },
 
       _loadTestingMode: function () {

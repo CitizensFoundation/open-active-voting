@@ -575,16 +575,23 @@
       },
 
       _toggleFavorite: function () {
-        var button = this.$$("#addFavoriteButton");
-        var buttonRect = button.getBoundingClientRect();
-        var left = buttonRect.left + window.scrollX;
-        var top = buttonRect.top + window.scrollY;
+        if (this.budgetElement.currentBallot.favoriteItem &&
+            this.budgetElement.currentBallot.favoriteItem.id == this.item.id) {
+          this.fire('oav-set-favorite-item-in-budget', {
+            item: null
+          });
+        } else {
+          var button = this.$$("#addFavoriteButton");
+          var buttonRect = button.getBoundingClientRect();
+          var left = buttonRect.left;// + window.scrollX;
+          var top = buttonRect.top;// + window.scrollY;
 
-        this.fire('oav-set-favorite-item-in-budget', {
-          item: this.item,
-          orgAnimPos: { left: left, top: top },
-          budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
-        });
+          this.fire('oav-set-favorite-item-in-budget', {
+            item: this.item,
+            orgAnimPos: { left: left, top: top },
+            budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
+          });
+        }
       },
 
       _toggleInBudget: function (event) {
