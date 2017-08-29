@@ -300,6 +300,9 @@
     paper-fab {
       z-index: 5;
     }
+
+    .favoriteButtons {
+    }
   </style>
 
   <template>
@@ -361,7 +364,7 @@
                    disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
         <div class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
+          <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
                      title$="{{localize('select_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
@@ -446,45 +449,7 @@
         tiny: {
           type: Boolean,
           value: false
-        },
-
-        animationConfig: {
-          value: function() {
-            return {
-              'entry1': {
-                name: 'slide-from-top-animation',
-                node: this.$.favoriteButton,
-                transformOrigin: "0 0"
-              },
-              'entry2': {
-                name: 'scale-up-animation',
-                node: this.$.favoriteButton,
-                axis: '',
-                timing: {duration: 2000}
-              },
-              'exit': [{
-                name: 'fade-in-animation',
-                node: this.$.favoriteButton,
-                timing: {duration: 2500}
-              },
-              {
-                name: 'scale-up-animation',
-                node: this.$.favoriteButton,
-                axis: 'y',
-                timing: {duration: 2000}
-              }
-                ]
-            }
-          }
         }
-      },
-
-      listeners: {
-        'neon-animation-finish': '_onNeonAnimationFinish'
-      },
-
-      _onNeonAnimationFinish: function() {
-        console.log("_onNeonAnimationFinish");
       },
 
       selectedInBudgetChanged: function (newValue, oldValue) {
@@ -610,7 +575,16 @@
       },
 
       _toggleFavorite: function () {
-        this.fire('oav-set-favorite-item-in-budget', { item: this.item });
+        var button = this.$$("#addFavoriteButton");
+        var buttonRect = button.getBoundingClientRect();
+        var left = buttonRect.left + window.scrollX;
+        var top = buttonRect.top + window.scrollY;
+
+        this.fire('oav-set-favorite-item-in-budget', {
+          item: this.item,
+          orgAnimPos: { left: left, top: top },
+          budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
+        });
       },
 
       _toggleInBudget: function (event) {

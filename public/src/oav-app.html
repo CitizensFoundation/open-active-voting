@@ -46,6 +46,8 @@
 <link rel="import" href="../bower_components/paper-styles/typography.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 
+<link rel="import" href="../bower_components/web-animations-js/web-animations-next.min.html">
+
 <dom-module id="oav-app">
 
   <template>
@@ -143,6 +145,14 @@
         right: 0;
         color: #fff;
       }
+
+      #favoriteIcon {
+        color: var(--paper-red-a400);
+        background-color: transparent;
+        width: 42px;
+        height: 42px;
+        z-index: 2720;
+      }
     </style>
 
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
@@ -151,10 +161,10 @@
 
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}"></app-route>
 
     <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
     <app-header-layout>
@@ -168,6 +178,7 @@
         <div class="budgetContainer" hidden$="[[hideBudget]]">
           <oav-area-budget id="budget" area-name="[[areaName]]" total-budget="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
+        <iron-icon id="favoriteIcon" icon="favorite" hidden></iron-icon>
       </app-header>
       <div>
         <template is="dom-if" if="[[_loadTestingMode()]]">
@@ -246,7 +257,8 @@
         'app-resources-loaded': '_translationLoaded',
         'oav-set-title': '_setTitle',
         'oav-error': '_errorHandler',
-        'oav-set-area': '_setArea'
+        'oav-set-area': '_setArea',
+        'oav-set-favorite-item-in-budget': '_toggleFavoriteItem'
       },
 
       observers: [
@@ -256,6 +268,25 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+      },
+
+      _toggleFavoriteItem: function (event, detail) {
+        this.$.favoriteIcon.style.position = "absolute";
+        this.$.favoriteIcon.style.left = detail.budgetAnimPos.left+"px";
+        this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
+
+        var transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
+        var transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+        this.$.favoriteIcon.hidden = false;
+
+        this.$.favoriteIcon.animate([
+
+          { transform: 'translateY('+Math.abs(transformTop)+'px)' }
+        ], {
+          // timing options
+          duration: 2000,
+          iterations: Infinity
+        });
       },
 
       _loadTestingMode: function () {

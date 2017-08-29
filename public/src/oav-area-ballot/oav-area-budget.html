@@ -436,6 +436,20 @@
         selectedItemDiv.parentNode.removeChild(selectedItemDiv);
       },
 
+      getItemLeftTop: function (item) {
+        var selectedItemDiv = this.$$("#item_id_"+item.id);
+        if (selectedItemDiv) {
+          var buttonRect = selectedItemDiv.getBoundingClientRect();
+          var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left + window.scrollX;
+          left = left-16;
+          var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top + window.scrollY;
+          top = top - 16;
+          return { left: left, top: top }
+        } else {
+          console.error("Trying to get item that is not in the budget");
+        }
+      },
+
       toggleBudgetItem: function (item) {
         window.appGlobals.activity('toggle', 'vote');
         if (this.selectedItems.indexOf(item) > -1) {
