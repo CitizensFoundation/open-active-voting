@@ -149,9 +149,17 @@
       #favoriteIcon {
         color: var(--paper-blue-a400);
         background-color: transparent;
-        width: 42px;
-        height: 42px;
+        width: 50px;
+        height: 50px;
         z-index: 2720;
+      }
+
+
+      @media (max-width: 640px) {
+        #favoriteIcon {
+          width: 40px;
+          height: 40px;
+        }
       }
     </style>
 
@@ -286,18 +294,22 @@
 
           this.$.favoriteIcon.hidden = false;
 
-          var translateY = 'translateY('+Math.floor(transformTop)+'px)';
+          var translateY = 'translateY('+Math.abs(Math.floor(transformTop))+'px)';
           var translateY2 = 'translateY('+Math.floor(transformTop)+'px)';
-          var translateX = 'translateX('+Math.floor(transformLeft)+'px)';
+          var translateX2 = 'translateX('+Math.floor(transformLeft)+'px)';
 
 //          debugger;
 
           this.async(function () {
+            this.$.favoriteIcon.style.position = "absolute";
+            this.$.favoriteIcon.style.left = detail.budgetAnimPos.left+"px";
+            this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
             var animation = this.$.favoriteIcon.animate([
-              { transform: translateY, easing: 'ease-out' },
-              { transform: translateY2, easing: 'ease-out' }
+              { transform: "translateY(470px)", easing: 'ease-out' },
+              { transform: "scale(3)" },
+              { transform: "translateX(0)", easing: 'ease-out' }
             ], {
-              duration: 400,
+              duration: 720,
               iterations: 1
             });
 
