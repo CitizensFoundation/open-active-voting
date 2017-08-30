@@ -138,7 +138,8 @@
 
     .description {
       padding: 8px;
-      font-size: 17px;
+      font-size: 16px;
+      margin-top: 32px;
     }
 
     .name {
@@ -313,11 +314,11 @@
       <div>
         <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
         <template is="dom-if" if="[[mapTabSelected]]" restamp>
-          <google-map small$="[[small]]" tiny$="[[tiny]]" zoom="15" name="map" id="map" api-key="[[googleMapsApiKey]]" fit-to-markers>
-            <template is="dom-repeat" items="[[item.locations]]" as="location">
-              <google-map-marker latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker"></google-map-marker>
-            </template>
-          </google-map>
+          <template is="dom-if" if="[[mapsHeight]]" restamp>
+            <iron-image class="main-image" sizing="cover"
+                        src="https://maps.googleapis.com/maps/api/staticmap?center=[[item.locations.0.latitude]],[[item.locations.0.longitude]]&zoom=10&size=432x243&maptype=hybrid&key=[[staticMapsApiKey]]"
+                        hidden$="[[!mapTabSelected]]"></iron-image>
+          </template>
         </template>
         <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]" tiny$="[[tiny]]">
           <div id="description" class="description">
@@ -346,7 +347,7 @@
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
       </div>
       <div class="layout horizontal" on-tap="_toggleDescription">
-        <div class="name" small$="[[small]]" tiny$="[[tiny]]">toggleDescr [[item.name]]</div>
+        <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="layout vertical center-center">
         <div class="externalIconContainer">
@@ -392,6 +393,11 @@
         item: {
           type: Object,
           observer: '_itemChanged'
+        },
+
+        staticMapsApiKey: {
+          type: String,
+          value: "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA"
         },
 
         elevation: Number,
@@ -443,12 +449,44 @@
 
         small: {
           type: Boolean,
-          value: false
+          value: false,
+          observer: '_smallChanged'
         },
 
         tiny: {
           type: Boolean,
-          value: false
+          value: false,
+          observer: '_tinyChanged'
+        },
+
+        mapsHeight: {
+          type: String,
+          value: null
+        },
+
+        mapsWidth: {
+          type: String,
+          value: null
+        }
+      },
+
+      _smallChanged: function (small) {
+        if (small) {
+          this.set('mapsHeight', '260');
+          this.set('mapsWidth', '146');
+        } else {
+          this.set('mapsHeight', '169');
+          this.set('mapsWidth', '300');
+        }
+      },
+
+      _tinyChanged: function (tiny) {
+        if (tiny) {
+          this.set('mapsHeight', '220');
+          this.set('mapsWidth', '124');
+        } else {
+          this.set('mapsHeight', '169');
+          this.set('mapsWidth', '300');
         }
       },
 
