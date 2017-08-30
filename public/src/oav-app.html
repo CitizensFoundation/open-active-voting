@@ -291,16 +291,10 @@
           this.$.favoriteIcon.style.left = detail.orgAnimPos.left+"px";
           this.$.favoriteIcon.style.top = detail.orgAnimPos.top+"px";
 
-          var transformLeft = detail.budgetAnimPos.left-detail.orgAnimPos.left;
+          var transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
           var transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
 
           this.$.favoriteIcon.hidden = false;
-
-          var translateY = 'translateY('+Math.abs(Math.floor(transformTop))+'px)';
-          var translateY2 = 'translateY('+Math.floor(transformTop)+'px)';
-          var translateX2 = 'translateX('+Math.floor(transformLeft)+'px)';
-
-//          debugger;
 
           this.async(function () {
             this.$.favoriteIcon.style.position = "absolute";
@@ -308,14 +302,11 @@
             this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
             var animation = this.$.favoriteIcon.animate([
               {
-                transform: "translateY("+transformTop+"px)",
+                transform: "translateY("+transformTop+"px) translateX("+transformLeft+"px)",
                 easing: 'ease-out'
               },
-              { transform: "scale(3)" },
-              {
-                transform: "translateX(0)",
-                easing: 'ease-out'
-              }
+              { transform: "scale(3)",  easing: 'ease-in' },
+              { transform: "scale(1)", easing: 'ease-out' }
             ], {
               duration: 720,
               iterations: 1
