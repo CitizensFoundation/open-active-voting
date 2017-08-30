@@ -1,0 +1,138 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.1"></head><body><dom-module id="oav-voting-completed">
+  <style include="iron-flex iron-flex-alignment">
+
+    paper-material {
+      background-color: #fbfbfb;
+      color: #222;
+      font-size: 26px;
+      margin: 48px;
+      max-width: 400px;
+    }
+
+    .smaller {
+      font-size: 20px;
+      padding-top: 16px;
+    }
+
+    @media (max-width: 1000px) {
+      paper-material {
+        font-size: 20px;
+      }
+
+      .smaller {
+        font-size: 16px;
+      }
+    }
+
+    .mainContainer {
+      width: 100%;
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
+      background-repeat: repeat-x;
+    }
+
+    @media (max-width: 600px) {
+      .mainContainer {
+        background-image: none;
+        background-color: #e0e0e0;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .mobileLogo {
+        width: 240px;
+        height: 100px;
+        margin-top: 32px;
+      }
+
+      .topMaterial {
+        max-width: 320px;
+        margin-bottom: 16px;
+        margin-top: 24px;
+      }
+
+      .mobileMaterial {
+        width: 320px;
+        padding: 0;
+        margin: 0;
+        margin-top: 24px;
+        padding-top: 8px;
+        background-color: #fff;
+      }
+    }
+
+    .desktopLogo {
+      width: 260px;
+      height: 120px;
+    }
+
+    .logoHolder {
+      background-color: #f0f0f0;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    .completedText {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .fb-like {
+      padding-top: 16px;
+      color: #eee;
+    }
+
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+    <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
+
+    <div class="layout vertical center-center mainContainer">
+      <div class="layout vertical">
+        <div class="layout horizontal center-center">
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+        </div>
+        <paper-material elevation="5" class="topMaterial">
+          <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
+            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HverfidMittLogoPos.png"></iron-image>
+          </div>
+          <div class="completedText">
+            <div>{{localize('thank_you_1')}}</div>
+            <div class="smaller">{{localize('thank_you_2')}}</div>
+            <div class="smaller">{{localize('thank_you_3')}}</div>
+            <div id="textWithFacebook">
+              <div class="fb-like" data-href="https://kosning.reykjavik.is/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="true">
+              </div>
+             </div>
+          </div>
+        </paper-material>
+      </div>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+  (function() {
+    Polymer({
+
+      is: 'oav-voting-completed',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+        FB.XFBML.parse(this.$$("#textWithFacebook"));
+      }
+    })
+  })();
+
+</script>
+
+</body></html>
