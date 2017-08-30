@@ -147,11 +147,13 @@
       }
 
       #favoriteIcon {
-        color: var(--paper-blue-a400);
+        color: var(--paper-blue-a700);
         background-color: transparent;
         width: 50px;
         height: 50px;
         z-index: 2720;
+        -webkit-filter: drop-shadow( 1px 1px 10px #DDD );
+        filter: drop-shadow( 1px 1px 10px #DDD );
       }
 
 
@@ -305,9 +307,15 @@
             this.$.favoriteIcon.style.left = detail.budgetAnimPos.left+"px";
             this.$.favoriteIcon.style.top = detail.budgetAnimPos.top+"px";
             var animation = this.$.favoriteIcon.animate([
-              { transform: "translateY(470px)", easing: 'ease-out' },
+              {
+                transform: "translateY("+transformTop+"px)",
+                easing: 'ease-out'
+              },
               { transform: "scale(3)" },
-              { transform: "translateX(0)", easing: 'ease-out' }
+              {
+                transform: "translateX(0)",
+                easing: 'ease-out'
+              }
             ], {
               duration: 720,
               iterations: 1
