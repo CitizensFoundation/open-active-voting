@@ -69,6 +69,58 @@
     </template>
   </template>
 
-  <script>Polymer({is:"yp-user-with-organization",behaviors:[Polymer.appHelpers],properties:{user:{type:Object},titleDate:{type:Date},userTitle:{type:String,computed:"_computeUserTitle(user, titleDate)"},inverted:{type:Boolean,value:!1}},_computeUserTitle:function(e,n){return e.name+" "+moment(n).fromNow()},_organizationName:function(e){return e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].name?e.OrganizationUsers[0].name:null},_organizationImageUrl:function(e){if(e.OrganizationUsers&&e.OrganizationUsers.length>0&&e.OrganizationUsers[0].OrganizationLogoImages&&e.OrganizationUsers[0].OrganizationLogoImages.length>0){var n=this.getImageFormatUrl(e.OrganizationUsers[0].OrganizationLogoImages,2);return n}return null}});</script>
+  <script>
+    Polymer({
+
+      is: 'yp-user-with-organization',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        user: {
+          type: Object
+        },
+
+        titleDate: {
+          type: Date
+        },
+
+        userTitle: {
+          type: String,
+          computed: '_computeUserTitle(user, titleDate)'
+        },
+
+        inverted: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _computeUserTitle: function (user, titleDate) {
+        return user.name + ' ' + moment(titleDate).fromNow();
+      },
+
+      _organizationName: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 && user.OrganizationUsers[0].name) {
+          return user.OrganizationUsers[0].name;
+        } else {
+          return null;
+        }
+      },
+
+      _organizationImageUrl: function (user) {
+        if (user.OrganizationUsers && user.OrganizationUsers.length > 0 &&
+          user.OrganizationUsers[0].OrganizationLogoImages &&
+          user.OrganizationUsers[0].OrganizationLogoImages.length > 0) {
+          var url = this.getImageFormatUrl(user.OrganizationUsers[0].OrganizationLogoImages, 2);
+          return url;
+        } else {
+          return null;
+        }
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

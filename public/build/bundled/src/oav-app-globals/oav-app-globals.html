@@ -22,6 +22,150 @@
     <iron-signals on-iron-signal-logged-in="_userLoggedIn"></iron-signals>
   </template>
 
-  <script>!function(){Polymer({is:"oav-app-globals",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{dialogHeading:{type:String,value:""},activityHost:{type:String,value:""},setupDefaults:{type:Boolean,value:!1},votePublicKey:{type:String},configFromServer:{type:Object},requestInProgress:{type:Boolean,value:!1}},notifyUserViaToast:function(e){var o=Polymer.dom(document).querySelector("oav-app").getDialog("masterToast");o.text=e,o.show()},reBoot:function(){this.requestInProgress||this.$.boot.generateRequest()},_removeSplashNode:function(e){e&&(e.parentNode.removeChild(e),document.body.classList.remove("loading"))},_removeSplash:function(){this._removeSplashNode(document.getElementById("splashCore"))},_removeSplashWithDelay:function(){var e=new Date-window.appStartTime;console.log("Difference: "+e),e<this.minSplashMs?(e=this.minSplashMs-e,console.log("Wait: "+e),Polymer.Base.async(function(){this._removeSplash()}.bind(this),e)):this._removeSplash()},setupGoogleAnalytics:function(e){e.public_api_keys&&e.public_api_keys&&e.public_api_keys.google&&e.public_api_keys.google.analytics_tracking_id&&ga("create",e.public_api_keys.google.analytics_tracking_id,"auto")},_userLoggedIn:function(e,o){this.async(function(){ga("set","&uid",o.id)},250)},_bootResponse:function(e,o){this.set("requestInProgress",!1),this.set("configFromServer",o.response.config),this.set("votePublicKey",o.response.public_key)},activity:function(e,o,t){this.sendToGoogleAnalytics("send","event",o,e)},ready:function(){window.appStartTime=new Date,window.appGlobals=this,window.googleMapsApiKey=null,this.requestInProgress=!0,this.fire("app-ready"),this.$.boot.generateRequest()},getSessionFromCookie:function(){for(var e=document.cookie,o=e.split(";"),t="",i=0;i<o.length;i++){name=o[i].split("=")[0];var s=o[i].split("=")[1];" connect.sid"==name&&(t=s)}return t},sendToGoogleAnalytics:function(e,o,t,i){"function"==typeof ga?t&&i?ga(e,o,t,i):ga(e,o):console.warn("Google analytics message not sent for a:"+e+" b:"+o+" c:"+t+" d:"+i)},computeHeading:function(){return this.t("")}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'oav-app-globals',
+
+        behaviors: [
+          Polymer.appHelpers,
+          Polymer.AppLocalizeBehavior
+        ],
+
+        properties: {
+          dialogHeading: {
+            type: String,
+            value: ''
+          },
+
+          activityHost: {
+            type: String,
+            value: ""
+          },
+
+          setupDefaults: {
+            type: Boolean,
+            value: false
+          },
+
+          votePublicKey: {
+            type: String
+          },
+
+          configFromServer: {
+            type: Object
+          },
+
+          requestInProgress: {
+           type: Boolean,
+           value: false
+          }
+        },
+
+        notifyUserViaToast: function (text) {
+          var toast = Polymer.dom(document).querySelector('oav-app').getDialog("masterToast");
+          toast.text = text;
+          toast.show();
+        },
+
+        reBoot: function() {
+          if (!this.requestInProgress) {
+            this.$.boot.generateRequest();
+          }
+        },
+
+        _removeSplashNode: function (splash) {
+          if (splash) {
+            splash.parentNode.removeChild(splash);
+            document.body.classList.remove('loading');
+          }
+        },
+
+        _removeSplash: function () {
+          this._removeSplashNode(document.getElementById('splashCore'));
+        },
+
+        _removeSplashWithDelay: function () {
+          var difference = (new Date() - window.appStartTime);
+          console.log("Difference: "+difference);
+          if (difference<this.minSplashMs) {
+            difference = (this.minSplashMs-difference);
+            console.log("Wait: "+difference);
+            Polymer.Base.async(function() {
+              this._removeSplash();
+            }.bind(this), difference);
+          } else {
+            this._removeSplash();
+          }
+        },
+
+        setupGoogleAnalytics: function(domain) {
+          if (domain.public_api_keys && domain.public_api_keys && domain.public_api_keys.google && domain.public_api_keys.google.analytics_tracking_id) {
+            ga('create', domain.public_api_keys.google.analytics_tracking_id, 'auto');
+          }
+        },
+
+        _userLoggedIn: function (event, user) {
+          this.async(function () {
+            ga('set', '&uid', user.id);
+          }, 250); // Wait a bit to make sure google anlytics tracking id has been set up dynamatically
+        },
+
+        _bootResponse: function (event, detail) {
+          this.set('requestInProgress', false);
+          this.set('configFromServer', detail.response.config);
+          this.set('votePublicKey', detail.response.public_key);
+         // this.setupGoogleAnalytics(this.config);
+        //  this._removeSplashWithDelay();
+        },
+
+        activity: function (type, object, context) {
+          this.sendToGoogleAnalytics('send', 'event', object, type);
+        },
+
+        ready: function () {
+          window.appStartTime = new Date();
+          window.appGlobals = this;
+
+          window.googleMapsApiKey = null; //'AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0';
+
+          this.requestInProgress = true;
+          this.fire('app-ready');
+          this.$.boot.generateRequest();
+        },
+
+        getSessionFromCookie: function () {
+          var strCookies = document.cookie;
+          var cookiearray = strCookies.split(';');
+          var sid = '';
+          for (var i = 0; i < cookiearray.length; i++) {
+            name = cookiearray[i].split('=')[0];
+            var value = cookiearray[i].split('=')[1];
+            if (name == ' connect.sid')
+              sid = value;
+          }
+          return sid;
+        },
+
+        sendToGoogleAnalytics: function (a, b, c, d) {
+          //console.log("Google analytics "+a+" "+b+" "+c+" "+d);
+          if (typeof ga == 'function') {
+            if (c && d) {
+              ga(a,b,c,d);
+            } else {
+              ga(a, b);
+            }
+          } else {
+            console.warn("Google analytics message not sent for a:"+a+" b:"+b+" c:"+c+" d:"+d);
+          }
+        },
+
+        computeHeading: function () {
+          return this.t('');
+        }
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

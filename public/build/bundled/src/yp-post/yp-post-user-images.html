@@ -45,6 +45,50 @@
     </div>
   </template>
 
-  <script>!function(){Polymer({is:"yp-post-user-imagess",behaviors:[Polymer.appHelpers],properties:{images:{type:Array,value:null},post:{type:Object,observer:"_postChanged"}},_refresh:function(){this.$.ajax.generateRequest()},_postChanged:function(e){if(e){var s="/api/images/"+e.id+"/user_images";this.$.ajax.url="/votes/better_iceland_proxy",this.$.ajax.params={params:s},this.$.ajax.generateRequest()}},_response:function(e,s){this.set("images",s.response),this.images&&this.images.length>0&&this.fire("yp-post-image-count",this.images.length)}})}();</script>
+  <script>
+    (function () {
+      Polymer({
+
+        is: 'yp-post-user-imagess',
+
+        behaviors: [
+          Polymer.appHelpers
+        ],
+
+        properties: {
+
+          images: {
+            type: Array,
+            value: null
+          },
+
+          post: {
+            type: Object,
+            observer: '_postChanged'
+          }
+        },
+
+        _refresh: function () {
+          this.$.ajax.generateRequest();
+        },
+
+        _postChanged: function (newPost) {
+          if (newPost) {
+            var params = '/api/images/' + newPost.id + '/user_images';
+            this.$.ajax.url = '/votes/better_iceland_proxy';
+            this.$.ajax.params = { params: params };
+            this.$.ajax.generateRequest();
+          }
+        },
+
+        _response: function (event, detail) {
+          this.set('images', detail.response);
+          if (this.images && this.images.length>0) {
+            this.fire('yp-post-image-count', this.images.length);
+          }
+        }
+      });
+    }());
+  </script>
 </dom-module>
 </body></html>

@@ -51,6 +51,43 @@
     </paper-dialog>
   </template>
 
-  <script>Polymer({is:"oav-page-dialog",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{title:{type:String}},open:function(i){"is"==this.language?this.set("title","Hverfið mitt 2016 - Upplýsingar"):this.set("title","My neighborhood 2016 - Information"),this.$.dialog.fit(),this.$.dialog.notifyResize(),this.$.dialog.open()},attached:function(){this.loadLanguage(this.resolveUrl("/src/locales.json"))},_close:function(){this.set("title",null)}});</script>
+  <script>
+    Polymer({
+
+      is: 'oav-page-dialog',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+        title: {
+          type: String
+        }
+      },
+
+      open: function (title) {
+        if (this.language=='is') {
+          this.set('title', "Hverfið mitt 2016 - Upplýsingar");
+        } else {
+          this.set('title', "My neighborhood 2016 - Information");
+        }
+        //this.$.content.innerHTML = content;
+        this.$.dialog.fit();
+        this.$.dialog.notifyResize();
+        this.$.dialog.open();
+      },
+
+      attached: function() {
+        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      },
+
+      _close: function () {
+        this.set('title', null);
+       //this.$.content.innerHTML = '';
+      }
+    });
+  </script>
 </dom-module>
 </body></html>

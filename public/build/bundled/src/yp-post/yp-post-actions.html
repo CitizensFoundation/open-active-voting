@@ -201,6 +201,153 @@
     </paper-material>
 
   </template>
-  <script>Polymer({is:"yp-post-actions",behaviors:[Polymer.appHelpers,Polymer.AppLocalizeBehavior],properties:{post:{type:Object,observer:"_onPostChanged"},small:{type:Boolean,value:!1},headerMode:{type:Boolean,value:!1},forceSmall:{type:Boolean,value:!1},endorseMode:{type:String,value:"love"},endorseValue:{type:Number,value:0},elevation:{type:Number,value:3},elevationPlusOne:{type:Number,computed:"_elevationPlusOne(elevation)"},allDisabled:{type:Boolean,value:!0},floating:Boolean},_toggleShare:function(){this.set("showShareButtons",!this.showShareButtons)},_shareMouseOver:function(){this.set("showShareButtons",!0)},_shareMouseOut:function(){this.async(function(){this.set("showShareButtons",!1)},1200)},_elevationPlusOne:function(e){return e<5?e+1:e},_hideDebate:function(e,o){return e||o},_onPostChanged:function(e,o){e&&this._updateEndorsements()},_updateEndorsements:function(){},endorseModeIcon:function(e,o){return"thumbs"==e&&"up"==o?"thumb-up":"thumbs"==e&&"down"==o?"thumb-down":"love"==e&&"up"==o?"favorite":"love"==e&&"down"==o?"notification:do-not-disturb":"arrow"==e&&"up"==o?"hardware:keyboard-arrow-down":"arrow"==e&&"down"==o?"hardware:keyboard-arrow-up":void 0},_endorseResponse:function(e,o){this.set("allDisabled",!1);var t=o.response.endorsement,n=o.response.oldEndorsementValue;this._setEndorsement(t.value),window.appUser.updateEndorsementForPost(this.post.id,t),n&&(n>0?this.set("post.counter_endorsements_up",this.post.counter_endorsements_up-1):n<0&&this.set("post.counter_endorsements_down",this.post.counter_endorsements_down-1)),t.value>0?this.set("post.counter_endorsements_up",this.post.counter_endorsements_up+1):t.value<0&&this.set("post.counter_endorsements_down",this.post.counter_endorsements_down+1)},upVote:function(e){},downVote:function(e){},computeActionClass:function(e){return"action-bar"},ready:function(){this.endorseMode&&(this.$.actionDown.className+=" love-down",this.$.actionUp.className+=" love-up")}});</script>
+  <script>
+    Polymer({
+      is: 'yp-post-actions',
+
+      behaviors: [
+        Polymer.appHelpers,
+        Polymer.AppLocalizeBehavior
+      ],
+
+      properties: {
+        post: {
+          type: Object,
+          observer: '_onPostChanged'
+        },
+
+        small: {
+          type: Boolean,
+          value: false
+        },
+
+        headerMode: {
+          type: Boolean,
+          value: false
+        },
+
+        forceSmall: {
+          type: Boolean,
+          value: false
+        },
+
+        endorseMode: {
+          type: String,
+          value: 'love'
+        },
+
+        endorseValue: {
+          type: Number,
+          value: 0
+        },
+
+        elevation: {
+          type: Number,
+          value: 3
+        },
+
+        elevationPlusOne: {
+          type: Number,
+          computed: '_elevationPlusOne(elevation)'
+        },
+
+        allDisabled: {
+          type: Boolean,
+          value: true
+        },
+
+        floating: Boolean
+      },
+
+      _toggleShare: function () {
+        this.set('showShareButtons', !this.showShareButtons);
+      },
+
+      _shareMouseOver: function () {
+        this.set('showShareButtons', true);
+      },
+
+      _shareMouseOut: function () {
+        this.async(function () {
+          this.set('showShareButtons', false);
+        },1200);
+      },
+
+      _elevationPlusOne: function (elevation) {
+        if (elevation<5) {
+          return elevation + 1;
+        } else {
+          return elevation;
+        }
+      },
+
+      _hideDebate: function (small, forceSmall) {
+        return (small || forceSmall)
+      },
+
+      _onPostChanged: function (newValue, oldValue) {
+        if (newValue) {
+          this._updateEndorsements();
+        }
+      },
+
+      _updateEndorsements: function () {
+
+      },
+
+      endorseModeIcon: function (endorseMode, upDown) {
+        if (endorseMode=='thumbs' && upDown=='up') {
+          return 'thumb-up';
+        } else if (endorseMode=='thumbs' && upDown=='down') {
+          return 'thumb-down';
+        } else if (endorseMode=='love' && upDown=='up') {
+//          return 'favorite';
+//          return 'favorite';
+          return 'favorite';
+        } else if (endorseMode=='love' && upDown=='down') {
+          return 'notification:do-not-disturb';
+        } else if (endorseMode=='arrow' && upDown=='up') {
+          return 'hardware:keyboard-arrow-down';
+        } else if (endorseMode=='arrow' && upDown=='down') {
+          return 'hardware:keyboard-arrow-up';
+        }
+      },
+
+      _endorseResponse: function (event, detail) {
+        this.set('allDisabled', false);
+        var endorsement = detail.response.endorsement;
+        var oldEndorsementValue = detail.response.oldEndorsementValue;
+        this._setEndorsement(endorsement.value);
+        window.appUser.updateEndorsementForPost(this.post.id, endorsement);
+        if (oldEndorsementValue) {
+          if (oldEndorsementValue>0)
+            this.set('post.counter_endorsements_up', this.post.counter_endorsements_up-1);
+          else if (oldEndorsementValue<0)
+            this.set('post.counter_endorsements_down', this.post.counter_endorsements_down-1);
+        }
+        if (endorsement.value>0)
+          this.set('post.counter_endorsements_up', this.post.counter_endorsements_up+1);
+        else if (endorsement.value<0)
+          this.set('post.counter_endorsements_down', this.post.counter_endorsements_down+1);
+      },
+
+      upVote: function (event) {
+      },
+
+      downVote: function (event) {
+      },
+
+      computeActionClass: function (small) {
+        return small ? 'action-bar' : 'action-bar';
+      },
+
+      ready: function() {
+        if (this.endorseMode) {
+          this.$.actionDown.className += ' ' + 'love-down';
+          this.$.actionUp.className += ' ' + 'love-up';
+        }
+      }
+    });
+  </script>
 </dom-module>
 </body></html>
