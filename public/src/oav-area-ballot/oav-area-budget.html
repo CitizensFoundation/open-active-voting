@@ -428,6 +428,14 @@
         }.bind(this));
 
         this.$.votes.appendChild(container);
+
+        var animation = container.animate([
+          { transform: "scale(2)",  easing: 'ease-in' },
+          { transform: "scale(1)", easing: 'ease-out' }
+        ], {
+          duration: 600,
+          iterations: 1
+        });
       },
 
       _removeItemFromDiv: function (item) {

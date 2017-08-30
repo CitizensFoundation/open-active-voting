@@ -1,29 +1,29 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.1">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.2">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.2">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.1">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.2">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.2">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.2">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=5.9.1">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=5.9.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.2">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.2">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=5.9.2">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=5.9.2">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.1">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.1">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.2">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.2">
 
-<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html?v=5.9.1">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html?v=5.9.2">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.1">
-<link rel="import" href="oav-area-budget.html?v=5.9.1">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.2">
+<link rel="import" href="oav-area-budget.html?v=5.9.2">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -195,22 +195,34 @@
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: var(--paper-blue-a100);
-      color: #fff;
+      background-color: #FFF;
+      color: var(--paper-blue-a100);
+      --paper-fab-iron-icon: {
+        height: 30px;
+        width: 30px;
+      };
       padding: 0;
+      padding-top: 2px;
+      padding-left: 1px;
     }
 
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: var(--paper-blue-a400);
-      color: #fff;
+      background-color: #FFF;
+      color: var(--paper-blue-a700);
+      --paper-fab-iron-icon: {
+        height: 30px;
+        width: 30px;
+      };
       padding: 0;
+      padding-top: 2px;
+      padding-left: 1px;
     }
 
     paper-fab[disabled] {
-      background-color: #999;
+      background-color: #b7b7b7;
     }
 
     .budgetContainer {
@@ -636,7 +648,7 @@
           { transform: "scale(2)", easing: 'ease-out' },
           { transform: "translateY(0)", easing: 'ease-out' }
         ], {
-          duration: 420,
+          duration: 380,
           iterations: 1
         });
 
