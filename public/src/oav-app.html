@@ -300,8 +300,14 @@
             transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
           } else {
             var oldBudgetAnimPos = this.$.budget.getItemLeftTop(this.$.budgetBallot.oldFavoriteItem);
-            transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
-            transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
+            if (oldBudgetAnimPos) {
+              transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
+              transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
+            } else {
+              console.error("Can't find old item");
+              transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
+              transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+            }
           }
 
           this.$.favoriteIcon.hidden = false;
