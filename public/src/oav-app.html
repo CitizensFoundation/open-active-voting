@@ -286,13 +286,23 @@
       },
 
       _toggleFavoriteItem: function (event, detail) {
-        if (detail.item) {
-          this.$.favoriteIcon.style.position = "absolute";
-          this.$.favoriteIcon.style.left = detail.orgAnimPos.left+"px";
-          this.$.favoriteIcon.style.top = detail.orgAnimPos.top+"px";
 
-          var transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
-          var transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+        if (detail.item) {
+
+          var transformLeft, transformTop;
+
+          if (this.$.favoriteIcon.hidden===true) {
+            this.$.favoriteIcon.style.position = "absolute";
+            this.$.favoriteIcon.style.left = detail.orgAnimPos.left+"px";
+            this.$.favoriteIcon.style.top = detail.orgAnimPos.top+"px";
+
+            transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
+            transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+          } else {
+            var oldBudgetAnimPos = this.$.budget.getItemLeftTop(this.$.budgetBallot.oldFavoriteItem);
+            transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
+            transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
+          }
 
           this.$.favoriteIcon.hidden = false;
 

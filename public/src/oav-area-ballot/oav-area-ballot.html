@@ -226,13 +226,17 @@
           type: Object,
           value: null,
           observer: '_favoriteItemChanged'
-        }
+        },
+
+        oldFavoriteItem: Object
       },
 
       _favoriteItemChanged: function (newValue, oldValue) {
+        this.set('oldFavoriteItem', oldValue);
         if (!newValue && oldValue) {
           this.fire("oav-hide-favorite-item");
         }
+
       },
 
       _selectedViewChanged: function (view) {
