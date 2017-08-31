@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.2"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.333"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -5968,13 +5968,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           value: null,
           observer: '_favoriteItemChanged'
-        }
+        },
+
+        oldFavoriteItem: Object
       },
 
       _favoriteItemChanged: function (newValue, oldValue) {
+        this.set('oldFavoriteItem', oldValue);
         if (!newValue && oldValue) {
           this.fire("oav-hide-favorite-item");
         }
+
       },
 
       _selectedViewChanged: function (view) {
