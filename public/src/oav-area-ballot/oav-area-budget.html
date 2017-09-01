@@ -389,9 +389,9 @@
         image.setAttribute('alt', item.name);
         image.setAttribute('title', item.name);
         image.title= item.name;
-       /* image.style.borderLeft = 'solid 3px';
-        image.style.borderRight = 'solid 3px';
-        image.style.borderColor = '#ff6500';*/
+        image.style.borderLeft = 'solid 1px';
+        image.style.borderRight = 'solid 1px';
+        image.style.borderColor = '#ff6500';
         if (this.wide) {
           image.style.height = '100px';
         } else {
@@ -451,11 +451,11 @@
           var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left;
           var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top;
           if (this.wide) {
-            left = left - 22;
-            top = top - 22;
+            left = left - 24;
+            top = top - 24;
           } else {
-            left = left - 20;
-            top = top - 20;
+            left = left - 18;
+            top = top - 18;
           }
           return { left: left, top: top }
         } else {
