@@ -1,0 +1,37 @@
+{
+  "name": "resize-aware",
+  "description": "Container element that is aware of and notifies of changes to its size",
+  "main": "resize-aware.html",
+  "keywords": [
+    "polymer",
+    "container",
+    "resize",
+    "ResizeSensor",
+    "sensor",
+    "responsive",
+    "custom-element",
+    "web-components"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.9.1 || ^2.0.0"
+  },
+  "demo": "demo/index.html",
+  "license": "MIT",
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "version": "1.9.1",
+  "homepage": "https://github.com/mlisook/resize-aware",
+  "_release": "1.9.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.9.1",
+    "commit": "14ac99de0b4bca216d306785e57f737ed97bdc8b"
+  },
+  "_source": "https://github.com/mlisook/resize-aware.git",
+  "_target": "^1.0.1",
+  "_originalSource": "resize-aware"
+}

@@ -34,11 +34,7 @@ interface Iplacement {
 class paperMapInfo extends polymer.Base {
 
 
-    /**
-     * holds the content observer
-     */
-    @property({ type: Object, notify: true })
-    _contentObserver: MutationObserver;
+
 
     /**
      * Elevation of the paper material background (0 - 5)
@@ -89,9 +85,35 @@ class paperMapInfo extends polymer.Base {
     _overlay: google.maps.OverlayView;
 
     /**
+     * beak
+     */
+    @property({ type: Object })
+    _bk: HTMLElement;
+
+    /**
+     * not beak
+     */
+    @property({ type: Object })
+    _nbk: HTMLElement;
+
+    /**
+     * is custom beak
+     */
+    @property({ type: Boolean, notify: true, value: false })
+    _isCustomBeak: boolean;
+
+    /**
+     * watching size of window
+     */
+    @property({ type: Boolean, notify: true, value: false })
+    _watchingSize: boolean;
+
+    /**
      * close infowindow
      */
     close(): void {
+        this._releaseListeners();
+        // turn off the resize-aware ??
         this.isShowing = false;
         this.$.infocarddiv.style.opacity = 0;
         this.$.infocarddiv.style.left = 0;
@@ -100,8 +122,8 @@ class paperMapInfo extends polymer.Base {
         this.$.custombeak.style.display = "none";
         this.$.stdbeak.style.opacity = 0;
         this.$.custombeak.style.opacity = 0;
-        this._releaseListeners();
-        this._marker = undefined;
+        //this._marker = undefined;
+
     }
 
     /**
@@ -109,25 +131,11 @@ class paperMapInfo extends polymer.Base {
      */
     private _contentChanged(): void {
         if (this.isShowing) {
-            // disconnect while adjusting infowindow position
-            if (this._contentObserver)
-                this._contentObserver.disconnect();
-            // give a moment for sequences of changes to complete,
-            // such as ink effects and button elevation animations
-            setTimeout(() => {
-                this._getInfowindowSize();
-                let placement: Iplacement = this._setInfowindowPosition();
-                if (!this._placementInBounds(placement)) {
-                    this._panToShowInfowindow(placement);
-                }
-                // Watch for future updates.
-                this._contentObserver = new MutationObserver(() => { this._contentChanged(); });
-                this._contentObserver.observe(this, {
-                    childList: true,
-                    subtree: true,
-                    characterData: true
-                });
-            }, 300);
+            this._getInfowindowSize();
+            let placement: Iplacement = this._setInfowindowPosition();
+            if (!this._placementInBounds(placement)) {
+                this._panToShowInfowindow(placement);
+            }
         }
     }
 
@@ -135,6 +143,7 @@ class paperMapInfo extends polymer.Base {
      * clean up when this element is detached from the DOM
      */
     detached(): void {
+        this._releaseListeners();
         this.isShowing = false;
         this.$.infocarddiv.style.left = 0;
         this.$.infocarddiv.style.opacity = this.fadeIn ? 0 : 1;
@@ -143,7 +152,6 @@ class paperMapInfo extends polymer.Base {
         this.$.custombeak.display = "none";
         this.$.stdbeak.opacity = 0;
         this.$.custombeak.opacity = 0;
-        this._releaseListeners();
         this._marker = undefined;
         this.map = undefined;
     }
@@ -174,10 +182,9 @@ class paperMapInfo extends polymer.Base {
         this._dim.card.width = icd.offsetWidth;
         this._dim.card.height = icd.offsetHeight;
         // and the beak
-        if (this.$.custombeak.innerHTML.trim()) {
-            let bk = this.$.custombeak;
-            this._dim.beak.height = bk.offsetHeight;
-            this._dim.beak.width = bk.offsetWidth;
+        if (this._isCustomBeak) {
+            this._dim.beak.height = this._bk.offsetHeight;
+            this._dim.beak.width = this._bk.offsetWidth;
             this._dim.customBeak = true;
         } else {
             this._dim.beak = { height: 20, width: 20 };
@@ -217,10 +224,12 @@ class paperMapInfo extends polymer.Base {
         this._overlay.draw = function() { };
         this._overlay.setMap(this.map);
 
-        let reposition = _.throttle(() => {
-            this._getInfowindowSize();
-            this._setInfowindowPosition();
-        }, 25);
+        let reposition = () => {
+            if (this.isShowing) {
+                this._getInfowindowSize();
+                this._setInfowindowPosition();
+            }
+        };
 
         this._mapListeners.push(google.maps.event.addListener(this.map, 'projection_changed', () => {
             this._overlay = new google.maps.OverlayView();
@@ -245,15 +254,10 @@ class paperMapInfo extends polymer.Base {
                 this._setInfowindowPosition();
             }
         }));
-        if (this._contentObserver)
-            this._contentObserver.disconnect();
-        // Watch for future updates.
-        this._contentObserver = new MutationObserver(() => { this._contentChanged(); });
-        this._contentObserver.observe(this, {
-            childList: true,
-            subtree: true,
-            characterData: true
-        });
+
+        if (!this._watchingSize) {
+            this.$$('resize-aware').addEventListener('element-resize', () => { this._contentChanged(); });
+        }
     }
 
     /**
@@ -326,10 +330,7 @@ class paperMapInfo extends polymer.Base {
             google.maps.event.removeListener(l);
         }
         this._mapListeners = [];
-        if (this._contentObserver) {
-            this._contentObserver.disconnect();
-            this._contentObserver = undefined;
-        }
+        // turn off resize listener?
     }
     /**
      * Sets the info card's position relative to the map's containing div
@@ -342,16 +343,22 @@ class paperMapInfo extends polymer.Base {
             this._overlay.setMap(this.map);
             console.log("overlay not set");
         }
-        let point = this._overlay.getProjection().fromLatLngToContainerPixel(this._marker.getPosition());
-        // calculate placement
-        let pleft = Math.round(point.x - this._dim.card.width / 2);
-        let ptop = Math.round(point.y - this._dim.card.height - this._dim.marker.y - this._dim.beak.height + 10); // beak tucks 10px above bottom edge of window
-        this.$.infocarddiv.style.left = pleft + 'px';
-        this.$.infocarddiv.style.top = ptop + 'px';
-        let bk = this.$.custombeak.innerHTML.trim() ? this.$.custombeak : this.$.stdbeak;
-        bk.style.left = (point.x - this._dim.beak.width / 2) + "px";
-        bk.style.top = Math.floor(ptop - 10 + this._dim.card.height) + "px";  // beak tucks 10px above bottom edge of window
-        return { left: pleft, top: ptop };
+        let result = { left: 0, top: 0 };
+        try {
+            let point = this._overlay.getProjection().fromLatLngToContainerPixel(this._marker.getPosition());
+            // calculate placement
+            let pleft = Math.round(point.x - this._dim.card.width / 2);
+            let ptop = Math.round(point.y - this._dim.card.height - this._dim.marker.y - this._dim.beak.height + 10); // beak tucks 10px above bottom edge of window
+            this.$.infocarddiv.style.left = pleft + 'px';
+            this.$.infocarddiv.style.top = ptop + 'px';
+            this._bk.style.left = (point.x - this._dim.beak.width / 2) + "px";
+            this._bk.style.top = Math.floor(ptop - 10 + this._dim.card.height) + "px";  // beak tucks 10px above bottom edge of window
+            result = { left: pleft, top: ptop };
+        } catch (err) {
+            console.log("setInfowindowPosition error");
+            console.log(err);
+        };
+        return result;
     }
 
     /**
@@ -364,26 +371,32 @@ class paperMapInfo extends polymer.Base {
                 this.close();
             }
             this._marker = marker;
-            this._initListeners();
-            this.isShowing = true;
+            this._getMapSize();
+            this._getMarkerSize();
             this.$.infocarddiv.style.display = "block";
-            let bk = this.$.custombeak.innerHTML.trim() ? this.$.custombeak : this.$.stdbeak;
-            let nbk = this.$.custombeak.innerHTML.trim() ? this.$.stdbeak : this.$.custombeak;
-            bk.style.opacity = 0;
-            bk.style.display = "block";
-            nbk.style.opacity = 0;
-            nbk.style.display = "none";
+            if ((Polymer.dom(this.$.custombeakcontent) as any).getDistributedNodes().length > 0) {
+                this._bk = this.$.custombeak;
+                this._nbk = this.$.stdbeak;
+                this._isCustomBeak = true;
+            } else {
+                this._bk = this.$.stdbeak;
+                this._nbk = this.$.custombeak;
+                this._isCustomBeak = false;
+            }
+            this._bk.style.opacity = "0";
+            this._bk.style.display = "block";
+            this._nbk.style.opacity = "0";
+            this._nbk.style.display = "none";
             // to minimize repositioning due to content size changes
             // as polymer instantiates webcomponents in the <content>,
             // we will pause a few ms before instantiating the infowindow.
             setTimeout(() => {
-                this._initListeners();
                 this._getInfowindowSize();
-                this._getMapSize();
-                this._getMarkerSize();
                 let placement: Iplacement = this._setInfowindowPosition();
                 this.$.infocarddiv.style.opacity = this.fadeIn ? 0 : 1;
-                bk.style.opacity = 1;
+                this._bk.style.opacity = "1";
+                this._initListeners();
+                this.isShowing = true;
                 if (this.fadeIn) {
                     this._doFadeIn();
                 }

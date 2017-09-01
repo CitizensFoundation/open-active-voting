@@ -25,15 +25,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.AppLayout.registerEffect('resize-title', {
       /** @this Polymer.AppLayout.ElementWithBackground */
       setUp: function setUp() {
-        var title = this._getDOMRef('title');
+        var title = this._getDOMRef('mainTitle');
         var condensedTitle = this._getDOMRef('condensedTitle');
 
         if (!condensedTitle) {
-          this._warn(this._logf('effects[resize-title]', 'undefined `condensed-title`'));
+          console.warn('Scroll effect `resize-title`: undefined `condensed-title`');
           return false;
         }
         if (!title) {
-          this._warn(this._logf('effects[resize-title]', 'undefined `title`'));
+          console.warn('Scroll effect `resize-title`: undefined `main-title`');
           return false;
         }
 

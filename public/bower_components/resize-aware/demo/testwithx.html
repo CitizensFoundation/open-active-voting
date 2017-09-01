@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>resize-aware demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script>
+    /* this script must run before Polymer is imported */
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: false
+    };
+  </script>
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="x-demo.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+
+  </style>
+</head>
+
+<body>
+
+  <div class="vertical-section-container centered">
+    <h3>Basic resize-aware Demo</h3>
+    <demo-snippet>
+      <template>
+        <x-demo></x-demo>
+      </template>
+    </demo-snippet>
+  </div>
+
+
+</body>
+
+</html>
