@@ -11,15 +11,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../app-localize-behavior.html">
 
-<dom-module id="x-translate">
+<dom-module id="x-translate-l10n">
   <template>
-    <div id="output">{{localize('greeting')}}</div>
-    <div id="missing">{{localize('missing')}}</div>
+    <div id="output">{{localize('intro', 'price', 10)}}</div>
   </template>
 
   <script>
     Polymer({
-      is: "x-translate",
+      is: "x-translate-l10n",
 
       behaviors: [
         Polymer.AppLocalizeBehavior
@@ -30,15 +29,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'en',
           type: String
         },
+        formats: {
+          type: Object,
+          value: function() {
+            return {
+              number: { USD: { style: 'currency', currency: 'USD' } }
+            };
+          }
+        },
         resources: {
           type: Object,
           value: function() {
             return {
               'en': {
-                'greeting': 'hello'
+                'intro': 'Everything is {price, number, USD}'
               },
               'fr' : {
-                'greeting': 'bonjour'
+                'intro': 'Tout est à {price, number, USD}'
               }
             };
           }

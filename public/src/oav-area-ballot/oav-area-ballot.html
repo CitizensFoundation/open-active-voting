@@ -339,6 +339,7 @@
             }
             listItem.removeFromBudget();
             this.$$("#itemsMap").removeFromBudget(listItem.item);
+            this.fire("oav-reset-favorite-icon-position");
           }
         }
         this._setStateOfRemainingItems();

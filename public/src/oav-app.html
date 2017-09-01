@@ -260,7 +260,9 @@
         haveSetLanguage: {
           type: Boolean,
           value: false
-        }
+        },
+
+        resizeTimer: Object
       },
 
       listeners: {
@@ -269,12 +271,14 @@
         'oav-error': '_errorHandler',
         'oav-set-area': '_setArea',
         'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
-        'oav-hide-favorite-item': '_hideFavoriteItem'
+        'oav-hide-favorite-item': '_hideFavoriteItem',
+        'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition'
       },
 
       observers: [
         '_routePageChanged(routeData.page)'
       ],
+
 
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
@@ -341,6 +345,18 @@
         return LOAD_TESTING_MODE==true;
       },
 
+      resetFavoriteIconPosition: function () {
+        if (this.$.budgetBallot.favoriteItem) {
+          var pos = this.$.budget.getItemLeftTop(this.$.budgetBallot.favoriteItem);
+          if (post) {
+            this.$.favoriteIcon.style.left = pos.left+"px";
+            this.$.favoriteIcon.style.top = pos.top+"px";
+          } else {
+            console.error("Can't find position of favorite item");
+          }
+        }
+      },
+
       _help: function () {
         this.getDialog("page").open();
       },
@@ -368,8 +384,22 @@
         this.set('title', detail);
       },
 
-      attached: function() {
-        this.loadLanguage(this.resolveUrl('/src/locales.json'));
+      attached: function () {
+        this.async(function () {
+          this.loadLanguage(this.resolveUrl('/src/locales.json'));
+          window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
+        }.bind(this));
+      },
+
+      detached: function() {
+        window.removeEventListener("resize", this.resetSizeWithDelay);
+      },
+
+      resetSizeWithDelay: function () {
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(function() {
+          this.resetFavoriteIconPosition();
+        }.bind(this), 250);
       },
 
       _translationLoaded: function () {
