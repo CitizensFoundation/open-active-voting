@@ -515,6 +515,8 @@
         if (newAreaId) {
           this.reset();
           this.set('haveSentBallot', false);
+          this.set('favoriteItem', null);
+          this.set('oldFavoriteItem', null);
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
         }
