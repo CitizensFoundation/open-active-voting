@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.6"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.7"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2213,8 +2213,8 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       </div>
       <div class="buttons">
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
-          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
         </div>
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget">
         </paper-fab>
@@ -6081,6 +6081,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             listItem.removeFromBudget();
             this.$$("#itemsMap").removeFromBudget(listItem.item);
+            this.fire("oav-reset-favorite-icon-position");
           }
         }
         this._setStateOfRemainingItems();

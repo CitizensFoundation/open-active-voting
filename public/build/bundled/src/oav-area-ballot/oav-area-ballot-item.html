@@ -1,29 +1,29 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.6">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.6">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.6">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.7">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.6">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.6">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.7">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.6">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.6">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.6">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.6">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.7">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.7">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.7">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.6">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.6">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=5.9.6">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=5.9.6">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=5.9.6">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.7">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.7">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=5.9.7">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=5.9.7">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.6">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.6">
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=5.9.7">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=5.9.7">
 
-<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html?v=5.9.6">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html?v=5.9.7">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.6">
-<link rel="import" href="oav-area-budget.html?v=5.9.6">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.7">
+<link rel="import" href="oav-area-budget.html?v=5.9.7">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -365,8 +365,8 @@
       </div>
       <div class="buttons">
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
-          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
+          <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
         </div>
         <paper-fab mini="" id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget">
         </paper-fab>
