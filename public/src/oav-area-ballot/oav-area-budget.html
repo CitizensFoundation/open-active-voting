@@ -142,10 +142,13 @@
 
     #budgetLeftInfo {
       font-size: 13px;
+      font-weight: bold;
     }
 
     #budgetLeftInfo[wide] {
       font-size: 19px;
+      font-weight: bold;
+      z-index: 100000;
     }
 
     .noItemsInfo {
@@ -430,8 +433,17 @@
         this.$.votes.appendChild(container);
 
         var animation = container.animate([
-          { transform: "scale(2)",  easing: 'ease-in' },
+          { transform: "translateY(50px) scale(2)",  easing: 'ease-out' },
           { transform: "scale(1)", easing: 'ease-out' }
+        ], {
+          duration: 600,
+          iterations: 1
+        });
+
+        this.$$("#budgetLeftInfo").animate([
+          { transform: "scale(1)" },
+          { transform: "scale(1.75)",  easing: 'ease-in-out' },
+          { transform: "scale(1)", easing: 'ease-in' }
         ], {
           duration: 600,
           iterations: 1
