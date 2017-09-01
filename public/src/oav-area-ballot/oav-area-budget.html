@@ -449,9 +449,14 @@
         if (selectedItemDiv) {
           var buttonRect = selectedItemDiv.getBoundingClientRect();
           var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left;
-          left = left - 22;
           var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top;
-          top = top - 22;
+          if (this.wide) {
+            left = left - 22;
+            top = top - 22;
+          } else {
+            left = left - 20;
+            top = top - 20;
+          }
           return { left: left, top: top }
         } else {
           console.error("Trying to get item that is not in the budget");
