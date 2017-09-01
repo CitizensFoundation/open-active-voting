@@ -6,8 +6,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.7">
-<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html?v=5.9.7">
+--><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.8">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html?v=5.9.8">
 
 <!--
 app-drawer is a navigation drawer that can slide in from the left or right.
@@ -61,7 +61,7 @@ Custom property                  | Description                            | Defa
 
         visibility: hidden;
 
-        transition: visibility 0.2s ease;
+        transition-property: visibility;
       }
 
       :host([opened]) {
@@ -89,7 +89,6 @@ Custom property                  | Description                            | Defa
         width: var(--app-drawer-width, 256px);
         padding: 120px 0;
 
-        transition: 0.2s ease;
         transition-property: -webkit-transform;
         transition-property: transform;
         -webkit-transform: translate3d(-100%, 0, 0);
@@ -98,6 +97,10 @@ Custom property                  | Description                            | Defa
         background-color: #FFF;
 
         @apply(--app-drawer-content-container);
+      }
+
+      :host([persistent]) > #contentContainer {
+        width: 100%;
       }
 
       :host([position=right]) > #contentContainer {
@@ -138,7 +141,7 @@ Custom property                  | Description                            | Defa
         bottom: 0;
         left: 0;
 
-        transition: opacity 0.2s ease;
+        transition-property: opacity;
         -webkit-transform: translateZ(0);
         transform:  translateZ(0);
 
@@ -194,6 +197,14 @@ Custom property                  | Description                            | Defa
         },
 
         /**
+         * The transition duration of the drawer in milliseconds.
+         */
+        transitionDuration: {
+          type: Number,
+          value: 200
+        },
+
+        /**
          * The alignment of the drawer on the screen ('left', 'right', 'start' or 'end').
          * 'start' computes to left and 'end' to right in LTR layout and vice versa in RTL
          * layout.
@@ -209,7 +220,6 @@ Custom property                  | Description                            | Defa
         position: {
           type: String,
           readOnly: true,
-          value: 'left',
           reflectToAttribute: true
         },
 
@@ -228,12 +238,22 @@ Custom property                  | Description                            | Defa
         noFocusTrap: {
           type: Boolean,
           value: false
+        },
+
+        /**
+         * Disables swiping on the drawer.
+         */
+        disableSwipe: {
+          type: Boolean,
+          value: false
         }
       },
 
       observers: [
-        'resetLayout(position)',
-        '_resetPosition(align, isAttached)'
+        'resetLayout(position, isAttached)',
+        '_resetPosition(align, isAttached)',
+        '_styleTransitionDuration(transitionDuration)',
+        '_openedPersistentChanged(opened, persistent)'
       ],
 
       _translateOffset: 0,
@@ -248,27 +268,21 @@ Custom property                  | Description                            | Defa
 
       _lastTabStop: null,
 
-      ready: function() {
-        // Set the scroll direction so you can vertically scroll inside the drawer.
-        this.setScrollDirection('y');
-
-        // Only transition the drawer after its first render (e.g. app-drawer-layout
-        // may need to set the initial opened state which should not be transitioned).
-        this._setTransitionDuration('0s');
-      },
-
       attached: function() {
         // Only transition the drawer after its first render (e.g. app-drawer-layout
         // may need to set the initial opened state which should not be transitioned).
+        this._styleTransitionDuration(0);
         Polymer.RenderStatus.afterNextRender(this, function() {
-          this._setTransitionDuration('');
+          this._styleTransitionDuration(this.transitionDuration);
           this._boundEscKeydownHandler = this._escKeydownHandler.bind(this);
-          this._resetDrawerState();
-
-          this.listen(this, 'track', '_track');
-          this.addEventListener('transitionend', this._transitionend.bind(this));
           this.addEventListener('keydown', this._tabKeydownHandler.bind(this))
+
+          // Only listen for horizontal track so you can vertically scroll inside the drawer.
+          this.listen(this, 'track', '_track');
+          this.setScrollDirection('y');
         });
+
+        this.fire('app-drawer-attached');
       },
 
       detached: function() {
@@ -306,16 +320,13 @@ Custom property                  | Description                            | Defa
       },
 
       /**
-       * Resets the layout. If you changed the size of app-header via CSS
-       * you can notify the changes by either firing the `iron-resize` event
-       * or calling `resetLayout` directly.
+       * Resets the layout. The event fired is used by app-drawer-layout to position the
+       * content.
        *
        * @method resetLayout
        */
       resetLayout: function() {
-        this.debounce('_resetLayout', function() {
-          this.fire('app-drawer-reset-layout');
-        }, 1);
+        this.fire('app-drawer-reset-layout');
       },
 
       _isRTL: function() {
@@ -344,7 +355,7 @@ Custom property                  | Description                            | Defa
       },
 
       _track: function(event) {
-        if (this.persistent) {
+        if (this.persistent || this.disableSwipe) {
           return;
         }
 
@@ -368,7 +379,7 @@ Custom property                  | Description                            | Defa
         this._drawerState = this._DRAWER_STATE.TRACKING;
 
         // Disable transitions since style attributes will reflect user track events.
-        this._setTransitionDuration('0s');
+        this._styleTransitionDuration(0);
         this.style.visibility = 'visible';
 
         var rect = this.$.contentContainer.getBoundingClientRect();
@@ -419,12 +430,13 @@ Custom property                  | Description                            | Defa
           this.opened = this.position === 'left';
         }
 
-        // Trigger app-drawer-transitioned now since there will be no transitionend event.
         if (isInEndState) {
-          this._resetDrawerState();
+          this.debounce('_resetDrawerState', this._resetDrawerState);
+        } else {
+          this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
         }
 
-        this._setTransitionDuration('');
+        this._styleTransitionDuration(this.transitionDuration);
         this._resetDrawerTranslate();
         this.style.visibility = '';
       },
@@ -493,36 +505,21 @@ Custom property                  | Description                            | Defa
 
         // Calculate the amount of time needed to finish the transition based on the
         // initial slope of the timing function.
-        this._setTransitionDuration((this._FLING_INITIAL_SLOPE * dx / velocity) + 'ms');
-        this._setTransitionTimingFunction(this._FLING_TIMING_FUNCTION);
+        var t = this._FLING_INITIAL_SLOPE * dx / velocity
+        this._styleTransitionDuration(t);
+        this._styleTransitionTimingFunction(this._FLING_TIMING_FUNCTION);
 
         this._resetDrawerTranslate();
+        this.debounce('_resetDrawerState', this._resetDrawerState, t);
       },
 
-      _transitionend: function(event) {
-        // contentContainer will transition on opened state changed, and scrim will
-        // transition on persistent state changed when opened - these are the
-        // transitions we are interested in.
-        var target = Polymer.dom(event).rootTarget;
-        if (target === this.$.contentContainer || target === this.$.scrim) {
-
-          // If the drawer was flinging, we need to reset the style attributes.
-          if (this._drawerState === this._DRAWER_STATE.FLINGING) {
-            this._setTransitionDuration('');
-            this._setTransitionTimingFunction('');
-            this.style.visibility = '';
-          }
-
-          this._resetDrawerState();
-        }
+      _styleTransitionDuration: function(duration) {
+        this.style.transitionDuration = duration + 'ms';
+        this.$.contentContainer.style.transitionDuration = duration + 'ms';
+        this.$.scrim.style.transitionDuration = duration + 'ms';
       },
 
-      _setTransitionDuration: function(duration) {
-        this.$.contentContainer.style.transitionDuration = duration;
-        this.$.scrim.style.transitionDuration = duration;
-      },
-
-      _setTransitionTimingFunction: function(timingFunction) {
+      _styleTransitionTimingFunction: function(timingFunction) {
         this.$.contentContainer.style.transitionTimingFunction = timingFunction;
         this.$.scrim.style.transitionTimingFunction = timingFunction;
       },
@@ -548,6 +545,14 @@ Custom property                  | Description                            | Defa
 
       _resetDrawerState: function() {
         var oldState = this._drawerState;
+
+        // If the drawer was flinging, we need to reset the style attributes.
+        if (oldState === this._DRAWER_STATE.FLINGING) {
+          this._styleTransitionDuration(this.transitionDuration);
+          this._styleTransitionTimingFunction('');
+          this.style.visibility = '';
+        }
+
         if (this.opened) {
           this._drawerState = this.persistent ?
             this._DRAWER_STATE.OPENED_PERSISTENT : this._DRAWER_STATE.OPENED;
@@ -633,6 +638,12 @@ Custom property                  | Description                            | Defa
         }
       },
 
+      _openedPersistentChanged: function() {
+        // Use a debounce timer instead of transitionend since transitionend won't fire when
+        // app-drawer is display: none.
+        this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
+      },
+
       _MIN_FLING_THRESHOLD: 0.2,
 
       _MIN_TRANSITION_VELOCITY: 1.2,
@@ -649,6 +660,12 @@ Custom property                  | Description                            | Defa
         TRACKING: 4,
         FLINGING: 5
       }
+
+      /**
+       * Fired when the layout of app-drawer is attached.
+       *
+       * @event app-drawer-attached
+       */
 
       /**
        * Fired when the layout of app-drawer has changed.

@@ -6,7 +6,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../polymer/polymer.html?v=5.9.7">
+--><html><head><link rel="import" href="../polymer/polymer.html?v=5.9.8">
 
 <!--
 `app-route` is an element that enables declarative, self-describing routing
@@ -98,7 +98,7 @@ the `app-route` will update `route.path`. This in-turn will update the
         },
 
         /**
-         * The pattern of slash-separated segments to match `path` against.
+         * The pattern of slash-separated segments to match `route.path` against.
          *
          * For example the pattern "/foo" will match "/foo" or "/foo/bar"
          * but not "/foobar".
@@ -131,7 +131,7 @@ the `app-route` will update `route.path`. This in-turn will update the
         },
 
         /**
-         * The part of `path` NOT consumed by `pattern`.
+         * The part of `route.path` NOT consumed by `pattern`.
          */
         tail: {
           type: Object,
@@ -139,6 +139,10 @@ the `app-route` will update `route.path`. This in-turn will update the
           notify: true
         },
 
+        /**
+         * Whether the current route is active. True if `route.path` matches the 
+         * `pattern`, false otherwise.
+         */
         active: {
           type: Boolean,
           notify: true,

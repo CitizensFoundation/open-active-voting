@@ -6,8 +6,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.7">
-<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html?v=5.9.7">
+--><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.8">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout.html?v=5.9.8">
 
 <!--
 app-toolbar is a horizontal toolbar containing items that can be used for
@@ -19,7 +19,7 @@ Add a title to the toolbar.
 
 ```html
 <app-toolbar>
-  <div title>App name</div>
+  <div main-title>App name</div>
 </app-toolbar>
 ```
 
@@ -28,7 +28,7 @@ Add a button to the left and right side of the toolbar.
 ```html
 <app-toolbar>
   <paper-icon-button icon="menu"></paper-icon-button>
-  <div title>App name</div>
+  <div main-title>App name</div>
   <paper-icon-button icon="search"></paper-icon-button>
 </app-toolbar>
 ```
@@ -38,9 +38,9 @@ to the top or bottom of the toolbar respectively.
 
 ### Content attributes
 
-Attribute            | Description 
+Attribute            | Description
 ---------------------|---------------------------------------------------------
-`title`              | The main title element.
+`main-title`         | The main title element.
 `condensed-title`    | The title element if used inside a condensed app-header.
 `spacer`             | Adds a left margin of `64px`.
 `bottom-item`        | Sticks the element to the bottom of the toolbar.
@@ -61,49 +61,45 @@ Custom property              | Description                  | Default
   <template>
     <style>
       :host {
-        position: relative;
-
         @apply(--layout-horizontal);
         @apply(--layout-center);
-
+        position: relative;
         height: 64px;
         padding: 0 16px;
-
         pointer-events: none;
-
         font-size: var(--app-toolbar-font-size, 20px);
       }
 
-      :host > ::content > * {
+      ::content > * {
         pointer-events: auto;
       }
 
-      :host > ::content > paper-icon-button {
+      ::content > paper-icon-button {
         /* paper-icon-button/issues/33 */
         font-size: 0;
       }
 
-      :host > ::content > [title],
-      :host > ::content > [condensed-title] {
+      ::content > [main-title],
+      ::content > [condensed-title] {
         pointer-events: none;
         @apply(--layout-flex);
       }
 
-      :host > ::content > [bottom-item] {
+      ::content > [bottom-item] {
         position: absolute;
         right: 0;
         bottom: 0;
         left: 0;
       }
 
-      :host > ::content > [top-item] {
+      ::content > [top-item] {
         position: absolute;
         top: 0;
         right: 0;
         left: 0;
       }
 
-      :host > ::content > [spacer] {
+      ::content > [spacer] {
         margin-left: 64px;
       }
     </style>

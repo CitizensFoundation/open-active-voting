@@ -6,8 +6,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.7">
-<link rel="import" href="../helpers/helpers.html?v=5.9.7">
+--><html><head><link rel="import" href="../../polymer/polymer.html?v=5.9.8">
+<link rel="import" href="../../iron-scroll-target-behavior/iron-scroll-target-behavior.html?v=5.9.8">
 
 <!--
 app-scrollpos-control is a manager for saving and restoring the scroll position when multiple
@@ -54,6 +54,10 @@ Example:
     Polymer({
       is: 'app-scrollpos-control',
 
+      behaviors: [
+        Polymer.IronScrollTargetBehavior
+      ],
+
       properties: {
         /**
          * The selected page.
@@ -82,7 +86,7 @@ Example:
 
       _selectedChanged: function(selected, old) {
         if (old != null) {
-          this._scrollposMap[old] = {x: window.pageXOffset, y: window.pageYOffset};
+          this._scrollposMap[old] = {x: this._scrollLeft, y: this._scrollTop};
         }
       },
 
@@ -90,18 +94,10 @@ Example:
         this.debounce('_updateScrollPos', function() {
           var pos = this._scrollposMap[this.selected];
           if (pos != null && !this.reset) {
-            this._scrollTo(pos.x, pos.y);
+            this.scroll(pos.x, pos.y);
           } else {
-            this._scrollTo(0, 0);
+            this.scroll(0, 0);
           }
-        });
-      },
-
-      _scrollTo: function(x, y) {
-        Polymer.AppLayout.scroll({
-          left: x,
-          top: y,
-          behavior: 'silent'
         });
       }
     });

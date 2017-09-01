@@ -38,10 +38,12 @@ _startFriendChat: function(e) {
 }
 
 --><html><head><script src="../underscore/underscore.js"></script>
-<link rel="import" href="../polymer/polymer.html?v=5.9.7">
-<link rel="import" href="../polymer-ts/polymer-ts.html?v=5.9.7">
-<link rel="import" href="../paper-material/paper-material.html?v=5.9.7">
-<link rel="import" href="../iron-icon/iron-icon.html?v=5.9.7">
+<link rel="import" href="../polymer/polymer.html?v=5.9.8">
+<link rel="import" href="../polymer-ts/polymer-ts.html?v=5.9.8">
+<link rel="import" href="../paper-material/paper-material.html?v=5.9.8">
+<link rel="import" href="../iron-icon/iron-icon.html?v=5.9.8">
+<link rel="import" href="../resize-aware/resize-aware.html?v=5.9.8">
+<link rel="import" href="paper-map-info-icons.html?v=5.9.8">
 
 <!--
 An element providing a solution to no problem in particular.
@@ -102,11 +104,11 @@ Example:
       }
 
       iron-icon.closeicon {
-        --iron-icon-width: 24px;
-        --iron-icon-height: 24px;
+        --iron-icon-width: 28px;
+        --iron-icon-height: 28px;
         position: absolute;
-        right: 3px;
-        top: 3px;
+        left: 4px;
+        top: 4px;
       }
     </style>
     <div id="stdbeak" class="infocard-beak">
@@ -118,10 +120,12 @@ Example:
       <content id="custombeakcontent" select=".paper-map-info-beak"></content>
     </div>
     <paper-material id="infocarddiv" class="infocard" elevation="[[elevation]]">
-      <div class="card-content">
-        <content id="cardcontent" select="*"></content>
-      </div>
-      <iron-icon class="closeicon" icon="close" on-tap="close"></iron-icon>
+      <resize-aware>
+        <div class="card-content">
+          <content id="cardcontent" select="*"></content>
+        </div>
+      </resize-aware>
+      <iron-icon class="closeicon" icon="papmapinf:close" on-tap="close"></iron-icon>
     </paper-material>
 
   </template>
