@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.4">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.5">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.4">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.5">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=5.9.4">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.4">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.9.4">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.9.4">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.9.4">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.4">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.4">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.9.4">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.4">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.4">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=5.9.5">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.5">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.9.5">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.9.5">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.9.5">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.5">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.5">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.9.5">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.5">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.5">
 
 </head><body><dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
@@ -449,9 +449,14 @@
         if (selectedItemDiv) {
           var buttonRect = selectedItemDiv.getBoundingClientRect();
           var left = ((buttonRect.right-buttonRect.left)/2)+buttonRect.left;
-          left = left - 22;
           var top = ((buttonRect.bottom-buttonRect.top)/2)+buttonRect.top;
-          top = top - 22;
+          if (this.wide) {
+            left = left - 22;
+            top = top - 22;
+          } else {
+            left = left - 20;
+            top = top - 20;
+          }
           return { left: left, top: top }
         } else {
           console.error("Trying to get item that is not in the budget");
