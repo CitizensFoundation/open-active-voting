@@ -35,11 +35,11 @@
     "web-component-tester": "^4.0.0",
     "syntax-highlight": "^1.0.0"
   },
-  "_release": "f42beab8fb",
+  "_release": "2c8c461599",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "f42beab8fb4f88130211afa93eb0804abb8176f0"
+    "commit": "2c8c461599c81275b8275952c7a86f925b58ba13"
   },
   "_source": "https://github.com/rbjarnason/paper-map-info.git",
   "_target": "master",

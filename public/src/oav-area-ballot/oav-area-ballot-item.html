@@ -263,16 +263,13 @@
       margin-right: 0;
     }
 
-    paper-menu-button {
+    .dropdownMenuButton {
       position: absolute;
       top: 8px;
       right: 8px;
     }
 
-    paper-icon-button.dropdownButton {
-      position: absolute;
-      top: 12px;
-      right: 12px;
+    .dropdownButton {
       background-color: var(--app-accent-color);
       opacity: 0.8;
       color: #fff;
@@ -328,7 +325,7 @@
         <template is="dom-if" if="[[mapTabSelected]]" restamp>
           <template is="dom-if" if="[[mapsHeight]]" restamp>
             <iron-image class="main-image" sizing="cover"
-                        src="https://maps.googleapis.com/maps/api/staticmap?center=[[item.locations.0.latitude]],[[item.locations.0.longitude]]&zoom=10&size=432x243&maptype=hybrid&key=[[staticMapsApiKey]]"
+                        src$="https://maps.googleapis.com/maps/api/staticmap?center=[[latitude]],[[longitude]]&zoom=15&size=[[mapsWidth]]x[[mapsHeight]]&markers=color:red%7Clabel:H%7C[[latitude]],[[longitude]]&key=[[staticMapsApiKey]]"
                         hidden$="[[!mapTabSelected]]"></iron-image>
           </template>
         </template>
@@ -338,23 +335,25 @@
           </div>
         </div>
       </div>
-      <paper-icon-button floating elevation="5" class="dropdownButton" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
-      <paper-menu-button>
-        <div class="stateDropdown" small$="[[small]]" tiny$="[[tiny]]">
-          <paper-menu class="dropdown-content" selected="1" hidden>
-            <paper-item>
-              <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></iron-icon>
-            </paper-item>
-            <paper-item>
-              <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></iron-icon>
-            </paper-item>
-            <paper-item>
-              <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></iron-icon>
-            </paper-item>
-            <paper-icon-button hiddesn$="[[!descriptionPdfLink]]" title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></paper-icon-button>
-            <paper-icon-button raised on-tap="_showPost" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></paper-icon-button>
-          </paper-menu>
-        </div>
+      <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton">
+        <paper-icon-button class="dropdown-trigger dropdownButton" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
+        <paper-menu class="dropdown-content" selected="1">
+          <paper-item>
+            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></iron-icon>
+          </paper-item>
+          <paper-item>
+            <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></iron-icon>
+          </paper-item>
+          <paper-item>
+            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></iron-icon>
+          </paper-item>
+          <paper-item>
+            <iron-icon title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>
+          </paper-item>
+          <paper-item>
+            <iron-icon raised on-tap="_showPost" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>
+          </paper-item>
+        </paper-menu>
       </paper-menu-button>
       <div class="infoLinks" small$="[[small]]" tiny$="[[tiny]]">
       </div>
@@ -479,6 +478,16 @@
         mapsWidth: {
           type: String,
           value: null
+        },
+
+        longitude: {
+          type: String,
+          value: null
+        },
+
+        latitude: {
+          type: String,
+          value: null
         }
       },
 
@@ -544,6 +553,10 @@
 
       _itemChanged: function (newItem) {
         if (newItem) {
+          if (newItem.locations && newItem.locations.length>0) {
+            this.set('longitude', newItem.locations[0].longitude);
+            this.set('latitude', newItem.locations[0].latitude);
+          }
           this.resetFromBudget();
         }
       },
