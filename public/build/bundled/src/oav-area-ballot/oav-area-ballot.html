@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.10"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.11"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -6794,6 +6794,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (newAreaId) {
           this.reset();
           this.set('haveSentBallot', false);
+          this.set('favoriteItem', null);
+          this.set('oldFavoriteItem', null);
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
         }
