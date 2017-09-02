@@ -17,11 +17,6 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<link rel="import" href="../../bower_components/google-map/google-map.html">
-<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
-
-<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html">
-
 <link rel="import" href="../oav-ajax/oav-ajax.html">
 <link rel="import" href="oav-area-budget.html">
 
@@ -320,19 +315,17 @@
     <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
     <paper-material animated elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
-      <div>
-        <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
-        <template is="dom-if" if="[[mapTabSelected]]" restamp>
-          <template is="dom-if" if="[[mapsHeight]]" restamp>
-            <iron-image class="main-image" sizing="cover"
-                        src$="https://maps.googleapis.com/maps/api/staticmap?center=[[latitude]],[[longitude]]&zoom=15&size=[[mapsWidth]]x[[mapsHeight]]&markers=color:red%7Clabel:H%7C[[latitude]],[[longitude]]&key=[[staticMapsApiKey]]"
-                        hidden$="[[!mapTabSelected]]"></iron-image>
-          </template>
+      <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
+      <template is="dom-if" if="[[mapTabSelected]]" restamp>
+        <template is="dom-if" if="[[mapsHeight]]" restamp>
+          <iron-image class="main-image" sizing="cover"
+                      src$="https://maps.googleapis.com/maps/api/staticmap?center=[[latitude]],[[longitude]]&zoom=15&size=[[mapsWidth]]x[[mapsHeight]]&markers=color:red%7Clabel:%7C[[latitude]],[[longitude]]&key=[[staticMapsApiKey]]"
+                      hidden$="[[!mapTabSelected]]"></iron-image>
         </template>
-        <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]" tiny$="[[tiny]]">
-          <div id="description" class="description">
-            [[item.description]]
-          </div>
+      </template>
+      <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]" tiny$="[[tiny]]">
+        <div id="description" class="description">
+          [[item.description]]
         </div>
       </div>
       <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton">
@@ -396,8 +389,7 @@
 
       behaviors: [
         Polymer.appHelpers,
-        Polymer.AppLocalizeBehavior,
-        Polymer.NeonAnimationRunnerBehavior
+        Polymer.AppLocalizeBehavior
       ],
 
       properties: {
