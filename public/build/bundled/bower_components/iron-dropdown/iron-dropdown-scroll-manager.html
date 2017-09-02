@@ -6,7 +6,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../polymer/polymer.html?v=5.9.11">
+--><html><head><link rel="import" href="../polymer/polymer.html?v=5.9.12">
 
 <script>
   (function() {
@@ -175,15 +175,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return true;
         }
 
-        contentElements = Polymer.dom(element).querySelectorAll('content,slot');
+        contentElements = Polymer.dom(element).querySelectorAll('content');
 
         for (contentIndex = 0; contentIndex < contentElements.length; ++contentIndex) {
 
           distributedNodes = Polymer.dom(contentElements[contentIndex]).getDistributedNodes();
 
           for (nodeIndex = 0; nodeIndex < distributedNodes.length; ++nodeIndex) {
-            // Polymer 2.x returns slot.assignedNodes which can contain text nodes.
-            if (distributedNodes[nodeIndex].nodeType !== Node.ELEMENT_NODE) continue;
 
             if (this._composedTreeContains(distributedNodes[nodeIndex], child)) {
               return true;
@@ -369,4 +367,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     };
   })();
-</script></head><body></body></html>
+</script>
+</head><body></body></html>

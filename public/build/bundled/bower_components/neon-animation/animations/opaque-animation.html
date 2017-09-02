@@ -11,23 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../web-animations.html?v=5.9.12">
 
 <!--
-`<fade-out-animation>` animates the opacity of an element from 1 to 0.
-
-Configuration:
-```
-{
-  name: 'fade-out-animation',
-  node: <node>
-  timing: <animation-timing>
-}
-```
+`<opaque-animation>` makes an element `opacity:1` for the duration of the animation. Used to prevent
+webkit/safari from drawing a frame before an animation for elements that animate from display:none.
 -->
 
 <script>
 
   Polymer({
 
-    is: 'fade-out-animation',
+    is: 'opaque-animation',
 
     behaviors: [
       Polymer.NeonAnimationBehavior
@@ -37,9 +29,14 @@ Configuration:
       var node = config.node;
       this._effect = new KeyframeEffect(node, [
         {'opacity': '1'},
-        {'opacity': '0'}
+        {'opacity': '1'}
       ], this.timingFromConfig(config));
+      node.style.opacity = '0';
       return this._effect;
+    },
+
+    complete: function(config) {
+      config.node.style.opacity = '';
     }
 
   });
