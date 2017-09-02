@@ -216,6 +216,7 @@
         </div>
       </paper-material>
     </div>
+    <paper-toast id="toast" duration="4000" text="Settu 💖 við þína uppáhalds hugmynd = tvöfalt vægi"></paper-toast>
   </template>
 
 </dom-module>
@@ -448,6 +449,8 @@
           duration: 820,
           iterations: 1
         });
+
+        this.$.toast.open();
       },
 
       _removeItemFromDiv: function (item) {
@@ -482,6 +485,7 @@
           this._removeItemFromDiv(item);
           this.set('selectedBudget', this.selectedBudget - item.price);
           this.currentBallot.fire('oav-item-de-selected-from-budget', { itemId: item.id });
+
         } else {
           if (this.selectedBudget+item.price<=this.totalBudget) {
             this.push('selectedItems', item);
