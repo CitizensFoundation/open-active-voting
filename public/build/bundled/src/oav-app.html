@@ -11345,7 +11345,7 @@ in every element that needs to use them.
     ```
 
     ```html
-    <link rel="import" href="iron-flex-layout-classes.html?v=5.9.12">
+    <link rel="import" href="iron-flex-layout-classes.html?v=5.9.13">
     <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
     <style>
       .test { width: 100px; }
@@ -32568,7 +32568,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.9.12">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=5.9.13">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -32576,7 +32576,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.9.12">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=5.9.13">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -35519,7 +35519,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.9.12" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.9.13" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -38348,8 +38348,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.9.12">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.9.12">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=5.9.13">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=5.9.13">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -40814,14 +40814,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.9.12">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.9.13">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.9.12">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=5.9.13">
    * ```
    *
    * ### Consuming effects
@@ -41619,7 +41619,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.9.12">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=5.9.13">
 ```
 
 #### List of effects
@@ -42734,7 +42734,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=5.9.12" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=5.9.13" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -47226,7 +47226,7 @@ Custom property | Description | Default
     }
 
     .selectInfoTextSmaller {
-      font-size: 16px;
+      font-size: 18px;
       padding: 8px;
     }
 
@@ -47316,51 +47316,48 @@ Custom property | Description | Default
     }
 
     .voteNumberForVesturbaerMobile {
-      color: #95c11a;
+      background-color: #95c11a;
     }
 
     .voteNumberForMidborgMobile {
-      color: #2ba9e0;
+      background-color: #2ba9e0;
     }
 
     .voteNumberForHlidarMobile {
-      color: #f39100;
+      background-color: #f39100;
     }
 
     .voteNumberForHaaleitiMobile {
-      padding-top: 8px;
-      color: #10a19a;
+      background-color: #10a19a;
     }
 
     .voteNumberForLaugardalurMobile {
-      color: #be6a95;
-      padding-bottom: 8px;
+      background-color: #be6a95;
     }
 
     .voteNumberForBreidholtMobile {
-      color: #0e70b8;
+      background-color: #0e70b8;
     }
 
     .voteNumberForArbaerMobile {
-      color: #bfc005;
+      background-color: #bfc005;
     }
 
     .voteNumberForGrafarvogurMobile {
-      color: #da616b;
+      background-color: #da616b;
     }
 
     .voteNumberForGrafarholtMobile {
-      color: #cc902f;
+      background-color: #cc902f;
     }
 
     .voteNumberForKjalarnesMobile {
-      color: #2aac65;
-      padding-bottom: 16px;
+      background-color: #2aac65;
     }
 
     .voteNumberGeneralMobile {
-      padding-left: 3px;
-      font-size: 20px;
+      font-size: 24px;
+      margin-left: 4px;
     }
 
     .checkIconMobile {
@@ -47373,7 +47370,7 @@ Custom property | Description | Default
         font-size: 18px;
       }
       .selectInfoTextSmaller {
-        font-size: 16px;
+        font-size: 18px;
       }
     }
 
@@ -47401,7 +47398,7 @@ Custom property | Description | Default
       left: 8px;
       cursor: pointer;
       font-style: italic;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .langImage {
@@ -47435,17 +47432,18 @@ Custom property | Description | Default
       }
 
       .mobileMaterial {
-        width: 320px;
-        padding: 0;
+        width: 290px;
+        padding: 16px;
         margin: 0;
-        margin-top: 24px;
-        background-color: #fff;
-        padding-top: 16px;
-        padding-bottom: 16px;
+        margin-top: 16px;
+        color: #FFF;
+        font-size: 28px;
+        cursor: pointer;
       }
 
       .mobileBackground {
         background-color: #f0f0f0;
+        padding-bottom: 64px;
       }
     }
 
@@ -47469,17 +47467,21 @@ Custom property | Description | Default
       }
 
       .mobileMaterial {
-        width: 320px;
-        padding: 0;
-        margin: 0;
-        margin-top: 24px;
-        padding-top: 8px;
-        background-color: #fff;
+        width: 270px;
+        font-size: 26px;
       }
     }
 
     .mobileIronImage {
       padding-bottom: 12px;
+    }
+
+    .areaOptions a {
+      text-decoration: none;
+    }
+
+    .mobileBackground a {
+      text-decoration: none;
     }
   </style>
 
@@ -47534,16 +47536,16 @@ Custom property | Description | Default
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp="">
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaer layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborg layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidar layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleiti layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaer layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnes layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div>
+              <a href="/#/area-ballot/1" class="voteNumberForVesturbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
+              <a href="/#/area-ballot/2" class="voteNumberForMidborg"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
+              <a href="/#/area-ballot/3" class="voteNumberForHlidar"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
+              <a href="/#/area-ballot/4" class="voteNumberForHaaleiti"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div></a>
+              <a href="/#/area-ballot/5" class="voteNumberForLaugardalur"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div></a>
+              <a href="/#/area-ballot/6" class="voteNumberForBreidholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div></a>
+              <a href="/#/area-ballot/7" class="voteNumberForArbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div></a>
+              <a href="/#/area-ballot/8" class="voteNumberForGrafarvogur"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div></a>
+              <a href="/#/area-ballot/9" class="voteNumberForGrafarholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div></a>
+              <a href="/#/area-ballot/10" class="voteNumberForKjalarnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div></a>
             </template>
           </paper-material>
         </template>
@@ -47551,77 +47553,107 @@ Custom property | Description | Default
 
       <template is="dom-if" if="[[!wide]]">
         <div class="layout vertical center-center mobileBackground">
-          <paper-material elevation="5" class="mobileMaterial layout vertical center-center">
-            <template is="dom-if" if="[[areaVoterCount]]" restamp="">
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
-                <a href="/#/area-ballot/1">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Vesturb%C3%A6r.png"></iron-image>
-                </a>
-              </div>
+          <template is="dom-if" if="[[areaVoterCount]]" restamp="">
+            <a href="/#/area-ballot/1">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForVesturbaerMobile">
+                <div>
+                  Vesturbær
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/2">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Midbaer.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborgMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/2">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForMidborgMobile">
+                <div>
+                  Miðborg
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidarMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
-                <a href="/#/area-ballot/3">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Hlidar.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/3">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHlidarMobile">
+                <div>
+                  Hlíðar
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/4">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HaaleitiBust.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleitiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/4">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHaaleitiMobile">
+                <div>
+                  Háaleiti og Bústaðir
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
-              <a href="/#/area-ballot/5">
-                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Laugardalur.png"></iron-image>
-              </a>
+            <a href="/#/area-ballot/5">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForLaugardalurMobile">
+                <div>
+                  Laugardalur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
+              </paper-material>
+            </a>
 
+            <a href="/#/area-ballot/6">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForBreidholtMobile">
+                <div>
+                  Breiðholt
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
-                <a href="/#/area-ballot/6">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Breidholt.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/7">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForArbaerMobile">
+                <div>
+                  Árbær
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/7">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Arbaer.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/8">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarvogurMobile">
+                <div>
+                  Grafarvogur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
-                <a href="/#/area-ballot/8">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Grafarvogur.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/9">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarholtMobile">
+                <div>
+                  Grafarholt og Úlfarsdalur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/9">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/GrafarhUlfars.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
-              </div>
-
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
-              <a href="/#/area-ballot/10">
-                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Kjalarnes.png"></iron-image>
-              </a>
-
-            </template>
-          </paper-material>
+            <a href="/#/area-ballot/10">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForKjalarnesMobile">
+                <div>
+                  Kjalarnes
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
+              </paper-material>
+            </a>
+          </template>
         </div>
       </template>
     </template>
@@ -48243,174 +48275,6 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><!--
-`paper-tab` is styled to look like a tab.  It should be used in conjunction with
-`paper-tabs`.
-
-Example:
-
-    <paper-tabs selected="0">
-      <paper-tab>TAB 1</paper-tab>
-      <paper-tab>TAB 2</paper-tab>
-      <paper-tab>TAB 3</paper-tab>
-    </paper-tabs>
-
-### Styling
-
-The following custom properties and mixins are available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-tab-ink` | Ink color | `--paper-yellow-a100`
-`--paper-tab` | Mixin applied to the tab | `{}`
-`--paper-tab-content` | Mixin applied to the tab content | `{}`
-`--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
-
-This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
-In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
-
--->
-
-<dom-module id="paper-tab" assetpath="../bower_components/paper-tabs/">
-  <template>
-    <style>
-      :host {
-        @apply(--layout-inline);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
-        @apply(--layout-flex-auto);
-
-        position: relative;
-        padding: 0 12px;
-        overflow: hidden;
-        cursor: pointer;
-        vertical-align: middle;
-
-        @apply(--paper-font-common-base);
-        @apply(--paper-tab);
-      }
-
-      :host(:focus) {
-        outline: none;
-      }
-
-      :host([link]) {
-        padding: 0;
-      }
-
-      .tab-content {
-        height: 100%;
-        transform: translateZ(0);
-          -webkit-transform: translateZ(0);
-        transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        @apply(--layout-flex-auto);
-        @apply(--paper-tab-content);
-      }
-
-      :host(:not(.iron-selected)) > .tab-content {
-        opacity: 0.8;
-
-        @apply(--paper-tab-content-unselected);
-      }
-
-      :host(:focus) .tab-content {
-        opacity: 1;
-        font-weight: 700;
-      }
-
-      paper-ripple {
-        color: var(--paper-tab-ink, --paper-yellow-a100);
-      }
-
-      .tab-content > ::content > a {
-        @apply(--layout-flex-auto);
-
-        height: 100%;
-      }
-    </style>
-
-    <div class="tab-content">
-      <content></content>
-    </div>
-  </template>
-
-  <script>
-    Polymer({
-      is: 'paper-tab',
-
-      behaviors: [
-        Polymer.IronControlState,
-        Polymer.IronButtonState,
-        Polymer.PaperRippleBehavior
-      ],
-
-      properties: {
-
-        /**
-         * If true, the tab will forward keyboard clicks (enter/space) to
-         * the first anchor element found in its descendants
-         */
-        link: {
-          type: Boolean,
-          value: false,
-          reflectToAttribute: true
-        }
-
-      },
-
-      hostAttributes: {
-        role: 'tab'
-      },
-
-      listeners: {
-        down: '_updateNoink',
-        tap: '_onTap'
-      },
-
-      attached: function() {
-        this._updateNoink();
-      },
-
-      get _parentNoink () {
-        var parent = Polymer.dom(this).parentNode;
-        return !!parent && !!parent.noink;
-      },
-
-      _updateNoink: function() {
-        this.noink = !!this.noink || !!this._parentNoink;
-      },
-
-      _onTap: function(event) {
-        if (this.link) {
-          var anchor = this.queryEffectiveChildren('a');
-
-          if (!anchor) {
-            return;
-          }
-
-          // Don't get stuck in a loop delegating
-          // the listener from the child anchor
-          if (event.target === anchor) {
-            return;
-          }
-
-          anchor.click();
-        }
-      }
-
-    });
-  </script>
-</dom-module>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><script>
 
   /**
@@ -48883,6 +48747,174 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <g id="chevron-right"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></g>
 </defs></svg>
 </iron-iconset-svg>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+`paper-tab` is styled to look like a tab.  It should be used in conjunction with
+`paper-tabs`.
+
+Example:
+
+    <paper-tabs selected="0">
+      <paper-tab>TAB 1</paper-tab>
+      <paper-tab>TAB 2</paper-tab>
+      <paper-tab>TAB 3</paper-tab>
+    </paper-tabs>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-tab-ink` | Ink color | `--paper-yellow-a100`
+`--paper-tab` | Mixin applied to the tab | `{}`
+`--paper-tab-content` | Mixin applied to the tab content | `{}`
+`--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
+
+This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
+
+-->
+
+<dom-module id="paper-tab" assetpath="../bower_components/paper-tabs/">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-inline);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
+        @apply(--layout-flex-auto);
+
+        position: relative;
+        padding: 0 12px;
+        overflow: hidden;
+        cursor: pointer;
+        vertical-align: middle;
+
+        @apply(--paper-font-common-base);
+        @apply(--paper-tab);
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+
+      :host([link]) {
+        padding: 0;
+      }
+
+      .tab-content {
+        height: 100%;
+        transform: translateZ(0);
+          -webkit-transform: translateZ(0);
+        transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--layout-flex-auto);
+        @apply(--paper-tab-content);
+      }
+
+      :host(:not(.iron-selected)) > .tab-content {
+        opacity: 0.8;
+
+        @apply(--paper-tab-content-unselected);
+      }
+
+      :host(:focus) .tab-content {
+        opacity: 1;
+        font-weight: 700;
+      }
+
+      paper-ripple {
+        color: var(--paper-tab-ink, --paper-yellow-a100);
+      }
+
+      .tab-content > ::content > a {
+        @apply(--layout-flex-auto);
+
+        height: 100%;
+      }
+    </style>
+
+    <div class="tab-content">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'paper-tab',
+
+      behaviors: [
+        Polymer.IronControlState,
+        Polymer.IronButtonState,
+        Polymer.PaperRippleBehavior
+      ],
+
+      properties: {
+
+        /**
+         * If true, the tab will forward keyboard clicks (enter/space) to
+         * the first anchor element found in its descendants
+         */
+        link: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        }
+
+      },
+
+      hostAttributes: {
+        role: 'tab'
+      },
+
+      listeners: {
+        down: '_updateNoink',
+        tap: '_onTap'
+      },
+
+      attached: function() {
+        this._updateNoink();
+      },
+
+      get _parentNoink () {
+        var parent = Polymer.dom(this).parentNode;
+        return !!parent && !!parent.noink;
+      },
+
+      _updateNoink: function() {
+        this.noink = !!this.noink || !!this._parentNoink;
+      },
+
+      _onTap: function(event) {
+        if (this.link) {
+          var anchor = this.queryEffectiveChildren('a');
+
+          if (!anchor) {
+            return;
+          }
+
+          // Don't get stuck in a loop delegating
+          // the listener from the child anchor
+          if (event.target === anchor) {
+            return;
+          }
+
+          anchor.click();
+        }
+      }
+
+    });
+  </script>
+</dom-module>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
