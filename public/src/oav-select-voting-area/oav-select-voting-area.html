@@ -97,7 +97,7 @@
     }
 
     .selectInfoTextSmaller {
-      font-size: 16px;
+      font-size: 18px;
       padding: 8px;
     }
 
@@ -187,51 +187,48 @@
     }
 
     .voteNumberForVesturbaerMobile {
-      color: #95c11a;
+      background-color: #95c11a;
     }
 
     .voteNumberForMidborgMobile {
-      color: #2ba9e0;
+      background-color: #2ba9e0;
     }
 
     .voteNumberForHlidarMobile {
-      color: #f39100;
+      background-color: #f39100;
     }
 
     .voteNumberForHaaleitiMobile {
-      padding-top: 8px;
-      color: #10a19a;
+      background-color: #10a19a;
     }
 
     .voteNumberForLaugardalurMobile {
-      color: #be6a95;
-      padding-bottom: 8px;
+      background-color: #be6a95;
     }
 
     .voteNumberForBreidholtMobile {
-      color: #0e70b8;
+      background-color: #0e70b8;
     }
 
     .voteNumberForArbaerMobile {
-      color: #bfc005;
+      background-color: #bfc005;
     }
 
     .voteNumberForGrafarvogurMobile {
-      color: #da616b;
+      background-color: #da616b;
     }
 
     .voteNumberForGrafarholtMobile {
-      color: #cc902f;
+      background-color: #cc902f;
     }
 
     .voteNumberForKjalarnesMobile {
-      color: #2aac65;
-      padding-bottom: 16px;
+      background-color: #2aac65;
     }
 
     .voteNumberGeneralMobile {
-      padding-left: 3px;
-      font-size: 20px;
+      font-size: 24px;
+      margin-left: 4px;
     }
 
     .checkIconMobile {
@@ -244,7 +241,7 @@
         font-size: 18px;
       }
       .selectInfoTextSmaller {
-        font-size: 16px;
+        font-size: 18px;
       }
     }
 
@@ -272,7 +269,7 @@
       left: 8px;
       cursor: pointer;
       font-style: italic;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .langImage {
@@ -306,17 +303,18 @@
       }
 
       .mobileMaterial {
-        width: 320px;
-        padding: 0;
+        width: 290px;
+        padding: 16px;
         margin: 0;
-        margin-top: 24px;
-        background-color: #fff;
-        padding-top: 16px;
-        padding-bottom: 16px;
+        margin-top: 16px;
+        color: #FFF;
+        font-size: 28px;
+        cursor: pointer;
       }
 
       .mobileBackground {
         background-color: #f0f0f0;
+        padding-bottom: 64px;
       }
     }
 
@@ -340,17 +338,21 @@
       }
 
       .mobileMaterial {
-        width: 320px;
-        padding: 0;
-        margin: 0;
-        margin-top: 24px;
-        padding-top: 8px;
-        background-color: #fff;
+        width: 270px;
+        font-size: 26px;
       }
     }
 
     .mobileIronImage {
       padding-bottom: 12px;
+    }
+
+    .areaOptions a {
+      text-decoration: none;
+    }
+
+    .mobileBackground a {
+      text-decoration: none;
     }
   </style>
 
@@ -405,16 +407,16 @@
               </map>
             </div>
             <template is="dom-if" if="[[areaVoterCount]]" restamp>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaer layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborg layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidar layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleiti layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaer layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogur layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholt layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div>
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnes layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div>
+              <a href="/#/area-ballot/1" class="voteNumberForVesturbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
+              <a href="/#/area-ballot/2" class="voteNumberForMidborg"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
+              <a href="/#/area-ballot/3" class="voteNumberForHlidar"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
+              <a href="/#/area-ballot/4" class="voteNumberForHaaleiti"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div></a>
+              <a href="/#/area-ballot/5" class="voteNumberForLaugardalur"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div></a>
+              <a href="/#/area-ballot/6" class="voteNumberForBreidholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div></a>
+              <a href="/#/area-ballot/7" class="voteNumberForArbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div></a>
+              <a href="/#/area-ballot/8" class="voteNumberForGrafarvogur"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div></a>
+              <a href="/#/area-ballot/9" class="voteNumberForGrafarholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div></a>
+              <a href="/#/area-ballot/10" class="voteNumberForKjalarnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div></a>
             </template>
           </paper-material>
         </template>
@@ -422,77 +424,107 @@
 
       <template is="dom-if" if="[[!wide]]">
         <div class="layout vertical center-center mobileBackground">
-          <paper-material elevation="5" class="mobileMaterial layout vertical center-center">
-            <template is="dom-if" if="[[areaVoterCount]]" restamp>
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForVesturbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
-                <a href="/#/area-ballot/1">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Vesturb%C3%A6r.png"></iron-image>
-                </a>
-              </div>
+          <template is="dom-if" if="[[areaVoterCount]]" restamp>
+            <a href="/#/area-ballot/1">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForVesturbaerMobile">
+                <div>
+                  Vesturbær
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/2">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Midbaer.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForMidborgMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/2">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForMidborgMobile">
+                <div>
+                  Miðborg
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHlidarMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
-                <a href="/#/area-ballot/3">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Hlidar.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/3">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHlidarMobile">
+                <div>
+                  Hlíðar
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/4">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/HaaleitiBust.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForHaaleitiMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/4">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHaaleitiMobile">
+                <div>
+                  Háaleiti og Bústaðir
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForLaugardalurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
-              <a href="/#/area-ballot/5">
-                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Laugardalur.png"></iron-image>
-              </a>
+            <a href="/#/area-ballot/5">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForLaugardalurMobile">
+                <div>
+                  Laugardalur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
+              </paper-material>
+            </a>
 
+            <a href="/#/area-ballot/6">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForBreidholtMobile">
+                <div>
+                  Breiðholt
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForBreidholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
-                <a href="/#/area-ballot/6">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Breidholt.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/7">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForArbaerMobile">
+                <div>
+                  Árbær
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/7">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Arbaer.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForArbaerMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
-              </div>
+            <a href="/#/area-ballot/8">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarvogurMobile">
+                <div>
+                  Grafarvogur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarvogurMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
-                <a href="/#/area-ballot/8">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Grafarvogur.png"></iron-image>
-                </a>
-              </div>
+            <a href="/#/area-ballot/9">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarholtMobile">
+                <div>
+                  Grafarholt og Úlfarsdalur
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
+              </paper-material>
+            </a>
 
-              <div class="layout horizontal">
-                <a href="/#/area-ballot/9">
-                  <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/GrafarhUlfars.png"></iron-image>
-                </a>
-                <div title$="[[localize('number_of_votes')]]" class="voteNumberForGrafarholtMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
-              </div>
-
-              <div title$="[[localize('number_of_votes')]]" class="voteNumberForKjalarnesMobile layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
-              <a href="/#/area-ballot/10">
-                <iron-image class="mobileIronImage" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Kjalarnes.png"></iron-image>
-              </a>
-
-            </template>
-          </paper-material>
+            <a href="/#/area-ballot/10">
+              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForKjalarnesMobile">
+                <div>
+                  Kjalarnes
+                </div>
+                <div class="flex"></div>
+                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
+              </paper-material>
+            </a>
+          </template>
         </div>
       </template>
     </template>
