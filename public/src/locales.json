@@ -50,7 +50,10 @@
     "postNoLocation": "No location",
     "number_of_voters": "Total number of valid votes",
     "number_of_votes": "Number of voters in this neighborhood",
-    "auth_dialog": "Authenticating and sending in vote"
+    "auth_dialog": "Authenticating and sending in vote",
+    "select_favorite": "Select favorite for an extravote",
+    "deselect_favorite": "Deselect favorite",
+    "more_information": "More information"
   },
   "is": {
     "design_pdf": "Frumhönnun PDF",
@@ -103,6 +106,9 @@
     "postNoLocation": "Engin staðsetning",
     "number_of_voters": "Heildarfjöldi gildra atkvæða",
     "number_of_votes": "Fjöldi kjósenda í þessu hverfi",
-    "auth_dialog": "Innskráning og innsending á atkvæði"
+    "auth_dialog": "Innskráning og innsending á atkvæði",
+    "select_favorite": "Settu hjarta við uppáhalds hugmynd fyrir tvöfalt vægi",
+    "deselect_favorite": "Afvelja uppáhalds hugmynd",
+    "more_information": "Nánar um hugmynd"
   }
 }

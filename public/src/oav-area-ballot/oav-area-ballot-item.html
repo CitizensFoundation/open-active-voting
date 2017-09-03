@@ -326,7 +326,7 @@
         </div>
       </div>
       <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton">
-        <paper-icon-button class="dropdown-trigger dropdownButton" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
+        <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item>
             <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></iron-icon>
@@ -502,6 +502,10 @@
         }
       },
 
+      _clickedDropDownMenu: function () {
+        window.appGlobals.activity('click', 'dropdown');
+      },
+
       _priceIsOne: function (price) {
         if (price && price<=1.0) {
           return true;
@@ -511,12 +515,14 @@
       },
 
       _openPdf: function () {
+        window.appGlobals.activity('click', 'openPdf');
         if (this.descriptionPdfLink) {
           window.open(this.descriptionPdfLink, '_blank');
         }
       },
 
       _showPost: function () {
+        window.appGlobals.activity('click', 'showPost');
         window.appLastArea = '/'+window.location.hash;
         window.location = "/#/post/"+this.item.idea_id;
       },
@@ -569,24 +575,28 @@
       },
 
       _setImageMode: function () {
+        window.appGlobals.activity('select', 'imageMode');
         this.set('imageTabSelected', true);
         this.set('descriptionTabSelected', false);
         this.set('mapTabSelected', false);
       },
 
       _setMapMode: function () {
+        window.appGlobals.activity('select', 'mapMode');
         this.set('imageTabSelected', false);
         this.set('descriptionTabSelected', false);
         this.set('mapTabSelected', true);
       },
 
       _setDescriptionMode: function () {
+        window.appGlobals.activity('select', 'descriptionMode');
         this.set('imageTabSelected', false);
         this.set('descriptionTabSelected', true);
         this.set('mapTabSelected', false);
       },
 
       _toggleDescription: function () {
+        window.appGlobals.activity('toggle', 'description');
         if (this.descriptionTabSelected===true) {
           this._setImageMode();
         } else {
