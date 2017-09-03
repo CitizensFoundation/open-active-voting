@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.15"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.16"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2214,7 +2214,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         </div>
       </div>
       <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton">
-        <paper-icon-button class="dropdown-trigger dropdownButton" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
+        <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item>
             <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></iron-icon>
@@ -2386,6 +2386,10 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         }
       },
 
+      _clickedDropDownMenu: function () {
+        window.appGlobals.activity('click', 'dropdown');
+      },
+
       _priceIsOne: function (price) {
         if (price && price<=1.0) {
           return true;
@@ -2395,12 +2399,14 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       },
 
       _openPdf: function () {
+        window.appGlobals.activity('click', 'openPdf');
         if (this.descriptionPdfLink) {
           window.open(this.descriptionPdfLink, '_blank');
         }
       },
 
       _showPost: function () {
+        window.appGlobals.activity('click', 'showPost');
         window.appLastArea = '/'+window.location.hash;
         window.location = "/#/post/"+this.item.idea_id;
       },
@@ -2453,24 +2459,28 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       },
 
       _setImageMode: function () {
+        window.appGlobals.activity('select', 'imageMode');
         this.set('imageTabSelected', true);
         this.set('descriptionTabSelected', false);
         this.set('mapTabSelected', false);
       },
 
       _setMapMode: function () {
+        window.appGlobals.activity('select', 'mapMode');
         this.set('imageTabSelected', false);
         this.set('descriptionTabSelected', false);
         this.set('mapTabSelected', true);
       },
 
       _setDescriptionMode: function () {
+        window.appGlobals.activity('select', 'descriptionMode');
         this.set('imageTabSelected', false);
         this.set('descriptionTabSelected', true);
         this.set('mapTabSelected', false);
       },
 
       _toggleDescription: function () {
+        window.appGlobals.activity('toggle', 'description');
         if (this.descriptionTabSelected===true) {
           this._setImageMode();
         } else {
@@ -6324,7 +6334,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       markerClick: function(e) {
-        window.appGlobals.activity('clicked', 'marker');
+        window.appGlobals.activity('click', 'marker');
         this.set('selectedItem', e.model.get('item'));
         var a = this.selectedItem;
         if (e.srcElement) {

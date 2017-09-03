@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.15">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.16">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.15">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.16">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=5.9.15">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.15">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.9.15">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.9.15">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.9.15">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.15">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.15">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.9.15">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.15">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.15">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=5.9.16">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.16">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=5.9.16">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=5.9.16">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=5.9.16">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.16">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.16">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=5.9.16">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.16">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.16">
 
 </head><body><dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
@@ -296,7 +296,6 @@
 
       _budgetLeft: function (selectedBudget, totalBudget) {
         var budgetLeft = totalBudget-selectedBudget;
-        console.log(budgetLeft);
         if (budgetLeft>0) {
           return budgetLeft;
         } else {
@@ -413,6 +412,7 @@
         paperIcon.style.width = "42px";
         paperIcon.style.opacity = 0;
         paperIcon.addEventListener('tap', function () {
+          window.appGlobals.activity('click', 'removeFromBudgetTop');
           this._removeItem(item.id);
         }.bind(this));
         container.appendChild(paperIcon);
@@ -481,6 +481,7 @@
       toggleBudgetItem: function (item) {
         window.appGlobals.activity('toggle', 'vote');
         if (this.selectedItems.indexOf(item) > -1) {
+          window.appGlobals.activity('remove', 'vote');
           this._removeItemFromArray(item);
           this._removeItemFromDiv(item);
           this.set('selectedBudget', this.selectedBudget - item.price);
@@ -488,6 +489,7 @@
 
         } else {
           if (this.selectedBudget+item.price<=this.totalBudget) {
+            window.appGlobals.activity('add', 'vote');
             this.push('selectedItems', item);
             this._addItemToDiv(item);
             this.set('selectedBudget', this.selectedBudget + item.price);
@@ -501,17 +503,12 @@
       toggleFavoriteItem: function (item) {
         window.appGlobals.activity('toggle', 'favorite');
         if (this.favoriteItem != item) {
-          this.set('favoriteItem', item);
-          this.currentBallot.fire('oav-item-de-selected-from-budget', { itemId: item.id });
-        } else {
-          if (this.selectedBudget+item.price<=this.totalBudget) {
-            this.push('selectedItems', item);
-            this._addItemToDiv(item);
-            this.set('selectedBudget', this.selectedBudget + item.price);
-            this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });
+          if (item) {
+            window.appGlobals.activity('add', 'favorite');
           } else {
-            this.currentBallot.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
+            window.appGlobals.activity('remove', 'favorite');
           }
+          this.set('favoriteItem', item);
         }
       },
 
