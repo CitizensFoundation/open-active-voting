@@ -325,7 +325,7 @@ namespace :ballot do
     config=BudgetConfig.first
     config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
     config.saml_idp_cert_fingerprint = "3D:EE:51:23:24:AA:E1:7B:47:1C:D3:04:32:B3:86:3A:46:74:DA:83"
-    config.save
+    config.save(:validate=>false)
   end
 
   desc "Reset Kópavogur Ballot from CSV"
