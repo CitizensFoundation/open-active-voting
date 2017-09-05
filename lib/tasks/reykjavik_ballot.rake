@@ -92,104 +92,106 @@ namespace :reykjavik_ballot do
   desc "Reset All Ballot Data from CSV"
   task(:reset_votes_all_ballot_data_from_csv => :environment) do
 
-    Vote.delete_all
-    FinalSplitVote.delete_all
-    BudgetBallotItem.delete_all
-    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
-    BudgetBallotArea.delete_all
-    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
-    budget_data = CSV.parse(File.open(ENV['infile']).read)
+    if Vote.count == 0
+      BudgetBallotItem.delete_all
+      ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
+      BudgetBallotArea.delete_all
+      ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
+      budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    vesturbaer = BudgetBallotArea.create!(:budget_amount => 56.0)
-    I18n.locale = "is"
-    vesturbaer.name = "Vesturbær"
-    vesturbaer.save
-    I18n.locale = "en"
-    vesturbaer.name = "Vesturbær"
-    vesturbaer.save
+      vesturbaer = BudgetBallotArea.create!(:budget_amount => 56.0)
+      I18n.locale = "is"
+      vesturbaer.name = "Vesturbær"
+      vesturbaer.save
+      I18n.locale = "en"
+      vesturbaer.name = "Vesturbær"
+      vesturbaer.save
 
-    import_area_data(vesturbaer.id, budget_data, 11)
+      import_area_data(vesturbaer.id, budget_data, 11)
 
-    midborg = BudgetBallotArea.create!(:budget_amount => 34.0)
-    I18n.locale = "is"
-    midborg.name = "Miðborg"
-    midborg.save
-    I18n.locale = "en"
-    midborg.name = "Miðborg"
-    midborg.save
-    import_area_data(midborg.id, budget_data, 35, 13)
+      midborg = BudgetBallotArea.create!(:budget_amount => 34.0)
+      I18n.locale = "is"
+      midborg.name = "Miðborg"
+      midborg.save
+      I18n.locale = "en"
+      midborg.name = "Miðborg"
+      midborg.save
+      import_area_data(midborg.id, budget_data, 35, 13)
 
-    hlidar = BudgetBallotArea.create!(:budget_amount => 39.0)
-    I18n.locale = "is"
-    hlidar.name = "Hlíðar"
-    hlidar.save
-    I18n.locale = "en"
-    hlidar.name = "Hlíðar"
-    hlidar.save
-    import_area_data(hlidar.id, budget_data, 54)
+      hlidar = BudgetBallotArea.create!(:budget_amount => 39.0)
+      I18n.locale = "is"
+      hlidar.name = "Hlíðar"
+      hlidar.save
+      I18n.locale = "en"
+      hlidar.name = "Hlíðar"
+      hlidar.save
+      import_area_data(hlidar.id, budget_data, 54)
 
-    haaleiti = BudgetBallotArea.create!(:budget_amount => 51.0)
-    I18n.locale = "is"
-    haaleiti.name = "Háaleiti og Bústaðir"
-    haaleiti.save
-    I18n.locale = "en"
-    haaleiti.name = "Háaleiti og Bústaðir"
-    haaleiti.save
-    import_area_data(haaleiti.id, budget_data, 104)
+      haaleiti = BudgetBallotArea.create!(:budget_amount => 51.0)
+      I18n.locale = "is"
+      haaleiti.name = "Háaleiti og Bústaðir"
+      haaleiti.save
+      I18n.locale = "en"
+      haaleiti.name = "Háaleiti og Bústaðir"
+      haaleiti.save
+      import_area_data(haaleiti.id, budget_data, 104)
 
-    laugardalur = BudgetBallotArea.create!(:budget_amount => 55.0)
-    I18n.locale = "is"
-    laugardalur.name = "Laugardalur"
-    laugardalur.save
-    I18n.locale = "en"
-    laugardalur.name = "Laugardalur"
-    laugardalur.save
-    import_area_data(laugardalur.id, budget_data, 79)
+      laugardalur = BudgetBallotArea.create!(:budget_amount => 55.0)
+      I18n.locale = "is"
+      laugardalur.name = "Laugardalur"
+      laugardalur.save
+      I18n.locale = "en"
+      laugardalur.name = "Laugardalur"
+      laugardalur.save
+      import_area_data(laugardalur.id, budget_data, 79)
 
-    breidholt = BudgetBallotArea.create!(:budget_amount => 70.0)
-    I18n.locale = "is"
-    breidholt.name = "Breiðholt"
-    breidholt.save
-    I18n.locale = "en"
-    breidholt.name = "Breiðholt"
-    breidholt.save
+      breidholt = BudgetBallotArea.create!(:budget_amount => 70.0)
+      I18n.locale = "is"
+      breidholt.name = "Breiðholt"
+      breidholt.save
+      I18n.locale = "en"
+      breidholt.name = "Breiðholt"
+      breidholt.save
 
-    import_area_data(breidholt.id, budget_data, 129)
+      import_area_data(breidholt.id, budget_data, 129)
 
-    arbaer = BudgetBallotArea.create!(:budget_amount => 47.0)
-    I18n.locale = "is"
-    arbaer.name = "Árbær"
-    arbaer.save
-    I18n.locale = "en"
-    arbaer.name = "Árbær"
-    arbaer.save
-    import_area_data(arbaer.id, budget_data, 154)
+      arbaer = BudgetBallotArea.create!(:budget_amount => 47.0)
+      I18n.locale = "is"
+      arbaer.name = "Árbær"
+      arbaer.save
+      I18n.locale = "en"
+      arbaer.name = "Árbær"
+      arbaer.save
+      import_area_data(arbaer.id, budget_data, 154)
 
-    grafarvogur = BudgetBallotArea.create!(:budget_amount => 61.0)
-    I18n.locale = "is"
-    grafarvogur.name = "Grafarvogur"
-    grafarvogur.save
-    I18n.locale = "en"
-    grafarvogur.name = "Grafarvogur"
-    grafarvogur.save
-    import_area_data(grafarvogur.id, budget_data, 179)
+      grafarvogur = BudgetBallotArea.create!(:budget_amount => 61.0)
+      I18n.locale = "is"
+      grafarvogur.name = "Grafarvogur"
+      grafarvogur.save
+      I18n.locale = "en"
+      grafarvogur.name = "Grafarvogur"
+      grafarvogur.save
+      import_area_data(grafarvogur.id, budget_data, 179)
 
-    grafarholt = BudgetBallotArea.create!(:budget_amount => 29.0)
-    I18n.locale = "is"
-    grafarholt.name = "Grafarholt og Úlfarsárdalur"
-    grafarholt.save
-    I18n.locale = "en"
-    grafarholt.name = "Grafarholt og Úlfarsárdalur"
-    grafarholt.save
-    import_area_data(grafarholt.id, budget_data, 205, 17)
+      grafarholt = BudgetBallotArea.create!(:budget_amount => 29.0)
+      I18n.locale = "is"
+      grafarholt.name = "Grafarholt og Úlfarsárdalur"
+      grafarholt.save
+      I18n.locale = "en"
+      grafarholt.name = "Grafarholt og Úlfarsárdalur"
+      grafarholt.save
+      import_area_data(grafarholt.id, budget_data, 205, 17)
 
-    kjalarnes = BudgetBallotArea.create!(:budget_amount => 14.0)
-    I18n.locale = "is"
-    kjalarnes.name = "Kjalarnes"
-    kjalarnes.save
-    I18n.locale = "en"
-    kjalarnes.name = "Kjalarnes"
-    kjalarnes.save
-    import_area_data(kjalarnes.id, budget_data, 227, 19)
+      kjalarnes = BudgetBallotArea.create!(:budget_amount => 14.0)
+      I18n.locale = "is"
+      kjalarnes.name = "Kjalarnes"
+      kjalarnes.save
+      I18n.locale = "en"
+      kjalarnes.name = "Kjalarnes"
+      kjalarnes.save
+      import_area_data(kjalarnes.id, budget_data, 227, 19)
+    else
+      puts "BALLOT BOX IS NOT EMPTY, NO ACTION TAKEN!"
+    end
   end
 end

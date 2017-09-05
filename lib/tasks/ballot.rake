@@ -188,6 +188,11 @@ namespace :ballot do
     end
   end
 
+  desc "Empty ballot box"
+  task(:destroy_and_empty_ballot_box => :environment) do
+    Vote.delete_all
+  end
+
   desc "Generate ballot from CSV"
   task(:recreate_from_static => :environment) do
     BudgetBallotItem.destroy_all
@@ -313,6 +318,14 @@ namespace :ballot do
       create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end
+  end
+
+  desc "Set ktest config"
+  task(:set_ktest_config => :environment) do
+    config=BudgetConfig.first
+    config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+    config.saml_idp_cert_fingerprint = "3D:EE:51:23:24:AA:E1:7B:47:1C:D3:04:32:B3:86:3A:46:74:DA:83"
+    config.save
   end
 
   desc "Reset Kópavogur Ballot from CSV"
