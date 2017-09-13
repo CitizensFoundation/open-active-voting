@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=5.9.17">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.1">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=5.9.17">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=5.9.17">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.1">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=5.9.17">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=5.9.17">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.1">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=5.9.17">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=5.9.17">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=5.9.17">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=5.9.17">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.1">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=5.9.17">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=5.9.17">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=5.9.17">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=5.9.17">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=5.9.17">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.1">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.1">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.1.1">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.1.1">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.1.1">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=5.9.17">
-<link rel="import" href="oav-area-budget.html?v=5.9.17">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.1">
+<link rel="import" href="oav-area-budget.html?v=6.1.1">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -138,7 +138,6 @@
     .name {
       font-size: 20px;
       padding: 8px;
-      cursor: pointer;
     }
 
     .name[small] {
@@ -340,7 +339,7 @@
           </paper-item>
         </paper-menu>
       </paper-menu-button>
-      <div class="layout horizontal" on-tap="_toggleDescription">
+      <div class="layout horizontal">
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">

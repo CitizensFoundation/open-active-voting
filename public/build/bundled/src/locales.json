@@ -1,7 +1,8 @@
 {
   "en": {
-    "budget_empty_info_1": "{amount} millions on offer - use ",
-    "budget_empty_info_2": "to select ideas",
+    "budget_empty_info_1": "{amount} millions on offer",
+    "budget_empty_info_2": "Use",
+    "budget_empty_info_3": "to select ideas",
     "share_idea": "Share idea & vote",
     "design_pdf": "Initial design pdf",
     "moreInformation": "More information",
@@ -32,8 +33,8 @@
     "budget_info_text_mobile": "Projects for {area_name}",
     "no_items_selected": "No items selected",
     "voting_completed": "Your vote has been received",
-    "add_to_budget": "Add to budget",
-    "remove_from_budget": "Remove from budget",
+    "add_to_budget": "Select idea",
+    "remove_from_budget": "Remove idea",
     "thank_you_1": "Thank you for participating!",
     "thank_you_2": "Your vote has been received and you have been logged out.",
     "thank_you_3": "You can vote again until November 17th but only the last vote is valid. Thanks for participating. Results will be published on www.reykjavik.is",
@@ -59,8 +60,9 @@
     "more_information": "More information"
   },
   "is": {
-    "budget_empty_info_1": "{amount} milljónir í boði - notaðu",
-    "budget_empty_info_2": "til að velja",
+    "budget_empty_info_1": "{amount} milljónir í boði",
+    "budget_empty_info_2": "Notaðu",
+    "budget_empty_info_3": "til að velja hugmyndir",
     "share_idea": "Deila hugmynd & kosningu",
     "design_pdf": "Frumhönnun PDF",
     "moreInformation": "Nánari upplýsingar",
@@ -91,7 +93,7 @@
     "budget_info_text_mobile": "Kjóstu - {area_name}",
     "no_items_selected": "Engin hugmynd valin...",
     "voting_completed": "Atkvæði þitt hefur verið móttekið",
-    "add_to_budget": "Bæta við hugmynd",
+    "add_to_budget": "Velja hugmynd",
     "remove_from_budget": "Taka út hugmynd",
     "thank_you_1": "Takk fyrir þátttökuna!",
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",

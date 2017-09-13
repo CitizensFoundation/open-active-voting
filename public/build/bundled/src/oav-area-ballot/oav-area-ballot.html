@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.17"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.1"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2028,7 +2028,6 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
     .name {
       font-size: 20px;
       padding: 8px;
-      cursor: pointer;
     }
 
     .name[small] {
@@ -2230,7 +2229,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
           </paper-item>
         </paper-menu>
       </paper-menu-button>
-      <div class="layout horizontal" on-tap="_toggleDescription">
+      <div class="layout horizontal">
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
