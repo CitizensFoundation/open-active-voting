@@ -188,29 +188,25 @@
       bottom: 12px;
       left: 12px;
       background-color: #FFF;
-      color: var(--paper-blue-a100);
+      color: rgb(255,215,0);
       --paper-fab-iron-icon: {
         height: 30px;
         width: 30px;
       };
       padding: 0;
-      padding-top: 2px;
-      padding-left: 1px;
     }
 
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: #FFF;
-      color: var(--paper-blue-a700);
+      background-color: rgb(255,215,0);
+      color: #FFF;
       --paper-fab-iron-icon: {
         height: 30px;
         width: 30px;
       };
       padding: 0;
-      padding-top: 2px;
-      padding-left: 1px;
     }
 
     paper-fab[disabled] {
@@ -361,10 +357,10 @@
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
           <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                     title$="{{localize('select_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+                     title$="{{localize('select_favorite')}}" icon="star" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
-                     title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+                     title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
           </paper-fab>
         </div>
       </div>
