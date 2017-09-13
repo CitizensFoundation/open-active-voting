@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.16"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=5.9.17"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2078,29 +2078,25 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       bottom: 12px;
       left: 12px;
       background-color: #FFF;
-      color: var(--paper-blue-a100);
+      color: rgb(255,215,0);
       --paper-fab-iron-icon: {
         height: 30px;
         width: 30px;
       };
       padding: 0;
-      padding-top: 2px;
-      padding-left: 1px;
     }
 
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: #FFF;
-      color: var(--paper-blue-a700);
+      background-color: rgb(255,215,0);
+      color: #FFF;
       --paper-fab-iron-icon: {
         height: 30px;
         width: 30px;
       };
       padding: 0;
-      padding-top: 2px;
-      padding-left: 1px;
     }
 
     paper-fab[disabled] {
@@ -2246,9 +2242,9 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="star" on-tap="_toggleFavorite">
           </paper-fab>
-          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
           </paper-fab>
         </div>
       </div>

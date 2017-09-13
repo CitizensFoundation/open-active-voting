@@ -1,5 +1,8 @@
 {
   "en": {
+    "budget_empty_info_1": "{amount} millions on offer - use ",
+    "budget_empty_info_2": "to select ideas",
+    "share_idea": "Share idea & vote",
     "design_pdf": "Initial design pdf",
     "moreInformation": "More information",
     "welcome_title": "My neighborhood – Participate!",
@@ -56,6 +59,9 @@
     "more_information": "More information"
   },
   "is": {
+    "budget_empty_info_1": "{amount} milljónir í boði - notaðu",
+    "budget_empty_info_2": "til að velja",
+    "share_idea": "Deila hugmynd & kosningu",
     "design_pdf": "Frumhönnun PDF",
     "moreInformation": "Nánari upplýsingar",
     "welcome_title": "Hverfið mitt – Taktu þátt!",
