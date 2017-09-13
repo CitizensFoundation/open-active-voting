@@ -13,6 +13,7 @@
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
+
 <dom-module id="oav-area-budget">
   <style include="iron-flex iron-flex-alignment">
 
@@ -154,7 +155,9 @@
     .noItemsInfo {
       width: 100%;
       color: #555;
-      font-size: 16px;
+      font-size: 14px;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
     .noItemsInfo[wide] {
@@ -176,6 +179,22 @@
     .headerContainer {
       background-color: #f0f0f0;
       color: #444;
+    }
+
+    .demoButton {
+      background-color: var(--app-accent-color);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+
+    .onOfferText {
+      color: var(--app-accent-color);
+      margin-right: 12px;
+      font-weight: bold;
     }
   </style>
 
@@ -211,7 +230,10 @@
         </div>
         <div id="votes" wide$="[[wide]]">
           <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
-            <div>{{localize('no_items_selected')}}</div>
+            <div hidden$="[[!wide]]" class="onOfferText">{{localize('budget_empty_info_1', "amount", budgetLeft)}}</div>
+            <div>{{localize('budget_empty_info_2')}}</div>
+            <paper-fab mini id="x" elevation="5" class="demoButton" icon="add"></paper-fab>
+            <div>{{localize('budget_empty_info_3')}}</div>
           </div>
         </div>
       </paper-material>
