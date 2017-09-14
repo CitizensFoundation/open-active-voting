@@ -194,8 +194,8 @@
       background-color: #FFF;
       color: rgb(255,215,0);
       --paper-fab-iron-icon: {
-        height: 30px;
-        width: 30px;
+        height: 33px;
+        width: 33px;
       };
       padding: 0;
     }
@@ -204,11 +204,11 @@
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: rgb(255,215,0);
-      color: #FFF;
+      background-color: #FFF;
+      color: rgb(255,215,0);
       --paper-fab-iron-icon: {
-        height: 30px;
-        width: 30px;
+        height: 33px;
+        width: 33px;
       };
       padding: 0;
     }
@@ -357,7 +357,7 @@
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
           <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                     title$="{{localize('select_favorite')}}" icon="star" on-tap="_toggleFavorite">
+                     title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
                      title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
