@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.1">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.2">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.1.1">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.2">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.1">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.2">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.1">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.1">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.1">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.1">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.2">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.1">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.1">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.1.1">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.1.1">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.1.1">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.2">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.2">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.1.2">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.1.2">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.1.2">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.1">
-<link rel="import" href="oav-area-budget.html?v=6.1.1">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.2">
+<link rel="import" href="oav-area-budget.html?v=6.1.2">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -194,8 +194,8 @@
       background-color: #FFF;
       color: rgb(255,215,0);
       --paper-fab-iron-icon: {
-        height: 30px;
-        width: 30px;
+        height: 33px;
+        width: 33px;
       };
       padding: 0;
     }
@@ -204,11 +204,11 @@
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: rgb(255,215,0);
-      color: #FFF;
+      background-color: #FFF;
+      color: rgb(255,215,0);
       --paper-fab-iron-icon: {
-        height: 30px;
-        width: 30px;
+        height: 33px;
+        width: 33px;
       };
       padding: 0;
     }
@@ -352,7 +352,7 @@
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="star" on-tap="_toggleFavorite">
+          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
           </paper-fab>
