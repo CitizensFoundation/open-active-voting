@@ -1,0 +1,26 @@
+{
+  "name": "paper-share-button",
+  "version": "2.1.0",
+  "description": "A Material Design sharing button (Polymer 1.x)",
+  "authors": [
+    "Zaccharie Jacquat"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/koada-os/paper-share-button.git"
+  },
+  "main": "paper-share-button.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-menu-button": "^1.5.2",
+    "paper-icon-button": "^1.1.4",
+    "paper-material": "^1.0.6",
+    "iron-iconset-svg": "^1.1.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}

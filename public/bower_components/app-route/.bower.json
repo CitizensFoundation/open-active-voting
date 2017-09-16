@@ -39,6 +39,6 @@
     "commit": "4993cfbc114de494ee9df6890da0509221c38587"
   },
   "_source": "https://github.com/polymerelements/app-route.git",
-  "_target": "^1.0.0",
+  "_target": "1.x",
   "_originalSource": "polymerelements/app-route"
 }

@@ -39,6 +39,6 @@
     "commit": "d301b1b4cb30e47fe88aeb31633a2e99bab83fec"
   },
   "_source": "https://github.com/PolymerElements/iron-a11y-keys.git",
-  "_target": "~1.0.6",
+  "_target": "1.x",
   "_originalSource": "iron-a11y-keys"
 }

@@ -39,6 +39,6 @@
     "commit": "9647bdd1d15ad63b6cbe44cd128e43192bfe94c8"
   },
   "_source": "https://github.com/polymerelements/iron-iconset-svg.git",
-  "_target": "^1.0.0",
+  "_target": "1.x",
   "_originalSource": "polymerelements/iron-iconset-svg"
 }
