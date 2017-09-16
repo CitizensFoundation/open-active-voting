@@ -1,24 +1,25 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.2">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.3">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.1.2">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.1.3">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.3">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.2">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.3">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.3">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.2">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.2">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.2">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.2">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.3">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.3">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.3">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.3">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.2">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.2">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.1.2">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.1.2">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.1.2">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.3">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.3">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.1.3">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.1.3">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.1.3">
+<link rel="import" href="../../bower_components/paper-share-button/paper-share-button.html?v=6.1.3">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.2">
-<link rel="import" href="oav-area-budget.html?v=6.1.2">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.3">
+<link rel="import" href="oav-area-budget.html?v=6.1.3">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -200,6 +201,17 @@
       padding: 0;
     }
 
+    .shareIcon {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      --paper-share-button-icon-color: #F0F0F0;
+      --paper-share-button-icon-height: 46px;
+      --paper-share-button-icon-width: 46px;
+      -webkit-filter: drop-shadow( 1px 1px 10px #555 );
+      filter: drop-shadow( 1px 1px 10px #555 );
+    }
+
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
@@ -233,9 +245,10 @@
 
     .infoIcon {
       color: var(--app-accent-color-light);
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       padding: 0;
+      margin-right: 4px;
     }
 
     .infoLinks {
@@ -319,23 +332,23 @@
           [[item.description]]
         </div>
       </div>
-      <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton">
+      <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
         <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
-          <paper-item>
-            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo" on-tap="_setImageMode"></iron-icon>
+          <paper-item on-tap="_setImageMode">
+            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo"></iron-icon>{{localize('image_item_tab')}}
           </paper-item>
-          <paper-item>
-            <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description" on-tap="_setDescriptionMode"></iron-icon>
+          <paper-item on-tap="_setDescriptionMode">
+            <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description"></iron-icon>{{localize('description_item_tab')}}
           </paper-item>
-          <paper-item>
-            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place" on-tap="_setMapMode"></iron-icon>
+          <paper-item on-tap="_setMapMode">
+            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
-          <paper-item>
-            <iron-icon title$="{{localize('design_pdf')}}" on-tap="_openPdf" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>
+          <paper-item on-tap="_openPdf">
+            <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
-          <paper-item>
-            <iron-icon raised="" on-tap="_showPost" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>
+          <paper-item on-tap="_showPost">
+            <iron-icon raised="" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
           </paper-item>
         </paper-menu>
       </paper-menu-button>
@@ -343,6 +356,8 @@
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
+        <paper-share-button on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
+
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
           <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
@@ -429,6 +444,11 @@
         descriptionPdfLink: {
           type: String,
           computed: '_descriptionPdfLink(item)'
+        },
+
+        itemShareUrl: {
+          type: String,
+          computed: '_itemShareUrl(item)'
         },
 
         small: {
@@ -528,6 +548,18 @@
         } else {
           return null;
         }
+      },
+
+      _itemShareUrl: function (newItem) {
+        if (newItem) {
+          return encodeURIComponent("https://"+window.location.host+"/i/"+newItem.id);
+        } else {
+          return null;
+        }
+      },
+
+      _shareTap: function (event, detail) {
+        window.appGlobals.activity('click', 'shareItem');
       },
 
       _itemChanged: function (newItem) {
