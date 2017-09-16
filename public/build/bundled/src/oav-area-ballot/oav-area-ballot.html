@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.4"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.5"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2694,7 +2694,7 @@ Custom property | Description | Default
 
       _itemShareUrl: function (newItem) {
         if (newItem) {
-          return encodeURIComponent("https://"+window.location.host+"/i/"+newItem.id);
+          return encodeURIComponent("https://"+window.location.host+"/items/"+newItem.id);
         } else {
           return null;
         }
