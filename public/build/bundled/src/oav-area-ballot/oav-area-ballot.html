@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.3"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.4"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -2452,7 +2452,7 @@ Custom property | Description | Default
     <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
     <paper-material animated="" elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
-      <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
+      <iron-image preload="" on-loaded-changed="_imageLoadedChanged" small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
       <template is="dom-if" if="[[mapTabSelected]]" restamp="">
         <template is="dom-if" if="[[mapsHeight]]" restamp="">
           <iron-image class="main-image" sizing="cover" src$="https://maps.googleapis.com/maps/api/staticmap?center=[[latitude]],[[longitude]]&amp;zoom=15&amp;size=[[mapsWidth]]x[[mapsHeight]]&amp;markers=color:red%7Clabel:%7C[[latitude]],[[longitude]]&amp;key=[[staticMapsApiKey]]" hidden$="[[!mapTabSelected]]"></iron-image>
@@ -2487,7 +2487,7 @@ Custom property | Description | Default
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
-        <paper-share-button on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
+        <paper-share-button hidden$="[[!imageLoaded]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
 
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
@@ -2612,6 +2612,17 @@ Custom property | Description | Default
         latitude: {
           type: String,
           value: null
+        },
+
+        imageLoaded: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _imageLoadedChanged: function (event, detail) {
+        if (detail.value) {
+          this.set('imageLoaded', true);
         }
       },
 
