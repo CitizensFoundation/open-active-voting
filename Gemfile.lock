@@ -49,6 +49,7 @@ GEM
     awesome_print (1.8.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    browser (2.5.1)
     builder (3.2.3)
     byebug (9.1.0)
     childprocess (0.7.1)
@@ -187,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   awesome_print
+  browser
   byebug
   coffee-rails (~> 4.1.0)
   dalli
@@ -214,4 +216,4 @@ RUBY VERSION
    ruby 2.2.5p319
 
 BUNDLED WITH
-   1.13.6
+   1.15.4
