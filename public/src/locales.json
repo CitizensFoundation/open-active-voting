@@ -1,5 +1,6 @@
 {
   "en": {
+    "share_vote_by_pressing": "Share vote here",
     "budget_empty_info_1": "{amount} millions on offer",
     "budget_empty_info_2": "Use",
     "budget_empty_info_3": "to select ideas",
@@ -60,6 +61,7 @@
     "more_information": "More information"
   },
   "is": {
+    "share_vote_by_pressing": "Deildu kosningu hér",
     "budget_empty_info_1": "{amount} milljónir í boði",
     "budget_empty_info_2": "Notaðu",
     "budget_empty_info_3": "til að velja hugmyndir",
