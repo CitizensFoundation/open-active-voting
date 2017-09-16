@@ -27,9 +27,9 @@ class ItemsController < ApplicationController
         accept_language: request.env["HTTP_ACCEPT_LANGUAGE"]
     )
 
-    if !browser.bot?
+    if browser.bot?
       @item = BudgetBallotItem.find(params[:id])
-      @ballot = @item.budget_ballot
+      @area = @item.budget_ballot_area
       respond_to do |format|
         format.html { render :layout => false }
       end

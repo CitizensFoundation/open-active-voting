@@ -2,14 +2,28 @@
 %html{:lang => "en"}
   %head
     %meta{:charset => "utf-8"}/
-    %meta{:content => "width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes", :name => "viewport"}/
-    %meta{:content => "Hverfið mitt 2017 - rafræn kosning", :property => "og:title"}/
-    %meta{:content => "Hverfið mitt 2017 er samráðsverkefni íbúa og stjórnsýslu um forgangsröðun og úthlutun fjármagns til smærri nýframkvæmda- og viðhaldsverkefna í hverfum Reykjavíkurborgar. Taktu þátt :)", :property => "og:description"}/
+    %meta{:content => "#{@area.name}: #{@item.name}", :property => "og:title"}/
+    %meta{:content => "#{@config.election_description}", :property => "og:description"}/
     %meta{:content => "website", :property => "og:type"}/
-    %meta{:content => "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/hausMynd2.png", :property => "og:image"}/
-    %meta{:content => "#{request.protocol + request.host}", :property => "og:url"}/
-    %meta{:content => "Hverfið mitt 2017 - rafræn kosning", :property => "og:site_name"}/
-    %title Hverfið mitt 2017 - rafræn kosning
+    %meta{:content => "#{@item.image_url}", :property => "og:image"}/
+    %meta{:content => "#{request.protocol + request.host}/items/#{@item.id}", :property => "og:url"}/
+    %meta{:content => "#{@area.name}: #{@item.name}", :property => "og:site_name"}/
+    %title
+      = "#{@area.name}: #{@item.name}"
   %body
-    %div
-      = "#{@item.name}"
+    %center
+      %div
+        %b
+          = "#{@config.election_name}"
+      %br
+      %div
+        %b
+          = "#{@area.name}: #{@item.name}"
+      %br
+      %div
+        %img{:src=>@item.image_url, :width=>310}
+      %br
+      %div
+        %b
+          %a{:href=>"/"} Taktu þátt með því að smella hér
+
