@@ -321,7 +321,7 @@
     <iron-media-query query="(max-width: 360px)" query-matches="{{tiny}}"></iron-media-query>
 
     <paper-material animated elevation="[[elevation]]" class="itemContent" small$="[[small]]" tiny$="[[tiny]]">
-      <iron-image small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
+      <iron-image preload on-loaded-changed="_imageLoadedChanged" small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
       <template is="dom-if" if="[[mapTabSelected]]" restamp>
         <template is="dom-if" if="[[mapsHeight]]" restamp>
           <iron-image class="main-image" sizing="cover"
@@ -358,7 +358,7 @@
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
-        <paper-share-button on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
+        <paper-share-button hidden$="[[!imageLoaded]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
 
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
@@ -487,6 +487,17 @@
         latitude: {
           type: String,
           value: null
+        },
+
+        imageLoaded: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _imageLoadedChanged: function (event, detail) {
+        if (detail.value) {
+          this.set('imageLoaded', true);
         }
       },
 
