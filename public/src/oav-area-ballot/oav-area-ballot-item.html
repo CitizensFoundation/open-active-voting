@@ -205,11 +205,11 @@
       position: absolute;
       top: 6px;
       left: 0;
-      --paper-share-button-icon-color: #FFF;
+      --paper-share-button-icon-color: #F0F0F0;
       --paper-share-button-icon-height: 46px;
       --paper-share-button-icon-width: 46px;
-      -webkit-filter: drop-shadow( 1px 1px 17px #222 );
-      filter: drop-shadow( 1px 1px 17px #222 );
+      -webkit-filter: drop-shadow( 1px 1px 10px #555 );
+      filter: drop-shadow( 1px 1px 10px #555 );
     }
 
     paper-fab.removeFavoriteButton {
@@ -346,8 +346,6 @@
           <paper-item on-tap="_setMapMode">
             <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
-          <paper-item on-tap="_share">
-          </paper-item>
           <paper-item on-tap="_openPdf">
             <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
@@ -360,7 +358,7 @@
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
-        <paper-share-button on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url="[[itemShareUrl]]"></paper-share-button>
+        <paper-share-button on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
 
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
@@ -452,6 +450,11 @@
         descriptionPdfLink: {
           type: String,
           computed: '_descriptionPdfLink(item)'
+        },
+
+        itemShareUrl: {
+          type: String,
+          computed: '_itemShareUrl(item)'
         },
 
         small: {
@@ -551,6 +554,18 @@
         } else {
           return null;
         }
+      },
+
+      _itemShareUrl: function (newItem) {
+        if (newItem) {
+          return encodeURIComponent("https://"+window.location.host+"/i/"+newItem.id);
+        } else {
+          return null;
+        }
+      },
+
+      _shareTap: function (event, detail) {
+        window.appGlobals.activity('click', 'shareItem');
       },
 
       _itemChanged: function (newItem) {
