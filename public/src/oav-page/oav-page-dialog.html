@@ -11,8 +11,8 @@
 
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
-<link rel="import" href="hm_2016_is_help.html">
-<link rel="import" href="hm_2016_en_help.html">
+<link rel="import" href="is_help.html">
+<link rel="import" href="en_help.html">
 
 <dom-module id="oav-page-dialog">
   <template>
@@ -36,12 +36,12 @@
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
-            <hm-2016-is-help></hm-2016-is-help>
+            <is-help></is-help>
           </div>
         </template>
         <template is="dom-if" if="[[enLanguage]]">
           <div id="enContent">
-            <hm-2016-en-help></hm-2016-en-help>
+            <en-help></en-help>
           </div>
         </template>
       </paper-dialog-scrollable>
@@ -69,9 +69,9 @@
 
       open: function (title) {
         if (this.language=='is') {
-          this.set('title', "Hverfið mitt 2016 - Upplýsingar");
+          this.set('title', "Hverfið mitt 2017 - Upplýsingar");
         } else {
-          this.set('title', "My neighborhood 2016 - Information");
+          this.set('title', "My neighborhood 2017 - Information");
         }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();
