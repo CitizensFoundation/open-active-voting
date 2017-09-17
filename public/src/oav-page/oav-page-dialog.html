@@ -13,6 +13,7 @@
 
 <link rel="import" href="is-help.html">
 <link rel="import" href="en-help.html">
+<link rel="import" href="pl-help.html">
 
 <dom-module id="oav-page-dialog">
   <template>
@@ -26,6 +27,12 @@
           padding: 0;
           margin: 0;
         }
+      }
+
+      .closeButton {
+        color: var(--app-accent-color);
+        font-size: 18px;
+        font-weight: bold;
       }
     </style>
 
@@ -44,9 +51,14 @@
             <en-help></en-help>
           </div>
         </template>
+        <template is="dom-if" if="[[plLanguage]]">
+          <div id="plContent">
+            <pl-help></pl-help>
+          </div>
+        </template>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <paper-button on-tap="_close" dialog-dismiss>[[localize('close')]]</paper-button>
+        <paper-button on-tap="_close" class="closeButton" dialog-dismiss>[[localize('close')]]</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -68,8 +80,10 @@
       },
 
       open: function (title) {
-        if (this.language=='is') {
+        if (this.language==='is') {
           this.set('title', "Hverfið mitt 2017 - Upplýsingar");
+        } if (this.language==='pl') {
+          this.set('title', "My neighborhood 2017 - Information");
         } else {
           this.set('title', "My neighborhood 2017 - Information");
         }

@@ -208,8 +208,10 @@
           <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
-              <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
-              <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
+              <template is="dom-if" if="[[areaName]]">
+                <div hidden$="[[!wide]]">{{localize('budget_info_text', 'area_name', areaName)}}</div>
+                <div hidden$="[[wide]]">{{localize('budget_info_text_mobile', 'area_name', areaName)}}</div>
+              </template>
             </template>
             <template is="dom-if" if="[[selectedBudget]]">
               <div hidden$="[[!selectedBudgetIsOne]]">
@@ -267,7 +269,8 @@
         },
 
         areaName: {
-          type: String
+          type: String,
+          value: null
         },
 
         selectedBudget: {
