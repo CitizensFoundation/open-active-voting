@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.7"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.8"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -604,6 +604,13 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       filter: drop-shadow( 1px 1px 10px #555 );
     }
 
+    .shareIcon[small] {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 2px;
+    }
+
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
@@ -750,7 +757,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
-        <paper-share-button hidden$="[[!imageLoaded]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
+        <paper-share-button hidden$="[[!imageLoaded]]" small$="[[small]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
 
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
