@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.11">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.12">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.11">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.12">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.11">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.11">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=6.1.11">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.11">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.11">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.11">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.11">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.11">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.11">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.11">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.12">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.12">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=6.1.12">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.12">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.12">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.12">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.12">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.12">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.12">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.12">
 
 
 </head><body><dom-module id="oav-area-budget">
@@ -195,6 +195,18 @@
       margin-right: 12px;
       font-weight: bold;
     }
+
+    paper-toast {
+      font-size: 17px;
+      height: 80px;
+      padding-bottom: 8px;
+    }
+
+    paper-toast[wide] {
+      font-size: 25px;
+      height: 108px;
+    }
+
   </style>
 
   <template>
@@ -239,7 +251,7 @@
         </div>
       </paper-material>
     </div>
-    <paper-toast id="toast" duration="4000" text="Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi"></paper-toast>
+    <paper-toast on-tap="_closeToast" wide$="[[wide]]" id="toast" duration="4000" horizontal-align="right" text="Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi"></paper-toast>
   </template>
 
 </dom-module>
@@ -261,6 +273,11 @@
           type: Array,
           value: [],
           notify: true
+        },
+
+        toastCounter: {
+          type: Number,
+          value: 0
         },
 
         noSelectedItems: {
@@ -313,6 +330,10 @@
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+
+      _closeToast: function () {
+        this.$.toast.close();
+      },
 
       _selectedBudgetIsOne: function (selectedBudget) {
         return (selectedBudget && selectedBudget==1.0);
@@ -458,7 +479,7 @@
         this.$.votes.appendChild(container);
 
         var animation = container.animate([
-          { transform: "translateY(50px) scale(2)",  easing: 'ease-out' },
+          { transform: "translateX(-75px) scale(2)",  easing: 'ease-out' },
           { transform: "scale(1)", easing: 'ease-out' }
         ], {
           duration: 600,
@@ -474,7 +495,10 @@
           iterations: 1
         });
 
-        this.$.toast.open();
+        if (this.toastCounter<2) {
+          this.$.toast.open();
+          this.toastCounter+=1;
+        }
       },
 
       _removeItemFromDiv: function (item) {

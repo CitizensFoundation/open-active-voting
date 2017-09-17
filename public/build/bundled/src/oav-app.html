@@ -9700,7 +9700,7 @@ in every element that needs to use them.
     ```
 
     ```html
-    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.11">
+    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.12">
     <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
     <style>
       .test { width: 100px; }
@@ -11248,7 +11248,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.11">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.12">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -11256,7 +11256,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.11">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.12">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -14989,7 +14989,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.11" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.12" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -18009,8 +18009,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.11">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.11">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.12">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.12">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -37176,7 +37176,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.11" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.12" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -46025,14 +46025,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.11">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.12">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.11">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.12">
    * ```
    *
    * ### Consuming effects
@@ -46830,7 +46830,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.11">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.12">
 ```
 
 #### List of effects
@@ -49302,6 +49302,18 @@ Custom property | Description | Default
       margin-right: 12px;
       font-weight: bold;
     }
+
+    paper-toast {
+      font-size: 17px;
+      height: 80px;
+      padding-bottom: 8px;
+    }
+
+    paper-toast[wide] {
+      font-size: 25px;
+      height: 108px;
+    }
+
   </style>
 
   <template>
@@ -49346,7 +49358,7 @@ Custom property | Description | Default
         </div>
       </paper-material>
     </div>
-    <paper-toast id="toast" duration="4000" text="Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi"></paper-toast>
+    <paper-toast on-tap="_closeToast" wide$="[[wide]]" id="toast" duration="4000" horizontal-align="right" text="Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi"></paper-toast>
   </template>
 
 </dom-module>
@@ -49368,6 +49380,11 @@ Custom property | Description | Default
           type: Array,
           value: [],
           notify: true
+        },
+
+        toastCounter: {
+          type: Number,
+          value: 0
         },
 
         noSelectedItems: {
@@ -49420,6 +49437,10 @@ Custom property | Description | Default
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+
+      _closeToast: function () {
+        this.$.toast.close();
+      },
 
       _selectedBudgetIsOne: function (selectedBudget) {
         return (selectedBudget && selectedBudget==1.0);
@@ -49565,7 +49586,7 @@ Custom property | Description | Default
         this.$.votes.appendChild(container);
 
         var animation = container.animate([
-          { transform: "translateY(50px) scale(2)",  easing: 'ease-out' },
+          { transform: "translateX(-75px) scale(2)",  easing: 'ease-out' },
           { transform: "scale(1)", easing: 'ease-out' }
         ], {
           duration: 600,
@@ -49581,7 +49602,10 @@ Custom property | Description | Default
           iterations: 1
         });
 
-        this.$.toast.open();
+        if (this.toastCounter<2) {
+          this.$.toast.open();
+          this.toastCounter+=1;
+        }
       },
 
       _removeItemFromDiv: function (item) {
