@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.10"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.11"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -733,7 +733,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
           [[item.description]]
         </div>
       </div>
-      <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
+      <paper-menu-button on-tap="_openMenu" small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
         <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item on-tap="_setImageMode">
@@ -1038,6 +1038,10 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         } else {
           this._setDescriptionMode();
         }
+      },
+
+      _openMenu: function () {
+        window.appGlobals.activity('open', 'itemMenu');
       },
 
       setInBudget: function () {

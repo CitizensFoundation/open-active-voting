@@ -343,7 +343,7 @@
           [[item.description]]
         </div>
       </div>
-      <paper-menu-button small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
+      <paper-menu-button on-tap="_openMenu" small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
         <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item on-tap="_setImageMode">
@@ -652,6 +652,10 @@
         } else {
           this._setDescriptionMode();
         }
+      },
+
+      _openMenu: function () {
+        window.appGlobals.activity('open', 'itemMenu');
       },
 
       setInBudget: function () {
