@@ -619,11 +619,13 @@
             this.removeFromBudget();
           }
         }
-        this._setImageMode();
+        this._setImageMode(true);
       },
 
-      _setImageMode: function () {
-        window.appGlobals.activity('select', 'imageMode');
+      _setImageMode: function (disableActivity) {
+        if (!disableActivity || disableActivity===false) {
+          window.appGlobals.activity('select', 'imageMode');
+        }
         this.set('imageTabSelected', true);
         this.set('descriptionTabSelected', false);
         this.set('mapTabSelected', false);
