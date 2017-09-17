@@ -212,6 +212,13 @@
       filter: drop-shadow( 1px 1px 10px #555 );
     }
 
+    .shareIcon[small] {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 2px;
+    }
+
     paper-fab.removeFavoriteButton {
       position: absolute;
       bottom: 12px;
@@ -360,7 +367,7 @@
         <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
       </div>
       <div class="buttons">
-        <paper-share-button hidden$="[[!imageLoaded]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
+        <paper-share-button hidden$="[[!imageLoaded]]" small$="[[small]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
 
         <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
