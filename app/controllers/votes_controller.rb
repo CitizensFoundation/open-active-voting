@@ -135,9 +135,12 @@ class VotesController < ApplicationController
       encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
 
       # Save the vote to the database
-      if Vote.create(:user_id_hash => voter_identity_hash, :payload_data => params[:encrypted_vote],
-                     :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
-                     :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+      if Vote.create(:user_id_hash => voter_identity_hash,
+                     :payload_data => params[:encrypted_vote],
+                     :client_ip_address => DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "hidden",
+                     :area_id =>params[:area_id],
+                     :session_id => request.session_options[:id],
+                     :encrypted_vote_checksum => encrypted_vote_checksum)
 
         # Count how many times this particular voter has voted
         vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
