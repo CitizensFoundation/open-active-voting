@@ -6,6 +6,7 @@ ruby '2.2.5'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
 gem 'rails', '4.2.9'
+gem 'tzinfo-data'
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'

@@ -172,6 +172,8 @@ GEM
       ansi
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     watir-webdriver (0.9.9)
@@ -208,6 +210,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   turn (~> 0.8.3)
+  tzinfo-data
   uglifier (>= 1.3.0)
   watir-webdriver
   web-console (~> 2.0)
