@@ -131,13 +131,16 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
 
+      # Hide IP address if needed
+      ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "hidden"
+
       # Create an encrypted checksum
-      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
+      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],ip_address,params[:area_id],request.session_options[:id])
 
       # Save the vote to the database
       if Vote.create(:user_id_hash => voter_identity_hash,
                      :payload_data => params[:encrypted_vote],
-                     :client_ip_address => DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "hidden",
+                     :client_ip_address => ip_address,
                      :area_id =>params[:area_id],
                      :session_id => request.session_options[:id],
                      :encrypted_vote_checksum => encrypted_vote_checksum)
