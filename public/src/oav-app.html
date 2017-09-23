@@ -275,6 +275,7 @@
         'oav-set-title': '_setTitle',
         'oav-error': '_errorHandler',
         'oav-set-area': '_setArea',
+        'oav-clear-area': '_clearArea',
         'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
         'oav-hide-favorite-item': '_hideFavoriteItem',
         'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition'
@@ -480,7 +481,6 @@
         // Reset ballot tab view to list
         if (oldPage=='area-ballot' && this.$.budgetBallot && page!='post') {
           this.$.budgetBallot.selectedView = 0;
-          this._clearArea();
         }
 
         // Cancel login polling if needed

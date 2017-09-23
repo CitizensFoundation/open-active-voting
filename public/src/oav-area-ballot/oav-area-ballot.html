@@ -519,6 +519,7 @@
           this.set('oldFavoriteItem', null);
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
+          this.fire('ak-clear-area');
         }
       },
 
