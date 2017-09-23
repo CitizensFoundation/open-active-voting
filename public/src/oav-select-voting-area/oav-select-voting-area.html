@@ -272,6 +272,10 @@
       font-size: 15px;
     }
 
+    .language {
+      padding-right: 6px;
+    }
+
     .langImage {
       cursor: pointer;
       margin-right: 8px;
@@ -375,8 +379,9 @@
               </div>
               <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
               <div class="langSelection layout horizontal">
-                <div hidden$="[[isLanguage]]" on-tap="_selectIcelandic">Íslenska</div>
-                <div hidden$="[[enLanguage]]" on-tap="_selectEnglish">English</div>
+                <div class="language" hidden$="[[isLanguage]]" on-tap="_selectIcelandic">Íslenska</div>
+                <div class="language" hidden$="[[enLanguage]]" on-tap="_selectEnglish">English</div>
+                <div class="language" hidden$="[[plLanguage]]" on-tap="_selectPolish">Polish</div>
               </div>
               <template is="dom-if" if="[[totalVoterCount]]">
                 <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
@@ -582,6 +587,11 @@
       _selectEnglish: function () {
         this.fire('iron-signal', {name: 'set-language', data: 'en'});
         localStorage.setItem("selectedLanguage", 'en');
+      },
+
+      _selectPolish: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'pl'});
+        localStorage.setItem("selectedLanguage", 'pl');
       },
 
       _getAreaCount: function (areaId) {
