@@ -191,7 +191,7 @@
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
         </div>
         <div class="budgetContainer" hidden$="[[hideBudget]]">
-          <oav-area-budget id="budget" area-name="[[areaName]]" total-budget="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
+          <oav-area-budget id="budget" area-name$="[[areaName]]" total-budget$="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
         <iron-icon id="favoriteIcon" icon="star" hidden></iron-icon>
       </app-header>
@@ -371,6 +371,11 @@
         this.set('totalBudget', detail.totalBudget);
       },
 
+      _clearArea: function () {
+        this.set('areaName', null);
+        this.set('totalBudget', null);
+      },
+
       _errorHandler: function (event, detail) {
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("errorDialog");
         dialog.showErrorDialog(detail);
@@ -475,6 +480,7 @@
         // Reset ballot tab view to list
         if (oldPage=='area-ballot' && this.$.budgetBallot && page!='post') {
           this.$.budgetBallot.selectedView = 0;
+          this._clearArea();
         }
 
         // Cancel login polling if needed
