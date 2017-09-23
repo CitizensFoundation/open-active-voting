@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.14"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.15"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -5400,9 +5400,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.set('haveSentBallot', false);
           this.set('favoriteItem', null);
           this.set('oldFavoriteItem', null);
+          this.fire('ak-clear-area');
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
-          this.fire('ak-clear-area');
         }
       },
 
