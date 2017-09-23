@@ -68,6 +68,10 @@
       @apply(--layout-vertical);
     }
 
+    .budgetMaterial[less-wide] {
+      width: 920px;
+    }
+
     #votes {
       width: 288px;
       background-color: #e0e0e0;
@@ -84,6 +88,10 @@
     #votes[wide] {
       width: 940px;
       height: 102px;
+    }
+
+    #votes[less-wide] {
+      width: 920px;
     }
 
     .budgetRuler {
@@ -214,8 +222,9 @@
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <iron-media-query query="(max-width: 340px)" query-matches="{{mini}}"></iron-media-query>
+    <iron-media-query query="(max-width: 1040px)" query-matches="{{lessWide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
-      <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
+      <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]" less-wide$="[[lessWide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
           <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
           <div class="flex layout vertical center-center">
@@ -241,17 +250,17 @@
             <paper-button id="votingButton" raised class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
           </div>
         </div>
-        <div id="votes" wide$="[[wide]]">
+        <div id="votes" wide$="[[wide]]" less-wide$="[[lessWide]]">
           <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
             <div hidden$="[[!wide]]" class="onOfferText">{{localize('budget_empty_info_1', "amount", budgetLeft)}}</div>
             <div>{{localize('budget_empty_info_2')}}</div>
-            <paper-fab mini id="x" elevation="5" class="demoButton" icon="add"></paper-fab>
+            <paper-fab mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
             <div>{{localize('budget_empty_info_3')}}</div>
           </div>
         </div>
       </paper-material>
     </div>
-    <paper-toast on-tap="_closeToast" wide$="[[wide]]" id="toast" duration="4000" horizontal-align="right" text="{{localize('favorite_info')}}"></paper-toast>
+    <paper-toast on-tap="_closeToast" wide$="[[wide]]" id="toast" duration="3000" horizontal-align="right" text="{{localize('favorite_info')}}"></paper-toast>
   </template>
 
 </dom-module>
@@ -316,12 +325,17 @@
 
         wide: {
           type: Boolean,
-          observer: '_wideChanged'
+          observer: '_resetWidth'
         },
 
         mini: {
           type: Boolean,
-          observer: '_wideChanged'
+          observer: '_resetWidth'
+        },
+
+        lessWide: {
+          type: Boolean,
+          observer: '_resetWidth'
         },
 
         currentBallot: Object
@@ -352,18 +366,22 @@
         this.loadLanguage(this.resolveUrl('/src/locales.json'));
       },
 
-      _wideChanged: function (isWide) {
-        if (this.wide) {
-          this.set('votesWidth', 940);
-        } else if (this.mini) {
-          this.set('votesWidth', 250);
-        } else {
-          this.set('votesWidth', 288);
-        }
-        this._resetBudgetDiv();
-        this.selectedItems.forEach(function (item) {
-          this._addItemToDiv(item);
-        }.bind(this));
+      _resetWidth: function () {
+        this.async(function () {
+          if (this.lessWide) {
+            this.set('votesWidth', 920);
+          } else if (this.wide) {
+            this.set('votesWidth', 940);
+          } else if (this.mini) {
+            this.set('votesWidth', 250);
+          } else {
+            this.set('votesWidth', 288);
+          }
+          this._resetBudgetDiv();
+          this.selectedItems.forEach(function (item) {
+            this._addItemToDiv(item);
+          }.bind(this));
+        });
       },
 
       _millionWord: function () {
@@ -503,7 +521,6 @@
 
       _removeItemFromDiv: function (item) {
         var selectedItemDiv = this.$$("#item_id_"+item.id);
-        console.log("SELECTED: "+selectedItemDiv.id);
         selectedItemDiv.parentNode.removeChild(selectedItemDiv);
       },
 
