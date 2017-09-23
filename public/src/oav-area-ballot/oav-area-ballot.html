@@ -517,9 +517,9 @@
           this.set('haveSentBallot', false);
           this.set('favoriteItem', null);
           this.set('oldFavoriteItem', null);
+          this.fire('ak-clear-area');
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
-          this.fire('ak-clear-area');
         }
       },
 
