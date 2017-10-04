@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.23"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.24"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -40,6 +40,7 @@
     }
 
     .textSharing {
+      width: 380px;
       max-width: 380px;
     }
 
@@ -47,6 +48,7 @@
 
       .textSharing {
         max-width: 290px;
+        width: 290px;
       }
 
       .mobileLogo {
@@ -99,7 +101,7 @@
       margin-left: 8px;
     }
 
-    .textSharing {
+    .textSharingContainer {
       padding-top: 12px;
       padding-bottom: 4px;
     }
@@ -122,14 +124,17 @@
             <div>{{localize('thank_you_1')}}</div>
             <div class="smaller">{{localize('thank_you_2')}}</div>
             <div class="smaller">{{localize('thank_you_3')}}</div>
-            <div id="" class="layout vertical center-center textSharing">
-              <div class="">
-              {{localize('share_vote_by_pressing')}}
+            <div class="layout vertical center-center textSharingContainer">
+              <div class="textSharing">
+                {{localize('share_vote_by_pressing')}}
               </div>
-              <paper-share-button raised="" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
-              </paper-share-button>
-              <div>Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu borgarinnar til 2030</a>
-                á Betri Reykjavík!</div>
+              <div>
+                <paper-share-button raised="" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
+                </paper-share-button>
+              </div>
+              <div class="textSharing">Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu
+                borgarinnar</a> til 2030 á Betri Reykjavík!
+              </div>
             </div>
           </div>
         </paper-material>
@@ -140,7 +145,7 @@
 </dom-module>
 
 <script>
-  (function() {
+  (function () {
     Polymer({
 
       is: 'oav-voting-completed',
@@ -157,8 +162,8 @@
         }
       },
 
-      attached: function() {
-        this.set('shareUrl', encodeURIComponent("https://"+window.location.host));
+      attached: function () {
+        this.set('shareUrl', encodeURIComponent("https://" + window.location.host));
         this.loadLanguage(this.resolveUrl('/src/locales.json'));
       },
 
