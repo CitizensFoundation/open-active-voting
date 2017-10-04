@@ -222,7 +222,7 @@
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
     <iron-media-query query="(max-width: 340px)" query-matches="{{mini}}"></iron-media-query>
-    <iron-media-query query="(max-width: 1040px and min-width: 960px)" query-matches="{{lessWide}}"></iron-media-query>
+    <iron-media-query query="(max-width: 1040px) and (min-width: 960px)" query-matches="{{lessWide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]" less-wide$="[[lessWide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
