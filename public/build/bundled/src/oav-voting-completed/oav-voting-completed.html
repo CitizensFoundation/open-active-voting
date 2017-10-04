@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.20"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.21"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -39,7 +39,15 @@
       }
     }
 
+    .textSharing {
+      max-width: 380px;
+    }
+
     @media (max-width: 600px) {
+
+      .textSharing {
+        max-width: 290px;
+      }
 
       .mobileLogo {
         width: 240px;
@@ -120,7 +128,7 @@
               </div>
               <paper-share-button raised="" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
               </paper-share-button>
-              <div>og taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu borgarinnar til 2030</a>
+              <div>Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu borgarinnar til 2030</a>
                 á Betri Reykjavík!</div>
             </div>
           </div>
