@@ -132,7 +132,7 @@ class VotesController < ApplicationController
     if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
 
       # Hide IP address if needed
-      ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "hidden"
+      ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "n/a"
 
       # Create an encrypted checksum
       encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],ip_address,params[:area_id],request.session_options[:id])
