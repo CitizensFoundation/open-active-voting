@@ -69,7 +69,8 @@ module OneLogin
           http = Net::HTTP.new(uri.host, uri.port)
           http.use_ssl = true
           # Most IdPs will probably use self signed certs
-          if validate_cert
+          # Force validation in all cases
+          if true #validate_cert
             http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
             # Net::HTTP in Ruby 1.8 did not set the default certificate store
