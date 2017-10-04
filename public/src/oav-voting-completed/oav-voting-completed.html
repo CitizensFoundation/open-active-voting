@@ -54,6 +54,7 @@
     }
 
     .textSharing {
+      width: 380px;
       max-width: 380px;
     }
 
@@ -61,6 +62,7 @@
 
       .textSharing {
         max-width: 290px;
+        width: 290px;
       }
 
       .mobileLogo {
@@ -113,7 +115,7 @@
       margin-left: 8px;
     }
 
-    .textSharing {
+    .textSharingContainer {
       padding-top: 12px;
       padding-bottom: 4px;
     }
@@ -126,27 +128,32 @@
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
         <div class="layout horizontal center-center">
-          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo"
+                      src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+            <iron-image sizing="contain" class="desktopLogo"
+                        src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
             <div class="smaller">{{localize('thank_you_2')}}</div>
             <div class="smaller">{{localize('thank_you_3')}}</div>
-            <div id="" class="layout vertical center-center textSharing">
-              <div class="">
-              {{localize('share_vote_by_pressing')}}
+            <div class="layout vertical center-center textSharingContainer">
+              <div class="textSharing">
+                {{localize('share_vote_by_pressing')}}
               </div>
-              <paper-share-button raised on-share-tap="_shareTap" class="shareIcon"
-                                  horizontal-align="left" id="shareButton"
-                                  title$="{{localize('share_vote_by_pressing')}}"
-                                  facebook twitter popup url$="[[shareUrl]]">
-              </paper-share-button>
-              <div>Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu borgarinnar til 2030</a>
-                á Betri Reykjavík!</div>
+              <div>
+                <paper-share-button raised on-share-tap="_shareTap" class="shareIcon"
+                                    horizontal-align="left" id="shareButton"
+                                    title$="{{localize('share_vote_by_pressing')}}"
+                                    facebook twitter popup url$="[[shareUrl]]">
+                </paper-share-button>
+              </div>
+              <div class="textSharing">Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu
+                borgarinnar</a> til 2030 á Betri Reykjavík!
+              </div>
             </div>
           </div>
         </paper-material>
@@ -157,7 +164,7 @@
 </dom-module>
 
 <script>
-  (function() {
+  (function () {
     Polymer({
 
       is: 'oav-voting-completed',
@@ -174,8 +181,8 @@
         }
       },
 
-      attached: function() {
-        this.set('shareUrl', encodeURIComponent("https://"+window.location.host));
+      attached: function () {
+        this.set('shareUrl', encodeURIComponent("https://" + window.location.host));
         this.loadLanguage(this.resolveUrl('/src/locales.json'));
       },
 
