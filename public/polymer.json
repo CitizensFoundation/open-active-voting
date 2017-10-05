@@ -2,7 +2,6 @@
   "entrypoint": "index.html",
   "shell": "src/oav-app.html",
   "fragments": [
-    "src/oav-select-voting-area/oav-select-voting-area.html",
     "src/oav-area-ballot/oav-area-ballot.html",
     "src/oav-voting-completed/oav-voting-completed.html",
     "src/yp-post/yp-post.html"
