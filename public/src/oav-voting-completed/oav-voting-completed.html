@@ -119,6 +119,11 @@
       padding-top: 12px;
       padding-bottom: 4px;
     }
+
+    .shareIconButton {
+      height: 62px;
+      min-height: 62px;
+    }
   </style>
 
   <template>
@@ -144,7 +149,7 @@
               <div class="textSharing">
                 {{localize('share_vote_by_pressing')}}
               </div>
-              <div>
+              <div class="shareIconButton">
                 <paper-share-button raised on-share-tap="_shareTap" class="shareIcon"
                                     horizontal-align="left" id="shareButton"
                                     title$="{{localize('share_vote_by_pressing')}}"
