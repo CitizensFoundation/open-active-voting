@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.30"></head><body><dom-module id="oav-select-voting-area">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.31"></head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
 
     :host {
@@ -521,6 +521,13 @@
 </dom-module>
 
 <script>
+
+  function _onVideoPlay() {
+    if (window.appGlobals) {
+      window.appGlobals.activity('video', 'playing');
+    }
+  }
+
   (function() {
     Polymer({
 
@@ -554,10 +561,6 @@
 
         areaVoterCount: Object,
         totalVoterCount: Number
-      },
-
-      _onVideoPlay: function () {
-        window.appGlobals.activity('video', 'playing');
       },
 
       refreshAreaCounters: function () {
