@@ -108,7 +108,7 @@
       color: #eee;
     }
 
-    .shareIcon {
+    .shareIconFinal {
       --paper-share-button-icon-color: var(--app-accent-color);
       --paper-share-button-icon-height: 60px;
       --paper-share-button-icon-width: 60px;
@@ -150,7 +150,7 @@
                 {{localize('share_vote_by_pressing')}}
               </div>
               <div class="shareIconButton">
-                <paper-share-button raised on-share-tap="_shareTap" class="shareIcon"
+                <paper-share-button raised on-share-tap="_shareTap" class="shareIconFinal"
                                     horizontal-align="left" id="shareButton"
                                     title$="{{localize('share_vote_by_pressing')}}"
                                     facebook twitter popup url$="[[shareUrl]]">
