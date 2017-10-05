@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.26"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.27"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -105,6 +105,11 @@
       padding-top: 12px;
       padding-bottom: 4px;
     }
+
+    .shareIconButton {
+      height: 62px;
+      min-height: 62px;
+    }
   </style>
 
   <template>
@@ -128,7 +133,7 @@
               <div class="textSharing">
                 {{localize('share_vote_by_pressing')}}
               </div>
-              <div>
+              <div class="shareIconButton">
                 <paper-share-button raised="" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
                 </paper-share-button>
               </div>
