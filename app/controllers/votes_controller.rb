@@ -119,10 +119,15 @@ class VotesController < ApplicationController
       new_item.name_en = item.name
       new_item.description_en = item.description
       @budget_ballot_items << new_item
+
+      I18n.locale = "pl"
+      new_item.name_pl = item.name
+      new_item.description_pl = item.description
+      @budget_ballot_items << new_item
     }
 
     respond_to do |format|
-      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :description_is, :description_en]}
+      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}
     end
   end
 
