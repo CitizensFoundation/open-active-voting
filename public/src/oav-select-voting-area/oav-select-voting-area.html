@@ -543,6 +543,13 @@
 </dom-module>
 
 <script>
+
+  function _onVideoPlay() {
+    if (window.appGlobals) {
+      window.appGlobals.activity('video', 'playing');
+    }
+  }
+
   (function() {
     Polymer({
 
@@ -576,10 +583,6 @@
 
         areaVoterCount: Object,
         totalVoterCount: Number
-      },
-
-      _onVideoPlay: function () {
-        window.appGlobals.activity('video', 'playing');
       },
 
       refreshAreaCounters: function () {
