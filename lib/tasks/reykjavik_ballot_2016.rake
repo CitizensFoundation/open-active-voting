@@ -80,7 +80,7 @@ namespace :reykjavik_ballot_2016 do
     puts "1========================================================="
   end
 
-  def import_area_data(area_id, budget_data, start_row_number, total_number_of_rows=20)
+  def import_area_data_2016(area_id, budget_data, start_row_number, total_number_of_rows=20)
     current_row_number = start_row_number -1
 
     while current_row_number < start_row_number+(total_number_of_rows-1)  do
