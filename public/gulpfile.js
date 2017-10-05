@@ -97,7 +97,5 @@ gulp.task('versionHtmlImportsServiceWorker', function(done) {
 gulp.task('default', gulp.series([
   clean.build,
   project.merge(source, dependencies),
-  project.serviceWorker,
-  'versionHtmlImports',
-  'versionHtmlImportsServiceWorker'
+  'versionHtmlImports'
 ]));
