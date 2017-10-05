@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.31"></head><body><dom-module id="oav-select-voting-area">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.32"></head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
 
     :host {
@@ -368,7 +368,7 @@
           </div>
 
           <paper-material elevation="3" class="topMaterial infoImageContainer" hidden$="[[!wide]]">
-            <video width="400" height="225" controls="" onplaying="_onVideoPlay">
+            <video width="400" height="225" controls="" on-playing="_onVideoPlay">
               <source src="http://efni.hvitahusid.is/Reykjavik/hverfidMitt/kosning_2017/video/RVK-hverfid_mitt-kennslumyndband_1920x1080.mp4" type="video/mp4">
               Þinn vafri styður ekki myndbönd.
             </video>
@@ -521,13 +521,6 @@
 </dom-module>
 
 <script>
-
-  function _onVideoPlay() {
-    if (window.appGlobals) {
-      window.appGlobals.activity('video', 'playing');
-    }
-  }
-
   (function() {
     Polymer({
 
@@ -561,6 +554,10 @@
 
         areaVoterCount: Object,
         totalVoterCount: Number
+      },
+
+      _onVideoPlay: function () {
+        window.appGlobals.activity('video', 'playing');
       },
 
       refreshAreaCounters: function () {
