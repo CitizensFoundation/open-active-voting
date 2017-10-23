@@ -331,6 +331,13 @@ namespace :ballot do
     end
   end
 
+  task(:display_name_id => :environment) do
+    I18n.locale = "is"
+    BudgetBallotItem.all.each do |item|
+      puts "#{item.id} - #{item.name}"
+    end
+  end
+  
   desc "Set ktest config"
   task(:set_ktest_config => :environment) do
     config=BudgetConfig.first
