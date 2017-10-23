@@ -326,7 +326,7 @@ namespace :ballot do
   task(:clear_all_but_two => :environment) do
     BudgetBallotItem.all.each do |item|
       if item.id!=202 and item.id!=201
-        item.delete
+        item.destroy
       end
     end
   end
