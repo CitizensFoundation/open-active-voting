@@ -210,7 +210,7 @@ namespace :reykjavik_ballot do
       I18n.locale = "pl"
       grafarholt.name = "Grafarholt og Úlfarsárdalur"
       grafarholt.save
-      import_area_data(grafarholt.id, budget_data, 253, 21)
+      import_area_data(grafarholt.id, budget_data, 253, 23)
 
       kjalarnes = BudgetBallotArea.create!(:budget_amount => 14.0)
       I18n.locale = "is"

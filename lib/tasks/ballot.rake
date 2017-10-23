@@ -320,6 +320,17 @@ namespace :ballot do
     end
   end
 
+  desc "Clear all but two"
+
+
+  task(:clear_all_but_two => :environment) do
+    BudgetBallotItem.all.each do |item|
+      if item.id!=14 and item.id!=12
+        item.delete
+      end
+    end
+  end
+
   desc "Set ktest config"
   task(:set_ktest_config => :environment) do
     config=BudgetConfig.first
