@@ -8,6 +8,9 @@ https://ktest.betrireykjavik.is/
 Setup guide:
 https://docs.google.com/document/d/1M5mb-j_QaOPoB4twPe4lvXRrb1k0TmLKZxBCV5gdWuM
 
+You now need OAV Keys & Counting app to use Open Active Voting
+https://github.com/rbjarnason/oav-keys-and-counting
+
 OAV Keys & Counting App setup guide:
 https://docs.google.com/document/d/1llb6Li4KAs7pjiQEtaZnDGauBGdiplORe_eXQg1vKZw/
 
