@@ -5,6 +5,11 @@ Simple ballot based voting system.
 Here is a live demo:
 https://ktest.betrireykjavik.is/
 
+Setup guide:
+https://docs.google.com/document/d/1M5mb-j_QaOPoB4twPe4lvXRrb1k0TmLKZxBCV5gdWuM
+
+OAV Keys & Counting App setup guide:
+https://docs.google.com/document/d/1llb6Li4KAs7pjiQEtaZnDGauBGdiplORe_eXQg1vKZw/
 
 Install Ubuntu dependencies
 ````bash
