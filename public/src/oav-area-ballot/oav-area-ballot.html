@@ -369,6 +369,7 @@
       _postVoteToServer: function () {
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
+          debugger;
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
           if (this._isInAppiOSOrIE11()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
@@ -431,6 +432,7 @@
         }
         this.cancelLoginPolling();
 
+        debugger;
         var areaId;
         if (this.area) {
           areaId = this.area.id;
@@ -440,9 +442,11 @@
           console.warn("No area id in complete voting");
         }
 
+        debugger;
         if (areaId) {
           if (this.isSendingBallot===false && this.haveSentBallot===false) {
             var encryptedVote = encryptedVotes;
+            debugger;
             if (encryptedVote) {
               this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
               this.$.postBallotAjax.generateRequest();
