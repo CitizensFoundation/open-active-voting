@@ -357,9 +357,6 @@
           <paper-item on-tap="_openPdf">
             <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
-          <paper-item on-tap="_showPost">
-            <iron-icon raised title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
-          </paper-item>
         </paper-menu>
       </paper-menu-button>
       <div class="layout horizontal">
@@ -551,9 +548,7 @@
 
       _openPdf: function () {
         window.appGlobals.activity('click', 'openPdf');
-        if (this.descriptionPdfLink) {
-          window.open(this.descriptionPdfLink, '_blank');
-        }
+        window.open(this.item.pdf_url, '_blank');
       },
 
       _showPost: function () {
