@@ -316,11 +316,15 @@ namespace :dundee_2017_ballot do
       area = BudgetBallotArea.create!(:budget_amount => 150000.0)
       I18n.locale = "en"
       area.name = "Lochee"
+      I18n.locale = "is"
+      area.name = "Lochee"
       area.save
       import_area_data_dundee(area.id, budget_data, 5,8)
 
       area = BudgetBallotArea.create!(:budget_amount => 150000.0)
       I18n.locale = "en"
+      area.name = "West End"
+      I18n.locale = "is"
       area.name = "West End"
       area.save
       import_area_data_dundee(area.id, budget_data, 16,5)
@@ -328,11 +332,15 @@ namespace :dundee_2017_ballot do
       area = BudgetBallotArea.create!(:budget_amount => 150000.0)
       I18n.locale = "en"
       area.name = "Strathmartine"
+      I18n.locale = "is"
+      area.name = "Strathmartine"
       area.save
       import_area_data_dundee(area.id, budget_data, 26,9)
 
       area = BudgetBallotArea.create!(:budget_amount => 150000.0)
       I18n.locale = "en"
+      area.name = "Coldside"
+      I18n.locale = "is"
       area.name = "Coldside"
       area.save
       import_area_data_dundee(area.id, budget_data, 39,9)

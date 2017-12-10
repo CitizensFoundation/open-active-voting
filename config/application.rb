@@ -29,7 +29,7 @@ module OpenActiveVotingApp
     config.i18n.available_locales = [:en, :is, :pl]
 
     # Set default locale to Icelandic
-    config.i18n.locale = :is
+    config.i18n.locale = :en
 
     # Enable localization fallback to :is
     config.i18n.fallbacks = true
