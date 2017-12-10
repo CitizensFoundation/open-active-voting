@@ -10,22 +10,22 @@
 <link rel="import" href="../oav-behaviors/app-helpers.html">
 
 <dom-module id="oav-ajax">
-  <style>
-    :host {
-
-    }
-
-    .large {
-      height: 64px !important;
-      width: 64px !important;
-      --paper-spinner-stroke-width: 7px;
-    }
-
-    paper-spinner {
-      background: transparent;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+
+      }
+
+      .large {
+        height: 64px !important;
+        width: 64px !important;
+        --paper-spinner-stroke-width: 7px;
+      }
+
+      paper-spinner {
+        background: transparent;
+      }
+    </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-spinner id="spinner" hidden$="[[!useSpinner]]"></paper-spinner>
@@ -43,9 +43,7 @@
       on-response="_response"
       loading="{{loading}}">
     </iron-ajax>
-
   </template>
-
 </dom-module>
 
 <script>

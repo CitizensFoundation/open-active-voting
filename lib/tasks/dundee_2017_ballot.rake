@@ -246,7 +246,6 @@ namespace :dundee_2017_ballot do
   end
 
   def create_budget_ballot_item_dundee(area_id, budget_data, row_number)
-    puts "HUHUHUH"
     #puts budget_data[row_number]
     name_en = budget_data[row_number][6]
     puts "name_en #{name_en} #{row_number}"
@@ -327,7 +326,7 @@ namespace :dundee_2017_ballot do
       I18n.locale = "is"
       area.name = "West End"
       area.save
-      import_area_data_dundee(area.id, budget_data, 16,5)
+      import_area_data_dundee(area.id, budget_data, 17,5)
 
       area = BudgetBallotArea.create!(:budget_amount => 150000.0)
       I18n.locale = "en"
@@ -343,7 +342,39 @@ namespace :dundee_2017_ballot do
       I18n.locale = "is"
       area.name = "Coldside"
       area.save
-      import_area_data_dundee(area.id, budget_data, 39,9)
+      import_area_data_dundee(area.id, budget_data, 40,9)
+
+      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      I18n.locale = "en"
+      area.name = "Maryfield"
+      I18n.locale = "is"
+      area.name = "Maryfield"
+      area.save
+      import_area_data_dundee(area.id, budget_data, 52,6)
+
+      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      I18n.locale = "en"
+      area.name = "North East"
+      I18n.locale = "is"
+      area.name = "North East"
+      area.save
+      import_area_data_dundee(area.id, budget_data, 61,10)
+
+      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      I18n.locale = "en"
+      area.name = "East End"
+      I18n.locale = "is"
+      area.name = "East End"
+      area.save
+      import_area_data_dundee(area.id, budget_data, 74,5)
+
+      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      I18n.locale = "en"
+      area.name = "The Ferry"
+      I18n.locale = "is"
+      area.name = "The Ferry"
+      area.save
+      import_area_data_dundee(area.id, budget_data, 82,9)
     else
       puts "BALLOT BOX IS NOT EMPTY, NO ACTION TAKEN!"
     end
