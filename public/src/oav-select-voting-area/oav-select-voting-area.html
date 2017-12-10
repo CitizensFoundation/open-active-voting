@@ -78,7 +78,7 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Banner_1.png");
     }
 
     @media (max-width: 800px) {
@@ -103,6 +103,7 @@
 
     .areaOptions {
       margin-top: 48px;
+      padding-left:
     }
 
     .voteNumberForVesturbaer {
@@ -328,9 +329,6 @@
     }
 
     .logoHolder {
-      padding-bottom: 8px;
-      padding-top: 8px;
-      background-color: #f0f0f0;
     }
 
     @media (max-width: 320px) {
@@ -371,12 +369,10 @@
         <div class="layout horizontal imageContainer wrap">
           <div class="layout vertical">
             <div class="layout horizontal center-center">
-              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Left_Image.png"></iron-image>
             </div>
             <paper-material elevation="3" class="topMaterial">
-              <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-                <iron-image sizing="contain" class="desktopLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
-              </div>
+              <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
               <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
               <div class="langSelection layout horizontal">
                 <div class="language" hidden$="[[isLanguage]]" on-tap="_selectIcelandic">Íslenska</div>
@@ -390,17 +386,14 @@
           </div>
 
           <paper-material elevation="3" class="topMaterial infoImageContainer" hidden$="[[!wide]]">
-            <video width="400" height="225" controls on-playing="_onVideoPlay">
-              <source src="https://efni.hvitahusid.is/Reykjavik/hverfidMitt/kosning_2017/video/RVK-hverfid_mitt-kennslumyndband_1920x1080.mp4" type="video/mp4">
-              Þinn vafri styður ekki myndbönd.
-            </video>
+            <iron-image width="400" height="225" sizing="cover" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_RightImage.png"></iron-image>
           </paper-material>
         </div>
 
         <template is="dom-if" if="[[wide]]" restamp>
           <paper-material elevation="5" class="areaOptions">
             <div class="layout vertical center-center">
-              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Rvik_kort_4.png" border="0" width="882" height="597" orgWidth="686" orgHeight="550" usemap="#image-maps-2016-08-04-135857" alt="" />
+              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DundeeDecidesMap-3.jpeg" border="0" width="942" height="416" orgWidth="942" orgHeight="416" usemap="#image-maps-2016-08-04-135857" alt="" />
               <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
                 <area  alt="Vesturbær" title="Vesturbær" href="/#/area-ballot/1" shape="poly" coords="153,227,177,205,213,213,238,209,249,199,244,189,246,181,254,174,261,171,267,166,275,159,279,153,290,152,301,158,298,184,271,204,281,213,276,222,270,238,269,261,273,286,273,305,268,315,259,328,249,339,241,350,235,352,231,349,229,334,222,318,217,303,212,284,188,260" style="outline:none;" target="_self"     />
                 <area  alt="Miðborg" title="Miðborg" href="/#/area-ballot/2" shape="poly" coords="281,215,270,249,272,278,276,293,276,305,271,318,262,330,255,342,245,349,240,357,245,366,258,376,269,380,283,397,298,402,313,397,319,392,320,380,317,354,315,334,317,316,321,309,332,298,342,283,347,263,347,254,346,250,311,218,295,220" style="outline:none;" target="_self"     />
@@ -414,7 +407,7 @@
                 <area  alt="Kjalarnes" title="Kjalarnes" href="/#/area-ballot/10" shape="poly" coords="526,1,525,12,533,20,543,20,556,23,564,28,571,39,567,53,570,70,583,76,596,68,630,38,661,39,676,24,684,0" style="outline:none;" target="_self"     />
               </map>
             </div>
-            <template is="dom-if" if="[[areaVoterCount]]" restamp>
+            <template is="dom-if" if="[[areaVotedrCount]]" restamp>
               <a href="/#/area-ballot/1" class="voteNumberForVesturbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
               <a href="/#/area-ballot/2" class="voteNumberForMidborg"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
               <a href="/#/area-ballot/3" class="voteNumberForHlidar"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
