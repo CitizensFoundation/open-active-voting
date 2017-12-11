@@ -92,8 +92,9 @@ def find_image_url_for_area_item(area_id, id)
 end
 
 def find_pdf_url_for_area_item(area_id, id)
+  puts "PDF: #{area_id} - #{id}"
   @images_and_pdfs.each do |item|
-    if item[:area_id]==area_id and item[:id]==id and item[:pdf_url]
+    if item[:area_id]==area_id and item[:id]==id and item[:pdf_url] and item[:pdf_url]!=""
       return item[:pdf_url]
     end
   end
@@ -107,7 +108,7 @@ end
   {:area_id=>1, :id=>3, :name=>"Lochee", :image_url=>"Lochee/03_The_Green_resized.jpg"},
   {:area_id=>1, :id=>4, :name=>"Lochee", :pdf_url=>"Lochee/04_Alec_Craigie_Green_17-009-(61)001_A1.pdf"},
   {:area_id=>1, :id=>4, :name=>"Lochee", :image_url=>"Lochee/04_Lidl_south_Rd_resized.jpg"},
-  {:area_id=>1, :id=>5, :name=>"Lochee", :pdf_url=>"Lochee/05_General_Layout_Ped_Crossing,_South_Road.pdf"},
+  {:area_id=>1, :id=>5, :name=>"Lochee", :pdf_url=>"Lochee/05_General_Layout_Ped_Crossing_South_Road.pdf"},
   {:area_id=>1, :id=>5, :name=>"Lochee", :image_url=>"Lochee/05_South_Rd_Playpark_resized.jpg"},
   {:area_id=>1, :id=>6, :name=>"Lochee", :pdf_url=>"Lochee/06_South_Road_Site_Location.pdf"},
   {:area_id=>1, :id=>7, :name=>"Lochee", :pdf_url=>"Lochee/07_Lochee_Clock_Site_Location.pdf"},
@@ -247,20 +248,20 @@ namespace :dundee_2017_ballot do
 
   def create_budget_ballot_item_dundee(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_en = budget_data[row_number][6]
+    name_en = budget_data[row_number][2]
     puts "name_en #{name_en} #{row_number}"
-    price = budget_data[row_number][8]
+    price = budget_data[row_number][6]
     price = price.to_i*1000
     puts "Price is: #{price}"
-    locations = budget_data[row_number][9]
+    locations = budget_data[row_number][7]
     puts locations
 
-    if budget_data[row_number][10] and budget_data[row_number][10]!=""
-      puts budget_data[row_number][10]
-      locations = "#{locations},#{budget_data[row_number][10]}"
+    if budget_data[row_number][8] and budget_data[row_number][8]!=""
+      puts budget_data[row_number][8]
+      locations = "#{locations},#{budget_data[row_number][8]}"
     end
 
-    description_en = budget_data[row_number][7]
+    description_en = budget_data[row_number][4]
     puts description_en
 
     found_url = find_image_url_for_area_item(area_id,  budget_data[row_number][0].to_i)
@@ -271,7 +272,7 @@ namespace :dundee_2017_ballot do
     end
     puts "image_url: #{image_url}"
 
-    found_pdf_url = find_pdf_url_for_area_item(area_id, row_number[0].to_i)
+    found_pdf_url = find_pdf_url_for_area_item(area_id, budget_data[row_number][0].to_i)
     if found_pdf_url.is_a? String
       pdf_url = "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/areas/"+found_pdf_url
     else

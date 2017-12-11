@@ -84,7 +84,7 @@
     @media (max-width: 800px) {
       .imageContainer {
         background-image: none;
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
       }
     }
 
@@ -298,13 +298,14 @@
         width: 240px;
         height: 100px;
         margin-top: 32px;
+        margin-left: 38px;
       }
 
       .topMaterial {
         max-width: 320px;
         max-height: 120px;
         margin-bottom: 16px;
-        background-color: #f5f5f5;
+        background-color: #f9f9f9;
       }
 
       .mobileMaterial {
@@ -317,8 +318,12 @@
         cursor: pointer;
       }
 
+      .mainContainer {
+        background-color: #f9f9f9;
+      }
+
       .mobileBackground {
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
         padding-bottom: 64px;
       }
     }
@@ -369,10 +374,10 @@
         <div class="layout horizontal imageContainer wrap">
           <div class="layout vertical">
             <div class="layout horizontal center-center">
-              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Left_Image.png"></iron-image>
+              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></iron-image>
             </div>
             <paper-material elevation="3" class="topMaterial">
-              <h2 style="padding:8px">Welcome to Dundee Decides 2017</h2>
+              <h2 hidden$="[[!wide]]" style="padding:8px">Welcome to Dundee Decides 2017</h2>
               <div class="selectInfoTextSmaller">Choose a neighbourhood to cast your vote. 150.000 are available in each.</div>
               <template is="dom-if" if="[[totalVoterCount]]">
                 <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>

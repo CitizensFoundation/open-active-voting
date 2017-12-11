@@ -157,7 +157,7 @@
       font-size: 25px;
       position: absolute;
       bottom: 8px;
-      left: 92px;
+      left: 105px;
       color: var(--app-accent-color);
     }
 
@@ -365,7 +365,7 @@
       <div class="buttons">
         <paper-share-button hidden$="[[!imageLoaded]]" small$="[[small]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
 
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">&pound[[formatNumber(item.price)]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
           <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
         </div>
