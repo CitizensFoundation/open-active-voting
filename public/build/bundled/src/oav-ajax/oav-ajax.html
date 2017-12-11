@@ -1,40 +1,38 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.35">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.40">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.40">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.40">
 
 </head><body><dom-module id="oav-ajax">
-  <style>
-    :host {
-
-    }
-
-    .large {
-      height: 64px !important;
-      width: 64px !important;
-      --paper-spinner-stroke-width: 7px;
-    }
-
-    paper-spinner {
-      background: transparent;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+
+      }
+
+      .large {
+        height: 64px !important;
+        width: 64px !important;
+        --paper-spinner-stroke-width: 7px;
+      }
+
+      paper-spinner {
+        background: transparent;
+      }
+    </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-spinner id="spinner" hidden$="[[!useSpinner]]"></paper-spinner>
 
     <iron-ajax id="ajax" url="[[url]]" params="[[params]]" auto="[[auto]]" method="[[method]]" body="[[body]]" handle-as="json" content-type="application/json" on-error="_error" on-response="_response" loading="{{loading}}">
     </iron-ajax>
-
   </template>
-
 </dom-module>
 
 <script>
@@ -130,6 +128,7 @@
       },
 
       _error: function (event) {
+        debugger;
         this.$.spinner.active = false;
         if (this.dispatchError) {
           if (event.detail.request.xhr.response && event.detail.request.xhr.response.error) {

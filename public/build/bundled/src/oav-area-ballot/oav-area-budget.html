@@ -1,17 +1,17 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.40">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.35">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.35">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.40">
 
 
 </head><body><dom-module id="oav-area-budget">
@@ -177,7 +177,7 @@
     }
 
     .headerLogo {
-      width: 150px;
+      width: 142px;
       height: 70px;
       padding: 0;
       margin-left: 24px;
@@ -236,15 +236,15 @@
             </template>
             <template is="dom-if" if="[[selectedBudget]]">
               <div hidden$="[[!selectedBudgetIsOne]]">
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile_one_million", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info_one_million", "number_of_items", selectedItems.length, "selectedBudget", formattedSelectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile_one_million", "number_of_items", selectedItems.length, "selectedBudget", formattedSelectedBudget)}}</div>
               </div>
               <div hidden$="[[selectedBudgetIsOne]]">
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
-                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", selectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[!wide]]">{{localize("selected_items_info", "number_of_items", selectedItems.length, "selectedBudget", formattedSelectedBudget)}}</div>
+                <div class="selectedInfo" wide$="[[wide]]" hidden$="[[wide]]">{{localize("selected_items_info_mobile", "number_of_items", selectedItems.length, "selectedBudget", formattedSelectedBudget)}}</div>
               </div>
             </template>
-            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
+            <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', formattedBudgetLeft)}}</div>
           </div>
           <div class="">
             <paper-button id="votingButton" raised="" class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
@@ -253,7 +253,7 @@
         <div id="votes" wide$="[[wide]]" less-wide$="[[lessWide]]">
           <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
             <template is="dom-if" if="[[totalBudget]]" restamp="">
-              <div hidden$="[[!wide]]" class="onOfferText">{{localize('budget_empty_info_1', "amount", budgetLeft)}}</div>
+              <div hidden$="[[!wide]]" class="onOfferText">{{localize('budget_empty_info_1', "amount", formattedBudgetLeft)}}</div>
               <div>{{localize('budget_empty_info_2')}}</div>
               <paper-fab mini="" id="x" elevation="5" disabled="" class="demoButton" icon="add"></paper-fab>
               <div>{{localize('budget_empty_info_3')}}</div>
@@ -340,12 +340,30 @@
           observer: '_resetWidth'
         },
 
+        formattedSelectedBudget: {
+          type: String,
+          computed: '_formattedBudget(selectedBudget)'
+        },
+
+        formattedBudgetLeft: {
+          type: String,
+          computed: '_formattedBudget(budgetLeft)'
+        },
+
         currentBallot: Object
       },
 
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+
+      _formattedBudget: function (number) {
+        if (number) {
+          return "£"+this.formatNumber(number);
+        } else {
+          return "";
+        }
+      },
 
       _closeToast: function () {
         this.$.toast.close();

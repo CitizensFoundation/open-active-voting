@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.35"></head><body><dom-module id="oav-voting-completed">
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.40"></head><body><dom-module id="oav-voting-completed">
   <style include="iron-flex iron-flex-alignment">
 
     paper-material {
@@ -79,7 +79,7 @@
     }
 
     .logoHolder {
-      background-color: #f0f0f0;
+      background-color: #f9f9f9;
       padding-bottom: 8px;
       padding-top: 8px;
     }
@@ -110,6 +110,11 @@
       height: 62px;
       min-height: 62px;
     }
+
+    .mainLogo {
+      margin-left: 48px;
+      margin-top: 4px;
+    }
   </style>
 
   <template>
@@ -119,11 +124,11 @@
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
         <div class="layout horizontal center-center">
-          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Left_Image.png"></iron-image>
+          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo mainLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Left_Image.png"></iron-image>
+            <iron-image sizing="contain" class="desktopLogo mainLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
@@ -136,9 +141,6 @@
               <div class="shareIconButton">
                 <paper-share-button raised="" on-share-tap="_shareTap" class="shareIconFinal" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
                 </paper-share-button>
-              </div>
-              <div class="textSharing">Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu
-                borgarinnar</a> til 2030 á Betri Reykjavík!
               </div>
             </div>
           </div>

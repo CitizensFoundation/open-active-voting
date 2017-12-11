@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.35"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.40"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -549,7 +549,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       font-size: 25px;
       position: absolute;
       bottom: 8px;
-      left: 92px;
+      left: 105px;
       color: var(--app-accent-color);
     }
 
@@ -755,7 +755,7 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       <div class="buttons">
         <paper-share-button hidden$="[[!imageLoaded]]" small$="[[small]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook="" twitter="" popup="" url$="[[itemShareUrl]]"></paper-share-button>
 
-        <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
+        <div class="price" small$="[[small]]" tiny$="[[tiny]]">£[[formatNumber(item.price)]]
           <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
           <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
         </div>
@@ -5246,22 +5246,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _postVoteToServer: function () {
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
+          debugger;
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          if (this._isInAppiOSOrIE11()) {
-            localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
-            localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
-            window.location = this._getSamlUrlWithLanguage();
+          if (false) {
+            if (this._isInAppiOSOrIE11()) {
+              localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
+              localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
+              window.location = this._getSamlUrlWithLanguage();
+            } else {
+              var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+              dialog.open();
+              this._openSamlLogin();
+              this.set('isPollingForLogin', true);
+              this._pollForLoginAjax();
+            }
           } else {
-            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("oavInsecureEmailLogin");
+            dialog.setup(this._insecureEmailLoginCompleted.bind(this));
             dialog.open();
-            this._openSamlLogin();
-            this.set('isPollingForLogin', true);
-            this._pollForLoginAjax();
           }
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
         }
+      },
+
+      _insecureEmailLoginCompleted: function (user, userPostCode) {
+        this.cancelLoginPolling();
+        this.completePostingOfVote(this._createEncryptedVotes(), null, userPostCode);
       },
 
       _isInAppiOSOrIE11: function () {
@@ -5302,12 +5314,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                   favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
       },
 
-      completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
+      completePostingOfVote: function (encryptedVotes, localStorageAreaId, userPostCode) {
         if (!encryptedVotes) {
           encryptedVotes = this._createEncryptedVotes();
         }
         this.cancelLoginPolling();
 
+        debugger;
         var areaId;
         if (this.area) {
           areaId = this.area.id;
@@ -5317,11 +5330,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.warn("No area id in complete voting");
         }
 
+        debugger;
         if (areaId) {
           if (this.isSendingBallot===false && this.haveSentBallot===false) {
             var encryptedVote = encryptedVotes;
+            debugger;
             if (encryptedVote) {
-              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
+              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId, user_postcode: userPostCode};
               this.$.postBallotAjax.generateRequest();
               this.set('isSendingBallot', true);
               this.set('haveSentBallot', true);
@@ -5362,7 +5377,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.cancelLoginPolling();
         this.set('isSendingBallot', false);
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.close();
+        if (dialog) {
+          dialog.close();
+        }
 
         this._clearLocalVoteStorage();
 

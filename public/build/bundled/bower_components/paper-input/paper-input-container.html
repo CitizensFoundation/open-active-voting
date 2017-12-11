@@ -6,10 +6,10 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><html><head><link rel="import" href="../polymer/polymer.html?v=6.1.35">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html?v=6.1.35">
-<link rel="import" href="../paper-styles/default-theme.html?v=6.1.35">
-<link rel="import" href="../paper-styles/typography.html?v=6.1.35">
+--><html><head><link rel="import" href="../polymer/polymer.html?v=6.1.40">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html?v=6.1.40">
+<link rel="import" href="../paper-styles/default-theme.html?v=6.1.40">
+<link rel="import" href="../paper-styles/typography.html?v=6.1.40">
 
 <!--
 `<paper-input-container>` is a container for a `<label>`, an `<input is="iron-input">` or
@@ -212,6 +212,8 @@ This element is `display:block` by default, but you can set the `inline` attribu
         transition: transform 0.25s, width 0.25s;
         -webkit-transform-origin: left top;
         transform-origin: left top;
+        /* Fix for safari not focusing 0-height date/time inputs with -webkit-apperance: none; */
+        min-height: 1px;
 
         @apply(--paper-font-common-nowrap);
         @apply(--paper-font-subhead);

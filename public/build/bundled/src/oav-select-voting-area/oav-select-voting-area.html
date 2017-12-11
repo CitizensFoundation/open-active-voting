@@ -1,24 +1,24 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/av-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.40">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.35">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.40">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.40">
 
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.35">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.40">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.35">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.40">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.40">
 
 </head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
@@ -84,7 +84,7 @@
     @media (max-width: 800px) {
       .imageContainer {
         background-image: none;
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
       }
     }
 
@@ -97,7 +97,7 @@
     }
 
     .selectInfoTextSmaller {
-      font-size: 17px;
+      font-size: 20px;
       padding: 8px;
     }
 
@@ -188,35 +188,35 @@
     }
 
     .voteNumberForVesturbaerMobile {
-      background-color: #95c11a;
+      background-color: #fcac17;
     }
 
     .voteNumberForMidborgMobile {
-      background-color: #2ba9e0;
+      background-color: #e3414e;
     }
 
     .voteNumberForHlidarMobile {
-      background-color: #f39100;
+      background-color: #0562bf;
     }
 
     .voteNumberForHaaleitiMobile {
-      background-color: #10a19a;
+      background-color: #00bcd9;
     }
 
     .voteNumberForLaugardalurMobile {
-      background-color: #be6a95;
+      background-color: #f360a4;
     }
 
     .voteNumberForBreidholtMobile {
-      background-color: #0e70b8;
+      background-color: #ec6925;
     }
 
     .voteNumberForArbaerMobile {
-      background-color: #bfc005;
+      background-color: #7e5ca8;
     }
 
     .voteNumberForGrafarvogurMobile {
-      background-color: #da616b;
+      background-color: #9ac93b;
     }
 
     .voteNumberForGrafarholtMobile {
@@ -298,13 +298,14 @@
         width: 240px;
         height: 100px;
         margin-top: 32px;
+        margin-left: 38px;
       }
 
       .topMaterial {
         max-width: 320px;
         max-height: 120px;
         margin-bottom: 16px;
-        background-color: #f5f5f5;
+        background-color: #f9f9f9;
       }
 
       .mobileMaterial {
@@ -317,8 +318,12 @@
         cursor: pointer;
       }
 
+      .mainContainer {
+        background-color: #f9f9f9;
+      }
+
       .mobileBackground {
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
         padding-bottom: 64px;
       }
     }
@@ -356,6 +361,17 @@
     .mobileBackground a {
       text-decoration: none;
     }
+
+    img[usemap], map area{
+      outline: none;
+    }
+
+    .extraHeader {
+      background-color: var(--paper-orange-600);
+      color: #FFF;
+      font-size: 24px;
+      padding: 16px;
+    }
   </style>
 
   <template>
@@ -369,11 +385,13 @@
         <div class="layout horizontal imageContainer wrap">
           <div class="layout vertical">
             <div class="layout horizontal center-center">
-              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Left_Image.png"></iron-image>
+              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></iron-image>
             </div>
             <paper-material elevation="3" class="topMaterial">
-              <h2 style="padding:8px">Welcome to Dundee Decides 2017</h2>
-              <div class="selectInfoTextSmaller">Choose a neighbourhood to cast your vote. 150.000 are available in each.</div>
+              <div hidden$="[[!wide]]" class="extraHeader">
+                Welcome to Dundee Decides 2017
+              </div>
+              <div class="selectInfoTextSmaller">Choose a ward to cast your vote. £150.000 are available in each.</div>
               <template is="dom-if" if="[[totalVoterCount]]">
                 <div title$="[[localize('number_of_voters')]]" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon><div class="totalVoterCount">[[totalVoterCount]]</div></div>
               </template>
@@ -388,18 +406,17 @@
         <template is="dom-if" if="[[wide]]" restamp="">
           <paper-material elevation="5" class="areaOptions">
             <div class="layout vertical center-center">
-              <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DundeeDecidesMap-3.jpeg" border="0" width="942" height="416" orgwidth="942" orgheight="416" usemap="#image-maps-2016-08-04-135857" alt="">
-              <map name="image-maps-2016-08-04-135857" id="ImageMapsCom-image-maps-2016-08-04-135857">
-                <area alt="Vesturbær" title="Vesturbær" href="/#/area-ballot/1" shape="poly" coords="153,227,177,205,213,213,238,209,249,199,244,189,246,181,254,174,261,171,267,166,275,159,279,153,290,152,301,158,298,184,271,204,281,213,276,222,270,238,269,261,273,286,273,305,268,315,259,328,249,339,241,350,235,352,231,349,229,334,222,318,217,303,212,284,188,260" style="outline:none;" target="_self">
-                <area alt="Miðborg" title="Miðborg" href="/#/area-ballot/2" shape="poly" coords="281,215,270,249,272,278,276,293,276,305,271,318,262,330,255,342,245,349,240,357,245,366,258,376,269,380,283,397,298,402,313,397,319,392,320,380,317,354,315,334,317,316,321,309,332,298,342,283,347,263,347,254,346,250,311,218,295,220" style="outline:none;" target="_self">
-                <area alt="Hlíðar" title="Hlíðar" href="/#/area-ballot/3" shape="poly" coords="353,247,364,243,375,241,388,240,402,240,411,246,412,257,413,270,412,285,410,290,408,299,404,303,399,311,395,318,391,327,389,336,389,347,387,355,388,366,386,377,386,391,386,411,383,415,315,403,318,395,324,384,325,372,324,359,321,348,320,328,321,318,328,307,335,298,342,291,340,279" style="outline:none;" target="_self">
-                <area alt="Háaleiti og Bústaðir" title="Háaleiti og Bústaðir" href="/#/area-ballot/4" shape="poly" coords="411,299,405,306,402,315,397,327,394,337,391,349,390,359,389,371,390,384,390,398,388,411,391,420,400,422,486,445,511,444,524,435,530,420,534,396,533,384,529,377,485,356,468,339,446,307,440,298,426,296" style="outline:none;" target="_self">
-                <area alt="Laugardalur" title="Laugardalur" href="/#/area-ballot/5" shape="poly" coords="414,290,415,283,416,276,416,263,414,251,411,238,421,212,430,206,443,202,483,196,494,200,509,222,503,233,512,239,521,234,533,234,553,254,556,272,557,291,553,309,548,328,540,341,531,349,520,357,504,358,489,354,476,343,463,326,455,313,448,303,433,294" style="outline:none;" target="_self">
-                <area alt="Breiðholt" title="Breiðholt" href="/#/area-ballot/6" shape="poly" coords="530,429,516,482,506,493,495,500,485,505,479,509,477,518,481,529,487,543,496,554,509,567,523,577,535,582,549,582,558,579,566,575,573,571,581,567,586,564,597,559,608,557,615,553,617,548,621,537,625,527,629,520,632,513,640,506,645,498,650,488,650,477,647,467,634,461,613,448,585,438,560,431,545,425" style="outline:none;" target="_self">
-                <area alt="Árbær" title="Árbær" href="/#/area-ballot/7" shape="poly" coords="555,376,580,368,607,363,623,364,634,364,644,370,694,404,697,427,698,442,700,463,703,473,712,484,729,502,733,515,735,527,701,543,686,543,670,533,668,522,667,512,666,493,661,479,643,460,629,454,621,449,598,437,584,434,569,430,557,425,549,421,541,416,541,404,541,389" style="outline:none;" target="_self">
-                <area alt="Grafarvogur" title="Grafarvogur" href="/#/area-ballot/8" shape="poly" coords="596,259,590,239,594,226,604,217,614,213,625,211,642,209,656,205,675,199,688,199,700,202,712,207,731,213,772,188,787,189,786,209,766,257,763,278,761,289,744,332,727,355,707,368,697,371,679,369,648,358,595,325,589,316,584,306,581,291" style="outline:none;" target="_self">
-                <area alt="Grafarholt og Úlfarsdalur" title="Grafarholt og Úlfarsdalur" href="/#/area-ballot/9" shape="poly" coords="773,268,766,285,762,299,758,309,754,320,748,334,744,345,736,355,727,363,719,367,716,372,715,382,722,391,730,401,741,403,750,406,760,407,781,408,788,409,817,423,831,424,845,423,851,415,857,407,863,396,866,386,865,371,863,358,856,346,844,333,838,322,827,310,821,295,812,282,802,271,794,267,784,265" style="outline:none;" target="_self">
-                <area alt="Kjalarnes" title="Kjalarnes" href="/#/area-ballot/10" shape="poly" coords="526,1,525,12,533,20,543,20,556,23,564,28,571,39,567,53,570,70,583,76,596,68,630,38,661,39,676,24,684,0" style="outline:none;" target="_self">
+              <img hidefocus="true" usemap="#image-map" id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DundeeDecidesMap-3.jpeg" border="0" width="942" height="416" orgwidth="942" orgheight="416" alt="">
+              <!-- Image Map Generated by http://www.image-map.net/ -->
+              <map name="image-map">
+                <area target="" alt="Lochee" title="Lochee" href="/#/area-ballot/1" coords="60,153,31,166,63,263,130,256,139,235,164,236,172,245,183,241,213,242,247,249,280,241,284,230,315,217,327,191,333,176,355,158,347,149,262,165,217,182,102,131,81,141,76,158,64,157" shape="poly">
+                <area target="" alt="West End" title="West End" href="/#/area-ballot/2" coords="144,241,136,253,165,273,228,366,298,346,393,319,426,297,395,278,387,262,333,242,318,230,305,226,284,240,260,252,242,256,201,245" shape="poly">
+                <area target="" alt="Strathmartine" title="Strathmartine" href="/#/area-ballot/3" coords="242,38,230,51,168,76,175,157,207,170,235,169,262,157,301,153,352,138,472,162,475,132,436,105,425,85,306,43" shape="poly">
+                <area target="" alt="Coldside" title="Coldside" href="/#/area-ballot/4" coords="361,151,344,172,324,218,341,238,368,250,402,253,433,239,439,225,432,191,424,177,426,159" shape="poly">
+                <area target="" alt="Maryfield" title="Maryfield" href="/#/area-ballot/5" coords="435,163,432,179,441,187,440,215,448,228,440,245,401,262,404,277,435,295,471,275,508,256,509,222,520,216,514,188" shape="poly">
+                <area target="" alt="North East" title="North Easy" href="/#/area-ballot/6" coords="503,41,486,51,437,53,437,96,488,133,503,127,588,156,614,143,674,159,671,95,623,66,575,39" shape="poly">
+                <area target="" alt="East End" title="Easy End" href="/#/area-ballot/7" coords="506,135,487,142,484,165,520,185,531,219,520,223,516,256,595,256,620,244,618,209,673,189,674,172,621,153,588,162,543,152" shape="poly">
+                <area target="" alt="The Ferry" title="The Ferry" href="/#/area-ballot/8" coords="687,94,676,107,689,195,672,201,624,214,630,247,687,250,752,282,800,267,855,244,829,206,823,184,843,154,846,120,802,110,760,93" shape="poly">
               </map>
             </div>
             <template is="dom-if" if="[[areaVotedrCount]]" restamp="">
@@ -411,8 +428,6 @@
               <a href="/#/area-ballot/6" class="voteNumberForBreidholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(6)]]</div></div></a>
               <a href="/#/area-ballot/7" class="voteNumberForArbaer"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(7)]]</div></div></a>
               <a href="/#/area-ballot/8" class="voteNumberForGrafarvogur"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(8)]]</div></div></a>
-              <a href="/#/area-ballot/9" class="voteNumberForGrafarholt"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(9)]]</div></div></a>
-              <a href="/#/area-ballot/10" class="voteNumberForKjalarnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(10)]]</div></div></a>
             </template>
           </paper-material>
         </template>
@@ -424,7 +439,7 @@
             <a href="/#/area-ballot/1">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForVesturbaerMobile">
                 <div>
-                  Vesturbær
+                  Lochee
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(1)]]</div></div>
@@ -434,7 +449,7 @@
             <a href="/#/area-ballot/2">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForMidborgMobile">
                 <div>
-                  Miðborg
+                  West End
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(2)]]</div></div>
@@ -444,7 +459,7 @@
             <a href="/#/area-ballot/3">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHlidarMobile">
                 <div>
-                  Hlíðar
+                  Strathmartine
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(3)]]</div></div>
@@ -454,7 +469,7 @@
             <a href="/#/area-ballot/4">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForHaaleitiMobile">
                 <div>
-                  Háaleiti og Bústaðir
+                  Coldside
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(4)]]</div></div>
@@ -464,7 +479,7 @@
             <a href="/#/area-ballot/5">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForLaugardalurMobile">
                 <div>
-                  Laugardalur
+                  Maryfield
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(5)]]</div></div>
@@ -474,7 +489,7 @@
             <a href="/#/area-ballot/6">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForBreidholtMobile">
                 <div>
-                  Breiðholt
+                  North East
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(6)]]</div></div>
@@ -484,7 +499,7 @@
             <a href="/#/area-ballot/7">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForArbaerMobile">
                 <div>
-                  Árbær
+                  East End
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(7)]]</div></div>
@@ -494,32 +509,13 @@
             <a href="/#/area-ballot/8">
               <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarvogurMobile">
                 <div>
-                  Grafarvogur
+                  The Ferry
                 </div>
                 <div class="flex"></div>
                 <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(8)]]</div></div>
               </paper-material>
             </a>
 
-            <a href="/#/area-ballot/9">
-              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForGrafarholtMobile">
-                <div>
-                  Grafarholt og Úlfarsdalur
-                </div>
-                <div class="flex"></div>
-                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(9)]]</div></div>
-              </paper-material>
-            </a>
-
-            <a href="/#/area-ballot/10">
-              <paper-material elevation="3" class="mobileMaterial layout horizontal center-center voteNumberForKjalarnesMobile">
-                <div>
-                  Kjalarnes
-                </div>
-                <div class="flex"></div>
-                <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">[[_getAreaCount(10)]]</div></div>
-              </paper-material>
-            </a>
           </template>
         </div>
       </template>
