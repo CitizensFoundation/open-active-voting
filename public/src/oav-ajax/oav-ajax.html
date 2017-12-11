@@ -139,7 +139,6 @@
       },
 
       _error: function (event) {
-        debugger;
         this.$.spinner.active = false;
         if (this.dispatchError) {
           if (event.detail.request.xhr.response && event.detail.request.xhr.response.error) {
