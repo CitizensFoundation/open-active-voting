@@ -44,6 +44,26 @@ class VotesController < ApplicationController
      end
   end
 
+
+  # This is a method for running pilots with insecure client authentication
+  def insecure_email_login
+    ok = false
+    Rails.logger.debug("insecure_email_login: e lt #{ENV["LOAD_TESTING_MODE"]} insec #{ENV["INSECURE_CLIENT_AUTHENTICATION"]} #{params[:email]} #{params[:email].length>4}")
+    if ENV["INSECURE_CLIENT_AUTHENTICATION"]=="true" and params[:email] and params[:email].length>4
+      VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => params[:email])
+      Rails.logger.warn("I have created an insecure client authentication for #{params[:email]} at session id: #{request.session_options[:id]}")
+      ok = true
+    else
+      Rails.logger.error("Trying to post to insecure_email_login without INSECURE_CLIENT_AUTHENTICATION being set")
+    end
+
+    respond_to do |format|
+      format.json { render :json => [:ok => ok]}
+    end
+  end
+
+
+
   # Logout and reset the session
   def logout
     reset_session
@@ -118,10 +138,6 @@ class VotesController < ApplicationController
       I18n.locale = "en"
       new_item.name_en = item.name
       new_item.description_en = item.description
-
-      I18n.locale = "pl"
-      new_item.name_pl = item.name
-      new_item.description_pl = item.description
       @budget_ballot_items << new_item
     }
 
@@ -133,37 +149,47 @@ class VotesController < ApplicationController
   # Encrypted vote posted by the user
   def post_vote
     # Try to read the vote identity and redirect to authentication error if not found
-    if request.session_options[:id] and voter_identity_hash = Rails.cache.read(request.session_options[:id])
+    if request.session_options[:id]
 
-      # Hide IP address if needed
-      ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "n/a"
+      voter_identity_session = VoterIdentitySession.where(:session_id=>request.session_options[:id]).first
 
-      # Create an encrypted checksum
-      encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity_hash,params[:encrypted_vote],ip_address,params[:area_id],request.session_options[:id])
+      if voter_identity_session and voter_identity_session.voter_identity and voter_identity_session.voter_identity != ""
+        voter_identity = voter_identity_session.voter_identity
 
-      # Save the vote to the database
-      if Vote.create(:user_id_hash => voter_identity_hash,
-                     :payload_data => params[:encrypted_vote],
-                     :client_ip_address => ip_address,
-                     :area_id =>params[:area_id],
-                     :session_id => request.session_options[:id],
-                     :encrypted_vote_checksum => encrypted_vote_checksum)
+        # Create an encrypted checksum
+        encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity,params[:encrypted_vote],request.remote_ip,params[:area_id],request.session_options[:id])
 
-        # Count how many times this particular voter has voted
-        vote_count = Vote.where(:user_id_hash=>voter_identity_hash).count
-        Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-        response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
+        Rails.logger.info("Encrypted_vote_checksum: #{encrypted_vote_checksum} i #{voter_identity} p #{params[:user_postcode]} #{request.user_agent}")
+
+        # Save the vote to the database
+        if Vote.create(:user_id_hash => voter_identity, :payload_data => params[:encrypted_vote],
+                       :client_ip_address => request.remote_ip, :area_id =>params[:area_id],
+                       :client_user_agent => request.user_agent,
+                       :user_postcode => params[:user_postcode],
+                       :session_id => request.session_options[:id], :encrypted_vote_checksum => encrypted_vote_checksum)
+
+          Rails.logger.info("Saved vote for session id: #{request.session_options[:id]} voter: #{voter_identity}")
+
+          voter_identity_session.delete
+          reset_session
+
+          # Count how many times this particular voter has voted
+          vote_count = Vote.where(:user_id_hash=>voter_identity).count
+
+
+          response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
+        else
+          Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
+          response = {:error=>true, :vote_ok=>false}
+        end
       else
-        Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
+        Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
         response = {:error=>true, :vote_ok=>false}
       end
     else
       response = {:error=>true, :vote_ok=>false}
-      Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
+      Rails.logger.error("Could not find session id")
     end
-
-    Rails.cache.write(request.session_options[:id], nil)
-    reset_session
 
     respond_to do |format|
       format.json { render :json => response }

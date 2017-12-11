@@ -28,6 +28,7 @@
     "paper-input": "1.x",
     "paper-spinner": "1.x",
     "iron-image": "1.x",
+    "paper-checkbox": "1.x",
     "paper-dialog-scrollable": "1.x",
     "paper-fab": "1.x",
     "app-localize-behavior": "1.x",

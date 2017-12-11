@@ -1,0 +1,289 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
+
+<link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+
+<link rel="import" href="oav-behaviors/app-helpers.html">
+<link rel="import" href="oav-behaviors/postcodes.html">
+<link rel="import" href="oav-ajax/oav-ajax.html">
+
+
+<!-- THIS WEB COMPONENT IS ONLY TO BE USED IN SMALL PILOT PROJECTS WITH SMALL AMOUNTS OF TAXPAYER MONEY
+     IT IS TOTALLY INSECURE AS A WAY TO AUTHENTICATE USERS FOR REAL PARTICIPATORY BUDGETING PROJECTS !!! -->
+
+<dom-module id="oav-insecure-email-login">
+
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+
+      paper-dialog {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 440px;
+        background-color: #fff;
+      }
+
+      paper-dialog {
+        z-index: 9999;
+      }
+
+      @media (max-width: 480px) {
+        paper-dialog {
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .islandIs {
+        width: 80px;
+        height: 18px;
+        padding-left: 16px;
+      }
+
+      paper-spinner {
+        padding:0;
+        margin:0;
+      }
+
+      .buttons {
+        margin-left: 0;
+        padding-left: 0;
+        color: var(--app-accent-color);
+        font-size: 18px;
+        padding-top: 8px;
+      }
+
+      .checkBox {
+        margin-top: 16px;
+      }
+
+      paper-input {
+        --paper-input-container-focus-color: var(--app-accent-color);
+      }
+
+      paper-checkbox {
+        --paper-checkbox-checked-color: var(--app-accent-color);
+        padding-top: 8px;
+      }
+    </style>
+    <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
+
+    <div id="outer">
+      <template is="dom-if" if="[[opened]]" restamp>
+        <paper-dialog id="dialog" with-backdrop>
+          <div class="layout horizontal center-center">
+            <h2>[[localize('loginWithEmailAndPostCode')]]</h2>
+          </div>
+
+          <form is="iron-form" id="form">
+            <paper-input id="email"
+                         type="text"
+                         label="[[localize('userEmail')]]"
+                         value="{{email}}"
+                         minlength="5"
+                         pattern="[[emailValidationPattern]]"
+                         error-message="[[emailErrorMessage]]">
+            </paper-input>
+
+            <paper-input id="postCode"
+                         type="text"
+                         label="[[localize('postCode')]]"
+                         value="{{postCode}}"
+                         maxlength="8">
+            </paper-input>
+
+            <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen"
+                            checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
+
+          </form>
+          <div class="buttons layout vertical">
+            <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
+            <paper-button autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
+          </div>
+        </paper-dialog>
+
+        <iron-a11y-keys id="a11y" keys="enter"
+                        on-keys-pressed="onEnter"></iron-a11y-keys>
+      </template>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'oav-insecure-email-login',
+
+    behaviors: [
+      Polymer.appHelpers,
+      Polymer.postCodesBehavior,
+      Polymer.AppLocalizeBehavior
+    ],
+
+    properties: {
+
+      postCode: {
+        type: String,
+        value: ""
+      },
+
+      userSpinner: {
+        type: Boolean,
+        value: false
+      },
+
+      confirmedSixteen: {
+        type: Boolean,
+        value: false,
+        observer: '_confirmedChanged'
+      },
+
+      postCodeValidationPattern: {
+        type: String,
+        value: "^[0-9]"
+      },
+
+      emailValidationPattern: {
+        type: String,
+        value: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+      },
+
+      emailErrorMessage: {
+        type: String
+      },
+
+      passwordErrorMessage: {
+        type: String
+      },
+
+      name: {
+        type: String,
+        value: "" //"Róbert Viðar Bjarnason"
+      },
+
+      email: {
+        type: String,
+        value: "" //robert@citizens.is"
+      },
+
+      submitText: {
+        type: String,
+        value: ""
+      },
+
+      opened: {
+        type: Boolean,
+        value: false,
+        observer: '_openedChanged'
+      },
+
+      target: {
+        type: Object,
+        value: function() {
+          return this.$$("#form");
+        }
+      },
+
+      onLoginFunction: {
+        type: Function,
+        value: null
+      }
+    },
+
+    _checkedChanged: function (event, detail) {
+
+    },
+
+    _confirmedChanged: function (value) {
+    },
+
+    setUserSpinner: function (value) {
+      this.set('userSpinner', value)
+    },
+
+    _openedChanged: function (newValue) {
+      if (newValue) {
+        this.async(function () {
+          this.$$("#a11y").target = this.$$("#form");
+          this.$$("#email").focus();
+        }.bind(this), 50);
+      }
+    },
+
+    attached: function() {
+      this.loadLanguage(this.resolveUrl('/src/locales.json'));
+    },
+
+    onEnter: function (event) {
+      this._validateAndSend();
+    },
+
+    setup: function (onLoginFunction) {
+      this.set('onLoginFunction', onLoginFunction);
+    },
+
+    _validateAndSend: function(e) {
+      if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
+        if (this.isValidPostcode(this.postCode)) {
+          this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
+          this.$$("#loginAjax").generateRequest();
+          return true;
+        } else {
+          this.$$("#loginAjax").showErrorDialog(this.localize('enterValidPostcode'));
+          return false;
+        }
+      } else {
+        this.$$("#loginAjax").showErrorDialog(this.localize('completeForm'));
+        return false;
+      }
+    },
+
+    _loginResponse: function(event, detail) {
+      this._loginCompleted(detail.response);
+    },
+
+    _loginCompleted: function (user) {
+      this.onLoginFunction(user, this.postCode);
+      this.close();
+    },
+
+    open: function(redirectTo) {
+      this.redirectTo = redirectTo;
+      this.set('userSpinner', false);
+      this.set('opened', false);
+      this.async(function () {
+        this.set('opened', true);
+        this.async(function () {
+          this.$$("#dialog").open();
+        });
+      });
+    },
+
+    close: function() {
+      var dialog = this.$$("#dialog");
+      if (dialog) {
+        dialog.close();
+      }
+      this.set('opened', false);
+      this.set('userSpinner', false);
+    }
+  });
+</script>

@@ -22,17 +22,17 @@
     "google"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.0.0",
-    "google-apis": "GoogleWebComponents/google-apis#^1.0.0"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "google-apis": "GoogleWebComponents/google-apis"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0"
   },
-  "_release": "59deec4443",
+  "_release": "60df30be94",
   "_resolution": {
     "type": "branch",
     "branch": "timings-fix-maps-api-callback",
-    "commit": "59deec4443bcbbb35581b546f0a46b0f580c22d4"
+    "commit": "60df30be947adfaa3a0e0be66830e8a4f5e0c2a9"
   },
   "_source": "https://github.com/rbjarnason/google-streetview-pano.git",
   "_target": "timings-fix-maps-api-callback",

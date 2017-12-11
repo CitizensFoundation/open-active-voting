@@ -1,5 +1,12 @@
 {
   "en": {
+    "enterValidPostcode": "Please enter a valid Dundee postcode",
+    "completeForm": "Please complete the form with a valid email address and confirm your age",
+    "authenticateAndVote": "Authenticate and vote",
+    "loginWithEmailAndPostCode": "Please confirm residency of Dundee",
+    "userEmail": "Email",
+    "postCode": "Argyll & Bute postcode",
+    "confirmedSixteen": "Please confirm that you are 16 years or older",
     "favorite_info": "Use 🌟 for your favorite idea = two votes",
     "share_vote_by_pressing": "Share vote here",
     "budget_empty_info_1": "{amount} on offer",
