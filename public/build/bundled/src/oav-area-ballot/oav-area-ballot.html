@@ -5246,7 +5246,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _postVoteToServer: function () {
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
-          debugger;
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
           if (false) {
             if (this._isInAppiOSOrIE11()) {
@@ -5320,7 +5319,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         this.cancelLoginPolling();
 
-        debugger;
         var areaId;
         if (this.area) {
           areaId = this.area.id;
@@ -5330,11 +5328,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.warn("No area id in complete voting");
         }
 
-        debugger;
         if (areaId) {
           if (this.isSendingBallot===false && this.haveSentBallot===false) {
             var encryptedVote = encryptedVotes;
-            debugger;
             if (encryptedVote) {
               this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId, user_postcode: userPostCode};
               this.$.postBallotAjax.generateRequest();

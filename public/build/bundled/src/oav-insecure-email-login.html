@@ -108,6 +108,8 @@
         </paper-dialog>
 
         <iron-a11y-keys id="a11y" keys="enter" on-keys-pressed="onEnter"></iron-a11y-keys>
+
+        <iron-ajax auto="" url="/DundeePostcodes.csv" handle-as="blob" on-response="_postCodeResponse"></iron-ajax>
       </template>
     </div>
   </template>
@@ -194,6 +196,10 @@
         type: Function,
         value: null
       }
+    },
+
+    _postCodeResponse: function (event, detail) {
+      this.setPostCodes(detail.response);
     },
 
     _checkedChanged: function (event, detail) {
