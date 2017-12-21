@@ -279,6 +279,9 @@
       this.redirectTo = redirectTo;
       this.set('userSpinner', false);
       this.set('opened', false);
+      this.set('postCode', "");
+      this.set('confirmedSixteen', false);
+      this.set('email', "");
       this.async(function () {
         this.set('opened', true);
         this.async(function () {
