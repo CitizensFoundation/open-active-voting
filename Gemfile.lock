@@ -92,17 +92,15 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     mini_mime (1.0.0)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     minitest (5.11.1)
     multi_json (1.12.2)
     mysql2 (0.4.10)
-    nokogiri (1.6.8)
-      mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
     passenger (5.1.12)
       rack
       rake (>= 0.8.1)
-    pkg-config (1.1.9)
     psych (3.0.2)
     rack (1.6.8)
     rack-test (0.6.3)
@@ -198,7 +196,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
-  nokogiri (= 1.6.8)
+  nokogiri (= 1.8.1)
   passenger
   psych
   rails (= 4.2.10)
