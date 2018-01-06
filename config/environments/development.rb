@@ -39,7 +39,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.i18n.default_locale = :is
-  config.cache_store = :dalli_store, '127.0.0.1:11211', { :namespace => "oav-#{Rails.env}",
-                                                          :compress => true, :compress_threshold => 64*1024 }
 end
 

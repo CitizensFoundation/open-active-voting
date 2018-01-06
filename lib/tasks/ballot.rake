@@ -356,6 +356,15 @@ namespace :ballot do
     config.save(:validate=>false)
   end
 
+  desc "Set config"
+  task(:set_config => :environment) do
+    config=BudgetConfig.first
+    config.rsk_url = ENV['url']
+    config.saml_idp_cert_fingerprint = ENV['fingerprint']
+    config.ideas_without_pdfs = "[]"
+    config.save(:validate=>false)
+  end
+
   desc "Reset Kópavogur Ballot from CSV"
   task(:reset_kopavogur_ballot_data_from_csv => :environment) do
 
