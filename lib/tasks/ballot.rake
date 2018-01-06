@@ -359,6 +359,10 @@ namespace :ballot do
   desc "Set config"
   task(:set_config => :environment) do
     config=BudgetConfig.first
+    unless config
+      config=BudgetConfig.new
+      config.timeout_in_seconds = 600
+    end
     config.rsk_url = ENV['url']
     config.saml_idp_cert_fingerprint = ENV['fingerprint']
     config.ideas_without_pdfs = "[]"
