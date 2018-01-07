@@ -192,12 +192,13 @@
       bottom: 12px;
       left: 12px;
       background-color: #FFF;
-      color: rgb(255,215,0);
+      color: var(--paper-red-a700);
       --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
+        height: 29px;
+        width: 29px;
       };
       padding: 0;
+      padding-top: 3px;
     }
 
     .shareIcon {
@@ -223,12 +224,13 @@
       bottom: 12px;
       left: 12px;
       background-color: #FFF;
-      color: rgb(255,215,0);
+      color: var(--paper-red-a700);
       --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
+        height: 29px;
+        width: 29px;
       };
       padding: 0;
+      padding-top: 3px;
     }
 
     paper-fab[disabled] {
@@ -354,7 +356,7 @@
           <paper-item on-tap="_setMapMode">
             <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
-          <paper-item on-tap="_openPdf">
+          <paper-item on-tap="_openPdf" hidden>
             <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
           <paper-item on-tap="_showPost">
@@ -380,10 +382,10 @@
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
           <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                     title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
+                     title$="{{localize('select_favorite')}}" icon="favorite-border" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
-                     title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
+                     title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
           </paper-fab>
         </div>
       </div>

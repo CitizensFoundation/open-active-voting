@@ -151,15 +151,14 @@
       }
 
       #favoriteIcon {
-        color: #FFD700;
+        color: var(--paper-red-a700);
         background-color: transparent;
         width: 50px;
         height: 50px;
         z-index: 2720;
-        -webkit-filter: drop-shadow( 1px 1px 10px #222 );
-        filter: drop-shadow( 1px 1px 10px #222 );
+        -webkit-filter: drop-shadow( 1px 1px 10px #5f5f5f );
+        filter: drop-shadow( 1px 1px 10px #5f5f5f );
       }
-
 
       @media (max-width: 640px) {
         #favoriteIcon {
@@ -193,7 +192,7 @@
         <div class="budgetContainer" hidden$="[[hideBudget]]">
           <oav-area-budget id="budget" area-name$="[[areaName]]" total-budget$="[[totalBudget]]" current-ballot="[[currentBallot]]"></oav-area-budget>
         </div>
-        <iron-icon id="favoriteIcon" icon="star" hidden></iron-icon>
+        <iron-icon id="favoriteIcon" icon="favorite" hidden></iron-icon>
       </app-header>
       <div>
         <template is="dom-if" if="[[_loadTestingMode()]]">

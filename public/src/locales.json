@@ -1,6 +1,6 @@
 {
   "en": {
-    "favorite_info": "Use 🌟 for your favorite idea = two votes",
+    "favorite_info": "Use a heart for your favorite idea = two votes",
     "share_vote_by_pressing": "Share vote here",
     "budget_empty_info_1": "{amount} millions on offer",
     "budget_empty_info_2": "Use",
@@ -13,7 +13,7 @@
     "voting_areas": "Choose neighborhood",
     "menu": "Menu",
     "choose_a_neighbourhood_1": "",
-    "choose_a_neighbourhood_2": "Choose a neighbourhood to cast your vote. 450 million have been allocated proportionately.",
+    "choose_a_neighbourhood_2": "Choose a neighbourhood to cast your vote. 200 million have been allocated proportionately.",
     "error_not_found": "Not found",
     "general_error": "An error has occurred, we have been notified",
     "error_not_authorized": "Not authorized",
@@ -62,7 +62,7 @@
     "more_information": "More information"
   },
   "is": {
-    "favorite_info": "Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi",
+    "favorite_info": "Settu hjarta við þína uppáhalds hugmynd = tvöfalt vægi",
     "share_vote_by_pressing": "Deildu kosningu hér",
     "budget_empty_info_1": "{amount} milljónir í boði",
     "budget_empty_info_2": "Notaðu",
@@ -75,7 +75,7 @@
     "voting_areas": "Veldu hverfi",
     "menu": "Valmynd",
     "choose_a_neighbourhood_1": "",
-    "choose_a_neighbourhood_2": "Veldu þér hverfi til að kjósa í. 450 milljónum hefur verið skipt á milli hverfa eftir íbúafjölda.",
+    "choose_a_neighbourhood_2": "Veldu þér hverfi til að kjósa í. 200 milljónum hefur verið skipt á milli hverfa eftir íbúafjölda.",
     "error_not_found": "Fannst ekki",
     "general_error": "Villa hefur komið upp, við höfum verið látin vita",
     "error_not_authorized": "Þú hefur ekki aðgang",
@@ -124,7 +124,7 @@
     "more_information": "Nánar um hugmynd"
   },
   "pl": {
-    "favorite_info": "Kliknij na 🌟 aby wybrać ulubiony pomysł = dwa głosy",
+    "favorite_info": "Kliknij na ❤️ aby wybrać ulubiony pomysł = dwa głosy",
     "share_vote_by_pressing": "Podziel się głosuj",
     "budget_empty_info_1": "{amount} milionów na pomysł - wykorzystaj",
     "budget_empty_info_2": "wybierz pomysł",
