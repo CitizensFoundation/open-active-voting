@@ -246,7 +246,7 @@ namespace :ballot do
     puts en_yml
   end
 
-  def create_budget_ballot_item(area_id, budget_data, row_number)
+  def ballot_create_budget_ballot_item(area_id, budget_data, row_number)
     #puts budget_data[row_number]
     name_is = budget_data[row_number][3]
     puts name_is
@@ -315,7 +315,7 @@ namespace :ballot do
     current_row_number = start_row_number -1
 
     while current_row_number < start_row_number+19  do
-      create_budget_ballot_item(area_id, budget_data, current_row_number)
+      ballot_create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end
   end
