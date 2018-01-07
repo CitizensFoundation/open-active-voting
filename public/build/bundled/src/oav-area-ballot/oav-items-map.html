@@ -1,0 +1,228 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html?v=6.1.35">
+<link rel="import" href="../../bower_components/paper-map-info/paper-map-info.html?v=6.1.35">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.35">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.35">
+
+<link rel="import" href="../../bower_components/google-map/google-map.html?v=6.1.35">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html?v=6.1.35">
+
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
+<link rel="import" href="oav-area-ballot-item.html?v=6.1.35">
+
+</head><body><dom-module id="oav-items-map">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .topMapContainer {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .mapContainer {
+        width: 100% !important;
+        height: 100% !important;
+        margin-top: 16px;
+      }
+
+      .noMapContainer {
+        padding: 8px;
+        margin: 16px;
+        background-color: #FFF;
+      }
+
+      #map {
+      }
+
+      a {
+        color: var(--primary-color-700);
+      }
+
+      h1 {
+        padding: 24px;
+      }
+
+
+      #myInfoCard {
+        background-color: #000;
+        padding: 0;
+        margin: 0 !important;
+        --paper-map-info-mixin: {
+          padding: 0;
+          margin: 0 !important;
+          background-color: #fbfbfb;
+          color: var(--app-accent-color);
+          max-width: 100%;
+          max-height: 100%;
+        };
+        --paper-map-info-beak-mixin: {
+          color: var(--app-accent-color);
+        };
+      }
+
+      .ballotItem {
+        margin: 0;
+        padding: 0;
+        color: #FFF;
+      }
+    </style>
+
+    <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+
+    <div class="layout vertical center-center topMapContainer">
+      <template is="dom-if" if="[[noItems]]">
+        <paper-material elevation="3" class="noMapContainer">
+          <h1>[[t('items.noMapItems')]]</h1>
+        </paper-material>
+      </template>
+
+      <template is="dom-if" if="[[items]]" restamp="">
+        <div class="mapContainer">
+          <google-map disable-default-ui$="[[tiny]]" id="map" api-key="[[apiKey]]" fit-to-markers="">
+            <template is="dom-repeat" items="[[items]]" as="item">
+              <template is="dom-repeat" items="[[item.locations]]" as="location">
+                <google-map-marker click-events="" item="[[item]]" latitude="[[location.latitude]]" longitude="[[location.longitude]]" class="marker" on-google-map-marker-click="markerClick">
+                </google-map-marker>
+              </template>
+            </template>
+            <paper-map-info id="myInfoCard" fade-in="">
+              <oav-area-ballot-item on-oav-toggle-item-in-budget="_closeInfo" small="" elevation="0" id="ballotItem" budget-element="[[budgetElement]]" class="ballotItem" item="[[selectedItem]]"></oav-area-ballot-item>
+            </paper-map-info>
+          </google-map>
+        </div>
+      </template>
+
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'oav-items-map',
+
+      behaviors: [
+        Polymer.appHelpers
+      ],
+
+      properties: {
+        items: {
+          type: Array,
+          value: null,
+          observer: '_itemsChanged'
+        },
+
+        budgetElement: {
+          type: Object
+        },
+
+        selectedItem: {
+          type: Object
+        },
+
+        noItems: {
+          type: Boolean,
+          value: false
+        },
+
+        apiKey: {
+          type: String,
+          value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
+        },
+
+        wide: {
+          type: Boolean,
+          observer: '_wideChanged'
+        }
+      },
+
+      _itemsChanged: function (newItems) {
+      },
+
+      _closeInfo: function () {
+        ///this.$$("#myInfoCard").close();
+      },
+
+      attached: function () {
+        this.async(function () {
+          this.resetMapHeight();
+        }.bind(this));
+      },
+
+      _wideChanged: function () {
+        this.resetMapHeight();
+      },
+
+      resetMapHeight: function () {
+        var map = this.$$("#map");
+        var windowHeight = window.innerHeight;
+        if (map) {
+          var height;
+          if (this.wide) {
+            height = windowHeight - 322;
+          } else {
+            height = windowHeight - 236;
+          }
+          map.style.height = height + 'px';
+        }
+      },
+
+      setItemInBudget: function (item) {
+        if (this.selectedItem && this.selectedItem.id == item.id) {
+          var item = this.$$("#ballotItem");
+          if (item) {
+            item.setInBudget();
+          }
+        }
+      },
+
+      removeFromBudget: function (item) {
+        if (this.selectedItem && this.selectedItem.id == item.id) {
+          var item = this.$$("#ballotItem");
+          if (item) {
+            this.$$("#ballotItem").removeFromBudget();
+          }
+        }
+      },
+
+      checkIfSelectedItemToExpensive: function(budgetLeft) {
+        if (this.selectedItem) {
+          var item = this.$$("#ballotItem");
+          if (item) {
+            if (!item.selectedInBudget) {
+              if (this.selectedItem.price<=budgetLeft) {
+                item.setNotTooExpensive();
+                console.log("item id "+this.selectedItem.id+ "Not Too Expensive");
+              } else if (this.selectedItem) {
+                console.log("item id "+this.selectedItem.id+ "Too Expensive");
+                item.setTooExpensive();
+              }
+            }
+          }
+        }
+      },
+
+      markerClick: function(e) {
+        window.appGlobals.activity('click', 'marker');
+        this.set('selectedItem', e.model.get('item'));
+        var a = this.selectedItem;
+        if (e.srcElement) {
+          this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
+        } else {
+          this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);
+        }
+        var infocardDiv = this.$$("#myInfoCard").$$("#infocarddiv");
+        infocardDiv.children[1].style.zIndex = "20";
+      }
+    });
+  </script>
+</dom-module></body></html>
