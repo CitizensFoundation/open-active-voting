@@ -311,7 +311,7 @@ namespace :ballot do
     puts "========================================================="
   end
 
-  def import_area_data(area_id, budget_data, start_row_number)
+  def ballot_import_area_data(area_id, budget_data, start_row_number)
     current_row_number = start_row_number -1
 
     while current_row_number < start_row_number+19  do
@@ -398,7 +398,7 @@ namespace :ballot do
     karsnes.name = "Kársnes"
     karsnes.save
 
-    import_area_data(karsnes.id, budget_data, 12)
+    ballot_import_area_data(karsnes.id, budget_data, 12)
 
     digranes = BudgetBallotArea.create!(:name => "Digranes", :budget_amount => 64.0)
     I18n.locale = "is"
@@ -407,7 +407,7 @@ namespace :ballot do
     I18n.locale = "en"
     digranes.name = "Digranes"
     digranes.save
-    import_area_data(digranes.id, budget_data, 37)
+    ballot_import_area_data(digranes.id, budget_data, 37)
 
     smarinn = BudgetBallotArea.create!(:name => "Smárinn", :budget_amount => 23.0)
     I18n.locale = "is"
@@ -416,7 +416,7 @@ namespace :ballot do
     I18n.locale = "en"
     smarinn.name = "Smárinn"
     smarinn.save
-    import_area_data(smarinn.id, budget_data, 61)
+    ballot_import_area_data(smarinn.id, budget_data, 61)
 
     fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 37.0)
     I18n.locale = "is"
@@ -425,7 +425,7 @@ namespace :ballot do
     I18n.locale = "en"
     fifuhvammur.name = "Lindir og Salir"
     fifuhvammur.save
-    import_area_data(fifuhvammur.id, budget_data, 86)
+    ballot_import_area_data(fifuhvammur.id, budget_data, 86)
 
     vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 44.0)
     I18n.locale = "is"
@@ -434,6 +434,6 @@ namespace :ballot do
     I18n.locale = "en"
     vatnsendi.name = "Vatnsendi"
     vatnsendi.save
-    import_area_data(vatnsendi.id, budget_data, 112)
+    ballot_import_area_data(vatnsendi.id, budget_data, 112)
   end
 end
