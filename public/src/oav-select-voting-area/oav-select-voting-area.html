@@ -109,37 +109,42 @@
 
     .voteNumberForKarsnes {
       position: absolute;
-      top: 102px;
-      left: 135px;
+      top: 145px;
+      left: 45px;
       color: #fff;
+      text-decoration: none;
     }
 
     .voteNumberForDigranes {
       position: absolute;
       top: 102px;
-      left: 310px;
+      left: 465px;
       color: #fff;
+      text-decoration: none;
     }
 
     .voteNumberForSmarinn {
       position: absolute;
-      top: 185px;
-      left: 240px;
+      top: 232px;
+      left: 156px;
       color: #fff;
+      text-decoration: none;
     }
 
     .voteNumberForLindirOgSalir {
       position: absolute;
-      top: 272px;
-      left: 376px;
-      color: #000;
+      top: 308px;
+      left: 265px;
+      color: #fff;
+      text-decoration: none;
     }
 
     .voteNumberForVatnsendi {
       position: absolute;
-      top: 400px;
-      left: 545px;
+      top: 340px;
+      left: 665px;
       color: #fff;
+      text-decoration: none;
     }
 
     .voteNumberGeneral {
@@ -180,6 +185,11 @@
     .checkIconMobile {
       width: 35px;
       height: 35px;
+    }
+
+    .checkIconMain {
+      width: 33px;
+      height: 33px;
     }
 
     @media (max-width: 800px) {
@@ -354,11 +364,21 @@
                 <area target="" alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" coords="481,290,567,214,644,222,674,218,684,236,670,249,637,266,645,299,606,324,597,341,642,400,662,399,662,411,631,449,619,476,519,551,498,517,478,347,386,331,381,316" shape="poly">
               </map>
               <template is="dom-if" if="[[areaVoterCount]]" restamp>
-                <a href="/#/area-ballot/1" class="voteNumberForKarsnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
-                <a href="/#/area-ballot/2" class="voteNumberForDigranes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
-                <a href="/#/area-ballot/3" class="voteNumberForSmarinn"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
-                <a href="/#/area-ballot/4" class="voteNumberForLindirOgSalir"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div></a>
-                <a href="/#/area-ballot/5" class="voteNumberForVatnsendi"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div></a>
+                <a href="/#/area-ballot/1" class="voteNumberForKarsnes layout horizontal"><iron-icon class="checkIconMain" icon="verified-user"></iron-icon>
+                  <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div>
+                </a>
+                <a href="/#/area-ballot/2" class="voteNumberForDigranes layout horizontal"><iron-icon class="checkIconMain" icon="verified-user"></iron-icon>
+                  <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div>
+                </a>
+                <a href="/#/area-ballot/3" class="voteNumberForSmarinn layout horizontal"><iron-icon class="checkIconMain" icon="verified-user"></iron-icon>
+                  <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div>
+                </a>
+                <a href="/#/area-ballot/4" class="voteNumberForLindirOgSalir layout horizontal"><iron-icon class="checkIconMain" icon="verified-user"></iron-icon>
+                  <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div>
+                </a>
+                <a href="/#/area-ballot/5" class="voteNumberForVatnsendi layout horizontal"><iron-icon class="checkIconMain" icon="verified-user"></iron-icon>
+                  <div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div>
+                </a>
               </template>
             </div>
         </template>
