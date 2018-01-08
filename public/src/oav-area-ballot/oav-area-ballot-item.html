@@ -191,32 +191,14 @@
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: #FFF;
-      color: var(--paper-red-a700);
+      background-color: var(--app-accent-color);
+      color: #FFF;
       --paper-fab-iron-icon: {
         height: 29px;
         width: 29px;
       };
       padding: 0;
       padding-top: 3px;
-    }
-
-    .shareIcon {
-      position: absolute;
-      top: 6px;
-      left: 0;
-      --paper-share-button-icon-color: var(--app-accent-color-light);
-      --paper-share-button-icon-height: 46px;
-      --paper-share-button-icon-width: 46px;
-      -webkit-filter: drop-shadow( 1px 1px 10px #555 );
-      filter: drop-shadow( 1px 1px 10px #555 );
-    }
-
-    .shareIcon[small] {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 2px;
     }
 
     paper-fab.removeFavoriteButton {
@@ -235,6 +217,24 @@
 
     paper-fab[disabled] {
       background-color: #b7b7b7;
+    }
+
+    .shareIcon {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      --paper-share-button-icon-color: var(--app-accent-color-light);
+      --paper-share-button-icon-height: 46px;
+      --paper-share-button-icon-width: 46px;
+      -webkit-filter: drop-shadow( 1px 1px 10px #555 );
+      filter: drop-shadow( 1px 1px 10px #555 );
+    }
+
+    .shareIcon[small] {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 2px;
     }
 
     .budgetContainer {
