@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.integer  "budget_ballot_area_id", limit: 4,   null: false
     t.string   "locations",             limit: 255
     t.string   "image_url",             limit: 255
+    t.string   "pdf_url",               limit: 255
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end

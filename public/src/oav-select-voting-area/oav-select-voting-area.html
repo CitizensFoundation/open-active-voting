@@ -109,23 +109,23 @@
 
     .voteNumberForKarsnes {
       position: absolute;
-      top: 244px;
-      right: 746px;
-      color: #95c11a;
+      top: 105px;
+      left: 142px;
+      color: #fff;
     }
 
     .voteNumberForDigranes {
       position: absolute;
-      top: 356px;
-      right: 662px;
-      color: #2ba9e0;
+      top: 105px;
+      left: 310px;
+      color: #fff;
     }
 
     .voteNumberForSmarinn {
       position: absolute;
-      top: 196px;
-      right: 516px;
-      color: #f39100;
+      top: 205px;
+      left: 300x;
+      color: #fff;
     }
 
     .voteNumberForLindirOgSalir {
@@ -140,42 +140,6 @@
       top: 160px;
       right: 444px;
       color: #be6a95;
-    }
-
-    .voteNumberForBreidholt {
-      position: absolute;
-      bottom: 22px;
-      left: 648px;
-      color: #0e70b8;
-    }
-
-    .voteNumberForArbaer {
-      position: absolute;
-      bottom: 110px;
-      left: 728px;
-      color: #bfc005;
-    }
-
-    .voteNumberForGrafarvogur {
-      position: absolute;
-      top: 175px;
-      left: 620px;
-      color: #da616b;
-      direction: ltr;
-    }
-
-    .voteNumberForGrafarholt {
-      position: absolute;
-      bottom: 138px;
-      left: 765px;
-      color: #cc902f;
-    }
-
-    .voteNumberForKjalarnes {
-      position: absolute;
-      top: 32px;
-      right: 358px;
-      color: #2aac65;
     }
 
     .voteNumberGeneral {
@@ -206,26 +170,6 @@
 
     .voteNumberForVatnsendiMobile {
       background-color: #ea5013;
-    }
-
-    .voteNumberForBreidholtMobile {
-      background-color: #0e70b8;
-    }
-
-    .voteNumberForArbaerMobile {
-      background-color: #bfc005;
-    }
-
-    .voteNumberForGrafarvogurMobile {
-      background-color: #da616b;
-    }
-
-    .voteNumberForGrafarholtMobile {
-      background-color: #cc902f;
-    }
-
-    .voteNumberForKjalarnesMobile {
-      background-color: #2aac65;
     }
 
     .voteNumberGeneralMobile {
@@ -360,6 +304,10 @@
     .mobileBackground a {
       text-decoration: none;
     }
+
+    .mapContainerMain {
+      position: relative;
+    }
   </style>
 
   <template>
@@ -396,7 +344,7 @@
         </div>
 
         <template is="dom-if" if="[[wide]]" restamp>
-            <div class="layout vertical center-center">
+            <div class="layout vertical center-center mapContainerMain">
               <img id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/OkkarKopavogur2017/upphafssida_kort.png" border="0" width="725" height="581" orgWidth="725" orgHeight="581" usemap="#image-map" alt="" />
               <map name="image-map">
                 <area target="" alt="Kársnes" title="Kársnes" href="/#/area-ballot/1" coords="51,48,77,48,83,56,99,61,122,56,145,68,152,61,176,61,215,44,229,53,214,71,201,82,200,104,210,144,213,160,166,139,102,130,75,100,51,63,45,53" shape="poly">
@@ -405,14 +353,14 @@
                 <area target="" alt="Lindir og Salir" title="Lindir og Salir" href="/#/area-ballot/4" coords="327,172,369,155,384,211,470,288,379,310,359,290,333,271,322,245,284,237,285,226,301,199" shape="poly">
                 <area target="" alt="Vatnsendi" title="Vatnsendi" href="/#/area-ballot/5" coords="481,290,567,214,644,222,674,218,684,236,670,249,637,266,645,299,606,324,597,341,642,400,662,399,662,411,631,449,619,476,519,551,498,517,478,347,386,331,381,316" shape="poly">
               </map>
+              <template is="dom-if" if="[[areaVoterCount]]" restamp>
+                <a href="/#/area-ballot/1" class="voteNumberForKarsnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
+                <a href="/#/area-ballot/2" class="voteNumberForDigranes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
+                <a href="/#/area-ballot/3" class="voteNumberForSmarinn"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
+                <a href="/#/area-ballot/4" class="voteNumberForLindirOgSalir"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div></a>
+                <a href="/#/area-ballot/5" class="voteNumberForVatnsendi"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div></a>
+              </template>
             </div>
-            <template is="dom-if" if="[[areaVoterCodunt]]" restamp>
-              <a href="/#/area-ballot/1" class="voteNumberForKarsnes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral" style="direction: rtl">[[_getAreaCount(1)]]</div></div></a>
-              <a href="/#/area-ballot/2" class="voteNumberForDigranes"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(2)]]</div></div></a>
-              <a href="/#/area-ballot/3" class="voteNumberForSmarinn"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(3)]]</div></div></a>
-              <a href="/#/area-ballot/4" class="voteNumberForLindirOgSalir"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(4)]]</div></div></a>
-              <a href="/#/area-ballot/5" class="voteNumberForVatnsendi"><div title$="[[localize('number_of_votes')]]" class="layout horizontal"><div class="voteNumberGeneral">[[_getAreaCount(5)]]</div></div></a>
-            </template>
         </template>
       </div>
 
@@ -538,7 +486,7 @@
       },
 
       _getAreaCount: function (areaId) {
-        return this.formatNumber(this.areaVoterCount[areaId]);
+        return this.formatNumber(this.areaVoterCount[areaId]*1200);
       },
 
       attached: function() {
