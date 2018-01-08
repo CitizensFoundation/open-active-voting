@@ -1,25 +1,23 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.5">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.666666">
 
-<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.2.5">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.2.5">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.2.666666">
 
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.2.5">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.2.5">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.2.666666">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.2.5">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.2.5">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.2.5">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.2.5">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.2.666666">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.2.5">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.2.5">
-<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.2.5">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.2.5">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.2.5">
-<link rel="import" href="../../bower_components/paper-share-button/paper-share-button.html?v=6.2.5">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html?v=6.2.666666">
+<link rel="import" href="../../bower_components/paper-share-button/paper-share-button.html?v=6.2.666666">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.2.5">
-<link rel="import" href="oav-area-budget.html?v=6.2.5">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.2.666666">
+<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.2.666666">
+<link rel="import" href="oav-area-budget.html?v=6.2.666666">
 
 </head><body><dom-module id="oav-area-ballot-item">
   <style>
@@ -346,16 +344,16 @@
         <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item on-tap="_setImageMode">
-            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo"></iron-icon>{{localize('image_item_tab')}}
+            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="photo"></iron-icon>{{localize('image_item_tab')}}
           </paper-item>
           <paper-item on-tap="_setDescriptionMode">
             <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description"></iron-icon>{{localize('description_item_tab')}}
           </paper-item>
           <paper-item on-tap="_setMapMode">
-            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
+            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
           <paper-item on-tap="_openPdf" hidden="">
-            <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
+            <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
           <paper-item on-tap="_showPost">
             <iron-icon raised="" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
