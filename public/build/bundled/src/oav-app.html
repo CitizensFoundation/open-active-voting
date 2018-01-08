@@ -8583,7 +8583,7 @@ in every element that needs to use them.
     ```
 
     ```html
-    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.35">
+    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.36">
     <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
     <style>
       .test { width: 100px; }
@@ -10206,7 +10206,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.35">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.36">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -10214,7 +10214,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.35">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.36">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -12552,7 +12552,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.35" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.36" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -39481,7 +39481,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.35" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.36" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -43138,8 +43138,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.35">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.35">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.36">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.36">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -49562,14 +49562,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.35">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.36">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.35">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.36">
    * ```
    *
    * ### Consuming effects
@@ -50367,7 +50367,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.35">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.36">
 ```
 
 #### List of effects
@@ -51419,7 +51419,7 @@ Example:
     <style>
     </style>
 
-    <oav-ajax id="boot" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
+    <oav-ajax id="boot" hidden="" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
 
     <iron-signals on-iron-signal-logged-in="_userLoggedIn"></iron-signals>
   </template>
@@ -51800,34 +51800,32 @@ Custom property | Description | Default
 </script>
 <dom-module id="is-help" assetpath="oav-page/">
   <template>
-      <li>Frá 3. nóvember til 19. nóvember 2017 verður opið fyrir kosningar þar sem íbúar, fæddir árið
-          2001 eða fyrr, með lögheimili í Reykjavík geta kosið áfram hugmyndir í einu hverfi
-          Reykjavíkur.</li>
+      <li>Frá 25. janúar til 5. febrúar 2018 verður opið fyrir kosningar þar sem íbúar, fæddir árið 2002
+          eða fyrr, með lögheimili í Kópavogi geta kosið áfram hugmyndir í einu hverfi Kópavogs.</li>
       <li>Hægt er að kjósa áfram hugmyndir fyrir þá upphæð sem hverju hverfi hefur verið úthlutað.</li>
-      <li>Íbúar geta aðeins kosið í einu hverfi af tíu.</li>
+      <li>Íbúar geta aðeins kosið í einu hverfi af fimm.</li>
+      <li>Eftir að hafa valið hugmyndir er hægt að gefa einni af völdum hugmyndum hjarta og með því
+          fær viðkomandi hugmynd tvöfalt vægi.</li>
       <li>Kosning fer fram á vefsvæði þar sem íbúi auðkennir sig með öruggum hætti og verður atkvæði hans dulkóðað. Því er ekki hægt að tengja atkvæði við einstaklinga.</li>
       <li>Ekki er um að ræða íbúakosningu í skilningi 107. gr. sveitarstjórnarlaga nr. 138 frá 2011.</li>
-      <li>Hverfi Reykjavíkur eru tíu: Vesturbær, Miðborg, Hlíðar, Laugardalur, Háaleiti-Bústaðir, Breiðholt, Árbær, Grafarvogur, Grafarholt-Úlfarsárdalur og Kjalarnes.</li>
+      <li>Hverfi Kópavogs eru fimm: fimm: Kársnes, Digranes, Smárinn, Lindir og Salir (Fífuhvammur) og
+          Vatnsendi.</li>
       <li>Fjármagn hverfanna skiptist á eftirfarandi hátt: ( allar tölur eru námundaðar í heilar tölur)</li>
       <ul>
-          <li>Árbær: 47 milljónir</li>
-          <li>Breiðholt: 70 milljónir</li>
-          <li>Grafarholt-Úlfarsárdalur: 29 milljónir</li>
-          <li>Grafarvogur: 61 milljónir</li>
-          <li>Háaleiti-Bústaðir: 51 milljónir</li>
-          <li>Hlíðar: 39 milljónir</li>
-          <li>Kjalarnes: 14 milljónir</li>
-          <li>Laugardalur: 55 milljónir</li>
-          <li>Miðborg: 33 milljónir</li>
-          <li>Vesturbær: 55 milljónir</li>
+          <li>Kársnes: 32 milljónir</li>
+          <li>Digranes: 64 milljónir</li>
+          <li>Smárinn: 23 milljónir</li>
+          <li>Lindir og Salir (Fífuhvammur): 36 milljónir</li>
+          <li>Vatnsendi: 45 milljónir</li>
       </ul>
       <li>Við vekjum athygli á því að til að geta kosið þarf að vera með auðkenni í síma eða íslykil. Allar nánari upplýsingar um auðkenni má nálgast á www.audkenni.is og um íslykil á
           <a target="_blank" href="https://www.island.is/islykill">www.island.is/islykill</a></li>
-      <li>Kosning fer fram á vefsíðunni kosning.reykjavik.is</li>
-      <li>Aðstoð við að kjósa er hægt að fá í Þjónustuveri Reykjavíkurborgar, Borgartúni 12-14, og á öllum fimm þjónustumiðstöðvum Reykjavíkurborgar á meðan kosning stendur yfir. Nánari upplýsingar um þjónustumiðstöðvar borgarinnar er hægt að nálgast á
-          <a target="_blank" href="http://reykjavik.is/thjonustumidstodvar">http://reykjavik.is/thjonustumidstodvar</a></li>
-      <li>Allar nánari Upplýsingar um verkefnið Hverfið mitt 2016 ásamt ítarlegum leiðbeingum og reglum kosninganna má nálgast á <a target="_blank" href="http://www.hverfidmitt.is">www.hverfidmitt.is</a> eða í Þjónustuveri Reykjavíkurborgar sími 411-1111. </li>
-      <li>Hægt er að senda inn fyrirspurnir og ábendingar á meðan kosningu stendur betrireykjavik@ibuar.is</li>
+      <li>Kosning fer fram á vefsíðunni kosning.kopavogur.is</li>
+      <li>Aðstoð við að kjósa er hægt að fá í þjónustuveri Kópavogsbæjar, Digranesvegi 1, og á
+          Bókasafni Kópavogs, Hamraborg 6a, á meðan kosning stendur yfir.</li>
+      <li>Allar nánari upplýsingar um verkefnið og reglur kosninganna má nálgast á heimasíðu bæjarins
+          <a target="_blank" href="http://www.kopavogur.is/okkarkopavogur">www.kopavogur.is/okkarkopavogur</a> eða í þjónustuveri Kópavogs sími 441-0000.</li>
+      <li>Hægt er að senda inn fyrirspurnir og ábendingar á meðan kosningu stendur okkarkopavogur@kopavogur.is</li>
       <li>Myndir sem fylgja hugmyndum á kosningasíðu eru ekki dæmi um endanlega útfærslu á framkvæmd.</li>
       <li>Staðsetning hugmynda getur tekið breytingum.</li>
   </template>
@@ -51840,34 +51838,32 @@ Custom property | Description | Default
 <dom-module id="en-help" assetpath="oav-page/">
   <template>
       <ul>
-          <li>Voting will be open as of the 3rd of November until the 19th of November 2017 for
-              citizens, born in year 2001 and earlier, who have legal domicile in Reykjavik.</li>
+          <li>Voting will be open as of the 25th of January until the 5th of February 2018 for citizens,
+              born in year 2002 and earlier, who have legal domicile in Kópavogur.</li>
           <li>Votes can be cast for ideas in one neighbourhood.</li>
-          <li>Votes can only be cast for projects that are within the funds allocated to that neighborhood and citizens can only vote for one neighborhood out of ten.</li>
-          <li>After selecting ideas to vote for it is possible to give one of them a star, and thus an
+          <li>Votes can only be cast for projects that are within the funds allocated to that
+              neighborhood and citizens can only vote for one neighborhood out of five.</li>
+          <li>After selecting ideas to vote for it is possible to give one of them a heart, and thus an
                 extra vote (this one idea will get two votes instead of one).</li>
           <li>The election takes place on a website where citizens authenticate themselves securely. Votes will be encrypted and can therefore not be traced to individuals.</li>
           <li>This is not an e-referendum in the understanding of Article 107 of the Act on Local Governments No. 138 of 2011.</li>
-          <li>Reykjavik has ten neighbourhoods: Vesturbær, Miðborg, Hlíðar, Laugardalur, Háaleiti-Bústaðir, Breiðholt, Árbær, Grafarvogur, Grafarholt- Úlfarsárdalur and Kjalarnes.</li>
+          <li>Kópavogur has five neighbourhoods: Kársnes, Digranes, Smárinn, Lindir and Salir and
+              Vatnsendi.</li>
           <li>Funding between the neighborhoods has been allocated as follows (approximately estimated):</li>
           <ul>
-              <li>Árbær: IKR 47 million.</li>
-              <li>Breiðholt: IKR 70 million.</li>
-              <li>Grafarholt-Úlfarsárdalur: IKR 29 million.</li>
-              <li>Grafarvogur: IKR 61 million.</li>
-              <li>Háaleiti-Bústaðir: IKR 51 million.</li>
-              <li>Hlíðar: IKR 39 million.</li>
-              <li>Kjalarnes: IKR 14 million.</li>
-              <li>Laugardalur: IKR 55 million.</li>
-              <li>Miðborg: IKR 33 million.</li>
-              <li>Vesturbær: IKR 55 million.</li>
+              <li>Kársnes: IKR 32 million.</li>
+              <li>Digranes: IKR 64 million.</li>
+              <li>Smárinn: IKR 23 million.</li>
+              <li>Lindir og Salir: IKR 36 million.</li>
+              <li>Vatnsendi: IKR 45 million.</li>
           </ul>
-          <li>The elections take place on the website kosning.reykjavik.is</li>
+          <li>The elections take place on the website kosning.kopavogur.is</li>
           <li>Please note that in order to vote citizens must have authentication via mobile phone or an IceKey. Further information on authentication can be viewed on&nbsp;www.audkenni.is&nbsp;and on the IceKey on
               <a target="_blank" href="https://www.island.is/islykill">www.island.is/islykill</a></li>
-          <li>If you need assistance in voting, please contact the customer service center of the Municipality of Reykjavik tel 411-1111, Borgartún 12-14 and at the five municipal service centers during the elections, for further information visit
-              <a target="_blank" href="http://reykjavik.is/en/municipal-service-centres">http://reykjavik.is/en/municipal-service-centres</a></li>
-          <li>If any problems occur during the voting process please contact us on betrireykjavik@ibuar.is</li>
+          <li>If you need assistance in voting, please contact the customer service center of the
+              Municipality of Kópavogur tel 411-0000, Digranesvegur 1 and at the Kópavogur library
+              during the elections.</li>
+          <li>If any problems occur during the voting process please contact us on okkarkopavogur@kopavogur.is</li>
           <li>Photos on the voting page are only example, not an example of final version.</li>
           <li>Location you are voting for can change in the final version.</li>
       </ul>
@@ -51982,11 +51978,11 @@ Custom property | Description | Default
 
       open: function (title) {
         if (this.language==='is') {
-          this.set('title', "Hverfið mitt 2017 - Upplýsingar");
+          this.set('title', "Okkar Kópavogur 2018 – Upplýsingar");
         } else if (this.language==='pl') {
-          this.set('title', "My neighborhood 2017 - Information");
+          this.set('title', "Okkar Kópavogur 2018 – Information");
         } else {
-          this.set('title', "My neighborhood 2017 - Information");
+          this.set('title', "Okkar Kópavogur 2018 – Information");
         }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();
@@ -52211,6 +52207,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .mainContainer {
       background-color: #00a34d;
+      width: 100%;
+      height: 100%;
     }
 
     .imageContainer {

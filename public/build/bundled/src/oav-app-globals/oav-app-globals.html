@@ -1,15 +1,15 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.36">
 
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.36">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.36">
 
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.35">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html?v=6.1.35">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.36">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.36">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html?v=6.1.36">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.36">
 
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.35">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.36">
 
 </head><body><dom-module id="oav-app-globals">
 
@@ -17,7 +17,7 @@
     <style>
     </style>
 
-    <oav-ajax id="boot" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
+    <oav-ajax id="boot" hidden="" url="/votes/boot" on-response="_bootResponse"></oav-ajax>
 
     <iron-signals on-iron-signal-logged-in="_userLoggedIn"></iron-signals>
   </template>
