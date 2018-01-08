@@ -248,32 +248,33 @@ namespace :ballot do
 
   def ballot_create_budget_ballot_item(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_is = budget_data[row_number][3]
+    name_is = budget_data[row_number][2]
     puts name_is
     price = budget_data[row_number][4]
     price = price.gsub(',','')
     price = price.gsub(' kr.','')
-    price = price.to_i / 1000000
+   # price = price.to_i / 1000000
     puts price
-    locations = budget_data[row_number][8]
+    locations = budget_data[row_number][6]
     puts locations
 
-    if budget_data[row_number][9]
-      puts budget_data[row_number][9]
-      locations = "#{locations},#{budget_data[row_number][9]}"
+    if budget_data[row_number][7]
+      puts budget_data[row_number][7]
+      locations = "#{locations},#{budget_data[row_number][7]}"
     end
 
-    description_is = budget_data[row_number][10]
+    description_is = budget_data[row_number][3]
     puts description_is
 
-    name_en = budget_data[row_number][15]
+    name_en = budget_data[row_number][9]
     puts name_en
 
-    description_en =  budget_data[row_number][16]
-    idea_url =  budget_data[row_number][17]
+    description_en =  budget_data[row_number][10]
+    idea_url =  budget_data[row_number][11]
     puts idea_url
 
     if idea_url
+      idea_url = idea_url.gsub('/debate','')
       idea_id = idea_url.split('/').last
       post_url = "https://www.betraisland.is/api/posts/"+idea_id
       encoded_url = URI.encode(post_url)
@@ -398,7 +399,7 @@ namespace :ballot do
     karsnes.name = "Kársnes"
     karsnes.save
 
-    ballot_import_area_data(karsnes.id, budget_data, 12)
+    ballot_import_area_data(karsnes.id, budget_data, 7)
 
     digranes = BudgetBallotArea.create!(:name => "Digranes", :budget_amount => 64.0)
     I18n.locale = "is"
@@ -407,7 +408,7 @@ namespace :ballot do
     I18n.locale = "en"
     digranes.name = "Digranes"
     digranes.save
-    ballot_import_area_data(digranes.id, budget_data, 37)
+    ballot_import_area_data(digranes.id, budget_data, 30)
 
     smarinn = BudgetBallotArea.create!(:name => "Smárinn", :budget_amount => 23.0)
     I18n.locale = "is"
@@ -416,24 +417,24 @@ namespace :ballot do
     I18n.locale = "en"
     smarinn.name = "Smárinn"
     smarinn.save
-    ballot_import_area_data(smarinn.id, budget_data, 61)
+    ballot_import_area_data(smarinn.id, budget_data, 53)
 
-    fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 37.0)
+    fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 36.0)
     I18n.locale = "is"
     fifuhvammur.name = "Lindir og Salir"
     fifuhvammur.save
     I18n.locale = "en"
     fifuhvammur.name = "Lindir og Salir"
     fifuhvammur.save
-    ballot_import_area_data(fifuhvammur.id, budget_data, 86)
+    ballot_import_area_data(fifuhvammur.id, budget_data, 76)
 
-    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 44.0)
+    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 45.0)
     I18n.locale = "is"
     vatnsendi.name = "Vatnsendi"
     vatnsendi.save
     I18n.locale = "en"
     vatnsendi.name = "Vatnsendi"
     vatnsendi.save
-    ballot_import_area_data(vatnsendi.id, budget_data, 112)
+    ballot_import_area_data(vatnsendi.id, budget_data, 99)
   end
 end
