@@ -196,7 +196,7 @@
         <iron-icon id="favoriteIcon" icon="favorite" hidden></iron-icon>
       </app-header>
       <div>
-        <template is="dom-if" if="[[_loadTestingMode()]]">
+        <template is="dom-if" if="[[loadTestingMode]]">
           <div class="layout vertical center-center">
             <h1 style="color: #F00;">LOAD TESTING MODE</h1>
           </div>
@@ -267,7 +267,12 @@
           value: false
         },
 
-        resizeTimer: Object
+        resizeTimer: Object,
+
+        loadTestingMode: {
+          type: Boolean,
+          value: false
+        }
       },
 
       listeners: {
@@ -278,7 +283,8 @@
         'oav-clear-area': '_clearArea',
         'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
         'oav-hide-favorite-item': '_hideFavoriteItem',
-        'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition'
+        'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition',
+        'oav-set-load-testing-mode': '_setLoadTestingMode'
       },
 
       observers: [
@@ -289,6 +295,10 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+      },
+
+      _setLoadTestingMode: function () {
+        this.set('loadTestingMode', true);
       },
 
       _hideFavoriteItem: function () {

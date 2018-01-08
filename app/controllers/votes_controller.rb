@@ -72,7 +72,9 @@ class VotesController < ApplicationController
     respond_to do |format|
       format.json { render :json => {:areas => BudgetBallotArea.all,
                                      area_voter_count: Vote.group(:area_id).distinct.count(:user_id_hash),
-                                     total_voter_count: Vote.distinct.count(:user_id_hash) }}
+                                     total_voter_count: Vote.distinct.count(:user_id_hash),
+                                     load_testing_mode: ENV["LOAD_TESTING_MODE"]
+      }}
     end
   end
 

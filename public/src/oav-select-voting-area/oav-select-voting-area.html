@@ -519,6 +519,10 @@
           this.set('totalVoterCount', this.formatNumber(detail.response.total_voter_count));
         }.bind(this));
 
+        debugger;
+        if (detail.response.load_testing_mode==="true") {
+          this.fire("oav-set-load-testing-mode");
+        }
       }
     })
   })();
