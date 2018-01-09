@@ -1,23 +1,23 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.9">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.10">
 
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.2.9">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.2.9">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.2.9">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.2.9">
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.2.9">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.2.9">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.2.10">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.2.10">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.2.10">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.2.10">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.2.10">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.2.10">
 
-<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.2.9">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.2.9">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.2.9">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.2.9">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.2.9">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html?v=6.2.10">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.2.10">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.2.10">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.2.10">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.2.10">
 
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.2.9">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.2.10">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.2.9">
-<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.2.9">
-<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.2.9">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.2.10">
+<link rel="import" href="../oav-ajax/oav-ajax.html?v=6.2.10">
+<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.2.10">
 
 </head><body><dom-module id="oav-select-voting-area">
   <style include="iron-flex iron-flex-alignment">
@@ -519,7 +519,6 @@
           this.set('totalVoterCount', this.formatNumber(detail.response.total_voter_count));
         }.bind(this));
 
-        debugger;
         if (detail.response.load_testing_mode==="true") {
           this.fire("oav-set-load-testing-mode");
         }

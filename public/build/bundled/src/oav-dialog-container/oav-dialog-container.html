@@ -1,8 +1,8 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.9">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.2.10">
 
 
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.2.9">
-<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.2.9">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.2.10">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.2.10">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -33,6 +33,9 @@
         <div class="layout vertical center-center authDialog">
           <p>[[localize('auth_dialog')]]</p>
           <paper-spinner active=""></paper-spinner>
+        </div>
+        <div class="buttons">
+          <paper-button dialog-confirm="" autofocus="" on-tap="closeAuthDialog">Hætta við</paper-button>
         </div>
       </paper-dialog>
       <oav-ajax-error-dialog id="errorDialog"></oav-ajax-error-dialog>
