@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.2.10"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.2.11"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -5032,6 +5032,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_favoriteItemChanged'
         },
 
+        votePostingMode: {
+          type: Boolean,
+          value: false
+        },
+
         oldFavoriteItem: Object
       },
 
@@ -5040,7 +5045,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (!newValue && oldValue) {
           this.fire("oav-hide-favorite-item");
         }
-
       },
 
       _selectedViewChanged: function (view) {
@@ -5174,6 +5178,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+          this.set('votePostingMode', true);
           if (this._isInAppiOSOrIE11()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
             localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
@@ -5208,6 +5213,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.set('isPollingForLogin', false);
       },
 
+      cancelFromAuthButtonPopup: function () {
+        this.cancelLoginPolling();
+        this.set('votePostingMode', false);
+      },
+
       _isLoggedInResponse: function (event, detail) {
         if (this.isPollingForLogin===true) {
           if (detail.response.isLoggedin===true) {
@@ -5229,42 +5239,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                   favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
       },
 
-      completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
-        if (!encryptedVotes) {
-          encryptedVotes = this._createEncryptedVotes();
-        }
-        this.cancelLoginPolling();
+      completePostingOfVote: function (encryptedVotes, localStorageAreaId, forceCompletion) {
+        if (this.votePostingMode || forceCompletion) {
+          if (!encryptedVotes) {
+            encryptedVotes = this._createEncryptedVotes();
+          }
+          this.cancelLoginPolling();
 
-        var areaId;
-        if (this.area) {
-          areaId = this.area.id;
-        } else if (localStorageAreaId) {
-          areaId = localStorageAreaId;
-        } else {
-          console.warn("No area id in complete voting");
-        }
+          var areaId;
+          if (this.area) {
+            areaId = this.area.id;
+          } else if (localStorageAreaId) {
+            areaId = localStorageAreaId;
+          } else {
+            console.warn("No area id in complete voting");
+          }
 
-        if (areaId) {
-          if (this.isSendingBallot===false && this.haveSentBallot===false) {
-            var encryptedVote = encryptedVotes;
-            if (encryptedVote) {
-              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
-              this.$.postBallotAjax.generateRequest();
-              this.set('isSendingBallot', true);
-              this.set('haveSentBallot', true);
+          if (areaId) {
+            if (this.isSendingBallot===false && this.haveSentBallot===false) {
+              var encryptedVote = encryptedVotes;
+              if (encryptedVote) {
+                this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
+                this.$.postBallotAjax.generateRequest();
+                this.set('isSendingBallot', true);
+                this.set('haveSentBallot', true);
+              } else {
+                console.error("No encrypted votes!");
+              }
             } else {
-              console.error("No encrypted votes!");
+              console.warn("Already sending ballot");
             }
           } else {
-            console.warn("Already sending ballot");
+            console.warn("Not sending as no area id");
           }
         } else {
-          console.warn("Not sending as no area id");
+          console.error("trying to post without being in vote posting mode");
         }
       },
 
       _completePostingOfVoteAfterRedirect: function () {
-        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'));
+        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'), true);
       },
 
       _getSamlUrlWithLanguage: function () {
