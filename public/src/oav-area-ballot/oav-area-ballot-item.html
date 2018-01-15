@@ -375,14 +375,6 @@
         <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]"
                    disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
-        <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                     title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
-          </paper-fab>
-          <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
-                     title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
-          </paper-fab>
-        </div>
       </div>
     </paper-material>
   </template>
@@ -677,46 +669,8 @@
         this.loadLanguage(this.resolveUrl('/src/locales.json'));
       },
 
-      _toggleFavorite: function () {
-        if (this.budgetElement.currentBallot.favoriteItem &&
-            this.budgetElement.currentBallot.favoriteItem.id == this.item.id) {
-          this.fire('oav-set-favorite-item-in-budget', {
-            item: null
-          });
-        } else {
-          var button = this.$$("#addFavoriteButton");
-          var buttonRect = button.getBoundingClientRect();
-          var left = buttonRect.left;// + window.scrollX;
-          var top = buttonRect.top;// + window.scrollY;
-
-          this.fire('oav-set-favorite-item-in-budget', {
-            item: this.item,
-            orgAnimPos: { left: left, top: top },
-            budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
-          });
-        }
-      },
-
       _toggleInBudget: function (event) {
         //console.log("_toggleInBudget itemId: "+this.item.id);
-        this.$.addFavoriteButton.style.position = "absolute";
-        this.$.addFavoriteButton.style.left = "12px";
-        this.$.addFavoriteButton.style.bottom = "12px";
-
-        var animation = this.$.addFavoriteButton.animate([
-          { transform: "translateX(200px)", easing: 'ease-out' },
-          { transform: "scale(2)", easing: 'ease-out' },
-          { transform: "translateY(0)", easing: 'ease-out' }
-        ], {
-          duration: 400,
-          iterations: 1
-        });
-
-        animation.onfinish = function () {
-          this.$.addFavoriteButton.style.position = "absolute";
-          this.$.addFavoriteButton.style.left = "12px";
-          this.$.addFavoriteButton.style.bottom = "12px";
-        }.bind(this);
         this.fire('oav-toggle-item-in-budget', { item: this.item });
       }
     })
