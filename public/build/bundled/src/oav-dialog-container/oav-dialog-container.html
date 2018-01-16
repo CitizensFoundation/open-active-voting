@@ -1,9 +1,9 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.40">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.99">
 
 
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.40">
-<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.40">
-<link rel="import" href="../oav-insecure-email-login.html?v=6.1.40">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.99">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.99">
+<link rel="import" href="../oav-insecure-email-login.html?v=6.1.99">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -27,9 +27,94 @@
         width: 40px;
         height: 40px;
       }
+
+      .heading {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+
+      .welcomeDialog {
+        font-size: 22px;
+        max-width: 420px;
+        width: 420px;
+        padding: 8px;
+        padding-top: 0;
+        line-height: 1.3;
+        margin: 8px;
+        text-align: center;
+      }
+
+      .welcomeText {
+        width: 420px;
+        max-width: 420px;
+      }
+
+      paper-button.continueButton {
+        background-color: var(--app-accent-color);
+        color: #fff;
+        margin: 8px;
+        margin-bottom: 16px;
+        font-size: 18px;
+      }
+
+      @media (max-width: 600px) {
+        .welcomeDialog {
+          font-size: 17px;
+          max-width: none;
+          width: 90%;
+          padding: 8px;
+          padding-top: 0;
+          text-align: center;
+        }
+        .heading {
+          font-size: 24px;
+        }
+        .welcomeText {
+          width: 80%;
+          max-width: none;
+        }
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+      }
+
+
+      .logo {
+        padding: 0;
+        margin: 0;
+        margin-left: 110px;
+        margin-top: 8px;
+      }
+
+      .logoContainer {
+        width: 100%;
+        background-color: #fafafa;
+        margin: 0;
+        padding: 0;
+      }
+
+
     </style>
 
     <div id="dialogs">
+      <paper-dialog id="welcomeDialog" modal="">
+        <div class="logoContainer">
+          <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png">
+        </div>
+        <div class="layout vertical center-center welcomeDialog">
+          <div class="heading">Welcome! Fàilte!</div>
+          <div class="layout horizontal welcomeText">
+            Select your ward and then multiple projects up to the value of £150,000.
+            Click Vote to submit. You need to provide a valid postcode for your ward.
+            Need more info? Click ? at top right of screen.
+          </div>
+        </div>
+        <div class="buttons layout vertical center-center">
+          <paper-button raised="" class="continueButton" dialog-confirm="" autofocus="" on-tap="_continue">CONTINUE</paper-button>
+        </div>
+      </paper-dialog>
       <paper-dialog id="authDialog" modal="">
         <div class="layout vertical center-center authDialog">
           <p>[[localize('auth_dialog')]]</p>
@@ -60,6 +145,14 @@
 
       getDialog: function (idName) {
         return this.$$("#"+idName);
+      },
+
+      _continue: function () {
+        this.$.welcomeDialog.close();
+      },
+
+      openWelcome: function () {
+        this.$.welcomeDialog.open();
       },
 
       closeAuthDialog: function () {

@@ -8670,7 +8670,7 @@ in every element that needs to use them.
     ```
 
     ```html
-    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.40">
+    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.99">
     <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
     <style>
       .test { width: 100px; }
@@ -10293,7 +10293,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.40">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.99">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -10301,7 +10301,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.40">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.99">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -12639,7 +12639,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.40" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.99" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -39570,7 +39570,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.40" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.99" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -43227,8 +43227,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.40">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.40">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.99">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.99">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -50248,14 +50248,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.40">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.99">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.40">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.99">
    * ```
    *
    * ### Consuming effects
@@ -51053,7 +51053,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.40">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.99">
 ```
 
 #### List of effects
@@ -54503,9 +54503,20 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
     properties: {
       postCodes: {
-        type: Array,
+        type: Object,
+        value: null
+      },
+
+      postCodesAreas: {
+        type: Object,
+        value: null
+      },
+
+      postCodesAreasNames: {
+        type: Object,
         value: null
       }
+
     },
 
     _CSVToArray: function( strData, strDelimiter ) {
@@ -54591,24 +54602,51 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       return( arrData );
     },
 
+    nameToAreaId: {
+      "The Ferry": 8,
+      "East End": 7,
+      "North East": 6,
+      "Maryfield": 5,
+      "Coldside": 4,
+      "Strathmartine": 3,
+      "West End": 2,
+      "Lochee": 1
+    },
+
     setPostCodes: function (blob) {
       var reader = new FileReader();
 
       reader.addEventListener('loadend', function (e) {
         var text = e.srcElement.result;
         var postCodes = this._CSVToArray(text);
-        this.postCodes = [];
+        this.postCodes = {};
+        this.postCodesAreas = {};
+        this.postCodesAreasNames = {};
         postCodes.forEach(function (code) {
-          this.postCodes.push(code[0].replace(/\s/g, "").toUpperCase());
+          if (code[1]) {
+            var postCode = code[1].replace(/\s/g, "").toUpperCase();
+            var areaId = this.nameToAreaId[code[0]];
+            if (!this.postCodes[areaId]) {
+              this.postCodes[areaId] = [];
+            }
+            this.postCodes[areaId].push(postCode);
+            this.postCodesAreas[postCode]=areaId;
+            this.postCodesAreasNames[postCode]=code[0];
+          }
         }.bind(this));
-    }.bind(this));
+      }.bind(this));
 
-     reader.readAsText(blob);
+      reader.readAsText(blob);
     },
 
-    isValidPostcode: function (postCode) {
+    isValidPostcode: function (areaId,postCode) {
       postCode = postCode.replace(/\s/g, "").toUpperCase();
-      return (this.postCodes.indexOf(postCode) > -1)
+      return (this.postCodes[areaId].indexOf(postCode) > -1)
+    },
+
+    getAreaForPostCode: function (postCode) {
+      postCode = postCode.replace(/\s/g, "").toUpperCase();
+      return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
     }
   };
 </script>
@@ -54671,6 +54709,11 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         --paper-checkbox-checked-color: var(--app-accent-color);
         padding-top: 8px;
       }
+
+
+      .postcodeWrongWard {
+        color: var(--paper-red-a400);
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
@@ -54688,6 +54731,11 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
             <paper-input id="postCode" type="text" label="[[localize('postCode')]]" value="{{postCode}}" maxlength="8">
             </paper-input>
 
+            <div class="postcodeWrongWard" hidden$="[[!correctAreaId]]">
+              This postcode does not belong to [[areaName]].<br><br>
+              For this postcode you can vote here <a href="/#/area-ballot/[[correctAreaId]]" on-tap="_resetCorrectArea">[[correctAreaName]]</a> or enter a new postcode that belongs to [[areaName]].
+            </div>
+
             <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen" checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
@@ -54699,9 +54747,9 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
         <iron-a11y-keys id="a11y" keys="enter" on-keys-pressed="onEnter"></iron-a11y-keys>
 
-        <iron-ajax auto="" url="/DundeePostcodes.csv" handle-as="blob" on-response="_postCodeResponse"></iron-ajax>
       </template>
     </div>
+    <iron-ajax auto="" url="/DundeePostcodesWards1.csv" handle-as="blob" on-error="_postCodeError" on-response="_postCodeResponse"></iron-ajax>
   </template>
 
 </dom-module>
@@ -54719,6 +54767,21 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
     ],
 
     properties: {
+
+      correctAreaId: {
+        type: String,
+        value: null
+      },
+
+      areaName: {
+        type: String,
+        value: null
+      },
+
+      correctAreaName: {
+        type: String,
+        value: null
+      },
 
       postCode: {
         type: String,
@@ -54785,7 +54848,20 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       onLoginFunction: {
         type: Function,
         value: null
-      }
+      },
+
+      areaId: String
+    },
+
+    _resetCorrectArea: function () {
+      this.async(function () {
+        this.set('correctAreaId', null);
+        this.set('correctAreaName', null);
+        this.close();
+      }, 100);
+    },
+
+    _postCodeError: function () {
     },
 
     _postCodeResponse: function (event, detail) {
@@ -54826,10 +54902,14 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
     _validateAndSend: function(e) {
       if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
-        if (this.isValidPostcode(this.postCode)) {
+        if (this.isValidPostcode(this.areaId, this.postCode)) {
           this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
           this.$$("#loginAjax").generateRequest();
           return true;
+        } else if (this.getAreaForPostCode(this.postCode)) {
+          var areaInfo = this.getAreaForPostCode(this.postCode);
+          this.set('correctAreaId', areaInfo["id"]);
+          this.set('correctAreaName', areaInfo["name"]);
         } else {
           this.$$("#loginAjax").showErrorDialog(this.localize('enterValidPostcode'));
           return false;
@@ -54849,10 +54929,14 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       this.close();
     },
 
-    open: function(redirectTo) {
-      this.redirectTo = redirectTo;
+    open: function(areaId, areaName) {
+      this.set('areaId', areaId);
+      this.set('areaName', areaName);
       this.set('userSpinner', false);
       this.set('opened', false);
+      this.set('postCode', "");
+      this.set('confirmedSixteen', false);
+      this.set('email', "");
       this.async(function () {
         this.set('opened', true);
         this.async(function () {
@@ -54893,9 +54977,94 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         width: 40px;
         height: 40px;
       }
+
+      .heading {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+
+      .welcomeDialog {
+        font-size: 22px;
+        max-width: 420px;
+        width: 420px;
+        padding: 8px;
+        padding-top: 0;
+        line-height: 1.3;
+        margin: 8px;
+        text-align: center;
+      }
+
+      .welcomeText {
+        width: 420px;
+        max-width: 420px;
+      }
+
+      paper-button.continueButton {
+        background-color: var(--app-accent-color);
+        color: #fff;
+        margin: 8px;
+        margin-bottom: 16px;
+        font-size: 18px;
+      }
+
+      @media (max-width: 600px) {
+        .welcomeDialog {
+          font-size: 17px;
+          max-width: none;
+          width: 90%;
+          padding: 8px;
+          padding-top: 0;
+          text-align: center;
+        }
+        .heading {
+          font-size: 24px;
+        }
+        .welcomeText {
+          width: 80%;
+          max-width: none;
+        }
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+      }
+
+
+      .logo {
+        padding: 0;
+        margin: 0;
+        margin-left: 110px;
+        margin-top: 8px;
+      }
+
+      .logoContainer {
+        width: 100%;
+        background-color: #fafafa;
+        margin: 0;
+        padding: 0;
+      }
+
+
     </style>
 
     <div id="dialogs">
+      <paper-dialog id="welcomeDialog" modal="">
+        <div class="logoContainer">
+          <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png">
+        </div>
+        <div class="layout vertical center-center welcomeDialog">
+          <div class="heading">Welcome! Fàilte!</div>
+          <div class="layout horizontal welcomeText">
+            Select your ward and then multiple projects up to the value of £150,000.
+            Click Vote to submit. You need to provide a valid postcode for your ward.
+            Need more info? Click ? at top right of screen.
+          </div>
+        </div>
+        <div class="buttons layout vertical center-center">
+          <paper-button raised="" class="continueButton" dialog-confirm="" autofocus="" on-tap="_continue">CONTINUE</paper-button>
+        </div>
+      </paper-dialog>
       <paper-dialog id="authDialog" modal="">
         <div class="layout vertical center-center authDialog">
           <p>[[localize('auth_dialog')]]</p>
@@ -54926,6 +55095,14 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
       getDialog: function (idName) {
         return this.$$("#"+idName);
+      },
+
+      _continue: function () {
+        this.$.welcomeDialog.close();
+      },
+
+      openWelcome: function () {
+        this.$.welcomeDialog.open();
       },
 
       closeAuthDialog: function () {
@@ -55062,6 +55239,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .infoImage {
       width: 400px;
       height: 225px;
+    }
+
+    .infoImageContainer {
+      background-color: #852989 !important;
     }
 
     @media (max-width: 940px) {
@@ -55414,7 +55595,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="[[wide]]" restamp="">
           <paper-material elevation="5" class="areaOptions">
             <div class="layout vertical center-center">
-              <img hidefocus="true" usemap="#image-map" id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DundeeDecidesMap-3.jpeg" border="0" width="942" height="416" orgwidth="942" orgheight="416" alt="">
+              <img hidefocus="true" usemap="#image-map" id="imageMapKopavogur" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/dundeMynd2.jpeg" border="0" width="942" height="416" orgwidth="942" orgheight="416" alt="">
               <!-- Image Map Generated by http://www.image-map.net/ -->
               <map name="image-map">
                 <area target="" alt="Lochee" title="Lochee" href="/#/area-ballot/1" coords="60,153,31,166,63,263,130,256,139,235,164,236,172,245,183,241,213,242,247,249,280,241,284,230,315,217,327,191,333,176,355,158,347,149,262,165,217,182,102,131,81,141,76,158,64,157" shape="poly">
@@ -55422,8 +55603,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <area target="" alt="Strathmartine" title="Strathmartine" href="/#/area-ballot/3" coords="242,38,230,51,168,76,175,157,207,170,235,169,262,157,301,153,352,138,472,162,475,132,436,105,425,85,306,43" shape="poly">
                 <area target="" alt="Coldside" title="Coldside" href="/#/area-ballot/4" coords="361,151,344,172,324,218,341,238,368,250,402,253,433,239,439,225,432,191,424,177,426,159" shape="poly">
                 <area target="" alt="Maryfield" title="Maryfield" href="/#/area-ballot/5" coords="435,163,432,179,441,187,440,215,448,228,440,245,401,262,404,277,435,295,471,275,508,256,509,222,520,216,514,188" shape="poly">
-                <area target="" alt="North East" title="North Easy" href="/#/area-ballot/6" coords="503,41,486,51,437,53,437,96,488,133,503,127,588,156,614,143,674,159,671,95,623,66,575,39" shape="poly">
-                <area target="" alt="East End" title="Easy End" href="/#/area-ballot/7" coords="506,135,487,142,484,165,520,185,531,219,520,223,516,256,595,256,620,244,618,209,673,189,674,172,621,153,588,162,543,152" shape="poly">
+                <area target="" alt="North East" title="North East" href="/#/area-ballot/6" coords="503,41,486,51,437,53,437,96,488,133,503,127,588,156,614,143,674,159,671,95,623,66,575,39" shape="poly">
+                <area target="" alt="East End" title="East End" href="/#/area-ballot/7" coords="506,135,487,142,484,165,520,185,531,219,520,223,516,256,595,256,620,244,618,209,673,189,674,172,621,153,588,162,543,152" shape="poly">
                 <area target="" alt="The Ferry" title="The Ferry" href="/#/area-ballot/8" coords="687,94,676,107,689,195,672,201,624,214,630,247,687,250,752,282,800,267,855,244,829,206,823,184,843,154,846,120,802,110,760,93" shape="poly">
               </map>
             </div>
@@ -55866,6 +56047,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+        var dialogContainer = Polymer.dom(document).querySelector('oav-app').getDialog("welcomeDialog");
+        dialogContainer.open();
       },
 
       _hideFavoriteItem: function () {

@@ -1,6 +1,6 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.40">
-<link rel="import" href="../../bower_components/lodash-import/lodash.js.html?v=6.1.40">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.40">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.99">
+<link rel="import" href="../../bower_components/lodash-import/lodash.js.html?v=6.1.99">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.99">
 
 <script src="../../bower_components/moment/min/moment-with-locales.min.js"></script>
 
@@ -13,9 +13,20 @@
 
     properties: {
       postCodes: {
-        type: Array,
+        type: Object,
+        value: null
+      },
+
+      postCodesAreas: {
+        type: Object,
+        value: null
+      },
+
+      postCodesAreasNames: {
+        type: Object,
         value: null
       }
+
     },
 
     _CSVToArray: function( strData, strDelimiter ) {
@@ -101,24 +112,51 @@
       return( arrData );
     },
 
+    nameToAreaId: {
+      "The Ferry": 8,
+      "East End": 7,
+      "North East": 6,
+      "Maryfield": 5,
+      "Coldside": 4,
+      "Strathmartine": 3,
+      "West End": 2,
+      "Lochee": 1
+    },
+
     setPostCodes: function (blob) {
       var reader = new FileReader();
 
       reader.addEventListener('loadend', function (e) {
         var text = e.srcElement.result;
         var postCodes = this._CSVToArray(text);
-        this.postCodes = [];
+        this.postCodes = {};
+        this.postCodesAreas = {};
+        this.postCodesAreasNames = {};
         postCodes.forEach(function (code) {
-          this.postCodes.push(code[0].replace(/\s/g, "").toUpperCase());
+          if (code[1]) {
+            var postCode = code[1].replace(/\s/g, "").toUpperCase();
+            var areaId = this.nameToAreaId[code[0]];
+            if (!this.postCodes[areaId]) {
+              this.postCodes[areaId] = [];
+            }
+            this.postCodes[areaId].push(postCode);
+            this.postCodesAreas[postCode]=areaId;
+            this.postCodesAreasNames[postCode]=code[0];
+          }
         }.bind(this));
-    }.bind(this));
+      }.bind(this));
 
-     reader.readAsText(blob);
+      reader.readAsText(blob);
     },
 
-    isValidPostcode: function (postCode) {
+    isValidPostcode: function (areaId,postCode) {
       postCode = postCode.replace(/\s/g, "").toUpperCase();
-      return (this.postCodes.indexOf(postCode) > -1)
+      return (this.postCodes[areaId].indexOf(postCode) > -1)
+    },
+
+    getAreaForPostCode: function (postCode) {
+      postCode = postCode.replace(/\s/g, "").toUpperCase();
+      return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
     }
   };
 </script>
