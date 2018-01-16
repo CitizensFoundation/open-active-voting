@@ -8,7 +8,7 @@
   ],
   "includeDependencies": [
     "manifest.json",
-    "DundeePostcodes.csv",
+    "DundeePostcodesWards1.csv",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js"
   ]
 }

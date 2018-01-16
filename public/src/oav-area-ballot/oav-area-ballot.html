@@ -385,7 +385,7 @@
           } else {
             var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("oavInsecureEmailLogin");
             dialog.setup(this._insecureEmailLoginCompleted.bind(this));
-            dialog.open();
+            dialog.open(this.area.id, this.area.name);
           }
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));

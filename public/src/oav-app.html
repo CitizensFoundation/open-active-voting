@@ -289,6 +289,8 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+        var dialogContainer = Polymer.dom(document).querySelector('oav-app').getDialog("welcomeDialog");
+        dialogContainer.open();
       },
 
       _hideFavoriteItem: function () {

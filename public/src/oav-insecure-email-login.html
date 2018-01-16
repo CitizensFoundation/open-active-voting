@@ -2,6 +2,7 @@
 
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
 
@@ -81,6 +82,11 @@
         --paper-checkbox-checked-color: var(--app-accent-color);
         padding-top: 8px;
       }
+
+
+      .postcodeWrongWard {
+        color: var(--paper-red-a400);
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
@@ -108,6 +114,11 @@
                          maxlength="8">
             </paper-input>
 
+            <div class="postcodeWrongWard" hidden$="[[!correctAreaId]]">
+              This postcode does not belong to [[areaName]].<br><br>
+              For this postcode you can vote here <a href="/#/area-ballot/[[correctAreaId]]" on-tap="_resetCorrectArea">[[correctAreaName]]</a> or enter a new postcode that belongs to [[areaName]].
+            </div>
+
             <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen"
                             checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
@@ -121,13 +132,14 @@
         <iron-a11y-keys id="a11y" keys="enter"
                         on-keys-pressed="onEnter"></iron-a11y-keys>
 
-        <iron-ajax
-          auto
-          url="/DundeePostcodes.csv"
-          handle-as="blob"
-          on-response="_postCodeResponse"></iron-ajax>
       </template>
     </div>
+    <iron-ajax
+      auto
+      url="/DundeePostcodesWards1.csv"
+      handle-as="blob"
+      on-error="_postCodeError"
+      on-response="_postCodeResponse"></iron-ajax>
   </template>
 
 </dom-module>
@@ -145,6 +157,21 @@
     ],
 
     properties: {
+
+      correctAreaId: {
+        type: String,
+        value: null
+      },
+
+      areaName: {
+        type: String,
+        value: null
+      },
+
+      correctAreaName: {
+        type: String,
+        value: null
+      },
 
       postCode: {
         type: String,
@@ -211,7 +238,20 @@
       onLoginFunction: {
         type: Function,
         value: null
-      }
+      },
+
+      areaId: String
+    },
+
+    _resetCorrectArea: function () {
+      this.async(function () {
+        this.set('correctAreaId', null);
+        this.set('correctAreaName', null);
+        this.close();
+      }, 100);
+    },
+
+    _postCodeError: function () {
     },
 
     _postCodeResponse: function (event, detail) {
@@ -252,10 +292,14 @@
 
     _validateAndSend: function(e) {
       if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
-        if (this.isValidPostcode(this.postCode)) {
+        if (this.isValidPostcode(this.areaId, this.postCode)) {
           this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
           this.$$("#loginAjax").generateRequest();
           return true;
+        } else if (this.getAreaForPostCode(this.postCode)) {
+          var areaInfo = this.getAreaForPostCode(this.postCode);
+          this.set('correctAreaId', areaInfo["id"]);
+          this.set('correctAreaName', areaInfo["name"]);
         } else {
           this.$$("#loginAjax").showErrorDialog(this.localize('enterValidPostcode'));
           return false;
@@ -275,8 +319,9 @@
       this.close();
     },
 
-    open: function(redirectTo) {
-      this.redirectTo = redirectTo;
+    open: function(areaId, areaName) {
+      this.set('areaId', areaId);
+      this.set('areaName', areaName);
       this.set('userSpinner', false);
       this.set('opened', false);
       this.set('postCode', "");

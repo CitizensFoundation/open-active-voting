@@ -28,6 +28,13 @@
         height: 40px;
       }
 
+      .heading {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+
       .welcomeDialog {
         font-size: 22px;
         max-width: 420px;
@@ -75,9 +82,17 @@
 
 
       .logo {
-        width: 100%;
         padding: 0;
         margin: 0;
+        margin-left: 110px;
+        margin-top: 8px;
+      }
+
+      .logoContainer {
+        width: 100%;
+        background-color: #fafafa;
+        margin: 0;
+        padding: 0;
       }
 
 
@@ -85,12 +100,14 @@
 
     <div id="dialogs">
       <paper-dialog id="welcomeDialog" modal>
-        <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png"></img>
+        <div class="logoContainer">
+          <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></img>
+        </div>
         <div class="layout vertical center-center welcomeDialog">
           <div class="heading">Welcome! Fàilte!</div>
           <div class="layout horizontal welcomeText">
-            Vote here by selecting multiple projects up to the value of £150,000.
-            Click VOTE to submit. You need to provide a valid postcode for your ward.
+            Select your ward and then multiple projects up to the value of £150,000.
+            Click Vote to submit. You need to provide a valid postcode for your ward.
             Need more info? Click ? at top right of screen.
           </div>
         </div>
