@@ -562,7 +562,7 @@
         for (var i = 0; i < arrayLength; i++) {
           if (budgetBallotItems[i].locations && budgetBallotItems[i].locations != "") {
             var hashArray = [];
-            var locationsArray = budgetBallotItems[i].locations.replace(' ','').split(',');
+            var locationsArray = budgetBallotItems[i].locations.replace(' ','').replace(/[\n\r]/g, '').split(',');
             var counter = 0;
             while (counter<locationsArray.length) {
               hashArray.push({ latitude: locationsArray[counter], longitude: locationsArray[counter+1]});
