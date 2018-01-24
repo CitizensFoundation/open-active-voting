@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.101"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.102"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -5395,7 +5395,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         for (var i = 0; i < arrayLength; i++) {
           if (budgetBallotItems[i].locations && budgetBallotItems[i].locations != "") {
             var hashArray = [];
-            var locationsArray = budgetBallotItems[i].locations.replace(' ','').split(',');
+            var locationsArray = budgetBallotItems[i].locations.replace(' ','').replace(/[\n\r]/g, '').split(',');
             var counter = 0;
             while (counter<locationsArray.length) {
               hashArray.push({ latitude: locationsArray[counter], longitude: locationsArray[counter+1]});
