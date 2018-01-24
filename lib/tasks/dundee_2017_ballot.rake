@@ -253,12 +253,12 @@ namespace :dundee_2017_ballot do
     price = budget_data[row_number][6]
     price = price.to_i*1000
     puts "Price is: #{price}"
-    locations = budget_data[row_number][7]
+    locations = budget_data[row_number][7].gsub(" ","")
     puts locations
 
     if budget_data[row_number][8] and budget_data[row_number][8]!=""
       puts budget_data[row_number][8]
-      locations = "#{locations},#{budget_data[row_number][8]}"
+      locations = "#{locations},#{budget_data[row_number][8].gsub(" ","")}"
     end
 
     description_en = budget_data[row_number][4]
