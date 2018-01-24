@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html">
 <link rel="import" href="../oav-page/oav-page-dialog.html">
@@ -51,6 +51,13 @@
         max-width: 420px;
       }
 
+      .logo {
+        padding: 0;
+        margin: 0;
+        margin-left: 110px;
+        margin-top: 8px;
+      }
+
       paper-button.continueButton {
         background-color: var(--app-accent-color);
         color: #fff;
@@ -68,31 +75,31 @@
           padding-top: 0;
           text-align: center;
         }
+
         .heading {
           font-size: 24px;
         }
+
         .welcomeText {
           width: 80%;
           max-width: none;
         }
+
         paper-button.continueButton {
           font-size: 16px;
         }
-      }
 
-
-      .logo {
-        padding: 0;
-        margin: 0;
-        margin-left: 110px;
-        margin-top: 8px;
+        .logo {
+          margin-left: 42px;
+          margin-top: 4px;
+        }
       }
 
       .logoContainer {
-        width: 100%;
         background-color: #fafafa;
         margin: 0;
         padding: 0;
+        overflow: hidden;
       }
 
 
@@ -101,7 +108,7 @@
     <div id="dialogs">
       <paper-dialog id="welcomeDialog" modal>
         <div class="logoContainer">
-          <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></img>
+          <img class="logo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></img>
         </div>
         <div class="layout vertical center-center welcomeDialog">
           <div class="heading">Welcome!</div>

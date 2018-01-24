@@ -39,7 +39,6 @@
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-dialog id="dialog">
-      <h2>[[title]]</h2>
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
@@ -81,11 +80,11 @@
 
       open: function (title) {
         if (this.language==='is') {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         } else if (this.language==='pl') {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         } else {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();
