@@ -1,19 +1,19 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.99">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.99">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.100">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.100">
 
-<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.99">
-<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.99">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.99">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=6.1.99">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.99">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html?v=6.1.99">
-<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.99">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.100">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.100">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.100">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html?v=6.1.100">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html?v=6.1.100">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html?v=6.1.100">
+<link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.100">
 
-<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.99">
+<link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.100">
 
-<link rel="import" href="is-help.html?v=6.1.99">
-<link rel="import" href="en-help.html?v=6.1.99">
-<link rel="import" href="pl-help.html?v=6.1.99">
+<link rel="import" href="is-help.html?v=6.1.100">
+<link rel="import" href="en-help.html?v=6.1.100">
+<link rel="import" href="pl-help.html?v=6.1.100">
 
 </head><body><dom-module id="oav-page-dialog">
   <template>
@@ -39,7 +39,6 @@
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <paper-dialog id="dialog">
-      <h2>[[title]]</h2>
       <paper-dialog-scrollable>
         <template is="dom-if" if="[[isLanguage]]">
           <div id="isContent">
@@ -81,11 +80,11 @@
 
       open: function (title) {
         if (this.language==='is') {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         } else if (this.language==='pl') {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         } else {
-          this.set('title', "Dundee Decides 2017");
+          this.set('title', "Dundee Decides 2018");
         }
         //this.$.content.innerHTML = content;
         this.$.dialog.fit();

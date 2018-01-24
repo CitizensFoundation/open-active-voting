@@ -1,9 +1,9 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.99">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.100">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.100">
 
-
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.99">
-<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.99">
-<link rel="import" href="../oav-insecure-email-login.html?v=6.1.99">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.100">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.100">
+<link rel="import" href="../oav-insecure-email-login.html?v=6.1.100">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -51,6 +51,13 @@
         max-width: 420px;
       }
 
+      .logo {
+        padding: 0;
+        margin: 0;
+        margin-left: 110px;
+        margin-top: 8px;
+      }
+
       paper-button.continueButton {
         background-color: var(--app-accent-color);
         color: #fff;
@@ -68,31 +75,31 @@
           padding-top: 0;
           text-align: center;
         }
+
         .heading {
           font-size: 24px;
         }
+
         .welcomeText {
           width: 80%;
           max-width: none;
         }
+
         paper-button.continueButton {
           font-size: 16px;
         }
-      }
 
-
-      .logo {
-        padding: 0;
-        margin: 0;
-        margin-left: 110px;
-        margin-top: 8px;
+        .logo {
+          margin-left: 42px;
+          margin-top: 4px;
+        }
       }
 
       .logoContainer {
-        width: 100%;
         background-color: #fafafa;
         margin: 0;
         padding: 0;
+        overflow: hidden;
       }
 
 
@@ -101,10 +108,10 @@
     <div id="dialogs">
       <paper-dialog id="welcomeDialog" modal="">
         <div class="logoContainer">
-          <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png">
+          <img class="logo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png">
         </div>
         <div class="layout vertical center-center welcomeDialog">
-          <div class="heading">Welcome! Fàilte!</div>
+          <div class="heading">Welcome!</div>
           <div class="layout horizontal welcomeText">
             Select your ward and then multiple projects up to the value of £150,000.
             Click Vote to submit. You need to provide a valid postcode for your ward.
