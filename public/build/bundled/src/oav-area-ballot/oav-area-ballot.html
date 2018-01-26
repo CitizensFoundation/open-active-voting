@@ -1,4 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.105"></head><body><div hidden="" by-vulcanize=""><!--
+<html><head><meta charset="UTF-8"><link rel="import" href="../oav-app.html?v=6.1.106"></head><body><div hidden="" by-vulcanize=""><!--
 @license
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -5338,7 +5338,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (detail.response.vote_ok==true && detail.response.error==false) {
           this.reset();
           this.set('areaId', null);
-          window.location = "/#/voting-completed"
+          window.location = "https://www.dundeedecides.org/feedback"
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
