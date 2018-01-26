@@ -1,6 +1,6 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.103">
-<link rel="import" href="../../bower_components/lodash-import/lodash.js.html?v=6.1.103">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.103">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.104">
+<link rel="import" href="../../bower_components/lodash-import/lodash.js.html?v=6.1.104">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html?v=6.1.104">
 
 <script src="../../bower_components/moment/min/moment-with-locales.min.js"></script>
 
@@ -14,6 +14,11 @@
     properties: {
       postCodes: {
         type: Object,
+        value: null
+      },
+
+      flatPostCodes: {
+        type: Array,
         value: null
       },
 
@@ -127,11 +132,13 @@
       var reader = new FileReader();
 
       reader.addEventListener('loadend', function (e) {
-        var text = e.srcElement.result;
+        var target = e.target || e.srcElement;
+        var text = target.result;
         var postCodes = this._CSVToArray(text);
         this.postCodes = {};
         this.postCodesAreas = {};
         this.postCodesAreasNames = {};
+        this.flatPostCodes = [];
         postCodes.forEach(function (code) {
           if (code[1]) {
             var postCode = code[1].replace(/\s/g, "").toUpperCase();
@@ -142,6 +149,7 @@
             this.postCodes[areaId].push(postCode);
             this.postCodesAreas[postCode]=areaId;
             this.postCodesAreasNames[postCode]=code[0];
+            this.flatPostCodes.push(postCode);
           }
         }.bind(this));
       }.bind(this));
@@ -156,7 +164,15 @@
 
     getAreaForPostCode: function (postCode) {
       postCode = postCode.replace(/\s/g, "").toUpperCase();
-      return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+      if (this.isInAnyPostCode(postCode)) {
+        return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+      } else {
+        return null;
+      }
+    },
+
+    isInAnyPostCode: function (postCode) {
+      return this.flatPostCodes.indexOf(postCode) > -1;
     }
   };
 </script>
