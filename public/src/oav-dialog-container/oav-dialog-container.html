@@ -95,6 +95,25 @@
         }
       }
 
+      @media (max-width: 340px) {
+        .welcomeDialog {
+          font-size: 15px;
+        }
+
+        .heading {
+          font-size: 19px;
+        }
+
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+
+        .logo {
+          margin-left: 16px;
+        }
+      }
+
+
       .logoContainer {
         background-color: #fafafa;
         margin: 0;
@@ -106,7 +125,7 @@
     </style>
 
     <div id="dialogs">
-      <paper-dialog id="welcomeDialog" modal>
+      <paper-dialog id="welcomeDialog" with-backdrop>
         <div class="logoContainer">
           <img class="logo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png"></img>
         </div>
