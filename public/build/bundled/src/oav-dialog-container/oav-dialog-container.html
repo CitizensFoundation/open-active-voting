@@ -1,9 +1,9 @@
-<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.104">
-<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.104">
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.105">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html?v=6.1.105">
 
-<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.104">
-<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.104">
-<link rel="import" href="../oav-insecure-email-login.html?v=6.1.104">
+<link rel="import" href="../oav-ajax/oav-ajax-error-dialog.html?v=6.1.105">
+<link rel="import" href="../oav-page/oav-page-dialog.html?v=6.1.105">
+<link rel="import" href="../oav-insecure-email-login.html?v=6.1.105">
 
 </head><body><dom-module id="oav-dialog-container">
   <template>
@@ -68,7 +68,7 @@
 
       @media (max-width: 600px) {
         .welcomeDialog {
-          font-size: 17px;
+          font-size: 16px;
           max-width: none;
           width: 90%;
           padding: 8px;
@@ -97,7 +97,7 @@
 
       @media (max-width: 340px) {
         .welcomeDialog {
-          font-size: 15px;
+          font-size: 13px;
         }
 
         .heading {
@@ -110,6 +110,16 @@
 
         .logo {
           margin-left: 16px;
+          display: none;
+        }
+
+        .logoContainer {
+          display: none;
+        }
+
+        paper-button.continueButton {
+          margin-top: 0;
+
         }
       }
 
