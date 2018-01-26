@@ -8670,7 +8670,7 @@ in every element that needs to use them.
     ```
 
     ```html
-    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.102">
+    <link rel="import" href="iron-flex-layout-classes.html?v=6.1.103">
     <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
     <style>
       .test { width: 100px; }
@@ -10293,7 +10293,7 @@ Example setting size to 32px x 32px:
 The iron elements include several sets of icons.
 To use the default set of icons, import `iron-icons.html` and use the `icon` attribute to specify an icon:
 
-    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.102">
+    <link rel="import" href="/components/iron-icons/iron-icons.html?v=6.1.103">
 
     <iron-icon icon="menu"></iron-icon>
 
@@ -10301,7 +10301,7 @@ To use a different built-in set of icons, import the specific `iron-icons/<icons
 specify the icon as `<iconset>:<icon>`. For example, to use a communication icon, you would
 use:
 
-    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.102">
+    <link rel="import" href="/components/iron-icons/communication-icons.html?v=6.1.103">
 
     <iron-icon icon="communication:email"></iron-icon>
 
@@ -12639,7 +12639,7 @@ how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.102" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.103" rel="import">
 
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
@@ -39570,7 +39570,7 @@ See `iron-iconset` for more information about how to use a custom icon set.
 
 Example:
 
-    <link href="path/to/iron-icons/iron-icons.html?v=6.1.102" rel="import">
+    <link href="path/to/iron-icons/iron-icons.html?v=6.1.103" rel="import">
 
     <paper-fab icon="add"></paper-fab>
     <paper-fab mini icon="favorite"></paper-fab>
@@ -43227,8 +43227,8 @@ is opened or closed. See the documentation in
 
 For example:
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.102">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.102">
+    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html?v=6.1.103">
+    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html?v=6.1.103">
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
@@ -50248,14 +50248,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * `app-scroll-effects.html`:
    *
    * ```html
-   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.102">
+   * <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.103">
    * ```
    *
    * The scroll effects can also be used by individually importing
    * `app-layout/app-scroll-effects/effects/[effectName].html`. For example:
    *
    * ```html
-   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.102">
+   *  <link rel="import" href="/bower_components/app-layout/app-scroll-effects/effects/waterfall.html?v=6.1.103">
    * ```
    *
    * ### Consuming effects
@@ -51053,7 +51053,7 @@ recommends effects that can be installed via the `effects` property. e.g.
 To use the scroll effects, you must explicitly import them in addition to `app-header`:
 
 ```html
-<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.102">
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html?v=6.1.103">
 ```
 
 #### List of effects
@@ -55083,6 +55083,25 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         }
       }
 
+      @media (max-width: 340px) {
+        .welcomeDialog {
+          font-size: 15px;
+        }
+
+        .heading {
+          font-size: 19px;
+        }
+
+        paper-button.continueButton {
+          font-size: 16px;
+        }
+
+        .logo {
+          margin-left: 16px;
+        }
+      }
+
+
       .logoContainer {
         background-color: #fafafa;
         margin: 0;
@@ -55094,7 +55113,7 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
     </style>
 
     <div id="dialogs">
-      <paper-dialog id="welcomeDialog" modal="">
+      <paper-dialog id="welcomeDialog" with-backdrop="">
         <div class="logoContainer">
           <img class="logo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/DD_Small_Logo.png">
         </div>
