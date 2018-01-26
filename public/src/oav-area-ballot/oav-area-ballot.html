@@ -505,7 +505,7 @@
         if (detail.response.vote_ok==true && detail.response.error==false) {
           this.reset();
           this.set('areaId', null);
-          window.location = "/#/voting-completed"
+          window.location = "https://www.dundeedecides.org/feedback"
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
