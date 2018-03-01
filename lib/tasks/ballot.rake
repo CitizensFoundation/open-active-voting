@@ -248,56 +248,21 @@ namespace :ballot do
 
   def ballot_create_budget_ballot_item(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_is = budget_data[row_number][3]
+    name_is = budget_data[row_number][1]
     puts name_is
-    price = budget_data[row_number][4]
-    price = price.gsub(',','')
-    price = price.gsub(' kr.','')
-    price = price.to_i / 1000000
-    puts price
-    locations = budget_data[row_number][8]
-    puts locations
 
-    if budget_data[row_number][9]
-      puts budget_data[row_number][9]
-      locations = "#{locations},#{budget_data[row_number][9]}"
-    end
+    usage =  budget_data[row_number][2]
+    review =  budget_data[row_number][3]
 
-    description_is = budget_data[row_number][10]
+    description_is = usage+"---SPLIT---"
     puts description_is
 
-    name_en = budget_data[row_number][15]
-    puts name_en
-
-    description_en =  budget_data[row_number][16]
-    idea_url =  budget_data[row_number][17]
-    puts idea_url
-
-    if idea_url
-      idea_id = idea_url.split('/').last
-      post_url = "https://www.betraisland.is/api/posts/"+idea_id
-      encoded_url = URI.encode(post_url)
-      uri = URI(encoded_url)
-      res = Net::HTTP.get(uri)
-      #puts res
-      #res = Net::HTTP.get URI(post_url)
-      post_json = JSON.parse(res)
-      if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
-        #puts post_json["PostHeaderImages"][0]
-        image_url = JSON.parse(post_json["PostHeaderImages"][post_json["PostHeaderImages"].length-1]["formats"])[0]
-        puts image_url
-      else
-        image_url = "https://i.imgur.com/sdsFAoT.png"
-      end
-    else
-      idea_id = 99999
-    end
+    description_is = budget_data[row_number][2]
+    puts description_is
 
     item = BudgetBallotItem.create!(:price=>price,
-                                    :idea_id=>idea_id,
+                                    :idea_id=>-1,
                                     :budget_ballot_area_id=>area_id,
-                                    :locations=>locations,
-                                    :image_url=>image_url,
                                     :idea_url=>idea_url)
 
     I18n.locale = "is"
@@ -314,7 +279,7 @@ namespace :ballot do
   def ballot_import_area_data(area_id, budget_data, start_row_number)
     current_row_number = start_row_number -1
 
-    while current_row_number < start_row_number+19  do
+    while budget_data[current_row_number]!="THE END" do
       ballot_create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end
@@ -369,71 +334,23 @@ namespace :ballot do
     config.save(:validate=>false)
   end
 
-  desc "Reset Kópavogur Ballot from CSV"
-  task(:reset_kopavogur_ballot_data_from_csv => :environment) do
+  desc "Reset Saga Ballot from CSV"
+  task(:reset_saga_ballot_data_from_csv => :environment) do
 
     BudgetBallotItem.delete_all
     BudgetBallotArea.delete_all
     BudgetConfig.delete_all
 
-    # TEST PUBLIC KEY
-    #public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBihRQO8VAT/e1Uapq1S\nTuXxaWeMPo57OyZy+7RA7TXscJVUzj87S7jE/xwZr/uQGHksy0M9upS8LbgrrG3s\nRlGgmjDKffHejkYbNCMDcAVvJcf+iL5qk1aVakHCKVEPd/860XpMCOl6nhGtu4vz\nUVCYyURPoAkc4F44MRGj+clzk0Cc4t//EIfq26IUpsDmDed3Yg8dOAU17Rg9cbl+\no9aV/4+Og1Q4rr/Zg9nASAqeb1ctzJopwFnzt14V3H3LFQC8pj6m7Ke1al/MRkTw\nvAWJruujNtVoLPfwkO6GW2a3GE3e223iwxo1A85zIk7L8bqkmmzfxL7ky4IGA/bx\ncQIDAQAB\n-----END PUBLIC KEY-----"
-
-    # KOPAVOGUR 2016 PUBLIC KEY
-    public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5NOPn7gd4TAVUF/nXXxg\nwu6KWE6BBJf84tc8Gz9HUG8JXSeaIQBNRSloK+N6HZ3x5OK95lHBndBI+zEKpWOp\nOpRDTnpg/7MWERQKu/pCwSQB2H1mUb8dZqftOwLVg1sVfG2FE5k6Z77w8agmzNpL\nJL8FHszdAKxCFtMrMUJejMBdd+aA/j2Tm1GqnicMzivb99WqSNQrw6+PNbtLPGSu\nAQOmkCm+y6ws3n4w/5miFnMxDlgCvlDh2qe8PvfMH7Eh0IrBLvm4paiMVF4u1dat\n2ZdEzR67pNi+nQZn6ltxBL8KefkROFg7VsI5qXxIJWcKlmwizECTDNYopEM0jn/L\nDwIDAQAB\n-----END PUBLIC KEY-----"
-
-    config=BudgetConfig.new
-    config.timeout_in_seconds = 600
-    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=11999a35-5dde-41a0-9456-99712eb39430&returnUrl=https%3A%2F%2Fkosning.kopavogur.is%2Fauthenticate_from_island_is"
-    config.public_key = public_key
-    config.save
-
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    karsnes = BudgetBallotArea.create!(:budget_amount => 32.0)
+    ballot = BudgetBallotArea.create!(:budget_amount => 1.0)
     I18n.locale = "is"
-    karsnes.name = "Kársnes"
-    karsnes.save
+    ballot.name = "Nafnakosning"
+    ballot.save
     I18n.locale = "en"
-    karsnes.name = "Kársnes"
-    karsnes.save
+    ballot.name = "Naming vote"
+    ballot.save
 
-    ballot_import_area_data(karsnes.id, budget_data, 12)
-
-    digranes = BudgetBallotArea.create!(:name => "Digranes", :budget_amount => 64.0)
-    I18n.locale = "is"
-    digranes.name = "Digranes"
-    digranes.save
-    I18n.locale = "en"
-    digranes.name = "Digranes"
-    digranes.save
-    ballot_import_area_data(digranes.id, budget_data, 37)
-
-    smarinn = BudgetBallotArea.create!(:name => "Smárinn", :budget_amount => 23.0)
-    I18n.locale = "is"
-    smarinn.name = "Smárinn"
-    smarinn.save
-    I18n.locale = "en"
-    smarinn.name = "Smárinn"
-    smarinn.save
-    ballot_import_area_data(smarinn.id, budget_data, 61)
-
-    fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 37.0)
-    I18n.locale = "is"
-    fifuhvammur.name = "Lindir og Salir"
-    fifuhvammur.save
-    I18n.locale = "en"
-    fifuhvammur.name = "Lindir og Salir"
-    fifuhvammur.save
-    ballot_import_area_data(fifuhvammur.id, budget_data, 86)
-
-    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 44.0)
-    I18n.locale = "is"
-    vatnsendi.name = "Vatnsendi"
-    vatnsendi.save
-    I18n.locale = "en"
-    vatnsendi.name = "Vatnsendi"
-    vatnsendi.save
-    ballot_import_area_data(vatnsendi.id, budget_data, 112)
+    ballot_import_area_data(ballot.id, budget_data, 2)
   end
 end
