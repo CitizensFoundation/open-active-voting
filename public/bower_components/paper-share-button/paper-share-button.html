@@ -76,7 +76,6 @@ Custom property | Description | Default
       }
       #container:hover > #cube { background-color: yellow; }
       .social-list {
-        display: inline-flex;
       }
       paper-menu-button {
         padding: 0px;
@@ -90,10 +89,14 @@ Custom property | Description | Default
         height: var(--paper-share-button-brand-icon-height, 40px);
         width: var(--paper-share-button-brand-icon-width, 40px);
       }
+
+      [hidden] {
+        display: none !important;
+      }
     </style>
-    <paper-menu-button id="shareMenu" horizontal-align$="[[horizontalAlign]]">
-      <paper-icon-button icon="[[buttonIcon]]" class="dropdown-trigger"></paper-icon-button>
-      <paper-material class="dropdown-content">
+    <paper-menu-button id="shareMenu" horizontal-align$="[[horizontalAlign]]" vertical-align="bottom">
+      <paper-icon-button icon="[[buttonIcon]]" slot="dropdown-trigger"></paper-icon-button>
+      <paper-material slot="dropdown-content">
         <div class="social-list">
           <div>
             <paper-icon-button href$="https://www.facebook.com/sharer/sharer.php?u=[[url]]" hidden$="[[!facebook]]" style="color:#3B5998" class="social-icon" cake="1w2" icon="brand:facebook" on-tap="_share"></paper-icon-button>
@@ -200,7 +203,7 @@ Custom property | Description | Default
                     type: Boolean,
                     value: false
                 },
-                
+
                 horizontalAlign: {
                     type: String,
                     value: "left"

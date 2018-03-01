@@ -57,16 +57,16 @@
         display: block;
         --app-primary-color: #777;
         --app-secondary-color: black;
-        --app-main-backround-color: #e0e0e0;
-        --app-accent-color: var(--paper-orange-a700);
+        --app-main-backround-color: #fff;
+        --app-accent-color: #ef4c41;
         --app-accent-color-light: var(--paper-orange-a200);
         --app-kopavogur-green-grass: #f0f0f0;
 
-        --paper-tabs-selection-bar-color: var(--paper-orange-a700);
+        --paper-tabs-selection-bar-color: #ef4c41;
         --paper-tabs-selection-bar: {
-          color:var(--paper-orange-a700);
+          color: #ef4c41;
           border-bottom: 3px solid !important;
-          border-bottom-color: var(--paper-orange-a700);
+          border-bottom-color: #ef4c41;
         };
       }
 
@@ -194,7 +194,7 @@
           </div>
         </template>
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
+          <oav-area-ballot id="budgetBallot" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
           <oav-voting-completed name="voting-completed"></oav-voting-completed>
         </iron-pages>
       </div>
@@ -246,8 +246,6 @@
 
         areaName: String,
 
-        budgetElement: Object,
-
         currentBallot: Object,
 
         totalBudget: Number,
@@ -277,8 +275,8 @@
 
 
       ready: function () {
+        Polymer.passiveTouchGestures = true;
         this.set('currentBallot', this.$$("#budgetBallot"));
-        this.set('budgetElement', this.$$("#budget"));
       },
 
       _hideFavoriteItem: function () {

@@ -72,6 +72,13 @@
       color: #333;
     }
 
+    @media (max-width: 1000px) {
+      .topContainer {
+        background-color: var(--app-main-backround-color);
+        color: #333;
+      }
+    }
+
 
     paper-tabs {
       margin: 8px;
@@ -102,40 +109,39 @@
       }
     }
 
+    iron-image {
+      margin-bottom: 8px;
+    }
   </style>
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
-    <div class="topContainer layout vertical">
-      <h1>Nafnakosning</h1>
+    <div class="layout vertical center-center">
+      <div class="topContainer layout vertical center-center">
+        <iron-image src="/hausTest1.png"></iron-image>
 
-      <template is="dom-if" if="[[budgetBallotItems]]" restamp>
-        <iron-pages role="main" selected="{{selectedView}}">
-          <section>
-            <div id="itemContainer" class="layout horizontal center-center wrap">
-              <template is="dom-repeat" id="domRepeat" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
-                <oav-area-ballot-item class="ballotAreaItem" budget-element="{{budgetElement}}" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
-              </template>
-            </div>
-          </section>
-          <section>
-            <oav-items-map id="itemsMap" budget-element="[[budgetElement]]" items="[[budgetBallotItems]]"></oav-items-map>
-          </section>
-        </iron-pages>
-      </template>
+        <template is="dom-if" if="[[budgetBallotItems]]" restamp>
+          <div id="itemContainer" class="layout horizontal center-center wrap">
+            <template is="dom-repeat" id="domRepeat" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
+              <oav-area-ballot-item class="ballotAreaItem" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
+            </template>
+          </div>
+        </template>
 
-      <div class="layout horizontal center-center">
+        <div class="layout horizontal center-center">
 
-        <!-- DISABLE IN PRODUCTION USE -->
-        <oav-ajax id="fakeLoginAjax" url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
-        <!-- FAKE LOGIN ENDS -->
+          <!-- DISABLE IN PRODUCTION USE -->
+          <oav-ajax id="fakeLoginAjax" url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
+          <!-- FAKE LOGIN ENDS -->
 
-        <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
-        <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
-        <oav-ajax id="pollForLoginAjax" url="/votes/is_logged_in" on-response="_isLoggedInResponse"></oav-ajax>
+          <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
+          <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
+          <oav-ajax id="pollForLoginAjax" url="/votes/is_logged_in" on-response="_isLoggedInResponse"></oav-ajax>
+        </div>
       </div>
+
     </div>
   </template>
 
@@ -154,11 +160,7 @@
       ],
 
       listeners: {
-        'oav-toggle-item-in-budget': '_toggleItemInBudget',
-        'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
-        'oav-submit-vote': '_postVoteToServer',
-        'oav-item-selected-in-budget': '_itemSelectedInBudget',
-        'oav-item-de-selected-from-budget': '_itemDeSelectedFromBudget'
+        'oav-submit-vote': '_postVoteToServer'
       },
 
       properties: {
@@ -175,16 +177,6 @@
         areaIdRoutePath: {
           type: Object,
           observer: '_areaIdRoutePathChanged'
-        },
-
-        selectedView: {
-          type: Number,
-          value: 0,
-          observer: '_selectedViewChanged'
-        },
-
-        budgetElement: {
-          type: Object
         },
 
         budgetBallotItems: Array,
@@ -206,31 +198,7 @@
           value: false
         },
 
-        popupWindow: Object,
-
-        favoriteItem: {
-          type: Object,
-          value: null,
-          observer: '_favoriteItemChanged'
-        },
-
-        oldFavoriteItem: Object
-      },
-
-      _favoriteItemChanged: function (newValue, oldValue) {
-        this.set('oldFavoriteItem', oldValue);
-        if (!newValue && oldValue) {
-          this.fire("oav-hide-favorite-item");
-        }
-
-      },
-
-      _selectedViewChanged: function (view) {
-        if (view && view==0) {
-          window.appGlobals.activity('click', 'ideasTab');
-        } else if (view && view==1) {
-          window.appGlobals.activity('click', 'mapTab');
-        }
+        popupWindow: Object
       },
 
       refreshList: function () {
@@ -252,9 +220,6 @@
       },
 
       reset: function () {
-        if (this.budgetElement) {
-          this.budgetElement.reset();
-        }
         this._resetBallotItems();
         this.set('budgetBallotItems', null);
         this.set('area', null);
@@ -276,75 +241,6 @@
             }
           }
         }
-      },
-
-      _toggleFavoriteItem: function (event, detail) {
-        var item = detail.item;
-        if (item) {
-          window.appGlobals.activity('toggle', 'favorite');
-        } else {
-          window.appGlobals.activity('detoggle', 'favorite');
-        }
-        if (this.favoriteItem != item) {
-          this.set('favoriteItem', item);
-          var listItems = this.$$("#itemContainer");
-          for (var i = 0; i < listItems.children.length; i++) {
-            var listItem = listItems.children[i];
-            if (listItem.id != 'domRepeat') {
-              listItem.resetFromBudget();
-            }
-          }
-        } else {
-          console.warn("Trying to set item as favorite a second time");
-        }
-      },
-
-      _toggleItemInBudget: function (event, detail) {
-        this.budgetElement.toggleBudgetItem(detail.item);
-      },
-
-      _itemSelectedInBudget: function (event, detail) {
-        var listItems = this.$$("#itemContainer");
-        for (var i = 0; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i];
-          if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
-            listItem.setInBudget();
-            this.$$("#itemsMap").setItemInBudget(listItem.item);
-          }
-        }
-        this._setStateOfRemainingItems();
-      },
-
-      _itemDeSelectedFromBudget: function (event, detail) {
-        var listItems = this.$$("#itemContainer");
-        for (var i = 0; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i];
-          if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
-            if (this.favoriteItem==listItem.item) {
-              this.set('favoriteItem', null);
-            }
-            listItem.removeFromBudget();
-            this.$$("#itemsMap").removeFromBudget(listItem.item);
-            this.fire("oav-reset-favorite-icon-position");
-          }
-        }
-        this._setStateOfRemainingItems();
-      },
-
-      _setStateOfRemainingItems: function () {
-        var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-        var listItems = this.$$("#itemContainer");
-        for (var i = 0; i < listItems.children.length; i++) {
-          var listItem = listItems.children[i];
-          if (listItem.id != 'domRepeat' && !listItem.selectedInBudget) {
-            if (listItem.item.price<=budgetLeft) {
-              listItem.setNotTooExpensive();
-            } else {
-              listItem.setTooExpensive();
-            }
-          }
-        }
-        this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
       _clearLocalVoteStorage: function () {

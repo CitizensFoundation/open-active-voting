@@ -254,32 +254,24 @@ namespace :ballot do
     usage =  budget_data[row_number][2]
     review =  budget_data[row_number][3]
 
-    description_is = usage+"---SPLIT---"
+    description_is = usage+"---SPLIT---"+review
     puts description_is
 
-    description_is = budget_data[row_number][2]
-    puts description_is
-
-    item = BudgetBallotItem.create!(:price=>price,
+    item = BudgetBallotItem.create!(:price=>0.0,
                                     :idea_id=>-1,
                                     :budget_ballot_area_id=>area_id,
-                                    :idea_url=>idea_url)
+                                    :idea_url=>"")
 
     I18n.locale = "is"
     item.name = name_is
     item.description = description_is
     item.save
-    I18n.locale = "en"
-    item.name = name_en
-    item.description = description_en
-    item.save
-    puts "========================================================="
   end
 
   def ballot_import_area_data(area_id, budget_data, start_row_number)
     current_row_number = start_row_number -1
 
-    while budget_data[current_row_number]!="THE END" do
+    while budget_data[current_row_number][1]!="THE END" do
       ballot_create_budget_ballot_item(area_id, budget_data, current_row_number)
       current_row_number +=1
     end

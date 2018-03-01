@@ -94,6 +94,7 @@ Custom property | Description | Default
 `--paper-input-container-input-invalid` | Mixin applied to the input when invalid | `{}`
 `--paper-input-container-input-webkit-spinner` | Mixin applied to the webkit spinner | `{}`
 `--paper-input-container-input-webkit-clear` | Mixin applied to the webkit clear button | `{}`
+`--paper-input-container-input-webkit-calendar-picker-indicator` | Mixin applied to the webkit calendar picker indicator | `{}`
 `--paper-input-container-ms-clear` | Mixin applied to the Internet Explorer clear button | `{}`
 `--paper-input-container-underline` | Mixin applied to the underline | `{}`
 `--paper-input-container-underline-focus` | Mixin applied to the underline when the input is focused | `{}`
@@ -214,6 +215,8 @@ This element is `display:block` by default, but you can set the `inline` attribu
         transition: transform 0.25s, width 0.25s;
         -webkit-transform-origin: left top;
         transform-origin: left top;
+        /* Fix for safari not focusing 0-height date/time inputs with -webkit-apperance: none; */
+        min-height: 1px;
 
         @apply(--paper-font-common-nowrap);
         @apply(--paper-font-subhead);
