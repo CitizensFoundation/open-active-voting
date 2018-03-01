@@ -1,6 +1,6 @@
 {
   "en": {
-    "favorite_info": "Use 🌟 for your favorite idea = two votes",
+    "favorite_info": "Use heart for your favorite idea = two votes",
     "share_vote_by_pressing": "Share vote here",
     "budget_empty_info_1": "{amount} millions on offer",
     "budget_empty_info_2": "Use",
@@ -62,7 +62,7 @@
     "more_information": "More information"
   },
   "is": {
-    "favorite_info": "Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi",
+    "favorite_info": "Settu hjarta við þína uppáhalds hugmynd = tvöfalt vægi",
     "share_vote_by_pressing": "Deildu kosningu hér",
     "budget_empty_info_1": "{amount} milljónir í boði",
     "budget_empty_info_2": "Notaðu",
@@ -124,7 +124,7 @@
     "more_information": "Nánar um hugmynd"
   },
   "pl": {
-    "favorite_info": "Kliknij na 🌟 aby wybrać ulubiony pomysł = dwa głosy",
+    "favorite_info": "Kliknij na ❤️ aby wybrać ulubiony pomysł = dwa głosy",
     "share_vote_by_pressing": "Podziel się głosuj",
     "budget_empty_info_1": "{amount} milionów na pomysł - wykorzystaj",
     "budget_empty_info_2": "wybierz pomysł",
