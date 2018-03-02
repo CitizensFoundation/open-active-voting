@@ -228,6 +228,11 @@
           observer: '_favoriteItemChanged'
         },
 
+        votePostingMode: {
+          type: Boolean,
+          value: false
+        },
+
         oldFavoriteItem: Object
       },
 
@@ -236,7 +241,6 @@
         if (!newValue && oldValue) {
           this.fire("oav-hide-favorite-item");
         }
-
       },
 
       _selectedViewChanged: function (view) {
@@ -370,6 +374,7 @@
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
         } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+          this.set('votePostingMode', true);
           if (this._isInAppiOSOrIE11()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
             localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
@@ -404,6 +409,11 @@
         this.set('isPollingForLogin', false);
       },
 
+      cancelFromAuthButtonPopup: function () {
+        this.cancelLoginPolling();
+        this.set('votePostingMode', false);
+      },
+
       _isLoggedInResponse: function (event, detail) {
         if (this.isPollingForLogin===true) {
           if (detail.response.isLoggedin===true) {
@@ -425,42 +435,46 @@
                                   favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
       },
 
-      completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
-        if (!encryptedVotes) {
-          encryptedVotes = this._createEncryptedVotes();
-        }
-        this.cancelLoginPolling();
+      completePostingOfVote: function (encryptedVotes, localStorageAreaId, forceCompletion) {
+        if (this.votePostingMode || forceCompletion) {
+          if (!encryptedVotes) {
+            encryptedVotes = this._createEncryptedVotes();
+          }
+          this.cancelLoginPolling();
 
-        var areaId;
-        if (this.area) {
-          areaId = this.area.id;
-        } else if (localStorageAreaId) {
-          areaId = localStorageAreaId;
-        } else {
-          console.warn("No area id in complete voting");
-        }
+          var areaId;
+          if (this.area) {
+            areaId = this.area.id;
+          } else if (localStorageAreaId) {
+            areaId = localStorageAreaId;
+          } else {
+            console.warn("No area id in complete voting");
+          }
 
-        if (areaId) {
-          if (this.isSendingBallot===false && this.haveSentBallot===false) {
-            var encryptedVote = encryptedVotes;
-            if (encryptedVote) {
-              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
-              this.$.postBallotAjax.generateRequest();
-              this.set('isSendingBallot', true);
-              this.set('haveSentBallot', true);
+          if (areaId) {
+            if (this.isSendingBallot===false && this.haveSentBallot===false) {
+              var encryptedVote = encryptedVotes;
+              if (encryptedVote) {
+                this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
+                this.$.postBallotAjax.generateRequest();
+                this.set('isSendingBallot', true);
+                this.set('haveSentBallot', true);
+              } else {
+                console.error("No encrypted votes!");
+              }
             } else {
-              console.error("No encrypted votes!");
+              console.warn("Already sending ballot");
             }
           } else {
-            console.warn("Already sending ballot");
+            console.warn("Not sending as no area id");
           }
         } else {
-          console.warn("Not sending as no area id");
+          console.error("trying to post without being in vote posting mode");
         }
       },
 
       _completePostingOfVoteAfterRedirect: function () {
-        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'));
+        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'), true);
       },
 
       _getSamlUrlWithLanguage: function () {

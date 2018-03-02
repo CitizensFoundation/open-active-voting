@@ -30,23 +30,24 @@
 
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/paper-styles/color.html">
+
+<link rel="import" href="../bower_components/web-animations-js/web-animations-next.min.js">
+
 <link rel="import" href="oav-behaviors/app-helpers.html">
 
 <link rel="import" href="oav-app-globals/oav-app-globals.html">
 <link rel="import" href="oav-dialog-container/oav-dialog-container.html">
 <link rel="import" href="oav-select-voting-area/oav-select-voting-area.html">
 <link rel="import" href="oav-area-ballot/oav-area-budget.html">
-
-<link rel="import" href="../bower_components/paper-styles/typography.html">
-<link rel="import" href="../bower_components/paper-styles/color.html">
-
-<link rel="import" href="../bower_components/web-animations-js/web-animations-next.min.js">
+<link rel="import" href="oav-app-globals/oav-icons.html">
 
 <dom-module id="oav-app">
 
@@ -151,15 +152,14 @@
       }
 
       #favoriteIcon {
-        color: #FFD700;
+        color: var(--paper-red-a700);
         background-color: transparent;
         width: 50px;
         height: 50px;
         z-index: 2720;
-        -webkit-filter: drop-shadow( 1px 1px 10px #222 );
-        filter: drop-shadow( 1px 1px 10px #222 );
+        -webkit-filter: drop-shadow( 1px 1px 10px #5f5f5f );
+        filter: drop-shadow( 1px 1px 10px #5f5f5f );
       }
-
 
       @media (max-width: 640px) {
         #favoriteIcon {
@@ -196,7 +196,7 @@
         <iron-icon id="favoriteIcon" icon="favorite" hidden></iron-icon>
       </app-header>
       <div>
-        <template is="dom-if" if="[[_loadTestingMode()]]">
+        <template is="dom-if" if="[[loadTestingMode]]">
           <div class="layout vertical center-center">
             <h1 style="color: #F00;">LOAD TESTING MODE</h1>
           </div>
@@ -267,7 +267,12 @@
           value: false
         },
 
-        resizeTimer: Object
+        resizeTimer: Object,
+
+        loadTestingMode: {
+          type: Boolean,
+          value: false
+        }
       },
 
       listeners: {
@@ -278,7 +283,8 @@
         'oav-clear-area': '_clearArea',
         'oav-set-favorite-item-in-budget': '_toggleFavoriteItem',
         'oav-hide-favorite-item': '_hideFavoriteItem',
-        'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition'
+        'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition',
+        'oav-set-load-testing-mode': '_setLoadTestingMode'
       },
 
       observers: [
@@ -289,6 +295,10 @@
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));
+      },
+
+      _setLoadTestingMode: function () {
+        this.set('loadTestingMode', true);
       },
 
       _hideFavoriteItem: function () {
