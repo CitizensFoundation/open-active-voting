@@ -189,7 +189,7 @@
       ],
 
       listeners: {
-        'oav-submit-vote': '_postVoteToServer'
+        'oav-vote-for-name': '_postVoteToServer'
       },
 
       properties: {
@@ -227,7 +227,12 @@
           value: false
         },
 
-        popupWindow: Object
+        popupWindow: Object,
+
+        selectedItemId: {
+          type: Number,
+          value: null
+        }
       },
 
       refreshList: function () {
@@ -275,12 +280,15 @@
       _clearLocalVoteStorage: function () {
         localStorage.setItem('oav-encrypted-votes', null);
         localStorage.setItem('oav-encrypted-votes-area-id', null);
+        this.selectedItemId = null;
       },
 
-      _postVoteToServer: function () {
+      _postVoteToServer: function (event, itemId) {
+        debugger;
+        this.selectedItemId = itemId;
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
-        } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
+        } else if (itemId) {
           if (this._isInAppiOSOrIE11()) {
             localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
             localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
@@ -329,14 +337,18 @@
       },
 
       _createEncryptedVotes: function () {
-        var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
-          return item.id;
-        });
-        return this.encryptVote({ selectedItemIds: selectedItemIds,
-                                  favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
+        if (this.selectedItemId) {
+          var encryptedVotes = this.encryptVote({ selectedItemIds: [this.selectedItemId], favoriteItemId: null });
+          debugger;
+          return encryptedVotes;
+        } else {
+          this.fire('oav-error', this.localize('error_could_not_post_vote'));
+        }
       },
 
       completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
+        debugger;
+
         if (!encryptedVotes) {
           encryptedVotes = this._createEncryptedVotes();
         }

@@ -30,7 +30,6 @@
 
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -53,6 +52,40 @@
 
     <style include="iron-flex iron-flex-alignment">
 
+      .host3 {
+        display: block;
+        --app-primary-color: #777;
+        --app-secondary-color: black;
+        --app-main-backround-color: #fff;
+        --app-accent-color: #f15e25;
+        --app-accent-color-light: var(--paper-orange-a200);
+        --app-kopavogur-green-grass: #f0f0f0;
+
+        --paper-tabs-selection-bar-color: #f15e25;
+        --paper-tabs-selection-bar: {
+          color: #f15e25;
+          border-bottom: 3px solid !important;
+          border-bottom-color: #f15e25;
+        };
+      }
+
+      .host2 {
+        display: block;
+        --app-primary-color: #777;
+        --app-secondary-color: black;
+        --app-main-backround-color: #fff;
+        --app-accent-color: #262626;
+        --app-accent-color-light: var(--paper-orange-a200);
+        --app-kopavogur-green-grass: #f0f0f0;
+
+        --paper-tabs-selection-bar-color: #262626;
+        --paper-tabs-selection-bar: {
+          color: #262626;
+          border-bottom: 3px solid !important;
+          border-bottom-color: #262626;
+        };
+      }
+
       :host {
         display: block;
         --app-primary-color: #777;
@@ -69,6 +102,9 @@
           border-bottom-color: #ef4c41;
         };
       }
+
+
+
 
       app-header {
         background-color: var(--app-primary-color);
@@ -180,6 +216,7 @@
       tail="{{subroute}}"></app-route>
 
     <app-scrollpos-control selected="{{page}}"></app-scrollpos-control>
+    <oav-app-globals id="appGlobals"></oav-app-globals>
 
     <app-header-layout>
       <app-header fixed effects="waterfall">
@@ -199,7 +236,6 @@
         </iron-pages>
       </div>
     </app-header-layout>
-    <oav-app-globals id="appGlobals"></oav-app-globals>
   </template>
 
   <script>

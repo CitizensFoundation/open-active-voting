@@ -77,6 +77,7 @@
     encryptVote: function (selectedItemIds) {
       var encryptedVote;
 
+      debugger;
       if (window.appGlobals.votePublicKey) {
         var params = this.certParser(window.appGlobals.votePublicKey);
         if(params.b64) {

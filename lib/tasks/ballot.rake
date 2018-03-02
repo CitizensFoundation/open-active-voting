@@ -330,8 +330,9 @@ namespace :ballot do
   task(:reset_saga_ballot_data_from_csv => :environment) do
 
     BudgetBallotItem.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
     BudgetBallotArea.delete_all
-    BudgetConfig.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
 
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
