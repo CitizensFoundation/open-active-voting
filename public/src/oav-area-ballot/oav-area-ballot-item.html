@@ -380,10 +380,10 @@
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
           <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                     title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
+                     title$="{{localize('select_favorite')}}" icon="favorite-border" on-tap="_toggleFavorite">
           </paper-fab>
           <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
-                     title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
+                     title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
           </paper-fab>
         </div>
       </div>
