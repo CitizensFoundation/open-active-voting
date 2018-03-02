@@ -200,6 +200,7 @@
 
         areaId: {
           type: String,
+          value: 1,
           observer: '_areaIdChanged'
         },
 
@@ -265,16 +266,7 @@
       },
 
       _resetBallotItems: function () {
-        var listItems = this.$$("#itemContainer");
-        if (listItems) {
-          for (var i = 0; i < listItems.children.length; i++) {
-            var listItem = listItems.children[i];
-            if (listItem.id != 'domRepeat') {
-              listItem.setNotTooExpensive();
-              listItem.removeFromBudget();
-            }
-          }
-        }
+        this.selectedItemId = null;
       },
 
       _clearLocalVoteStorage: function () {
@@ -284,7 +276,6 @@
       },
 
       _postVoteToServer: function (event, itemId) {
-        debugger;
         this.selectedItemId = itemId;
         if (LOAD_TESTING_MODE) {
           this.completePostingOfVote(this._createEncryptedVotes());
@@ -339,7 +330,6 @@
       _createEncryptedVotes: function () {
         if (this.selectedItemId) {
           var encryptedVotes = this.encryptVote({ selectedItemIds: [this.selectedItemId], favoriteItemId: null });
-          debugger;
           return encryptedVotes;
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
@@ -347,8 +337,6 @@
       },
 
       completePostingOfVote: function (encryptedVotes, localStorageAreaId) {
-        debugger;
-
         if (!encryptedVotes) {
           encryptedVotes = this._createEncryptedVotes();
         }
@@ -429,7 +417,7 @@
           if (newPathForId.path.slice(1)=='completePostingOfVoteAfterRedirect') {
             this._completePostingOfVoteAfterRedirect();
           } else {
-            this.set('areaId', newPathForId.path.slice(1));
+            this.set('areaId', 1);
           }
         }
       },

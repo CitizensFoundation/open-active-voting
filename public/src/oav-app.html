@@ -451,12 +451,12 @@
 
       _routeChanged: function (route) {
         if (route.path=="") {
-          this.set('page', 'select-voting-area')                    ;
+          this.set('page', 'area-ballot')                    ;
         }
       },
 
       _routePageChanged: function(page) {
-        this.page = page || 'select-voting-area';
+        this.page = page || 'area-ballot';
       },
 
       getDialog: function (name) {
