@@ -379,15 +379,6 @@ namespace :ballot do
     # TEST PUBLIC KEY
     #public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBihRQO8VAT/e1Uapq1S\nTuXxaWeMPo57OyZy+7RA7TXscJVUzj87S7jE/xwZr/uQGHksy0M9upS8LbgrrG3s\nRlGgmjDKffHejkYbNCMDcAVvJcf+iL5qk1aVakHCKVEPd/860XpMCOl6nhGtu4vz\nUVCYyURPoAkc4F44MRGj+clzk0Cc4t//EIfq26IUpsDmDed3Yg8dOAU17Rg9cbl+\no9aV/4+Og1Q4rr/Zg9nASAqeb1ctzJopwFnzt14V3H3LFQC8pj6m7Ke1al/MRkTw\nvAWJruujNtVoLPfwkO6GW2a3GE3e223iwxo1A85zIk7L8bqkmmzfxL7ky4IGA/bx\ncQIDAQAB\n-----END PUBLIC KEY-----"
 
-    # KOPAVOGUR 2016 PUBLIC KEY
-    public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5NOPn7gd4TAVUF/nXXxg\nwu6KWE6BBJf84tc8Gz9HUG8JXSeaIQBNRSloK+N6HZ3x5OK95lHBndBI+zEKpWOp\nOpRDTnpg/7MWERQKu/pCwSQB2H1mUb8dZqftOwLVg1sVfG2FE5k6Z77w8agmzNpL\nJL8FHszdAKxCFtMrMUJejMBdd+aA/j2Tm1GqnicMzivb99WqSNQrw6+PNbtLPGSu\nAQOmkCm+y6ws3n4w/5miFnMxDlgCvlDh2qe8PvfMH7Eh0IrBLvm4paiMVF4u1dat\n2ZdEzR67pNi+nQZn6ltxBL8KefkROFg7VsI5qXxIJWcKlmwizECTDNYopEM0jn/L\nDwIDAQAB\n-----END PUBLIC KEY-----"
-
-    config=BudgetConfig.new
-    config.timeout_in_seconds = 600
-    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=11999a35-5dde-41a0-9456-99712eb39430&returnUrl=https%3A%2F%2Fkosning.kopavogur.is%2Fauthenticate_from_island_is"
-    config.public_key = public_key
-    config.save
-
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
     karsnes = BudgetBallotArea.create!(:budget_amount => 32.0)
