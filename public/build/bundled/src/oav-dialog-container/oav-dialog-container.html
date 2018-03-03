@@ -63,7 +63,7 @@
       closeAuthDialog: function () {
         this.$.authDialog.close();
         var budgetBallot = Polymer.dom(document).querySelector('oav-app').$$("#budgetBallot");
-        budgetBallot.cancelLoginPolling();
+        budgetBallot.cancelFromAuthButtonPopup();
       }
     });
   </script>

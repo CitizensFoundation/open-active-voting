@@ -6,9 +6,6 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html?v=6.1.35">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.35">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/maps-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/image-icons.html?v=6.1.35">
 <link rel="import" href="../../bower_components/iron-signals/iron-signals.html?v=6.1.35">
 
 <link rel="import" href="../../bower_components/paper-button/paper-button.html?v=6.1.35">
@@ -19,6 +16,7 @@
 <link rel="import" href="../../bower_components/paper-share-button/paper-share-button.html?v=6.1.35">
 
 <link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.35">
+<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.1.35">
 <link rel="import" href="oav-area-budget.html?v=6.1.35">
 
 </head><body><dom-module id="oav-area-ballot-item">
@@ -191,13 +189,32 @@
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: #FFF;
-      color: rgb(255,215,0);
+      background-color: var(--app-accent-color);
+      color: #FFF;
       --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
+        height: 29px;
+        width: 29px;
       };
       padding: 0;
+      padding-top: 3px;
+    }
+
+    paper-fab.removeFavoriteButton {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background-color: #FFF;
+      color: var(--paper-red-a700);
+      --paper-fab-iron-icon: {
+        height: 29px;
+        width: 29px;
+      };
+      padding: 0;
+      padding-top: 3px;
+    }
+
+    paper-fab[disabled] {
+      background-color: #b7b7b7;
     }
 
     .shareIcon {
@@ -216,23 +233,6 @@
       left: 50%;
       transform: translateX(-50%);
       top: 2px;
-    }
-
-    paper-fab.removeFavoriteButton {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      background-color: #FFF;
-      color: rgb(255,215,0);
-      --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
-      };
-      padding: 0;
-    }
-
-    paper-fab[disabled] {
-      background-color: #b7b7b7;
     }
 
     .budgetContainer {
@@ -344,16 +344,16 @@
         <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" icon="menu"></paper-icon-button>
         <paper-menu class="dropdown-content">
           <paper-item on-tap="_setImageMode">
-            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="image:photo"></iron-icon>{{localize('image_item_tab')}}
+            <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="photo"></iron-icon>{{localize('image_item_tab')}}
           </paper-item>
           <paper-item on-tap="_setDescriptionMode">
             <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description"></iron-icon>{{localize('description_item_tab')}}
           </paper-item>
           <paper-item on-tap="_setMapMode">
-            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
+            <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
-          <paper-item on-tap="_openPdf">
-            <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="image:picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
+          <paper-item on-tap="_openPdf" hidden="">
+            <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
           </paper-item>
           <paper-item on-tap="_showPost">
             <iron-icon raised="" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
@@ -375,9 +375,9 @@
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
         <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="star-border" on-tap="_toggleFavorite">
+          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="favorite-border" on-tap="_toggleFavorite">
           </paper-fab>
-          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="star" on-tap="_toggleFavorite">
+          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
           </paper-fab>
         </div>
       </div>

@@ -3,17 +3,13 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.35">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.35">
 
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/notification-icons.html?v=6.1.35">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.35">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html?v=6.1.35">
 
 <link rel="import" href="../../bower_components/app-localize-behavior/app-localize-behavior.html?v=6.1.35">
 
 <link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
+<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.1.35">
 
 </head><body><dom-module id="yp-post-actions">
 
@@ -188,7 +184,7 @@
       </div>
 
       <div class="action-debate layout vertical" hidden$="[[_hideDebate(small,forceSmall)]]">
-        <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.debate')]]" icon="communication:chat-bubble-outline" class="action-icon debate-icon largeButton" on-tap="_goToPostIfNotHeader"></paper-icon-button>
+        <paper-icon-button disabled="[[allDisabled]]" title$="[[t('post.debate')]]" icon="chat-bubble-outline" class="action-icon debate-icon largeButton" on-tap="_goToPostIfNotHeader"></paper-icon-button>
         <div class="action-text debate-text">{{formatNumber(post.counter_points)}}</div>
       </div>
 
@@ -305,11 +301,11 @@
 //          return 'favorite';
           return 'favorite';
         } else if (endorseMode=='love' && upDown=='down') {
-          return 'notification:do-not-disturb';
+          return 'do-not-disturb';
         } else if (endorseMode=='arrow' && upDown=='up') {
-          return 'hardware:keyboard-arrow-down';
+          return 'keyboard-arrow-down';
         } else if (endorseMode=='arrow' && upDown=='down') {
-          return 'hardware:keyboard-arrow-up';
+          return 'keyboard-arrow-up';
         }
       },
 

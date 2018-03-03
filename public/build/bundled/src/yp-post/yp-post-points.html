@@ -1,7 +1,6 @@
 <html><head><link rel="import" href="../../bower_components/polymer/polymer.html?v=6.1.35">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html?v=6.1.35">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html?v=6.1.35">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html?v=6.1.35">
 
 <link rel="import" href="../../bower_components/paper-material/paper-material.html?v=6.1.35">
@@ -12,6 +11,7 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html?v=6.1.35">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html?v=6.1.35">
 
+<link rel="import" href="../oav-app-globals/oav-icons.html?v=6.1.35">
 <link rel="import" href="../oav-behaviors/app-helpers.html?v=6.1.35">
 <link rel="import" href="../yp-point/yp-point.html?v=6.1.35">
 <link rel="import" href="../oav-ajax/oav-ajax.html?v=6.1.35">
@@ -176,7 +176,7 @@
     <template is="dom-if" if="[[points]]">
       <div class="layout horizontal center-center penContainer" hidden="">
         <div class="howToWriteInfoText">[[t('point.howToWrite')]]</div>
-        <iron-icon icon="editor:mode-edit" class="editIcon"></iron-icon>
+        <iron-icon icon="mode-edit" class="editIcon"></iron-icon>
       </div>
       <template is="dom-if" if="[[largeMode]]">
         <div class="layout vertical topContainer">
