@@ -123,24 +123,12 @@
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+            <iron-image hidden="" sizing="contain" class="desktopLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
             <div class="smaller">{{localize('thank_you_2')}}</div>
             <div class="smaller">{{localize('thank_you_3')}}</div>
-            <div class="layout vertical center-center textSharingContainer">
-              <div class="textSharing">
-                {{localize('share_vote_by_pressing')}}
-              </div>
-              <div class="shareIconButton">
-                <paper-share-button raised="" on-share-tap="_shareTap" class="shareIconFinal" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
-                </paper-share-button>
-              </div>
-              <div class="textSharing">Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu
-                borgarinnar</a> til 2030 á Betri Reykjavík!
-              </div>
-            </div>
           </div>
         </paper-material>
       </div>

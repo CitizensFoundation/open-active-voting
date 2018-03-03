@@ -1,6 +1,6 @@
 {
   "en": {
-    "favorite_info": "Use 🌟 for your favorite idea = two votes",
+    "favorite_info": "Use heart for your favorite idea = two votes",
     "share_vote_by_pressing": "Share vote here",
     "budget_empty_info_1": "{amount} millions on offer",
     "budget_empty_info_2": "Use",
@@ -47,7 +47,7 @@
     "description_item_tab": "Item description",
     "map_item_tab": "Item location",
     "budget_left_text": "{budget_left} millions left",
-    "more_info_description": "Original idea",
+    "more_info_description": "Points for and against",
     "close": "close",
     "vote": "Vote!",
     "postTabsDebate": "Debate",
@@ -62,7 +62,7 @@
     "more_information": "More information"
   },
   "is": {
-    "favorite_info": "Settu 🌟 við þína uppáhalds hugmynd = tvöfalt vægi",
+    "favorite_info": "Settu hjarta við þína uppáhalds hugmynd = tvöfalt vægi",
     "share_vote_by_pressing": "Deildu kosningu hér",
     "budget_empty_info_1": "{amount} milljónir í boði",
     "budget_empty_info_2": "Notaðu",
@@ -101,7 +101,7 @@
     "remove_from_budget": "Taka út hugmynd",
     "thank_you_1": "Takk fyrir þátttökuna!",
     "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
-    "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 19. nóvember. Niðurstöður kosninga verða birtar á heimasíðu Reykjavíkurborgar.",
+    "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 25. nars.",
     "million": "milljón",
     "millions": "milljónir",
     "million_short": "mkr",
@@ -109,7 +109,7 @@
     "description_item_tab": "Nánari upplýsingar",
     "map_item_tab": "Staðsetning",
     "budget_left_text": "{budget_left} milljónir eftir",
-    "more_info_description": "Hugmynd frá hugmyndavef",
+    "more_info_description": "Rök með og á móti",
     "close": "loka",
     "vote": "Kjósa!",
     "postTabsDebate": "Rök",
@@ -124,7 +124,7 @@
     "more_information": "Nánar um hugmynd"
   },
   "pl": {
-    "favorite_info": "Kliknij na 🌟 aby wybrać ulubiony pomysł = dwa głosy",
+    "favorite_info": "Kliknij na ❤️ aby wybrać ulubiony pomysł = dwa głosy",
     "share_vote_by_pressing": "Podziel się głosuj",
     "budget_empty_info_1": "{amount} milionów na pomysł - wykorzystaj",
     "budget_empty_info_2": "wybierz pomysł",

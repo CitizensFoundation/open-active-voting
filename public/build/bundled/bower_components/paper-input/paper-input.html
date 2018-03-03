@@ -80,13 +80,13 @@ style this element.
         display: none !important;
       }
 
-      input::-webkit-outer-spin-button,                                                                                                     
-      input::-webkit-inner-spin-button {                                                                                                    
-        @apply(--paper-input-container-input-webkit-spinner);                                                                                                                                                                                      
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        @apply(--paper-input-container-input-webkit-spinner);
       }
-      
+
       input::-webkit-clear-button {
-        @apply(--paper-input-container-input-webkit-clear);  
+        @apply(--paper-input-container-input-webkit-clear);
       }
 
       input::-webkit-input-placeholder {
@@ -105,6 +105,10 @@ style this element.
         @apply(--paper-input-container-ms-clear);
       }
 
+      input::-webkit-calendar-picker-indicator {
+        @apply --paper-input-container-input-webkit-calendar-picker-indicator;
+      }
+
       input:-ms-input-placeholder {
         color: var(--paper-input-container-color, --secondary-text-color);
       }
@@ -118,9 +122,9 @@ style this element.
 
       <content select="[prefix]"></content>
 
-      <label hidden$="[[!label]]" aria-hidden="true" for="input">[[label]]</label>
+      <label hidden$="[[!label]]" aria-hidden="true" for$="[[_inputId]]">[[label]]</label>
 
-      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
+      <input is="iron-input" id$="[[_inputId]]" class="input-element" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
 
       <content select="[suffix]"></content>
 
