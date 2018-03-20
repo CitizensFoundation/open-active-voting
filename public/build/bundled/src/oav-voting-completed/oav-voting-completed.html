@@ -24,11 +24,16 @@
       }
     }
 
+    .topMaterial {
+      min-height: 530px;
+    }
+
     .mainContainer {
       width: 100%;
+      heigth: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/Stor_less_busy_header_1920x300px4.jpg");
       background-repeat: repeat-x;
     }
 
@@ -60,7 +65,8 @@
       .topMaterial {
         max-width: 320px;
         margin-bottom: 16px;
-        margin-top: 24px;
+        margin-top: 0;
+        min-height: 380px;
       }
 
       .mobileMaterial {
@@ -79,7 +85,7 @@
     }
 
     .logoHolder {
-      background-color: #f0f0f0;
+      background-color: #3e9da3;
       padding-bottom: 8px;
       padding-top: 8px;
     }
@@ -110,6 +116,10 @@
       height: 62px;
       min-height: 62px;
     }
+
+    .mobileContainerInner {
+      background-color: #3e9da3;
+    }
   </style>
 
   <template>
@@ -118,7 +128,7 @@
 
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
-        <div class="layout horizontal center-center">
+        <div class="layout horizontal center-center mobileContainerInner">
           <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/nesidOkkarLogo.jpg"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
