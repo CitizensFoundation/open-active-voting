@@ -248,29 +248,20 @@ namespace :ballot do
 
   def ballot_create_budget_ballot_item(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_is = budget_data[row_number][3]
+    name_is = budget_data[row_number][2]
     puts name_is
-    price = budget_data[row_number][4]
+    price = budget_data[row_number][3]
     price = price.gsub(',','')
     price = price.gsub(' kr.','')
     price = price.to_i / 1000000
     puts price
-    locations = budget_data[row_number][8]
+    locations = budget_data[row_number][5]
     puts locations
 
-    if budget_data[row_number][9]
-      puts budget_data[row_number][9]
-      locations = "#{locations},#{budget_data[row_number][9]}"
-    end
-
-    description_is = budget_data[row_number][10]
+    description_is = budget_data[row_number][4]
     puts description_is
 
-    name_en = budget_data[row_number][15]
-    puts name_en
-
-    description_en =  budget_data[row_number][16]
-    idea_url =  budget_data[row_number][17]
+    idea_url =  budget_data[row_number][6]
     puts idea_url
 
     if idea_url
@@ -303,10 +294,6 @@ namespace :ballot do
     I18n.locale = "is"
     item.name = name_is
     item.description = description_is
-    item.save
-    I18n.locale = "en"
-    item.name = name_en
-    item.description = description_en
     item.save
     puts "========================================================="
   end
@@ -373,58 +360,19 @@ namespace :ballot do
   task(:reset_kopavogur_ballot_data_from_csv => :environment) do
 
     BudgetBallotItem.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
     BudgetBallotArea.delete_all
-    BudgetConfig.delete_all
+    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
 
     # TEST PUBLIC KEY
     #public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBihRQO8VAT/e1Uapq1S\nTuXxaWeMPo57OyZy+7RA7TXscJVUzj87S7jE/xwZr/uQGHksy0M9upS8LbgrrG3s\nRlGgmjDKffHejkYbNCMDcAVvJcf+iL5qk1aVakHCKVEPd/860XpMCOl6nhGtu4vz\nUVCYyURPoAkc4F44MRGj+clzk0Cc4t//EIfq26IUpsDmDed3Yg8dOAU17Rg9cbl+\no9aV/4+Og1Q4rr/Zg9nASAqeb1ctzJopwFnzt14V3H3LFQC8pj6m7Ke1al/MRkTw\nvAWJruujNtVoLPfwkO6GW2a3GE3e223iwxo1A85zIk7L8bqkmmzfxL7ky4IGA/bx\ncQIDAQAB\n-----END PUBLIC KEY-----"
 
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    karsnes = BudgetBallotArea.create!(:budget_amount => 32.0)
+    karsnes = BudgetBallotArea.create!(:budget_amount => 10.0)
     I18n.locale = "is"
-    karsnes.name = "Kársnes"
+    karsnes.name = "Seltjarnarnes"
     karsnes.save
-    I18n.locale = "en"
-    karsnes.name = "Kársnes"
-    karsnes.save
-
-    ballot_import_area_data(karsnes.id, budget_data, 12)
-
-    digranes = BudgetBallotArea.create!(:name => "Digranes", :budget_amount => 64.0)
-    I18n.locale = "is"
-    digranes.name = "Digranes"
-    digranes.save
-    I18n.locale = "en"
-    digranes.name = "Digranes"
-    digranes.save
-    ballot_import_area_data(digranes.id, budget_data, 37)
-
-    smarinn = BudgetBallotArea.create!(:name => "Smárinn", :budget_amount => 23.0)
-    I18n.locale = "is"
-    smarinn.name = "Smárinn"
-    smarinn.save
-    I18n.locale = "en"
-    smarinn.name = "Smárinn"
-    smarinn.save
-    ballot_import_area_data(smarinn.id, budget_data, 61)
-
-    fifuhvammur = BudgetBallotArea.create!(:name => "Lindir og Salir", :budget_amount => 37.0)
-    I18n.locale = "is"
-    fifuhvammur.name = "Lindir og Salir"
-    fifuhvammur.save
-    I18n.locale = "en"
-    fifuhvammur.name = "Lindir og Salir"
-    fifuhvammur.save
-    ballot_import_area_data(fifuhvammur.id, budget_data, 86)
-
-    vatnsendi = BudgetBallotArea.create!(:name => "Vatnsendi", :budget_amount => 44.0)
-    I18n.locale = "is"
-    vatnsendi.name = "Vatnsendi"
-    vatnsendi.save
-    I18n.locale = "en"
-    vatnsendi.name = "Vatnsendi"
-    vatnsendi.save
-    ballot_import_area_data(vatnsendi.id, budget_data, 112)
+    ballot_import_area_data(karsnes.id, budget_data, 2)
   end
 end
