@@ -457,7 +457,12 @@
           } else {
             this.importHref(this.resolveUrl('oav-' + page + '/oav-' + page + '.html'), null, null, true);
           }
-          this.set('showExit', true);
+
+          if (page!='area-ballot') {
+            this.set('showExit', true);
+          } else {
+            this.set('showExit', false);
+          }
         } else {
           this.set('showExit', false);
         }
