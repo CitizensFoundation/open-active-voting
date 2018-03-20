@@ -258,10 +258,20 @@ namespace :ballot do
     locations = budget_data[row_number][5]
     puts locations
 
+    if budget_data[row_number][6] and budget_data[row_number][6]!=""
+      puts budget_data[row_number][6]
+      locations = "#{locations},#{budget_data[row_number][6]}"
+    end
+
+    if budget_data[row_number][7] and budget_data[row_number][7]!=""
+      puts budget_data[row_number][7]
+      locations = "#{locations},#{budget_data[row_number][7]}"
+    end
+
     description_is = budget_data[row_number][4]
     puts description_is
 
-    idea_url =  budget_data[row_number][6]
+    idea_url =  budget_data[row_number][8]
     puts idea_url
 
     if idea_url
@@ -356,23 +366,20 @@ namespace :ballot do
     config.save(:validate=>false)
   end
 
-  desc "Reset Kópavogur Ballot from CSV"
-  task(:reset_kopavogur_ballot_data_from_csv => :environment) do
+  desc "Reset Seltjarnarnes Ballot from CSV"
+  task(:reset_seltjarnarnes_ballot_data_from_csv => :environment) do
 
     BudgetBallotItem.delete_all
     ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
     BudgetBallotArea.delete_all
     ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
 
-    # TEST PUBLIC KEY
-    #public_key = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBihRQO8VAT/e1Uapq1S\nTuXxaWeMPo57OyZy+7RA7TXscJVUzj87S7jE/xwZr/uQGHksy0M9upS8LbgrrG3s\nRlGgmjDKffHejkYbNCMDcAVvJcf+iL5qk1aVakHCKVEPd/860XpMCOl6nhGtu4vz\nUVCYyURPoAkc4F44MRGj+clzk0Cc4t//EIfq26IUpsDmDed3Yg8dOAU17Rg9cbl+\no9aV/4+Og1Q4rr/Zg9nASAqeb1ctzJopwFnzt14V3H3LFQC8pj6m7Ke1al/MRkTw\nvAWJruujNtVoLPfwkO6GW2a3GE3e223iwxo1A85zIk7L8bqkmmzfxL7ky4IGA/bx\ncQIDAQAB\n-----END PUBLIC KEY-----"
-
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    karsnes = BudgetBallotArea.create!(:budget_amount => 10.0)
+    area = BudgetBallotArea.create!(:budget_amount => 10.0)
     I18n.locale = "is"
-    karsnes.name = "Seltjarnarnes"
-    karsnes.save
-    ballot_import_area_data(karsnes.id, budget_data, 2)
+    area.name = "Seltjarnarnes"
+    area.save
+    ballot_import_area_data(area.id, budget_data, 2)
   end
 end
