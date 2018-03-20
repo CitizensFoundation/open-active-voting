@@ -60,15 +60,15 @@
         --app-primary-color: #777;
         --app-secondary-color: black;
         --app-main-backround-color: #e0e0e0;
-        --app-accent-color: var(--paper-orange-a700);
-        --app-accent-color-light: var(--paper-orange-a200);
+        --app-accent-color: #e0701e;
+        --app-accent-color-light: #e0701e;
         --app-kopavogur-green-grass: #f0f0f0;
 
-        --paper-tabs-selection-bar-color: var(--paper-orange-a700);
+        --paper-tabs-selection-bar-color: #e0701e;
         --paper-tabs-selection-bar: {
-          color:var(--paper-orange-a700);
+          color: #e0701e;
           border-bottom: 3px solid !important;
-          border-bottom-color: var(--paper-orange-a700);
+          border-bottom-color: #e0701e;
         };
       }
 
@@ -202,7 +202,6 @@
           </div>
         </template>
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <oav-select-voting-area id="selectVotingArea" name="select-voting-area"></oav-select-voting-area>
           <oav-area-ballot id="budgetBallot" budget-element="[[budgetElement]]" area-id-route-path="[[subroute]]" name="area-ballot"></oav-area-ballot>
           <oav-voting-completed name="voting-completed"></oav-voting-completed>
           <yp-post id="post" budget-element="[[budgetElement]]" post-id-route-path="[[subroute]]" name="post"></yp-post>
@@ -437,12 +436,12 @@
 
       _routeChanged: function (route) {
         if (route.path=="") {
-          this.set('page', 'select-voting-area')                    ;
+          this.set('page', 'area-ballot')                    ;
         }
       },
 
       _routePageChanged: function(page) {
-        this.page = page || 'select-voting-area';
+        this.page = page || 'area-ballot';
       },
 
       getDialog: function (name) {
