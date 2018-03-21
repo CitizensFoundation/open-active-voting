@@ -395,8 +395,10 @@
         if (this.page=='post' && window.appLastArea) {
           window.location = window.appLastArea;
           window.appLastArea = null;
-        } else {
+        } else if (this.page='voting-completed') {
           window.location = "/";
+        } else {
+          window.location = "/#/";
         }
       },
 
