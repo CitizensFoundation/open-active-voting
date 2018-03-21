@@ -52252,7 +52252,7 @@ Custom property | Description | Default
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/Stor_less_busy_header_1920x300px4.jpg");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/minni2.jpg");
     }
 
     @media (max-width: 1100px) {
@@ -52261,7 +52261,7 @@ Custom property | Description | Default
         background-color: #3e9da3;
       }
       .budgetContainer[wide] {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/Stor_less_busy_header_1920x300px4.jpg");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Seltjarnarnes2018/minni2.jpg");
       }
     }
 
@@ -53156,8 +53156,10 @@ Custom property | Description | Default
         if (this.page=='post' && window.appLastArea) {
           window.location = window.appLastArea;
           window.appLastArea = null;
-        } else {
+        } else if (this.page='voting-completed') {
           window.location = "/";
+        } else {
+          window.location = "/#/";
         }
       },
 
