@@ -53153,10 +53153,9 @@ Custom property | Description | Default
       },
 
       _exit: function () {
-        if (this.page=='post' && window.appLastArea) {
-          window.location = window.appLastArea;
-          window.appLastArea = null;
-        } else if (this.page='voting-completed') {
+        if (this.page=='post') {
+          window.location = "/#/";
+        } else if (this.page=='voting-completed') {
           window.location = "/";
         } else {
           window.location = "/#/";
