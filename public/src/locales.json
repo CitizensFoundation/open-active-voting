@@ -1,5 +1,11 @@
 {
   "en": {
+    "favorite_info": "Use the heart for your favorite idea = two votes",
+    "share_vote_by_pressing": "Share vote here",
+    "budget_empty_info_1": "{amount} on offer",
+    "budget_empty_info_2": "Use",
+    "budget_empty_info_3": "to select ideas",
+    "share_idea": "Share idea & vote",
     "enterValidPostcode": "Please enter a valid Argyll & Bute postcode",
     "completeForm": "Please complete the form with a valid email address and confirm your age",
     "authenticateAndVote": "Authenticate and vote",

@@ -229,7 +229,7 @@ end
     {:area_id=>8, :id=>9, :name=>"The Ferry", :pdf_url=>"TheFerry/09 Reres park and grassy beach.pdf"}
 ]
 
-namespace :dundee_2017_ballot do
+namespace :ab_2018_ballot do
   desc "rename_connected_file_names"
   task(:rename_connected_file_names => :environment) do
     Dir.glob("/home/robert/Documents/Citizens/Dundee2017/*/*").sort.each do |entry|
@@ -344,38 +344,6 @@ namespace :dundee_2017_ballot do
       area.name = "Coldside"
       area.save
       import_area_data_dundee(area.id, budget_data, 40,8)
-
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
-      I18n.locale = "en"
-      area.name = "Maryfield"
-      I18n.locale = "is"
-      area.name = "Maryfield"
-      area.save
-      import_area_data_dundee(area.id, budget_data, 51,6)
-
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
-      I18n.locale = "en"
-      area.name = "North East"
-      I18n.locale = "is"
-      area.name = "North East"
-      area.save
-      import_area_data_dundee(area.id, budget_data, 60,11)
-
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
-      I18n.locale = "en"
-      area.name = "East End"
-      I18n.locale = "is"
-      area.name = "East End"
-      area.save
-      import_area_data_dundee(area.id, budget_data, 74,5)
-
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
-      I18n.locale = "en"
-      area.name = "The Ferry"
-      I18n.locale = "is"
-      area.name = "The Ferry"
-      area.save
-      import_area_data_dundee(area.id, budget_data, 82,9)
     else
       puts "BALLOT BOX IS NOT EMPTY, NO ACTION TAKEN!"
     end
