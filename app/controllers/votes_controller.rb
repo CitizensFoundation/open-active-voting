@@ -35,8 +35,7 @@ class VotesController < ApplicationController
   # This is a test method for load testing to allow load testing without the secure authentication
   def force_session_id
     if ENV["LOAD_TESTING_MODE"]=="true"
-      session[:have_authenticated_and_been_approved] = true
-      Rails.cache.write(request.session_options[:id],request.session_options[:id])
+      VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => request.session_options[:id])
     end
 
      respond_to do |format|
@@ -142,7 +141,7 @@ class VotesController < ApplicationController
     }
 
     respond_to do |format|
-      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}
+      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :description_is, :description_en]}
     end
   end
 
@@ -242,31 +241,17 @@ class VotesController < ApplicationController
 
       Rails.logger.info(@response.response)
 
-      # Verify x509 cert from a known trusted source
-      #known_x509_cert = OpenSSL::X509::Certificate.new(@config.known_x509_cert).to_s
-
-      #test_x509_cert_source_txt_b64 = REXML::XPath.first(REXML::Document.new(@response.response.to_s), "//ds:X509Certificate", { "ds"=>DSIG })
-      #test_x509_cert_source_txt = Base64.decode64(test_x509_cert_source_txt_b64.text)
-
-      #test_x509_cert = OpenSSL::X509::Certificate.new(test_x509_cert_source_txt).to_s
-
-      #known_x509_cert_txt = known_x509_cert.to_s
-      #test_x509_cert_txt = test_x509_cert.to_s
-
-      #unless known_x509_cert_txt == test_x509_cert_txt
-        #raise "Failed to verify x509 cert KNOWN #{known_x509_cert_txt} (#{known_x509_cert_txt.size}) |#{known_x509_cert_txt.encoding.name}| TEST #{test_x509_cert_txt} (#{test_x509_cert_txt.size}) |#{test_x509_cert_txt.encoding.name}|"
-      #end
-
-      # Write the national identity hash to memcache under our session id
+      # Write the national identity hash to the database under our session id
       if national_identity_hash and national_identity_hash!=""
-        session[:have_authenticated_and_been_approved] = true
-        Rails.cache.write(request.session_options[:id], national_identity_hash)
+        VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => national_identity_hash)
       end
+
       Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
 
       update_activity_time
 
       return true
+
     rescue  => ex
       notify_airbrake(ex)
       Rails.logger.error(ex.to_s+"\n\n"+ex.backtrace.to_s)

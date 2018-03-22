@@ -1,57 +1,49 @@
-<dom-module id="en-help">
+<dom-module id="hm-2016-en-help">
   <template>
-      <h1>Dundee Decides 2018</h1>
-      <p>Dundee Decides is your opportunity to decide how Dundee City Council should spend the £1.2 million Community Infrastructure fund.</p>
-      <p>The fund will be used to make improvements based upon suggestions identified during the Engage Dundee Consultation.</p>
-      <p>Dundee has 8 electoral Wards: Strathmartine, Lochee, West End, Coldside, Maryfield, North East, East End and The Ferry. Each ward has been allocated up to £150,000 to spend on infrastructure improvements. If there are any funds left over after the winning projects have been selected, the remaining funds will be allocated to enhance the winning projects in each ward. Voting is open from 29th January to the 23rd March. Click on your ward on the map to get started!</p>
+      <style>
+          .infoHeader {
+              line-height: normal;
+          }
 
-      <h2>Do you need help to use the site?</h2>
-      <ul>
-          <li>
-              If you have any queries or require assistance using the site, you can email us at: <a href="mailto:dundeedecides@dundeecity.gov.ukdundeedecides@dundeecity.gov.uk">dundeedecides@dundeecity.gov.uk</a>
-          </li>
-          <li>
-              You can also access a step by step user guide at: <a href="https://www.dundeedecides.org/help" target="_blank">https://www.dundeedecides.org/help</a>
-          </li>
-      </ul>
+          .langSelection {
+              cursor: pointer;
+          }
+      </style>
+      <h1 class="infoHeader">Growing Gaelic 2017 - online vote</h1>
+      <p>Voting runs between 6th April and 6th May 2017 and is open to people over the age of 16 who live in Argyll and Bute.</p>
 
-      <h2>Who Can Vote?</h2>
-      <ul>
-          <li>Voting is open to everyone who lives in Dundee that is aged 11 or above.</li>
-          <li>You can only vote for ideas in the ward in which you live.</li>
-          <li>Your vote will only be accepted if you enter a valid email address, a valid 6-digit postcode and confirm you are over the age of 11.</li>
-      </ul>
+      <p>To find out more information about any of the projects, you can click on the picture to change it to some text information about the proposal..</p>
 
-      <h2>What information is collected?</h2>
-      <ul>
-          <li>We ask for your email address and postcode for verification purposes.</li>
-          <li>Your email address helps us verify you as an individual; your postcode helps us verify you are voting in the correct ward.</li>
-          <li>Information collected on the voting site (vote.dundeedecides.org) will not be used for any other purpose other than verification.</li>
-          <li>Votes are encrypted and cannot be traced to individuals.</li>
-          <li>The information you provide cannot be accessed during the voting period due to encryption.</li>
-          <li>Your personal information will be deleted when the results are confirmed and announced.</li>
-      </ul>
+      <p>Select a project by clicking on the + sign in the project box.  You can select more than one project up to the maximum of £15,000..</p>
 
-      <h1>What security is in place to ensure the vote is fair?</h1>
-      <ul>
-          <li>The electronic voting system allows us to audit the voting process and identify suspicious voting activity and potential voter fraud, such as suspicious IP addresses, similar voting patterns in a short period of time, or the same device being used for multiple votes.</li>
-          <li>If any voting irregularities are discovered, Dundee City Council can decide to remove suspicious or possibly fraudulent votes from the result if they have had an impact on the final result.</li>
-          <li>All votes are encrypted and stored until voting ends on 23rd March 2018.  Neither Dundee City Council, nor the Democratic Society, who are hosting the voting site, can access the votes until the “counting ceremony” which will be held after the 23rd March.</li>
-          <li>The ballot information is protected by two encryption passwords that are securely stored in separate locations. Votes can only be accessed and counted when the two passwords are entered together at the “counting ceremony”.</li>
-          <li>Voting results will be published following the conclusion of the vote.</li>
-      </ul>
+      <p>If you change your mind about a project, click on the - sign and it will be removed from your selection (the amount of funding remaining for you to allocate will automatically be adjusted again)..</p>
 
-      <h2>What if I don’t have an email address?</h2>
+      <p> A step by step “guide to voting” is available here <a href="https://www.argyll-bute.gov.uk/growinggaelic" target="_blank">https://www.argyll-bute.gov.uk/growinggaelic</a></p>
 
-      <p>If you don’t have an email address, or you need support to take part, please visit dundeedecides.org to find a list of community events where you can attend and receive support from staff to help you to take part.</p>
+      <p>Voting takes place on a secure website.  It is not possible to link votes to individuals..</p>
 
-      <p>Alternatively, you can call: 01382 435808 (9.00am. to 5.00pm. - Monday to Friday).</p>
+      <p>Projects will be delivered by 31st March 2018..</p>
 
-      <p>Thanks for participating!</p>
+      <p>Participatory Budgeting is a way of involving communities in financial decisions.  There is a total of £15,000
+          available to “strengthen and grow Gaelic in Argyll and Bute” and we want the local community to decide how that should be allocated..</p>
+
+      <p>Between 6th February and 6th March people posted suggestions on an <a href="https://argyll-bute.yrpri.org/group/894/in_progress" target="_blank">ideas website</a>.
+          Constituted community groups, third sector organisations and public sector agencies were eligible to submit bids for funding to take these forward.
+          Vote for your favourite projects here..</p>
+
+      <p>This project has been funded by the Scottish Government.  This is part of the Council’s commitment to empower communities and will evaluate
+          the use of online tools for community involvement in decision making..</p>
+
+      <p>Queries and comments during the election period can be sent
+          to <a href="mailto:communitydevelopment@argyll-bute.gov.uk">communitydevelopment@argyll-bute.gov.uk</a></p>
   </template>
   <script>
     Polymer({
-      is: 'en-help'
+      is: 'hm-2016-en-help',
+      _selectIcelandic: function () {
+        this.fire('iron-signal', {name: 'set-language', data: 'is'});
+        localStorage.setItem("selectedLanguage", 'is');
+      }
     });
   </script>
 </dom-module>
