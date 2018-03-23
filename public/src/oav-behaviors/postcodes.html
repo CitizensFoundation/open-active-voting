@@ -113,14 +113,10 @@
     },
 
     nameToAreaId: {
-      "The Ferry": 8,
-      "East End": 7,
-      "North East": 6,
-      "Maryfield": 5,
-      "Coldside": 4,
-      "Strathmartine": 3,
-      "West End": 2,
-      "Lochee": 1
+      "MAKI": 4,
+      "H&L": 3,
+      "B&C": 2,
+      "OLI": 1
     },
 
     setPostCodes: function (blob) {
@@ -156,7 +152,11 @@
 
     getAreaForPostCode: function (postCode) {
       postCode = postCode.replace(/\s/g, "").toUpperCase();
-      return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+      if (this.postCodesAreas[postCode]) {
+        return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+      } else {
+        return null;
+      }
     }
   };
 </script>

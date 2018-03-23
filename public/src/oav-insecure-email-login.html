@@ -136,7 +136,7 @@
     </div>
     <iron-ajax
       auto
-      url="/DundeePostcodesWards1.csv"
+      url="/ABPostCodes.csv"
       handle-as="blob"
       on-error="_postCodeError"
       on-response="_postCodeResponse"></iron-ajax>
@@ -305,6 +305,7 @@
           return false;
         }
       } else {
+        debugger;
         this.$$("#loginAjax").showErrorDialog(this.localize('completeForm'));
         return false;
       }
