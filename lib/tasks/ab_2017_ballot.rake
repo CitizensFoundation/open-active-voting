@@ -297,7 +297,7 @@ namespace :ab_2018_ballot do
       end
 
       item = BudgetBallotItem.create!(:price=>price,
-                                      :idea_id=>-1,
+                                      :idea_id=>idea_id,
                                       :budget_ballot_area_id=>area_id,
                                       :locations=>locations,
                                       :image_url=>image_url,
