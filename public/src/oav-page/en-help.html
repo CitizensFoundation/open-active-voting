@@ -1,4 +1,4 @@
-<dom-module id="hm-2016-en-help">
+<dom-module id="en-help">
   <template>
       <style>
           .infoHeader {
@@ -56,7 +56,7 @@
   </template>
   <script>
     Polymer({
-      is: 'hm-2016-en-help',
+      is: 'en-help',
       _selectIcelandic: function () {
         this.fire('iron-signal', {name: 'set-language', data: 'is'});
         localStorage.setItem("selectedLanguage", 'is');
