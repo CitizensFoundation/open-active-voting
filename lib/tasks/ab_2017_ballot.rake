@@ -273,10 +273,18 @@ namespace :ab_2018_ballot do
       post_url = "https://www.betraisland.is/api/posts/"+idea_id
       encoded_url = URI.encode(post_url)
       uri = URI(encoded_url)
-      res = Net::HTTP.get(uri)
-      #puts res
-      #res = Net::HTTP.get URI(post_url)
-      post_json = JSON.parse(res)
+      proxy_addr = nil
+      proxy_port = nil
+      res = nil
+
+      ri = URI.parse(post_url)
+      http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port)
+      http.use_ssl = true
+      res = http.get(uri.request_uri)
+      puts res.inspect
+      puts res.body
+
+      post_json = JSON.parse(res.body)
       if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
         #puts post_json["PostHeaderImages"][0]
         image_url = JSON.parse(post_json["PostHeaderImages"][post_json["PostHeaderImages"].length-1]["formats"])[0]
@@ -284,23 +292,24 @@ namespace :ab_2018_ballot do
       else
         image_url = "https://i.imgur.com/sdsFAoT.png"
       end
-    else
-      idea_id = 99999
-    end
+      else
+        idea_id = 99999
+      end
 
-    item = BudgetBallotItem.create!(:price=>price,
-                                    :idea_id=>-1,
-                                    :budget_ballot_area_id=>area_id,
-                                    :locations=>locations,
-                                    :image_url=>image_url,
-                                    :pdf_url=>nil,
-                                    :idea_url=>"no")
+      item = BudgetBallotItem.create!(:price=>price,
+                                      :idea_id=>-1,
+                                      :budget_ballot_area_id=>area_id,
+                                      :locations=>locations,
+                                      :image_url=>image_url,
+                                      :pdf_url=>nil,
+                                      :idea_url=>"no")
 
-    I18n.locale = "en"
-    item.name = name_en
-    item.description = description_en
-    item.save
-    puts "========================================================="
+      I18n.locale = "en"
+      item.name = name_en
+      item.description = description_en
+      item.save
+      puts "========================================================="
+
   end
 
   def import_area_data_dundee(area_id, budget_data, start_row_number, total_number_of_rows=20)
