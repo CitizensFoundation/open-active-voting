@@ -248,29 +248,21 @@ namespace :ballot do
 
   def create_budget_ballot_item(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_is = budget_data[row_number][3]
-    puts name_is
-    price = budget_data[row_number][4]
+    price = budget_data[row_number][5]
     price = price.gsub(',','')
     price = price.gsub(' kr.','')
     price = price.to_i / 1000000
     puts price
-    locations = budget_data[row_number][8]
+    locationA = budget_data[row_number][7]
+    locationB = budget_data[row_number][8]
+    locations = locationA+","+locationB
     puts locations
 
-    if budget_data[row_number][9]
-      puts budget_data[row_number][9]
-      locations = "#{locations},#{budget_data[row_number][9]}"
-    end
-
-    description_is = budget_data[row_number][10]
-    puts description_is
-
-    name_en = budget_data[row_number][15]
+    name_en = budget_data[row_number][1]
     puts name_en
 
-    description_en =  budget_data[row_number][16]
-    idea_url =  budget_data[row_number][17]
+    description_en =  budget_data[row_number][3]
+    idea_url =  budget_data[row_number][6]
     puts idea_url
 
     if idea_url

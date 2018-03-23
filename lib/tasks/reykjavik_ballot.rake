@@ -15,7 +15,7 @@ end
 
 namespace :reykjavik_ballot do
 
-  def create_budget_ballot_item(area_id, budget_data, row_number)
+  def create_budget_ballot_item_rvk(area_id, budget_data, row_number)
     #puts budget_data[row_number]
     name_is = budget_data[row_number][6]
     puts "name_is #{name_is} #{row_number}"

@@ -248,10 +248,11 @@ namespace :ab_2018_ballot do
 
   def create_budget_ballot_item_dundee(area_id, budget_data, row_number)
     #puts budget_data[row_number]
-    name_en = budget_data[row_number][2]
+    name_en = budget_data[row_number][1]
     puts "name_en #{name_en} #{row_number}"
-    price = budget_data[row_number][6]
-    price = price.to_i*1000
+    price = budget_data[row_number][5]
+    price = price.gsub("£","")
+    price = price.gsub(",","")
     puts "Price is: #{price}"
     locations = budget_data[row_number][7]
     puts locations
@@ -261,22 +262,30 @@ namespace :ab_2018_ballot do
       locations = "#{locations},#{budget_data[row_number][8]}"
     end
 
-    description_en = budget_data[row_number][4]
+    description_en = budget_data[row_number][3]
     puts description_en
 
-    found_url = find_image_url_for_area_item(area_id,  budget_data[row_number][0].to_i)
-    if found_url.is_a? String
-      image_url = "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/areas/"+found_url
-    else
-      image_url = ""
-    end
-    puts "image_url: #{image_url}"
+    idea_url =  budget_data[row_number][6]
+    puts idea_url
 
-    found_pdf_url = find_pdf_url_for_area_item(area_id, budget_data[row_number][0].to_i)
-    if found_pdf_url.is_a? String
-      pdf_url = "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/Dundee_2017/areas/"+found_pdf_url
+    if idea_url
+      idea_id = idea_url.split('/').last
+      post_url = "https://www.betraisland.is/api/posts/"+idea_id
+      encoded_url = URI.encode(post_url)
+      uri = URI(encoded_url)
+      res = Net::HTTP.get(uri)
+      #puts res
+      #res = Net::HTTP.get URI(post_url)
+      post_json = JSON.parse(res)
+      if post_json["PostHeaderImages"] and post_json["PostHeaderImages"].length>0
+        #puts post_json["PostHeaderImages"][0]
+        image_url = JSON.parse(post_json["PostHeaderImages"][post_json["PostHeaderImages"].length-1]["formats"])[0]
+        puts image_url
+      else
+        image_url = "https://i.imgur.com/sdsFAoT.png"
+      end
     else
-      pdf_url = ""
+      idea_id = 99999
     end
 
     item = BudgetBallotItem.create!(:price=>price,
@@ -284,7 +293,7 @@ namespace :ab_2018_ballot do
                                     :budget_ballot_area_id=>area_id,
                                     :locations=>locations,
                                     :image_url=>image_url,
-                                    :pdf_url=>pdf_url,
+                                    :pdf_url=>nil,
                                     :idea_url=>"no")
 
     I18n.locale = "en"
@@ -313,37 +322,37 @@ namespace :ab_2018_ballot do
       ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
       budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      area = BudgetBallotArea.create!(:budget_amount => 28893.0)
       I18n.locale = "en"
-      area.name = "Lochee"
+      area.name = "Oban, Lorn and the Isles"
       I18n.locale = "is"
-      area.name = "Lochee"
+      area.name = "Oban, Lorn and the Isles"
       area.save
-      import_area_data_dundee(area.id, budget_data, 5,8)
+      import_area_data_dundee(area.id, budget_data, 2, 23)
 
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      area = BudgetBallotArea.create!(:budget_amount => 27236.0)
       I18n.locale = "en"
-      area.name = "West End"
+      area.name = "Bute and Cowal"
       I18n.locale = "is"
-      area.name = "West End"
+      area.name = "Bute and Cowal"
       area.save
-      import_area_data_dundee(area.id, budget_data, 17,6)
+      import_area_data_dundee(area.id, budget_data, 25, 27)
 
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      area = BudgetBallotArea.create!(:budget_amount => 28072.0)
       I18n.locale = "en"
-      area.name = "Strathmartine"
+      area.name = "Helensburgh & Lomond"
       I18n.locale = "is"
-      area.name = "Strathmartine"
+      area.name = "Helensburgh & Lomond"
       area.save
-      import_area_data_dundee(area.id, budget_data, 26,9)
+      import_area_data_dundee(area.id, budget_data, 52, 22)
 
-      area = BudgetBallotArea.create!(:budget_amount => 150000.0)
+      area = BudgetBallotArea.create!(:budget_amount => 25660.0)
       I18n.locale = "en"
-      area.name = "Coldside"
+      area.name = "Mid Argyll, Kintyre and the Islands"
       I18n.locale = "is"
-      area.name = "Coldside"
+      area.name = "Mid Argyll, Kintyre and the Islands"
       area.save
-      import_area_data_dundee(area.id, budget_data, 40,8)
+      import_area_data_dundee(area.id, budget_data, 73, 24)
     else
       puts "BALLOT BOX IS NOT EMPTY, NO ACTION TAKEN!"
     end
