@@ -3,7 +3,7 @@
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "#{@area.name}: #{@item.name}", :property => "og:title"}/
-    %meta{:content => "#{@config.election_description}", :property => "og:description"}/
+    %meta{:content => "Argyll and Bute Council are piloting our Supporting Communities Fund decisions being made by the public using this online voting tool. Participate now :)", :property => "og:description"}/
     %meta{:content => "website", :property => "og:type"}/
     %meta{:content => "#{@item.image_url}", :property => "og:image"}/
     %meta{:content => "#{request.protocol + request.host}/items/#{@item.id}", :property => "og:url"}/
@@ -14,7 +14,7 @@
     %center
       %div
         %b
-          = "#{@config.election_name}"
+          = "Supporting Communities Fund 2018 - online vote"
       %br
       %div
         %b
@@ -25,5 +25,4 @@
       %br
       %div
         %b
-          %a{:href=>"/"} Taktu þátt með því að smella hér
-
+          %a{:href=>"/"} Participate
