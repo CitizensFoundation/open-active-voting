@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.5'
+ruby '2.2.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
@@ -34,12 +34,13 @@ gem 'haml' # generate html from templates
 gem 'jquery-rails' # Jquery for Rails
 gem 'mysql2' # The Mysql Driver
 gem 'dalli' # Memcache driver
-gem 'nokogiri','1.6.8' # XML/HTML Parsing library
+gem 'nokogiri','1.8.1' # XML/HTML Parsing library
 gem 'psych'
 #gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem 'memcachier'
 gem "passenger"
+gem 'loofah','2.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
