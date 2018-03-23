@@ -122,7 +122,7 @@
 
       </template>
     </div>
-    <iron-ajax auto="" url="/DundeePostcodesWards1.csv" handle-as="blob" on-error="_postCodeError" on-response="_postCodeResponse"></iron-ajax>
+    <iron-ajax auto="" url="/ABPostCodes.csv" handle-as="blob" on-error="_postCodeError" on-response="_postCodeResponse"></iron-ajax>
   </template>
 
 </dom-module>
@@ -288,6 +288,7 @@
           return false;
         }
       } else {
+        debugger;
         this.$$("#loginAjax").showErrorDialog(this.localize('completeForm'));
         return false;
       }

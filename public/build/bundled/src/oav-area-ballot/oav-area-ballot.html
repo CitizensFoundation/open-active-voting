@@ -583,13 +583,14 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       position: absolute;
       bottom: 12px;
       left: 12px;
-      background-color: #FFF;
-      color: rgb(255,215,0);
+      background-color: var(--app-accent-color);
+      color: #FFF;
       --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
+        height: 29px;
+        width: 29px;
       };
       padding: 0;
+      padding-top: 3px;
     }
 
     .shareIcon {
@@ -615,12 +616,13 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       bottom: 12px;
       left: 12px;
       background-color: #FFF;
-      color: rgb(255,215,0);
+      color: var(--paper-red-a700);
       --paper-fab-iron-icon: {
-        height: 33px;
-        width: 33px;
+        height: 29px;
+        width: 29px;
       };
       padding: 0;
+      padding-top: 3px;
     }
 
     paper-fab[disabled] {
@@ -744,6 +746,9 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
           <paper-item on-tap="_setMapMode">
             <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="maps:place"></iron-icon>{{localize('map_item_tab')}}
           </paper-item>
+          <paper-item on-tap="_showPost">
+            <iron-icon raised="" title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
+          </paper-item>
         </paper-menu>
       </paper-menu-button>
       <div class="layout horizontal">
@@ -760,6 +765,12 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         </paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
+        <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
+          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="favorite-border" on-tap="_toggleFavorite">
+          </paper-fab>
+          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
+          </paper-fab>
+        </div>
       </div>
     </paper-material>
   </template>
@@ -908,6 +919,25 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
           this.set('elevation', "4");
         } else {
           this.set('elevation', "1");
+        }
+      },
+
+      _toggleFavorite: function () {
+        if (this.budgetElement.currentBallot.favoriteItem &&
+          this.budgetElement.currentBallot.favoriteItem.id == this.item.id) {
+          this.fire('oav-set-favorite-item-in-budget', {
+            item: null
+          });
+        } else {
+          var button = this.$$("#addFavoriteButton");
+          var buttonRect = button.getBoundingClientRect();
+          var left = buttonRect.left;// + window.scrollX;
+          var top = buttonRect.top;// + window.scrollY;
+          this.fire('oav-set-favorite-item-in-budget', {
+            item: this.item,
+            orgAnimPos: { left: left, top: top },
+            budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
+          });
         }
       },
 
