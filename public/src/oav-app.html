@@ -150,6 +150,12 @@
         color: #fff;
       }
 
+      @media (max-width: 800px) {
+        .helpIconInBudget[front-page]  {
+          top: 24px;
+        }
+      }
+
       #favoriteIcon {
         color: var(--paper-red-a700);
         background-color: transparent;
@@ -185,7 +191,7 @@
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
           <paper-icon-button class="closeButton" icon="close" on-tap="_exit"></paper-icon-button>
         </div>
-        <div class="helpIconInBudget">
+        <div class="helpIconInBudget" front-page$="[[frontPage]]">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
         </div>
         <div class="budgetContainer" hidden$="[[hideBudget]]">
@@ -265,7 +271,12 @@
           value: false
         },
 
-        resizeTimer: Object
+        resizeTimer: Object,
+
+        frontPage: {
+          type: Boolean,
+          value: false
+        }
       },
 
       listeners: {
@@ -499,6 +510,12 @@
         // Do not allow access to voting-completed from a reload
         if (page=='voting-completed' && oldPage!='area-ballot') {
           window.location = "/";
+        }
+
+        if (page='select-voting-area') {
+          this.set('frontPage', true);
+        } else {
+          this.set('frontPage', false);
         }
 
         // Refresh counts if coming from voting-completed
