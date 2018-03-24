@@ -55348,7 +55348,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .selectInfoText {
       font-size: 21px;
       padding: 8px;
-      background-color: var(--app-primary-color);
+      background-color: #1794b2;
       color: #FFF;
       margin: 0;
     }
@@ -55360,7 +55360,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .areaOptions {
       margin-top: 48px;
-      padding-left:
     }
 
     .voteNumberForVesturbaer {
@@ -55552,16 +55551,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .mobileLogo {
-        width: 240px;
-        height: 100px;
-        margin-top: 32px;
-        margin-left: 38px;
+        width: 100% !important;
+        margin-top: 24px;
       }
 
       .topMaterial {
         max-width: 320px;
         max-height: 120px;
-        margin-bottom: 16px;
+        margin: 16px;
         background-color: #f9f9f9;
       }
 
@@ -55571,7 +55568,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0;
         margin-top: 16px;
         color: #FFF;
-        font-size: 28px;
+        font-size: 22px;
         cursor: pointer;
       }
 
@@ -55582,6 +55579,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .mobileBackground {
         background-color: #f9f9f9;
         padding-bottom: 64px;
+      }
+
+      .imageContainer {
+        height: 100%;
+        width: 100%;
       }
     }
 
@@ -55603,7 +55605,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .mobileMaterial {
         width: 270px;
-        font-size: 26px;
+        font-size: 20px;
       }
     }
 
@@ -55624,7 +55626,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     .extraHeader {
-      background-color: var(--app-accent-color);
+      background-color: #1794b2;
       color: #FFF;
       font-size: 22px;
       padding: 16px;
@@ -55640,9 +55642,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="layout vertical center-center mainContainer">
 
         <div class="layout horizontal imageContainer wrap">
-          <div class="layout vertical">
+          <div class="layout vertical center-center">
             <div class="layout horizontal center-center">
-              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb3-with-logo-2.jpg"></iron-image>
+              <img hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/AB_2018/communityFund.jpeg">
             </div>
             <paper-material elevation="3" class="topMaterial">
               <div hidden$="[[!wide]]" class="extraHeader">
@@ -55936,6 +55938,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #fff;
       }
 
+      @media (max-width: 800px) {
+        .helpIconInBudget[front-page]  {
+          top: 24px;
+        }
+      }
+
       #favoriteIcon {
         color: var(--paper-red-a700);
         background-color: transparent;
@@ -55967,7 +55975,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div hidden$="[[!showExit]]" class="layout horizontal exitIconInBudget">
           <paper-icon-button class="closeButton" icon="close" on-tap="_exit"></paper-icon-button>
         </div>
-        <div class="helpIconInBudget">
+        <div class="helpIconInBudget" front-page$="[[frontPage]]">
           <paper-icon-button icon="help-outline" on-tap="_help"></paper-icon-button>
         </div>
         <div class="budgetContainer" hidden$="[[hideBudget]]">
@@ -56047,7 +56055,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: false
         },
 
-        resizeTimer: Object
+        resizeTimer: Object,
+
+        frontPage: {
+          type: Boolean,
+          value: false
+        }
       },
 
       listeners: {
@@ -56281,6 +56294,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Do not allow access to voting-completed from a reload
         if (page=='voting-completed' && oldPage!='area-ballot') {
           window.location = "/";
+        }
+
+        if (page='select-voting-area') {
+          this.set('frontPage', true);
+        } else {
+          this.set('frontPage', false);
         }
 
         // Refresh counts if coming from voting-completed
