@@ -109,9 +109,16 @@ class VotesController < ApplicationController
     post_url = "https://www.betraisland.is"+params[:params]
     encoded_url = URI.encode(post_url)
     uri = URI(encoded_url)
-    res = Net::HTTP.get(uri)
-    post_json = JSON.parse(res)
-    puts post_json
+
+    # CHANGE THIS TO ADD YOUR PROXY
+    proxy_addr = nil
+    proxy_port = nil
+
+    http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port)
+    http.use_ssl = true
+    res = http.get(uri.request_uri)
+
+    post_json = JSON.parse(res.body)
     respond_to do |format|
       format.json { render :json => post_json }
     end
