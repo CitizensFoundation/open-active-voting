@@ -106,8 +106,6 @@ class VotesController < ApplicationController
 
   # Proxy for ideas from better iceland
   def better_iceland_proxy
-    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-
     post_url = "https://www.betraisland.is"+params[:params]
     encoded_url = URI.encode(post_url)
     uri = URI(encoded_url)
@@ -118,6 +116,7 @@ class VotesController < ApplicationController
 
     http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port)
     http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     res = http.get(uri.request_uri)
 
     post_json = JSON.parse(res.body)
