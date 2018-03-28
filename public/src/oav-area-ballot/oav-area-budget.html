@@ -64,7 +64,7 @@
 
     .budgetMaterial[wide] {
       width: 940px;
-      height: 184px;
+      height: 176px;
       margin: 10px 0px;
       margin-top: 8px;
       @apply(--layout-vertical);
@@ -189,11 +189,11 @@
     }
 
     .headerLogo {
-      width: 150px;
-      height: 86px;
+      width: 169px;
+      height: 70px;
       padding: 0 !important;
       margin: 0;
-      margin-left: 24px;
+      margin-left: 0;
     }
 
     .headerContainer {
@@ -247,7 +247,7 @@
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]" less-wide$="[[lessWide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
-          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png"></iron-image>
+          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/AB_2018/384x159withoutlogo.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <template is="dom-if" if="[[areaName]]">
