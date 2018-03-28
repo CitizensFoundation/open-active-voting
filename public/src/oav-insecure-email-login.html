@@ -94,6 +94,10 @@
         max-width: 256px;
         margin-top: 16px;
       }
+
+      .cancel {
+        margin-top: 8px;
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
@@ -132,7 +136,7 @@
           </form>
           <div class="buttons layout vertical center-center">
             <paper-button raised class="main" autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
-            <paper-button dialog-dismiss>Cancel</paper-button>
+            <paper-button class="cancel" dialog-dismiss>Cancel</paper-button>
             <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
           </div>
         </paper-dialog>
