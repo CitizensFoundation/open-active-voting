@@ -353,7 +353,7 @@ namespace :ab_2018_ballot do
       I18n.locale = "is"
       area.name = "Helensburgh & Lomond"
       area.save
-      import_area_data_dundee(area.id, budget_data, 52, 22)
+      import_area_data_dundee(area.id, budget_data, 52, 21)
 
       area = BudgetBallotArea.create!(:budget_amount => 25660.0)
       I18n.locale = "en"
