@@ -109,7 +109,13 @@
           </div>
 
           <form is="iron-form" id="form">
-            <paper-input id="email" type="text" label="[[localize('userEmail')]]" value="{{email}}" minlength="5" pattern="[[emailValidationPattern]]" error-message="[[emailErrorMessage]]">
+            <paper-input id="name" type="text" label="Name" value="{{name}}" minlength="5" maxlength="60" required="">
+            </paper-input>
+
+            <paper-input id="dob" type="text" label="Date of birth" value="{{dob}}" minlength="4" maxlength="20" required="">
+            </paper-input>
+
+            <paper-input id="email" type="text" label="Email (optional)" value="{{email}}" pattern="[[emailValidationPattern]]" maxlength="60" error-message="[[emailErrorMessage]]">
             </paper-input>
 
             <paper-input id="postCode" type="text" label="[[localize('postCode')]]" value="{{postCode}}" maxlength="8">
@@ -204,12 +210,17 @@
 
       name: {
         type: String,
-        value: "" //"Róbert Viðar Bjarnason"
+        value: ""
+      },
+
+      dob: {
+        type: String,
+        value: ""
       },
 
       email: {
         type: String,
-        value: "" //robert@citizens.is"
+        value: ""
       },
 
       submitText: {
@@ -268,7 +279,7 @@
       if (newValue) {
         this.async(function () {
           this.$$("#a11y").target = this.$$("#form");
-          this.$$("#email").focus();
+          this.$$("#name").focus();
         }.bind(this), 50);
       }
     },
@@ -286,9 +297,9 @@
     },
 
     _validateAndSend: function(e) {
-      if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
+      if (this.$$("#form").checkValidity() && this.postCode && this.$$("#confirmedSixteen").checked) {
         if (this.isValidPostcode(this.areaId, this.postCode)) {
-          this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
+          this.$$("#loginAjax").body = {email: this.name.replace(/ /,'')+"_"+this.dob.replace(/ /,'')+"_"+this.email.toLowerCase() };
           this.$$("#loginAjax").generateRequest();
           return true;
         } else if (this.getAreaForPostCode(this.postCode)) {

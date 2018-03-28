@@ -47492,7 +47492,7 @@ Custom property | Description | Default
 
     .budgetMaterial[wide] {
       width: 940px;
-      height: 176px;
+      height: 180px;
       margin: 10px 0px;
       margin-top: 8px;
       @apply(--layout-vertical);
@@ -52587,7 +52587,7 @@ Custom property | Description | Default
       <ul>
           <li>We ask for your name, date of birth and postcode for verification purposes.</li>
           <li>Your email address is not compulsory however, results will be e-mailed out directly to anyone who provides one.</li>
-          <li>See our Data Privacy Statement for more information on how your data will be managed.  This can be found in the drop-down menu when you click on ‘?’ from the main page.</li>
+          <li>See our Data Privacy Statement for more information on how your data will be managed: <a href="https://www.argyll-bute.gov.uk/abpb/data- privacy-statement" target="_blank">https://www.argyll-bute.gov.uk/abpb/data- privacy-statement</a></li>
       </ul>
 
       <p>This project uses a Participatory Budgeting method of engagement to involve communities in financial decisions.  This project is a pilot to consider whether this is an effective way of involving our communities in allocating the Supporting Communities Fund. </p>
@@ -54804,7 +54804,13 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
           </div>
 
           <form is="iron-form" id="form">
-            <paper-input id="email" type="text" label="[[localize('userEmail')]]" value="{{email}}" minlength="5" pattern="[[emailValidationPattern]]" error-message="[[emailErrorMessage]]">
+            <paper-input id="name" type="text" label="Name" value="{{name}}" minlength="5" maxlength="60" required="">
+            </paper-input>
+
+            <paper-input id="dob" type="text" label="Date of birth" value="{{dob}}" minlength="4" maxlength="20" required="">
+            </paper-input>
+
+            <paper-input id="email" type="text" label="Email (optional)" value="{{email}}" pattern="[[emailValidationPattern]]" maxlength="60" error-message="[[emailErrorMessage]]">
             </paper-input>
 
             <paper-input id="postCode" type="text" label="[[localize('postCode')]]" value="{{postCode}}" maxlength="8">
@@ -54899,12 +54905,17 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
 
       name: {
         type: String,
-        value: "" //"Róbert Viðar Bjarnason"
+        value: ""
+      },
+
+      dob: {
+        type: String,
+        value: ""
       },
 
       email: {
         type: String,
-        value: "" //robert@citizens.is"
+        value: ""
       },
 
       submitText: {
@@ -54963,7 +54974,7 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       if (newValue) {
         this.async(function () {
           this.$$("#a11y").target = this.$$("#form");
-          this.$$("#email").focus();
+          this.$$("#name").focus();
         }.bind(this), 50);
       }
     },
@@ -54981,9 +54992,9 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
     },
 
     _validateAndSend: function(e) {
-      if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedSixteen").checked) {
+      if (this.$$("#form").checkValidity() && this.postCode && this.$$("#confirmedSixteen").checked) {
         if (this.isValidPostcode(this.areaId, this.postCode)) {
-          this.$$("#loginAjax").body = {email: this.email.toLowerCase() };
+          this.$$("#loginAjax").body = {email: this.name.replace(/ /,'')+"_"+this.dob.replace(/ /,'')+"_"+this.email.toLowerCase() };
           this.$$("#loginAjax").generateRequest();
           return true;
         } else if (this.getAreaForPostCode(this.postCode)) {
