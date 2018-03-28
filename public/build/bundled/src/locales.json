@@ -39,7 +39,7 @@
     "selected_items_info_one_million": "You have selected {number_of_items} for a total of {selectedBudget}",
     "selected_items_info_mobile_one_million": "{number_of_items, plural, one {1 idea} other {{number_of_items} ideas} } - total {selectedBudget}",
     "budget_info_text": "Vote ideas for {area_name}",
-    "budget_info_text_mobile": "Projects for {area_name}",
+    "budget_info_text_mobile": "{area_name}",
     "no_items_selected": "No items selected",
     "voting_completed": "Your vote has been received",
     "add_to_budget": "Select idea",

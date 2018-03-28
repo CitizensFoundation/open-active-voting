@@ -765,12 +765,6 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
         </paper-fab>
         <paper-fab mini="" elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]" disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
         </paper-fab>
-        <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-          <paper-fab mini="" id="addFavoriteButton" class="addFavoriteButton" elevation="5" hidden$="[[isFavorite]]" title$="{{localize('select_favorite')}}" icon="favorite-border" on-tap="_toggleFavorite">
-          </paper-fab>
-          <paper-fab mini="" class="removeFavoriteButton" elevation="5" hidden$="[[!isFavorite]]" title$="{{localize('deselect_favorite')}}" icon="favorite" on-tap="_toggleFavorite">
-          </paper-fab>
-        </div>
       </div>
     </paper-material>
   </template>
@@ -4962,6 +4956,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
 
+    .small {
+      font-size: 10px;
+    }
+
   </style>
 
   <template>
@@ -4976,7 +4974,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <div>[[area.name]]</div>
             </template>
             <template is="dom-if" if="[[!wide]]">
-              <div class="layout vertical center-center">
+              <div class="layout vertical center-center small">
                 <div>[[area.name]]</div>
               </div>
             </template>

@@ -54782,6 +54782,17 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       .postcodeWrongWard {
         color: var(--paper-red-a400);
       }
+
+      .main {
+        background-color: var(--app-accent-color);
+        color: #FFF;
+        max-width: 256px;
+        margin-top: 16px;
+      }
+
+      .cancel {
+        margin-top: 8px;
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
@@ -54807,9 +54818,10 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
             <paper-checkbox id="confirmedSixteen" class="checkBox" name="confirmedSixteen" checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
-          <div class="buttons layout vertical">
+          <div class="buttons layout vertical center-center">
+            <paper-button raised="" class="main" autofocus="" on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
+            <paper-button class="cancel" dialog-dismiss="">Cancel</paper-button>
             <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
-            <paper-button autofocus="" on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
           </div>
         </paper-dialog>
 
@@ -55078,6 +55090,10 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         font-size: 18px;
       }
 
+      .logo {
+        max-width: 452px;
+      }
+
       @media (max-width: 600px) {
         .welcomeDialog {
           font-size: 15px;
@@ -55114,17 +55130,15 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
         padding: 0;
         overflow: hidden;
       }
-
-
     </style>
 
     <div id="dialogs">
       <paper-dialog id="welcomeDialog" modal="">
-        <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/yrpri-eu-direct-assets/oav_argyll_and_bute/abpb_banner_thin_2.png">
+        <img class="logo" sizing="contain" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/AB_2018/384x159withoutlogo.png">
         <div class="layout vertical center-center welcomeDialog">
           <div class="heading">Welcome! Fàilte!</div>
           <div class="layout horizontal welcomeText">
-            Vote here by selecting your area and projects up to the value available
+            Vote here by selecting your area and projects up to the value available.
             Happy with your choices? Click VOTE to submit. We need some personal data to verify your vote.
             Need more info? Click ? at top right of screen.
           </div>
@@ -55552,7 +55566,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .mobileLogo {
         width: 100% !important;
-        margin-top: 24px;
+        margin-top: 0;
       }
 
       .topMaterial {
@@ -55938,12 +55952,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #fff;
       }
 
-      @media (max-width: 800px) {
-        .helpIconInBudget[front-page]  {
-          top: 24px;
-        }
-      }
-
       #favoriteIcon {
         color: var(--paper-red-a700);
         background-color: transparent;
@@ -55953,6 +55961,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         -webkit-filter: drop-shadow( 1px 1px 10px #5f5f5f );
         filter: drop-shadow( 1px 1px 10px #5f5f5f );
       }
+
       @media (max-width: 640px) {
         #favoriteIcon {
           width: 40px;
