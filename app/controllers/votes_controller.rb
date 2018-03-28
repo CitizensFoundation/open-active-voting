@@ -106,6 +106,8 @@ class VotesController < ApplicationController
 
   # Proxy for ideas from better iceland
   def better_iceland_proxy
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
     post_url = "https://www.betraisland.is"+params[:params]
     encoded_url = URI.encode(post_url)
     uri = URI(encoded_url)
