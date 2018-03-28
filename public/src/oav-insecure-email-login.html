@@ -87,6 +87,13 @@
       .postcodeWrongWard {
         color: var(--paper-red-a400);
       }
+
+      .main {
+        background-color: var(--app-accent-color);
+        color: #FFF;
+        max-width: 256px;
+        margin-top: 16px;
+      }
     </style>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
 
@@ -123,9 +130,10 @@
                             checked$="{{confirmedSixteen}}">[[localize('confirmedSixteen')]]</paper-checkbox>
 
           </form>
-          <div class="buttons layout vertical">
+          <div class="buttons layout vertical center-center">
+            <paper-button raised class="main" autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
+            <paper-button dialog-dismiss>Cancel</paper-button>
             <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
-            <paper-button autofocus on-tap="_validateAndSend">[[localize('authenticateAndVote')]]</paper-button>
           </div>
         </paper-dialog>
 
