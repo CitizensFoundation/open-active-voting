@@ -54681,7 +54681,7 @@ doy:4}}),kg.defineLocale("zh-tw",{months:"一月_二月_三月_四月_五月_六
       var reader = new FileReader();
 
       reader.addEventListener('loadend', function (e) {
-        var text = e.srcElement.result;
+        var text = e.srcElement ? e.srcElement.result : e.target.result;
         var postCodes = this._CSVToArray(text);
         this.postCodes = {};
         this.postCodesAreas = {};
