@@ -24,6 +24,8 @@
   <style include="iron-flex iron-flex-alignment">
 
     :host {
+      width: 100%;
+      max-width: 100%;
     }
 
     iron-list {
@@ -78,7 +80,7 @@
     @media (max-width: 1000px) {
       .topContainer {
         background-color: var(--app-main-backround-color);
-        max-width: 400px;
+        max-width: 100%;
         color: #333;
       }
     }
@@ -117,27 +119,9 @@
       margin-bottom: 8px;
     }
 
-    iron-image.mobileHeader {
-      width: 375px;
-    }
-
-
-    @media (max-width: 360px) {
-      iron-image.mobileHeader  {
-        width: 360px !important;
-      }
-    }
-
-    @media (max-width: 340px) {
-      iron-image.mobileHeader  {
-        width: 340px;
-      }
-    }
-
-    @media (max-width: 320px) {
-      iron-image.mobileHeader  {
-        width: 320px;
-      }
+    img.mobileHeader {
+      max-width: 375px;
+      width: 100%;
     }
   </style>
 
@@ -149,7 +133,7 @@
     <div class="layout vertical center-center">
       <div class="topContainer layout vertical center-center">
         <iron-image src="/hausTest1.png" hidden$="{{!wide}}"></iron-image>
-        <iron-image src="/hausTest1Mobile.png" class="mobileHeader" hidden$="{{wide}}"></iron-image>
+        <img src="/hausTest1Mobile.png" class="mobileHeader" hidden$="{{wide}}"/>
 
         <template is="dom-if" if="[[budgetBallotItems]]" restamp>
           <div id="itemContainer" class="layout horizontal center-center wrap">
