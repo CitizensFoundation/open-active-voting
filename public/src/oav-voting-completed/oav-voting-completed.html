@@ -42,14 +42,14 @@
       width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
       background-repeat: repeat-x;
+      background-color: #FFF;
     }
 
     @media (max-width: 600px) {
       .mainContainer {
         background-image: none;
-        background-color: #e0e0e0;
+        background-color: #fff;
       }
     }
 
@@ -66,9 +66,8 @@
       }
 
       .mobileLogo {
-        width: 240px;
-        height: 100px;
-        margin-top: 32px;
+        max-width: 375px;
+        width: 100%;
       }
 
       .topMaterial {
@@ -93,7 +92,7 @@
     }
 
     .logoHolder {
-      background-color: #f0f0f0;
+      background-color: #fff;
       padding-bottom: 8px;
       padding-top: 8px;
     }
@@ -133,13 +132,13 @@
     <div class="layout vertical center-center mainContainer">
       <div class="layout vertical">
         <div class="layout horizontal center-center">
-          <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo"
-                      src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+          <img hidden$="[[wide]]" sizing="contain" class="mobileLogo"
+                      src="/hausTest1Mobile.png"/>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image hidden sizing="contain" class="desktopLogo"
-                        src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+            <img sizing="contain" class=""
+                        src="/hausTest1Mobile.png"/>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
