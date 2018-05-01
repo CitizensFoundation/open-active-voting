@@ -329,21 +329,25 @@ namespace :ballot do
   desc "Reset Saga Ballot from CSV"
   task(:reset_saga_ballot_data_from_csv => :environment) do
 
-    BudgetBallotItem.delete_all
-    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
-    BudgetBallotArea.delete_all
-    ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
+    if Vote.count == 0
+      BudgetBallotItem.delete_all
+      ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_items")
+      BudgetBallotArea.delete_all
+      ActiveRecord::Base.connection.execute("TRUNCATE budget_ballot_areas")
 
-    budget_data = CSV.parse(File.open(ENV['infile']).read)
+      budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    ballot = BudgetBallotArea.create!(:budget_amount => 1.0)
-    I18n.locale = "is"
-    ballot.name = "Nafnakosning"
-    ballot.save
-    I18n.locale = "en"
-    ballot.name = "Naming vote"
-    ballot.save
+      ballot = BudgetBallotArea.create!(:budget_amount => 1.0)
+      I18n.locale = "is"
+      ballot.name = "Nafnakosning"
+      ballot.save
+      I18n.locale = "en"
+      ballot.name = "Naming vote"
+      ballot.save
 
-    ballot_import_area_data(ballot.id, budget_data, 2)
+      ballot_import_area_data(ballot.id, budget_data, 2)
+    else
+      puts "BALLOT BOX IS NOT EMPTY, NO ACTION TAKEN!"
+    end
   end
 end
