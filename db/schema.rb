@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
   end
 
   create_table "config", force: :cascade do |t|
-    t.string   "rsk_url",                             limit: 255,                   null: false
+    t.string   "rsk_url",                             limit: 255
     t.integer  "timeout_in_seconds",                  limit: 4,                     null: false
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
@@ -170,6 +170,8 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
     t.integer  "saml_assertion_id",       limit: 4,   null: false
+    t.text     "client_user_agent",       limit: 65535
+    t.string   "user_postcode",           limit: 255,   null: true
   end
 
   add_index "votes", ["area_id"], name: "index_votes_on_area_id", using: :btree

@@ -140,11 +140,11 @@ class VotesController < ApplicationController
 
       # Save the vote to the database as not authenticated
       if Vote.create(:user_id_hash => "not authenticated",
-                      :payload_data => params[:encrypted_vote],
-                      :client_ip_address => ip_address,
-                      :area_id =>params[:area_id],
-                      :session_id => request.session_options[:id],
-                      :encrypted_vote_checksum => "not authenticated")
+                     :payload_data => params[:encrypted_vote],
+                     :client_ip_address => ip_address,
+                     :area_id =>params[:area_id],
+                     :session_id => request.session_options[:id],
+                     :encrypted_vote_checksum => "not authenticated")
 
         Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
         response = {:error=>false, :vote_ok=>true}
