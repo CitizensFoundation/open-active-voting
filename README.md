@@ -1,18 +1,22 @@
-Open Active Voting
+# Open Active Voting
 
-Simple ballot based voting system.
+## Simple ballot based voting system.
 
-Here is a live demo:
+![alt text](https://citizens.is/wp-content/uploads/2018/08/oav_screenshot.png "Open Active Voting screenshot")
+
+## Here is a live demo:
 https://ktest.betrireykjavik.is/
 
-Setup guide:
+## Setup guide:
 https://docs.google.com/document/d/1M5mb-j_QaOPoB4twPe4lvXRrb1k0TmLKZxBCV5gdWuM
 
-You now need OAV Keys & Counting app to use Open Active Voting
+## You now need OAV Keys & Counting app to use Open Active Voting
 https://github.com/rbjarnason/oav-keys-and-counting
 
-OAV Keys & Counting App setup guide:
+## OAV Keys & Counting App setup guide:
 https://docs.google.com/document/d/1llb6Li4KAs7pjiQEtaZnDGauBGdiplORe_eXQg1vKZw/
+
+## Installation
 
 Install Ubuntu dependencies
 ````bash
