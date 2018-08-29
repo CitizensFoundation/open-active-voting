@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "items/:id", to: "items#index"
   get "votes/is_logged_in"
+  get "voes/is_vote_authenticated"
   get "votes/ballot"
   get "votes/get_areas"
   get "votes/boot"

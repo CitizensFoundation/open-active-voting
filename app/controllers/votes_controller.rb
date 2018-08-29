@@ -135,52 +135,44 @@ class VotesController < ApplicationController
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id]
 
-      voter_identity_session = VoterIdentitySession.where(:session_id=>request.session_options[:id]).first
-      
-      if voter_identity_session and voter_identity_session.voter_identity and voter_identity_session.voter_identity != ""
+      # Hide IP address if needed
+      ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "n/a"
 
-        # Get the voter identity
-        voter_identity = voter_identity_session.voter_identity
+      # Save the vote to the database as not authenticated
+      if Vote.create(:user_id_hash => "not authenticated",
+                      :payload_data => params[:encrypted_vote],
+                      :client_ip_address => ip_address,
+                      :area_id =>params[:area_id],
+                      :session_id => request.session_options[:id],
+                      :encrypted_vote_checksum => "not authenticated")
 
-        # Hide IP address if needed
-        ip_address = DO_NOT_LOG_IP_ADDRESSES == false ? request.remote_ip : "n/a"
-
-        # Create an encrypted checksum
-        encrypted_vote_checksum = Vote.generate_encrypted_checksum(voter_identity,params[:encrypted_vote],ip_address,params[:area_id],request.session_options[:id])
-
-        # Save the vote to the database
-        if Vote.create(:user_id_hash => voter_identity,
-                       :payload_data => params[:encrypted_vote],
-                       :client_ip_address => ip_address,
-                       :area_id =>params[:area_id],
-                       :session_id => request.session_options[:id],
-                       :encrypted_vote_checksum => encrypted_vote_checksum)
-
-          # Count how many times this particular voter has voted
-          vote_count = Vote.where(:user_id_hash=>voter_identity).count
-
-          # Delete the session object from the database
-          voter_identity_session.delete
-
-          Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
-          response = {:error=>false, :vote_ok=>true, :vote_count=> vote_count}
-
-        else
-          Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
-          response = {:error=>true, :vote_ok=>false}
-        end
+        Rails.logger.info("Saved vote for session id: #{request.session_options[:id]}")
+        response = {:error=>false, :vote_ok=>true}
       else
+        Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = {:error=>true, :vote_ok=>false}
-        Rails.logger.error("No identity for session id: #{request.session_options[:id]}")
-      end
-  
-      reset_session
+      end  
     end
 
     respond_to do |format|
       format.json { render :json => response }
     end
   end
+
+  def is_vote_authenticated
+    if request.session_options[:id]
+      # Find the previously stored wote from the session id that has been authenticated
+      vote = Vote.where(:session_id=request.session_options[:id]).where.not(:saml_assertion_id=>nil);
+      response = {:error=>false, :vote_ok=> vote ? true : false}
+    else
+      Rails.logger.error("No session: #{request.session_options[:id]}")
+      response = {:error=>true, :vote_ok=>false}
+    end  
+
+    respond_to do |format|
+      format.json { render :json => response }
+    end
+  end  
 
   private
 
@@ -217,24 +209,39 @@ class VotesController < ApplicationController
         parsed = Nokogiri.parse(@response.response.to_s)
         national_identity_hash = parsed.root.xpath("//blarg:Attribute['SSN']", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).children[0].text
         assertion_id = parsed.root.xpath("//blarg:Assertion/@ID", {"blarg" => 'urn:oasis:names:tc:SAML:2.0:assertion'}).to_s
+        saml_assertion = nil
         if SamlAssertion.where(:assertion_id=>assertion_id).first
           raise "Duplicate SAML 2 assertion error"
         else
-          SamlAssertion.create!(:assertion_id=>assertion_id)
+          saml_assertion = SamlAssertion.create!(:assertion_id=>assertion_id)
         end
+
       else
         raise "Authentication was not a success #{@response.inspect}"
       end
 
       Rails.logger.info(@response.response)
 
-      # Write the national identity hash to the database under our session id
-      if national_identity_hash and national_identity_hash!=""
-        VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => national_identity_hash)
-        Rails.logger.info("Saved identity for session id: #{request.session_options[:id]}")
+      # Find the previously stored wote from the session id that has not been authenticated before
+      vote = Vote.where(:session_id=request.session_options[:id], :saml_assertion_id=>nil)
+
+      if vote
+        # Create an encrypted checksum
+        encrypted_vote_checksum = Vote.generate_encrypted_checksum(national_identity_hash,
+                                       vote.payload_data,vote.ip_address,vote.area_id,request.session_options[:id])
+
+        # Update the values for the vote and confirm it as being authenticated                                
+        vote.encrypted_vote_checksum = encrypted_vote_checksum         
+        vote.user_id_hash = national_identity_hash
+        vote.authenticated_at = Time.now
+        vote.saml_assertion_id = saml_assertion.id               
+        vote.save
+      else
+        # TODO: Save this for app to pick up
+        raise "Authentication was not a success #{@response.inspect}"
       end
 
-      Rails.logger.info("Authentication successful for #{national_identity_hash} #{@response.inspect}")
+      Rails.logger.info("Authentication and vote completion successful for #{national_identity_hash} #{@response.inspect}")
 
       update_activity_time
 

@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
   add_index "final_split_votes", ["area_id"], name: "index_final_split_votes_on_area_id", using: :btree
 
   create_table "saml_assertions", force: :cascade do |t|
-    t.string   "assertion_id", limit: 255, null: false
+    t.string   "assertion_id", limit: 512, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
@@ -166,11 +166,14 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.string   "client_ip_address",       limit: 255,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "authenticated_at"
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
+    t.integer  "saml_assertion_id",       limit: 4,   null: false
   end
 
   add_index "votes", ["area_id"], name: "index_votes_on_area_id", using: :btree
   add_index "votes", ["user_id_hash"], name: "index_votes_on_user_id_hash", using: :btree
-
+  add_index "votes", ["session_id"], name: "index_votes_on_session_id", using: :btree
+  add_index "votes", ["session_id","saml_assertion_id"], name: "index_votes_on_session_id_and_saml_id", using: :btree
 end
