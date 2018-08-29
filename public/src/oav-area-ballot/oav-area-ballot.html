@@ -149,6 +149,7 @@
         <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
         <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
         <oav-ajax id="pollForLoginAjax" url="/votes/is_logged_in" on-response="_isLoggedInResponse"></oav-ajax>
+        <oav-ajax id="checkVoteCompletion" url="/votes/is_vote_authenticated" on-response="_checkVoteCompletionResponse"></oav-ajax>
       </div>
     </div>
   </template>
@@ -228,11 +229,6 @@
           observer: '_favoriteItemChanged'
         },
 
-        votePostingMode: {
-          type: Boolean,
-          value: false
-        },
-
         oldFavoriteItem: Object
       },
 
@@ -260,9 +256,6 @@
 
       ready: function() {
         window.appBallot = this;
-        if (LOAD_TESTING_MODE) {
-          this.$.fakeLoginAjax.generateRequest();
-        }
       },
 
       attached: function () {
@@ -365,27 +358,9 @@
         this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
       },
 
-      _clearLocalVoteStorage: function () {
-        localStorage.setItem('oav-encrypted-votes', null);
-        localStorage.setItem('oav-encrypted-votes-area-id', null);
-      },
-
       _postVoteToServer: function () {
-        if (LOAD_TESTING_MODE) {
+        if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
           this.completePostingOfVote(this._createEncryptedVotes());
-        } else if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-          this.set('votePostingMode', true);
-          if (this._isInAppiOSOrIE11()) {
-            localStorage.setItem('oav-encrypted-votes', this._createEncryptedVotes());
-            localStorage.setItem('oav-encrypted-votes-area-id', this.area.id);
-            window.location = this._getSamlUrlWithLanguage();
-          } else {
-            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-            dialog.open();
-            this._openSamlLogin();
-            this.set('isPollingForLogin', true);
-            this._pollForLoginAjax();
-          }
         } else {
           this.fire('oav-error', this.localize('error_no_items_selected'));
           console.error('error_no_items_selected');
@@ -393,7 +368,7 @@
       },
 
       _isInAppiOSOrIE11: function () {
-        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && /FBAN/.test(navigator.userAgent);
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && (/FBAN/.test(navigator.userAgent) || /Instagram/.test(navigator.userAgent));
         var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
         return iOS || isIE11;
       },
@@ -411,14 +386,12 @@
 
       cancelFromAuthButtonPopup: function () {
         this.cancelLoginPolling();
-        this.set('votePostingMode', false);
       },
 
       _isLoggedInResponse: function (event, detail) {
         if (this.isPollingForLogin===true) {
           if (detail.response.isLoggedin===true) {
-            this.cancelLoginPolling();
-            this.completePostingOfVote(this._createEncryptedVotes());
+            this.completeIfAuthenticatedVote();
           } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
             this.async(function () {
               this._pollForLoginAjax();
@@ -435,46 +408,45 @@
                                   favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
       },
 
-      completePostingOfVote: function (encryptedVotes, localStorageAreaId, forceCompletion) {
-        if (this.votePostingMode || forceCompletion) {
-          if (!encryptedVotes) {
-            encryptedVotes = this._createEncryptedVotes();
-          }
-          this.cancelLoginPolling();
-
-          var areaId;
-          if (this.area) {
-            areaId = this.area.id;
-          } else if (localStorageAreaId) {
-            areaId = localStorageAreaId;
-          } else {
-            console.warn("No area id in complete voting");
-          }
-
-          if (areaId) {
-            if (this.isSendingBallot===false && this.haveSentBallot===false) {
-              var encryptedVote = encryptedVotes;
-              if (encryptedVote) {
-                this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: areaId };
-                this.$.postBallotAjax.generateRequest();
-                this.set('isSendingBallot', true);
-                this.set('haveSentBallot', true);
-              } else {
-                console.error("No encrypted votes!");
-              }
+      completePostingOfVote: function (encryptedVotes) {
+        if (this.area && this.area.id) {
+          if (this.isSendingBallot===false && this.haveSentBallot===false) {
+            var encryptedVote = encryptedVotes;
+            if (encryptedVote) {
+              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
+              this.$.postBallotAjax.generateRequest();
+              this.set('isSendingBallot', true);
+              this.set('haveSentBallot', true);
             } else {
-              console.warn("Already sending ballot");
+              this.fire('oav-error', this.localize('error_encryption'));
+              console.error("No encrypted votes!");
             }
           } else {
-            console.warn("Not sending as no area id");
+            this.fire('oav-error', this.localize('error_could_not_post_vote'));
+            console.warn("Already sending ballot");
           }
         } else {
-          console.error("trying to post without being in vote posting mode");
+          this.fire('oav-error', this.localize('error_could_not_post_vote'));
+          console.warn("Not sending as no area id");
         }
       },
 
-      _completePostingOfVoteAfterRedirect: function () {
-        this.completePostingOfVote(localStorage.getItem('oav-encrypted-votes'), localStorage.getItem('oav-encrypted-votes-area-id'), true);
+      _checkVoteCompletionResponse: function (event, detail) {
+        if (detail.vote_ok==true) {
+          this.reset();
+          this.set('areaId', null);
+          window.location = "/#/voting-completed"
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+          dialog.close();
+        } else {
+          this.fire('oav-error', this.localize('error_could_not_post_vote'));
+        }
+
+      },
+
+      completeIfAuthenticatedVote: function () {
+        this.cancelLoginPolling();
+        this.$.checkVoteCompletion.generateResponse();
       },
 
       _getSamlUrlWithLanguage: function () {
@@ -496,29 +468,21 @@
       },
 
       _ballotPostResponse: function (event, detail) {
-        this.cancelLoginPolling();
-        this.set('isSendingBallot', false);
-        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.close();
-
-        this._clearLocalVoteStorage();
-
-        if (detail.response.vote_ok==true && detail.response.error==false) {
-          this.reset();
-          this.set('areaId', null);
-          window.location = "/#/voting-completed"
+        if (this._isInAppiOSOrIE11()) {
+          window.location = this._getSamlUrlWithLanguage();
         } else {
-          this.fire('oav-error', this.localize('error_could_not_post_vote'));
-        }
-        if (LOAD_TESTING_MODE) {
-          this.$.fakeLoginAjax.generateRequest();
+          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+          dialog.open();
+          this._openSamlLogin();
+          this.set('isPollingForLogin', true);
+          this._pollForLoginAjax();
         }
       },
 
       _areaIdRoutePathChanged: function (newPathForId) {
         if (newPathForId && newPathForId.prefix && newPathForId.prefix == "/area-ballot") {
           if (newPathForId.path.slice(1)=='completePostingOfVoteAfterRedirect') {
-            this._completePostingOfVoteAfterRedirect();
+            this.completeIfAuthenticatedVote();
           } else {
             this.set('areaId', newPathForId.path.slice(1));
           }
@@ -526,11 +490,12 @@
       },
 
       _areaIdChanged: function (newAreaId, oldAreaId) {
+        this.set('haveSentBallot', false);
+        this.set('isSendingBallot', false);
+        this.set('oldFavoriteItem', null);
+        this.set('favoriteItem', null);
         if (newAreaId) {
           this.reset();
-          this.set('haveSentBallot', false);
-          this.set('favoriteItem', null);
-          this.set('oldFavoriteItem', null);
           this.fire('ak-clear-area');
           this.$.getBallotAjax.params = { area_id: newAreaId };
           this.$.getBallotAjax.generateRequest();
