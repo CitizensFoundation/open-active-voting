@@ -150,15 +150,6 @@ ActiveRecord::Schema.define(version: 20161016003455) do
 
   add_index "saml_assertions", ["assertion_id"], name: "index_saml_assertions_on_assertion_id", using: :btree
 
-  create_table "voter_identity_sessions", force: :cascade do |t|
-    t.string   "voter_identity", limit: 255, null: false
-    t.string   "session_id",     limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "voter_identity_sessions", ["session_id"], name: "index_voter_identity_sessions_on_session_id", using: :btree
-
   create_table "votes", force: :cascade do |t|
     t.integer  "area_id",                 limit: 4,     null: false
     t.string   "user_id_hash",            limit: 255,   null: false

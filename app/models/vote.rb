@@ -1,5 +1,5 @@
-# Copyright (C) 2010-2017 Íbúar ses / Citizens Foundation Iceland
-# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
+# Copyright (C) 2010-2018 Íbúar ses / Citizens Foundation Iceland
+# Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,7 +56,9 @@ class Vote < ActiveRecord::Base
                     ORDER BY
                             created_at DESC
                     LIMIT 1
-                  )}
+                  )
+                AND saml_assertion_id IS NOT NULL
+                }
 
     query += " ORDER BY created_at DESC"
     Vote.find_by_sql(query)

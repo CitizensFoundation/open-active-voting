@@ -1,7 +1,7 @@
 <!--
 @license
   Copyright (C) 2010-2016 Íbúar ses
-  Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
+  Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -210,6 +210,8 @@
       </div>
     </app-header-layout>
     <oav-app-globals id="appGlobals"></oav-app-globals>
+    <oav-ajax id="logoutAjax" url="/votes/is_vote_authenticated" on-response="_checkVoteCompletionResponse"></oav-ajax>
+
   </template>
 
   <script>
@@ -509,6 +511,8 @@
         // Do not allow access to voting-completed from a reload
         if (page=='voting-completed' && oldPage!='area-ballot') {
           window.location = "/";
+        } else if (page=='voting-completed') {
+          this.$.logoutAjax.generateRequest();
         }
 
         // Refresh counts if coming from voting-completed

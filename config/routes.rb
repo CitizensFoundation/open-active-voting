@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post "authenticate_from_island_is", to: "votes#authenticate_from_island_is"
 
   get "items/:id", to: "items#index"
-  get "votes/is_logged_in"
   get "voes/is_vote_authenticated"
   get "votes/ballot"
   get "votes/get_areas"
