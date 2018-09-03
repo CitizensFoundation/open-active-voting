@@ -1,7 +1,7 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2017 Íbúar ses / Citizens Foundation Iceland
-# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
+# Copyright (C) 2010-2018 Íbúar ses / Citizens Foundation Iceland
+# Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,21 +32,9 @@ class VotesController < ApplicationController
 
   http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
 
-  # This is a test method for load testing to allow load testing without the secure authentication
-  def force_session_id
-    if ENV["LOAD_TESTING_MODE"]=="true"
-      VoterIdentitySession.create!(:session_id=>request.session_options[:id], :voter_identity => request.session_options[:id])
-    end
-
-     respond_to do |format|
-       format.json { render :json => [:ok => true ]}
-     end
-  end
-
   # Logout and reset the session
   def logout
     reset_session
-    redirect_to "/"
   end
 
   # Send the config and public key to the client app
@@ -75,13 +63,6 @@ class VotesController < ApplicationController
                                      total_voter_count: Vote.distinct.count(:user_id_hash),
                                      load_testing_mode: ENV["LOAD_TESTING_MODE"]
       }}
-    end
-  end
-
-  # Am I logged in?
-  def is_logged_in
-    respond_to do |format|
-      format.json { render :json => { isLoggedin: (request.session_options[:id] and VoterIdentitySession.where(:session_id=>request.session_options[:id]).first) }}
     end
   end
 
@@ -215,9 +196,11 @@ class VotesController < ApplicationController
         else
           saml_assertion = SamlAssertion.create!(:assertion_id=>assertion_id)
         end
-
+        if  saml_saml_assertion.id == nil or saml_assertion.id == ""
+          raise "SAML Assertion id not found #{@response.inspect}"
+        end    
       else
-        raise "Authentication was not a success #{@response.inspect}"
+        raise "Authentication was not a success saml_validation_response #{@response.inspect}"
       end
 
       Rails.logger.info(@response.response)
@@ -238,13 +221,10 @@ class VotesController < ApplicationController
         vote.save
       else
         # TODO: Save this for app to pick up
-        raise "Authentication was not a success #{@response.inspect}"
+        raise "Authentication was not a success vote not found #{@response.inspect}"
       end
 
       Rails.logger.info("Authentication and vote completion successful for #{national_identity_hash} #{@response.inspect}")
-
-      update_activity_time
-
       return true
     rescue  => ex
       notify_airbrake(ex)

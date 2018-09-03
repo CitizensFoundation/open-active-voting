@@ -141,15 +141,10 @@
       </template>
 
       <div class="layout horizontal center-center">
-
-        <!-- DISABLE IN PRODUCTION USE -->
-        <oav-ajax id="fakeLoginAjax" url="/votes/force_session_id?ssn=1907724039"></oav-ajax>
-        <!-- FAKE LOGIN ENDS -->
-
         <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
         <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
-        <oav-ajax id="pollForLoginAjax" url="/votes/is_logged_in" on-response="_isLoggedInResponse"></oav-ajax>
-        <oav-ajax id="checkVoteCompletion" url="/votes/is_vote_authenticated" on-response="_checkVoteCompletionResponse"></oav-ajax>
+        <oav-ajax id="pollForVoteAuthAjax" url="/votes/is_vote_authenticated" on-response="_hasAthenticationVoteResponse"></oav-ajax>
+        <oav-ajax id="checkVoteCompletionAjax" url="/votes/is_vote_authenticated" on-response="_checkVoteCompletionResponse"></oav-ajax>
       </div>
     </div>
   </template>
@@ -206,7 +201,7 @@
 
         wide: Boolean,
 
-        isPollingForLogin: {
+        isPollingForVoteAuth: {
           type: Boolean,
           value: false
         },
@@ -373,31 +368,31 @@
         return iOS || isIE11;
       },
 
-      _pollForLoginAjax: function () {
-        if (this.isPollingForLogin===true) {
-          this.$.pollForLoginAjax.params = {time: new Date().getTime()};
-          this.$.pollForLoginAjax.generateRequest();
+      _pollForVoteAuthAjax: function () {
+        if (this.isPollingForVoteAuth===true) {
+          this.$.pollForVoteAuthAjax.params = {time: new Date().getTime()};
+          this.$.pollForVoteAuthAjax.generateRequest();
         }
       },
 
-      cancelLoginPolling: function () {
-        this.set('isPollingForLogin', false);
-      },
-
-      cancelFromAuthButtonPopup: function () {
-        this.cancelLoginPolling();
-      },
-
-      _isLoggedInResponse: function (event, detail) {
-        if (this.isPollingForLogin===true) {
-          if (detail.response.isLoggedin===true) {
-            this.completeIfAuthenticatedVote();
-          } else if (detail.response.isLoggedin===false && this.isPollingForLogin===true) {
+      _hasAthenticationVoteResponse: function (event, detail) {
+        if (this.isPollingForVoteAuth===true) {
+          if (detail.response.vote_ok===true) {
+            this._setVotingCompleted();
+          } else if (detail.response.vote_ok===false && this.isPollingForVoteAuth===true) {
             this.async(function () {
-              this._pollForLoginAjax();
+              this._pollForVoteAuthAjax();
             }.bind(this), 1500)
           }
         }
+      },
+
+      cancelVoteAuthPolling: function () {
+        this.set('isPollingForVoteAuth', false);
+      },
+
+      cancelFromAuthButtonPopup: function () {
+        this.cancelVoteAuthPolling();
       },
 
       _createEncryptedVotes: function () {
@@ -431,22 +426,25 @@
         }
       },
 
+      _setVotingCompleted: function () {
+        this.reset();
+        this.set('areaId', null);
+        window.location = "/#/voting-completed"
+        var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+        dialog.close();
+      },
+
       _checkVoteCompletionResponse: function (event, detail) {
         if (detail.vote_ok==true) {
-          this.reset();
-          this.set('areaId', null);
-          window.location = "/#/voting-completed"
-          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-          dialog.close();
+         this._setVotingCompleted();
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
-
       },
 
       completeIfAuthenticatedVote: function () {
-        this.cancelLoginPolling();
-        this.$.checkVoteCompletion.generateResponse();
+        this.cancelVoteAuthPolling();
+        this.$.checkVoteCompletionAjax.generateResponse();
       },
 
       _getSamlUrlWithLanguage: function () {
@@ -474,8 +472,8 @@
           var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
           dialog.open();
           this._openSamlLogin();
-          this.set('isPollingForLogin', true);
-          this._pollForLoginAjax();
+          this.set('isPollingForVoteAuth', true);
+          this._pollForVoteAuthAjax();
         }
       },
 

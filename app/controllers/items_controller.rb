@@ -1,7 +1,7 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2017 Íbúar ses / Citizens Foundation Iceland
-# Authors Robert Bjarnason, Gunnar Grimsson & Gudny Maren Valsdottir
+# Copyright (C) 2010-2018 Íbúar ses / Citizens Foundation Iceland
+# Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
