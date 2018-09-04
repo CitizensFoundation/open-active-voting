@@ -435,7 +435,7 @@
       },
 
       _checkVoteCompletionResponse: function (event, detail) {
-        if (detail.vote_ok==true) {
+        if (detail.response.vote_ok===true) {
          this._setVotingCompleted();
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
@@ -466,14 +466,18 @@
       },
 
       _ballotPostResponse: function (event, detail) {
-        if (this._isInAppiOSOrIE11()) {
-          window.location = this._getSamlUrlWithLanguage();
+        if (detail.response && detail.response.vote_ok === true) {
+          if (this._isInAppiOSOrIE11()) {
+            window.location = this._getSamlUrlWithLanguage();
+          } else {
+            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
+            dialog.open();
+            this._openSamlLogin();
+            this.set('isPollingForVoteAuth', true);
+            this._pollForVoteAuthAjax();
+          }
         } else {
-          var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-          dialog.open();
-          this._openSamlLogin();
-          this.set('isPollingForVoteAuth', true);
-          this._pollForVoteAuthAjax();
+          this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
       },
 

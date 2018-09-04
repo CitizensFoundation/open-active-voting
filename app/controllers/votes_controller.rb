@@ -21,8 +21,6 @@ require 'nokogiri'
 require 'base64'
 require 'ruby-saml'
 
-#require Rails.root.join('lib','ruby-saml','lib','ruby-saml').to_s
-
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
 class VotesController < ApplicationController
@@ -113,6 +111,7 @@ class VotesController < ApplicationController
 
   # Encrypted vote posted by the user
   def post_vote
+
     # Try to read the vote identity and redirect to authentication error if not found
     if request.session_options[:id]
 
@@ -133,6 +132,9 @@ class VotesController < ApplicationController
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = {:error=>true, :vote_ok=>false}
       end  
+    else
+      Rails.logger.error("No session id")
+      response = {:error=>true, :vote_ok=>false}
     end
 
     respond_to do |format|
@@ -158,7 +160,7 @@ class VotesController < ApplicationController
   private
 
   def log_session_id
-    Rails.logger.info("Session id: #{request.session_options[:id]}")
+    Rails.logger.info("Session id: #{request.session.id}")
   end
 
   def saml_settings
