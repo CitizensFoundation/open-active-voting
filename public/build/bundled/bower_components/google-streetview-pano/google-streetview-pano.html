@@ -36,15 +36,15 @@ You can also use the position attribute and set it to a position with a computed
 -->
 
 </head><body><dom-module id="google-streetview-pano">
-  <style>
-    :host {
-      display: block;
-    }
-    #pano {
-      height: 100%;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+      #pano {
+        height: 100%;
+      }
+    </style>
     <google-maps-api api-key="{{apiKey}}" version="{{version}}" libraries="{{libraries}}" client-id="{{clientId}}" language="{{language}}" client="" on-api-load="_mapApiLoaded"></google-maps-api>
     <div id="pano" on-mouseenter="_autoStop" on-mouseleave="_autoUpdate"></div>
   </template>
@@ -205,8 +205,10 @@ You can also use the position attribute and set it to a position with a computed
     update: function() {
       this.rAFid = requestAnimationFrame(this.update.bind(this));
       var pov = this.pano.getPov();
-      pov.heading += 0.03;
-      this.pano.setPov(pov);
+      if (pov) {
+        pov.heading += 0.03;
+        this.pano.setPov(pov);
+      }
     },
 
     _autoUpdate: function() {
@@ -235,7 +237,7 @@ You can also use the position attribute and set it to a position with a computed
     detached: function () {
       this.stop();
     },
-    
+
     /**
      * Cancel the slow panning animation.
      * @method stop

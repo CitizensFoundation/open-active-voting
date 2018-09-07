@@ -7,26 +7,22 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><html><head><link rel="import" href="../polymer/polymer.html?v=6.1.35">
-<link rel="import" href="../neon-animation/web-animations.html?v=6.1.35">
 <link rel="import" href="../neon-animation/neon-animation-behavior.html?v=6.1.35">
 <script>
   Polymer({
     is: 'paper-menu-grow-height-animation',
 
-    behaviors: [
-      Polymer.NeonAnimationBehavior
-    ],
+    behaviors: [Polymer.NeonAnimationBehavior],
 
     configure: function(config) {
       var node = config.node;
       var rect = node.getBoundingClientRect();
       var height = rect.height;
 
-      this._effect = new KeyframeEffect(node, [{
-        height: (height / 2) + 'px'
-      }, {
-        height: height + 'px'
-      }], this.timingFromConfig(config));
+      this._effect = new KeyframeEffect(
+          node,
+          [{height: (height / 2) + 'px'}, {height: height + 'px'}],
+          this.timingFromConfig(config));
 
       return this._effect;
     }
@@ -35,20 +31,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Polymer({
     is: 'paper-menu-grow-width-animation',
 
-    behaviors: [
-      Polymer.NeonAnimationBehavior
-    ],
+    behaviors: [Polymer.NeonAnimationBehavior],
 
     configure: function(config) {
       var node = config.node;
       var rect = node.getBoundingClientRect();
       var width = rect.width;
 
-      this._effect = new KeyframeEffect(node, [{
-        width: (width / 2) + 'px'
-      }, {
-        width: width + 'px'
-      }], this.timingFromConfig(config));
+      this._effect = new KeyframeEffect(
+          node,
+          [{width: (width / 2) + 'px'}, {width: width + 'px'}],
+          this.timingFromConfig(config));
 
       return this._effect;
     }
@@ -57,20 +50,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Polymer({
     is: 'paper-menu-shrink-width-animation',
 
-    behaviors: [
-      Polymer.NeonAnimationBehavior
-    ],
+    behaviors: [Polymer.NeonAnimationBehavior],
 
     configure: function(config) {
       var node = config.node;
       var rect = node.getBoundingClientRect();
       var width = rect.width;
 
-      this._effect = new KeyframeEffect(node, [{
-        width: width + 'px'
-      }, {
-        width: width - (width / 20) + 'px'
-      }], this.timingFromConfig(config));
+      this._effect = new KeyframeEffect(
+          node,
+          [{width: width + 'px'}, {width: width - (width / 20) + 'px'}],
+          this.timingFromConfig(config));
 
       return this._effect;
     }
@@ -79,25 +69,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Polymer({
     is: 'paper-menu-shrink-height-animation',
 
-    behaviors: [
-      Polymer.NeonAnimationBehavior
-    ],
+    behaviors: [Polymer.NeonAnimationBehavior],
 
     configure: function(config) {
       var node = config.node;
       var rect = node.getBoundingClientRect();
       var height = rect.height;
-      var top = rect.top;
 
       this.setPrefixedProperty(node, 'transformOrigin', '0 0');
 
-      this._effect = new KeyframeEffect(node, [{
-        height: height + 'px',
-        transform: 'translateY(0)'
-      }, {
-        height: height / 2 + 'px',
-        transform: 'translateY(-20px)'
-      }], this.timingFromConfig(config));
+      this._effect = new KeyframeEffect(
+          node,
+          [
+            {height: height + 'px', transform: 'translateY(0)'},
+            {height: height / 2 + 'px', transform: 'translateY(-20px)'}
+          ],
+          this.timingFromConfig(config));
 
       return this._effect;
     }
