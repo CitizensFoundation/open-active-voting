@@ -5105,7 +5105,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="layout horizontal center-center">
         <oav-ajax id="getBallotAjax" url="/votes/get_ballot" on-response="_ballotResponse"></oav-ajax>
         <oav-ajax id="postBallotAjax" method="post" url="/votes/post_vote" on-response="_ballotPostResponse"></oav-ajax>
-        <oav-ajax id="pollForVoteAuthAjax" url="/votes/is_vote_authenticated" on-response="_hasAthenticationVoteResponse"></oav-ajax>
         <oav-ajax id="checkVoteCompletionAjax" url="/votes/is_vote_authenticated" on-response="_checkVoteCompletionResponse"></oav-ajax>
       </div>
     </div>
@@ -5162,21 +5161,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         budgetBallotItems: Array,
 
         wide: Boolean,
-
-        isPollingForVoteAuth: {
-          type: Boolean,
-          value: false
-        },
-
-        isSendingBallot: {
-          type: Boolean,
-          value: false
-        },
-
-        haveSentBallot: {
-          type: Boolean,
-          value: false
-        },
 
         popupWindow: Object,
 
@@ -5324,31 +5308,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      _isInAppiOSOrIE11: function () {
-        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && (/FBAN/.test(navigator.userAgent) || /Instagram/.test(navigator.userAgent));
-        var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
-        return iOS || isIE11;
-      },
-
-      _pollForVoteAuthAjax: function () {
-        if (this.isPollingForVoteAuth===true) {
-          this.$.pollForVoteAuthAjax.params = {time: new Date().getTime()};
-          this.$.pollForVoteAuthAjax.generateRequest();
-        }
-      },
-
-      _hasAthenticationVoteResponse: function (event, detail) {
-        if (this.isPollingForVoteAuth===true) {
-          if (detail.response.vote_ok===true) {
-            this._setVotingCompleted();
-          } else if (detail.response.vote_ok===false && this.isPollingForVoteAuth===true) {
-            this.async(function () {
-              this._pollForVoteAuthAjax();
-            }.bind(this), 1500)
-          }
-        }
-      },
-
       _createEncryptedVotes: function () {
         var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
           return item.id;
@@ -5359,20 +5318,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       completePostingOfVote: function (encryptedVotes) {
         if (this.area && this.area.id) {
-          if (this.isSendingBallot===false && this.haveSentBallot===false) {
-            var encryptedVote = encryptedVotes;
-            if (encryptedVote) {
-              this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
-              this.$.postBallotAjax.generateRequest();
-              this.set('isSendingBallot', true);
-              this.set('haveSentBallot', true);
-            } else {
-              this.fire('oav-error', this.localize('error_encryption'));
-              console.error("No encrypted votes!");
-            }
+          var encryptedVote = encryptedVotes;
+          if (encryptedVote) {
+            this.$.postBallotAjax.body = { encrypted_vote: encryptedVote, area_id: this.area.id };
+            this.$.postBallotAjax.generateRequest();
           } else {
-            this.fire('oav-error', this.localize('error_could_not_post_vote'));
-            console.warn("Already sending ballot");
+            this.fire('oav-error', this.localize('error_encryption'));
+            console.error("No encrypted votes!");
           }
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
@@ -5430,8 +5382,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _areaIdChanged: function (newAreaId, oldAreaId) {
-        this.set('haveSentBallot', false);
-        this.set('isSendingBallot', false);
         this.set('oldFavoriteItem', null);
         this.set('favoriteItem', null);
         if (newAreaId) {
