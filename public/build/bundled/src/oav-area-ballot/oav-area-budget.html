@@ -31,9 +31,12 @@
     .budgetContainer[wide] {
       height: 238px;
       width: 100%;
+      background-size: 1920px 238px;
+      background-repeat: no-repeat;
+      background-position: center;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png");
     }
 
     @media (max-width: 1100px) {
@@ -41,7 +44,7 @@
         background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/RvkBlar.png");
       }
       .budgetContainer[wide] {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300_Thin.png");
+        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png");
       }
     }
 
@@ -176,10 +179,11 @@
     }
 
     .headerLogo {
-      width: 150px;
-      height: 70px;
+      width: 220px;
+      height: 66px;
       padding: 0;
-      margin-left: 24px;
+      margin: 0;
+      margin-left: 4px;
     }
 
     .headerContainer {
@@ -225,7 +229,7 @@
     <div class="budgetContainer" wide$="[[wide]]">
       <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]" less-wide$="[[lessWide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
-          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <template is="dom-if" if="[[areaName]]">
