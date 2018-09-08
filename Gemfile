@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.9'
+ruby '2.2.10'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
