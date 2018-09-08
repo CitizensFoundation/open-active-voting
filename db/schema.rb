@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.datetime "authenticated_at"
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
-    t.integer  "saml_assertion_id",       limit: 4,     null: false
+    t.integer  "saml_assertion_id",       limit: 4,     null: true
     t.text     "client_user_agent",       limit: 65535
     t.string   "user_postcode",           limit: 255,   null: true
   end

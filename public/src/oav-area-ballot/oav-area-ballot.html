@@ -431,7 +431,8 @@
         this.set('areaId', null);
         window.location = "/#/voting-completed"
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.close();
+        if (dialog)
+          dialog.close();
       },
 
       _checkVoteCompletionResponse: function (event, detail) {
