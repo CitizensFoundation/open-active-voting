@@ -40,9 +40,13 @@
 
     .mainContainer {
       width: 100%;
+      height: 300px;
+      background-size: 1920px 300px;
+      background-repeat: no-repeat;
+      background-position: center;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png");
       background-repeat: repeat-x;
     }
 
@@ -88,12 +92,12 @@
     }
 
     .desktopLogo {
-      width: 260px;
+      width: 400px;
       height: 120px;
     }
 
     .logoHolder {
-      background-color: #f0f0f0;
+      background-color: #213158;
       padding-bottom: 8px;
       padding-top: 8px;
     }
@@ -134,12 +138,12 @@
       <div class="layout vertical">
         <div class="layout horizontal center-center">
           <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo"
-                      src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+                      src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
         </div>
         <paper-material elevation="5" class="topMaterial">
           <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
             <iron-image sizing="contain" class="desktopLogo"
-                        src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+                        src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
           </div>
           <div class="completedText">
             <div>{{localize('thank_you_1')}}</div>
@@ -155,9 +159,6 @@
                                     title$="{{localize('share_vote_by_pressing')}}"
                                     facebook twitter popup url$="[[shareUrl]]">
                 </paper-share-button>
-              </div>
-              <div class="textSharing">Taktu þátt í samráði um <a target="_blank" href="https://menntastefna.betrireykjavik.is/">menntastefnu
-                borgarinnar</a> til 2030 á Betri Reykjavík!
               </div>
             </div>
           </div>

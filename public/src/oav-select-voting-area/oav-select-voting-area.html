@@ -73,11 +73,13 @@
     }
 
     .imageContainer {
-      height: 280px;
       width: 100%;
+      background-size: 1920px 280px;
+      background-repeat: no-repeat;
+      background-position: center;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/CF-medium-minimal1920x300.png");
+      background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png");
     }
 
     @media (max-width: 800px) {
@@ -328,14 +330,14 @@
     }
 
     .desktopLogo {
-      width: 260px;
+      width: 100%;
       height: 120px;
     }
 
     .logoHolder {
       padding-bottom: 8px;
       padding-top: 8px;
-      background-color: #f0f0f0;
+      background-color: #213158;
     }
 
     @media (max-width: 320px) {
@@ -380,11 +382,11 @@
         <div class="layout horizontal imageContainer wrap">
           <div class="layout vertical">
             <div class="layout horizontal center-center">
-              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+              <iron-image hidden$="[[wide]]" sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
             </div>
             <paper-material elevation="3" class="topMaterial">
               <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-                <iron-image sizing="contain" class="desktopLogo" src="https://s3.amazonaws.com/yrpri-direct-asset/HverfidMittLogoPosV2.png"></iron-image>
+              <img sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
               </div>
               <div class="selectInfoTextSmaller">{{localize('choose_a_neighbourhood_2')}}</div>
               <div class="langSelection layout horizontal">
@@ -400,7 +402,7 @@
 
           <paper-material elevation="3" class="topMaterial infoImageContainer" hidden$="[[!wide]]">
             <video width="400" height="225" controls on-playing="_onVideoPlay">
-              <source src="https://efni.hvitahusid.is/Reykjavik/hverfidMitt/kosning_2017/video/RVK-hverfid_mitt-kennslumyndband_1920x1080.mp4" type="video/mp4">
+              <source src="https://efni.hvitahusid.is/Reykjavik/hverfidMitt/kosning_2017/video/RVK-hverfid_mitt-kennslumyndband_1920x1080-2018.mp4" type="video/mp4">
               Þinn vafri styður ekki myndbönd.
             </video>
           </paper-material>
