@@ -490,7 +490,7 @@
 
         // Cancel login polling if needed
         if (oldPage=='area-ballot' && this.$.budgetBallot) {
-          this.$.budgetBallot.cancelLoginPolling();
+          this.$.budgetBallot.cancelVoteAuthPolling();
           this._hideFavoriteItem();
         }
 

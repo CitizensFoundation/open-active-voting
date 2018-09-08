@@ -145,8 +145,8 @@ class VotesController < ApplicationController
   def is_vote_authenticated
     if request.session_options[:id]
       # Find the previously stored wote from the session id that has been authenticated
-      vote = Vote.where(:session_id=>request.session_options[:id]).where.not(:saml_assertion_id=>nil);
-      response = {:error=>false, :vote_ok=> vote ? true : false}
+      vote = Vote.where(:session_id=>request.session_options[:id]).where.not(:saml_assertion_id=>nil).first;
+      response = {:error=>false, :vote_ok=> (vote and vote.saml_assertion_id != -1) ? true : false}
     else
       Rails.logger.error("No session: #{request.session_options[:id]}")
       response = {:error=>true, :vote_ok=>false}
