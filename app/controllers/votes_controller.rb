@@ -57,9 +57,8 @@ class VotesController < ApplicationController
   def get_areas
     respond_to do |format|
       format.json { render :json => {:areas => BudgetBallotArea.all,
-                                     area_voter_count: Vote.group(:area_id).distinct.count(:user_id_hash),
-                                     total_voter_count: Vote.distinct.count(:user_id_hash),
-                                     load_testing_mode: ENV["LOAD_TESTING_MODE"]
+                                     area_voter_count: Vote.where.not(:saml_assertion_id=>nil).group(:area_id).distinct.count(:user_id_hash),
+                                     total_voter_count: Vote.where.not(:saml_assertion_id=>nil).distinct.count(:user_id_hash)
       }}
     end
   end

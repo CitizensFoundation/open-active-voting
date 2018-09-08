@@ -5349,14 +5349,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      cancelVoteAuthPolling: function () {
-        this.set('isPollingForVoteAuth', false);
-      },
-
-      cancelFromAuthButtonPopup: function () {
-        this.cancelVoteAuthPolling();
-      },
-
       _createEncryptedVotes: function () {
         var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
           return item.id;
@@ -5393,7 +5385,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.set('areaId', null);
         window.location = "/#/voting-completed"
         var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-        dialog.close();
+        if (dialog)
+          dialog.close();
       },
 
       _checkVoteCompletionResponse: function (event, detail) {
@@ -5405,7 +5398,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       completeIfAuthenticatedVote: function () {
-        this.cancelVoteAuthPolling();
         this.$.checkVoteCompletionAjax.generateResponse();
       },
 
@@ -5413,31 +5405,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var url = window.appGlobals.configFromServer.rsk_url;
         if (this.language=='en') {
           url+='&siteLanguage=en';
-        }
+        } else if (this.language=='pl') {
+          url+='&siteLanguage=pl';
         return url;
-      },
-
-      _openSamlLogin: function () {
-        var url = this._getSamlUrlWithLanguage();
-        var     width = 1200,
-                height = 650,
-                top = (window.outerHeight - height) / 2,
-                left = (window.outerWidth - width) / 2;
-
-        window.open(url, 'saml_login', 'width=' + width + ',height=' + height + ',scrollbars=0,top=' + top + ',left=' + left);
+        }
       },
 
       _ballotPostResponse: function (event, detail) {
         if (detail.response && detail.response.vote_ok === true) {
-          if (this._isInAppiOSOrIE11()) {
-            window.location = this._getSamlUrlWithLanguage();
-          } else {
-            var dialog = Polymer.dom(document).querySelector('oav-app').getDialog("authDialog");
-            dialog.open();
-            this._openSamlLogin();
-            this.set('isPollingForVoteAuth', true);
-            this._pollForVoteAuthAjax();
-          }
+          window.location = this._getSamlUrlWithLanguage();
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
