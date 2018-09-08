@@ -10,18 +10,7 @@
       %p
         = @error
       %p
-        %button#closeButton{:onclick => "window.close()"} Loka glugga
+        %button#closeButton{:onclick => "window.location='/'"} Loka glugga
     - else
       :javascript
-        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && (/FBAN/.test(navigator.userAgent) || /Instagram/.test(navigator.userAgent));
-        var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
-        if (iOS || isIE11) {
-          window.location = "/#/area-ballot/completePostingOfVoteAfterRedirect"
-        } else {
-          try {
-            window.opener.postMessage("samlLogin","*");
-            window.close();
-          } catch(err) {
-            setTimeout(window.close, 400);
-          }
-        }
+        window.location = "/#/area-ballot/completePostingOfVoteAfterRedirect"
