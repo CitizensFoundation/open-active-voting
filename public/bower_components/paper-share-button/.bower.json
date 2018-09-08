@@ -10,26 +10,26 @@
   },
   "main": "paper-share-button.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#2.x",
-    "paper-menu-button": "2.x",
-    "paper-icon-button": "2.x",
-    "paper-material": "2.x",
-    "iron-iconset-svg": "2.x"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-menu-button": "^1.5.2",
+    "paper-icon-button": "^1.1.4",
+    "paper-material": "^1.0.6",
+    "iron-iconset-svg": "^1.1.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#1.x"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "homepage": "https://github.com/rbjarnason/paper-share-button",
-  "_release": "c58aa54426",
+  "_release": "7d9ed12cfc",
   "_resolution": {
     "type": "branch",
-    "branch": "master",
-    "commit": "c58aa5442631d215ce3284e48d21af6c693ed6e4"
+    "branch": "polymer1",
+    "commit": "7d9ed12cfc4bffea7566033cc1553d6041b09f48"
   },
   "_source": "https://github.com/rbjarnason/paper-share-button.git",
-  "_target": "master",
+  "_target": "polymer1",
   "_originalSource": "https://github.com/rbjarnason/paper-share-button.git"
 }

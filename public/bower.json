@@ -43,7 +43,7 @@
     "paper-menu": "1.x",
     "web-animations-js": "^2.3.1",
     "paper-menu-button": "1.x",
-    "paper-share-button": "https://github.com/rbjarnason/paper-share-button.git#master"
+    "paper-share-button": "https://github.com/rbjarnason/paper-share-button.git#polymer1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
