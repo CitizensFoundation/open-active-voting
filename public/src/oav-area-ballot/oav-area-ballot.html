@@ -430,27 +430,6 @@
         }
       },
 
-      _randomImage: function () {
-        var myRandomImages = [
-          "https://yrpri6-production.s3.amazonaws.com/5X/aK/tG-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/Fc/gy/To-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/Tr/Sw/b9-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/GX/sE/Ei-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/Aa/aW/EQ-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/eo/4w/k7-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/J8/GN/KB-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/rH/9W/Ih-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/F5/0N/Gs-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/vv/TJ/YP-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/KW/Xp/nh-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/Y4/M6/a8-retina.png",
-          "https://yrpri6-production.s3.amazonaws.com/li/3l/Mv-retina.png"
-        ];
-
-        var randomNum = Math.floor(Math.random() * myRandomImages.length);
-        return myRandomImages[randomNum];
-      },
-
       _setupLocationsAndTranslation: function (budgetBallotItems) {
         var arrayLength = budgetBallotItems.length;
         for (var i = 0; i < arrayLength; i++) {
@@ -469,10 +448,6 @@
           // Set the localized translation
           budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
           budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
-
-          if (budgetBallotItems[i].image_url && budgetBallotItems[i].image_url.indexOf('imgur') > -1) {
-            //budgetBallotItems[i].image_url = this._randomImage();
-          }
         }
         return _.shuffle(budgetBallotItems);
       },
