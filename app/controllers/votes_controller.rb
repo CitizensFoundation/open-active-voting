@@ -28,7 +28,7 @@ class VotesController < ApplicationController
   after_filter :log_session_id
   skip_before_filter :verify_authenticity_token, :only => [:authenticate_from_island_is]
 
-  http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
+  # http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
 
   # Logout and reset the session
   def logout
@@ -213,7 +213,7 @@ class VotesController < ApplicationController
       if vote
         # Create an encrypted checksum
         encrypted_vote_checksum = Vote.generate_encrypted_checksum(national_identity_hash,
-                                       vote.payload_data,vote.ip_address,vote.area_id,request.session_options[:id])
+                                       vote.payload_data,vote.client_ip_address,vote.area_id,request.session_options[:id])
 
         # Update the values for the vote and confirm it as being authenticated                                
         vote.encrypted_vote_checksum = encrypted_vote_checksum         
