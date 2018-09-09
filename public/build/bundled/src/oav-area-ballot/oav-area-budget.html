@@ -21,11 +21,8 @@
     }
 
     .budgetContainer {
-      height: 140px;
-      width: 100%;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
-      background-color: #213158;
     }
 
     .budgetContainer[wide] {
@@ -41,25 +38,16 @@
 
     @media (max-width: 1100px) {
       .budgetContainer {
-        backgroun-color: #213158;
-      }
-      .budgetContainer[wide] {
-        background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png");
+        background-color: #213158;
       }
     }
 
     .budgetMaterial {
-      width: 288px;
+      width: 100%;
       background-color: rgba(249,249,249,1.0);
-      height: 108px;
-      margin: 5px 0px;
+      height: 139px;
+      margin: 0px 0px 0px 0px;
       @apply(--layout-vertical);
-    }
-
-    @media (max-width: 340px) {
-      .budgetMaterial {
-        width: 250px;
-      }
     }
 
     .budgetMaterial[wide] {
@@ -70,30 +58,16 @@
       @apply(--layout-vertical);
     }
 
-    .budgetMaterial[less-wide] {
-      width: 920px;
-    }
-
     #votes {
-      width: 288px;
+      width: 100%;
       background-color: #e0e0e0;
-      height: 51px;
+      height: 80px;
       @apply(--layout-horizontal);
-    }
-
-    @media (max-width: 340px) {
-      #votes {
-        width: 250px;
-      }
     }
 
     #votes[wide] {
       width: 940px;
       height: 102px;
-    }
-
-    #votes[less-wide] {
-      width: 920px;
     }
 
     .budgetRuler {
@@ -185,6 +159,14 @@
       margin: 0;
       margin-left: 4px;
     }
+    
+    @media (max-width: 1045px) {
+      .headerLogo {
+        width: 160px;
+        height: 48px;
+        margin-left: 4px;
+      }
+    }
 
     .headerContainer {
       background-color: #f0f0f0;
@@ -218,18 +200,23 @@
       height: 108px;
     }
 
+    .mobileActionIcons {
+      color: #555;
+    }
   </style>
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
-
-    <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(orientation: portrait)" query-matches="{{orientationPortrait}}"></iron-media-query>
+    <iron-media-query query="(orientation: landscape)" query-matches="{{orientationLandscape}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1045px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(min-width: 640px)" query-matches="{{mediumWide}}"></iron-media-query>
     <iron-media-query query="(max-width: 340px)" query-matches="{{mini}}"></iron-media-query>
-    <iron-media-query query="(max-width: 1040px) and (min-width: 960px)" query-matches="{{lessWide}}"></iron-media-query>
     <div class="budgetContainer" wide$="[[wide]]">
-      <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]" less-wide$="[[lessWide]]">
+      <paper-material elevation="5" class="budgetMaterial" wide$="[[wide]]">
         <div class="info layout horizontal headerContainer" wide$="[[wide]]">
-          <iron-image hidden$="[[!wide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
+          <paper-icon-button hidden$="[[wide]]" class="closeButton mobileActionIcons" icon="close" on-tap="_exit"></paper-icon-button>
+          <iron-image hidden$="[[!mediumWide]]" sizing="contain" class="headerLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
           <div class="flex layout vertical center-center">
             <template is="dom-if" if="[[!selectedBudget]]">
               <template is="dom-if" if="[[areaName]]">
@@ -249,11 +236,12 @@
             </template>
             <div id="budgetLeftInfo" wide$="[[wide]]">{{localize('budget_left_text','budget_left', budgetLeft)}}</div>
           </div>
+          <paper-icon-button hidden$="[[wide]]" class="mobileActionIcons" icon="help-outline" on-tap="_help"></paper-icon-button>
           <div class="">
             <paper-button id="votingButton" raised="" class="voteButton" on-tap="_submitVote">{{localize('vote')}}</paper-button>
           </div>
         </div>
-        <div id="votes" wide$="[[wide]]" less-wide$="[[lessWide]]">
+        <div id="votes" wide$="[[wide]]">
           <div id="noItems" class="layout horizontal center-center noItemsInfo" wide$="[[wide]]" hidden$="[[!noSelectedItems]]">
             <template is="dom-if" if="[[totalBudget]]" restamp="">
               <div hidden$="[[!wide]]" class="onOfferText">{{localize('budget_empty_info_1', "amount", budgetLeft)}}</div>
@@ -333,12 +321,22 @@
           observer: '_resetWidth'
         },
 
+        mediumWide: {
+          type: Boolean,
+          observer: '_resetWidth'
+        },
+        
         mini: {
           type: Boolean,
           observer: '_resetWidth'
         },
 
-        lessWide: {
+        orientationPortrait:  {
+          type: Boolean,
+          observer: '_resetWidth'
+        },
+
+        orientationLandscape:  {
           type: Boolean,
           observer: '_resetWidth'
         },
@@ -349,6 +347,14 @@
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
+      
+      _exit: function () {
+        this.fire("oav-exit");
+      },
+
+      _help: function () {
+        this.fire("oav-open-help");
+      },
 
       _closeToast: function () {
         this.$.toast.close();
@@ -373,14 +379,10 @@
 
       _resetWidth: function () {
         this.async(function () {
-          if (this.lessWide) {
-            this.set('votesWidth', 920);
-          } else if (this.wide) {
+          if (this.wide) {
             this.set('votesWidth', 940);
-          } else if (this.mini) {
-            this.set('votesWidth', 250);
           } else {
-            this.set('votesWidth', 288);
+            this.set('votesWidth', window.innerWidth);
           }
           this._resetBudgetDiv();
           this.selectedItems.forEach(function (item) {
@@ -446,7 +448,7 @@
         if (this.wide) {
           container.style.height = '100px';
         } else {
-          container.style.height = '50px';
+          container.style.height = '80px';
         }
         container.style.width = itemWidth + 'px';
         container.className = 'budgetBallotVote';
@@ -466,7 +468,7 @@
         if (this.wide) {
           image.style.height = '100px';
         } else {
-          image.style.height = '50px';
+          image.style.height = '80px';
         }
         image.style.width = itemWidth + 'px';
 
@@ -518,7 +520,7 @@
           iterations: 1
         });
 
-        if (this.toastCounter<2) {
+        if (this.toastCounter<1) {
           this.$.toast.open();
           this.toastCounter+=1;
         }

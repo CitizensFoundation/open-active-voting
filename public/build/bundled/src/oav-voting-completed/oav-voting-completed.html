@@ -26,10 +26,11 @@
 
     .mainContainer {
       width: 100%;
-      height: 300px;
+      height: 100%;
       background-size: 1920px 300px;
       background-repeat: no-repeat;
       background-position: center;
+      background-position-y: top;
       @apply(--layout-horizontal);
       @apply(--layout-center-center);
       background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png");
@@ -48,6 +49,11 @@
       max-width: 380px;
     }
 
+    .desktopLogo {
+      width: 400px;
+      height: 120px;
+    }
+
     @media (max-width: 600px) {
 
       .textSharing {
@@ -55,7 +61,7 @@
         width: 290px;
       }
 
-      .mobileLogo {
+      .desktopLogo {
         width: 320px;
         height: 96px;
         margin-top: 0;
@@ -68,10 +74,6 @@
       }
     }
 
-    .desktopLogo {
-      width: 400px;
-      height: 120px;
-    }
 
     .logoHolder {
       background-color: #213158;
@@ -112,30 +114,23 @@
     <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
 
     <div class="layout vertical center-center mainContainer">
-      <div class="layout vertical">
-        <paper-material elevation="5" class="topMaterial">
-          <div hidden$="[[wide]]" class="layout horizontal center-center">
-            <iron-image sizing="contain" class="mobileLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
-          </div>
-            <div hidden$="[[!wide]]" class="logoHolder layout horizontal center-center">
-            <iron-image sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
-          </div>
-          <div class="completedText">
-            <div>{{localize('thank_you_1')}}</div>
-            <div class="smaller">{{localize('thank_you_2')}}</div>
-            <div class="smaller">{{localize('thank_you_3')}}</div>
-            <div class="layout vertical center-center textSharingContainer">
-              <div class="textSharing">
-                {{localize('share_vote_by_pressing')}}
-              </div>
-              <div class="shareIconButton">
-                <paper-share-button raised="" on-share-tap="_shareTap" class="shareIconFinal" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
-                </paper-share-button>
-              </div>
+      <paper-material elevation="5" class="topMaterial">
+        <img class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png">
+        <div class="completedText">
+          <div>{{localize('thank_you_1')}}</div>
+          <div class="smaller">{{localize('thank_you_2')}}</div>
+          <div class="smaller">{{localize('thank_you_3')}}</div>
+          <div class="layout vertical center-center textSharingContainer">
+            <div class="textSharing">
+              {{localize('share_vote_by_pressing')}}
+            </div>
+            <div class="shareIconButton">
+              <paper-share-button raised="" on-share-tap="_shareTap" class="shareIconFinal" horizontal-align="left" id="shareButton" title$="{{localize('share_vote_by_pressing')}}" facebook="" twitter="" popup="" url$="[[shareUrl]]">
+              </paper-share-button>
             </div>
           </div>
-        </paper-material>
-      </div>
+        </div>
+      </paper-material>
     </div>
   </template>
 
@@ -156,6 +151,11 @@
         shareUrl: {
           type: String,
           value: null
+        },
+
+        wide: {
+          type: Boolean,
+          value: true
         }
       },
 
