@@ -32,6 +32,7 @@ class VotesController < ApplicationController
 
   # Logout and reset the session
   def logout
+    Rails.logger.info("Logout")
     reset_session
   end
 

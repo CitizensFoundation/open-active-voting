@@ -25,6 +25,13 @@ class ApplicationController < ActionController::Base
   before_filter :get_db_config
   before_filter :set_locale
   before_filter :load_public_key
+  skip_before_filter :verify_authenticity_token
+  after_filter :print_headers
+  before_filter :start_session
+
+  def start_session
+    session[:started] = true
+  end
 
   def p3p
     response.headers['P3P'] = "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\""
@@ -48,4 +55,9 @@ class ApplicationController < ActionController::Base
   def get_db_config
     @config = BudgetConfig.current
   end
+
+  def print_headers
+    Rails.logger.info(response.headers.to_s)
+  end
+
 end
