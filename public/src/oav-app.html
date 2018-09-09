@@ -289,14 +289,18 @@
         'oav-hide-favorite-item': '_hideFavoriteItem',
         'oav-reset-favorite-icon-position': 'resetFavoriteIconPosition',
         'oav-exit': '_exit',
-        'oav-open-help': '_help'
+        'oav-open-help': '_help',
+        'oav-scroll-item-into-view': '_scrollItemIntoView'
       },
 
       observers: [
         '_routePageChanged(routeData.page)'
       ],
 
-
+      _scrollItemIntoView: function (event, detail) {
+        this.$.budgetBallot._scrollItemIntoView(detail);
+      },
+ 
       ready: function () {
         this.set('currentBallot', this.$$("#budgetBallot"));
         this.set('budgetElement', this.$$("#budget"));

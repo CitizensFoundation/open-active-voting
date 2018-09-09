@@ -475,31 +475,33 @@
 
         container.appendChild(image);
 
-        var paperIcon = document.createElement("paper-icon-button");
-        paperIcon.setAttribute("icon", "close");
-        paperIcon.icon = "close";
-        paperIcon.style.color = "#ff6500";
-        paperIcon.style.height = "42px";
-        paperIcon.style.width = "42px";
-        paperIcon.style.opacity = 0;
-        paperIcon.addEventListener('tap', function () {
-          window.appGlobals.activity('click', 'removeFromBudgetTop');
-          this._removeItem(item.id);
-        }.bind(this));
-        container.appendChild(paperIcon);
-        paperIcon.style.position = "absolute";
-        paperIcon.style.top = 0;
-        paperIcon.style.right = 0;
-
-        container.addEventListener('mouseover', function () {
-          paperIcon.style.opacity = 1;
-        });
-        container.addEventListener('mouseout', function () {
+        if (false && this.wide) {
+          var paperIcon = document.createElement("paper-icon-button");
+          paperIcon.setAttribute("icon", "close");
+          paperIcon.icon = "close";
+          paperIcon.style.color = "#ff6500";
+          paperIcon.style.height = "42px";
+          paperIcon.style.width = "42px";
           paperIcon.style.opacity = 0;
-        });
+          paperIcon.addEventListener('tap', function () {
+            window.appGlobals.activity('click', 'removeFromBudgetTop');
+            this._removeItem(item.id);
+          }.bind(this));
+          container.appendChild(paperIcon);
+          paperIcon.style.position = "absolute";
+          paperIcon.style.top = 0;
+          paperIcon.style.right = 0;
+
+          container.addEventListener('mouseover', function () {
+            paperIcon.style.opacity = 1;
+          });
+          container.addEventListener('mouseout', function () {
+            paperIcon.style.opacity = 0;
+          });
+        }
 
         container.addEventListener('tap', function () {
-          this._removeItem(item.id);
+          this.fire('oav-scroll-item-into-view', item.id);
         }.bind(this));
 
         this.$.votes.appendChild(container);

@@ -130,7 +130,7 @@
           <section>
             <div id="itemContainer" class="layout horizontal center-center wrap">
               <template is="dom-repeat" id="domRepeat" items="[[budgetBallotItems]]" as="item" scroll-target="document" grid>
-                <oav-area-ballot-item class="ballotAreaItem" budget-element="{{budgetElement}}" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
+                <oav-area-ballot-item name="[[item.id]]" class="ballotAreaItem" budget-element="{{budgetElement}}" tabindex$="[[tabIndex]]" item="[[item]]"></oav-area-ballot-item>
               </template>
             </div>
           </section>
@@ -209,6 +209,23 @@
         },
 
         oldFavoriteItem: Object
+      },
+
+
+      _scrollItemIntoView: function (itemId) {
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
+
+        var items = Polymer.dom(this.root).querySelectorAll("oav-area-ballot-item")
+        items.forEach(function (item) {
+          if (item.name==itemId) {
+            if (iOS || isIE11) {
+              item.scrollIntoView(false);
+            } else {
+              item.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            }
+          }
+        });
       },
 
       _favoriteItemChanged: function (newValue, oldValue) {
