@@ -208,7 +208,7 @@ class VotesController < ApplicationController
       Rails.logger.info(@response.response)
 
       # Find the previously stored wote from the session id that has not been authenticated before
-      vote = Vote.where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil)
+      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil).first
 
       if vote
         # Create an encrypted checksum
