@@ -359,8 +359,8 @@ namespace :ballot do
   desc "Set rvk config"
   task(:set_rvk_config => :environment) do
     config=BudgetConfig.first
-    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=c89bfd2d-1996-4cbd-8fbc-13f09c84503f&returnUrl=https%3A%2F%2Fkosning.reykjavik.is%2Fauthenticate_from_island_is"
-    config.saml_idp_cert_fingerprint = "54:54:6c:a2:93:d0:af:bf:11:5d:7c:8b:dc:4c:72:12:c8:99:80:95"
+    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=c89bfd2d-1996-4cbd-8fbc-13f09c84503f&returnUrl=https%3A%2F%2Fkosning2018.reykjavik.is%2Fauthenticate_from_island_is"
+    config.saml_idp_cert_fingerprint = "23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
   end
