@@ -342,7 +342,16 @@ namespace :ballot do
   task(:set_ktest_config => :environment) do
     config=BudgetConfig.first
     config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
-    config.saml_idp_cert_fingerprint = "3D:EE:51:23:24:AA:E1:7B:47:1C:D3:04:32:B3:86:3A:46:74:DA:83"
+    config.saml_idp_cert_fingerprint = "08:95:CE:CC:8B:04:F6:B9:9E:E3:DC:59:B6:A0:C4:CE:E7:7E:86:C9"
+    config.ideas_without_pdfs = "[]"
+    config.save(:validate=>false)
+  end
+
+  desc "Set advania config"
+  task(:set_advania_config => :environment) do
+    config=BudgetConfig.first
+    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=72821bfa-364b-4a00-9a37-aaa838d1d3b0&returnUrl=https%3A%2F%2Fktest.betrireykjavik.is%2Fauthenticate_from_island_is"
+    config.saml_idp_cert_fingerprint = "54:54:6c:a2:93:d0:af:bf:11:5d:7c:8b:dc:4c:72:12:c8:99:80:95"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
   end
