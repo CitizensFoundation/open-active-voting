@@ -106,8 +106,8 @@
 
   <template>
     <iron-signals on-iron-signal-set-language="setLanguage"></iron-signals>
-
     <iron-media-query query="(min-width: 1000px)" query-matches="{{wide}}"></iron-media-query>
+
     <div class="topContainer layout vertical">
       <div class="layout horizontal center-center tabsContainer">
         <paper-tabs selected="{{selectedView}}">
@@ -223,8 +223,22 @@
             } else {
               item.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
             }
+
+            if (this.wide) {
+              item.animate([
+                { transform: "translateX(-3px)", easing: 'ease-in' },
+                { transform: "translateX(3px)", easing: 'ease-out' },
+                { transform: "translateX(-5px)", easing: 'ease-in' },
+                { transform: "translateX(5px)", easing: 'ease-out' },
+                { transform: "translateX(-7px)", easing: 'ease-in' },
+                { transform: "translateX(7px)", easing: 'ease-out' },
+              ], {
+                duration: 450,
+                iterations: 1
+              });
+            }
           }
-        });
+        }.bind(this));
       },
 
       _favoriteItemChanged: function (newValue, oldValue) {
