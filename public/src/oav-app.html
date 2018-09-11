@@ -429,6 +429,7 @@
           this.haveSetLanguage = true;
           if (typeof(Storage) !== "undefined") {
             var selectedLanguage = localStorage.getItem("selectedLanguage");
+            debugger;
             if (selectedLanguage) {
               this.fire('iron-signal', {name: 'set-language', data: selectedLanguage});
             }

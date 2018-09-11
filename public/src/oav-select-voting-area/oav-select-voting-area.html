@@ -604,23 +604,6 @@
         this.$.getAreasAjax.generateRequest();
       },
 
-      ready: function () {
-        var splitLocale = window.location.href.split('locale=');
-
-        var localeFromUrl;
-        if (splitLocale && splitLocale[1]) {
-          localeFromUrl = splitLocale[1];
-        }
-
-        if (localeFromUrl && localeFromUrl.length==2) {
-          window.selectedLanguage = localeFromUrl;
-          localStorage.setItem("selectedLanguage", localeFromUrl);
-          this.async(function () {
-            this.fire('iron-signal', {name: 'set-language', data: localeFromUrl});
-          }, 700);
-        }    
-      },
-
       _selectIcelandic: function () {
         this.fire('iron-signal', {name: 'set-language', data: 'is'});
         localStorage.setItem("selectedLanguage", 'is');
