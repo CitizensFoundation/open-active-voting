@@ -23,6 +23,18 @@
   <script>
     LOAD_TESTING_MODE = null;
     window.selectedLanguage = "is";
+    var splitLocale = window.location.href.split('locale=');
+
+    var localeFromUrl;
+    if (splitLocale && splitLocale[1]) {
+      localeFromUrl = splitLocale[1];
+    }
+
+    if (localeFromUrl && localeFromUrl.length==2) {
+      window.selectedLanguage = localeFromUrl;
+      localStorage.setItem("selectedLanguage", localeFromUrl);
+    }    
+        
     // setup Polymer options
     window.Polymer = { lazyRegister: true };
 
