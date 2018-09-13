@@ -412,6 +412,7 @@
       _checkVoteCompletionResponse: function (event, detail) {
         if (detail.response.vote_ok===true) {
          this._setVotingCompleted();
+         window.appGlobals.activity('completed', 'voting');
         } else {
           this.fire('oav-error', this.localize('error_could_not_post_vote'));
         }
