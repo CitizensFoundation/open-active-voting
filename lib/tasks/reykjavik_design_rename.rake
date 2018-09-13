@@ -22,7 +22,8 @@ def search_files(id)
       puts "Found #{x}"
       break
     end
-  }  
+  }
+  return found  
 end
 
 namespace :reykjavik_design_rename do
@@ -40,7 +41,7 @@ namespace :reykjavik_design_rename do
         puts "Copying #{file_path} to #{new_file_name}"
       else
         puts "NOT FOUND #{idea_id} !!!!!!!!!!!!!!!!!!!!! #{file_path}"
-        @@not_found_ids << [path, index_row_number, idea_id]
+        @@not_found_ids << [budget_data[row_number], index_row_number, idea_id]
       end
     end
   end
@@ -76,7 +77,7 @@ namespace :reykjavik_design_rename do
     rename_files(root, 'laugardalur', budget_data, 173, 25)
     rename_files(root, 'midborg', budget_data, 199, 25)
     rename_files(root, 'vesturbaer', budget_data, 225, 25)
-    puts "Not found"
-    puts @@not_found_ids
+    puts "Not found ids: #{@@not_found_ids}"
+    puts "The end"
   end
 end
