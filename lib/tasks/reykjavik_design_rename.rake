@@ -13,16 +13,28 @@ class Array
   end
 end
 
+def search_files(id)
+  found = nil
+  puts id
+  @@all_files.each { |x| 
+    if x.include? "#{id}-"
+      found = x
+      puts "Found #{x}"
+      break
+    end
+  }  
+end
+
 namespace :reykjavik_design_rename do
 
   def rename_files_row(root, path, budget_data, row_number, index_row_number)
-    idea_url =  budget_data[row_number][17]
+    idea_url =  budget_data[row_number][14]
     puts idea_url
 
     if idea_url
       idea_id = idea_url.split('/').last
-      file_path = path+"/#{index_row_number}.pdf"
-      if File.file?(file_path)
+      file_path = search_files(budget_data[row_number][0])
+      if file_path and File.file?(file_path)
         new_file_name = root+"/out/"+"moreProjectInformation_#{idea_id}.pdf"
         FileUtils.cp(file_path, new_file_name)
         puts "Copying #{file_path} to #{new_file_name}"
@@ -30,9 +42,7 @@ namespace :reykjavik_design_rename do
         puts "NOT FOUND #{idea_id} !!!!!!!!!!!!!!!!!!!!! #{file_path}"
         @@not_found_ids << [path, index_row_number, idea_id]
       end
-
     end
-
   end
 
   def rename_files(root, sub_root, budget_data, start_row_number, total_number_of_rows=20)
@@ -48,20 +58,24 @@ namespace :reykjavik_design_rename do
   desc "Rename design documents from CSV"
   task(:rename => :environment) do
 
-    root = "/home/robert/Documents/Hverfið mitt/Frumhönnun/"
+    root = "/home/robert/Downloads/hm2018_design"
     @@not_found_ids = []
+    @@all_files = Dir.glob("#{root}/**/*")
     budget_data = CSV.parse(File.open(ENV['infile']).read)
 
-    rename_files(root, 'vesturbaer', budget_data, 11)
-    rename_files(root, 'midborg', budget_data, 35, 13)
-    rename_files(root, 'hlidar', budget_data, 54)
-    rename_files(root, 'haaleiti', budget_data, 104)
-    rename_files(root, 'laugardalur', budget_data, 79)
-    rename_files(root, 'breidholt', budget_data, 129)
-    rename_files(root, 'arbaer', budget_data, 154)
-    rename_files(root, 'grafarvogur', budget_data, 179)
-    rename_files(root, 'grafarholt', budget_data, 205, 17)
-    rename_files(root, 'Kjalarnes', budget_data, 227, 19)
+    puts @@all_files
+    puts budget_data.length
+
+    rename_files(root, 'arbaer', budget_data, 2, 23)
+    rename_files(root, 'breidholt', budget_data, 26, 25)
+    rename_files(root, 'grafarholt', budget_data, 52, 24)
+    rename_files(root, 'grafarvogur', budget_data, 77, 25)
+    rename_files(root, 'haaleiti', budget_data, 103, 24)
+    rename_files(root, 'hlidar', budget_data, 128, 24)
+    rename_files(root, 'kjalarnes', budget_data, 153, 19)
+    rename_files(root, 'laugardalur', budget_data, 173, 25)
+    rename_files(root, 'midborg', budget_data, 199, 25)
+    rename_files(root, 'vesturbaer', budget_data, 225, 25)
     puts "Not found"
     puts @@not_found_ids
   end

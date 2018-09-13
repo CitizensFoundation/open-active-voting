@@ -345,6 +345,7 @@ namespace :ballot do
     config.saml_idp_cert_fingerprint = "08:95:CE:CC:8B:04:F6:B9:9E:E3:DC:59:B6:A0:C4:CE:E7:7E:86:C9"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
+    puts "Config ok"
   end
 
   desc "Set advania config"
@@ -354,6 +355,7 @@ namespace :ballot do
     config.saml_idp_cert_fingerprint = "23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
+    puts "Config ok"
   end
 
   desc "Set rvk config"
@@ -363,6 +365,7 @@ namespace :ballot do
     config.saml_idp_cert_fingerprint = "23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
+    puts "Config ok"
   end
 
   desc "Set config"
@@ -376,6 +379,7 @@ namespace :ballot do
     config.saml_idp_cert_fingerprint = ENV['fingerprint']
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
+    puts "Config ok"
   end
 
   desc "Reset Kópavogur Ballot from CSV"
