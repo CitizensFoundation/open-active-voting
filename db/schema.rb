@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016003455) do
+ActiveRecord::Schema.define(version: 20180330170937) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "resource_id",   limit: 255,   null: false
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
     t.datetime "authenticated_at"
     t.string   "session_id",              limit: 255,   null: false
     t.text     "encrypted_vote_checksum", limit: 65535, null: false
-    t.integer  "saml_assertion_id",       limit: 4,     null: true
+    t.integer  "saml_assertion_id",       limit: 4,   null: true
     t.text     "client_user_agent",       limit: 65535
     t.string   "user_postcode",           limit: 255,   null: true
   end
@@ -169,4 +169,7 @@ ActiveRecord::Schema.define(version: 20161016003455) do
   add_index "votes", ["user_id_hash"], name: "index_votes_on_user_id_hash", using: :btree
   add_index "votes", ["session_id"], name: "index_votes_on_session_id", using: :btree
   add_index "votes", ["session_id","saml_assertion_id"], name: "index_votes_on_session_id_and_saml_id", using: :btree
+  add_index "votes", ["saml_assertion_id"], name: "index_votes_saml_id", using: :btree
+  add_index "votes", ["created_at"], name: "index_votes_created_at", using: :btree
+  add_index "votes", ["user_id_hash","created_at","id"], name: "index_votes_id_hash_created_at", using: :btree
 end

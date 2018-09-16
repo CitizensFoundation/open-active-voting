@@ -320,9 +320,84 @@ namespace :ballot do
     end
   end
 
+  def create_vote(area_id)
+    all_items = BudgetBallotItem.where(:budget_ballot_area_id=>area_id).all
+    area = BudgetBallotArea.where(:id=>area_id).first
+    puts "Area budget: #{area.budget_amount}"
+    selected_item_ids = []
+    total_price = 0.0
+    (rand(10)+1).times do 
+      item = all_items[rand(all_items.length-1)]
+      puts "Item price: #{item.price}"
+      if (area.budget_amount>=total_price+item.price)
+        selected_item_ids.push(item.id)
+        total_price += item.price
+      else  
+        puts "Item does not fit into budget!"
+      end
+    end
+
+    selected_item_ids = selected_item_ids.uniq
+
+    if (rand(2)==1) 
+      favorite_item_id =  selected_item_ids[rand(selected_item_ids.length-1)]
+    end
+    vote = { :selectedItemIds => selected_item_ids, :favoriteItemId => favorite_item_id } 
+    puts vote.to_json
+    vote.to_json
+  end
+
+  desc "Add test ballots for counting"
+  task(:add_test_ballots => :environment) do
+    public_key =  OpenSSL::PKey::RSA.new(BudgetConfig.current.public_key)
+
+    total_ballots = 10000
+    number_of_areas = 10
+    share_authenticated = 0.5
+    session_id = SecureRandom.hex(20)
+
+    if Vote.count==0
+      total_ballots.times do
+        area_id = rand(number_of_areas)+1
+        vote = create_vote(area_id).to_s
+        puts "VoteText: #{vote}"
+        puts "VoteObj: #{JSON.parse vote}"
+        payload = Base64.encode64(public_key.public_encrypt(Base64.encode64(vote)))  
+        unless rand(10)==5
+          session_id = SecureRandom.hex(20)
+        end
+
+        if rand(2)==1
+          saml_assertion_id = rand(640000)
+          user_id_hash = session_id
+          authenticated_at = Time.now
+          encrypted_vote_checksum = Vote.generate_encrypted_checksum(user_id_hash,payload,'127.0.0.1',area_id,session_id)
+        else
+          saml_assertion_id = nil
+          encrypted_vote_checksum = "not authenticated"
+          user_id_hash = "not authenticated"
+          authenticated_at = nil
+        end
+  
+        if Vote.create(:user_id_hash => user_id_hash,
+          :payload_data => payload,
+          :client_ip_address => "127.0.0.1",
+          :area_id => area_id,
+          :authenticated_at => authenticated_at,
+          :session_id => session_id,
+          :saml_assertion_id => saml_assertion_id,
+          :encrypted_vote_checksum => encrypted_vote_checksum)
+          puts "Vote created"
+        else
+          puts "CREATE ERROR"
+        end 
+      end
+    else
+      puts "ERROR - VOTE DATABASE NOT EMPTY"
+    end
+  end
+
   desc "Clear all but two"
-
-
   task(:clear_all_but_two => :environment) do
     BudgetBallotItem.all.each do |item|
       if item.id!=202 and item.id!=201
