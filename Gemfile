@@ -1,21 +1,21 @@
 source 'https://rubygems.org'
 
-ruby '2.2.10'
+ruby '2.4.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
-gem 'rails', '4.2.10'
+gem 'rails', '5.2.3'
 gem 'tzinfo-data'
-gem 'rails-html-sanitizer','~> 1.0.4'
+gem 'rails-html-sanitizer'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+#gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -31,9 +31,9 @@ gem 'globalize'
 # Gems used in all environments including production
 gem "airbrake" # Online error reporting system
 gem 'haml' # generate html from templates
-gem 'jquery-rails' # Jquery for Rails
+#gem 'jquery-rails' # Jquery for Rails
 gem 'mysql2' # The Mysql Driver
-gem 'nokogiri','1.8.4' # XML/HTML Parsing library
+gem 'nokogiri' # XML/HTML Parsing library
 gem 'psych'
 #gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
@@ -52,7 +52,7 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
