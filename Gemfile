@@ -38,9 +38,9 @@ gem 'psych'
 #gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem "passenger"
-gem 'loofah','2.2.2'
-gem "ffi", "~> 1.9.24"
-gem "rubyzip", "~> 1.2.2"
+gem 'loofah'
+gem "ffi"
+gem "rubyzip"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
