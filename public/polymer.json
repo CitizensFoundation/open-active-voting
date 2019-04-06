@@ -2,8 +2,6 @@
   "entrypoint": "index.html",
   "shell": "src/oav-app.html",
   "fragments": [
-    "src/oav-area-ballot/oav-area-ballot.html",
-    "src/oav-voting-completed/oav-voting-completed.html",
     "src/yp-post/yp-post.html"
   ],
   "includeDependencies": [

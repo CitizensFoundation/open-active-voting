@@ -45,9 +45,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'awesome_print'
-  gem 'watir-webdriver'
+ # gem 'watir-webdriver'
   gem 'headless'
-  gem 'turn', '~> 0.8.3', :require => false
+  gem 'turn', :require => false
 end
 
 group :development do
