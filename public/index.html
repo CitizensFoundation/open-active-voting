@@ -1,107 +1,116 @@
+<!--
+@license
+Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <head>
+    <meta charset="utf-8">
+    <title>My app</title>
+    <meta name="generator" content="PWA Starter Kit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="My App description">
 
-  <meta property="og:title" content="Hvað hugmyndir kýst þú 17.–30. október?" />
-  <meta property="og:description" content="Rafræn hverfakosning Reykjavíkurborgar. Taktu þátt og gerðu þitt hverfi ennþá betra." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hverfid_mitt-kosningavefur-FB_share_meta-03.png" />
-  <meta property="og:url" content="https://kosning2018.reykjavik.is/" />
-  <meta property="og:site_name" content="Hverfið mitt 2018 - rafræn kosning" />
+    <!--
+      The `<base>` tag below is present to support two advanced deployment options:
+      1) Differential serving. 2) Serving from a non-root path.
 
-  <title>Hverfið mitt 2018 - rafræn kosning</title>
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+      Instead of manually editing the `<base>` tag yourself, you should generally either:
+      a) Add a `basePath` property to the build configuration in your `polymer.json`.
+      b) Use the `--base-path` command-line option for `polymer build`.
+    -->
+    <base href="/">
 
-  <link rel="shortcut icon" sizes="32x32" type="image/png" href="https://betrireykjavik.is/images/manifest_br/icon-32x32.png">
-  <link rel="shortcut icon" sizes="64x64" type="image/png" href="https://betrireykjavik.is/images/manifest_br/icon-64x64.png">
+    <link rel="icon" href="images/favicon.ico">
 
-  <meta name="theme-color" content="#fff">
-  <link rel="manifest" href="/manifest.json">
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="manifest.json">
 
-  <script>
-    LOAD_TESTING_MODE = null;
-    window.selectedLanguage = "is";
-    var splitLocale = window.location.href.split('locale=');
+    <!-- See https://goo.gl/qRE0vM -->
+    <meta name="theme-color" content="#3f51b5">
 
-    var localeFromUrl;
-    if (splitLocale && splitLocale[1]) {
-      localeFromUrl = splitLocale[1];
-    }
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="My App">
 
-    if (localeFromUrl && localeFromUrl.length==2) {
-      window.selectedLanguage = localeFromUrl;
-      localStorage.setItem("selectedLanguage", localeFromUrl);
-    }    
-        
-    // setup Polymer options
-    window.Polymer = { lazyRegister: true };
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="My App">
 
-    // load webcomponents polyfills
-    (function() {
-      if ('registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template')) {
-        // browser has web components
-      } else {
-        // polyfill web components
-        var e = document.createElement('script');
-        e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
-        document.head.appendChild(e);
+    <!-- Homescreen icons -->
+    <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+
+    <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#3f51b5">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Default twitter cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@username">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="my-app">
+    <meta property="og:image" content="images/manifest/icon-144x144.png" />
+
+    <!-- Performance tip: hint to the browser to start the handshake for the fonts site -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <script>
+      // Load and register pre-caching Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js', {
+            scope: '/',
+          });
+        });
       }
-    })();
 
-    // Setup message handlers for saml authentication in another window
+      // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+      // https://github.com/reactjs/redux/issues/2907
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
 
-    // Create IE + others compatible event handler
-    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-    var eventer = window[eventMethod];
-    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-
-    console.log("Have created event listener for samlLogin");
-
-    // Listen to message from child window
-    eventer(messageEvent,function(e) {
-      if (e.data=='samlLogin' && window.appBallot) {
-        window.appBallot.completeIfAuthenticatedVote();
-        console.log("Have finished voting completion");
+    <!-- Add any global styles for body, document, etc. -->
+    <style>
+      @font-face {
+        font-family: 'Pacifico';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/Q_Z9mv4hySLTMoMjnk_rCXYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+        /* The browser draws the text immediately in the fallback font if the font
+           isn't loaded, then swaps it with the webfont when it eventually loads
+           See: https://developers.google.com/web/updates/2016/02/font-display
+        */
+        font-display: swap;
       }
-    },false);
-
-    // Setup Google Analytics
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-29922184-1', 'auto');
-    ga('set', 'anonymizeIp', true);
-  </script>
-
-  <link rel="import" href="src/oav-app.html">
-
-  <style>
-
-    body {
-      margin: 0;
-      font-family: 'Roboto', 'Noto', sans-serif;
-      line-height: 1.5;
-      min-height: 100vh;
-      background-color: #e0e0e0;
-    }
-
-    #oavApp {
-      background-color: #e0e0e0;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-</head>
-<body>
-
-  <oav-app id="oavApp"></oav-app>
-
-  <div id="fb-root"></div>
-</body>
+      body {
+        margin: 0;
+        /* This is a font-stack that tries to use the system-default sans-serifs first */
+        font-family: Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        line-height: 1.5;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+  </head>
+  <body>
+    <oav-app appTitle="oav app"></my-app>
+    <noscript>
+      Please enable JavaScript to view this website.
+    </noscript>
+    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <!-- Built with love using PWA Starter Kit -->
+    <script type="module" src="src/components/oav-app.js"></script>
+  </body>
 </html>
