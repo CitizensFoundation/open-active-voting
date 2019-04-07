@@ -160,7 +160,7 @@
       margin: 0;
       margin-left: 4px;
     }
-    
+
     @media (max-width: 1045px) {
       .headerLogo {
         width: 160px;
@@ -326,7 +326,7 @@
           type: Boolean,
           observer: '_resetWidth'
         },
-        
+
         mini: {
           type: Boolean,
           observer: '_resetWidth'
@@ -348,7 +348,7 @@
       observers: [
         '_selectedItemsChanged(selectedItems.splices)'
       ],
-      
+
       _exit: function () {
         this.fire("oav-exit");
       },

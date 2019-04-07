@@ -19,8 +19,9 @@ import { updateMetadata } from 'pwa-helpers/metadata.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
-import { menuIcon } from './my-icons.js';
+import './oav-icons.js';
 import './snack-bar.js';
+import { OavAppStyles } from './oav-app-styles.js';
 
 class OavApp extends LitElement {
   static get properties() {
@@ -30,9 +31,8 @@ class OavApp extends LitElement {
       _drawerOpened: { type: Boolean },
       _snackbarOpened: { type: Boolean },
       _offline: { type: Boolean },
-      route: {
+      _subPath: {
         type: String,
-        observer: '_routeChanged'
       },
 
       favoriteIcon: {
@@ -40,9 +40,34 @@ class OavApp extends LitElement {
         value: 'star'
       },
 
-      routeData: Object,
+      dialogHeading: {
+        type: String,
+        value: ''
+      },
 
-      subroute: Object,
+      activityHost: {
+        type: String,
+        value: ""
+      },
+
+      setupDefaults: {
+        type: Boolean,
+        value: false
+      },
+
+      votePublicKey: {
+        type: String
+      },
+
+      configFromServer: {
+        type: Object,
+        value: null
+      },
+
+      requestInProgress: {
+       type: Boolean,
+       value: false
+      },
 
       title: {
         type: String
@@ -77,198 +102,88 @@ class OavApp extends LitElement {
 
   static get styles() {
     return [
-      css`
-        :host {
-          display: block;
-          --app-primary-color: #777;
-          --app-secondary-color: black;
-          --app-main-backround-color: #e0e0e0;
-          --app-accent-color: var(--paper-orange-a700);
-          --app-accent-color-light: var(--paper-orange-a200);
-          --app-kopavogur-green-grass: #f0f0f0;
-
-          --paper-tabs-selection-bar-color: var(--paper-orange-a700);
-          --paper-tabs-selection-bar: {
-            color:var(--paper-orange-a700);
-            border-bottom: 3px solid !important;
-            border-bottom-color: var(--paper-orange-a700);
-          };
-        }
-
-        app-header {
-          background-color: var(--app-primary-color);
-          color: #fff;
-        }
-
-        app-header paper-icon-button {
-          --paper-icon-button-ink-color: white;
-        }
-
-        .drawer-list {
-          margin: 0 20px;
-        }
-
-        .drawer-list a {
-          display: block;
-          padding: 0 16px;
-          line-height: 40px;
-          text-decoration: none;
-          color: var(--app-secondary-color);
-        }
-
-        .drawer-list a.iron-selected {
-          color: black;
-          font-weight: bold;
-        }
-
-        .drawer-list a.subroute {
-          padding-left: 32px;
-        }
-
-        app-toolbar {
-        }
-
-        .title {
-          font-size: 24px;
-        }
-
-        paper-icon-button {
-          width: 50px;
-          height: 50px;
-        }
-
-        paper-icon-button.closeButton {
-          width: 58px;
-          height: 58px;
-        }
-
-        @media (max-width: 640px) {
-          paper-icon-button {
-            width: 40px;
-            height: 40px;
-          }
-
-          paper-icon-button.closeButton {
-            width: 46px;
-            height: 46px;
-          }
-        }
-
-        @media (max-width: 1000px) {
-          .title {
-            font-size: 17px;
-          }
-        }
-
-        .exitIconInBudget {
-          position: absolute;
-          top: 0;
-          left: 0;
-          color: #fff;
-        }
-
-        .helpIconInBudget  {
-          position: absolute;
-          top: 0;
-          right: 0;
-          color: #fff;
-        }
-
-        #favoriteIconHeart {
-          color: var(--paper-red-a700);
-          background-color: transparent;
-          width: 50px;
-          height: 50px;
-          z-index: 2720;
-          -webkit-filter: drop-shadow( 1px 1px 10px #5f5f5f );
-          filter: drop-shadow( 1px 1px 10px #5f5f5f );
-        }
-
-        #favoriteIcon {
-          color: rgb(255,215,0);
-          background-color: transparent;
-          width: 50px;
-          height: 50px;
-          z-index: 2720;
-          -webkit-filter: drop-shadow( 1px 1px 10px #5f5f5f );
-          filter: drop-shadow( 1px 1px 10px #5f5f5f );
-        }
-
-
-        @media (max-width: 640px) {
-          #favoriteIcon {
-            width: 40px;
-            height: 40px;
-          }
-        }
-
-        .largeSpinner {
-          position: fixed; /* or absolute */
-          top: 50%;
-          left: 50%;
-          width: 50px;
-          height: 50px;
-        }
-      `
+      OavAppStyles
     ];
   }
+
   render() {
-    return html`
-      <app-header fixed effects="waterfall">
-        <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
-          <paper-icon-button class="closeButton" .icon="close" @click="${this._exit()}"></paper-icon-button>
-        </div>
-        <div class="helpIconInBudget">
-          <paper-icon-button .icon="help-outline" @click="${this._help()}}"></paper-icon-button>
-        </div>
-        <div class="budgetContainer" ?hidden="[[${this.hideBudget}]]">
-          <oav-area-budget
-            id="budget"
-            .area-name="${this.areaName}"
-            .total-budget="${this.totalBudget}"
-            .current-ballot="${this.currentBallot}">
-          </oav-area-budget>
-        </div>
-        <iron-icon id="favoriteIcon" .icon="${this.favoriteIcon}" hidden></iron-icon>
-      </app-header>
+    return  html`${this.configFromServer ?
+      html`
+        <app-header fixed effects="waterfall">
+          <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
+            <paper-icon-button class="closeButton" .icon="close" @click="${this._exit()}"></paper-icon-button>
+          </div>
+          <div class="helpIconInBudget">
+            <paper-icon-button .icon="help-outline" @click="${this._help()}}"></paper-icon-button>
+          </div>
+          <div class="budgetContainer" ?hidden="[[${this.hideBudget}]]">
+            <oav-area-budget
+              id="budget"
+              .area-name="${this.areaName}"
+              .total-budget="${this.totalBudget}"
+              .current-ballot="${this.currentBallot}">
+            </oav-area-budget>
+          </div>
+          <iron-icon id="favoriteIcon" .icon="${this.favoriteIcon}" hidden></iron-icon>
+        </app-header>
 
-      <main role="main" class="main-content">
-        <oav-select-voting-area id="selectVotingArea" ?active="${this._page === 'select-voting-area'}"></oav-select-voting-area>
-        <oav-area-ballot id="budgetBallot"
-          .budget-element="${this.budgetElement}"
-          .area-id-route-path="${this.subroute}"
-          ?active="${this._page === 'area-ballot'}">
-        </oav-area-ballot>
-        <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
-        <yp-post id="post"
-          .budget-element="${this.budgetElement}"
-          .post-id-route-path="${this.subroute}
-          ?active="${this._page === 'post'}">
-        </yp-post>
-        <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
-      </main>
+        <main role="main" class="main-content">
+          <oav-select-voting-area
+            id="selectVotingArea"
+            .locale-resources="${this.configFromServer.localeResources}"
+            .config-from-server="${this.configFromServer}"
+            ?active="${this._page === 'select-voting-area'}">
+          </oav-select-voting-area>
+          <oav-area-ballot id="budgetBallot"
+            .budget-element="${this.budgetElement}"
+            .locale-resources="${this.configFromServer.localeResources}"
+            .config-from-server="${this.configFromServer}"
+            .area-id-route-path="${this._subPath}"
+            ?active="${this._page === 'area-ballot'}">
+          </oav-area-ballot>
+          <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
+          <yp-post id="post"
+            .budget-element="${this.budgetElement}"
+            .locale-resources="${this.configFromServer.localeResources}"
+            .post-id-route-path="${this._subPath}
+            ?active="${this._page === 'post'}">
+          </yp-post>
+          <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
+        </main>
 
-      <snack-bar ?active="${this._snackbarOpened}">
-        You are now ${this._offline ? 'offline' : 'online'}.
-      </snack-bar>
-    `;
+        <snack-bar ?active="${this._snackbarOpened}">
+          You are now ${this._offline ? 'offline' : 'online'}.
+        </snack-bar>
+      `
+      :
+      html`<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
   }
 
   constructor() {
     super();
     setPassiveTouchGestures(true);
-    this._boot()
+    this._boot();
   }
 
   $$(id) {
     return this.shadowRoot.getElementById(id);
   }
 
+  _setupCustomCss(config) {
+    config.cssProperties.forEach(property => {
+      this.shadowRoot.style.setProperty(property.key, property.value);
+    })
+  }
+
   _boot() {
-    fetch("/api/boot")
+    fetch("/votes/boot")
       .then(res => res.json())
       .then(response => {
-        console.log('Success:', JSON.stringify(response))
+        console.log('Success:', JSON.stringify(response));
+        this.requestInProgress= false;
+        this.votePublicKey = detail.response.public_key;
+        this._setupCustomCss(detail.response.config);
+        this.configFromServer = detail.response.config;
       })
       .catch(error => {
         console.error('Error:', error)
@@ -326,7 +241,6 @@ class OavApp extends LitElement {
 
   _toggleFavoriteItem(event, detail) {
     if (detail.item) {
-
       var transformLeft, transformTop;
 
       if (this.$$("#favoriteIcon").hidden===true) {
@@ -337,7 +251,7 @@ class OavApp extends LitElement {
         transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
         transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
       } else {
-        var oldBudgetAnimPos = this.$.budget.getItemLeftTop(this.$.budgetBallot.oldFavoriteItem);
+        var oldBudgetAnimPos = this.$.budget.getItemLeftTop(this.$$("#budgetBallot").oldFavoriteItem);
         if (oldBudgetAnimPos) {
           transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
           transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
@@ -457,6 +371,76 @@ class OavApp extends LitElement {
         description: pageTitle
         // This object also takes an image property, that points to an img src.
       });
+
+      const page = this._page;
+      debugger;
+      const oldPage = changeProps['_page'].old;
+
+      if (page && page!='select-voting-area') {
+        this.set('showExit', true);
+      } else {
+        this.set('showExit', false);
+      }
+
+      // Setup top ballot if needed
+      if (page && page=='area-ballot') {
+        this.currentBallot = this.$$("#budgetBallot");
+        this.budgetElement = this.$$("#budget");
+        this.hideBudget = false;
+      } else {
+        this.hideBudget = true;
+      }
+
+      // Set background color
+      if (page=='select-voting-area' || page=='voting-completed') {
+        document.body.style.backgroundColor = "#e0e0e0";
+      } else {
+        document.body.style.backgroundColor = "#e0e0e0";
+      }
+
+      // Reset post if needed
+      if (oldPage=='post' && this.$$("#post")) {
+        this.$$("#post").reset();
+      }
+
+      // Refresh list when returning back to a ballot
+      if (page=='area-ballot' && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
+        this.$$("#budgetBallot").refreshList();
+      }
+
+      // Reset ballot tab view to list
+      if (oldPage=='area-ballot' && this.$$("#budgetBallot") && page!='post') {
+        this.$$("#budgetBallot").selectedView = 0;
+      }
+
+      // Cancel login polling if needed
+      if (oldPage=='area-ballot' && this.$$("#budgetBallot")) {
+        this._hideFavoriteItem();
+      }
+
+      this.async(function () {
+        if (page=='area-ballot' && this.currentBallot && this.currentBallot.favoriteItem) {
+          this.$$("#favoriteIcon").hidden = false;
+          this.resetFavoriteIconPosition();
+        }
+      });
+
+      // Do not allow access to voting-completed from a reload
+      if (page=='voting-completed' && oldPage!='area-ballot') {
+        window.location = "/";
+      }
+
+      // Refresh counts if coming from voting-completed
+      if (oldPage=='voting-completed' && this.$$("#selectVotingArea")) {
+        this.$$("#selectVotingArea").refreshAreaCounters();
+      }
+
+      // Send page info to Google Analytics
+      if (page) {
+        ga('send', 'pageview', {
+          'page': location.pathname + location.search  + location.hash
+        });
+      }
     }
   }
 
@@ -485,25 +469,18 @@ class OavApp extends LitElement {
     this._loadPage(page);
     // Any other info you might want to extract from the path (like page type),
     // you can do here.
-
-    // Close the drawer - in case the *path* change came from a link in the drawer.
-    this._updateDrawerState(false);
+    if (path.slice(2))
+      this._subPath = path.slice(2);
   }
-
 
   _loadPage(page) {
     switch(page) {
-      case 'view1':
-        import('./my-view1.js').then((module) => {
-          // Put code in here that you want to run every time when
-          // navigating to view1 after my-view1.js is loaded.
-        });
+      case 'post':
+        import('./yp-post/yp-post.js');
         break;
-      case 'view2':
-        import('./my-view2.js');
-        break;
-      case 'view3':
-        import('./my-view3.js');
+      case 'area-ballot':
+      case 'voting-completed':
+      case 'select-voting-area':
         break;
       default:
         page = 'view404';
