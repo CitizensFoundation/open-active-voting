@@ -1,0 +1,85 @@
+/**
+@license
+Copyright (c) 2010-2019 Citizens Foundation
+*/
+
+import { css } from 'lit-element';
+
+export const OavAreaBallotStyles = css`
+
+  :host {}
+
+  iron-list {
+    margin-top: 24px;
+    padding-bottom: 16px;
+    background-color: var(--app-main-background-color);
+  }
+
+  .name {
+    font-size: 19px;
+    padding: 8px;
+  }
+
+  .description {
+    padding-left: 8px;
+    padding-rigth: 8px;
+  }
+
+  .price {
+    font-size: 20px;
+    position: absolute;
+    bottom: 4px;
+    left: 8px;
+  }
+
+  paper-button.addButton {
+    position: absolute;
+    bottom: 16px;
+    right: 8px;
+    background-color: #F00;
+    color: #FFF;
+  }
+
+  .budgetContainer {
+  }
+
+  .votingButtonContainer {
+    position: absolute;
+    bottom: 16px;
+  }
+
+  .topContainer {
+    background-color: var(--app-main-background-color);
+    color: #333;
+  }
+
+
+  paper-tabs {
+    margin: 8px;
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+
+  paper-tab {
+    font-size: 21px !important;
+    margin-left: 24px;
+    margin-right: 24px;
+    width: 320px;
+  }
+
+  @media (max-width: 1000px) {
+    paper-tab {
+      font-size: 15px !important;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    paper-tab {
+      font-size: 14px !important;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+`;

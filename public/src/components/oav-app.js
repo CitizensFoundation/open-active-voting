@@ -186,7 +186,8 @@ class OavApp extends LitElement {
         this.configFromServer = detail.response.config;
       })
       .catch(error => {
-        console.error('Error:', error)
+        console.error('Error:', error);
+        this.fire('oav-error', 'unknown_error');
       });
   }
 
