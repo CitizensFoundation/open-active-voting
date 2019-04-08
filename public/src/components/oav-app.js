@@ -22,8 +22,9 @@ import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import './oav-icons.js';
 import './snack-bar.js';
 import { OavAppStyles } from './oav-app-styles.js';
+import { OavBaseElement } from './oav-base-element.js';
 
-class OavApp extends LitElement {
+class OavApp extends OavBaseElement {
   static get properties() {
     return {
       appTitle: { type: String },
@@ -160,13 +161,12 @@ class OavApp extends LitElement {
   }
 
   constructor() {
+    window.__localizationCache = {
+      messages: {}, /* Unique localized strings. Invalidated when the language */
+    }
     super();
     setPassiveTouchGestures(true);
     this._boot();
-  }
-
-  $$(id) {
-    return this.shadowRoot.getElementById(id);
   }
 
   _setupCustomCss(config) {
@@ -183,6 +183,7 @@ class OavApp extends LitElement {
         this.requestInProgress= false;
         this.votePublicKey = detail.response.public_key;
         this._setupCustomCss(detail.response.config);
+        window.localeResources = detail.response.config.localeResources;
         this.configFromServer = detail.response.config;
       })
       .catch(error => {

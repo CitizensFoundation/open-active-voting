@@ -22,7 +22,6 @@ export const OavAreaBallotStyles = css`
 
   .description {
     padding-left: 8px;
-    padding-rigth: 8px;
   }
 
   .price {
@@ -36,8 +35,8 @@ export const OavAreaBallotStyles = css`
     position: absolute;
     bottom: 16px;
     right: 8px;
-    background-color: #F00;
-    color: #FFF;
+    background-color: var(--app-ballot-add-button-background-color, #F00);
+    color: var(--app-ballot-add-button-color, #FFF);
   }
 
   .budgetContainer {
@@ -50,7 +49,7 @@ export const OavAreaBallotStyles = css`
 
   .topContainer {
     background-color: var(--app-main-background-color);
-    color: #333;
+    color: var(--app-ballot-color, #333);
   }
 
 

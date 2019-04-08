@@ -1,186 +1,152 @@
-/**
-@license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
+// Originally from here https://github.com/jakelheknight/google-maps-limited
 
-import { html, css } from 'lit-element';
-import { PageViewElement } from './page-view-element.js';
+import {html, LitElement} from '@polymer/lit-element';
+window.initMap = function () { window.dispatchEvent(new CustomEvent('google-map-ready')); }; // eslint-disable-line no-unused-vars
 
-// These are the elements needed by this element.
-import './shop-products.js';
-import './shop-cart.js';
+class GoogleMapsLimited extends OavBaseElement {
 
-// These are the shared styles needed by this element.
-import { SharedStyles } from './shared-styles.js';
-import { ButtonSharedStyles } from './button-shared-styles.js';
-import { addToCartIcon } from './my-icons.js';
-
-class MyView3 extends PageViewElement {
   static get properties() {
     return {
-      // This is the data from the store.
-      _cart: { type: Object },
-      _quantity: { type: Number },
-      _error: { type: String }
+      apiKey: {type: String},
+      lang: {type: String},
+      inChina: {type: Boolean},
+      markers: {type: Object},
+      selectedMarkerId: {type: String},
+      icon: {type: String},
+      selectedIcon: {type: String},
+      selectLocationMode: {type: Boolean},
+      selectedInfoWindowContent: {type: String}
     };
-  }
-
-  static get styles() {
-    return [
-      SharedStyles,
-      ButtonSharedStyles,
-      css`
-        button {
-          border: 2px solid var(--app-dark-text-color);
-          border-radius: 3px;
-          padding: 8px 16px;
-        }
-
-        button:hover {
-          border-color: var(--app-primary-color);
-          color: var(--app-primary-color);
-        }
-
-        .cart,
-        .cart svg {
-          fill: var(--app-primary-color);
-          width: 64px;
-          height: 64px;
-        }
-
-        .circle.small {
-          margin-top: -72px;
-          width: 28px;
-          height: 28px;
-          font-size: 16px;
-          font-weight: bold;
-          line-height: 30px;
-        }
-      `
-    ];
   }
 
   render() {
     return html`
-      <section>
-        <h2>State container example: shopping cart</h2>
-        <div class="cart">${addToCartIcon}<div class="circle small">${this._numItemsInCart(this._cart)}</div></div>
-
-        <p>This is a slightly more advanced example, that simulates a
-          shopping cart: getting the products, adding/removing items to the
-          cart, and a checkout action, that can sometimes randomly fail (to
-          simulate where you would add failure handling). </p>
-        <p>This view, passes properties down to its two children, <code>&lt;shop-products&gt;</code> and
-        <code>&lt;shop-cart&gt;</code>, which fire events back up whenever
-        they need to communicate changes.</p>
-      </section>
-      <section>
-        <h3>Products</h3>
-        <shop-products .products="${this._products}"></shop-products>
-
-        <br>
-        <h3>Your Cart</h3>
-        <shop-cart .products="${this._products}" .cart="${this._cart}"></shop-cart>
-
-        <div>${this._error}</div>
-        <br>
-        <p>
-          <button ?hidden="${this._cart.addedIds.length == 0}"
-              @click="${this.checkout}">
-            Checkout
-          </button>
-        </p>
-      </section>
+      <style>
+        :host {
+          display: block
+        }
+        #map {
+          width: 100%;
+          height: 100%;
+        }
+      </style>
+      <div id="map"></div>
     `;
   }
 
   constructor() {
     super();
-    this._cart = {addedIds: [], quantityById: {}};
-    this._error = '';
-    this._products = this._getAllProducts();
-    this.addEventListener('addToCart', (e) => this._addToCart(e.detail.item));
-    this.addEventListener('removeFromCart', (e) => this._removeFromCart(e.detail.item));
-  }
-
-  checkout() {
-    // Here you could do things like credit card validation, etc.
-    // We're simulating that by flipping a coin :)
-    const flip = Math.floor(Math.random() * 2);
-    if (flip === 0) {
-      this._error = 'Checkout failed. Please try again';
-    } else {
-      this._error = '';
-      this._cart = {addedIds: [], quantityById: {}};
-    }
-  }
-
-  _addToCart(productId) {
-    this._error = '';
-    if (this._products[productId].inventory > 0) {
-      this._products[productId].inventory--;
-
-      if (this._cart.addedIds.indexOf(productId) !== -1) {
-        this._cart.quantityById[productId]++;
-      } else {
-        this._cart.addedIds.push(productId);
-        this._cart.quantityById[productId] = 1;
+    window.addEventListener('google-map-ready', () => {
+      this._mapRef = new google.maps.Map(this.shadowRoot.querySelector('#map'), {
+        center: { lat: 40, lng: -112 },
+        zoom: 5,
+        streetViewControl: false,
+      });
+      this._putMarkersOnMap(this._markers);
+      this._infoWindow = new google.maps.InfoWindow(
+        {content: document.createElement('div')}
+      );
+      this._infoWindow.addListener('closeclick', () => {
+        this.selectedMarkerId = null;
+      });
+      if(this.selectLocationMode) {
+       google.maps.event.addListener(this._mapRef, 'click', (event) => {
+        if(this._mapMarkers) this._mapMarkers.map((marker) => marker.setMap(null));
+        this.markers = [{
+           position: {lat:event.latLng.lat(), lng:event.latLng.lng()},
+           InfoWindowContent: this.selectedInfoWindowContent || "User Selected Point"
+         }];
+       this.dispatchEvent(new CustomEvent('lag-long-chosen', {bubbles:true, composed:true, detail:{lat:event.latLng.lat(), long: event.latLng.lng()}}));
+       this._mapRef.setZoom(5);
+      });
       }
-    }
-
-    // TODO: this should be this.invalidate
-    this._products = JSON.parse(JSON.stringify(this._products));
-    this._cart = JSON.parse(JSON.stringify(this._cart));
+    });
+    this.icon = this.icon || 'data:image/svg+xml;utf-8, <svg xmlns="http://www.w3.org/2000/svg" width="30" height="47"><g data-name="Layer 2"><path d="M15 46.59a3.11 3.11 0 0 1-3.15-3c-.91-8.7-4.07-12.72-6.85-16.26C2.51 24.17.17 21.19.17 16a14.83 14.83 0 0 1 29.66 0c0 5.19-2.34 8.17-4.83 11.33-2.78 3.54-5.94 7.56-6.87 16.25A3 3 0 0 1 15 46.59z" opacity=".33"/><path fill="none" d="M0 0h30v47H0z"/><path d="M15 .17A14.84 14.84 0 0 0 .17 15c0 5.19 2.34 8.17 4.83 11.33 2.78 3.54 5.94 7.56 6.87 16.25a3.11 3.11 0 0 0 3.14 3 3 3 0 0 0 3.11-3c.93-8.69 4.09-12.71 6.87-16.25 2.49-3.16 4.83-6.14 4.83-11.33A14.84 14.84 0 0 0 15 .17z" fill="rgb(255,255,255)"/><path d="M15 2.17A12.84 12.84 0 0 0 2.17 15c0 10 9.91 10.47 11.7 27.45a1.13 1.13 0 1 0 2.26 0C17.92 25.47 27.83 25 27.83 15A12.84 12.84 0 0 0 15 2.17zm0 17.29A4.46 4.46 0 1 1 19.46 15 4.46 4.46 0 0 1 15 19.46z" fill="rgb(231,69,60)"/></g></svg>';
+    this.selectedIcon = this.selectedIcon || 'data:image/svg+xml;utf-8, <svg xmlns="http://www.w3.org/2000/svg" width="30" height="47"><g data-name="Layer 2"><path d="M15 46.59a3.11 3.11 0 0 1-3.15-3c-.91-8.7-4.07-12.72-6.85-16.26C2.51 24.17.17 21.19.17 16a14.83 14.83 0 0 1 29.66 0c0 5.19-2.34 8.17-4.83 11.33-2.78 3.54-5.94 7.56-6.87 16.25A3 3 0 0 1 15 46.59z" opacity=".33"/><path fill="none" d="M0 0h30v47H0z"/><path d="M15 .17A14.84 14.84 0 0 0 .17 15c0 5.19 2.34 8.17 4.83 11.33 2.78 3.54 5.94 7.56 6.87 16.25a3.11 3.11 0 0 0 3.14 3 3 3 0 0 0 3.11-3c.93-8.69 4.09-12.71 6.87-16.25 2.49-3.16 4.83-6.14 4.83-11.33A14.84 14.84 0 0 0 15 .17z" fill="rgb(255,255,255)"/><path d="M15 2.17A12.84 12.84 0 0 0 2.17 15c0 10 9.91 10.47 11.7 27.45a1.13 1.13 0 1 0 2.26 0C17.92 25.47 27.83 25 27.83 15A12.84 12.84 0 0 0 15 2.17zm0 17.29A4.46 4.46 0 1 1 19.46 15 4.46 4.46 0 0 1 15 19.46z" fill="rgb(135,185,64)"/></g></svg>';
   }
 
-  _removeFromCart(productId) {
-    this._error = '';
-    this._products[productId].inventory++;
-
-    const quantity = this._cart.quantityById[productId];
-    if (quantity === 1) {
-      this._cart.quantityById[productId] = 0;
-      // This removes all items in this array equal to productId.
-      this._cart.addedIds = this._cart.addedIds.filter(e => e !== productId);
-    } else{
-      this._cart.quantityById[productId]--;
-    }
-
-    // TODO: this should be this.invalidate
-    this._products = JSON.parse(JSON.stringify(this._products));
-    this._cart = JSON.parse(JSON.stringify(this._cart));
+  firstUpdated() {
+    this.shadowRoot.appendChild(this._mapScriptTag());
+    super.firstUpdated();
   }
 
-  _numItemsInCart(cart) {
-    let num = 0;
-    for (let id of cart.addedIds) {
-      num += cart.quantityById[id];
-    }
-    return num;
+  _mapScriptTag() {
+    const lang = 'en'
+    // init google maps
+    const googleMapsLoader = document.createElement('script');
+    googleMapsLoader.src = `https://maps.${this.inChina ? 'google.cn' : 'googleapis.com'}/maps/api/js?key=${this.apiKey}&language=${lang === 'zh' ? 'zh-TW' : lang}&callback=initMap`;
+    googleMapsLoader.async = true;
+    googleMapsLoader.defer = true;
+    return googleMapsLoader;
   }
 
-  _getAllProducts() {
-    // Here you would normally get the data from the server.
-    const PRODUCT_LIST = [
-      {"id": 1, "title": "Cabot Creamery Extra Sharp Cheddar Cheese", "price": 10.99, "inventory": 2},
-      {"id": 2, "title": "Cowgirl Creamery Mt. Tam Cheese", "price": 29.99, "inventory": 10},
-      {"id": 3, "title": "Tillamook Medium Cheddar Cheese", "price": 8.99, "inventory": 5},
-      {"id": 4, "title": "Point Reyes Bay Blue Cheese", "price": 24.99, "inventory": 7},
-      {"id": 5, "title": "Shepherd's Halloumi Cheese", "price": 11.99, "inventory": 3}
-    ];
+  set markers(markers) {
+    if(!markers) return;
+    this._putMarkersOnMap(markers);
+    this._markers = markers;
+  }
 
-    // You could reformat the data in the right format as well:
-    const products = PRODUCT_LIST.reduce((obj, product) => {
-      obj[product.id] = product
-      return obj
-    }, {});
-    return products;
-  };
+  get markers() {
+    return this._markers;
+  }
+
+  set selectedMarkerId(id) {
+    if(!this._mapMarkers) return;
+    let oldMapMarker = this._mapMarkers[this._selectedMarkerId]
+    let newMapMarker = this._mapMarkers[id];
+    let newMarker = this._markers[id];
+    if(oldMapMarker) oldMapMarker.setIcon(this.icon);
+    if(newMapMarker) newMapMarker.setIcon(this.selectedIcon);
+    if(this._infoWindow) this._infoWindow.close();
+    if(newMarker && newMarker.InfoWindowContent) {
+      this._infoWindow.setContent(newMarker.InfoWindowContent);
+      this._infoWindow.open(this._mapRef, newMapMarker);
+    }
+    this.dispatchEvent(new CustomEvent('map-pin-selected', {bubbles:true, composed:true, detail:{id:this.selectedMarkerId}}));
+    this._selectedMarkerId = id;
+  }
+
+  get selectedMarkerId() {
+    return this._selectedMarkerId;
+  }
+
+  _putMarkersOnMap(markers) {
+    if(!this._mapRef || !markers) return;
+    if(this._mapMarkers) this._mapMarkers.map((marker) => marker.setMap(null));
+    this._mapMarkers = markers.reduce((acc, item, index) => {
+      if(item.position){
+        const mapMarker = new google.maps.Marker({
+          position: item.position,
+          icon: markers.icon || this.icon,
+          map: this._mapRef
+        })
+        mapMarker.addListener('click', () => {
+          this.selectedMarkerId = item.id || index;
+        });
+        acc[ item.id || index ] = mapMarker;
+        return acc;
+      }
+      return acc;
+    }, []);
+    this._setDefaultBounds ();
+  }
+
+  _setDefaultBounds () {
+    if (this._markers.length === 0) {
+      // show the whole world if there are no markers
+      var worldBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(70.4043, -143.5291), // Top-left
+        new google.maps.LatLng(-46.11251, 163.4288) // Bottom-right
+      );
+      this._mapRef.fitBounds(worldBounds, 0);
+    } else {
+      var initialBounds = this._mapMarkers.reduce((bounds, marker) => {
+        bounds.extend(marker.getPosition());
+        return bounds;
+      }, new google.maps.LatLngBounds());
+      this._mapRef.fitBounds(initialBounds);
+    }
+  }
 }
 
-window.customElements.define('my-view3', MyView3);
+window.customElements.define('oav-google-maps', OavGoogleMaps);

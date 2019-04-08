@@ -1,18 +1,16 @@
 import { html } from 'lit-element';
-import { PageViewElement } from './page-view-element.js';
 import { OavAreaBallotItemStyles } from './oav-area-ballot-item=styles.js';
+import { OavBaseElement } from './oav-base-element';
 
-class OavAreaBallotItem extends PageViewElement {
+class OavAreaBallotItem extends OavBaseElement {
   static get properties() {
     return {
       item: {
-        type: Object,
-        observer: '_itemChanged'
+        type: Object
       },
 
       staticMapsApiKey: {
-        type: String,
-        value: "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA"
+        type: String
       },
 
       elevation: Number,
@@ -22,60 +20,43 @@ class OavAreaBallotItem extends PageViewElement {
       },
 
       selectedInBudget: {
-        type: Boolean,
-        value: false,
-        observer: 'selectedInBudgetChanged'
+        type: Boolean
       },
 
       toExpensiveForBudget: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
 
       isFavorite: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
 
       googleMapsApiKey: {
-        type: String,
-        value: "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0"
+        type: String
       },
 
       imageTabSelected: {
-        type: Boolean,
-        value: true
+        type: Boolean
       },
 
       descriptionTabSelected: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
 
       mapTabSelected: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
 
       descriptionPdfLink: {
         type: String
       },
 
-      itemShareUrl: {
-        type: String,
-        computed: '_itemShareUrl(item)'
-      },
-
       small: {
-        type: Boolean,
-        value: false,
-        observer: '_smallChanged'
+        type: Boolean
       },
 
       tiny: {
-        type: Boolean,
-        value: false,
-        observer: '_tinyChanged'
+        type: Boolean
       },
 
       mapsHeight: {
@@ -111,91 +92,60 @@ class OavAreaBallotItem extends PageViewElement {
 
   updated(changedProps) {
     super(changedProps);
-    if (changedProps.has('areaId')) {
-      if (newValue===true) {
-        this.set('elevation', "4");
+    if (changedProps.has('selectedInBudget')) {
+      if (this.selectedInBudget) {
+        this.elevation = 4;
       } else {
-        this.set('elevation', "1");
-      }
-
-      this.oldFavoriteItem = null;
-      this.favoriteItem = null;
-      if (this.areaId) {
-        this.reset();
-        this.fire('ak-clear-area');
-        fetch("/votes/get_ballot?area_id="+this.areaId)
-        .then(res => res.json())
-        .then(response => {
-          console.log('Success:', JSON.stringify(response));
-          this.area = detail.response.area;
-          this.budgetBallotItems = this._setupLocationsAndTranslation(detail.response.budget_ballot_items);
-          this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
-          this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
-        })
-        .catch(error => {
-          this.fire('ak-error', error);
-          console.error('Error:', error);
-        });
-      }
-
-      if (changedProps.has('areaIdRoutePath')) {
-        if (this.areaIdRoutePath) {
-          if (this.areaIdRoutePath==='completePostingOfVoteAfterRedirect') {
-            this.completeIfAuthenticatedVote();
-          } else {
-            this.areaId = this.areaIdRoutePath;
-          }
-        }
-      }
-
-      if (changedProps.has('selectedView')) {
-        if (this.selectedView && view==0) {
-          this.activity('click', 'ideasTab');
-        } else if (view && view==1) {
-          this.activity('click', 'mapTab');
-        }
-      }
-
-      if (changedProps.has('favoriteItem')) {
-        debugger;
-        this.oldFavoriteItem = changedProps['favoriteItem'].oldValue;
-        if (!this.favoriteItem && this.oldFavoriteItem) {
-          this.fire("oav-hide-favorite-item");
-        }
+        this.elevation = 1;
       }
     }
-  }
 
-  _descriptionPdfLink(newItem) {
-    if (newItem && this.ideasWithPdfs) {
-      const ideaId = parseInt(newItem.idea_id);
-      if (ideasWithPdfs.ids.indexOf(ideaId) > -1) {
-        return null;
-      } else {
-        return ideasWithPdfs.urls[ideaId];
+    if (changedProps.has('item')) {
+      if (this.item) {
+        if (this.item.locations && newItem.locations.length>0) {
+          this.longitude = this.item.locations[0].longitude;
+          this.latitude = this.locations[0].latitude;
+        }
+        this.resetFromBudget();
       }
-    } else {
-      return null;
+    }
+
+    if (changedProps.has('small')) {
+      if (this.small) {
+        this.mapsHeight = '260';
+        this.mapsWidth = '146';
+      } else {
+        this.mapsHeight = '169';
+        this.mapsWidth = '300';
+      }
+    }
+
+    if (changedProps.has('tiny')) {
+      if (this.tiny) {
+        this.mapsHeight = '220';
+        this.mapsWidth = '124';
+      } else {
+        this.mapsHeight = '169';
+        this.mapsWidth = '300';
+      }
     }
   }
 
   constructor() {
     super();
     this.reset();
-    //TODO: Why?
-    window.appBallot = this;
   }
 
   reset() {
-    if (this.budgetElement) {
-      this.budgetElement.reset();
-    }
-    this._resetBallotItems();
-    this.budgetBallotItems = null;
-    this.area = null;
-    this.favoriteItem = null;
-    this.selectedView = 0;
-    this.fire('oav-set-area', { areaName: null, totalBudget: null });
+    this.small = false;
+    this.mapTabSelected = false;
+    this.descriptionTabSelected = false;
+    this.imageTabSelected = false;
+    this.isFavorite = false;
+    this.toExpensiveForBudget = false;
+    this.selectedInBudget = false;
+    this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
+    this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
   }
 
   static get styles() {
@@ -207,61 +157,76 @@ class OavAreaBallotItem extends PageViewElement {
   render() {
     return html`
       <paper-material animated .elevation="[[elevation]]" class="itemContent" ?small="${this.small}" ?tiny="${this.tiny}">
-        <iron-image preload on-loaded-changed="_imageLoadedChanged" small$="[[small]]" tiny$="[[tiny]]" hidden$="[[!imageTabSelected]]" name="image" sizing="cover" src="[[item.image_url]]"></iron-image>
-        <template is="dom-if" if="[[mapTabSelected]]" restamp>
-          <template is="dom-if" if="[[mapsHeight]]" restamp>
-            <iron-image class="main-image" sizing="cover"
-                        src$="https://maps.googleapis.com/maps/api/staticmap?center=[[latitude]],[[longitude]]&zoom=15&size=[[mapsWidth]]x[[mapsHeight]]&markers=color:red%7Clabel:%7C[[latitude]],[[longitude]]&key=[[staticMapsApiKey]]"
-                        hidden$="[[!mapTabSelected]]"></iron-image>
-          </template>
-        </template>
-        <div hidden$="[[!descriptionTabSelected]]" name="description" class="descriptionContainer" tiny$="[[tiny]]" small$="[[small]]" tiny$="[[tiny]]">
+        <iron-image preload @loaded-changed="${this._imageLoadedChanged}" ?small="${this.small}"
+          ?tiny$="${tiny}" ?hidden="${!this.imageTabSelected}" name="image" .sizing="cover" .src="${this.item.image_url}">
+        </iron-image>
+
+        ${mapTabSelected && mapsHeight ?
+          html`
+            <iron-image class="main-image" .sizing="cover"
+              .src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.staticMapsApiKey}"
+              hidden$="[[!mapTabSelected]]">
+            </iron-image>
+          `
+          :
+          ''
+        }
+        <div ?hidden="${!this.descriptionTabSelected}" name="description" class="descriptionContainer" ?tiny="${this.tiny}" ?small="${this.small}">
           <div id="description" class="description">
-            [[item.description]]
+            ${item.description}
           </div>
         </div>
-        <paper-menu-button on-tap="_openMenu" small$="[[small]]" tiny$="[[tiny]]" class="dropdownMenuButton" horizontal-align="right">
-          <paper-icon-button title$="{{localize('more_information')}}" class="dropdown-trigger dropdownButton" no-tap="_clickedDropDownMenu" title$="{{localize('select')}}" icon="menu"></paper-icon-button>
-          <paper-menu class="dropdown-content">
-            <paper-item on-tap="_setImageMode">
-              <iron-icon title$="{{localize('image_item_tab')}}" class="infoIcon" icon="photo"></iron-icon>{{localize('image_item_tab')}}
+        <paper-menu-button @click="this._openMenu()" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" .horizontal-align="right">
+          <paper-icon-button title="${this.localize('more_information')}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger"
+            @click="${this._clickedDropDownMenu}" title="${this.localize('select')}" icon="menu">
+          </paper-icon-button>
+          <paper-listbox class="dropdown-content" slot="dropdown-content">
+            <paper-item @click="${this._setImageMode()}">
+              <iron-icon title="${this.localize('image_item_tab')}" class="infoIcon" .icon="photo"></iron-icon>
+              ${this.localize('image_item_tab')}
             </paper-item>
-            <paper-item on-tap="_setDescriptionMode">
-              <iron-icon title$="{{localize('description_item_tab')}}" class="infoIcon" icon="description"></iron-icon>{{localize('description_item_tab')}}
+            <paper-item @click="${this._setDescriptionMode()}">
+              <iron-icon title="${this.localize('description_item_tab')}" class="infoIcon" .icon="description"></iron-icon>
+              ${this.localize('description_item_tab')}
             </paper-item>
-            <paper-item on-tap="_setMapMode">
-              <iron-icon title$="{{localize('map_item_tab')}}" class="infoIcon" icon="place"></iron-icon>{{localize('map_item_tab')}}
+            <paper-item @click="${this._setMapMode()}">
+              <iron-icon title="${this.localize('map_item_tab')}" class="infoIcon" .icon="place"></iron-icon>
+              ${this.localize('map_item_tab')}
             </paper-item>
-            <paper-item on-tap="_openPdf">
-              <iron-icon title$="{{localize('design_pdf')}}" class="infoIcon" icon="picture-as-pdf"></iron-icon>{{localize('design_pdf')}}
+            <paper-item @click="${this._openPdf()}">
+              <iron-icon title="${this.localize('design_pdf')}" class="infoIcon" .icon="picture-as-pdf"></iron-icon>
+              ${this.localize('design_pdf')}
             </paper-item>
-            <paper-item on-tap="_showPost">
-              <iron-icon raised title$="{{localize('more_info_description')}}" class="infoIcon" icon="info"></iron-icon>{{localize('more_info_description')}}
+            <paper-item @click="${this._showPost()}">
+              <iron-icon raised title="${this.localize('more_info_description')}" class="infoIcon" .icon="info"></iron-icon>
+              ${this.localize('more_info_description')}
             </paper-item>
-          </paper-menu>
+          </paper-listbox>
         </paper-menu-button>
         <div class="layout horizontal">
-          <div class="name" small$="[[small]]" tiny$="[[tiny]]">[[item.name]]</div>
+          <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.name}</div>
         </div>
         <div class="buttons">
-          <paper-share-button hidden$="[[!imageLoaded]]" small$="[[small]]" on-share-tap="_shareTap" class="shareIcon" horizontal-align="left" id="shareButton" title$="{{localize('share_idea')}}" facebook twitter popup url$="[[itemShareUrl]]"></paper-share-button>
+          <paper-share-button ?hidden="${!this.imageLoaded}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" .horizontal-align="left" id="shareButton"
+            title="${this.localize('share_idea')}" facebook twitter popup .url="${this._itemShareUrl()}">
+          </paper-share-button>
 
-          <div class="price" small$="[[small]]" tiny$="[[tiny]]">[[item.price]]
-            <span class="priceCurrency" hidden$="[[!_priceIsOne(item.price)]]">{{localize('million')}}</span>
-            <span class="priceCurrency" hidden$="[[_priceIsOne(item.price)]]">{{localize('millions')}}</span>
+          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.price}
+            <span class="priceCurrency" ?hidden="${!this._priceIsOne(item.price)}">${this.localize('million')}</span>
+            <span class="priceCurrency" ?hidden="${_priceIsOne(item.price)}">${this.localize('millions')}</span>
           </div>
-          <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" hidden$="[[selectedInBudget]]"
-                    disabled$="[[toExpensiveForBudget]]" title$="{{localize('add_to_budget')}}" icon="add" on-tap="_toggleInBudget">
+          <paper-fab mini id="addToBudgetButton" .elevation="5" class="addRemoveButton" ?hidden="${this.selectedInBudget}"
+                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('add_to_budget')}" .icon="add" @click="${this._toggleInBudget()}">
           </paper-fab>
-          <paper-fab mini elevation="5" class="addRemoveButton removeButton" hidden$="[[!selectedInBudget]]"
-                    disabled$="[[toExpensiveForBudget]]" title$="{{localize('remove_from_budget')}}" icon="remove" on-tap="_toggleInBudget">
+          <paper-fab mini .elevation="5" class="addRemoveButton removeButton" ?hidden="${!this.selectedInBudget}"
+                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('remove_from_budget')}" .icon="remove" @click="${this._toggleInBudget}">
           </paper-fab>
-          <div id="favoriteButtons" class="favoriteButtons" hidden$="[[!selectedInBudget]]">
-            <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[isFavorite]]"
-                      title$="{{localize('select_favorite')}}" icon="star-border" hearticon="favorite-border" on-tap="_toggleFavorite">
+          <div id="favoriteButtons" class="favoriteButtons" ?hidden="${!this.selectedInBudget}">
+            <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${this.isFavorite}"
+                      title="${this.localize('select_favorite')}" .icon="star-border" .hearticon="favorite-border" @click="${this._toggleFavorite()}">
             </paper-fab>
-            <paper-fab mini class="removeFavoriteButton" elevation="5" class="favoriteButton" hidden$="[[!isFavorite]]"
-                      title$="{{localize('deselect_favorite')}}" icon="star" heartcon="favorite" on-tap="_toggleFavorite">
+            <paper-fab mini class="removeFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${!this.isFavorite}"
+                      title="${this.localize('deselect_favorite')}" .icon="star" .heartcon="favorite" @click="${this._toggleFavorite()}">
             </paper-fab>
           </div>
         </div>
@@ -269,218 +234,184 @@ class OavAreaBallotItem extends PageViewElement {
     `;
   }
 
-  _scrollItemIntoView(itemId) {
-    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
+  _imageLoadedChanged(event, detail) {
+    if (detail.value) {
+      this.set('imageLoaded', true);
+    }
+  }
 
-    var items = this.shadowRoot.querySelectorAll("oav-area-ballot-item");
-    items.forEach(function (item) {
-      if (item.name==itemId) {
-        if (iOS || isIE11) {
-          item.scrollIntoView(false);
+  _clickedDropDownMenu() {
+    this.activity('click', 'dropdown');
+  }
+
+  _priceIsOne(price) {
+    if (price && price<=1.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  _openPdf() {
+    this.activity('click', 'openPdf');
+    if (this._descriptionPdfLink(this.item)) {
+      window.open(this.descriptionPdfLink, '_blank');
+    }
+  }
+
+  _showPost() {
+    this.activity('click', 'showPost');
+    window.appLastArea = '/'+window.location.hash;
+    window.location = "/post/"+this.item.idea_id;
+  }
+
+  _descriptionPdfLink() {
+    if (this.item && this.ideasWithPdfs) {
+      const ideaId = parseInt(this.item.idea_id);
+      if (ideasWithPdfs.ids.indexOf(ideaId) > -1) {
+        return null;
+      } else {
+        return ideasWithPdfs.urls[ideaId];
+      }
+    } else {
+      return null;
+    }
+  }
+
+  _itemShareUrl() {
+    if (this.item) {
+      return encodeURIComponent("https://"+window.location.host+"/items/"+this.item.id);
+    } else {
+      return null;
+    }
+  }
+
+  _shareTap(event, detail) {
+    this.activity('click', 'shareItem');
+  }
+
+  resetFromBudget() {
+    //console.log("resetFromBudget itemId: "+this.item.id);
+    if (this.budgetElement) {
+      if (this.budgetElement.selectedItems.indexOf(this.item) > -1) {
+        this.setInBudget();
+        this.setNotTooExpensive();
+        if (this.budgetElement.currentBallot.favoriteItem==this.item) {
+          this.isFavorite = true;
         } else {
-          item.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+          this.isFavorite = false;
         }
-
-        if (this.wide) {
-          item.animate([
-            { transform: "translateX(-3px)", easing: 'ease-in' },
-            { transform: "translateX(3px)", easing: 'ease-out' },
-            { transform: "translateX(-5px)", easing: 'ease-in' },
-            { transform: "translateX(5px)", easing: 'ease-out' },
-            { transform: "translateX(-7px)", easing: 'ease-in' },
-            { transform: "translateX(7px)", easing: 'ease-out' },
-          ], {
-            duration: 450,
-            iterations: 1
-          });
-        }
-      }
-    }.bind(this));
-  }
-
-  _resetBallotItems() {
-    var listItems = this.$$("#itemContainer");
-    if (listItems) {
-      for (var i = 0; i < listItems.children.length; i++) {
-        var listItem = listItems.children[i];
-        if (listItem.id != 'domRepeat') {
-          listItem.setNotTooExpensive();
-          listItem.removeFromBudget();
-        }
-      }
-    }
-  }
-
-  _toggleFavoriteItem(event, detail) {
-    var item = detail.item;
-    if (item) {
-      this.activity('toggle', 'favorite');
-    } else {
-      this.activity('detoggle', 'favorite');
-    }
-    if (this.favoriteItem != item) {
-      this.favoriteItem = item;
-      var listItems = this.$$("#itemContainer");
-      for (var i = 0; i < listItems.children.length; i++) {
-        var listItem = listItems.children[i];
-        if (listItem.id != 'domRepeat') {
-          listItem.resetFromBudget();
-        }
-      }
-    } else {
-      console.warn("Trying to set item as favorite a second time");
-    }
-  }
-
-  _toggleItemInBudget(event, detail) {
-    this.budgetElement.toggleBudgetItem(detail.item);
-  }
-
-  _itemSelectedInBudget(event, detail) {
-    var listItems = this.$$("#itemContainer");
-    for (var i = 0; i < listItems.children.length; i++) {
-      var listItem = listItems.children[i];
-      if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
-        listItem.setInBudget();
-        this.$$("#itemsMap").setItemInBudget(listItem.item);
-      }
-    }
-    this._setStateOfRemainingItems();
-  }
-
-  _itemDeSelectedFromBudget(event, detail) {
-    var listItems = this.$$("#itemContainer");
-    for (var i = 0; i < listItems.children.length; i++) {
-      var listItem = listItems.children[i];
-      if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
-        if (this.favoriteItem==listItem.item) {
-          this.set('favoriteItem', null);
-        }
-        listItem.removeFromBudget();
-        this.$$("#itemsMap").removeFromBudget(listItem.item);
-        this.fire("oav-reset-favorite-icon-position");
-      }
-    }
-    this._setStateOfRemainingItems();
-  }
-
-  _setStateOfRemainingItems() {
-    var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
-    var listItems = this.$$("#itemContainer");
-    for (var i = 0; i < listItems.children.length; i++) {
-      var listItem = listItems.children[i];
-      if (listItem.id != 'domRepeat' && !listItem.selectedInBudget) {
-        if (listItem.item.price<=budgetLeft) {
-          listItem.setNotTooExpensive();
+      } else {
+        var budgetLeft = this.budgetElement.totalBudget-this.budgetElement.selectedBudget;
+        if (this.item.price>budgetLeft) {
+          this.setTooExpensive()
         } else {
-          listItem.setTooExpensive();
+          this.setNotTooExpensive()
         }
+        this.removeFromBudget();
       }
     }
-    this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
+    this._setImageMode(true);
   }
 
-  _postVoteToServer() {
-    if (this.budgetElement.selectedItems && this.budgetElement.selectedItems.length>0) {
-      this.completePostingOfVote(this._createEncryptedVotes());
+  _setImageMode(disableActivity) {
+    if (!disableActivity || disableActivity===false) {
+      this.activity('select', 'imageMode');
+    }
+    this.imageTabSelected = true;
+    this.descriptionTabSelected = false;
+    this.mapTabSelected = false;
+  }
+
+  _setMapMode() {
+    this.activity('select', 'mapMode');
+    this.imageTabSelected = false;
+    this.descriptionTabSelected = false;
+    this.mapTabSelected = true;
+  }
+
+  _setDescriptionMode() {
+    this.activity('select', 'descriptionMode');
+    this.imageTabSelected = false;
+    this.descriptionTabSelected = true;
+    this.mapTabSelected = false;
+  }
+
+  _toggleDescription() {
+    this.activity('toggle', 'description');
+    if (this.descriptionTabSelected===true) {
+      this._setImageMode();
     } else {
-      this.fire('oav-error', this.localize('error_no_items_selected'));
-      console.error('error_no_items_selected');
+      this._setDescriptionMode();
     }
   }
 
-  _createEncryptedVotes() {
-    var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
-      return item.id;
+  _openMenu() {
+    this.activity('open', 'itemMenu');
+  }
+
+  setInBudget() {
+    //console.log("setInBudget itemId: "+this.item.id);
+    this.selectedInBudget = true;
+  }
+
+  removeFromBudget() {
+    //console.log("removeFromBudget itemId: "+this.item.id);
+    this.selectedInBudget = false;
+    this.isFavorite = false;
+  }
+
+  setTooExpensive() {
+    //console.log("setTooExpensive itemId: "+this.item.id);
+    this.toExpensiveForBudget = true;
+  }
+
+  setNotTooExpensive() {
+    //console.log("setNotTooExpensive itemId: "+this.item.id);
+    this.toExpensiveForBudget = false;
+  }
+
+  _toggleFavorite() {
+    if (this.budgetElement.currentBallot.favoriteItem &&
+        this.budgetElement.currentBallot.favoriteItem.id == this.item.id) {
+      this.fire('oav-set-favorite-item-in-budget', {
+        item: null
+      });
+    } else {
+      var button = this.$$("#addFavoriteButton");
+      var buttonRect = button.getBoundingClientRect();
+      var left = buttonRect.left;// + window.scrollX;
+      var top = buttonRect.top;// + window.scrollY;
+
+      this.fire('oav-set-favorite-item-in-budget', {
+        item: this.item,
+        orgAnimPos: { left: left, top: top },
+        budgetAnimPos: this.budgetElement.getItemLeftTop(this.item)
+      });
+    }
+  }
+
+  _toggleInBudget(event) {
+    //console.log("_toggleInBudget itemId: "+this.item.id);
+    this.$$("#addFavoriteButton").style.position = "absolute";
+    this.$$("#addFavoriteButton").style.left = "12px";
+    this.$$("#addFavoriteButton").style.bottom = "12px";
+
+    var animation = this.$$("#addFavoriteButton").animate([
+      { transform: "translateX(200px)", easing: 'ease-out' },
+      { transform: "scale(2)", easing: 'ease-out' },
+      { transform: "translateY(0)", easing: 'ease-out' }
+    ], {
+      duration: 400,
+      iterations: 1
     });
-    return encryptVote(this.configFromServer.votePublicKey,
-                       { selectedItemIds: selectedItemIds,
-                         favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
-  }
 
-  completePostingOfVote(encryptedVotes) {
-    if (this.area && this.area.id) {
-      if (encryptedVotes) {
-        return fetch('/votes/post_vote', {
-          method: "POST",
-          cache: "no-cache",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ encrypted_vote: encryptedVotes, area_id: this.area.id })
-        })
-        .then(response => response.json())
-        .then(response => {
-          if (response && response.vote_ok === true) {
-            window.location = this._getSamlUrlWithLanguage();
-          } else {
-            this.fire('oav-error', this.localize('error_could_not_post_vote'));
-          }
-        })
-      } else {
-        this.fire('oav-error', this.localize('error_encryption'));
-        console.error("No encrypted votes!");
-      }
-    } else {
-      this.fire('oav-error', this.localize('error_could_not_post_vote'));
-      console.warn("Not sending as no area id");
-    }
-  }
-
-  _setVotingCompleted() {
-    this.reset();
-    this.areaId = null;
-    window.location = "/voting-completed"
-    var dialog = document.querySelector('oav-app').getDialog("authDialog");
-    if (dialog)
-      dialog.close();
-  }
-
-  completeIfAuthenticatedVote() {
-    this.$.checkVoteCompletionAjax.generateRequest();
-    fetch('/votes/is_vote_authenticated')
-    .then(response => response.json())
-    .then(response => {
-      if (response && response.vote_ok===true) {
-        this._setVotingCompleted();
-        this.activity('completed', 'voting');
-      } else {
-        this.fire('oav-error', this.localize('error_could_not_post_vote'));
-      }
-    })
-  }
-
-  _getSamlUrlWithLanguage() {
-    var url = this.configFromServer.auth_url;
-    if (this.language=='en') {
-      url+='&siteLanguage=en';
-    } else if (this.language=='pl') {
-      url+='&siteLanguage=pl';
-    }
-    return url;
-  }
-
-  _setupLocationsAndTranslation(budgetBallotItems) {
-    var arrayLength = budgetBallotItems.length;
-    for (var i = 0; i < arrayLength; i++) {
-      if (budgetBallotItems[i].locations && budgetBallotItems[i].locations != "") {
-        var hashArray = [];
-        var locationsArray = budgetBallotItems[i].locations.replace(' ','').split(',');
-        var counter = 0;
-        while (counter<locationsArray.length) {
-          hashArray.push({ latitude: locationsArray[counter], longitude: locationsArray[counter+1]});
-          counter+=2;
-        }
-        budgetBallotItems[i].locations = hashArray;
-      } else {
-        budgetBallotItems[i].locations = [];
-      }
-      // Set the localized translation
-      budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
-      budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
-    }
-    return _.shuffle(budgetBallotItems);
+    animation.onfinish = function () {
+      this.$$("#addFavoriteButton").style.position = "absolute";
+      this.$$("#addFavoriteButton").style.left = "12px";
+      this.$$("#addFavoriteButton").style.bottom = "12px";
+    }.bind(this);
+    this.fire('oav-toggle-item-in-budget', { item: this.item });
   }
 }
 
