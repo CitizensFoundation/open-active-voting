@@ -1,8 +1,10 @@
 import { html } from 'lit-element';
 import { OavAreaBallotMapStyles } from './oav-area-ballot-item=styles.js';
+import { OavShadowStyles } from './oav-shadow-styles';
 import { OavBaseElement } from './oav-base-element';
 import 'plastic-map-info';
 import 'google-maps';
+import '@polymer/paper-styles/shadow';
 
 class OavAreaBalloMap extends OavBaseElement {
   static get properties() {
@@ -39,7 +41,8 @@ class OavAreaBalloMap extends OavBaseElement {
 
   static get styles() {
     return [
-      OavAreaBallotItemStyles
+      OavAreaBallotMapStyles,
+      OavShadowStyles
     ];
   }
 
@@ -50,9 +53,9 @@ class OavAreaBalloMap extends OavBaseElement {
         </template>
         ${ this.noItems ?
             html`
-              <paper-material elevation="3" class="noMapContainer">
+              <div class="noMapContainer shadow-elevation-3dp">
                 <h1>${this.localize('items.noMapItems')}</h1>
-              </paper-material>
+              </div>
             `
             :
             html`

@@ -22,7 +22,7 @@
     "@polymer/app-layout": "^3.0.0",
     "@polymer/polymer": "^3.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.4",
-    "google-maps-limited": "^1.0.0",
+    "google-maps": "git+https://github.com/rbjarnason/google-map.git#lit-element",
     "intl-messageformat": "^2.2.0",
     "lit-element": "^2.0.1",
     "plastic-map-info": "^1.0.3",
