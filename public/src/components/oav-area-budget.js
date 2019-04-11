@@ -2,6 +2,12 @@ import { html } from 'lit-element';
 import { PageViewElement } from './page-view-element.js';
 
 import { OavAreaBudgetStyles } from './oav-area-budget-styles.js';
+import { OavShadowStyles } from './oav-shadow-styles';
+
+import '@polymer/paper-fab';
+import '@polymer/paper-icon-button';
+import '@polymer/paper-button';
+import '@polymer/iron-image';
 
 class OavAreaBudget extends PageViewElement {
   static get properties() {
@@ -101,14 +107,15 @@ class OavAreaBudget extends PageViewElement {
 
   static get styles() {
     return [
-      OavAreaBudgetStyles
+      OavAreaBudgetStyles,
+      OavShadowStyles
     ];
   }
 
   render() {
     return html`
       <div class="budgetContainer" ?wide="${this.wide}">
-        <paper-material elevation="5" class="budgetMaterial" ?wide="${this.wide}">
+        <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
             <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" .icon="close" @click="${this._exit()}"></paper-icon-button>
             <iron-image ?hidden="${!this.mediumWide}" .sizing="contain" class="headerLogo" .src="${this.budgetHeaderImage}"></iron-image>
@@ -168,9 +175,15 @@ class OavAreaBudget extends PageViewElement {
               }
             </div>
           </div>
-        </paper-material>
+        </div>
       </div>
-      <paper-toast on-tap="_closeToast" ?wide="${this.wide}" id="toast" .duration="3000" .horizontal-align="right" .text="${this.localize('favorite_info')}"></paper-toast>
+      <paper-toast on-tap="_closeToast" ?wide="${this.wide}" id="toast"
+      .duration="3000" .horizontal-align="right" .text="">
+      </paper-toast>
+
+      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast()}">
+        ${this.localize('favorite_info')}
+      </snack-bar>
     `;
   }
 
@@ -235,7 +248,7 @@ class OavAreaBudget extends PageViewElement {
   }
 
   _closeToast() {
-    this.$$("#toast").close();
+    this.$$("#toast").active= false;
   }
 
   _resetWidth() {
@@ -360,7 +373,7 @@ class OavAreaBudget extends PageViewElement {
     });
 
     if (this.toastCounter<1) {
-      this.$$("#toast").open();
+      this.$$("#toast").active = true;
       this.toastCounter+=1;
     }
   }

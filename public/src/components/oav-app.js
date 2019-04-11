@@ -19,6 +19,7 @@ import { updateMetadata } from 'pwa-helpers/metadata.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
 import './oav-icons.js';
 import './snack-bar.js';
 import { OavAppStyles } from './oav-app-styles.js';

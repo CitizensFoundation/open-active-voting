@@ -3,7 +3,8 @@ import { OavAreaBallotMapStyles } from './oav-area-ballot-item=styles.js';
 import { OavShadowStyles } from './oav-shadow-styles';
 import { OavBaseElement } from './oav-base-element';
 import 'plastic-map-info';
-import 'google-maps';
+import 'google-maps/src/google-map';
+import 'google-maps/src/google-map-marker';
 import '@polymer/paper-styles/shadow';
 
 class OavAreaBalloMap extends OavBaseElement {
@@ -49,8 +50,6 @@ class OavAreaBalloMap extends OavBaseElement {
   render() {
     return html`
       <div class="layout vertical center-center topMapContainer">
-        <template is="dom-if" if="[[noItems]]">
-        </template>
         ${ this.noItems ?
             html`
               <div class="noMapContainer shadow-elevation-3dp">
@@ -76,10 +75,6 @@ class OavAreaBalloMap extends OavBaseElement {
               </div>
             `
         }
-
-        <template is="dom-if" if="[[items]]" restamp>
-        </template>
-
       </div>
     `;
   }

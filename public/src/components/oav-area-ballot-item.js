@@ -1,6 +1,14 @@
 import { html } from 'lit-element';
 import { OavAreaBallotItemStyles } from './oav-area-ballot-item=styles.js';
 import { OavBaseElement } from './oav-base-element';
+import { OavShadowStyles } from './oav-shadow-styles';
+
+import '@polymer/iron-image';
+import '@polymer/paper-menu-button';
+import '@polymer/paper-icon-button';
+import '@polymer/paper-listbox';
+import '@polymer/paper-item';
+import 'paper-share-button';
 
 class OavAreaBallotItem extends OavBaseElement {
   static get properties() {
@@ -90,73 +98,16 @@ class OavAreaBallotItem extends OavBaseElement {
     };
   }
 
-  updated(changedProps) {
-    super(changedProps);
-    if (changedProps.has('selectedInBudget')) {
-      if (this.selectedInBudget) {
-        this.elevation = 4;
-      } else {
-        this.elevation = 1;
-      }
-    }
-
-    if (changedProps.has('item')) {
-      if (this.item) {
-        if (this.item.locations && newItem.locations.length>0) {
-          this.longitude = this.item.locations[0].longitude;
-          this.latitude = this.locations[0].latitude;
-        }
-        this.resetFromBudget();
-      }
-    }
-
-    if (changedProps.has('small')) {
-      if (this.small) {
-        this.mapsHeight = '260';
-        this.mapsWidth = '146';
-      } else {
-        this.mapsHeight = '169';
-        this.mapsWidth = '300';
-      }
-    }
-
-    if (changedProps.has('tiny')) {
-      if (this.tiny) {
-        this.mapsHeight = '220';
-        this.mapsWidth = '124';
-      } else {
-        this.mapsHeight = '169';
-        this.mapsWidth = '300';
-      }
-    }
-  }
-
-  constructor() {
-    super();
-    this.reset();
-  }
-
-  reset() {
-    this.small = false;
-    this.mapTabSelected = false;
-    this.descriptionTabSelected = false;
-    this.imageTabSelected = false;
-    this.isFavorite = false;
-    this.toExpensiveForBudget = false;
-    this.selectedInBudget = false;
-    this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
-    this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
-  }
-
   static get styles() {
     return [
-      OavAreaBallotItemStyles
+      OavAreaBallotItemStyles,
+      OavShadowStyles
     ];
   }
 
   render() {
     return html`
-      <paper-material animated .elevation="[[elevation]]" class="itemContent" ?small="${this.small}" ?tiny="${this.tiny}">
+      <div id="topContainer" class="itemContent shadow-animation shadow-elevation-3dp" ?small="${this.small}" ?tiny="${this.tiny}">
         <iron-image preload @loaded-changed="${this._imageLoadedChanged}" ?small="${this.small}"
           ?tiny$="${tiny}" ?hidden="${!this.imageTabSelected}" name="image" .sizing="cover" .src="${this.item.image_url}">
         </iron-image>
@@ -230,8 +181,68 @@ class OavAreaBallotItem extends OavBaseElement {
             </paper-fab>
           </div>
         </div>
-      </paper-material>
+      </div>
     `;
+  }
+
+  updated(changedProps) {
+    super(changedProps);
+    if (changedProps.has('selectedInBudget')) {
+      if (this.selectedInBudget) {
+        this.elevation = 4;
+        this.$$("#topContainer").classList.add("shadow-elevation-12dp")
+      } else {
+        this.elevation = 1;
+        this.$$("#topContainer").classList.remove("shadow-elevation-12dp")
+      }
+    }
+
+    if (changedProps.has('item')) {
+      if (this.item) {
+        if (this.item.locations && newItem.locations.length>0) {
+          this.longitude = this.item.locations[0].longitude;
+          this.latitude = this.locations[0].latitude;
+        }
+        this.resetFromBudget();
+      }
+    }
+
+    if (changedProps.has('small')) {
+      if (this.small) {
+        this.mapsHeight = '260';
+        this.mapsWidth = '146';
+      } else {
+        this.mapsHeight = '169';
+        this.mapsWidth = '300';
+      }
+    }
+
+    if (changedProps.has('tiny')) {
+      if (this.tiny) {
+        this.mapsHeight = '220';
+        this.mapsWidth = '124';
+      } else {
+        this.mapsHeight = '169';
+        this.mapsWidth = '300';
+      }
+    }
+  }
+
+  constructor() {
+    super();
+    this.reset();
+  }
+
+  reset() {
+    this.small = false;
+    this.mapTabSelected = false;
+    this.descriptionTabSelected = false;
+    this.imageTabSelected = false;
+    this.isFavorite = false;
+    this.toExpensiveForBudget = false;
+    this.selectedInBudget = false;
+    this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
+    this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
   }
 
   _imageLoadedChanged(event, detail) {

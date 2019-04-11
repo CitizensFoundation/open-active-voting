@@ -2,6 +2,8 @@ import { html } from 'lit-element';
 import { PageViewElement } from './page-view-element.js';
 import { OavAreaBallotStyles } from './oav-area-ballot-styles.js';
 import { encryptVote } from './ballot-encryption-behavior.js'
+import '@polymer/paper-tabs/paper-tab';
+import '@polymer/paper-tabs/paper-tabs';
 
 class OavAreaBallot extends PageViewElement {
   static get properties() {
