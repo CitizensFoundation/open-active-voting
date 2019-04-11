@@ -73,7 +73,7 @@ export class OavBaseElement extends LitElement {
   }
 
   $$(id) {
-    return this.shadowRoot.getElementById(id);
+    return this.shadowRoot.querySelector(id);
   }
 
   fire(eventName, data) {

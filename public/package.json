@@ -25,6 +25,7 @@
     "google-maps-limited": "^1.0.0",
     "intl-messageformat": "^2.2.0",
     "lit-element": "^2.0.1",
+    "plastic-map-info": "^1.0.3",
     "pwa-helpers": "^0.9.0"
   },
   "devDependencies": {

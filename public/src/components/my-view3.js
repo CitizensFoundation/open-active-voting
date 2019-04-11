@@ -3,7 +3,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 window.initMap = function () { window.dispatchEvent(new CustomEvent('google-map-ready')); }; // eslint-disable-line no-unused-vars
 
-class GoogleMapsLimited extends OavBaseElement {
+class OavGoogleMaps extends OavBaseElement {
 
   static get properties() {
     return {
