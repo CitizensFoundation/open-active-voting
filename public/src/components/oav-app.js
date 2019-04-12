@@ -113,12 +113,12 @@ class OavApp extends OavBaseElement {
       html`
         <app-header fixed effects="waterfall">
           <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
-            <paper-icon-button class="closeButton" .icon="close" @click="${this._exit()}"></paper-icon-button>
+            <paper-icon-button class="closeButton" .icon="close" @click="${this._exit}"></paper-icon-button>
           </div>
           <div class="helpIconInBudget">
-            <paper-icon-button .icon="help-outline" @click="${this._help()}}"></paper-icon-button>
+            <paper-icon-button .icon="help-outline" @click="${this._help}}"></paper-icon-button>
           </div>
-          <div class="budgetContainer" ?hidden="[[${this.hideBudget}]]">
+          <div class="budgetContainer" ?hidden="${this.hideBudget}">
             <oav-area-budget
               id="budget"
               .area-name="${this.areaName}"
@@ -147,10 +147,10 @@ class OavApp extends OavBaseElement {
           <yp-post id="post"
             .budget-element="${this.budgetElement}"
             .locale-resources="${this.configFromServer.localeResources}"
-            .post-id-route-path="${this._subPath}
+            .post-id-route-path="${this._subPath}"
             ?active="${this._page === 'post'}">
           </yp-post>
-          <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
+          <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
         </main>
 
         <snack-bar ?active="${this._snackbarOpened}">
@@ -167,7 +167,8 @@ class OavApp extends OavBaseElement {
     }
     super();
     setPassiveTouchGestures(true);
-    this._boot();
+    this.configFromServer = {};
+    //this._boot();
   }
 
   _setupCustomCss(config) {
@@ -195,9 +196,10 @@ class OavApp extends OavBaseElement {
 
   connectedCallback() {
     this._setupListeners();
-    this.currentBallot = this.$$("#budgetBallot");
-    this.budgetElement = this.$$("#budget");
-    this.loadLanguage(this.resolveUrl('/src/locales.json'));
+    // this.currentBallot = this.$$("#budgetBallot");
+    // this.budgetElement = this.$$("#budget");
+    //this.loadLanguage(this.resolveUrl('/src/locales.json'));
+    super.connectedCallback();
   }
 
   disconnectedCallback() {
@@ -376,13 +378,12 @@ class OavApp extends OavBaseElement {
       });
 
       const page = this._page;
-      debugger;
-      const oldPage = changeProps['_page'].old;
+      const oldPage = changedProps.get('_page');
 
       if (page && page!='select-voting-area') {
-        this.set('showExit', true);
+        this.showExit = true;
       } else {
-        this.set('showExit', false);
+        this.showExit = false;
       }
 
       // Setup top ballot if needed
@@ -421,7 +422,7 @@ class OavApp extends OavBaseElement {
         this._hideFavoriteItem();
       }
 
-      this.async(function () {
+      setTimeout(() => {
         if (page=='area-ballot' && this.currentBallot && this.currentBallot.favoriteItem) {
           this.$$("#favoriteIcon").hidden = false;
           this.resetFavoriteIconPosition();
@@ -439,7 +440,7 @@ class OavApp extends OavBaseElement {
       }
 
       // Send page info to Google Analytics
-      if (page) {
+      if (page && typeof ga == 'function') {
         ga('send', 'pageview', {
           'page': location.pathname + location.search  + location.hash
         });
@@ -487,7 +488,7 @@ class OavApp extends OavBaseElement {
         break;
       default:
         page = 'view404';
-        import('./my-view404.js');
+        import('./oav-view404.js');
     }
 
     this._page = page;
@@ -502,4 +503,4 @@ class OavApp extends OavBaseElement {
   }
 }
 
-window.customElements.define('my-app', MyApp);
+window.customElements.define('oav-app', OavApp);

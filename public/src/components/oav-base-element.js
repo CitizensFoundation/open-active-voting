@@ -4,6 +4,7 @@ import IntlMessageFormat from 'intl-messageformat/src/main.js';
 window.IntlMessageFormat = IntlMessageFormat;
 
 import { LitElement } from 'lit-element';
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 
 export class OavBaseElement extends LitElement {
 
@@ -66,7 +67,7 @@ export class OavBaseElement extends LitElement {
   }
 
   updated(changedProps) {
-    super(changedProps);
+    super.updated(changedProps);
     if (changedProps.has('language')) {
       this.requestUpdate();
     }
@@ -77,7 +78,7 @@ export class OavBaseElement extends LitElement {
   }
 
   fire(eventName, data) {
-    const event = new CustomEvent(eventName, data);
+    const event = new CustomEvent(eventName, { detail: data });
     this.dispatchEvent(event);
   }
 
