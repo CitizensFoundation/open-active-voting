@@ -31,6 +31,12 @@ export const OavAreaBallotStyles = css`
     left: 8px;
   }
 
+  #itemContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
   paper-button.addButton {
     position: absolute;
     bottom: 16px;
@@ -51,7 +57,6 @@ export const OavAreaBallotStyles = css`
     background-color: var(--app-main-background-color);
     color: var(--app-ballot-color, #333);
   }
-
 
   paper-tabs {
     margin: 8px;

@@ -1,5 +1,5 @@
 import { html } from 'lit-element';
-import { OavAreaBallotItemStyles } from './oav-area-ballot-item=styles.js';
+import { OavAreaBallotItemStyles } from './oav-area-ballot-item-styles.js';
 import { OavBaseElement } from './oav-base-element';
 import { OavShadowStyles } from './oav-shadow-styles';
 
@@ -8,6 +8,7 @@ import '@polymer/paper-menu-button';
 import '@polymer/paper-icon-button';
 import '@polymer/paper-listbox';
 import '@polymer/paper-item';
+import '@polymer/paper-fab';
 import 'paper-share-button';
 
 class OavAreaBallotItem extends OavBaseElement {
@@ -109,13 +110,13 @@ class OavAreaBallotItem extends OavBaseElement {
     return html`
       <div id="topContainer" class="itemContent shadow-animation shadow-elevation-3dp" ?small="${this.small}" ?tiny="${this.tiny}">
         <iron-image preload @loaded-changed="${this._imageLoadedChanged}" ?small="${this.small}"
-          ?tiny$="${tiny}" ?hidden="${!this.imageTabSelected}" name="image" .sizing="cover" .src="${this.item.image_url}">
+          ?tiny$="${this.tiny}" ?hidden="${!this.imageTabSelected}" name="image" sizing="cover" src="${this.item.image_url}">
         </iron-image>
 
-        ${mapTabSelected && mapsHeight ?
+        ${this.mapTabSelected && this.mapsHeight ?
           html`
             <iron-image class="main-image" .sizing="cover"
-              .src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.staticMapsApiKey}"
+              src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.staticMapsApiKey}"
               hidden$="[[!mapTabSelected]]">
             </iron-image>
           `
@@ -124,32 +125,31 @@ class OavAreaBallotItem extends OavBaseElement {
         }
         <div ?hidden="${!this.descriptionTabSelected}" name="description" class="descriptionContainer" ?tiny="${this.tiny}" ?small="${this.small}">
           <div id="description" class="description">
-            ${item.description}
+            ${this.item.description}
           </div>
         </div>
-        <paper-menu-button @click="this._openMenu()" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" .horizontal-align="right">
-          <paper-icon-button title="${this.localize('more_information')}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger"
-            @click="${this._clickedDropDownMenu}" title="${this.localize('select')}" icon="menu">
+        <paper-menu-button @click="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
+          <paper-icon-button .title="${this.localize('more_information')}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" title="${this.localize('select')}" icon="menu">
           </paper-icon-button>
           <paper-listbox class="dropdown-content" slot="dropdown-content">
-            <paper-item @click="${this._setImageMode()}">
-              <iron-icon title="${this.localize('image_item_tab')}" class="infoIcon" .icon="photo"></iron-icon>
+            <paper-item @click="${this._setImageMode}">
+              <iron-icon title="${this.localize('image_item_tab')}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize('image_item_tab')}
             </paper-item>
-            <paper-item @click="${this._setDescriptionMode()}">
-              <iron-icon title="${this.localize('description_item_tab')}" class="infoIcon" .icon="description"></iron-icon>
+            <paper-item @click="${this._setDescriptionMode}">
+              <iron-icon title="${this.localize('description_item_tab')}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize('description_item_tab')}
             </paper-item>
-            <paper-item @click="${this._setMapMode()}">
-              <iron-icon title="${this.localize('map_item_tab')}" class="infoIcon" .icon="place"></iron-icon>
+            <paper-item @click="${this._setMapMode}">
+              <iron-icon title="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize('map_item_tab')}
             </paper-item>
-            <paper-item @click="${this._openPdf()}">
-              <iron-icon title="${this.localize('design_pdf')}" class="infoIcon" .icon="picture-as-pdf"></iron-icon>
+            <paper-item @click="${this._openPdf}">
+              <iron-icon title="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize('design_pdf')}
             </paper-item>
-            <paper-item @click="${this._showPost()}">
-              <iron-icon raised title="${this.localize('more_info_description')}" class="infoIcon" .icon="info"></iron-icon>
+            <paper-item @click="${this._showPost}">
+              <iron-icon raised title="${this.localize('more_info_description')}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize('more_info_description')}
             </paper-item>
           </paper-listbox>
@@ -158,26 +158,26 @@ class OavAreaBallotItem extends OavBaseElement {
           <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.name}</div>
         </div>
         <div class="buttons">
-          <paper-share-button ?hidden="${!this.imageLoaded}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" .horizontal-align="left" id="shareButton"
+          <paper-share-button ?hidden="${!this.imageLoaded}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" horizontal-align="left" id="shareButton"
             title="${this.localize('share_idea')}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 
           <div class="price" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.price}
-            <span class="priceCurrency" ?hidden="${!this._priceIsOne(item.price)}">${this.localize('million')}</span>
-            <span class="priceCurrency" ?hidden="${_priceIsOne(item.price)}">${this.localize('millions')}</span>
+            <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize('million')}</span>
+            <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize('millions')}</span>
           </div>
           <paper-fab mini id="addToBudgetButton" .elevation="5" class="addRemoveButton" ?hidden="${this.selectedInBudget}"
-                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('add_to_budget')}" .icon="add" @click="${this._toggleInBudget()}">
+                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('add_to_budget')}" icon="add" @click="${this._toggleInBudget}">
           </paper-fab>
           <paper-fab mini .elevation="5" class="addRemoveButton removeButton" ?hidden="${!this.selectedInBudget}"
-                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('remove_from_budget')}" .icon="remove" @click="${this._toggleInBudget}">
+                    ?disabled="${this.toExpensiveForBudget}" title="${this.localize('remove_from_budget')}" icon="remove" @click="${this._toggleInBudget}">
           </paper-fab>
           <div id="favoriteButtons" class="favoriteButtons" ?hidden="${!this.selectedInBudget}">
             <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${this.isFavorite}"
-                      title="${this.localize('select_favorite')}" .icon="star-border" .hearticon="favorite-border" @click="${this._toggleFavorite()}">
+                      title="${this.localize('select_favorite')}" icon="star-border"hearticon="favorite-border" @click="${this._toggleFavorite}">
             </paper-fab>
             <paper-fab mini class="removeFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${!this.isFavorite}"
-                      title="${this.localize('deselect_favorite')}" .icon="star" .heartcon="favorite" @click="${this._toggleFavorite()}">
+                      title="${this.localize('deselect_favorite')}" icon="star" .heartcon="favorite" @click="${this._toggleFavorite}">
             </paper-fab>
           </div>
         </div>
@@ -186,7 +186,7 @@ class OavAreaBallotItem extends OavBaseElement {
   }
 
   updated(changedProps) {
-    super(changedProps);
+    super.updated(changedProps);
     if (changedProps.has('selectedInBudget')) {
       if (this.selectedInBudget) {
         this.elevation = 4;
@@ -245,8 +245,8 @@ class OavAreaBallotItem extends OavBaseElement {
     this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
   }
 
-  _imageLoadedChanged(event, detail) {
-    if (detail.value) {
+  _imageLoadedChanged(event) {
+    if (event.detail.value) {
       this.set('imageLoaded', true);
     }
   }

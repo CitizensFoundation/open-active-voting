@@ -88,6 +88,8 @@ class VotesController < ApplicationController
 
     @budget_ballot_items = []
     @budget_ballot_items_lang.each_with_index { |item, index|
+      puts item
+      puts index
       new_item = item
 
       I18n.locale = "is"
@@ -105,7 +107,7 @@ class VotesController < ApplicationController
     }
 
     respond_to do |format|
-      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items }, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}
+      format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items } } #, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}
     end
   end
 

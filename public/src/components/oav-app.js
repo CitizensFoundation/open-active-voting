@@ -22,6 +22,8 @@ import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './oav-icons.js';
 import './snack-bar.js';
+import './oav-area-ballot'
+
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
 
@@ -140,10 +142,10 @@ class OavApp extends OavBaseElement {
             ?active="${this._page === 'select-voting-area'}">
           </oav-select-voting-area>
           <oav-area-ballot id="budgetBallot"
-            .budget-element="${this.budgetElement}"
-            .locale-resources="${this.configFromServer.localeResources}"
-            .config-from-server="${this.configFromServer}"
-            .area-id-route-path="${this._subPath}"
+            .budgetElement="${this.budgetElement}"
+            .localeResources="${this.configFromServer.localeResources}"
+            .configFromServer="${this.configFromServer}"
+            .areaIdRoutePath="${this._subPath}"
             ?active="${this._page === 'area-ballot'}">
           </oav-area-ballot>
           <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
@@ -170,16 +172,17 @@ class OavApp extends OavBaseElement {
     }
     super();
     setPassiveTouchGestures(true);
-    this.configFromServer = {};
     this._page = "budget-ballot";
     this._subPage = "1";
     this._boot();
   }
 
   _setupCustomCss(config) {
-    config.cssProperties.forEach(property => {
-      this.shadowRoot.style.setProperty(property.key, property.value);
-    })
+    if (config.cssProperties) {
+      config.cssProperties.forEach(property => {
+        this.shadowRoot.style.setProperty(property.key, property.value);
+      });
+    }
   }
 
   _boot() {
@@ -188,10 +191,10 @@ class OavApp extends OavBaseElement {
       .then(response => {
         console.log('Success:', JSON.stringify(response));
         this.requestInProgress= false;
-        this.votePublicKey = detail.response.public_key;
-        this._setupCustomCss(detail.response.config);
-        window.localeResources = detail.response.config.localeResources;
-        this.configFromServer = detail.response.config;
+        this.votePublicKey = response.public_key;
+        this._setupCustomCss(response.config);
+        window.localeResources = response.config.localeResources;
+        this.configFromServer = response.config;
       })
       .catch(error => {
         console.error('Error:', error);
@@ -474,12 +477,14 @@ class OavApp extends OavBaseElement {
 
   _locationChanged(location) {
     const path = window.decodeURIComponent(location.pathname);
-    const page = path === '/' ? 'view1' : path.slice(1);
+    const page = path === '/' ? 'view1' : path.slice(1).split("/")[0];
+
     this._loadPage(page);
     // Any other info you might want to extract from the path (like page type),
     // you can do here.
-    if (path.slice(2))
-      this._subPath = path.slice(2);
+    if (path.slice(1).split('/')[1]) {
+      this._subPath = path.slice(1).split('/')[1];
+    }
   }
 
   _loadPage(page) {

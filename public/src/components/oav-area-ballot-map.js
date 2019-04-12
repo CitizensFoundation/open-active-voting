@@ -50,7 +50,7 @@ class OavAreaBalloMap extends OavBaseElement {
   render() {
     return html`
       <div class="layout vertical center-center topMapContainer">
-        ${ this.noItems ?
+        ${this.noItems ?
             html`
               <div class="noMapContainer shadow-elevation-3dp">
                 <h1>${this.localize('items.noMapItems')}</h1>

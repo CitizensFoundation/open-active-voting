@@ -5,7 +5,7 @@ Copyright (c) 2010-2019 Citizens Foundation
 
 import { css } from 'lit-element';
 
-export const OavBallotItemStyles = css`
+export const OavAreaBallotItemStyles = css`
 
   .itemContent {
     position: relative;

@@ -1,9 +1,11 @@
 import { html } from 'lit-element';
+import { cache } from 'lit-html/directives/cache.js';
 import { PageViewElement } from './page-view-element.js';
 import { OavAreaBallotStyles } from './oav-area-ballot-styles.js';
 import { encryptVote } from './ballot-encryption-behavior.js'
 import '@polymer/paper-tabs/paper-tab';
 import '@polymer/paper-tabs/paper-tabs';
+import './oav-area-ballot-item'
 
 class OavAreaBallot extends PageViewElement {
   static get properties() {
@@ -15,6 +17,8 @@ class OavAreaBallot extends PageViewElement {
       areaId: {
         type: String
       },
+
+      configFromServer: String,
 
       areaIdRoutePath: {
         type: Object
@@ -43,19 +47,31 @@ class OavAreaBallot extends PageViewElement {
   }
 
   updated(changedProps) {
-    super(changedProps);
+    super.updated(changedProps);
+
+    if (changedProps.has('areaIdRoutePath')) {
+      if (this.areaIdRoutePath) {
+        if (this.areaIdRoutePath==='completePostingOfVoteAfterRedirect') {
+          this.completeIfAuthenticatedVote();
+        } else {
+          this.areaId = this.areaIdRoutePath;
+        }
+      }
+    }
+
     if (changedProps.has('areaId')) {
       this.oldFavoriteItem = null;
       this.favoriteItem = null;
       if (this.areaId) {
-        this.reset();
-        this.fire('ak-clear-area');
+        //this.reset();
+        //this.fire('ak-clear-area');
         fetch("/votes/get_ballot?area_id="+this.areaId)
         .then(res => res.json())
         .then(response => {
           console.log('Success:', JSON.stringify(response));
-          this.area = detail.response.area;
-          this.budgetBallotItems = this._setupLocationsAndTranslation(detail.response.budget_ballot_items);
+          this.area = response.area;
+          this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
+          debugger;
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
           this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         })
@@ -64,31 +80,20 @@ class OavAreaBallot extends PageViewElement {
           console.error('Error:', error);
         });
       }
+    }
 
-      if (changedProps.has('areaIdRoutePath')) {
-        if (this.areaIdRoutePath) {
-          if (this.areaIdRoutePath==='completePostingOfVoteAfterRedirect') {
-            this.completeIfAuthenticatedVote();
-          } else {
-            this.areaId = this.areaIdRoutePath;
-          }
-        }
+    if (changedProps.has('selectedView')) {
+      if (this.selectedView===0) {
+        this.activity('click', 'ideasTab');
+      } else if (this.selectedView==1) {
+        this.activity('click', 'mapTab');
       }
+    }
 
-      if (changedProps.has('selectedView')) {
-        if (this.selectedView && view==0) {
-          this.activity('click', 'ideasTab');
-        } else if (view && view==1) {
-          this.activity('click', 'mapTab');
-        }
-      }
-
-      if (changedProps.has('favoriteItem')) {
-        debugger;
-        this.oldFavoriteItem = changedProps['favoriteItem'].oldValue;
-        if (!this.favoriteItem && this.oldFavoriteItem) {
-          this.fire("oav-hide-favorite-item");
-        }
+    if (changedProps.has('favoriteItem')) {
+      this.oldFavoriteItem = changedProps['favoriteItem'].oldValue;
+      if (!this.favoriteItem && this.oldFavoriteItem) {
+        this.fire("oav-hide-favorite-item");
       }
     }
   }
@@ -135,21 +140,21 @@ class OavAreaBallot extends PageViewElement {
 
         ${this.budgetBallotItems ?
           html`
-            ${this.selectedView===0 ?
+            ${cache(this.selectedView===0 ?
               html`
-                <div id="itemContainer" class="layout horizontal center-center wrap">
-                  ${this.budgetBallotItems.map((item) => {
+                <div id="itemContainer" class="layout horizontal center-center flex wrap" >
+                  ${this.budgetBallotItems.map((item, index) =>
                     html`
                       <oav-area-ballot-item
                         .name="${item.id}"
                         class="ballotAreaItem"
-                        .budget-element="{{budgetElement}}"
+                        .budget-element="${this.budgetElement}"
                         .ideas-with-pdfs="${this.configFromServer.ideasWithPdfs}"
                         tabindex="${index}"
                         .item="${item}">
                       </oav-area-ballot-item>
-                    `;
-                  })}
+                    `
+                  )}
                 </div>
               `
               :
@@ -160,7 +165,7 @@ class OavAreaBallot extends PageViewElement {
                   .items="[[budgetBallotItems]]">
                 </oav-items-map>
               `
-            }
+            )}
           `
           :
           ''
@@ -169,9 +174,8 @@ class OavAreaBallot extends PageViewElement {
     `;
   }
 
-  _selectedChanged(event, detail) {
-    debugger;
-    this.selectedView = detail;
+  _selectedChanged(event) {
+    this.selectedView = event.detail.value;
   }
 
   _scrollItemIntoView(itemId) {
@@ -296,7 +300,7 @@ class OavAreaBallot extends PageViewElement {
   }
 
   _createEncryptedVotes() {
-    var selectedItemIds = _.map(this.budgetElement.selectedItems, function (item) {
+    var selectedItemIds = map(this.budgetElement.selectedItems, (item) => {
       return item.id;
     });
     return encryptVote(this.configFromServer.votePublicKey,
@@ -366,6 +370,14 @@ class OavAreaBallot extends PageViewElement {
     return url;
   }
 
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   _setupLocationsAndTranslation(budgetBallotItems) {
     var arrayLength = budgetBallotItems.length;
     for (var i = 0; i < arrayLength; i++) {
@@ -385,7 +397,8 @@ class OavAreaBallot extends PageViewElement {
       budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
       budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
     }
-    return _.shuffle(budgetBallotItems);
+
+    return this.shuffle(budgetBallotItems);
   }
 }
 
