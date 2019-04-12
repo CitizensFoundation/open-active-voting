@@ -112,21 +112,24 @@ class OavApp extends OavBaseElement {
     return  html`${this.configFromServer ?
       html`
         <app-header fixed effects="waterfall">
-          <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
-            <paper-icon-button class="closeButton" .icon="close" @click="${this._exit}"></paper-icon-button>
-          </div>
-          <div class="helpIconInBudget">
-            <paper-icon-button .icon="help-outline" @click="${this._help}}"></paper-icon-button>
-          </div>
-          <div class="budgetContainer" ?hidden="${this.hideBudget}">
-            <oav-area-budget
-              id="budget"
-              .area-name="${this.areaName}"
-              .total-budget="${this.totalBudget}"
-              .current-ballot="${this.currentBallot}">
-            </oav-area-budget>
-          </div>
-          <iron-icon id="favoriteIcon" .icon="${this.favoriteIcon}" hidden></iron-icon>
+          <app-toolbar class="toolbar-top">
+            <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
+              <paper-icon-button class="closeButton" icon="close" @click="${this._exit}"></paper-icon-button>
+            </div>
+            <div class="helpIconInBudget">
+              <paper-icon-button icon="help-outline" @click="${this._help}}"></paper-icon-button>
+            </div>
+            <div class="budgetContainer" ?hidden="${this.hideBudget}">
+              <h1>3div</h1>
+              <oav-area-budget
+                id="budget"
+                .area-name="${this.areaName}"
+                .total-budget="${this.totalBudget}"
+                .current-ballot="${this.currentBallot}">
+              </oav-area-budget>
+            </div>
+          </app-toolbar>
+          <iron-icon id="favoriteIcon" icon="${this.favoriteIcon}" hidden></iron-icon>
         </app-header>
 
         <main role="main" class="main-content">
@@ -168,7 +171,9 @@ class OavApp extends OavBaseElement {
     super();
     setPassiveTouchGestures(true);
     this.configFromServer = {};
-    //this._boot();
+    this._page = "budget-ballot";
+    this._subPage = "1";
+    this._boot();
   }
 
   _setupCustomCss(config) {

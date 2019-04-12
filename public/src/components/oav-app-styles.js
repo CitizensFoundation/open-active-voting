@@ -6,9 +6,30 @@ Copyright (c) 2010-2019 Citizens Foundation
 import { css } from 'lit-element';
 
 export const OavAppStyles = css`
+  h1 {
+    color: #F00;
+  }
+
   :host {
     display: block;
-    --app-primary-color: #777;
+    box-sizing: border-box;
+  }
+  section {
+    padding: 24px;
+    background: var(--app-section-odd-color);
+  }
+  section > * {
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  section:nth-of-type(even) {
+    background: var(--app-section-even-color);
+  }
+
+  :host {
+    display: block;
+    --app-primary-color: #F00;
     --app-secondary-color: black;
     --app-main-backround-color: #e0e0e0;
     --app-accent-color: var(--paper-orange-a700);
@@ -24,36 +45,66 @@ export const OavAppStyles = css`
     };
 
     color: var(--app-text-color);
+
+    --app-header-background-color: var(--app-primary-color);
+    --app-header-text-color: var(--app-text-color);
+    --app-header-selected-color: var(--app-primary-color);
+    --paper-icon-button-ink-color: var(--app-text-color);
   }
 
   app-header {
-    background-color: var(--app-primary-color);
-    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: var(--app-header-background-color);
+    color: var(--app-header-text-color);
+    border-bottom: 1px solid #eee;
   }
 
-  app-header paper-icon-button {
-    --paper-icon-button-ink-color: white;
+  [main-title] {
+    font-size: 30px;
+    /* In the narrow layout, the toolbar is offset by the width of the
+    drawer button, and the text looks not centered. Add a padding to
+    match that button */
+    padding-right: 44px;
   }
 
-  .drawer-list {
-    margin: 0 20px;
-  }
-
-  .drawer-list a {
+  main {
     display: block;
-    padding: 0 16px;
-    line-height: 40px;
-    text-decoration: none;
-    color: var(--app-secondary-color);
+  }
+  .main-content {
+    padding-top: 64px;
+    min-height: 100vh;
+  }
+  .page {
+    display: none;
+  }
+  .page[active] {
+    display: block;
   }
 
-  .drawer-list a.iron-selected {
-    color: black;
-    font-weight: bold;
+
+  @media (min-width: 460px) {
+    .toolbar-list {
+      display: block;
+    }
+    .menu-btn {
+      display: none;
+    }
+    .main-content {
+      padding-top: 107px;
+    }
+    /* The drawer button isn't shown in the wide layout, so we don't
+    need to offset the title */
+    [main-title] {
+      padding-right: 0px;
+    }
   }
 
-  .drawer-list a.subroute {
-    padding-left: 32px;
+  .toolbar-top {
+    background-color: var(--app-header-background-color);
   }
 
   app-toolbar {

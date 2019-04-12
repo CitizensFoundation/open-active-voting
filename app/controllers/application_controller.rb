@@ -22,12 +22,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   # protect_from_forgery with: :null_session
   # before_filter :p3p
-  before_filter :get_db_config
-  before_filter :set_locale
-  before_filter :load_public_key
-  skip_before_filter :verify_authenticity_token
-  after_filter :print_headers
-  before_filter :start_session
+  before_action :get_db_config
+  before_action :set_locale
+  before_action :load_public_key
+#  skip_before_action :verify_authenticity_token
+  after_action :print_headers
+  before_action :start_session
 
   def start_session
     session[:started] = true
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   def p3p
     response.headers['P3P'] = "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\""
   end
-  
+
   def load_public_key
     @public_key = @config.public_key
   end

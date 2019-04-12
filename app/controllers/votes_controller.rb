@@ -25,8 +25,8 @@ DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
 class VotesController < ApplicationController
 
-  after_filter :log_session_id
-  skip_before_filter :verify_authenticity_token, :only => [:authenticate_from_island_is]
+  after_action :log_session_id
+  #skip_before_action :verify_authenticity_token, :only => [:authenticate_from_island_is]
 
   # http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
 
@@ -131,7 +131,7 @@ class VotesController < ApplicationController
       else
         Rails.logger.error("Could not save vote for session id: #{request.session_options[:id]}")
         response = {:error=>true, :vote_ok=>false}
-      end  
+      end
     else
       Rails.logger.error("No session id")
       response = {:error=>true, :vote_ok=>false}
@@ -150,12 +150,12 @@ class VotesController < ApplicationController
     else
       Rails.logger.error("No session: #{request.session_options[:id]}")
       response = {:error=>true, :vote_ok=>false}
-    end  
+    end
 
     respond_to do |format|
       format.json { render :json => response }
     end
-  end  
+  end
 
   private
 
@@ -200,7 +200,7 @@ class VotesController < ApplicationController
         end
         if  saml_assertion.id == nil or saml_assertion.id == ""
           raise "SAML Assertion id not found #{@response.inspect}"
-        end    
+        end
       else
         raise "Authentication was not a success saml_validation_response #{@response.inspect}"
       end
@@ -215,11 +215,11 @@ class VotesController < ApplicationController
         encrypted_vote_checksum = Vote.generate_encrypted_checksum(national_identity_hash,
                                        vote.payload_data,vote.client_ip_address,vote.area_id,request.session_options[:id])
 
-        # Update the values for the vote and confirm it as being authenticated                                
-        vote.encrypted_vote_checksum = encrypted_vote_checksum         
+        # Update the values for the vote and confirm it as being authenticated
+        vote.encrypted_vote_checksum = encrypted_vote_checksum
         vote.user_id_hash = national_identity_hash
         vote.authenticated_at = Time.now
-        vote.saml_assertion_id = saml_assertion.id               
+        vote.saml_assertion_id = saml_assertion.id
         vote.save
       else
         # TODO: Save this for app to pick up

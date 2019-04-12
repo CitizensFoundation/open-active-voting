@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20180330170937) do
     t.text     "ideas_without_pdfs",                  limit: 65535
     t.string   "election_name",                       limit: 255
     t.text     "election_description",                limit: 65535
+    t.json     "client_config"
   end
 
   create_table "final_split_votes", force: :cascade do |t|
