@@ -78,7 +78,7 @@ export class OavBaseElement extends LitElement {
   }
 
   fire(eventName, data) {
-    const event = new CustomEvent(eventName, { detail: data });
+    const event = new CustomEvent(eventName, { detail: data, bubbles: true, composed: true });
     this.dispatchEvent(event);
   }
 

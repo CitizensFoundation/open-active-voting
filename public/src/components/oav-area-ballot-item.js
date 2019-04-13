@@ -166,18 +166,23 @@ class OavAreaBallotItem extends OavBaseElement {
             <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize('million')}</span>
             <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize('millions')}</span>
           </div>
-          <paper-fab mini id="addToBudgetButton" .elevation="5" class="addRemoveButton" ?hidden="${this.selectedInBudget}"
+
+          ${this.selectedInBudget ?  html`In Budget` : html`NOT In Budget`}
+
+          <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" ?hidden="${this.selectedInBudget}"
                     ?disabled="${this.toExpensiveForBudget}" title="${this.localize('add_to_budget')}" icon="add" @click="${this._toggleInBudget}">
           </paper-fab>
-          <paper-fab mini .elevation="5" class="addRemoveButton removeButton" ?hidden="${!this.selectedInBudget}"
+
+          <paper-fab mini elevation="5" class="addRemoveButton removeButton" ?hidden="${!this.selectedInBudget}"
                     ?disabled="${this.toExpensiveForBudget}" title="${this.localize('remove_from_budget')}" icon="remove" @click="${this._toggleInBudget}">
           </paper-fab>
+
           <div id="favoriteButtons" class="favoriteButtons" ?hidden="${!this.selectedInBudget}">
             <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${this.isFavorite}"
-                      title="${this.localize('select_favorite')}" icon="star-border"hearticon="favorite-border" @click="${this._toggleFavorite}">
+                      title="${this.localize('select_favorite')}" icon="star-border" hearticon="favorite-border" @click="${this._toggleFavorite}">
             </paper-fab>
             <paper-fab mini class="removeFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${!this.isFavorite}"
-                      title="${this.localize('deselect_favorite')}" icon="star" .heartcon="favorite" @click="${this._toggleFavorite}">
+                      title="${this.localize('deselect_favorite')}" icon="star" heartcon="favorite" @click="${this._toggleFavorite}">
             </paper-fab>
           </div>
         </div>
@@ -237,7 +242,7 @@ class OavAreaBallotItem extends OavBaseElement {
     this.small = false;
     this.mapTabSelected = false;
     this.descriptionTabSelected = false;
-    this.imageTabSelected = false;
+    this.imageTabSelected = true;
     this.isFavorite = false;
     this.toExpensiveForBudget = false;
     this.selectedInBudget = false;

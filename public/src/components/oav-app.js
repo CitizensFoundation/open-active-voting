@@ -23,6 +23,7 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import './oav-icons.js';
 import './snack-bar.js';
 import './oav-area-ballot';
+import './oav-area-budget';
 
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
@@ -122,7 +123,6 @@ class OavApp extends OavBaseElement {
               <paper-icon-button icon="help-outline" @click="${this._help}}"></paper-icon-button>
             </div>
             <div class="budgetContainer" ?hidden="${this.hideBudget}">
-              <h1>3div</h1>
               <oav-area-budget
                 id="budget"
                 .areaName="${this.areaName}"
@@ -202,43 +202,38 @@ class OavApp extends OavBaseElement {
       });
   }
 
-  connectedCallback() {
-    this._setupListeners();
-    //this.loadLanguage(this.resolveUrl('/src/locales.json'));
-    super.connectedCallback();
-  }
-
   disconnectedCallback() {
     this._removeListeners();
   }
 
   _setupListeners() {
-    document.addEventListener("app-resources-loaded", this._translationLoaded);
-    document.addEventListener("oav-set-title", this._setTitle);
-    document.addEventListener("oav-error", this._errorHandler);
-    document.addEventListener("oav-set-area", this._setArea);
-    document.addEventListener("oav-clear-area", this._clearArea);
-    document.addEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
-    document.addEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
-    document.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
-    document.addEventListener("oav-exit", this._exit);
-    document.addEventListener("oav-open-help", this._help);
-    document.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    debugger;
+    this.addEventListener("app-resources-loaded", this._translationLoaded);
+    this.addEventListener("oav-set-title", this._setTitle);
+    this.addEventListener("oav-error", this._errorHandler);
+    this.addEventListener("oav-set-area", this._setArea);
+    this.addEventListener("oav-clear-area", this._clearArea);
+    this.addEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.addEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
+    this.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
+    this.addEventListener("oav-exit", this._exit);
+    this.addEventListener("oav-open-help", this._help);
+    this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
   }
 
   _removeListeners() {
-    document.removeEventListener("app-resources-loaded", this._translationLoaded);
-    document.removeEventListener("oav-set-title", this._setTitle);
-    document.removeEventListener("oav-error", this._errorHandler);
-    document.removeEventListener("oav-set-area", this._setArea);
-    document.removeEventListener("oav-clear-area", this._clearArea);
-    document.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
-    document.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
-    document.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
-    document.removeEventListener("oav-exit", this._exit);
-    document.removeEventListener("oav-open-help", this._help);
-    document.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    this.removeEventListener("app-resources-loaded", this._translationLoaded);
+    this.removeEventListener("oav-set-title", this._setTitle);
+    this.removeEventListener("oav-error", this._errorHandler);
+    this.removeEventListener("oav-set-area", this._setArea);
+    this.removeEventListener("oav-clear-area", this._clearArea);
+    this.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
+    this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
+    this.removeEventListener("oav-exit", this._exit);
+    this.removeEventListener("oav-open-help", this._help);
+    this.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.removeEventListener("resize", this.resetSizeWithDelay);
   }
 
@@ -316,9 +311,10 @@ class OavApp extends OavBaseElement {
     this.getDialog("page").open();
   }
 
-  _setArea(event, detail) {
-    this.areaName = detail.areaName;
-    this.totalBudget = detail.totalBudget;
+  _setArea(event) {
+    debugger;
+    this.areaName = event.detail.areaName;
+    this.totalBudget = event.detail.totalBudget;
   }
 
   _clearArea() {
@@ -368,6 +364,7 @@ class OavApp extends OavBaseElement {
   }
 
   firstUpdated() {
+    this._setupListeners();
     installRouter((location) => this._locationChanged(location));
     installOfflineWatcher((offline) => this._offlineChanged(offline));
     installMediaQueryWatcher(`(min-width: 460px)`,

@@ -316,4 +316,8 @@ export const OavAreaBallotItemStyles = css`
 
   .favoriteButtons {
   }
+
+  [hidden] {
+    display: none !important;
+  }
 `;

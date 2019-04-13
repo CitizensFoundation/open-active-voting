@@ -72,6 +72,7 @@ class OavAreaBallot extends PageViewElement {
           this.area = response.area;
           this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
+          debugger;
           this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         })
         .catch(error => {
@@ -90,7 +91,7 @@ class OavAreaBallot extends PageViewElement {
     }
 
     if (changedProps.has('favoriteItem')) {
-      this.oldFavoriteItem = changedProps['favoriteItem'].oldValue;
+      this.oldFavoriteItem = changedProps.has('favoriteItem');
       if (!this.favoriteItem && this.oldFavoriteItem) {
         this.fire("oav-hide-favorite-item");
       }
@@ -99,9 +100,38 @@ class OavAreaBallot extends PageViewElement {
 
   constructor() {
     super();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
     this.reset();
     //TODO: Why?
     window.appBallot = this;
+  }
+
+  firstUpdated() {
+    this._setupListeners();
+    super.firstUpdated();
+  }
+
+  disconnectedCallback() {
+    this._removeListeners();
+  }
+
+  _setupListeners() {
+    this.addEventListener("oav-toggle-item-in-budget", this._toggleItemInBudget);
+    this.addEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.addEventListener("oav-submit-vote", this._postVoteToServer);
+    this.addEventListener("oav-item-selected-in-budget", this._itemSelectedInBudget);
+    this.addEventListener("oav-item-de-selected-from-budget", this._itemDeSelectedFromBudget);
+  }
+
+  _removeListeners() {
+    this.removeEventListener("oav-toggle-item-in-budget", this._toggleItemInBudget);
+    this.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.removeEventListener("oav-submit-vote", this._postVoteToServer);
+    this.removeEventListener("oav-item-selected-in-budget", this._itemSelectedInBudget);
+    this.removeEventListener("oav-item-de-selected-from-budget", this._itemDeSelectedFromBudget);
   }
 
   reset() {
@@ -147,8 +177,8 @@ class OavAreaBallot extends PageViewElement {
                       <oav-area-ballot-item
                         .name="${item.id}"
                         class="ballotAreaItem"
-                        .budget-element="${this.budgetElement}"
-                        .ideas-with-pdfs="${this.configFromServer.ideasWithPdfs}"
+                        .budgetElement="${this.budgetElement}"
+                        .ideasWithPdfs="${this.configFromServer.ideasWithPdfs}"
                         tabindex="${index}"
                         .item="${item}">
                       </oav-area-ballot-item>
@@ -220,8 +250,8 @@ class OavAreaBallot extends PageViewElement {
     }
   }
 
-  _toggleFavoriteItem(event, detail) {
-    var item = detail.item;
+  _toggleFavoriteItem(event) {
+    var item = event.detail.item;
     if (item) {
       this.activity('toggle', 'favorite');
     } else {
@@ -241,15 +271,16 @@ class OavAreaBallot extends PageViewElement {
     }
   }
 
-  _toggleItemInBudget(event, detail) {
-    this.budgetElement.toggleBudgetItem(detail.item);
+  _toggleItemInBudget(event) {
+    this.budgetElement.toggleBudgetItem(event.detail.item);
   }
 
-  _itemSelectedInBudget(event, detail) {
+  _itemSelectedInBudget(event) {
     var listItems = this.$$("#itemContainer");
     for (var i = 0; i < listItems.children.length; i++) {
       var listItem = listItems.children[i];
-      if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
+      debugger;
+      if (listItem.id != 'domRepeat' && listItem.item.id == event.detail.itemId) {
         listItem.setInBudget();
         this.$$("#itemsMap").setItemInBudget(listItem.item);
       }
@@ -257,11 +288,12 @@ class OavAreaBallot extends PageViewElement {
     this._setStateOfRemainingItems();
   }
 
-  _itemDeSelectedFromBudget(event, detail) {
+  _itemDeSelectedFromBudget(event) {
     var listItems = this.$$("#itemContainer");
     for (var i = 0; i < listItems.children.length; i++) {
       var listItem = listItems.children[i];
-      if (listItem.id != 'domRepeat' && listItem.item.id == detail.itemId) {
+      debugger;
+      if (listItem.id != 'domRepeat' && listItem.item.id == event.detail.itemId) {
         if (this.favoriteItem==listItem.item) {
           this.set('favoriteItem', null);
         }

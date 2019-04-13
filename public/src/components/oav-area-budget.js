@@ -8,8 +8,9 @@ import '@polymer/paper-fab';
 import '@polymer/paper-icon-button';
 import '@polymer/paper-button';
 import '@polymer/iron-image';
+import { OavBaseElement } from './oav-base-element.js';
 
-class OavAreaBudget extends PageViewElement {
+class OavAreaBudget extends OavBaseElement {
   static get properties() {
     return {
       selectedItems: {
@@ -90,12 +91,13 @@ class OavAreaBudget extends PageViewElement {
   }
 
   updated(changedProps) {
-    super(changedProps);
+    super.updated(changedProps);
     if (changedProps.has('selectedBudget')) {
       this.selectedBudgetIsOne = this.selectedBudget && this.selectedBudget===1.0;
     }
 
     if (changedProps.has('selectedBudget') || changedProps.has('totalBudget')) {
+      debugger;
       var budgetLeft = this.totalBudget-this.selectedBudget;
       if (budgetLeft>0) {
         this.budgetLeft = budgetLeft;
@@ -117,7 +119,7 @@ class OavAreaBudget extends PageViewElement {
       <div class="budgetContainer" ?wide="${this.wide}">
         <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
-            <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" .icon="close" @click="${this._exit()}"></paper-icon-button>
+            <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" .icon="close" @click="${this._exit}"></paper-icon-button>
             <iron-image ?hidden="${!this.mediumWide}" .sizing="contain" class="headerLogo" .src="${this.budgetHeaderImage}"></iron-image>
             <div class="flex layout vertical center-center">
               ${!this.selectedBudget && this.areaName ?
@@ -154,7 +156,7 @@ class OavAreaBudget extends PageViewElement {
                 ${this.localize('budget_left_text','budget_left', this.budgetLeft)}
               </div>
             </div>
-            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" .icon="help-outline" @click="${this._help()}"></paper-icon-button>
+            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" .icon="help-outline" @click="${this._help}"></paper-icon-button>
             <div>
               <paper-button id="votingButton" raised class="voteButton" @click="${this._submitVote}">${this.localize('vote')}</paper-button>
             </div>
@@ -181,7 +183,7 @@ class OavAreaBudget extends PageViewElement {
       .duration="3000" .horizontal-align="right" .text="">
       </paper-toast>
 
-      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast()}">
+      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
         ${this.localize('favorite_info')}
       </snack-bar>
     `;
@@ -236,6 +238,10 @@ class OavAreaBudget extends PageViewElement {
 
   constructor() {
     super();
+  }
+
+  firstUpdated() {
+    super.firstUpdated();
     this.reset();
   }
 
@@ -404,6 +410,7 @@ class OavAreaBudget extends PageViewElement {
 
   toggleBudgetItem(item) {
     this.activity('toggle', 'vote');
+    debugger;
     if (this.selectedItems.indexOf(item) > -1) {
       this.activity('remove', 'vote');
       this._removeItemFromArray(item);
@@ -414,7 +421,7 @@ class OavAreaBudget extends PageViewElement {
     } else {
       if (this.selectedBudget+item.price<=this.totalBudget) {
         this.activity('add', 'vote');
-        this.push('selectedItems', item);
+        this.selectedItems.push(item);
         this._addItemToDiv(item);
         this.selectedBudget = this.selectedBudget + item.price;
         this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });
