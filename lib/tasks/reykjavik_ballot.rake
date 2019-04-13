@@ -1,4 +1,4 @@
-# coding: utf-8
+# coding: UTF-8
 
 require "csv"
 #require "ap"
@@ -80,10 +80,10 @@ namespace :reykjavik_ballot do
     item.name = name_en
     item.description = description_en
     item.save
-    I18n.locale = "pl"
-    item.name = budget_data[row_number][12]
-    item.description = budget_data[row_number][13]
-    item.save
+#    I18n.locale = "pl"
+#    item.name = budget_data[row_number][12]
+#    item.description = budget_data[row_number][13]
+#    item.save
     puts "========================================================="
   end
 

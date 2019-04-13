@@ -18,5 +18,8 @@
   ],
   "engines": {
     "node": "4.4.3"
+  },
+  "dependencies": {
+    "@polymer/neon-animation": "^3.0.1"
   }
 }

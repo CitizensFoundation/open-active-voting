@@ -22,7 +22,7 @@ import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './oav-icons.js';
 import './snack-bar.js';
-import './oav-area-ballot'
+import './oav-area-ballot';
 
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
@@ -490,7 +490,7 @@ class OavApp extends OavBaseElement {
   _loadPage(page) {
     switch(page) {
       case 'post':
-        import('./yp-post/yp-post.js');
+     //   import('./yp-post/yp-post.js');
         break;
       case 'area-ballot':
       case 'voting-completed':

@@ -71,7 +71,6 @@ class OavAreaBallot extends PageViewElement {
           console.log('Success:', JSON.stringify(response));
           this.area = response.area;
           this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
-          debugger;
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
           this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         })
@@ -394,8 +393,8 @@ class OavAreaBallot extends PageViewElement {
         budgetBallotItems[i].locations = [];
       }
       // Set the localized translation
-      budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
-      budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
+      //budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
+      //budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
     }
 
     return this.shuffle(budgetBallotItems);

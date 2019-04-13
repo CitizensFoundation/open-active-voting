@@ -247,7 +247,7 @@ class OavAreaBallotItem extends OavBaseElement {
 
   _imageLoadedChanged(event) {
     if (event.detail.value) {
-      this.set('imageLoaded', true);
+      this.imageLoaded = true;
     }
   }
 

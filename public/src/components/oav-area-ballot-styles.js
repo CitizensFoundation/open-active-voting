@@ -32,6 +32,8 @@ export const OavAreaBallotStyles = css`
   }
 
   #itemContainer {
+    margin-top: 24px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,9 +41,14 @@ export const OavAreaBallotStyles = css`
     flex-wrap: wrap;
   }
 
+  oav-area-ballot-item {
+    outline: 0px;
+  }
+
   paper-button.addButton {
     position: absolute;
     bottom: 16px;
+    outline: 0px;
     right: 8px;
     background-color: var(--app-ballot-add-button-background-color, #F00);
     color: var(--app-ballot-add-button-color, #FFF);

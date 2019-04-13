@@ -1,12 +1,13 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/components/my-app.js",
+  "shell": "src/components/oav-app.js",
   "sources": [
     "images/**/*"
   ],
   "extraDependencies": [
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/**",
+    "node_modules/web-animations-js/*.js",
     "push-manifest.json"
   ],
   "builds": [
