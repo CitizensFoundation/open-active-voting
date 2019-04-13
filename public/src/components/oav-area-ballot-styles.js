@@ -34,6 +34,8 @@ export const OavAreaBallotStyles = css`
   #itemContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
   }
 

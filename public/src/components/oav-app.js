@@ -125,9 +125,9 @@ class OavApp extends OavBaseElement {
               <h1>3div</h1>
               <oav-area-budget
                 id="budget"
-                .area-name="${this.areaName}"
-                .total-budget="${this.totalBudget}"
-                .current-ballot="${this.currentBallot}">
+                .areaName="${this.areaName}"
+                .totalBudget="${this.totalBudget}"
+                .currentBallot="${this.currentBallot}">
               </oav-area-budget>
             </div>
           </app-toolbar>
@@ -204,8 +204,6 @@ class OavApp extends OavBaseElement {
 
   connectedCallback() {
     this._setupListeners();
-    // this.currentBallot = this.$$("#budgetBallot");
-    // this.budgetElement = this.$$("#budget");
     //this.loadLanguage(this.resolveUrl('/src/locales.json'));
     super.connectedCallback();
   }
@@ -396,8 +394,10 @@ class OavApp extends OavBaseElement {
 
       // Setup top ballot if needed
       if (page && page=='area-ballot') {
-        this.currentBallot = this.$$("#budgetBallot");
-        this.budgetElement = this.$$("#budget");
+        setTimeout(() => {
+          this.currentBallot = this.$$("#budgetBallot");
+          this.budgetElement = this.$$("#budget");
+        });
         this.hideBudget = false;
       } else {
         this.hideBudget = true;
