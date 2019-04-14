@@ -75,7 +75,7 @@ export const OavAppStyles = css`
     display: block;
   }
   .main-content {
-    padding-top: 64px;
+    padding-top: 128px;
     min-height: 100vh;
   }
   .page {
@@ -94,7 +94,7 @@ export const OavAppStyles = css`
       display: none;
     }
     .main-content {
-      padding-top: 107px;
+      padding-top: 240px;
     }
     /* The drawer button isn't shown in the wide layout, so we don't
     need to offset the title */
@@ -172,6 +172,9 @@ export const OavAppStyles = css`
       width: 40px;
       height: 40px;
     }
+  }
+
+  .budgetContainer {
   }
 
   .largeSpinner {

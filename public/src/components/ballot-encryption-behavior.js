@@ -70,8 +70,9 @@ const certParser = function (cert) {
 }
 
 const fire = function(eventName, data) {
-  const event = new CustomEvent(eventName, data);
-  this.dispatchEvent(event);
+  debugger;
+  const event = new CustomEvent(eventName, { detail: data });
+  document.dispatchEvent(event);
 }
 
 export function encryptVote(votePublicKey, selectedItemIds) {

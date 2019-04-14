@@ -27,6 +27,7 @@ import './oav-area-budget';
 
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
+import { OavFlexLayout } from './oav-flex-layout.js';
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -107,7 +108,8 @@ class OavApp extends OavBaseElement {
 
   static get styles() {
     return [
-      OavAppStyles
+      OavAppStyles,
+      OavFlexLayout
     ];
   }
 
@@ -122,7 +124,7 @@ class OavApp extends OavBaseElement {
             <div class="helpIconInBudget">
               <paper-icon-button icon="help-outline" @click="${this._help}}"></paper-icon-button>
             </div>
-            <div class="budgetContainer" ?hidden="${this.hideBudget}">
+            <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
               <oav-area-budget
                 id="budget"
                 .areaName="${this.areaName}"
@@ -207,7 +209,6 @@ class OavApp extends OavBaseElement {
   }
 
   _setupListeners() {
-    debugger;
     this.addEventListener("app-resources-loaded", this._translationLoaded);
     this.addEventListener("oav-set-title", this._setTitle);
     this.addEventListener("oav-error", this._errorHandler);
@@ -238,14 +239,16 @@ class OavApp extends OavBaseElement {
   }
 
   _scrollItemIntoView(event) {
-    this.$$("#budgetBallot")._scrollItemIntoView(event, detail);
+    this.$$("#budgetBallot")._scrollItemIntoView(event.detail);
   }
 
   _hideFavoriteItem() {
     this.$$("#favoriteIcon").hidden = true;
   }
 
-  _toggleFavoriteItem(event, detail) {
+  _toggleFavoriteItem(event) {
+    const detail = event.detail;
+
     if (detail.item) {
       var transformLeft, transformTop;
 
@@ -312,7 +315,6 @@ class OavApp extends OavBaseElement {
   }
 
   _setArea(event) {
-    debugger;
     this.areaName = event.detail.areaName;
     this.totalBudget = event.detail.totalBudget;
   }

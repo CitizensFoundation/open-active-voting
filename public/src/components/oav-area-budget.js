@@ -1,5 +1,5 @@
 import { html } from 'lit-element';
-import { PageViewElement } from './page-view-element.js';
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 
 import { OavAreaBudgetStyles } from './oav-area-budget-styles.js';
 import { OavShadowStyles } from './oav-shadow-styles';
@@ -9,6 +9,7 @@ import '@polymer/paper-icon-button';
 import '@polymer/paper-button';
 import '@polymer/iron-image';
 import { OavBaseElement } from './oav-base-element.js';
+import { OavFlexLayout } from './oav-flex-layout.js';
 
 class OavAreaBudget extends OavBaseElement {
   static get properties() {
@@ -52,40 +53,33 @@ class OavAreaBudget extends OavBaseElement {
       },
 
       votesWidth: {
-        type: Number,
-        value: 940
+        type: Number
       },
 
       wide: {
-        type: Boolean,
-        observer: '_resetWidth'
+        type: Boolean
       },
 
       mediumWide: {
-        type: Boolean,
-        observer: '_resetWidth'
+        type: Boolean
       },
 
       mini: {
-        type: Boolean,
-        observer: '_resetWidth'
+        type: Boolean
       },
 
       orientationPortrait:  {
-        type: Boolean,
-        observer: '_resetWidth'
+        type: Boolean
       },
 
       orientationLandscape:  {
-        type: Boolean,
-        observer: '_resetWidth'
+        type: Boolean
       },
 
       currentBallot: Object,
 
       budgetHeaderImage: {
-        type: String,
-        value: 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png'
+        type: String
       }
     };
   }
@@ -96,8 +90,11 @@ class OavAreaBudget extends OavBaseElement {
       this.selectedBudgetIsOne = this.selectedBudget && this.selectedBudget===1.0;
     }
 
+    if (changedProps.has('selectedItems')) {
+      this._selectedItemsChanged();
+    }
+
     if (changedProps.has('selectedBudget') || changedProps.has('totalBudget')) {
-      debugger;
       var budgetLeft = this.totalBudget-this.selectedBudget;
       if (budgetLeft>0) {
         this.budgetLeft = budgetLeft;
@@ -110,17 +107,18 @@ class OavAreaBudget extends OavBaseElement {
   static get styles() {
     return [
       OavAreaBudgetStyles,
-      OavShadowStyles
+      OavShadowStyles,
+      OavFlexLayout
     ];
   }
 
   render() {
     return html`
-      <div class="budgetContainer" ?wide="${this.wide}">
+      <div class="budgetContainer center-center" ?wide="${this.wide}">
         <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
-            <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" .icon="close" @click="${this._exit}"></paper-icon-button>
-            <iron-image ?hidden="${!this.mediumWide}" .sizing="contain" class="headerLogo" .src="${this.budgetHeaderImage}"></iron-image>
+            <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="close" @click="${this._exit}"></paper-icon-button>
+            <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
             <div class="flex layout vertical center-center">
               ${!this.selectedBudget && this.areaName ?
                 html`
@@ -132,7 +130,7 @@ class OavAreaBudget extends OavBaseElement {
               }
               ${this.selectedBudget ?
                 html`
-                  <div hidden$="${!this.selectedBudgetIsOne}">
+                  <div ?hidden="${!this.selectedBudgetIsOne}">
                     <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${!this.wide}">
                      ${this.localize("selected_items_info_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
@@ -140,7 +138,7 @@ class OavAreaBudget extends OavBaseElement {
                       ${this.localize("selected_items_info_mobile_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
                   </div>
-                  <div hidden$="${this.selectedBudgetIsOne}">
+                  <div ?hidden="${this.selectedBudgetIsOne}">
                     <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${!this.wide}">
                       ${this.localize("selected_items_info", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
@@ -156,20 +154,20 @@ class OavAreaBudget extends OavBaseElement {
                 ${this.localize('budget_left_text','budget_left', this.budgetLeft)}
               </div>
             </div>
-            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" .icon="help-outline" @click="${this._help}"></paper-icon-button>
+            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" icon="help-outline" @click="${this._help}"></paper-icon-button>
             <div>
               <paper-button id="votingButton" raised class="voteButton" @click="${this._submitVote}">${this.localize('vote')}</paper-button>
             </div>
           </div>
-          <div id="votes" ?wide="${this.wide}">
-            <div id="noItems" class="layout horizontal  center-center noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
+          <div id="votes" class="layout horizontal" ?wide="${this.wide}">
+            <div id="noItems" class="layout horizontal center-center noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
               ${this.totalBudget ?
               html`
                 <div ?hidden="${!this.wide}" class="onOfferText">
                   ${this.localize('budget_empty_info_1', "amount", this.budgetLeft)}
                 </div>
                 <div>${this.localize('budget_empty_info_2')}</div>
-                <paper-fab mini id="x" .elevation="5" disabled class="demoButton" .icon="add"></paper-fab>
+                <paper-fab mini id="x" .elevation="5" disabled class="demoButton" icon="add"></paper-fab>
                 <div>${this.localize('budget_empty_info_3')}</div>
               `
               :
@@ -190,6 +188,8 @@ class OavAreaBudget extends OavBaseElement {
   }
 
   firstUpdated() {
+    this.reset();
+
     installMediaQueryWatcher(`(min-width: 1045px)`,
       (matches) => {
         if (matches)
@@ -240,10 +240,6 @@ class OavAreaBudget extends OavBaseElement {
     super();
   }
 
-  firstUpdated() {
-    super.firstUpdated();
-    this.reset();
-  }
 
   _exit () {
     this.fire("oav-exit");
@@ -258,17 +254,15 @@ class OavAreaBudget extends OavBaseElement {
   }
 
   _resetWidth() {
-    setTimeout(function () {
-      if (this.wide) {
-        this.votesWidth = 940;
-      } else {
-        this.votesWidth = window.innerWidth;
-      }
-      this._resetBudgetDiv();
-      this.selectedItems.forEach(function (item) {
-        this._addItemToDiv(item);
-      }.bind(this));
-    });
+    if (this.wide) {
+      this.votesWidth = 940;
+    } else {
+      this.votesWidth = window.innerWidth;
+    }
+    this._resetBudgetDiv();
+    this.selectedItems.forEach(function (item) {
+      this._addItemToDiv(item);
+    }.bind(this));
   }
 
   _millionWord() {
@@ -299,6 +293,7 @@ class OavAreaBudget extends OavBaseElement {
     this._resetBudgetDiv();
     this.selectedItems = [];
     this.selectedBudget = 0;
+    this.budgetHeaderImage = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png';
   }
 
   _resetBudgetDiv() {
@@ -315,7 +310,7 @@ class OavAreaBudget extends OavBaseElement {
         newArray.push(i);
       }
     });
-    selectedItems = newArray;
+    this.selectedItems = newArray;
   }
 
   _addItemToDiv(item) {
@@ -410,18 +405,22 @@ class OavAreaBudget extends OavBaseElement {
 
   toggleBudgetItem(item) {
     this.activity('toggle', 'vote');
-    debugger;
     if (this.selectedItems.indexOf(item) > -1) {
       this.activity('remove', 'vote');
       this._removeItemFromArray(item);
       this._removeItemFromDiv(item);
+      this.selectedItems = [
+        ...this.selectedItems
+      ];
       this.selectedBudget = this.selectedBudget - item.price;
       this.currentBallot.fire('oav-item-de-selected-from-budget', { itemId: item.id });
-
     } else {
       if (this.selectedBudget+item.price<=this.totalBudget) {
         this.activity('add', 'vote');
         this.selectedItems.push(item);
+        this.selectedItems = [
+          ...this.selectedItems
+        ];
         this._addItemToDiv(item);
         this.selectedBudget = this.selectedBudget + item.price;
         this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });

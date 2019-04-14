@@ -72,7 +72,6 @@ class OavAreaBallot extends PageViewElement {
           this.area = response.area;
           this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
-          debugger;
           this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         })
         .catch(error => {
@@ -279,10 +278,11 @@ class OavAreaBallot extends PageViewElement {
     var listItems = this.$$("#itemContainer");
     for (var i = 0; i < listItems.children.length; i++) {
       var listItem = listItems.children[i];
-      debugger;
       if (listItem.id != 'domRepeat' && listItem.item.id == event.detail.itemId) {
         listItem.setInBudget();
-        this.$$("#itemsMap").setItemInBudget(listItem.item);
+        const map = this.$$("#itemsMap");
+        if (map)
+          map.setItemInBudget(listItem.item);
       }
     }
     this._setStateOfRemainingItems();
@@ -292,13 +292,14 @@ class OavAreaBallot extends PageViewElement {
     var listItems = this.$$("#itemContainer");
     for (var i = 0; i < listItems.children.length; i++) {
       var listItem = listItems.children[i];
-      debugger;
       if (listItem.id != 'domRepeat' && listItem.item.id == event.detail.itemId) {
         if (this.favoriteItem==listItem.item) {
-          this.set('favoriteItem', null);
+          this.favoriteItem = null;
         }
         listItem.removeFromBudget();
-        this.$$("#itemsMap").removeFromBudget(listItem.item);
+        const map = this.$$("#itemsMap");
+        if (map)
+          map.removeFromBudget(listItem.item);
         this.fire("oav-reset-favorite-icon-position");
       }
     }
@@ -318,7 +319,9 @@ class OavAreaBallot extends PageViewElement {
         }
       }
     }
-    this.$$("#itemsMap").checkIfSelectedItemToExpensive(budgetLeft);
+    const map = this.$$("#itemsMap");
+    if (map)
+      map.checkIfSelectedItemToExpensive(budgetLeft);
   }
 
   _postVoteToServer() {
@@ -331,7 +334,7 @@ class OavAreaBallot extends PageViewElement {
   }
 
   _createEncryptedVotes() {
-    var selectedItemIds = map(this.budgetElement.selectedItems, (item) => {
+    var selectedItemIds = this.budgetElement.selectedItems.map((item) => {
       return item.id;
     });
     return encryptVote(this.configFromServer.votePublicKey,

@@ -117,7 +117,7 @@ class OavAreaBallotItem extends OavBaseElement {
           html`
             <iron-image class="main-image" .sizing="cover"
               src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.staticMapsApiKey}"
-              hidden$="[[!mapTabSelected]]">
+              ?hidden="${!this.mapTabSelected}">
             </iron-image>
           `
           :
@@ -166,8 +166,6 @@ class OavAreaBallotItem extends OavBaseElement {
             <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize('million')}</span>
             <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize('millions')}</span>
           </div>
-
-          ${this.selectedInBudget ?  html`In Budget` : html`NOT In Budget`}
 
           <paper-fab mini id="addToBudgetButton" elevation="5" class="addRemoveButton" ?hidden="${this.selectedInBudget}"
                     ?disabled="${this.toExpensiveForBudget}" title="${this.localize('add_to_budget')}" icon="add" @click="${this._toggleInBudget}">

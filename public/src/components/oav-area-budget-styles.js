@@ -8,6 +8,7 @@ import { css } from 'lit-element';
 export const OavAreaBudgetStyles = css`
   :host {
     width: 100%;
+    display: block;
   }
 
   .budgetContainer {
@@ -30,7 +31,6 @@ export const OavAreaBudgetStyles = css`
   }
 
   .budgetMaterial {
-    width: 100%;
     background-color: var(--app-budget-material-background-color, rgba(249,249,249,1.0));
     height: 139px;
     margin: 0px 0px 0px 0px;
@@ -41,10 +41,10 @@ export const OavAreaBudgetStyles = css`
     height: 184px;
     margin: 10px 0px;
     margin-top: 8px;
+    margin-right: 8px;
   }
 
   #votes {
-    width: 100%;
     background-color: var(--app-budget-votes-background-color, #e0e0e0);
     height: 81px;
   }
@@ -192,5 +192,9 @@ export const OavAreaBudgetStyles = css`
 
   .mobileActionIcons {
     color: #555;
+  }
+
+  [hidden] {
+    display: none !important;
   }
 `;
