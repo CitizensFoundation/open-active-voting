@@ -34,14 +34,14 @@ export const OavAreaBudgetStyles = css`
     background-color: var(--app-budget-material-background-color, rgba(249,249,249,1.0));
     height: 139px;
     margin: 0px 0px 0px 0px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .budgetMaterial[wide] {
     width: 940px;
     height: 184px;
-    margin: 10px 0px;
     margin-top: 8px;
-    margin-right: 8px;
   }
 
   #votes {
