@@ -14,6 +14,7 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { installOfflineWatcher } from 'pwa-helpers/network.js';
 import { installRouter } from 'pwa-helpers/router.js';
 import { updateMetadata } from 'pwa-helpers/metadata.js';
+import 'whatwg-fetch';
 
 // These are the elements needed by this element.
 import '@polymer/app-layout/app-drawer/app-drawer.js';
@@ -222,8 +223,18 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
     this.addEventListener("oav-exit", this._exit);
     this.addEventListener("oav-open-help", this._help);
+    this.addEventListener("oav-set-ballot-element", this._setBallotElement);
+    this.addEventListener("oav-set-budget-element", this._setBudgetElement);
     this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
+  }
+
+  _setBallotElement(event) {
+    this.currentBallot = event.detail;
+  }
+
+  _setBudgetElement(event) {
+    this.budgetElement = event.detail;
   }
 
   _removeListeners() {
@@ -236,6 +247,8 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
     this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
     this.removeEventListener("oav-exit", this._exit);
+    this.removeEventListener("oav-set-ballot-element", this._setBallotElement);
+    this.removeEventListener("oav-set-budget-element", this._setBudgetElement);
     this.removeEventListener("oav-open-help", this._help);
     this.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.removeEventListener("resize", this.resetSizeWithDelay);
@@ -404,10 +417,6 @@ class OavApp extends OavBaseElement {
 
       // Setup top ballot if needed
       if (page && page=='area-ballot') {
-        setTimeout(() => {
-          this.currentBallot = this.$$("#budgetBallot");
-          this.budgetElement = this.$$("#budget");
-        });
         this.hideBudget = false;
       } else {
         this.hideBudget = true;

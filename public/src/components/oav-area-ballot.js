@@ -171,8 +171,8 @@ class OavAreaBallot extends PageViewElement {
   connectedCallback() {
     super.connectedCallback();
     this.reset();
-    //TODO: Why?
     window.appBallot = this;
+    this.fire('oav-set-ballot-element', this);
   }
 
   firstUpdated() {
@@ -219,7 +219,6 @@ class OavAreaBallot extends PageViewElement {
   }
 
   _selectedChanged(event) {
-    debugger;
     this.selectedView = parseInt(event.detail.value);
   }
 

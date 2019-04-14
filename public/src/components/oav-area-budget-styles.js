@@ -33,6 +33,7 @@ export const OavAreaBudgetStyles = css`
   .budgetMaterial {
     background-color: var(--app-budget-material-background-color, rgba(249,249,249,1.0));
     height: 139px;
+    margin-top: 16px;
     margin: 0px 0px 0px 0px;
     margin-right: auto;
     margin-left: auto;
@@ -41,7 +42,6 @@ export const OavAreaBudgetStyles = css`
   .budgetMaterial[wide] {
     width: 940px;
     height: 184px;
-    margin-top: 8px;
   }
 
   #votes {

@@ -14,15 +14,18 @@ export const OavAppStyles = css`
     display: block;
     box-sizing: border-box;
   }
+
   section {
     padding: 24px;
     background: var(--app-section-odd-color);
   }
+
   section > * {
     max-width: 600px;
     margin-right: auto;
     margin-left: auto;
   }
+
   section:nth-of-type(even) {
     background: var(--app-section-even-color);
   }
@@ -78,13 +81,16 @@ export const OavAppStyles = css`
   main {
     display: block;
   }
+
   .main-content {
     padding-top: 128px;
     min-height: 100vh;
   }
+
   .page {
     display: none;
   }
+
   .page[active] {
     display: block;
   }

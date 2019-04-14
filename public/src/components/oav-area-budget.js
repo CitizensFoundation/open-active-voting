@@ -84,6 +84,11 @@ class OavAreaBudget extends OavBaseElement {
     };
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.fire('oav-set-budget-element', this);
+  }
+
   updated(changedProps) {
     super.updated(changedProps);
     if (changedProps.has('selectedBudget')) {
