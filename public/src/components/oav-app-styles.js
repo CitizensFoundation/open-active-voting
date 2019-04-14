@@ -27,6 +27,10 @@ export const OavAppStyles = css`
     background: var(--app-section-even-color);
   }
 
+  app-header {
+    z-index: 5000;
+  }
+
   :host {
     display: block;
     --app-primary-color: #F00;

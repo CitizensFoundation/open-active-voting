@@ -28,6 +28,7 @@ import './oav-area-budget';
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
 import { OavFlexLayout } from './oav-flex-layout.js';
+import { DevOavConfig } from './dev-oav-config.js';
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -128,6 +129,7 @@ class OavApp extends OavBaseElement {
               <oav-area-budget
                 id="budget"
                 .areaName="${this.areaName}"
+                .language="${this.language}"
                 .totalBudget="${this.totalBudget}"
                 .currentBallot="${this.currentBallot}">
               </oav-area-budget>
@@ -139,22 +141,21 @@ class OavApp extends OavBaseElement {
         <main role="main" class="main-content">
           <oav-select-voting-area
             id="selectVotingArea"
-            .locale-resources="${this.configFromServer.localeResources}"
-            .config-from-server="${this.configFromServer}"
+            .language="${this.language}"
             ?active="${this._page === 'select-voting-area'}">
           </oav-select-voting-area>
           <oav-area-ballot id="budgetBallot"
             .budgetElement="${this.budgetElement}"
-            .localeResources="${this.configFromServer.localeResources}"
-            .configFromServer="${this.configFromServer}"
+            .language="${this.language}"
             .areaIdRoutePath="${this._subPath}"
+            .votePublicKey="${this.votePublicKey}"
             ?active="${this._page === 'area-ballot'}">
           </oav-area-ballot>
           <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
           <yp-post id="post"
-            .budget-element="${this.budgetElement}"
-            .locale-resources="${this.configFromServer.localeResources}"
-            .post-id-route-path="${this._subPath}"
+            .budgetElement="${this.budgetElement}"
+            .language="${this.language}"
+            .postIdRoutePath="${this._subPath}"
             ?active="${this._page === 'post'}">
           </yp-post>
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
@@ -193,9 +194,11 @@ class OavApp extends OavBaseElement {
       .then(response => {
         console.log('Success:', JSON.stringify(response));
         this.requestInProgress= false;
+        this.language = 'en';
         this.votePublicKey = response.public_key;
+        response.config = DevOavConfig;
         this._setupCustomCss(response.config);
-        window.localeResources = response.config.localeResources;
+        window.localeResources = response.config.locales;
         this.configFromServer = response.config;
       })
       .catch(error => {
@@ -300,8 +303,8 @@ class OavApp extends OavBaseElement {
 
   resetFavoriteIconPosition() {
     if (this.$$("#budgetBallot").favoriteItem) {
-      var post = this.$$("#budget").getItemLeftTop(this.$$("#budgetBallot").favoriteItem);
-      if (post) {
+      const pos = this.$$("#budget").getItemLeftTop(this.$$("#budgetBallot").favoriteItem);
+      if (pos) {
         this.$$("#favoriteIcon").style.left = pos.left+"px";
         this.$$("#favoriteIcon").style.top = pos.top+"px";
       } else {
@@ -456,8 +459,6 @@ class OavApp extends OavBaseElement {
   }
 
   _layoutChanged(isWideLayout) {
-    // The drawer doesn't make sense in a wide layout, so if it's opened, close it.
-    this._updateDrawerState(false);
   }
 
   _offlineChanged(offline) {

@@ -32,6 +32,10 @@ class OavAreaBallot extends PageViewElement {
         type: Object
       },
 
+      votePublicKey: {
+        type: String
+      },
+
       budgetBallotItems: Array,
 
       wide: Boolean,
@@ -46,9 +50,70 @@ class OavAreaBallot extends PageViewElement {
     };
   }
 
+  static get styles() {
+    return [
+      OavAreaBallotStyles
+    ];
+  }
+
+  render() {
+    return html`${this.area ?
+      html`
+        <div class="topContainer layout vertical">
+          <div class="layout horizontal center-center tabsContainer">
+            <paper-tabs selected="${this.selectedView}" @selected-changed="${this._selectedChanged}"">
+              <paper-tab>
+                <div ?hidden="${!this.wide}">${this.area.name}</div>
+                <div ?hidden="${this.wide}" class="layout vertical center-center">
+                  <div>${this.area.name}</div>
+                </div>
+              </paper-tab>
+              <paper-tab>${this.localize('items_on_map')}</paper-tab>
+            </paper-tabs>
+          </div>
+
+          ${this.budgetBallotItems ?
+            html`
+              ${cache(this.selectedView===0 ?
+                html`
+                  <div id="itemContainer" class="layout horizontal center-center flex wrap" >
+                    ${this.budgetBallotItems.map((item, index) =>
+                      html`
+                        <oav-area-ballot-item
+                          .name="${item.id}"
+                          class="ballotAreaItem"
+                          .language="${this.language}"
+                          .budgetElement="${this.budgetElement}"
+                          tabindex="${index}"
+                          .item="${item}">
+                        </oav-area-ballot-item>
+                      `
+                    )}
+                  </div>
+                `
+                :
+                html`
+                  <oav-items-map
+                    id="itemsMap"
+                    .budget-element="[[budgetElement]]"
+                    .items="[[budgetBallotItems]]">
+                  </oav-items-map>
+                `
+              )}
+            `
+            :
+            ''
+          }
+        </div>
+      `
+      :
+      ''
+    }
+    `
+  }
+
   updated(changedProps) {
     super.updated(changedProps);
-
     if (changedProps.has('areaIdRoutePath')) {
       if (this.areaIdRoutePath) {
         if (this.areaIdRoutePath==='completePostingOfVoteAfterRedirect') {
@@ -143,63 +208,6 @@ class OavAreaBallot extends PageViewElement {
     this.favoriteItem = null;
     this.selectedView = 0;
     this.fire('oav-set-area', { areaName: null, totalBudget: null });
-  }
-
-  static get styles() {
-    return [
-      OavAreaBallotStyles
-    ];
-  }
-
-  render() {
-    return html`
-      <div class="topContainer layout vertical">
-        <div class="layout horizontal center-center tabsContainer">
-          <paper-tabs .selected="${this.selectedView}" @selected-changed="${this._selectedChanged}"">
-            <paper-tab>
-              <div ?hidden="${!this.wide}">[[area.name]]</div>
-              <div ?hidden="${this.wide}" class="layout vertical center-center">
-                <div>[[area.name]]</div>
-              </div>
-            </paper-tab>
-            <paper-tab>{{localize('items_on_map')}}</paper-tab>
-          </paper-tabs>
-        </div>
-
-        ${this.budgetBallotItems ?
-          html`
-            ${cache(this.selectedView===0 ?
-              html`
-                <div id="itemContainer" class="layout horizontal center-center flex wrap" >
-                  ${this.budgetBallotItems.map((item, index) =>
-                    html`
-                      <oav-area-ballot-item
-                        .name="${item.id}"
-                        class="ballotAreaItem"
-                        .budgetElement="${this.budgetElement}"
-                        .ideasWithPdfs="${this.configFromServer.ideasWithPdfs}"
-                        tabindex="${index}"
-                        .item="${item}">
-                      </oav-area-ballot-item>
-                    `
-                  )}
-                </div>
-              `
-              :
-              html`
-                <oav-items-map
-                  id="itemsMap"
-                  .budget-element="[[budgetElement]]"
-                  .items="[[budgetBallotItems]]">
-                </oav-items-map>
-              `
-            )}
-          `
-          :
-          ''
-        }
-      </div>
-    `;
   }
 
   _selectedChanged(event) {
@@ -337,7 +345,7 @@ class OavAreaBallot extends PageViewElement {
     var selectedItemIds = this.budgetElement.selectedItems.map((item) => {
       return item.id;
     });
-    return encryptVote(this.configFromServer.votePublicKey,
+    return encryptVote(this.votePublicKey,
                        { selectedItemIds: selectedItemIds,
                          favoriteItemId: this.favoriteItem ? this.favoriteItem.id : null });
   }

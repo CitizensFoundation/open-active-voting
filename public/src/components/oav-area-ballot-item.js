@@ -91,10 +91,6 @@ class OavAreaBallotItem extends OavBaseElement {
       imageLoaded: {
         type: Boolean,
         value: false
-      },
-
-      ideasWithPdfs: {
-        type: Object
       }
     };
   }
@@ -144,7 +140,7 @@ class OavAreaBallotItem extends OavBaseElement {
               <iron-icon title="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize('map_item_tab')}
             </paper-item>
-            <paper-item @click="${this._openPdf}">
+            <paper-item @click="${this._openPdf}" ?hidden="${!this.descriptionPdfLink}">
               <iron-icon title="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize('design_pdf')}
             </paper-item>
@@ -268,8 +264,8 @@ class OavAreaBallotItem extends OavBaseElement {
 
   _openPdf() {
     this.activity('click', 'openPdf');
-    if (this._descriptionPdfLink(this.item)) {
-      window.open(this.descriptionPdfLink, '_blank');
+    if (this.item.descriptionPdfLink) {
+      window.open(this.item.descriptionPdfLink, '_blank');
     }
   }
 
@@ -277,19 +273,6 @@ class OavAreaBallotItem extends OavBaseElement {
     this.activity('click', 'showPost');
     window.appLastArea = '/'+window.location.hash;
     window.location = "/post/"+this.item.idea_id;
-  }
-
-  _descriptionPdfLink() {
-    if (this.item && this.ideasWithPdfs) {
-      const ideaId = parseInt(this.item.idea_id);
-      if (ideasWithPdfs.ids.indexOf(ideaId) > -1) {
-        return null;
-      } else {
-        return ideasWithPdfs.urls[ideaId];
-      }
-    } else {
-      return null;
-    }
   }
 
   _itemShareUrl() {

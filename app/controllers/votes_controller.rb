@@ -39,7 +39,7 @@ class VotesController < ApplicationController
   # Send the config and public key to the client app
   def boot
     respond_to do |format|
-      format.json { render :json => { :config => @config, :public_key => @public_key }}
+      format.json { render :json => { :config => @config, :public_key => @public_key } }
     end
   end
 
