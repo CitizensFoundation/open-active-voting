@@ -69,7 +69,7 @@ export class OavBaseElement extends LitElement {
   updated(changedProps) {
     super.updated(changedProps);
     if (changedProps.has('language')) {
-      this.requestUpdate();
+      //this.requestUpdate();
     }
   }
 
@@ -80,15 +80,5 @@ export class OavBaseElement extends LitElement {
   fire(eventName, data) {
     const event = new CustomEvent(eventName, { detail: data, bubbles: true, composed: true });
     this.dispatchEvent(event);
-  }
-
-  firstUpdated() {
-    installMediaQueryWatcher(`(min-width: 1000px)`,
-      (matches) => {
-        if (matches)
-          this.wide = true;
-        else
-          this.wide = false;
-      });
   }
 }

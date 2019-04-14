@@ -3,6 +3,8 @@ import { cache } from 'lit-html/directives/cache.js';
 import { PageViewElement } from './page-view-element.js';
 import { OavAreaBallotStyles } from './oav-area-ballot-styles.js';
 import { encryptVote } from './ballot-encryption-behavior.js'
+import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
+
 import '@polymer/paper-tabs/paper-tab';
 import '@polymer/paper-tabs/paper-tabs';
 import './oav-area-ballot-item'
@@ -175,7 +177,13 @@ class OavAreaBallot extends PageViewElement {
 
   firstUpdated() {
     this._setupListeners();
-    super.firstUpdated();
+    installMediaQueryWatcher(`(min-width: 1000px)`,
+      (matches) => {
+        if (matches)
+          this.wide = true;
+        else
+          this.wide = false;
+      });
   }
 
   disconnectedCallback() {
@@ -211,7 +219,8 @@ class OavAreaBallot extends PageViewElement {
   }
 
   _selectedChanged(event) {
-    this.selectedView = event.detail.value;
+    debugger;
+    this.selectedView = parseInt(event.detail.value);
   }
 
   _scrollItemIntoView(itemId) {
