@@ -29,7 +29,7 @@ import './oav-area-budget';
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
 import { OavFlexLayout } from './oav-flex-layout.js';
-import { DevOavConfig } from './dev-oav-config.js';
+import { DevOavConfig } from './dev-oav-test-config.js/index.js';
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -104,7 +104,9 @@ class OavApp extends OavBaseElement {
         value: false
       },
 
-      resizeTimer: Object
+      resizeTimer: Object,
+
+      postsHost: String
     };
   }
 
@@ -153,10 +155,11 @@ class OavApp extends OavBaseElement {
             ?active="${this._page === 'area-ballot'}">
           </oav-area-ballot>
           <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
-          <yp-post id="post"
+          <yp-post .id="post"
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
-            .postIdRoutePath="${this._subPath}"
+            .postId="${this._subPath}"
+            .host="${this.postsHost}"
             ?active="${this._page === 'post'}">
           </yp-post>
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
@@ -202,6 +205,9 @@ class OavApp extends OavBaseElement {
         this._setupCustomCss(response.config);
         window.localeResources = response.config.locales;
         this.configFromServer = response.config;
+        this.postsHost = "https://yrpri.org";
+        window.language = this.language;
+        window.localize = this.localize;
       })
       .catch(error => {
         console.error('Error:', error);

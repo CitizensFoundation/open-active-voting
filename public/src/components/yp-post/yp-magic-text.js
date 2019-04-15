@@ -195,6 +195,10 @@ class YpMagicTextBox extends PolymerElement {
     }
   }
 
+  linkifyStr(str) {
+    return str;
+  }
+
   _getIndexKey() {
     return `${this.textType}-${this.contentId}-${this.language}`;
   }
@@ -331,7 +335,7 @@ class YpMagicTextBox extends PolymerElement {
   _linksAndEmojis () {
     this.processedContent = sanitizeHtml(this.processedContent, { allowedTags: [ 'b', 'i', 'em', 'strong'] });
     this.processedContent = this.processedContent.replace(/&amp\;/g, "&");
-    this.processedContent = linkifyStr(this.processedContent, {
+    this.processedContent = this.linkifyStr(this.processedContent, {
       format: function (value, type) {
         if (type === 'url' && value.length > this.linkifyCutoff-1) {
           value = value.slice(0, this.linkifyCutoff) + '…';

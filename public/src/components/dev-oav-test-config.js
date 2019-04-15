@@ -9,6 +9,8 @@ export const DevOavConfig = JSON.parse(`
   {
     "locales": {
       "en": {
+        "pointsFor": "Points for",
+        "pointsAgainst": "Points against",
         "favorite_info": "Use 🌟 for your favorite idea = two votes",
         "share_vote_by_pressing": "Share vote here",
         "budget_empty_info_1": "{amount} millions on offer",

@@ -3,6 +3,8 @@ import '@polymer/iron-image/iron-image.js';
 import { ypMediaFormatsBehavior } from './yp-media-formats-behavior.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -98,7 +100,8 @@ Polymer({
   is: 'yp-user-image',
 
   behaviors: [
-    ypMediaFormatsBehavior
+    ypMediaFormatsBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {

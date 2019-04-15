@@ -7,9 +7,12 @@ import { ypNumberFormatBehavior } from './yp-number-format-behavior.js';
 import { ypTruncateBehavior } from './yp-truncate-behavior.js';
 import './yp-post-header.js';
 import './yp-post-points.js';
+import './yp-ajax.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -288,6 +291,9 @@ Polymer({
       <yp-post-points host="[[host]]" id="pointsSection" post="[[post]]" scroll-to-id\$="[[scrollToPointId]]"></yp-post-points>
     </div>
 
+    <div class="layout horizontal center-center">
+      <yp-ajax id="ajax" on-response="_handleIncomingPostResponse"></yp-ajax>
+    </div>
     <iron-media-query query="(min-width: 1024px)" query-matches="{{wideWidth}}"></iron-media-query>
 `,
 
@@ -296,7 +302,8 @@ Polymer({
   behaviors: [
     ypMediaFormatsBehavior,
     ypNumberFormatBehavior,
-    ypTruncateBehavior
+    ypTruncateBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {
@@ -413,14 +420,6 @@ Polymer({
     }, 300);
   },
 
-  _newPost: function () {
-    window.appGlobals.activity('open', 'newPost');
-    dom(document).querySelector('yp-app').getDialogAsync("postEdit", function (dialog) {
-      dialog.setup(null, true, null);
-      dialog.open('new', {groupId: this.post.Group.id, group: this.post.Group});
-    }.bind(this));
-  },
-
   listeners: {
     'yp-debate-info': '_updateDebateInfo',
     'yp-post-image-count': '_updatePostImageCount'
@@ -483,12 +482,12 @@ Polymer({
   },
 
   _postIdChanged: function (postId) {
-    var cachedItem = window.appGlobals.cachedPostItem;
+    var cachedItem = null;
     if (cachedItem && cachedItem.id==postId) {
       this._setupAjaxUrl();
       this._handleIncomingPostResponse(null, { response: cachedItem });
       console.log("Got post from item cache");
-    } else if (window.appGlobals.getPostFromCache(postId)) {
+    } else if (false) {
       this._setupAjaxUrl();
       this._handleIncomingPostResponse(null, { response: window.appGlobals.getPostFromCache(postId), fromCache: true });
       console.log("Got post from cache possibly from recommendations");
@@ -535,9 +534,6 @@ Polymer({
       this.set('disableNewPosts', false);
     }
 
-    if (!detail.fromCache)
-      window.appGlobals.addPostsToCacheLater([this.post]);
-    window.appGlobals.getNextRecommendationForGroup(this.post.group_id, this.post.id, this._processRecommendation.bind(this));
   },
 
   _processRecommendation: function (recommendedPost) {
@@ -568,38 +564,14 @@ Polymer({
     if (this.post) {
       if (this.post.Group.theme_id!=null ||
         (this.post.Group.configuration && this.post.Group.configuration.themeOverrideColorPrimary!=null)) {
-        this.setTheme(this.post.Group.theme_id, this.post.Group.configuration);
       } else if (this.post.Group.Community &&
                 (this.post.Group.Community.theme_id!=null ||
                   (this.post.Group.Community.configuration && this.post.Group.Community.configuration.themeOverrideColorPrimary))) {
-        this.setTheme(this.post.Group.Community.theme_id, this.post.Group.Community.configuration);
-      } else {
-        this.setTheme(1);
       }
-
 
       if (!this.post.Group.Community) {
         console.error("No community!");
         debugger;
-      }
-
-      if (window.appGlobals) {
-        window.appGlobals.setCommunityAnalyticsTracker(this.post.Group.Community.google_analytics_code);
-
-        if (this.post.Group.Community.configuration) {
-          window.appGlobals.setCommunityPixelTracker(this.post.Group.Community.configuration.facebookPixelId);
-        }
-        window.appGlobals.setAnonymousGroupStatus(this.post.Group);
-      }
-
-      if (this.post.Group.configuration && this.post.Group.configuration.defaultLocale!=null) {
-        window.appGlobals.changeLocaleIfNeeded(this.post.Group.configuration.defaultLocale);
-      }
-
-      if (this.post.Group.configuration && this.post.Group.configuration.locationHidden!=undefined) {
-        this.set('locationHidden', this.post.Group.configuration.locationHidden);
-      } else {
-        this.set('locationHidden', false);
       }
 
       /*
@@ -609,43 +581,6 @@ Polymer({
         this.setupTopHeaderImage(this.post.Group.Community.CommunityHeaderImage);
       }
       */
-      this.fire("change-header", { headerTitle: this.truncate(this.post.Group.name,80),
-        documentTitle: this.post.name,
-        headerDescription: '',//this.truncate(this.post.Group.objectives,45),
-        backPath: "/group/" + this.post.group_id,
-        backListItem: this.post,
-        hideHelpIcon: (this.post.Group.configuration && this.post.Group.configuration.hideHelpIcon) ? true : null,
-      });
-
-      this.$.pagesAjax.url = "/api/groups/"+this.post.Group.id+"/pages";
-      this.$.pagesAjax.generateRequest();
-
-      if (this.post.Group.configuration && this.post.Group.configuration.disableFacebookLoginForGroup===true) {
-        window.appGlobals.disableFacebookLoginForGroup = true;
-      } else {
-        window.appGlobals.disableFacebookLoginForGroup = false;
-      }
-      this.fire('yp-set-home-link', {
-        type: 'group',
-        id: this.post.Group.id,
-        name: this.post.Group.name
-      });
-
-      if (this.post.Group && this.post.Group.Community && this.post.Group.Community.configuration &&
-        this.post.Group.Community.configuration.signupTermsPageId &&
-        this.post.Group.Community.configuration.signupTermsPageId!=-1) {
-        window.appGlobals.signupTermsPageId = this.post.Group.Community.configuration.signupTermsPageId;
-      } else {
-        window.appGlobals.signupTermsPageId = null;
-      }
-
-      window.appGlobals.currentGroup = this.post.Group;
-
-      if (this.post.Group.configuration && this.post.Group.configuration.forceSecureSamlLogin) {
-        window.appGlobals.currentGroupForceSaml = true;
-      } else {
-        window.appGlobals.currentGroupForceSaml = false;
-      }
     }
   },
 

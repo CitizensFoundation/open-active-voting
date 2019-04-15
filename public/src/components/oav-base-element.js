@@ -40,10 +40,10 @@ export class OavBaseElement extends LitElement {
 
   localize() {
     var key = arguments[0];
-    if (!key || !window.localeResources || !this.language || !window.localeResources[this.language])
-      return;
+    if (!key || !window.localeResources || !(this.language && window.language) || !window.localeResources[this.language])
+      return key;
 
-    var translatedValue = window.localeResources[this.language][key];
+    var translatedValue = window.localeResources[this.language || window.language][key];
 
     if (!translatedValue) {
       return key;

@@ -2,9 +2,12 @@ import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import './yp-app-icons.js';
+
 import { ypRemoveClassBehavior } from './yp-remove-class-behavior.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -92,7 +95,8 @@ Polymer({
   is: 'yp-point-actions',
 
   behaviors: [
-    ypRemoveClassBehavior
+    ypRemoveClassBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {

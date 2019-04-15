@@ -6,6 +6,7 @@ import { ypMediaFormatsBehavior } from './yp-media-formats-behavior.js';
 import './yp-user-image.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
 
 Polymer({
   _template: html`
@@ -84,7 +85,8 @@ Polymer({
   is: 'yp-user-with-organization',
 
   behaviors: [
-    ypMediaFormatsBehavior
+    ypMediaFormatsBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {

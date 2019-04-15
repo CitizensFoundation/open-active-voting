@@ -15,6 +15,8 @@ import { YpPostBehavior } from './yp-post-behaviors.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -391,7 +393,8 @@ Polymer({
   behaviors: [
     YpPostBehavior,
     ypTruncateBehavior,
-    ypMediaFormatsBehavior
+    ypMediaFormatsBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {

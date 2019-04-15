@@ -9,6 +9,8 @@ import './yp-point-actions.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -361,7 +363,8 @@ Polymer({
   },
 
   behaviors: [
-    ypMediaFormatsBehavior
+    ypMediaFormatsBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   _videoOrAudioActive: function (videoActive, audioActive) {
@@ -467,7 +470,7 @@ Polymer({
   },
 
   _hasPointAccess: function (point) {
-    return this.checkPointAccess(point);
+    return false;
   },
 
   _canEditPoint: function (point) {

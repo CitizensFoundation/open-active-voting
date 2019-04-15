@@ -3,6 +3,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import '@polymer/paper-material/paper-material.js';
 import '@polymer/paper-radio-button/paper-radio-button.js';
 import '@polymer/paper-radio-group/paper-radio-group.js';
+import '@polymer/iron-list/iron-list.js';
 import './yp-app-icons.js';
 import './yp-iron-list-behavior.js';
 import './yp-point.js';
@@ -10,6 +11,8 @@ import { ypTruncateBehavior } from './yp-truncate-behavior.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { ypLocalizationBridgeBehavior } from './yp-localization-bridge-behavior.js';
+
 Polymer({
   _template: html`
     <style include="iron-flex iron-flex-alignment">
@@ -24,7 +27,7 @@ Polymer({
 
       .main-container {
         @apply --layout-horizontal;
-        background-color: var(--primary-background-color);
+        background-color: var(--app-main-backround-color, #e0e0e0);
       }
 
       .point {
@@ -100,7 +103,7 @@ Polymer({
       }
 
       .point .main-container .topContainer {
-        background-color: var(--primary-background-color) !important;
+        background-color: var(--app-main-backround-color, #e0e0e0);
       }
 
       .penContainer {
@@ -277,59 +280,6 @@ Polymer({
                 [[post.Group.configuration.alternativePointForHeader]]
               </div>
             </template>
-
-            <paper-material id="pointUpMaterial" elevation="1" class="pointInputMaterial layout vertical" animated="" hidden\$="[[post.Group.configuration.disableDebate]]">
-
-              <paper-textarea id="up_point" on-tap="focusUpPoint" on-focus="focusTextArea" on-blur="blurTextArea" value="{{textValueUp}}" label\$="[[labelUp]]" always-float-label="[[_floatIfValueOrIE()]]" char-counter="" rows="2" hidden\$="[[hideUpText]]" max-rows="3" maxlength="500">
-              </paper-textarea>
-
-              <div class="horizontal end-justified layout" hidden\$="[[post.Group.configuration.hideEmoji]]">
-                <emoji-selector id="pointUpEmojiSelector" hidden\$="[[hideUpText]]"></emoji-selector>
-              </div>
-
-              <div class="layout horizontal center-justified">
-                <template is="dom-if" if="[[post.Group.configuration.allowPointVideoUploads]]">
-                  <div hidden\$="[[hideUpVideo]]" class="uploadSection">
-                    <div class="layout vertical center-center self-start" hidden\$="[[!loggedInUser]]">
-                      <yp-file-upload id="videoFileUploadUp" upload-limit-seconds="[[post.Group.configuration.videoPointUploadLimitSec]]" current-file="{{hasCurrentUpVideo}}" container-type="points" group="[[post.Group]]" raised="true" multi="false" video-upload="" method="POST" on-success="_videoUpUploaded">
-                        <iron-icon class="icon" icon="videocam"></iron-icon>
-                        <span>[[t('uploadVideoPointFor')]]</span>
-                      </yp-file-upload>
-                    </div>
-                    <div class="layout horizontal center-center">
-                      <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                        <iron-icon class="icon" icon="videocam"></iron-icon>
-                        [[t('uploadVideoPointFor')]]
-                      </paper-button>
-                    </div>
-                  </div>
-                </template>
-
-                <template is="dom-if" if="[[post.Group.configuration.allowPointAudioUploads]]">
-                  <div hidden\$="[[hideUpAudio]]" class="uploadSection">
-                    <div class="layout vertical center-center" hidden\$="[[!loggedInUser]]">
-                      <yp-file-upload id="audioFileUploadUp" current-file="{{hasCurrentUpAudio}}" container-type="points" upload-limit-seconds="[[post.Group.configuration.audioPointUploadLimitSec]]" group="[[post.Group]]" raised="true" multi="false" audio-upload="" method="POST" on-success="_audioUpUploaded">
-                        <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-                        <span>[[t('uploadAudioPointFor')]]</span>
-                      </yp-file-upload>
-                    </div>
-                    <div class="layout horizontal center-center">
-                      <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                        <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-                        [[t('uploadAudioPointFor')]]
-                      </paper-button>
-                    </div>
-                  </div>
-                </template>
-              </div>
-
-              <div hidden="[[!ifLengthUpIsRight]]">
-                <div class="addPointFab layout horizontal center-center">
-                  <paper-button raised="" class="submitButton" disabled\$="[[addPointDisabled]]" icon="add" mini="" elevation="3" on-tap="addPointUp" title="[[t('point.add_up')]]">[[t('postPoint')]]</paper-button>
-                </div>
-              </div>
-            </paper-material>
-
             <div id="allUpPoints">
               <iron-list id="ironListUp" items="[[upPoints]]" as="point" scroll-target="document" scroll-offset="550">
                 <template>
@@ -356,59 +306,6 @@ Polymer({
               </div>
             </template>
 
-
-            <paper-material id="pointDownMaterial" elevation="1" class="pointInputMaterial layout vertical" animated="" hidden\$="[[post.Group.configuration.disableDebate]]">
-
-              <paper-textarea id="down_point" on-tap="focusDownPoint" on-focus="focusTextArea" on-blur="blurTextArea" value="{{textValueDown}}" label\$="[[labelDown]]" char-counter="" rows="2" hidden\$="[[hideDownText]]" always-float-label="[[_floatIfValueOrIE()]]" max-rows="5" maxlength="500">
-              </paper-textarea>
-
-              <div class="horizontal end-justified layout" hidden\$="[[post.Group.configuration.hideEmoji]]">
-                <emoji-selector id="pointDownEmojiSelector" hidden\$="[[hideDownText]]"></emoji-selector>
-              </div>
-
-              <div class="layout horizontal center-justified">
-                <template is="dom-if" if="[[post.Group.configuration.allowPointVideoUploads]]">
-                  <div hidden\$="[[hideDownVideo]]" class="uploadSection">
-                    <div class="layout vertical center-center self-start" hidden\$="[[!loggedInUser]]">
-                      <yp-file-upload id="videoFileUploadDown" current-file="{{hasCurrentDownVideo}}" container-type="points" upload-limit-seconds="[[post.Group.configuration.videoPointUploadLimitSec]]" group="[[post.Group]]" raised="true" multi="false" video-upload="" method="POST" on-success="_videoDownUploaded">
-                        <iron-icon class="icon" icon="videocam"></iron-icon>
-                        <span>[[t('uploadVideoPointAgainst')]]</span>
-                      </yp-file-upload>
-                    </div>
-                    <div class="layout horizontal center-center">
-                      <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                        <iron-icon class="icon" icon="videocam"></iron-icon>
-                        [[t('uploadVideoPointAgainst')]]
-                      </paper-button>
-                    </div>
-                  </div>
-                </template>
-
-                <template is="dom-if" if="[[post.Group.configuration.allowPointAudioUploads]]">
-                  <div hidden\$="[[hideDownAudio]]" class="uploadSection">
-                    <div class="layout vertical center-center" hidden\$="[[!loggedInUser]]">
-                      <yp-file-upload id="audioFileUploadDown" current-file="{{hasCurrentDownAudio}}" container-type="points" upload-limit-seconds="[[post.Group.configuration.audioPointUploadLimitSec]]" group="[[post.Group]]" raised="true" multi="false" audio-upload="" method="POST" on-success="_audioDownUploaded">
-                        <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-                        <span>[[t('uploadAudioPointAgainst')]]</span>
-                      </yp-file-upload>
-                    </div>
-                    <div class="layout horizontal center-center">
-                      <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                        <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-                        [[t('uploadAudioPointAgainst')]]
-                      </paper-button>
-                    </div>
-                  </div>
-                </template>
-              </div>
-
-              <div hidden="[[!ifLengthDownIsRight]]">
-                <div class="addPointFab layout horizontal center-center">
-                  <paper-button raised="" disabled\$="[[addPointDisabled]]" icon="add" elevation="3" on-tap="addPointDown" title="[[t('point.add_down')]]">[[t('postPoint')]]</paper-button>
-                </div>
-              </div>
-            </paper-material>
-
             <div id="allDownPoints">
               <iron-list id="ironListDown" items="[[downPoints]]" as="point" scroll-target="document" scroll-offset="550">
                 <template>
@@ -427,72 +324,7 @@ Polymer({
 
     <template is="dom-if" if="[[!largeMode]]" restamp="">
       <div class="layout vertical center-center">
-        <paper-material id="pointUpOrDownMaterial" elevation="1" class="pointInputMaterial layout vertical" animated="" hidden\$="[[post.Group.configuration.disableDebate]]">
-          <paper-textarea id="mobileUpOrDownPoint" class="mobilePaperTextArea" on-tap="focusDownPoint" on-focus="focusTextArea" on-blur="blurTextArea" value="{{textValueMobileUpOrDown}}" label="[[labelMobileUpOrDown]]" char-counter="" rows="2" hidden\$="[[hideMobileText]]" max-rows="3" maxlength="500"></paper-textarea>
-          <div class="layout vertical end-justified">
-            <div class="layout horizontal center-center pointButtons">
-              <paper-radio-group id="upOrDown" attribute-for-selected="name" class="layout horizontal" selected="{{pointUpOrDownSelected}}">
-                <paper-radio-button name="pointFor">[[t('pointForShort')]]</paper-radio-button>
-                <paper-radio-button name="pointAgainst">[[t('pointAgainstShort')]]</paper-radio-button>
-              </paper-radio-group>
-              <div class="flex"></div>
-              <div hidden\$="[[hideMobileText]]">
-                <emoji-selector id="pointUpDownEmojiSelector" hidden\$="[[post.Group.configuration.hideEmoji]]"></emoji-selector>
-              </div>
-            </div>
 
-            <div class="layout horizontal center-justified">
-              <template is="dom-if" if="[[post.Group.configuration.allowPointVideoUploads]]">
-                <div hidden\$="[[hideMobileVideo]]" class="uploadSection">
-                  <div class="layout vertical center-center self-start" hidden\$="[[!loggedInUser]]">
-                    <yp-file-upload id="videoFileUploadMobile" current-file="{{hasCurrentMobileVideo}}" container-type="points" upload-limit-seconds="[[post.Group.configuration.videoPointUploadLimitSec]]" group="[[post.Group]]" raised="true" multi="false" video-upload="" method="POST" on-success="_videoMobileUploaded">
-                      <iron-icon class="icon" icon="videocam"></iron-icon>
-
-                      <span hidden\$="[[!selectedPointForMobile]]">[[t('uploadVideoPointFor')]]</span>
-                      <span hidden\$="[[selectedPointForMobile]]">[[t('uploadVideoPointAgainst')]]</span>
-                    </yp-file-upload>
-                  </div>
-                  <div class="layout horizontal center-center">
-                    <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                      <iron-icon class="icon" icon="videocam"></iron-icon>
-                      <span hidden\$="[[!selectedPointForMobile]]">[[t('uploadVideoPointFor')]]</span>
-                      <span hidden\$="[[selectedPointForMobile]]">[[t('uploadVideoPointAgainst')]]</span>
-                    </paper-button>
-                  </div>
-                </div>
-              </template>
-              <template is="dom-if" if="[[post.Group.configuration.allowPointAudioUploads]]">
-                <div hidden\$="[[hideMobileAudio]]" class="uploadSection">
-                  <div class="layout vertical center-center  self-start" hidden\$="[[!loggedInUser]]">
-                    <yp-file-upload id="audioFileUploadMobile" current-file="{{hasCurrentMobileAudio}}" container-type="points" upload-limit-seconds="[[post.Group.configuration.audioPointUploadLimitSec]]" group="[[post.Group]]" raised="true" multi="false" audio-upload="" method="POST" on-success="_audioMobileUploaded">
-                      <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-
-                      <span hidden\$="[[!selectedPointForMobile]]">[[t('uploadAudioPointFor')]]</span>
-                      <span hidden\$="[[selectedPointForMobile]]">[[t('uploadAudioPointAgainst')]]</span>
-                    </yp-file-upload>
-                  </div>
-                  <div class="layout horizontal center-center">
-                    <paper-button class="uploadNotLoggedIn" raised="" hidden\$="[[loggedInUser]]" on-tap="_openLogin">
-                      <iron-icon class="icon" icon="keyboard-voice"></iron-icon>
-                      <span hidden\$="[[!selectedPointForMobile]]">[[t('uploadAudioPointFor')]]</span>
-                      <span hidden\$="[[selectedPointForMobile]]">[[t('uploadAudioPointAgainst')]]</span>
-                    </paper-button>
-                  </div>
-                </div>
-              </template>
-            </div>
-
-          </div>
-          <div hidden="[[!ifLengthMobileRight]]">
-            <div class="addPointFab layout horizontal center-center mobileFab">
-              <paper-button raised="" disabled\$="[[addPointDisabled]]" icon="add" elevation="3" on-tap="addMobilePointUpOrDown" title="[[t('postPoint')]]">
-                <span hidden\$="[[!selectedPointForMobile]]">[[t('postPointFor')]]</span>
-                <span hidden\$="[[selectedPointForMobile]]">[[t('postPointAgainst')]]</span>
-              </paper-button>
-            </div>
-          </div>
-        </paper-material>
-      </div>
       <div class="layout vertical center-center">
         <iron-list id="ironListMobile" debate-disabled\$="[[post.Group.configuration.disableDebate]]" items="[[points]]" as="point" scroll-target="document" scroll-offset="[[mobileScrollOffset]]">
           <template>
@@ -518,6 +350,7 @@ Polymer({
 
   behaviors: [
     ypTruncateBehavior,
+    ypLocalizationBridgeBehavior
   ],
 
   properties: {
@@ -1235,7 +1068,6 @@ Polymer({
       };
       ajax.addEventListener('response', function (event, detail) {
         this._completeNewPointResponse(event, event.detail);
-        window.appGlobals.showSpeechToTextInfoIfNeeded();
       }.bind(this));
       ajax.generateRequest();
     } else if (this.currentAudioId) {
@@ -1251,7 +1083,6 @@ Polymer({
       };
       ajax.addEventListener('response', function (event, detail) {
         this._completeNewPointResponse(event, event.detail);
-        window.appGlobals.showSpeechToTextInfoIfNeeded();
       }.bind(this));
       ajax.generateRequest();
     } else {
@@ -1279,11 +1110,6 @@ Polymer({
     this.set('post.counter_points', this.post.counter_points + 1);
     this.$.newPointToast.show();
     this._updateCounterInfo();
-    if (point.value > 0) {
-      window.appGlobals.activity('completed', 'newPointFor');
-    } else {
-      window.appGlobals.activity('completed', 'newPointAgainst');
-    }
     this._clearVideo();
     this._clearAudio();
   },
@@ -1328,11 +1154,9 @@ Polymer({
   },
 
   focusUpPoint: function () {
-    window.appGlobals.activity('focus', 'pointUp');
   },
 
   focusDownPoint: function () {
-    window.appGlobals.activity('focus', 'pointDown');
   },
 
   focusTextArea: function (event) {
