@@ -274,9 +274,9 @@ class OavAreaBallotItem extends OavBaseElement {
   _showPost() {
     this.activity('click', 'showPost');
     window.appLastArea = '/'+window.location.hash;
-    window.history.pushState({}, null, "/post/"+this.item.idea_id);
-    debugger;
-    this.fire('location-changed');
+    const path = "/post/"+this.item.idea_id;
+    window.history.pushState({}, null, path);
+    this.fire('location-changed', path);
   }
 
   _itemShareUrl() {

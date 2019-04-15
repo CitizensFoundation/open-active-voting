@@ -151,16 +151,18 @@ class OavApp extends OavBaseElement {
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
             .areaIdRoutePath="${this._subPath}"
+            ?hidden="${this._page !== 'area-ballot'}"
             .votePublicKey="${this.votePublicKey}"
             ?active="${this._page === 'area-ballot'}">
           </oav-area-ballot>
           <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
-          <yp-post .id="post"
+          <yp-post
+            .id="post"
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
             .postId="${this._subPath}"
             .host="${this.postsHost}"
-            ?active="${this._page === 'post'}">
+            ?hidden="${this._page !== 'post'}">
           </yp-post>
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
         </main>
@@ -179,9 +181,6 @@ class OavApp extends OavBaseElement {
     }
     super();
     setPassiveTouchGestures(true);
-    this._page = "budget-ballot";
-    this._subPage = "1";
-    this.favoriteIcon = "star";
     this._boot();
   }
 
@@ -208,6 +207,7 @@ class OavApp extends OavBaseElement {
         window.localeResources = response.config.locales;
         this.configFromServer = response.config;
         this.postsHost = "https://yrpri.org";
+        this.favoriteIcon = "star";
         window.language = this.language;
         window.localize = this.localize;
       })
@@ -507,9 +507,9 @@ class OavApp extends OavBaseElement {
   }
 
   _locationChanged(location) {
-    debugger;
-    if (!location)
-      location = window.location;
+    if (location instanceof CustomEvent)
+      location = { pathname: location.detail };
+
     const path = window.decodeURIComponent(location.pathname);
     const page = path === '/' ? 'view1' : path.slice(1).split("/")[0];
 
