@@ -51,6 +51,9 @@ export const OavAppStyles = css`
       border-bottom-color: var(--paper-orange-a700);
     };
 
+    --primary-color-more-darker: var(--app-main-backround-color, #333);
+    --primary-color: var(--app-main-backround-color, #333);
+
     color: var(--app-text-color);
 
     --app-header-background-color: var(--app-primary-color);

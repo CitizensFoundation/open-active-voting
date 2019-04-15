@@ -63,8 +63,8 @@ Polymer({
       .post-name {
         margin: 0;
         font-size: var(--extra-large-heading-size, 28px);
-        background-color: var(--primary-color-600);
-        color: #FFF;
+        background-color: var(--app-primary-color);
+        color: var(--app-text-color, #FFF);
         padding: 16px;
         cursor: pointer;
         font-weight: bold;
@@ -102,7 +102,8 @@ Polymer({
 
       .postCard {
         width: 960px;
-        background-color: #fff;
+        background-color: var(--app-post-card-background-color, #fff);
+        color: var(--app-post-card-color, #000);
         @apply --layout-horizontal;
         position: relative;
       }
@@ -111,6 +112,7 @@ Polymer({
         padding-bottom: 2px;
         padding-left: 8px;
         padding-right: 8px;
+        color: var(--app-post-card-color, #000);
         margin-bottom: 42px;
       }
 

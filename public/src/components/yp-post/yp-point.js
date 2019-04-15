@@ -17,6 +17,7 @@ Polymer({
       :host {
         display: block;
         @apply --layout-vertical;
+        color: #333;
       }
 
       .point-content {

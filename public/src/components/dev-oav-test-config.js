@@ -7,6 +7,11 @@ import { css } from 'lit-element';
 
 export const DevOavConfig = JSON.parse(`
   {
+    "cssProperties": [
+      {
+        "--app-primary-color": "#00F"
+      }
+    ],
     "locales": {
       "en": {
         "pointsFor": "Points for",

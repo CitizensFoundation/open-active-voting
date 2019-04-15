@@ -29,7 +29,7 @@ import './oav-area-budget';
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
 import { OavFlexLayout } from './oav-flex-layout.js';
-import { DevOavConfig } from './dev-oav-test-config.js/index.js';
+import { DevOavConfig } from './dev-oav-test-config.js';
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -188,7 +188,9 @@ class OavApp extends OavBaseElement {
   _setupCustomCss(config) {
     if (config.cssProperties) {
       config.cssProperties.forEach(property => {
-        this.shadowRoot.style.setProperty(property.key, property.value);
+        const propName = Object.keys(property)[0];
+        const propValue = Object.values(property)[0];
+        this.shadowRoot.host.style.setProperty(propName, propValue);
       });
     }
   }
@@ -233,6 +235,7 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-set-ballot-element", this._setBallotElement);
     this.addEventListener("oav-set-budget-element", this._setBudgetElement);
     this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    this.addEventListener("location-changed", this._locationChanged);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
   }
 
@@ -250,6 +253,8 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-error", this._errorHandler);
     this.removeEventListener("oav-set-area", this._setArea);
     this.removeEventListener("oav-clear-area", this._clearArea);
+    this.removeEventListener("oav-set-area", this._setArea);
+    this.removeEventListener("location-changed", this._locationChanged);
     this.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
     this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
     this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
@@ -352,12 +357,14 @@ class OavApp extends OavBaseElement {
     dialog.showErrorDialog(detail);
   }
 
-  _exit() {
+  _exit () {
     if (this._page==='post' && window.appLastArea) {
-      window.location = window.appLastArea;
+      window.history.pushState({}, null, window.appLastArea);
+      window.dispatchEvent(new CustomEvent('location-changed'));
       window.appLastArea = null;
     } else {
-      window.location = "/#/";
+      window.history.pushState({}, null, "/");
+      window.dispatchEvent(new CustomEvent('location-changed'));
     }
   }
 
@@ -500,6 +507,9 @@ class OavApp extends OavBaseElement {
   }
 
   _locationChanged(location) {
+    debugger;
+    if (!location)
+      location = window.location;
     const path = window.decodeURIComponent(location.pathname);
     const page = path === '/' ? 'view1' : path.slice(1).split("/")[0];
 
@@ -524,6 +534,8 @@ class OavApp extends OavBaseElement {
         page = 'view404';
         import('./oav-view404.js');
     }
+
+    debugger;
 
     this._page = page;
   }
