@@ -194,4 +194,8 @@ export const OavAppStyles = css`
     width: 50px;
     height: 50px;
   }
+
+  [hidden] {
+    display: none !important;
+  }
 `;
