@@ -93,11 +93,11 @@ export const OavAreaBallotItemStyles = css`
     width: 300px;
     margin: 0;
     overflow: hidden;
-    background-color: var(--app-ballot-item-description-background-color,--paper-blue-700);
     font-size: 18px;
-    color: var(--app-ballot-item-description-color, #FFF);
     font-weight: bold;
     text-align: left;
+    background-color: var(--app-ballot-item-description-background-color, #333);
+    color: var(--app-ballot-item-description-color, #FFF);
   }
 
   .descriptionContainer[small] {

@@ -198,9 +198,9 @@ class OavAreaBallotItem extends OavBaseElement {
 
     if (changedProps.has('item')) {
       if (this.item) {
-        if (this.item.locations && newItem.locations.length>0) {
+        if (this.item.locations && this.item.locations.length>0) {
           this.longitude = this.item.locations[0].longitude;
-          this.latitude = this.locations[0].latitude;
+          this.latitude = this.item.locations[0].latitude;
         }
         this.resetFromBudget();
       }
@@ -242,6 +242,8 @@ class OavAreaBallotItem extends OavBaseElement {
     this.selectedInBudget = false;
     this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
     this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
+    this.mapsHeight = '169';
+    this.mapsWidth = '300';
   }
 
   _imageLoadedChanged(event) {

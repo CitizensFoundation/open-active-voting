@@ -130,8 +130,8 @@ class OavAreaBallot extends PageViewElement {
       this.oldFavoriteItem = null;
       this.favoriteItem = null;
       if (this.areaId) {
-        //this.reset();
-        //this.fire('ak-clear-area');
+        this.reset();
+        this.fire('ak-clear-area');
         fetch("/votes/get_ballot?area_id="+this.areaId)
         .then(res => res.json())
         .then(response => {
@@ -157,7 +157,7 @@ class OavAreaBallot extends PageViewElement {
     }
 
     if (changedProps.has('favoriteItem')) {
-      this.oldFavoriteItem = changedProps.has('favoriteItem');
+      this.oldFavoriteItem = changedProps.get('favoriteItem');
       if (!this.favoriteItem && this.oldFavoriteItem) {
         this.fire("oav-hide-favorite-item");
       }

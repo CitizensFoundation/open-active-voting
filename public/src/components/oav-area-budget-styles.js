@@ -72,7 +72,7 @@ export const OavAreaBudgetStyles = css`
 
   .budgetHeader {
     background-color: var(--app-budget-header-background-color, #FFF);
-    color: var(--app-budget-header-color, #FFF);
+    color: var(--app-budget-header-color, #000);
     font-size: 26px;
     padding: 12px;
   }
@@ -82,7 +82,6 @@ export const OavAreaBudgetStyles = css`
     color: var(--app-budget-info-color, #111);
     padding: 4px;
     font-size: 12px;
-    color: #111;
   }
 
   .info[wide] {
@@ -121,11 +120,13 @@ export const OavAreaBudgetStyles = css`
   }
 
   .noItemsInfo {
-    width: 100%;
     color: var(--app-budget-noitemsinfo-color, #555);
     font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 32px
   }
 
   .noItemsInfo[wide] {
@@ -154,13 +155,8 @@ export const OavAreaBudgetStyles = css`
   }
 
   .headerContainer {
-    background-color: #f0f0f0;
-    color: #444;
-
-
-    background-color: var(--app-budget-header-container-background-color);
-    color: var(--app-budget-vote-button-color, #FFF);
-
+    background-color: var(--app-budget-header-container-background-color, #f0f0f0);
+    color: var(--app-budget-vote-button-color, #444)
   }
 
   .demoButton {

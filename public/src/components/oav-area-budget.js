@@ -124,7 +124,8 @@ class OavAreaBudget extends OavBaseElement {
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
             <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="close" @click="${this._exit}"></paper-icon-button>
             <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
-            <div class="flex layout vertical center-center">
+            <div class="vertical center-center" style="width: 100%;">
+              <div class="flex">
               ${!this.selectedBudget && this.areaName ?
                 html`
                   <div ?hidden="${!this.wide}">${this.localize('budget_info_text', 'area_name', this.areaName)}</div>
@@ -158,21 +159,22 @@ class OavAreaBudget extends OavBaseElement {
               <div id="budgetLeftInfo" ?wide="${this.wide}">
                 ${this.localize('budget_left_text','budget_left', this.budgetLeft)}
               </div>
+              </div>
             </div>
             <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" icon="help-outline" @click="${this._help}"></paper-icon-button>
             <div>
               <paper-button id="votingButton" raised class="voteButton" @click="${this._submitVote}">${this.localize('vote')}</paper-button>
             </div>
           </div>
-          <div id="votes" class="layout horizontal" ?wide="${this.wide}">
-            <div id="noItems" class="layout horizontal center-center noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
+          <div id="votes" class="layout horizontal center-center" ?wide="${this.wide}">
+            <div id="noItems" class="layout horizontal noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
               ${this.totalBudget ?
               html`
                 <div ?hidden="${!this.wide}" class="onOfferText">
                   ${this.localize('budget_empty_info_1', "amount", this.budgetLeft)}
                 </div>
                 <div>${this.localize('budget_empty_info_2')}</div>
-                <paper-fab mini id="x" .elevation="5" disabled class="demoButton" icon="add"></paper-fab>
+                <paper-fab mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
                 <div>${this.localize('budget_empty_info_3')}</div>
               `
               :

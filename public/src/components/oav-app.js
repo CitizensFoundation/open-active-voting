@@ -178,6 +178,7 @@ class OavApp extends OavBaseElement {
     setPassiveTouchGestures(true);
     this._page = "budget-ballot";
     this._subPage = "1";
+    this.favoriteIcon = "star";
     this._boot();
   }
 
@@ -266,30 +267,30 @@ class OavApp extends OavBaseElement {
     const detail = event.detail;
 
     if (detail.item) {
-      var transformLeft, transformTop;
+      setTimeout(() => {
+        var transformLeft, transformTop;
 
-      if (this.$$("#favoriteIcon").hidden===true) {
-        this.$$("#favoriteIcon").style.position = "absolute";
-        this.$$("#favoriteIcon").style.left = detail.orgAnimPos.left+"px";
-        this.$$("#favoriteIcon").style.top = detail.orgAnimPos.top+"px";
+        if (this.$$("#favoriteIcon").hidden===true) {
+          this.$$("#favoriteIcon").style.position = "absolute";
+          this.$$("#favoriteIcon").style.left = detail.orgAnimPos.left+"px";
+          this.$$("#favoriteIcon").style.top = detail.orgAnimPos.top+"px";
 
-        transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
-        transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
-      } else {
-        var oldBudgetAnimPos = this.$.budget.getItemLeftTop(this.$$("#budgetBallot").oldFavoriteItem);
-        if (oldBudgetAnimPos) {
-          transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
-          transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
-        } else {
-          console.error("Can't find old item");
           transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
           transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+        } else {
+          var oldBudgetAnimPos = this.currentBallot.oldFavoriteItem ? this.budgetElement.getItemLeftTop(this.currentBallot.oldFavoriteItem) : null;
+          if (oldBudgetAnimPos) {
+            transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
+            transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
+          } else {
+            console.warn("Can't find old item");
+            transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
+            transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+          }
         }
-      }
 
-      this.$$("#favoriteIcon").hidden = false;
+        this.$$("#favoriteIcon").hidden = false;
 
-      setTimeout(function () {
         this.$$("#favoriteIcon").style.position = "absolute";
         this.$$("#favoriteIcon").style.left = detail.budgetAnimPos.left+"px";
         this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top+"px";
@@ -310,7 +311,7 @@ class OavApp extends OavBaseElement {
           this.$$("#favoriteIcon").style.left = detail.budgetAnimPos.left+"px";
           this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top+"px";
         }.bind(this);
-      }.bind(this));
+      });
     }
   }
 
@@ -360,9 +361,9 @@ class OavApp extends OavBaseElement {
 
   resetSizeWithDelay() {
     clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(function() {
+    this.resizeTimer = setTimeout(() => {
       this.resetFavoriteIconPosition();
-    }.bind(this), 250);
+    }, 250);
   }
 
   _translationLoaded() {

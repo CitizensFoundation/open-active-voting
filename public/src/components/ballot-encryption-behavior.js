@@ -70,7 +70,7 @@ const certParser = function (cert) {
 }
 
 const fire = function(eventName, data) {
-  debugger;
+  debugger
   const event = new CustomEvent(eventName, { detail: data });
   document.dispatchEvent(event);
 }
@@ -92,7 +92,7 @@ export function encryptVote(votePublicKey, selectedItemIds) {
         var tree = asn.toHexTree();
         //setting the public key for encryption
         rsa.setPublicKeyFromASN(tree);
-        crypted = rsa.encrypt(JSON.stringify(selectedItemIds));
+        var crypted = rsa.encrypt(JSON.stringify(selectedItemIds));
         encryptedVote = pidCryptUtil.fragment(pidCryptUtil.encodeBase64(pidCryptUtil.convertFromHex(crypted)),64);
         return encryptedVote;
       } catch(err) {
