@@ -1,6 +1,9 @@
 {
   "entrypoint": "index.html",
   "shell": "src/components/oav-app.js",
+  "fragments": [
+    "yp-post/yp-post.js"
+  ],
   "sources": [
     "images/**/*"
   ],

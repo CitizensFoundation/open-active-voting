@@ -508,7 +508,7 @@ class OavApp extends OavBaseElement {
   _loadPage(page) {
     switch(page) {
       case 'post':
-     //   import('./yp-post/yp-post.js');
+        import('./yp-post/yp-post.js');
         break;
       case 'area-ballot':
       case 'voting-completed':
