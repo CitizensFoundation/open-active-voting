@@ -9,7 +9,7 @@ export const DevOavConfig = JSON.parse(`
   {
     "cssProperties": [
       {
-        "--app-primary-color": "#00F"
+        "--app-primary-color": "#333"
       }
     ],
     "locales": {
