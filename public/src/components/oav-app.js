@@ -1,11 +1,6 @@
 /**
 @license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+Copyright (c) 2010-2019 Citizens Foundation. AGPL License. All rights reserved.
 */
 
 import { LitElement, html, css } from 'lit-element';
@@ -177,7 +172,7 @@ class OavApp extends OavBaseElement {
 
   constructor() {
     window.__localizationCache = {
-      messages: {}, /* Unique localized strings. Invalidated when the language */
+      messages: {},
     }
     super();
     setPassiveTouchGestures(true);
@@ -208,6 +203,10 @@ class OavApp extends OavBaseElement {
         this.configFromServer = response.config;
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "star";
+        this.oneBallotId = 1;
+        const path = "/area-ballot/"+this.oneBallotId;
+        window.history.pushState({}, null, path);
+        this.fire('location-changed', path);
         window.language = this.language;
         window.localize = this.localize;
       })
@@ -358,13 +357,14 @@ class OavApp extends OavBaseElement {
   }
 
   _exit () {
+    debugger;
     if (this._page==='post' && window.appLastArea) {
       window.history.pushState({}, null, window.appLastArea);
-      window.dispatchEvent(new CustomEvent('location-changed'));
+      this.fire('location-changed', window.appLastArea);
       window.appLastArea = null;
     } else {
       window.history.pushState({}, null, "/");
-      window.dispatchEvent(new CustomEvent('location-changed'));
+      this.fire('location-changed', '/');
     }
   }
 
@@ -510,8 +510,18 @@ class OavApp extends OavBaseElement {
     if (location instanceof CustomEvent)
       location = { pathname: location.detail };
 
+    if (location.pathname==="/" && this.oneBallotId) {
+      const path = '/area-ballot/'+this.oneBallotId;
+      window.history.pushState({}, null, path);
+      location = { pathname: path };
+    }
+
+    debugger;
+
     const path = window.decodeURIComponent(location.pathname);
-    const page = path === '/' ? 'view1' : path.slice(1).split("/")[0];
+    const page = path === '/' ? '/' : path.slice(1).split("/")[0];
+
+    debugger;
 
     this._loadPage(page);
     // Any other info you might want to extract from the path (like page type),
@@ -529,6 +539,7 @@ class OavApp extends OavBaseElement {
       case 'area-ballot':
       case 'voting-completed':
       case 'select-voting-area':
+      case '/':
         break;
       default:
         page = 'view404';
