@@ -107,25 +107,19 @@ ActiveRecord::Schema.define(version: 20180330170937) do
   end
 
   create_table "config", force: :cascade do |t|
-    t.string   "rsk_url",                             limit: 255
+    t.string   "auth_url",                            limit: 255
     t.integer  "timeout_in_seconds",                  limit: 4,                     null: false
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
-    t.string   "rsk_soap_username",                   limit: 255
-    t.string   "rsk_soap_password",                   limit: 255
-    t.string   "election_id",                         limit: 255
     t.string   "saml_assertion_consumer_service_url", limit: 255
     t.string   "saml_idp_sso_target_url",             limit: 255
     t.string   "saml_idp_cert_fingerprint",           limit: 255
     t.string   "saml_name_identifier_format",         limit: 255
-    t.string   "rsk_svf_nr",                          limit: 255
     t.boolean  "test_mode",                                         default: false
-    t.string   "soap_url",                            limit: 255
     t.text     "public_key",                          limit: 65535
     t.text     "known_x509_cert",                     limit: 65535
-    t.text     "areas_imagemap",                      limit: 65535
     t.text     "counting_progress",                   limit: 65535
-    t.text     "ideas_without_pdfs",                  limit: 65535
+    t.string   "election_id",                         limit: 255
     t.string   "election_name",                       limit: 255
     t.text     "election_description",                limit: 65535
     t.json     "client_config"

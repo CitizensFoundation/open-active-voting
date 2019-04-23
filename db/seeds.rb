@@ -9,14 +9,13 @@ if Rails.env.test? or Rails.env.development? or Rails.env.production?
   BudgetConfig.delete_all
   c=BudgetConfig.new
   c.timeout_in_seconds = 20
-  c.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+  c.auth_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
   c.election_id = "CA8796EE-7239-497A-96FE-156419E4F9BA"
   c.saml_assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
   c.saml_idp_sso_target_url = "https://ktest.betrireykjavik.is/"
   c.saml_idp_cert_fingerprint = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
   c.saml_name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
   c.public_key = File.open(Rails.root.join("config/public_key.pem")).read
-  c.rsk_svf_nr = %w{0000}
   c.save
 
   puts "Creating test ballots"
@@ -297,12 +296,11 @@ else
   BudgetConfig.delete_all
   c=BudgetConfig.new
   c.timeout_in_seconds = 600
-  c.rsk_url = "https://www.island.is/audkenning?id=kjosa.betrireykjavik.is"
+  c.auth_url = "https://www.island.is/audkenning?id=kjosa.betrireykjavik.is"
   c.election_id = "CA8796EE-7239-497A-96FE-156419E4F9BA"
   c.saml_assertion_consumer_service_url = "https://egov.webservice.is/saml/consume"
   c.saml_idp_sso_target_url = "https://kjosa.betrireykjavik.is/"
   c.saml_idp_cert_fingerprint = "B9:F6:B3:2E:C9:73:F1:47:30:34:1E:05:2B:A5:0A:75:08:CD:1D:26"
   c.saml_name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
-  c.rsk_svf_nr = %w{0000}
   c.save
 end

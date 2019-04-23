@@ -69,7 +69,7 @@ def create_html_doc(area_name,test_ballot_number,selected_ideas_html)
   <h2>Betri hverfi - Forskrift vegna prófana á kosningakerfi</h2>
   <h1>GSUB_NAFN_HVERFIS</h1>
   <h3>Númer þitt er GSUB_NUMERID_THITT</h3>
-  
+
   <h3 style='color:red'>Vinsamlegast kjóstu nákvæmlega eins og sýnt er hér að neðan!</h3>
   <h4 style='color:red'>Ekki gleyma að senda tölvupóst á <a href='betrireykjavik@ibuar.is'>betrireykjavik@ibuar.is</a> með númerinu þínu eftir að þú hefur kosið.</h4>
 
@@ -78,7 +78,7 @@ def create_html_doc(area_name,test_ballot_number,selected_ideas_html)
 <h4>Notandanafn: test2014 </h4>
 <h4>Lykilorð: AizeiNg7 </h4>
 <br />
-  
+
   <table border="0" cellpadding="3" cellspacing="3">
     <tr>
       <td><ul>
@@ -326,23 +326,23 @@ namespace :ballot do
     puts "Area budget: #{area.budget_amount}"
     selected_item_ids = []
     total_price = 0.0
-    (rand(10)+1).times do 
+    (rand(10)+1).times do
       item = all_items[rand(all_items.length-1)]
       puts "Item price: #{item.price}"
       if (area.budget_amount>=total_price+item.price)
         selected_item_ids.push(item.id)
         total_price += item.price
-      else  
+      else
         puts "Item does not fit into budget!"
       end
     end
 
     selected_item_ids = selected_item_ids.uniq
 
-    if (rand(2)==1) 
+    if (rand(2)==1)
       favorite_item_id =  selected_item_ids[rand(selected_item_ids.length-1)]
     end
-    vote = { :selectedItemIds => selected_item_ids, :favoriteItemId => favorite_item_id } 
+    vote = { :selectedItemIds => selected_item_ids, :favoriteItemId => favorite_item_id }
     puts vote.to_json
     vote.to_json
   end
@@ -362,7 +362,7 @@ namespace :ballot do
         vote = create_vote(area_id).to_s
         puts "VoteText: #{vote}"
         puts "VoteObj: #{JSON.parse vote}"
-        payload = Base64.encode64(public_key.public_encrypt(Base64.encode64(vote)))  
+        payload = Base64.encode64(public_key.public_encrypt(Base64.encode64(vote)))
         unless rand(10)==5
           session_id = SecureRandom.hex(20)
         end
@@ -378,7 +378,7 @@ namespace :ballot do
           user_id_hash = "not authenticated"
           authenticated_at = nil
         end
-  
+
         if Vote.create(:user_id_hash => user_id_hash,
           :payload_data => payload,
           :client_ip_address => "127.0.0.1",
@@ -390,7 +390,7 @@ namespace :ballot do
           puts "Vote created"
         else
           puts "CREATE ERROR"
-        end 
+        end
       end
     else
       puts "ERROR - VOTE DATABASE NOT EMPTY"
@@ -416,7 +416,7 @@ namespace :ballot do
   desc "Set ktest config"
   task(:set_ktest_config => :environment) do
     config=BudgetConfig.first
-    config.rsk_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
+    config.auth_url = "https://www.island.is/audkenning?id=ktest.betrireykjavik.is"
     config.saml_idp_cert_fingerprint = "08:95:CE:CC:8B:04:F6:B9:9E:E3:DC:59:B6:A0:C4:CE:E7:7E:86:C9"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
@@ -426,7 +426,7 @@ namespace :ballot do
   desc "Set advania config"
   task(:set_advania_config => :environment) do
     config=BudgetConfig.first
-    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=72821bfa-364b-4a00-9a37-aaa838d1d3b0&returnUrl=https%3A%2F%2Fktest.betrireykjavik.is%2Fauthenticate_from_island_is"
+    config.auth_url = "https://audkenning.vottun.is/Login/Login?electionId=72821bfa-364b-4a00-9a37-aaa838d1d3b0&returnUrl=https%3A%2F%2Fktest.betrireykjavik.is%2Fauthenticate_from_island_is"
     config.saml_idp_cert_fingerprint = "23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
@@ -436,7 +436,7 @@ namespace :ballot do
   desc "Set rvk config"
   task(:set_rvk_config => :environment) do
     config=BudgetConfig.first
-    config.rsk_url = "https://audkenning.vottun.is/Login/Login?electionId=c89bfd2d-1996-4cbd-8fbc-13f09c84503f&returnUrl=https%3A%2F%2Fkosning2018.reykjavik.is%2Fauthenticate_from_island_is"
+    config.auth_url = "https://audkenning.vottun.is/Login/Login?electionId=c89bfd2d-1996-4cbd-8fbc-13f09c84503f&returnUrl=https%3A%2F%2Fkosning2018.reykjavik.is%2Fauthenticate_from_island_is"
     config.saml_idp_cert_fingerprint = "23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5"
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)
@@ -450,7 +450,7 @@ namespace :ballot do
       config=BudgetConfig.new
       config.timeout_in_seconds = 600
     end
-    config.rsk_url = ENV['url']
+    config.auth_url = ENV['url']
     config.saml_idp_cert_fingerprint = ENV['fingerprint']
     config.ideas_without_pdfs = "[]"
     config.save(:validate=>false)

@@ -10,12 +10,9 @@ production:
   database: <%= ENV['APP_DB_DATABASE'] %>
   username: <%= ENV['APP_DB_USERNAME'] %>
   password: <%= ENV['APP_DB_PASSWORD'] %>
-  rsk_soap_username: <%= ENV['SOAP_USERNAME'] %>
-  rsk_soap_password: <%= ENV['SOAP_PASSWORD'] %>
-  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
-  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
+  auth_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
 
-development: 
+development:
   adapter: mysql2
   encoding: utf8
   collation: utf8_general_ci
@@ -24,10 +21,9 @@ development:
   pool: 5
   username: root
   password: bjahdh69
-  rsk_soap_username: 
+  rsk_soap_username:
   rsk_soap_password:
-  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
-  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
+  auth_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
 
 test:
   adapter: mysql2
@@ -36,9 +32,6 @@ test:
   reconnect: true
   database: oav_test
   pool: 5
-  username: root 
+  username: root
   password: bjahdh69
-  rsk_soap_username:
-  rsk_soap_password:
-  rsk_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
-  rr_url: https://rafraen.reykjavik.is/pages/betrireykjavikaudkenning?return_url=ktest.betrireykjavik.is
+  auth_url: https://www.island.is/audkenning?id=ktest.betrireykjavik.is
