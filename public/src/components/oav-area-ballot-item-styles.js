@@ -184,19 +184,6 @@ export const OavAreaBallotItemStyles = css`
     padding-top: 1px;
   }
 
-  paper-fab.removeFavoriteButtonHeart {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    color: var(--app-ballot-item-fav-button-color, --paper-red-a700);
-    --paper-fab-iron-icon: {
-      height: 29px;
-      width: 29px;
-    };
-    padding: 0;
-    padding-top: 3px;
-  }
-
   paper-fab.removeFavoriteButton {
     position: absolute;
     bottom: 12px;
@@ -208,7 +195,7 @@ export const OavAreaBallotItemStyles = css`
       width: 29px;
     };
     padding: 0;
-    padding-top: 1px;
+    padding-top: var(--app-ballot-item-remove-fav-padding-top, 1px);
   }
 
   paper-fab[disabled] {

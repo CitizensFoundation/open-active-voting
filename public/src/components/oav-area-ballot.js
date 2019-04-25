@@ -84,6 +84,7 @@ class OavAreaBallot extends PageViewElement {
                         <oav-area-ballot-item
                           .name="${item.id}"
                           class="ballotAreaItem"
+                          .configFromServer="${this.configFromServer}"
                           .language="${this.language}"
                           .budgetElement="${this.budgetElement}"
                           tabindex="${index}"

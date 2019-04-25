@@ -173,10 +173,10 @@ class OavAreaBallotItem extends OavBaseElement {
 
           <div id="favoriteButtons" class="favoriteButtons" ?hidden="${!this.selectedInBudget}">
             <paper-fab mini id="addFavoriteButton" class="addFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${this.isFavorite}"
-                      title="${this.localize('select_favorite')}" icon="star-border" hearticon="favorite-border" @click="${this._toggleFavorite}">
+                      title="${this.localize('select_favorite')}" icon="${this.configFromServer.client_config.favoriteIconOutline}" @click="${this._toggleFavorite}">
             </paper-fab>
             <paper-fab mini class="removeFavoriteButton" .elevation="5" class="favoriteButton" ?hidden="${!this.isFavorite}"
-                      title="${this.localize('deselect_favorite')}" icon="star" heartcon="favorite" @click="${this._toggleFavorite}">
+                      title="${this.localize('deselect_favorite')}" icon="${this.configFromServer.client_config.favoriteIcon}" @click="${this._toggleFavorite}">
             </paper-fab>
           </div>
         </div>

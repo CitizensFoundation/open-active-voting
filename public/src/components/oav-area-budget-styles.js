@@ -9,19 +9,19 @@ export const OavAreaBudgetStyles = css`
   :host {
     width: 100%;
     display: block;
-  }
-
-  .budgetContainer {
-  }
-
-  .budgetContainer[wide] {
     height: var(--app-budget-container-height, 238px);
     width: 100%;
     background-size: 1920px 238px;
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: top;
-    background-image: var(--app-budget-container-background-image, url(https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png));
+    background-image: var(--app-budget-container-background-image);
+  }
+
+  .budgetContainer {
+  }
+
+  .budgetContainer[wide] {
   }
 
   @media (max-width: 1100px) {
@@ -30,10 +30,12 @@ export const OavAreaBudgetStyles = css`
     }
   }
 
+  .headerContainer {
+  }
+
   .budgetMaterial {
     background-color: var(--app-budget-material-background-color, rgba(249,249,249,1.0));
     height: 139px;
-    margin-top: 16px;
     margin: 0px 0px 0px 0px;
     margin-right: auto;
     margin-left: auto;
@@ -42,6 +44,7 @@ export const OavAreaBudgetStyles = css`
   .budgetMaterial[wide] {
     width: 940px;
     height: 184px;
+    margin-top: 24px;
   }
 
   #votes {

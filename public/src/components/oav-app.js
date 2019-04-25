@@ -147,6 +147,7 @@ class OavApp extends OavBaseElement {
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
             .areaIdRoutePath="${this._subPath}"
+            .configFromServer="${this.configFromServer}"
             ?hidden="${this._page !== 'area-ballot'}"
             .votePublicKey="${this.votePublicKey}"
             ?active="${this._page === 'area-ballot'}">
@@ -203,8 +204,14 @@ class OavApp extends OavBaseElement {
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
         this.postsHost = "https://yrpri.org";
-        this.favoriteIcon = "star";
+        this.favoriteIcon = "heart";
         this.oneBallotId = 1;
+        if (this.configFromServer.client_config.defaultLanguage) {
+          this.language = this.configFromServer.client_config.defaultLanguage;
+        }
+        if (this.configFromServer.client_config.favoriteIcon) {
+          this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
+        }
         const path = "/area-ballot/"+this.oneBallotId;
         window.history.pushState({}, null, path);
         this.fire('location-changed', path);
