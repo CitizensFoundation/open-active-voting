@@ -129,6 +129,7 @@ class OavApp extends OavBaseElement {
                 .areaName="${this.areaName}"
                 .language="${this.language}"
                 .totalBudget="${this.totalBudget}"
+                .configFromServer="${this.configFromServer}"
                 .currentBallot="${this.currentBallot}">
               </oav-area-budget>
             </div>
@@ -184,6 +185,7 @@ class OavApp extends OavBaseElement {
       config.cssProperties.forEach(property => {
         const propName = Object.keys(property)[0];
         const propValue = Object.values(property)[0];
+        console.error(propValue);
         this.shadowRoot.host.style.setProperty(propName, propValue);
       });
     }
@@ -197,9 +199,8 @@ class OavApp extends OavBaseElement {
         this.requestInProgress= false;
         this.language = 'en';
         this.votePublicKey = response.public_key;
-        response.config = DevOavConfig;
-        this._setupCustomCss(response.config);
-        window.localeResources = response.config.locales;
+        this._setupCustomCss(response.config.client_config);
+        window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "star";
@@ -516,12 +517,8 @@ class OavApp extends OavBaseElement {
       location = { pathname: path };
     }
 
-    debugger;
-
     const path = window.decodeURIComponent(location.pathname);
     const page = path === '/' ? '/' : path.slice(1).split("/")[0];
-
-    debugger;
 
     this._loadPage(page);
     // Any other info you might want to extract from the path (like page type),
@@ -545,8 +542,6 @@ class OavApp extends OavBaseElement {
         page = 'view404';
         import('./oav-view404.js');
     }
-
-    debugger;
 
     this._page = page;
   }

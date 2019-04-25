@@ -80,7 +80,9 @@ class OavAreaBudget extends OavBaseElement {
 
       budgetHeaderImage: {
         type: String
-      }
+      },
+
+      configFromServer: Object
     };
   }
 
@@ -300,7 +302,7 @@ class OavAreaBudget extends OavBaseElement {
     this._resetBudgetDiv();
     this.selectedItems = [];
     this.selectedBudget = 0;
-    this.budgetHeaderImage = 'https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png';
+    this.budgetHeaderImage = this.configFromServer.client_config.ballotBudgetLogo;
   }
 
   _resetBudgetDiv() {

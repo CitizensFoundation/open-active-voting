@@ -15,13 +15,13 @@ export const OavAreaBudgetStyles = css`
   }
 
   .budgetContainer[wide] {
-    height: 238px;
+    height: var(--app-budget-container-height, 238px);
     width: 100%;
     background-size: 1920px 238px;
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: top;
-    background-image: var(--app-budget-container-background-image, url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png"));
+    background-image: var(--app-budget-container-background-image, url(https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x238-bg-2x.png));
   }
 
   @media (max-width: 1100px) {

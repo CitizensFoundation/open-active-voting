@@ -120,13 +120,13 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .name {
-    font-size: 20px;
+    font-size: var(--app-item-name-font-size, 17px);
     padding: 8px;
     color: var(--app-ballot-item-name-color, #222);
   }
 
   .name[small] {
-    font-size: 17px;
+    font-size: var(--app-item-name-font-size-small, 17px);
     padding-top: 4px;
     padding-right: 4px;
     padding-top: 4px;
