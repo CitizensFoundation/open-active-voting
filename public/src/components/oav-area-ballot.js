@@ -137,6 +137,7 @@ class OavAreaBallot extends PageViewElement {
         .then(res => res.json())
         .then(response => {
           console.log('Success:', JSON.stringify(response));
+          debugger;
           this.area = response.area;
           this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));

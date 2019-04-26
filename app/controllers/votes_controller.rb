@@ -80,6 +80,7 @@ class VotesController < ApplicationController
   # Get the ballot and display it to the user
   def get_ballot
     # Get the budget ballot area from the database
+    I18n.locale = "en"
     @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
 
     # Get all budget ballot items
@@ -105,6 +106,7 @@ class VotesController < ApplicationController
       new_item.description_pl = item.description
       @budget_ballot_items << new_item
     }
+    I18n.locale = "en"
 
     respond_to do |format|
       format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items } } #, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}

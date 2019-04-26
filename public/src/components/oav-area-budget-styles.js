@@ -54,7 +54,7 @@ export const OavAreaBudgetStyles = css`
 
   #votes[wide] {
     width: 940px;
-    height: 102px;
+    height: 100px;
   }
 
   .budgetRuler {
