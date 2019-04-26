@@ -9,13 +9,9 @@ export const OavAreaBudgetStyles = css`
   :host {
     width: 100%;
     display: block;
-    height: var(--app-budget-container-height, 238px);
-    width: 100%;
-    background-size: 1920px 238px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position-y: top;
-    background-image: var(--app-budget-container-background-image);
+  }
+
+  .topLevel[wide] {
   }
 
   .budgetContainer {

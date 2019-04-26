@@ -115,7 +115,7 @@ class OavApp extends OavBaseElement {
   render() {
     return  html`${this.configFromServer ?
       html`
-        <app-header fixed effects="waterfall">
+        <app-header fixed effects="waterfall" ?wide-and-ballot="${true}" ?hidden="${this.hideBudget}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" icon="close" @click="${this._exit}"></paper-icon-button>

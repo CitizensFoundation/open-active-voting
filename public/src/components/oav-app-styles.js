@@ -73,6 +73,16 @@ export const OavAppStyles = css`
     border-bottom: 1px solid #eee;
   }
 
+  app-header[wide-and-ballot] {
+    height: var(--app-budget-container-height, 238px);
+    width: 100%;
+    background-size: 1920px 238px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: top;
+    background-image: var(--app-budget-container-background-image);
+  }
+
   [main-title] {
     font-size: 30px;
     /* In the narrow layout, the toolbar is offset by the width of the
