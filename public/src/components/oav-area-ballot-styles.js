@@ -32,7 +32,7 @@ export const OavAreaBallotStyles = css`
   }
 
   #itemContainer {
-    margin-top: 24px;
+    margin-top: 8px;
     margin-bottom: 16px;
     display: flex;
     justify-content: space-between;

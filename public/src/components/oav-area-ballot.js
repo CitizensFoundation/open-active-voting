@@ -63,7 +63,7 @@ class OavAreaBallot extends PageViewElement {
       html`
         <div class="topContainer layout vertical">
           <div class="layout horizontal center-center tabsContainer">
-            <paper-tabs selected="${this.selectedView}" @selected-changed="${this._selectedChanged}"">
+            <paper-tabs id="tabs" selected="${this.selectedView}" @selected-changed="${this._selectedChanged}"">
               <paper-tab>
                 <div ?hidden="${!this.wide}">${this.area.name}</div>
                 <div ?hidden="${this.wide}" class="layout vertical center-center">
@@ -142,6 +142,9 @@ class OavAreaBallot extends PageViewElement {
           this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
           this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
           this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
+          setTimeout( () => {
+            this.$$("#tabs").shadowRoot.getElementById("selectionBar").style.setProperty("border-bottom", "3px solid var(--paper-tabs-selection-bar-color)");
+          });
         })
         .catch(error => {
           this.fire('ak-error', error);
