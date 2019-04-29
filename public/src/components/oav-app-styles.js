@@ -6,10 +6,6 @@ Copyright (c) 2010-2019 Citizens Foundation
 import { css } from 'lit-element';
 
 export const OavAppStyles = css`
-  h1 {
-    color: #F00;
-  }
-
   :host {
     display: block;
     box-sizing: border-box;
@@ -36,7 +32,7 @@ export const OavAppStyles = css`
 
   :host {
     display: block;
-    --app-primary-color: #F00;
+    --app-primary-color: #333;
     --app-secondary-color: black;
     --app-main-backround-color: #e0e0e0;
     --app-accent-color: var(--paper-orange-a700);
@@ -210,5 +206,98 @@ export const OavAppStyles = css`
 
   [hidden] {
     display: none !important;
+  }
+
+  paper-dialog {
+    background-color: var(--primary-background-color);
+  }
+
+  .welcomeDialog {
+    font-size: 22px;
+    max-width: 420px;
+    width: 420px;
+    padding: 8px;
+    padding-top: 0;
+    line-height: 1.3;
+    margin: 8px;
+    text-align: center;
+  }
+
+  .welcomeText {
+    width: 420px;
+    max-width: 420px;
+  }
+
+  .welcomeLogo {
+    padding: 0;
+    margin: 0;
+    margin-left: 110px;
+    margin-top: 8px;
+  }
+
+  paper-button.continueButton {
+    background-color: var(--app-accent-color);
+    color: #fff;
+    margin: 8px;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+
+  @media (max-width: 600px) {
+    .welcomeDialog {
+      font-size: 16px;
+      max-width: none;
+      width: 90%;
+      padding: 8px;
+      padding-top: 0;
+      text-align: center;
+    }
+    .heading {
+      font-size: 24px;
+    }
+    .welcomeText {
+      width: 80%;
+      max-width: none;
+    }
+    paper-button.continueButton {
+      font-size: 16px;
+    }
+    .welcomeLogo {
+      margin-left: 42px;
+      margin-top: 4px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .welcomeDialog {
+      font-size: 13px;
+    }
+    .heading {
+      font-size: 19px;
+    }
+    paper-button.continueButton {
+      font-size: 16px;
+    }
+    .welcomeLogo {
+      margin-left: 16px;
+      display: none;
+    }
+    .welcomeLogologoContainer {
+      display: none;
+    }
+    paper-button.continueButton {
+      margin-top: 0;
+    }
+  }
+
+  .welcomeLogoContainer {
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  paper-dialog {
+    z-index: 1000000;
   }
 `;

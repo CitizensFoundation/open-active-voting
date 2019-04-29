@@ -4,6 +4,8 @@ Copyright (c) 2010-2019 Citizens Foundation. AGPL License. All rights reserved.
 */
 
 import { LitElement, html, css } from 'lit-element';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 import { installOfflineWatcher } from 'pwa-helpers/network.js';
@@ -16,6 +18,9 @@ import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+import '@polymer/paper-spinner/paper-spinner.js';
+import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
 import './oav-icons.js';
 import './snack-bar.js';
 import './oav-area-ballot';
@@ -24,7 +29,6 @@ import './oav-area-budget';
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
 import { OavFlexLayout } from './oav-flex-layout.js';
-import { DevOavConfig } from './dev-oav-test-config.js';
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -33,6 +37,7 @@ class OavApp extends OavBaseElement {
       _page: { type: String },
       _drawerOpened: { type: Boolean },
       _snackbarOpened: { type: Boolean },
+
       _offline: { type: Boolean },
       _subPath: {
         type: String,
@@ -101,7 +106,13 @@ class OavApp extends OavBaseElement {
 
       resizeTimer: Object,
 
-      postsHost: String
+      postsHost: String,
+
+      welcomeHeading: String,
+
+      welcomeText: String,
+
+      helpContent: String
     };
   }
 
@@ -113,8 +124,43 @@ class OavApp extends OavBaseElement {
   }
 
   render() {
+    const dialogs = html`
+      <paper-dialog id="error">
+        <p id="errorText">${this.errorText}</p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
+        </div>
+      </paper-dialog>
+
+      <paper-dialog id="helpDialog">
+        <paper-dialog-scrollable>
+          <div id="helpContent">
+            ${unsafeHTML(this.helpContent)}
+          </div>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+          <paper-button class="closeButton" dialog-dismiss>${this.localize('close')}</paper-button>
+        </div>
+      </paper-dialog>
+
+      <paper-dialog id="welcomeDialog" with-backdrop>
+        <div class="welcomeLogoContainer">
+          <img class="welcomeLogo" src="${this.budgetHeaderImage}"></img>
+        </div>
+        <div class="layout vertical center-center welcomeDialog">
+          <div class="heading">${this.welcomeHeading}</div>
+          <div class="layout horizontal welcomeText">
+            ${this.welcomeText}
+          </div>
+        </div>
+        <div class="buttons layout vertical center-center">
+          <paper-button raised class="continueButton" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+        </div>
+      </paper-dialog>
+    `
     return  html`${this.configFromServer ?
       html`
+        ${dialogs}
         <app-header fixed effects="waterfall" ?wide-and-ballot="${true}" ?hidden="${this.hideBudget}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
@@ -169,7 +215,7 @@ class OavApp extends OavBaseElement {
         </snack-bar>
       `
       :
-      html`<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
+      html`${dialogs}<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
   }
 
   constructor() {
@@ -208,6 +254,7 @@ class OavApp extends OavBaseElement {
         this.oneBallotId = 1;
         if (this.configFromServer.client_config.defaultLanguage) {
           this.language = this.configFromServer.client_config.defaultLanguage;
+          this.setupLocaleTexts();
         }
         if (this.configFromServer.client_config.favoriteIcon) {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
@@ -217,6 +264,11 @@ class OavApp extends OavBaseElement {
         this.fire('location-changed', path);
         window.language = this.language;
         window.localize = this.localize;
+        if (this.configFromServer.client_config.welcomeLocales) {
+          setTimeout( () => {
+            this.$$("welcomeDialog").open();
+          });
+        }
       })
       .catch(error => {
         console.error('Error:', error);
@@ -226,6 +278,13 @@ class OavApp extends OavBaseElement {
 
   disconnectedCallback() {
     this._removeListeners();
+  }
+
+  b64DecodeUnicode(str) {
+    // Going backwards: from bytestream, to percent-encoding, to original string.
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
   }
 
   _setupListeners() {
@@ -346,7 +405,7 @@ class OavApp extends OavBaseElement {
   }
 
   _help() {
-    this.getDialog("page").open();
+    this.$$("#helpDialog").open();
   }
 
   _setArea(event) {
@@ -365,7 +424,6 @@ class OavApp extends OavBaseElement {
   }
 
   _exit () {
-    debugger;
     if (this._page==='post' && window.appLastArea) {
       window.history.pushState({}, null, window.appLastArea);
       this.fire('location-changed', window.appLastArea);
@@ -419,7 +477,48 @@ class OavApp extends OavBaseElement {
 
   }
 
+  getHelpContent() {
+    if (this.configFromServer.client_config.helpPageLocales[this.language]) {
+      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales[this.language].text);
+    } else if (this.configFromServer.client_config.helpPageLocales["en"]) {
+      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales["en"].text)
+    } else {
+      return "No help page found for selected language!"
+    }
+  }
+
+  getWelcomeHeading() {
+    if (this.configFromServer.client_config.welcomeLocales[this.language]) {
+      return this.configFromServer.client_config.welcomeLocales[this.language].heading;
+    } else if (this.configFromServer.client_config.welcomeLocales["en"]) {
+      return this.configFromServer.client_config.welcomeLocales["en"].heading
+    } else {
+      return "No heading found"
+    }
+  }
+
+  getWelcomeText() {
+    if (this.configFromServer.client_config.welcomeLocales[this.language]) {
+      return this.configFromServer.client_config.welcomeLocales[this.language].text;
+    } else if (this.configFromServer.client_config.welcomeLocales["en"]) {
+      return this.configFromServer.client_config.welcomeLocales["en"].text
+    } else {
+      return "No heading found"
+    }
+  }
+
+  setupLocaleTexts() {
+    this.welcomeHeading = this.getWelcomeHeading();
+    this.welcomeText = this.getWelcomeText();
+    this.helpContent = this.getHelpContent();
+    debugger;
+  }
+
   updated(changedProps) {
+    if (changedProps.has('language')) {
+      this.setupLocaleTexts();
+    }
+
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page;
       updateMetadata({
