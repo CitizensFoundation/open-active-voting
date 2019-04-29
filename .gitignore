@@ -18,5 +18,3 @@
 /tmp
 /test_ballots
 /log
-app/models/budget_vote_counting.rb
-app/models/budget_vote_helper.rb
