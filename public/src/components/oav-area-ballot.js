@@ -128,28 +128,7 @@ class OavAreaBallot extends PageViewElement {
     }
 
     if (changedProps.has('areaId')) {
-      this.oldFavoriteItem = null;
-      this.favoriteItem = null;
-      if (this.areaId) {
-        this.reset();
-        this.fire('ak-clear-area');
-        fetch("/votes/get_ballot?area_id="+this.areaId)
-        .then(res => res.json())
-        .then(response => {
-          console.log('Success:', JSON.stringify(response));
-          this.area = response.area;
-          this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
-          this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
-          this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
-          setTimeout( () => {
-            this.$$("#tabs").shadowRoot.getElementById("selectionBar").style.setProperty("border-bottom", "3px solid var(--paper-tabs-selection-bar-color)");
-          });
-        })
-        .catch(error => {
-          this.fire('ak-error', error);
-          console.error('Error:', error);
-        });
-      }
+      this.loadArea();
     }
 
     if (changedProps.has('selectedView')) {
@@ -192,6 +171,31 @@ class OavAreaBallot extends PageViewElement {
 
   disconnectedCallback() {
     this._removeListeners();
+  }
+
+  loadArea() {
+    this.oldFavoriteItem = null;
+    this.favoriteItem = null;
+    if (this.areaId) {
+      this.reset();
+      this.fire('ak-clear-area');
+      fetch("/votes/get_ballot?area_id="+this.areaId+"&locale="+this.language)
+      .then(res => res.json())
+      .then(response => {
+        console.log('Success:', JSON.stringify(response));
+        this.area = response.area;
+        this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
+        this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
+        this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
+        setTimeout( () => {
+          this.$$("#tabs").shadowRoot.getElementById("selectionBar").style.setProperty("border-bottom", "3px solid var(--paper-tabs-selection-bar-color)");
+        });
+      })
+      .catch(error => {
+        this.fire('ak-error', error);
+        console.error('Error:', error);
+      });
+    }
   }
 
   _setupListeners() {
@@ -447,9 +451,6 @@ class OavAreaBallot extends PageViewElement {
       } else {
         budgetBallotItems[i].locations = [];
       }
-      // Set the localized translation
-      //budgetBallotItems[i].name =  budgetBallotItems[i]['name_'+this.language];
-      //budgetBallotItems[i].description =  budgetBallotItems[i]['description_'+this.language];
     }
 
     return this.shuffle(budgetBallotItems);

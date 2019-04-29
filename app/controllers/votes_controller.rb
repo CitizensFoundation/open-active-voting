@@ -26,10 +26,6 @@ DSIG = "http://www.w3.org/2000/09/xmldsig#"
 class VotesController < ApplicationController
 
   after_action :log_session_id
-  #skip_before_action :verify_authenticity_token, :only => [:authenticate_from_island_is]
-
-  # http_basic_authenticate_with :name => "user", :password => "password", if: "Rails.env.production?"
-
   # Logout and reset the session
   def logout
     Rails.logger.info("Logout")
@@ -80,33 +76,13 @@ class VotesController < ApplicationController
   # Get the ballot and display it to the user
   def get_ballot
     # Get the budget ballot area from the database
-    I18n.locale = "en"
-    @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
-
-    # Get all budget ballot items
-
-    @budget_ballot_items_lang = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id).all
-
-    @budget_ballot_items = []
-    @budget_ballot_items_lang.each_with_index { |item, index|
-      puts item
-      puts index
-      new_item = item
-
-      I18n.locale = "is"
-      new_item.name_is = item.name
-      new_item.description_is = item.description
-
+    if params[:locale]
+      I18n.locale = params[:locale]
+    else
       I18n.locale = "en"
-      new_item.name_en = item.name
-      new_item.description_en = item.description
-
-      I18n.locale = "pl"
-      new_item.name_pl = item.name
-      new_item.description_pl = item.description
-      @budget_ballot_items << new_item
-    }
-    I18n.locale = "en"
+    end
+    @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
+    @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id).all
 
     respond_to do |format|
       format.json { render :json =>  {:area=>@area, :budget_ballot_items => @budget_ballot_items } } #, methods: [:name_is, :name_en, :name_pl, :description_is, :description_en, :description_pl]}
