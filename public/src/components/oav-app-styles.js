@@ -226,6 +226,7 @@ export const OavAppStyles = css`
     line-height: 1.3;
     margin: 8px;
     text-align: center;
+    width: 100%;
   }
 
   .welcomeText {
@@ -240,6 +241,8 @@ export const OavAppStyles = css`
     max-width: 280px;
     width: 280px;
     height: 116px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   paper-button.continueButton {

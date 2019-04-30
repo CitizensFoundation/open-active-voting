@@ -159,8 +159,11 @@ class OavApp extends OavBaseElement {
                 ${this.welcomeText}
               </div>
             </div>
-            <div class="buttons vertical center-center">
-              <paper-button raised class="continueButton" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+            <div>
+              ${this.localize('selectLanguage')}
+            </div>
+            <div class="buttons center-center">
+              <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
             </div>
           </div>
         </paper-dialog>
@@ -270,7 +273,9 @@ class OavApp extends OavBaseElement {
         window.localize = this.localize;
         if (this.configFromServer.client_config.welcomeLocales) {
           setTimeout( () => {
-            this.$$("#welcomeDialog").open();
+            if (!localStorage.getItem("haveClosedWelcome")) {
+              this.$$("#welcomeDialog").open();
+            }
           });
         }
       })
@@ -459,6 +464,10 @@ class OavApp extends OavBaseElement {
         }
       }
     }
+  }
+
+  closeWelcome() {
+    localStorage.setItem("haveClosedWelcome", true);
   }
 
   getDialog(name) {
