@@ -7,7 +7,8 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
 
 import '@polymer/paper-tabs/paper-tab';
 import '@polymer/paper-tabs/paper-tabs';
-import './oav-area-ballot-item'
+import './oav-area-ballot-item';
+import './oav-area-ballot-map';
 
 class OavAreaBallot extends PageViewElement {
   static get properties() {
@@ -96,11 +97,12 @@ class OavAreaBallot extends PageViewElement {
                 `
                 :
                 html`
-                  <oav-items-map
+                  <oav-area-ballot-map
                     id="itemsMap"
-                    .budget-element="[[budgetElement]]"
-                    .items="[[budgetBallotItems]]">
-                  </oav-items-map>
+                    .budget-element="${this.budgetElement}"
+                    .configFromServer="${this.configFromServer}"
+                    .items="${this.budgetBallotItems}">
+                  </oav-area-ballot-map>
                 `
               )}
             `

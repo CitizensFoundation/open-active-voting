@@ -1,13 +1,13 @@
 import { html } from 'lit-element';
-import { OavAreaBallotMapStyles } from './oav-area-ballot-item=styles.js';
+import { OavBallotMapStyles } from './oav-area-ballot-map-styles.js';
 import { OavShadowStyles } from './oav-shadow-styles';
 import { OavBaseElement } from './oav-base-element';
 import 'plastic-map-info';
-import 'google-maps/src/google-map';
-import 'google-maps/src/google-map-marker';
+import 'google-map/google-map.js';
+import 'google-map/google-map-marker.js';
 import '@polymer/paper-styles/shadow';
 
-class OavAreaBalloMap extends OavBaseElement {
+class OavAreaBallotMap extends OavBaseElement {
   static get properties() {
     return {
       items: {
@@ -23,6 +23,8 @@ class OavAreaBalloMap extends OavBaseElement {
       selectedItem: {
         type: Object
       },
+
+      configFromServer: Object,
 
       noItems: {
         type: Boolean,
@@ -42,7 +44,7 @@ class OavAreaBalloMap extends OavBaseElement {
 
   static get styles() {
     return [
-      OavAreaBallotMapStyles,
+      OavBallotMapStyles,
       OavShadowStyles
     ];
   }
@@ -59,17 +61,17 @@ class OavAreaBalloMap extends OavBaseElement {
             :
             html`
               <div class="mapContainer">
-                <google-map disable-default-ui$="[[tiny]]" id="map" api-key="[[apiKey]]" fit-to-markers>
+                <google-map ?disable-default-ui="${this.tiny}" id="map" api-key="${this.configFromServer.client_config.googleMapsApiKey}" fit-to-markers>
                   ${this.items.map(item => {
                     item.locations.map(location => {
                       html`
-                        <google-map-marker click-events item="${item}" latitude="${location.latitude}" longitude="${location.longitude}" class="marker" @google-map-marker-click="${this.markerClick()}">
+                        <google-map-marker slot="markers" click-events item="${item}" latitude="${location.latitude}" longitude="${location.longitude}" class="marker" @google-map-marker-click="${this.markerClick}">
                         </google-map-marker>
                       `
                     })
                   })}
                   <plastic-map-info id="myInfoCard" fade-in>
-                    <oav-area-ballot-item on-oav-toggle-item-in-budget="_closeInfo" small elevation="0" id="ballotItem" budget-element="[[budgetElement]]" class="ballotItem" item="[[selectedItem]]"></oav-area-ballot-item>
+                    <oav-area-ballot-item on-oav-toggle-item-in-budget="_closeInfo" small elevation="0" id="ballotItem" budget-element="${this.budgetElement}" class="ballotItem" item="${this.selectedItem}"></oav-area-ballot-item>
                   </plastic-map-info>
                 </google-map>
               </div>
@@ -96,7 +98,7 @@ class OavAreaBalloMap extends OavBaseElement {
   }
 
   updated(changedProps) {
-    super(changedProps);
+    super.updated(changedProps);
     if (changedProps.has('wide')) {
       this.resetMapHeight();
     }

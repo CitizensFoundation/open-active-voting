@@ -37,7 +37,7 @@
     "@polymer/paper-tabs": "^3.0.1",
     "@polymer/polymer": "^3.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.4",
-    "google-maps": "git+https://github.com/rbjarnason/google-map.git#lit-element",
+    "google-map": "git+git@github.com:DanielTurner/google-map.git",
     "intl-messageformat": "^2.2.0",
     "linkifyjs": "^2.1.8",
     "lit-element": "^2.0.1",
