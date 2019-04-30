@@ -76,12 +76,13 @@ class VotesController < ApplicationController
   # Get the ballot and display it to the user
   def get_ballot
     # Get the budget ballot area from the database
+    I18n.locale = "en"
+    @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
     if params[:locale]
       I18n.locale = params[:locale]
     else
       I18n.locale = "en"
     end
-    @area = BudgetBallotArea.where(:id => params[:area_id].to_i).first
     @budget_ballot_items = BudgetBallotItem.where(:budget_ballot_area_id=> @area.id).all
 
     respond_to do |format|

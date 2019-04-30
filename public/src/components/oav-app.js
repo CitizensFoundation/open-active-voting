@@ -266,7 +266,7 @@ class OavApp extends OavBaseElement {
         window.localize = this.localize;
         if (this.configFromServer.client_config.welcomeLocales) {
           setTimeout( () => {
-            this.$$("welcomeDialog").open();
+            this.$$("#welcomeDialog").open();
           });
         }
       })
@@ -511,7 +511,6 @@ class OavApp extends OavBaseElement {
     this.welcomeHeading = this.getWelcomeHeading();
     this.welcomeText = this.getWelcomeText();
     this.helpContent = this.getHelpContent();
-    debugger;
   }
 
   updated(changedProps) {
