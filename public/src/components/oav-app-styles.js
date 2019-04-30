@@ -92,8 +92,11 @@ export const OavAppStyles = css`
   }
 
   .main-content {
-    padding-top: 128px;
     min-height: 100vh;
+  }
+
+  .main-content[has-ballot] {
+    padding-top: 128px;
   }
 
   .page {
@@ -112,9 +115,11 @@ export const OavAppStyles = css`
     .menu-btn {
       display: none;
     }
-    .main-content {
+
+    .main-content[has-ballot] {
       padding-top: 240px;
     }
+
     /* The drawer button isn't shown in the wide layout, so we don't
     need to offset the title */
     [main-title] {

@@ -112,7 +112,9 @@ class OavApp extends OavBaseElement {
 
       welcomeText: String,
 
-      helpContent: String
+      helpContent: String,
+
+      wideAndBallot: Boolean
     };
   }
 
@@ -161,7 +163,7 @@ class OavApp extends OavBaseElement {
     return  html`${this.configFromServer ?
       html`
         ${dialogs}
-        <app-header fixed effects="waterfall" ?wide-and-ballot="${true}" ?hidden="${this.hideBudget}">
+        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot'}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" icon="close" @click="${this._exit}"></paper-icon-button>
@@ -183,7 +185,7 @@ class OavApp extends OavBaseElement {
           <iron-icon id="favoriteIcon" icon="${this.favoriteIcon}" hidden></iron-icon>
         </app-header>
 
-        <main role="main" class="main-content">
+        <main role="main" class="main-content" ?has-ballot="${this._page == 'area-ballot'}">
           <oav-select-voting-area
             id="selectVotingArea"
             .language="${this.language}"
@@ -591,6 +593,12 @@ class OavApp extends OavBaseElement {
         ga('send', 'pageview', {
           'page': location.pathname + location.search  + location.hash
         });
+      }
+
+      if (this.wide && page==='area-ballot') {
+        this.wideAndBallot = true;
+      } else {
+        this.wideAndBallot = false;
       }
     }
   }
