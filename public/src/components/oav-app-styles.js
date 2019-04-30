@@ -236,8 +236,10 @@ export const OavAppStyles = css`
   .welcomeLogo {
     padding: 0;
     margin: 0;
-    margin-left: 110px;
     margin-top: 8px;
+    max-width: 280px;
+    width: 280px;
+    height: 116px;
   }
 
   paper-button.continueButton {

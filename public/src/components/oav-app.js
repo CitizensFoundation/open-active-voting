@@ -126,43 +126,45 @@ class OavApp extends OavBaseElement {
   }
 
   render() {
-    const dialogs = html`
+    const errorDialog = html`
       <paper-dialog id="error">
         <p id="errorText">${this.errorText}</p>
         <div class="buttons">
           <paper-button dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
         </div>
       </paper-dialog>
-
-      <paper-dialog id="helpDialog">
-        <paper-dialog-scrollable>
-          <div id="helpContent">
-            ${unsafeHTML(this.helpContent)}
-          </div>
-        </paper-dialog-scrollable>
-        <div class="buttons">
-          <paper-button class="closeButton" dialog-dismiss>${this.localize('close')}</paper-button>
-        </div>
-      </paper-dialog>
-
-      <paper-dialog id="welcomeDialog" with-backdrop>
-        <div class="welcomeLogoContainer">
-          <img class="welcomeLogo" src="${this.budgetHeaderImage}"></img>
-        </div>
-        <div class="layout vertical center-center welcomeDialog">
-          <div class="heading">${this.welcomeHeading}</div>
-          <div class="layout horizontal welcomeText">
-            ${this.welcomeText}
-          </div>
-        </div>
-        <div class="buttons layout vertical center-center">
-          <paper-button raised class="continueButton" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
-        </div>
-      </paper-dialog>
     `
     return  html`${this.configFromServer ?
       html`
-        ${dialogs}
+        ${errorDialog}
+        <paper-dialog id="helpDialog">
+          <paper-dialog-scrollable>
+            <div id="helpContent">
+              ${unsafeHTML(this.helpContent)}
+            </div>
+          </paper-dialog-scrollable>
+          <div class="buttons">
+            <paper-button class="closeButton" dialog-dismiss>${this.localize('close')}</paper-button>
+          </div>
+        </paper-dialog>
+
+        <paper-dialog id="welcomeDialog" with-backdrop>
+          <div class="vertical center-center">
+            <div class="welcomeLogoContainer center-center">
+              <img class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+            </div>
+            <div class="vertical center-center welcomeDialog">
+              <div class="heading">${this.welcomeHeading}</div>
+              <div class="horizontal welcomeText">
+                ${this.welcomeText}
+              </div>
+            </div>
+            <div class="buttons vertical center-center">
+              <paper-button raised class="continueButton" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+            </div>
+          </div>
+        </paper-dialog>
+
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot'}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
@@ -217,7 +219,7 @@ class OavApp extends OavBaseElement {
         </snack-bar>
       `
       :
-      html`${dialogs}<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
+      html`${errorDialog}<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
   }
 
   constructor() {
