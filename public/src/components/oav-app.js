@@ -114,7 +114,9 @@ class OavApp extends OavBaseElement {
 
       helpContent: String,
 
-      wideAndBallot: Boolean
+      wideAndBallot: Boolean,
+
+      errorText: String
     };
   }
 
@@ -126,11 +128,11 @@ class OavApp extends OavBaseElement {
   }
 
   render() {
-    const errorDialog = html`
+    let errorDialog = html`
       <paper-dialog id="errorDialog">
         <p id="errorText">${this.errorText}</p>
         <div class="buttons">
-          <paper-button dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
+          <paper-button class="generalButton" dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
         </div>
       </paper-dialog>
     `
@@ -227,7 +229,9 @@ class OavApp extends OavBaseElement {
         </snack-bar>
       `
       :
-      html`${errorDialog}<paper-spinner class="largeSpinner"></paper-spinner>)`}`;
+      html`${errorDialog}<paper-spinner class="largeSpinner"></paper-spinner>`
+      }
+    `;
   }
 
   constructor() {
@@ -244,7 +248,6 @@ class OavApp extends OavBaseElement {
       config.cssProperties.forEach(property => {
         const propName = Object.keys(property)[0];
         const propValue = Object.values(property)[0];
-        console.error(propValue);
         this.shadowRoot.host.style.setProperty(propName, propValue);
       });
     }
@@ -265,14 +268,15 @@ class OavApp extends OavBaseElement {
     fetch("/votes/boot")
       .then(res => res.json())
       .then(response => {
-        console.log('Success:', JSON.stringify(response));
         this.requestInProgress= false;
         this.language = 'en';
         this.votePublicKey = response.public_key;
         this._setupCustomCss(response.config.client_config);
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
-        this.updateAppMeta(this.configFromServer.client_config.shareMetaData)
+        this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
+        ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
+        debugger;
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = 1;
@@ -444,8 +448,8 @@ class OavApp extends OavBaseElement {
     this.totalBudget = null;
   }
 
-  _errorHandler(event, detail) {
-    this.errorText = detail;
+  _errorHandler(event) {
+    this.errorText = this.localize(event.detail);
     this.$$("#errorDialog").open();
   }
 

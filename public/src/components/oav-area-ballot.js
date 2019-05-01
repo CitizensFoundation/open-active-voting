@@ -170,10 +170,7 @@ class OavAreaBallot extends PageViewElement {
     this._setupListeners();
     installMediaQueryWatcher(`(min-width: 1000px)`,
       (matches) => {
-        if (matches)
-          this.wide = true;
-        else
-          this.wide = false;
+        this.wide = matches;
       });
   }
 
@@ -190,7 +187,6 @@ class OavAreaBallot extends PageViewElement {
       fetch("/votes/get_ballot?area_id="+this.areaId+"&locale="+this.language)
       .then(res => res.json())
       .then(response => {
-        console.log('Success:', JSON.stringify(response));
         this.area = response.area;
         this.budgetBallotItems = this._setupLocationsAndTranslation(response.budget_ballot_items);
         this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));

@@ -256,8 +256,14 @@ export const OavAppStyles = css`
     background-color: var(--app-accent-color);
     color: #fff;
     margin: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     font-size: 18px;
+  }
+
+  paper-button.generalButton {
+    color: var(--app-accent-color);
+    background-color: #fff;
+    margin: 8px;
   }
 
   @media (max-width: 600px) {
