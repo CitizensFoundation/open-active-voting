@@ -92,11 +92,10 @@ export const OavAppStyles = css`
   }
 
   .main-content {
-    min-height: 100vh;
   }
 
   .main-content[has-ballot] {
-    padding-top: 128px;
+    padding-top: 150px;
   }
 
   .page {
@@ -264,8 +263,6 @@ export const OavAppStyles = css`
   @media (max-width: 600px) {
     .welcomeDialog {
       font-size: 16px;
-      max-width: none;
-      width: 90%;
       padding: 8px;
       padding-top: 0;
       text-align: center;
@@ -276,15 +273,14 @@ export const OavAppStyles = css`
     }
 
     .welcomeText {
-      width: 80%;
-      max-width: none;
+      width: 100%;
     }
     paper-button.continueButton {
       font-size: 16px;
     }
     .welcomeLogo {
-      margin-left: 42px;
-      margin-top: 4px;
+      width: 200px;
+      height: 83px;
     }
   }
 
@@ -319,8 +315,8 @@ export const OavAppStyles = css`
 
   .langSelectionText {
     font-size: 14px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
 
   .langSelect {

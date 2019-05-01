@@ -131,7 +131,7 @@ class OavAreaBudget extends OavBaseElement {
               ${!this.selectedBudget && this.areaName ?
                 html`
                   <div ?hidden="${!this.wide}">${this.localize('budget_info_text', 'area_name', this.areaName)}</div>
-                  <div ?hidden="${this.wide}">${this.localize('budget_info_text_mobile', 'area_name', this.areaName)}</div>
+                  <div ?hidden="${this.wide}" class="mobileBudgetText">${this.localize('budget_info_text_mobile', 'area_name', this.areaName)}</div>
                 `
                 :
                 ''
@@ -139,18 +139,18 @@ class OavAreaBudget extends OavBaseElement {
               ${this.selectedBudget ?
                 html`
                   <div ?hidden="${!this.selectedBudgetIsOne}">
-                    <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${!this.wide}">
+                    <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
                      ${this.localize("selected_items_info_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
-                    <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${this.wide}">
+                    <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
                       ${this.localize("selected_items_info_mobile_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
                   </div>
                   <div ?hidden="${this.selectedBudgetIsOne}">
-                    <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${!this.wide}">
+                    <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
                       ${this.localize("selected_items_info", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
-                    <div class="selectedInfo" ?wide="${this.wide}" ?hidden="${this.wide}">
+                    <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
                       ${this.localize("selected_items_info_mobile", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
                     </div>
                   </div>

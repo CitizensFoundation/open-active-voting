@@ -187,9 +187,23 @@ export const OavAreaBudgetStyles = css`
 
   .mobileActionIcons {
     color: #555;
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+    margin-right: 5px;
   }
 
   [hidden] {
     display: none !important;
+  }
+
+  .mobileBudgetText {
+    margin-top: 6px;
+  }
+
+  .budgetText {
+    margin-top: 4px;
   }
 `;
