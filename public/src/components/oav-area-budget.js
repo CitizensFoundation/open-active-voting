@@ -130,7 +130,7 @@ class OavAreaBudget extends OavBaseElement {
               <div class="flex">
               ${!this.selectedBudget && this.areaName ?
                 html`
-                  <div ?hidden="${!this.wide}">${this.localize('budget_info_text', 'area_name', this.areaName)}</div>
+                  <div ?hidden="${!this.wide}" class="budgetText">${this.localize('budget_info_text', 'area_name', this.areaName)}</div>
                   <div ?hidden="${this.wide}" class="mobileBudgetText">${this.localize('budget_info_text_mobile', 'area_name', this.areaName)}</div>
                 `
                 :
@@ -158,7 +158,7 @@ class OavAreaBudget extends OavBaseElement {
                 :
                 ''
               }
-              <div id="budgetLeftInfo" ?wide="${this.wide}">
+              <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot}">
                 ${this.localize('budget_left_text','budget_left', this.budgetLeft)}
               </div>
               </div>

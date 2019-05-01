@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2018 Íbúar ses / Citizens Foundation Iceland
+# Copyright (C) 2010-2019 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 #
 # This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@ DSIG = "http://www.w3.org/2000/09/xmldsig#"
 class VotesController < ApplicationController
 
   after_action :log_session_id
+
   # Logout and reset the session
   def logout
     Rails.logger.info("Logout")

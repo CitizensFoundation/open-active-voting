@@ -127,7 +127,7 @@ class OavApp extends OavBaseElement {
 
   render() {
     const errorDialog = html`
-      <paper-dialog id="error">
+      <paper-dialog id="errorDialog">
         <p id="errorText">${this.errorText}</p>
         <div class="buttons">
           <paper-button dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
@@ -167,7 +167,7 @@ class OavApp extends OavBaseElement {
                 })}
               </div>
               <div class="buttons center-center">
-                <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+                <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
               </div>
             </div>
           </div>
@@ -444,8 +444,8 @@ class OavApp extends OavBaseElement {
   }
 
   _errorHandler(event, detail) {
-    var dialog = this.getDialog("errorDialog");
-    dialog.showErrorDialog(detail);
+    this.errorText = detail;
+    this.$$("#errorDialog").open();
   }
 
   _exit () {
