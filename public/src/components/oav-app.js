@@ -272,6 +272,7 @@ class OavApp extends OavBaseElement {
         this._setupCustomCss(response.config.client_config);
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
+        this.updateAppMeta(this.configFromServer.client_config.shareMetaData)
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = 1;
@@ -542,6 +543,22 @@ class OavApp extends OavBaseElement {
     this.helpContent = this.getHelpContent();
   }
 
+  updateAppMeta(meta) {
+    document.title = meta.title;
+    updateMetadata({
+      title: meta.title,
+      description: meta.description,
+      image: meta.shareImageUrl
+      // This object also takes an image property, that points to an img src.
+    });
+
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = meta.faviconUrl;
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+
   updated(changedProps) {
     if (changedProps.has('language')) {
       this.setupLocaleTexts();
@@ -549,11 +566,6 @@ class OavApp extends OavBaseElement {
 
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page;
-      updateMetadata({
-        title: pageTitle,
-        description: pageTitle
-        // This object also takes an image property, that points to an img src.
-      });
 
       const page = this._page;
       const oldPage = changedProps.get('_page');
