@@ -229,7 +229,7 @@ class OavApp extends OavBaseElement {
         </snack-bar>
       `
       :
-      html`${errorDialog}<paper-spinner class="largeSpinner"></paper-spinner>`
+      html`${errorDialog}<paper-spinner active class="largeSpinner"></paper-spinner>`
       }
     `;
   }
@@ -585,13 +585,6 @@ class OavApp extends OavBaseElement {
         this.hideBudget = false;
       } else {
         this.hideBudget = true;
-      }
-
-      // Set background color
-      if (page=='select-voting-area' || page=='voting-completed') {
-        document.body.style.backgroundColor = "#e0e0e0";
-      } else {
-        document.body.style.backgroundColor = "#e0e0e0";
       }
 
       // Reset post if needed

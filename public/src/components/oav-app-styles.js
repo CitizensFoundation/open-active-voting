@@ -37,7 +37,6 @@ export const OavAppStyles = css`
     --app-main-backround-color: #e0e0e0;
     --app-accent-color: var(--paper-orange-a700);
     --app-accent-color-light: var(--paper-orange-a200);
-    --app-kopavogur-green-grass: #f0f0f0;
     --app-text-color: #ffffff;
 
     --paper-tabs-selection-bar-color: var(--paper-orange-a700);
@@ -320,7 +319,7 @@ export const OavAppStyles = css`
   }
 
   .langSelectionText {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 24px;
     margin-bottom: 24px;
   }
