@@ -146,7 +146,7 @@ class OavApp extends OavBaseElement {
             </div>
           </paper-dialog-scrollable>
           <div class="buttons">
-            <paper-button class="closeButton" dialog-dismiss>${this.localize('close')}</paper-button>
+            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize('close')}</paper-button>
           </div>
         </paper-dialog>
 
@@ -188,6 +188,7 @@ class OavApp extends OavBaseElement {
                 id="budget"
                 .areaName="${this.areaName}"
                 .language="${this.language}"
+                .showExit="${this.showExit}"
                 .totalBudget="${this.totalBudget}"
                 .configFromServer="${this.configFromServer}"
                 .currentBallot="${this.currentBallot}">
@@ -574,7 +575,7 @@ class OavApp extends OavBaseElement {
       const page = this._page;
       const oldPage = changedProps.get('_page');
 
-      if (page && page!='select-voting-area') {
+      if (this.configFromServer && this.configFromServer.client_config.landingPageData && page && page!='select-voting-area') {
         this.showExit = true;
       } else {
         this.showExit = false;

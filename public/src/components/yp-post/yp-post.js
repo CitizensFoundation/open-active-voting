@@ -161,7 +161,10 @@ Polymer({
       }
 
       .topContainer {
-        margin-top: 16px;
+        padding-top: 24px;
+        background-image: var(--app-other-background-image);
+        background-size: var(--app-other-background-size, 1920px 238px);
+        background-repeat: no-repeat;
       }
 
       .tabs {
@@ -173,6 +176,11 @@ Polymer({
           margin: 16px;
           width: 800px;
           height: 400px;
+        }
+
+        .topContainer {
+          padding-top: 48px;
+          background-image: none;
         }
       }
 
@@ -282,10 +290,30 @@ Polymer({
       [hidden] {
         display: none !important;
       }
+
+      paper-icon-button.closeButton {
+        width: 58px;
+        height: 58px;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+      }
+
+      @media (max-width: 640px) {
+        paper-icon-button {
+          width: 40px;
+          height: 40px;
+        }
+
+        paper-icon-button.closeButton {
+          width: 46px;
+          height: 46px;
+        }
+      }
     </style>
 
     <div class="topContainer layout vertical center-center" is-post="" create-fab-title="[[t('point.add')]]" on-yp-create-fab-tap="_newPoint">
-
+      <paper-icon-button class="closeButton" icon="close" on-tap="_close"></paper-icon-button>
       <yp-post-header id="postCard" class="largeCard" post="[[post]]" on-refresh="_refreshAjax" header-mode=""></yp-post-header>
 
       <yp-post-points host="[[host]]" id="pointsSection" post="[[post]]" scroll-to-id\$="[[scrollToPointId]]"></yp-post-points>
@@ -430,6 +458,10 @@ Polymer({
     if (tabCounter) {
       tabCounter.innerHTML = this.formatNumber(imageCount);
     }
+  },
+
+  _close: function () {
+    window.history.back();
   },
 
   _updateDebateInfo: function (event, detail) {

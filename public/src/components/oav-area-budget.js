@@ -82,6 +82,8 @@ class OavAreaBudget extends OavBaseElement {
         type: String
       },
 
+      showExit: Boolean,
+
       configFromServer: Object
     };
   }
@@ -124,7 +126,9 @@ class OavAreaBudget extends OavBaseElement {
       <div class="budgetContainer center-center" ?wide="${this.wide}">
         <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
-            <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="close" @click="${this._exit}"></paper-icon-button>
+            <span ?hidden="${!this.showExit}">
+              <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="close" @click="${this._exit}"></paper-icon-button>
+            </span>
             <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
             <div class="vertical center-center" style="width: 100%;">
               <div class="flex">
