@@ -95,4 +95,8 @@ export const OavAreaBallotStyles = css`
       margin-right: 16px;
     }
   }
+
+  [hidden] {
+    display: none !important;
+  }
 `;

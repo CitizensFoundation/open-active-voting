@@ -1,4 +1,4 @@
-import { html } from 'lit-element';
+import { html, supportsAdoptingStyleSheets } from 'lit-element';
 import { OavBallotMapStyles } from './oav-area-ballot-map-styles.js';
 import { OavShadowStyles } from './oav-shadow-styles';
 import { OavBaseElement } from './oav-base-element';
@@ -11,9 +11,7 @@ class OavAreaBallotMap extends OavBaseElement {
   static get properties() {
     return {
       items: {
-        type: Array,
-        value: null,
-        observer: '_itemsChanged'
+        type: Array
       },
 
       budgetElement: {
@@ -52,7 +50,7 @@ class OavAreaBallotMap extends OavBaseElement {
   render() {
     return html`
       <div class="layout vertical center-center topMapContainer">
-        ${this.noItems ?
+        ${!this.items ?
             html`
               <div class="noMapContainer shadow-elevation-3dp">
                 <h1>${this.localize('items.noMapItems')}</h1>
@@ -61,18 +59,28 @@ class OavAreaBallotMap extends OavBaseElement {
             :
             html`
               <div class="mapContainer">
-                <google-map ?disable-default-ui="${this.tiny}" id="map" api-key="${this.configFromServer.client_config.googleMapsApiKey}" fit-to-markers>
+                <google-map ?disable-default-ui="${this.tiny}" id="map" .apiKey="${this.configFromServer.client_config.googleMapsApiKey}" fit-to-markers>
                   ${this.items.map(item => {
-                    item.locations.map(location => {
-                      html`
-                        <google-map-marker slot="markers" click-events item="${item}" latitude="${location.latitude}" longitude="${location.longitude}" class="marker" @google-map-marker-click="${this.markerClick}">
+                    return item.locations.map(location => {
+                      return html`
+                        <google-map-marker slot="markers" .clickEvents="${true}" .latitude="${location.latitude}" data-itemid="${item.id}" .longitude="${location.longitude}" class="marker" @google-map-marker-click="${this.markerClick}">
                         </google-map-marker>
                       `
                     })
                   })}
-                  <plastic-map-info id="myInfoCard" fade-in>
-                    <oav-area-ballot-item on-oav-toggle-item-in-budget="_closeInfo" small elevation="0" id="ballotItem" budget-element="${this.budgetElement}" class="ballotItem" item="${this.selectedItem}"></oav-area-ballot-item>
-                  </plastic-map-info>
+
+                  ${this.selectedItem ? html`
+                    <plastic-map-info id="myInfoCard" fade-in>
+                      <oav-area-ballot-item
+                      @oav-toggle-item-in-budget="_closeInfo" small  elevation="0" id="ballotItem"
+                      .budgetElement="${this.budgetElement}"
+                      .language="${this.language}"
+                      .isOnMap="${true}"
+                      .configFromServer="${this.configFromServer}" class="ballotItem"
+                      .item="${this.selectedItem}"
+                      ></oav-area-ballot-item>
+                    </plastic-map-info>
+                  ` :  html``}
                 </google-map>
               </div>
             `
@@ -84,13 +92,23 @@ class OavAreaBallotMap extends OavBaseElement {
   constructor() {
     super();
     this.reset();
+  }
+
+  connectedCallback() {
+    console.error("CONnn");
+    super.connectedCallback();
     setTimeout(function () {
       this.resetMapHeight();
     }.bind(this));
   }
 
+  disconnectedCallback() {
+    console.error("DIS CONnn");
+    this.items = null;
+    super.disconnectedCallback();
+  }
+
   reset() {
-    this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
   }
 
   _closeInfo() {
@@ -99,6 +117,15 @@ class OavAreaBallotMap extends OavBaseElement {
 
   updated(changedProps) {
     super.updated(changedProps);
+    if (this.items) {
+      this.items.map(item => {
+        item.locations.map(location => {
+          console.error(location)
+        })
+      })
+    }
+
+    console.error(this.configFromServer.client_config.googleMapsApiKey);
     if (changedProps.has('wide')) {
       this.resetMapHeight();
     }
@@ -155,15 +182,22 @@ class OavAreaBallotMap extends OavBaseElement {
 
   markerClick(e) {
     this.activity('click', 'marker');
-    this.selectedItem = e.model.get('item');
-    var a = this.selectedItem;
+    const selectedItemId = e.target.dataset.itemid;
+    this.items.forEach( (item) => {
+      if (item.id==selectedItemId) {
+        this.selectedItem = item;
+      }
+    });
+
+    let marker;
     if (e.srcElement) {
-      this.$$("#myInfoCard").showInfoWindow(e.srcElement.marker);
+      marker = e.srcElement.marker;
     } else {
-      this.$$("#myInfoCard").showInfoWindow(e.currentTarget.marker);
+      marker = e.currentTarget.marker;
     }
-    var infocardDiv = this.$$("#myInfoCard").$$("#infocarddiv");
-    infocardDiv.children[1].style.zIndex = "20";
+    setTimeout( () => {
+      this.$$("#myInfoCard").showInfoWindow(marker);
+    }, 10);
   }
 }
 

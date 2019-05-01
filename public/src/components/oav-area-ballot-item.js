@@ -91,7 +91,9 @@ class OavAreaBallotItem extends OavBaseElement {
       imageLoaded: {
         type: Boolean,
         value: false
-      }
+      },
+
+      isOnMap: Boolean
     };
   }
 
@@ -124,7 +126,7 @@ class OavAreaBallotItem extends OavBaseElement {
             ${this.item.description}
           </div>
         </div>
-        <paper-menu-button @click="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
+        <paper-menu-button ?hidden="${this.isOnMap}" @click="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
           <paper-icon-button .title="${this.localize('more_information')}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" title="${this.localize('select')}" icon="menu">
           </paper-icon-button>
           <paper-listbox class="dropdown-content" slot="dropdown-content">
@@ -197,6 +199,7 @@ class OavAreaBallotItem extends OavBaseElement {
     }
 
     if (changedProps.has('item')) {
+      console.error("ITEM: "+this.item.id);
       if (this.item) {
         if (this.item.locations && this.item.locations.length>0) {
           this.longitude = this.item.locations[0].longitude;
@@ -244,6 +247,7 @@ class OavAreaBallotItem extends OavBaseElement {
     this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
     this.mapsHeight = '169';
     this.mapsWidth = '300';
+
   }
 
   _imageLoadedChanged(event) {

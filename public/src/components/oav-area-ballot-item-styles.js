@@ -98,6 +98,7 @@ export const OavAreaBallotItemStyles = css`
     text-align: left;
     background-color: var(--app-ballot-item-description-background-color, #333);
     color: var(--app-ballot-item-description-color, #FFF);
+    margin-bottom: 7px;
   }
 
   .descriptionContainer[small] {
@@ -120,7 +121,7 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .name {
-    font-size: var(--app-item-name-font-size, 17px);
+    font-size: var(--app-item-name-font-size, 20px);
     padding: 8px;
     color: var(--app-ballot-item-name-color, #222);
   }
@@ -214,10 +215,7 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .shareIcon[small] {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 2px;
+    display: none;
   }
 
   .budgetContainer {

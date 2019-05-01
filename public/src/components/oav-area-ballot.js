@@ -49,7 +49,9 @@ class OavAreaBallot extends PageViewElement {
         type: Object
       },
 
-      oldFavoriteItem: Object
+      oldFavoriteItem: Object,
+
+      showMap: Boolean
     };
   }
 
@@ -77,34 +79,36 @@ class OavAreaBallot extends PageViewElement {
 
           ${this.budgetBallotItems ?
             html`
-              ${cache(this.selectedView===0 ?
-                html`
-                  <div id="itemContainer" class="layout horizontal center-center flex wrap" >
-                    ${this.budgetBallotItems.map((item, index) =>
-                      html`
-                        <oav-area-ballot-item
-                          .name="${item.id}"
-                          class="ballotAreaItem"
-                          .configFromServer="${this.configFromServer}"
-                          .language="${this.language}"
-                          .budgetElement="${this.budgetElement}"
-                          tabindex="${index}"
-                          .item="${item}">
-                        </oav-area-ballot-item>
-                      `
-                    )}
-                  </div>
-                `
-                :
+              <div id="itemContainer" class="layout horizontal center-center flex wrap" ?hidden="${this.selectedView===1}">
+                ${this.budgetBallotItems.map((item, index) =>
+                  html`
+                    <oav-area-ballot-item
+                      .name="${item.id}"
+                      class="ballotAreaItem"
+                      .configFromServer="${this.configFromServer}"
+                      .language="${this.language}"
+                      .budgetElement="${this.budgetElement}"
+                      tabindex="${index}"
+                      .item="${item}">
+                    </oav-area-ballot-item>
+                  `
+                )}
+              </div>
+              ${this.showMap ?
                 html`
                   <oav-area-ballot-map
+                    ?hidden="${this.selectedView===0}"
                     id="itemsMap"
-                    .budget-element="${this.budgetElement}"
+                    .budgetElement="${this.budgetElement}"
                     .configFromServer="${this.configFromServer}"
+                    .language="${this.language}"
                     .items="${this.budgetBallotItems}">
                   </oav-area-ballot-map>
                 `
-              )}
+                :
+                html`
+                `
+              }
             `
             :
             ''
@@ -137,6 +141,7 @@ class OavAreaBallot extends PageViewElement {
       if (this.selectedView===0) {
         this.activity('click', 'ideasTab');
       } else if (this.selectedView==1) {
+        this.showMap = true;
         this.activity('click', 'mapTab');
       }
     }
@@ -151,6 +156,7 @@ class OavAreaBallot extends PageViewElement {
 
   constructor() {
     super();
+    this.showMap = false;
   }
 
   connectedCallback() {
