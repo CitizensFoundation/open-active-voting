@@ -384,7 +384,11 @@ class OavAreaBallot extends PageViewElement {
         .then(response => response.json())
         .then(response => {
           if (response && response.vote_ok === true) {
-            window.location = this._getSamlUrlWithLanguage();
+            if (FAKE_VOTING) {
+              this.completeIfAuthenticatedVote();
+            } else {
+              window.location = this._getSamlUrlWithLanguage();
+            }
           } else {
             this.fire('oav-error', this.localize('error_could_not_post_vote'));
           }
@@ -402,14 +406,16 @@ class OavAreaBallot extends PageViewElement {
   _setVotingCompleted() {
     this.reset();
     this.areaId = null;
-    window.location = "/voting-completed"
+    const path = '/voting-completed';
+    window.history.pushState({}, null, path);
+    this.fire('location-changed', path);
+
     var dialog = document.querySelector('oav-app').getDialog("authDialog");
     if (dialog)
       dialog.close();
   }
 
   completeIfAuthenticatedVote() {
-    this.$.checkVoteCompletionAjax.generateRequest();
     fetch('/votes/is_vote_authenticated')
     .then(response => response.json())
     .then(response => {

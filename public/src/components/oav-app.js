@@ -25,6 +25,7 @@ import './oav-icons.js';
 import './snack-bar.js';
 import './oav-area-ballot';
 import './oav-area-budget';
+import './oav-voting-completed';
 
 import { OavAppStyles } from './oav-app-styles.js';
 import { OavBaseElement } from './oav-base-element.js';
@@ -277,7 +278,6 @@ class OavApp extends OavBaseElement {
         this.configFromServer = response.config;
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
         ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
-        debugger;
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = 1;
@@ -493,7 +493,7 @@ class OavApp extends OavBaseElement {
   }
 
   getDialog(name) {
-    return this.$$("#dialogContainer").getDialog(name);
+    return this.$$("#"+name);
   }
 
   firstUpdated() {
@@ -617,9 +617,11 @@ class OavApp extends OavBaseElement {
 
       // Do not allow access to voting-completed from a reload
       if (page=='voting-completed' && oldPage!='area-ballot') {
-        window.location = "/";
+        debugger;
+        //window.location = "/";
       }
 
+      debugger;
       // Refresh counts if coming from voting-completed
       if (oldPage=='voting-completed' && this.$$("#selectVotingArea")) {
         this.$$("#selectVotingArea").refreshAreaCounters();
@@ -661,7 +663,9 @@ class OavApp extends OavBaseElement {
     if (location instanceof CustomEvent)
       location = { pathname: location.detail };
 
+    debugger;
     if (location.pathname==="/" && this.oneBallotId) {
+      debugger;
       const path = '/area-ballot/'+this.oneBallotId;
       window.history.pushState({}, null, path);
       location = { pathname: path };

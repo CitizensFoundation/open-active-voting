@@ -105,6 +105,7 @@ class VotesController < ApplicationController
                      :payload_data => params[:encrypted_vote],
                      :client_ip_address => ip_address,
                      :area_id =>params[:area_id],
+                     :saml_assertion_id=> ENV["FAKE_VOTING"] ? "fake" : nil,
                      :session_id => request.session_options[:id],
                      :encrypted_vote_checksum => "not authenticated")
 

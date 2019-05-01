@@ -248,7 +248,7 @@ Polymer({
         </template>
         <div class="layout horizontal actionContainer" hidden\$="[[hideActions]]">
           <yp-point-actions point="[[point]]" point-url\$="[[pointUrl]]"></yp-point-actions>
-          <paper-icon-button title\$="[[t('point.report')]]" id="reportPointIconButton" icon="warning" on-tap="_reportPoint"></paper-icon-button>
+          <paper-icon-button hidden title\$="[[t('point.report')]]" id="reportPointIconButton" icon="warning" on-tap="_reportPoint"></paper-icon-button>
           <div class="flex"></div>
           <template is="dom-if" if="[[hasPointAccess]]">
             <div class="layout horizontal self-end" hidden\$="">

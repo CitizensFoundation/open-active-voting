@@ -15,6 +15,16 @@ class OavVotingCompleted extends PageViewElement {
 
   render() {
     return html`
+    <h1>ijijijij</h1>
+      <style>
+        .mainContainer {
+          padding-top: 24px;
+          background-image: var(--app-other-background-image);
+          background-size: var(--app-other-background-size, 1920px 238px);
+          background-repeat: no-repeat;
+        }
+      </style>
+
       <div class="layout vertical center-center mainContainer">
         <div  class="topMaterial">
           <img class="desktopLogo" src="${this.votingCompleteConfig.logo}"/>
@@ -42,4 +52,4 @@ class OavVotingCompleted extends PageViewElement {
   }
 }
 
-window.customElements.define('oav-view404', OavView404);
+window.customElements.define('oav-voting-completed', OavVotingCompleted);
