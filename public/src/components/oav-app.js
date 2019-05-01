@@ -155,15 +155,20 @@ class OavApp extends OavBaseElement {
             </div>
             <div class="vertical center-center welcomeDialog">
               <div class="heading">${this.welcomeHeading}</div>
-              <div class="horizontal welcomeText">
-                ${this.welcomeText}
+                <div class="horizontal welcomeText">
+                  ${this.welcomeText}
+                </div>
+              <div class="langSelectionText">
+                ${this.configFromServer.client_config.localeSetup.map((lang) => {
+                  return html`
+                    <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
+                      @click="${this.selectLocale}">${lang.language}</span>
+                  `
+                })}
               </div>
-            </div>
-            <div>
-              ${this.localize('selectLanguage')}
-            </div>
-            <div class="buttons center-center">
-              <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+              <div class="buttons center-center">
+                <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('continue')}</paper-button>
+              </div>
             </div>
           </div>
         </paper-dialog>
@@ -245,6 +250,17 @@ class OavApp extends OavBaseElement {
     }
   }
 
+  selectLocale(event) {
+    if (this.language != event.target.dataset.locale) {
+      this.language = event.target.dataset.locale;
+      if (this._page==="area-ballot" && this.currentBallot) {
+        setTimeout( () => {
+          this.currentBallot.loadArea();
+        }, 10);
+      }
+    }
+  }
+
   _boot() {
     fetch("/votes/boot")
       .then(res => res.json())
@@ -273,7 +289,7 @@ class OavApp extends OavBaseElement {
         window.localize = this.localize;
         if (this.configFromServer.client_config.welcomeLocales) {
           setTimeout( () => {
-            if (!localStorage.getItem("haveClosedWelcome")) {
+            if (!localStorage.getItem("haveClsosedWelcome")) {
               this.$$("#welcomeDialog").open();
             }
           });
@@ -492,9 +508,9 @@ class OavApp extends OavBaseElement {
 
   getHelpContent() {
     if (this.configFromServer.client_config.helpPageLocales[this.language]) {
-      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales[this.language].text);
+      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales[this.language].b64text);
     } else if (this.configFromServer.client_config.helpPageLocales["en"]) {
-      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales["en"].text)
+      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales["en"].b64text)
     } else {
       return "No help page found for selected language!"
     }

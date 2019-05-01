@@ -227,11 +227,15 @@ export const OavAppStyles = css`
     margin: 8px;
     text-align: center;
     width: 100%;
+    margin: 0 !important;
+      padding: 0 !important;
   }
 
   .welcomeText {
     width: 420px;
     max-width: 420px;
+    font-size: 15px;
+    margin-top: 8px;
   }
 
   .welcomeLogo {
@@ -241,8 +245,12 @@ export const OavAppStyles = css`
     max-width: 280px;
     width: 280px;
     height: 116px;
+  }
+
+  .welcomeLogoContainer {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
   }
 
   paper-button.continueButton {
@@ -262,9 +270,11 @@ export const OavAppStyles = css`
       padding-top: 0;
       text-align: center;
     }
+
     .heading {
       font-size: 24px;
     }
+
     .welcomeText {
       width: 80%;
       max-width: none;
@@ -301,13 +311,24 @@ export const OavAppStyles = css`
   }
 
   .welcomeLogoContainer {
-    background-color: #fafafa;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
   }
 
   paper-dialog {
     z-index: 1000000;
+  }
+
+  .langSelectionText {
+    font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .langSelect {
+    cursor: pointer;
+    margin-left: 4px;
+  }
+
+  .langSelect[is-selected] {
+    text-decoration: underline;
   }
 `;

@@ -199,7 +199,6 @@ class OavAreaBallotItem extends OavBaseElement {
     }
 
     if (changedProps.has('item')) {
-      console.error("ITEM: "+this.item.id);
       if (this.item) {
         if (this.item.locations && this.item.locations.length>0) {
           this.longitude = this.item.locations[0].longitude;
