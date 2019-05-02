@@ -1,53 +1,49 @@
 import { html } from 'lit-element';
 import { PageViewElement } from './page-view-element.js';
 import { OavShadowStyles } from './oav-shadow-styles.js';
+import { OavAreaVotingCompletedStyles } from './oav-voting-completed-styles';
+import { OavFlexLayout } from './oav-flex-layout.js';
 
 class OavVotingCompleted extends PageViewElement {
   static get properties() {
     return {
-      votingCompleteConfig: { type: Object }
+      configFromServer: { type: Object }
     }
   }
 
   static get styles() {
-    return [ OavShadowStyles ]
+    return [ OavShadowStyles, OavFlexLayout, OavAreaVotingCompletedStyles ]
   }
 
   render() {
     return html`
-    <h1>ijijijij</h1>
-      <style>
-        .mainContainer {
-          padding-top: 24px;
-          background-image: var(--app-other-background-image);
-          background-size: var(--app-other-background-size, 1920px 238px);
-          background-repeat: no-repeat;
-        }
-      </style>
-
-      <div class="layout vertical center-center mainContainer">
-        <div  class="topMaterial">
-          <img class="desktopLogo" src="${this.votingCompleteConfig.logo}"/>
-          <div class="completedText">
-            <div>${this.localize('thank_you_1')}</div>
-            <div class="smaller">${this.localize('thank_you_2')}</div>
-            <div class="smaller">${this.localize('thank_you_3')}</div>
-            <div class="layout vertical center-center textSharingContainer" ?hidden="${!this.votingCompleteConfig.shareUrl}">
-              <div class="textSharing">
-                ${this.localize('share_vote_by_pressing')}
-              </div>
-              <div class="shareIconButton">
-                <paper-share-button raised on-share-tap="_shareTap" class="shareIconFinal"
-                                    horizontal-align="left" id="shareButton"
-                                    title="${this.localize('share_vote_by_pressing')}"
-                                    facebook twitter popup url$="${this.votingCompleteConfig.shareUrl}">
-                </paper-share-button>
-              </div>
+      ${ this.configFromServer ?  html`
+        <div class="layout vertical center-center mainContainer">
+          <div class="topMaterial shadow-elevation-8dp vertical center-center">
+            <div>
+              <img class="desktopLogo self-center" src="${this.configFromServer.client_config.votingCompleteConfig.logo}"/>
             </div>
-            <div class="smaller footerText" ?hidden="${this.votingCompleteConfig.showFooterText}">${this.localize('thank_you_4')}</div>
+            <div class="completedText">
+              <div>${this.localize('thank_you_1')}</div>
+              <div class="smaller">${this.localize('thank_you_2')}</div>
+              <div class="smaller">${this.localize('thank_you_3')}</div>
+              <div class="center-center textSharingContainer" ?hidden="${!this.configFromServer.client_config.votingCompleteConfig.shareUrl}">
+                <div class="textSharing">
+                  ${this.localize('share_vote_by_pressing')}
+                </div>
+                <div class="shareIconButton">
+                  <paper-share-button raised on-share-tap="_shareTap" class="shareIconFinal"
+                                      horizontal-align="left" id="shareButton"
+                                      title="${this.localize('share_vote_by_pressing')}"
+                                      facebook twitter popup url="${this.configFromServer.client_config.votingCompleteConfig.shareUrl}">
+                  </paper-share-button>
+                </div>
+              </div>
+              <div class="smaller footerText" ?hidden="${!this.configFromServer.client_config.votingCompleteConfig.showFooterText}">${this.localize('thank_you_4')}</div>
+            </div>
           </div>
-       </div>
-      </div>
+        </div>
+      ` : html`` }
     `
   }
 }

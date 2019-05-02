@@ -5,13 +5,17 @@ Copyright (c) 2010-2019 Citizens Foundation
 
 import { css } from 'lit-element';
 
-export const OavAreaBudgetStyles = css`
+export const OavAreaVotingCompletedStyles = css`
   .topMaterial {
     background-color: var(--app-voting-completed-top-material-background-color, #fbfbfb);
     color: var(--app-voting-completed-top-material-color, #222);
     font-size: 26px;
     margin: 48px;
+    margin-top: 0;
+    text-align: center;
     max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .smaller {
@@ -31,13 +35,13 @@ export const OavAreaBudgetStyles = css`
 
   .mainContainer {
     width: 100%;
-    height: 100%;
-    background-size: 1920px 300px;
+    background-size: 1920px 238px;
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: top;
     background-image: var(--app-voting-completed-image-url, url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png"));
     background-repeat: repeat-x;
+    padding-top: 48px;
   }
 
   @media (max-width: 600px) {
@@ -53,8 +57,7 @@ export const OavAreaBudgetStyles = css`
   }
 
   .desktopLogo {
-    width: 400px;
-    height: 120px;
+    max-width: 360px;
   }
 
   @media (max-width: 600px) {
@@ -66,7 +69,6 @@ export const OavAreaBudgetStyles = css`
 
     .desktopLogo {
       width: 320px;
-      height: 96px;
       margin-top: 0;
     }
 

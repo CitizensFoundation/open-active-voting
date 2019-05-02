@@ -214,7 +214,11 @@ class OavApp extends OavBaseElement {
             .votePublicKey="${this.votePublicKey}"
             ?active="${this._page === 'area-ballot'}">
           </oav-area-ballot>
-          <oav-voting-completed ?active="${this._page === 'voting-completed'}"></oav-voting-completed>
+          <oav-voting-completed
+            .configFromServer="${this.configFromServer}"
+            .language="${this.language}"
+            ?active="${this._page === 'voting-completed'}">
+          </oav-voting-completed>
           <yp-post
             .id="post"
             .budgetElement="${this.budgetElement}"
@@ -617,11 +621,9 @@ class OavApp extends OavBaseElement {
 
       // Do not allow access to voting-completed from a reload
       if (page=='voting-completed' && oldPage!='area-ballot') {
-        debugger;
-        //window.location = "/";
+        window.location = "/";
       }
 
-      debugger;
       // Refresh counts if coming from voting-completed
       if (oldPage=='voting-completed' && this.$$("#selectVotingArea")) {
         this.$$("#selectVotingArea").refreshAreaCounters();
@@ -663,9 +665,7 @@ class OavApp extends OavBaseElement {
     if (location instanceof CustomEvent)
       location = { pathname: location.detail };
 
-    debugger;
     if (location.pathname==="/" && this.oneBallotId) {
-      debugger;
       const path = '/area-ballot/'+this.oneBallotId;
       window.history.pushState({}, null, path);
       location = { pathname: path };
