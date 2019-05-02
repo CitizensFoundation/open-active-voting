@@ -95,7 +95,6 @@ class OavAreaBallotMap extends OavBaseElement {
   }
 
   connectedCallback() {
-    console.error("CONnn");
     super.connectedCallback();
     setTimeout(function () {
       this.resetMapHeight();
@@ -103,7 +102,6 @@ class OavAreaBallotMap extends OavBaseElement {
   }
 
   disconnectedCallback() {
-    console.error("DIS CONnn");
     this.items = null;
     super.disconnectedCallback();
   }
@@ -117,15 +115,7 @@ class OavAreaBallotMap extends OavBaseElement {
 
   updated(changedProps) {
     super.updated(changedProps);
-    if (this.items) {
-      this.items.map(item => {
-        item.locations.map(location => {
-          console.error(location)
-        })
-      })
-    }
 
-    console.error(this.configFromServer.client_config.googleMapsApiKey);
     if (changedProps.has('wide')) {
       this.resetMapHeight();
     }
