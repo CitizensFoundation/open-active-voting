@@ -1,0 +1,5 @@
+polymer build
+cd build/esm-bundled/src/components
+uglifyjs --compress --mangle -- oav-app.js > oav-app.min.js
+rm oav-app.js
+mv oav-app.min.js oav-app.js
