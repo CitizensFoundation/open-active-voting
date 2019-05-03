@@ -93,7 +93,9 @@ class OavAreaBallotItem extends OavBaseElement {
         value: false
       },
 
-      isOnMap: Boolean
+      isOnMap: Boolean,
+
+      configFromServer: Object
     };
   }
 
@@ -114,7 +116,7 @@ class OavAreaBallotItem extends OavBaseElement {
         ${this.mapTabSelected && this.mapsHeight ?
           html`
             <iron-image class="main-image" .sizing="cover"
-              src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.staticMapsApiKey}"
+              src="https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=15&size=${this.mapsWidth}x${this.mapsHeight}&markers=color:red%7Clabel:%7C${this.latitude},${this.longitude}&key=${this.configFromServer.client_config.googleMapsStaticApiKey}"
               ?hidden="${!this.mapTabSelected}">
             </iron-image>
           `
@@ -242,8 +244,6 @@ class OavAreaBallotItem extends OavBaseElement {
     this.isFavorite = false;
     this.toExpensiveForBudget = false;
     this.selectedInBudget = false;
-    this.googleMapsApiKey = "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0";
-    this.staticMapsApiKey = "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA";
     this.mapsHeight = '169';
     this.mapsWidth = '300';
 

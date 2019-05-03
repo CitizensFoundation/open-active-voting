@@ -283,6 +283,13 @@ class OavApp extends OavBaseElement {
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
+
+        if (this.configFromServer.client_config.welcomeLocales &&
+            this.configFromServer.client_config.ballotBudgetLogo) {
+          const tempImg = new Image()
+          tempImg.src= this.configFromServer.client_config.ballotBudgetLogo;
+        }
+
         ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
@@ -294,8 +301,6 @@ class OavApp extends OavBaseElement {
         if (this.configFromServer.client_config.favoriteIcon) {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
         }
-
-        debugger;
 
         if (!(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)) {
           const path = "/area-ballot/"+this.oneBallotId;
