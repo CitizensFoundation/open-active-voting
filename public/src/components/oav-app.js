@@ -292,18 +292,25 @@ class OavApp extends OavBaseElement {
         if (this.configFromServer.client_config.favoriteIcon) {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
         }
-        const path = "/area-ballot/"+this.oneBallotId;
-        window.history.pushState({}, null, path);
-        this.fire('location-changed', path);
+
+        debugger;
+
+        if (!(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)) {
+          const path = "/area-ballot/"+this.oneBallotId;
+          window.history.pushState({}, null, path);
+          this.fire('location-changed', path);
+
+          if (this.configFromServer.client_config.welcomeLocales) {
+            setTimeout( () => {
+              if (!localStorage.getItem("haveClsosedWelcome")) {
+                this.$$("#welcomeDialog").open();
+              }
+            });
+          }
+        }
+
         window.language = this.language;
         window.localize = this.localize;
-        if (this.configFromServer.client_config.welcomeLocales) {
-          setTimeout( () => {
-            if (!localStorage.getItem("haveClsosedWelcome")) {
-              this.$$("#welcomeDialog").open();
-            }
-          });
-        }
       })
       .catch(error => {
         console.error('Error:', error);

@@ -8,6 +8,8 @@ ruby '2.4.5'
 gem 'rails', '5.2.3'
 gem 'tzinfo-data'
 gem 'rails-html-sanitizer'
+gem 'browser'
+
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use SCSS for stylesheets
