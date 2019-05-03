@@ -3,7 +3,7 @@
   %head
     %meta{:charset => "utf-8"}/
     %meta{:content => "#{@area.name}: #{@item.name}", :property => "og:title"}/
-    %meta{:content => "#{@config.election_description}", :property => "og:description"}/
+    %meta{:content => "#{@config.client_config["shareMetaData"]["description"]}", :property => "og:description"}/
     %meta{:content => "website", :property => "og:type"}/
     %meta{:content => "#{@item.image_url}", :property => "og:image"}/
     %meta{:content => "#{request.protocol + request.host}/items/#{@item.id}", :property => "og:url"}/
@@ -14,7 +14,7 @@
     %center
       %div
         %b
-          = "#{@config.election_name}"
+          = "#{@config.client_config["shareMetaData"]["description"]}"
       %br
       %div
         %b
