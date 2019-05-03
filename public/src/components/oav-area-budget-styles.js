@@ -22,7 +22,6 @@ export const OavAreaBudgetStyles = css`
 
   @media (max-width: 1100px) {
     .budgetContainer {
-      background-color: var(--app-budget-container-background-color, #213158);
     }
   }
 
