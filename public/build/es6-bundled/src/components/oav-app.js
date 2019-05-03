@@ -13233,7 +13233,7 @@ const fragment=document.importNode(template.content,!0);part.setValue(fragment);
       }
     </style>
     <paper-menu-button id="shareMenu" horizontal-align\$="[[horizontalAlign]]" vertical-align="bottom">
-      <paper-icon-button icon="[[buttonIcon]]" slot="dropdown-trigger"></paper-icon-button>
+      <paper-icon-button icon="[[buttonIcon]]" slot="dropdown-trigger" alt="Share"></paper-icon-button>
       <paper-material slot="dropdown-content">
         <div class="social-list">
           <div>
@@ -13915,7 +13915,7 @@ rsa.setPublicKeyFromASN(tree);var crypted=rsa.encrypt(JSON.stringify(selectedIte
     <g id="add"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></g>
     <g id="arrow-downward"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></g>
     <g id="arrow-upward"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"></path></g>
-    <g id="close"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></g>
+    <g id="closeExit"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></g>
     <g id="description"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></g>
     <g id="favorite"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></g>
     <g id="favorite-border"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"></path></g>
@@ -14432,27 +14432,26 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
           </div>
         </div>
         <paper-menu-button ?hidden="${this.isOnMap}" @tap="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
-          <paper-icon-button .title="${this.localize("more_information")}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" title="${this.localize("select")}" icon="menu">
-          </paper-icon-button>
+          <paper-icon-button class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" alt="${this.localize("openDetailMenu")}" icon="menu"></paper-icon-button>
           <paper-listbox class="dropdown-content" slot="dropdown-content">
             <paper-item @tap="${this._setImageMode}">
-              <iron-icon title="${this.localize("image_item_tab")}" class="infoIcon" icon="photo"></iron-icon>
+              <iron-icon alt="${this.localize("image_item_tab")}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize("image_item_tab")}
             </paper-item>
             <paper-item @tap="${this._setDescriptionMode}">
-              <iron-icon title="${this.localize("description_item_tab")}" class="infoIcon" icon="description"></iron-icon>
+              <iron-icon alt="${this.localize("description_item_tab")}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize("description_item_tab")}
             </paper-item>
             <paper-item @tap="${this._setMapMode}">
-              <iron-icon title="${this.localize("map_item_tab")}" class="infoIcon" icon="place"></iron-icon>
+              <iron-icon alt="${this.localize("map_item_tab")}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize("map_item_tab")}
             </paper-item>
             <paper-item @tap="${this._openPdf}" ?hidden="${!this.descriptionPdfLink}">
-              <iron-icon title="${this.localize("design_pdf")}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
+              <iron-icon alt="${this.localize("design_pdf")}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize("design_pdf")}
             </paper-item>
             <paper-item @tap="${this._showPost}">
-              <iron-icon raised title="${this.localize("more_info_description")}" class="infoIcon" icon="info"></iron-icon>
+              <iron-icon raised alt="${this.localize("more_info_description")}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize("more_info_description")}
             </paper-item>
           </paper-listbox>
@@ -14607,7 +14606,6 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
                       .configFromServer="${this.configFromServer}"
                       .language="${this.language}"
                       .budgetElement="${this.budgetElement}"
-                      tabindex="${index}"
                       .item="${item}">
                     </oav-area-ballot-item>
                   `)}
@@ -15083,7 +15081,7 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
         <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
             <span ?hidden="${!this.showExit}">
-              <paper-icon-button ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="close" @click="${this._exit}"></paper-icon-button>
+              <paper-icon-button alt="${this.localize("close")}" ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </span>
             <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
             <div class="vertical center-center" style="width: 100%;">
@@ -15115,7 +15113,7 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
               </div>
               </div>
             </div>
-            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" icon="help-outline" @click="${this._help}"></paper-icon-button>
+            <paper-icon-button ?hidden="${this.wide}" class="mobileActionIcons" alt="${this.localize("help")}" icon="help-outline" @click="${this._help}"></paper-icon-button>
             <div>
               <paper-button id="votingButton" raised class="voteButton" @click="${this._submitVote}">${this.localize("vote")}</paper-button>
             </div>
@@ -15127,17 +15125,13 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
                   ${this.localize("budget_empty_info_1","amount",this.budgetLeft)}
                 </div>
                 <div>${this.localize("budget_empty_info_2")}</div>
-                <paper-fab mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
+                <paper-fab aria-label="${this.localize("add_to_budget")}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
                 <div>${this.localize("budget_empty_info_3")}</div>
               `:""}
             </div>
           </div>
         </div>
       </div>
-      <paper-toast on-tap="_closeToast" ?wide="${this.wide}" id="toast"
-      .duration="3000" .horizontal-align="right" .text="">
-      </paper-toast>
-
       <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
         ${this.localize("favorite_info")}
       </snack-bar>
@@ -15301,7 +15295,7 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img alt="welcome logo image" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
@@ -15325,10 +15319,10 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${"area-ballot"!==this._page}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
-              <paper-icon-button class="closeButton" icon="close" @click="${this._exit}"></paper-icon-button>
+              <paper-icon-button class="closeButton" alt="${this.localize("close")}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
             <div class="helpIconInBudget">
-              <paper-icon-button icon="help-outline" @click="${this._help}}"></paper-icon-button>
+              <paper-icon-button icon="help-outline" alt="${this.localize("help")}" @click="${this._help}}"></paper-icon-button>
             </div>
             <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
               <oav-area-budget
