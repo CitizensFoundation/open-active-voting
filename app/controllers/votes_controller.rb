@@ -42,6 +42,7 @@ class VotesController < ApplicationController
 
   # Used for BOTs to show dynamic meta data
   def meta
+    @meta = @config.client_config["shareMetaData"]
     respond_to do |format|
       format.html
     end
