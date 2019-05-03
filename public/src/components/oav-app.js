@@ -152,28 +152,30 @@ class OavApp extends OavBaseElement {
         </paper-dialog>
 
         <paper-dialog id="welcomeDialog" with-backdrop>
-          <div class="vertical center-center">
-            <div class="welcomeLogoContainer center-center">
-              <img class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
-            </div>
-            <div class="vertical center-center welcomeDialog">
-              <div class="heading">${this.welcomeHeading}</div>
-                <div class="horizontal welcomeText">
-                  ${this.welcomeText}
+          <paper-dialog-scrollable>
+            <div class="vertical center-center">
+              <div class="welcomeLogoContainer center-center">
+                <img class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+              </div>
+              <div class="vertical center-center welcomeDialog">
+                <div class="heading">${this.welcomeHeading}</div>
+                  <div class="horizontal welcomeText">
+                    ${this.welcomeText}
+                  </div>
+                <div class="langSelectionText">
+                  ${this.configFromServer.client_config.localeSetup.map((lang) => {
+                    return html`
+                      <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
+                        @click="${this.selectLocale}">${lang.language}</span>
+                    `
+                  })}
                 </div>
-              <div class="langSelectionText">
-                ${this.configFromServer.client_config.localeSetup.map((lang) => {
-                  return html`
-                    <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
-                      @click="${this.selectLocale}">${lang.language}</span>
-                  `
-                })}
-              </div>
-              <div class="buttons center-center">
-                <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
+                <div class="buttons center-center">
+                  <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
+                </div>
               </div>
             </div>
-          </div>
+          </paper-dialog-scrollable>
         </paper-dialog>
 
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot'}">
