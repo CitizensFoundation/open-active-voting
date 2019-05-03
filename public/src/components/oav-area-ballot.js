@@ -124,7 +124,6 @@ class OavAreaBallot extends PageViewElement {
   updated(changedProps) {
     super.updated(changedProps);
     if (changedProps.has('areaIdRoutePath')) {
-      debugger;
       if (this.areaIdRoutePath) {
         if (this.areaIdRoutePath==='completePostingOfVoteAfterRedirect') {
           this.completeIfAuthenticatedVote();
@@ -372,7 +371,6 @@ class OavAreaBallot extends PageViewElement {
   }
 
   completePostingOfVote(encryptedVotes) {
-    debugger;
     if (this.area && this.area.id) {
       if (encryptedVotes) {
         return fetch('/votes/post_vote', {
@@ -432,7 +430,6 @@ class OavAreaBallot extends PageViewElement {
 
   _getSamlUrlWithLanguage() {
     var url = this.configFromServer.auth_url;
-    debugger
     if (this.language=='en') {
       url+='&siteLanguage=en';
     } else if (this.language=='pl') {
