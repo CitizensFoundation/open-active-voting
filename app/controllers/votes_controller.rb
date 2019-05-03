@@ -40,6 +40,13 @@ class VotesController < ApplicationController
     end
   end
 
+  # Used for BOTs to show dynamic meta data
+  def meta
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # The redirect return point from the external island.is authentication
   def authenticate_from_island_is
     unless perform_island_is_authentication(params[:token],request)
