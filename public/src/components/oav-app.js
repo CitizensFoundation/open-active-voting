@@ -155,7 +155,7 @@ class OavApp extends OavBaseElement {
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img alt="welcome logo image" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
@@ -181,10 +181,10 @@ class OavApp extends OavBaseElement {
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot'}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
-              <paper-icon-button class="closeButton" icon="close" @click="${this._exit}"></paper-icon-button>
+              <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
             <div class="helpIconInBudget">
-              <paper-icon-button icon="help-outline" @click="${this._help}}"></paper-icon-button>
+              <paper-icon-button icon="help-outline" alt="${this.localize('help')}" @click="${this._help}}"></paper-icon-button>
             </div>
             <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
               <oav-area-budget

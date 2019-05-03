@@ -129,27 +129,27 @@ class OavAreaBallotItem extends OavBaseElement {
           </div>
         </div>
         <paper-menu-button ?hidden="${this.isOnMap}" @tap="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
-          <paper-icon-button .title="${this.localize('more_information')}" class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" title="${this.localize('select')}" icon="menu">
+          <paper-icon-button class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" alt="${this.localize('select')}" icon="menu">
           </paper-icon-button>
           <paper-listbox class="dropdown-content" slot="dropdown-content">
             <paper-item @tap="${this._setImageMode}">
-              <iron-icon title="${this.localize('image_item_tab')}" class="infoIcon" icon="photo"></iron-icon>
+              <iron-icon alt="${this.localize('image_item_tab')}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize('image_item_tab')}
             </paper-item>
             <paper-item @tap="${this._setDescriptionMode}">
-              <iron-icon title="${this.localize('description_item_tab')}" class="infoIcon" icon="description"></iron-icon>
+              <iron-icon alt="${this.localize('description_item_tab')}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize('description_item_tab')}
             </paper-item>
             <paper-item @tap="${this._setMapMode}">
-              <iron-icon title="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
+              <iron-icon alt="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize('map_item_tab')}
             </paper-item>
             <paper-item @tap="${this._openPdf}" ?hidden="${!this.descriptionPdfLink}">
-              <iron-icon title="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
+              <iron-icon alt="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize('design_pdf')}
             </paper-item>
             <paper-item @tap="${this._showPost}">
-              <iron-icon raised title="${this.localize('more_info_description')}" class="infoIcon" icon="info"></iron-icon>
+              <iron-icon raised alt="${this.localize('more_info_description')}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize('more_info_description')}
             </paper-item>
           </paper-listbox>
