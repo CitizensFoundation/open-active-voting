@@ -2435,6 +2435,11 @@
     color: #fff;
   }
 
+  #helpContent h1 {
+    line-height: 1em;
+    font-size: 1.5em;
+  }
+
   #favoriteIcon {
     color: var(--app-facvorite-icon-color, rgb(255,215,0));
     background-color: transparent;
