@@ -257,7 +257,7 @@ class OavApp extends OavBaseElement {
     var language = results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
     if (language) {
       this.language = language;
-      this.languageOveride = language;
+      localStorage.setItem("languageOverride", language);
     }
   }
 
@@ -274,6 +274,7 @@ class OavApp extends OavBaseElement {
   selectLocale(event) {
     if (this.language != event.target.dataset.locale) {
       this.language = event.target.dataset.locale;
+      localStorage.setItem("languageOverride", this.language);
       if (this._page==="area-ballot" && this.currentBallot) {
         setTimeout( () => {
           this.currentBallot.loadArea();
@@ -305,7 +306,9 @@ class OavApp extends OavBaseElement {
         this.favoriteIcon = "heart";
         this.oneBallotId = 1;
         if (this.configFromServer.client_config.defaultLanguage) {
-          if (!this.languageOveride) {
+          if (localStorage.getItem("languageOverride")) {
+            this.language = localStorage.getItem("languageOverride");
+          } else {
             this.language = this.configFromServer.client_config.defaultLanguage;
           }
           this.setupLocaleTexts();
