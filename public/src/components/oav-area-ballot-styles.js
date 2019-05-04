@@ -80,7 +80,7 @@ export const OavAreaBallotStyles = css`
     width: 320px;
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1045px) {
     paper-tab {
       font-size: 15px !important;
       margin-left: 16px;

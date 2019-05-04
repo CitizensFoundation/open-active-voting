@@ -106,7 +106,7 @@ export const OavAppStyles = css`
   }
 
 
-  @media (min-width: 460px) {
+  @media (min-width: 1045px) {
     .toolbar-list {
       display: block;
     }
