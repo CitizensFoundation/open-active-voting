@@ -2214,7 +2214,7 @@
         box-sizing: border-box;
         padding: 0 0 0 0;
         border-radius: 4px;
-        color: black;
+        color: white;
         opacity: 0;
         display: none;
         @apply --plastic-map-info-mixin;
