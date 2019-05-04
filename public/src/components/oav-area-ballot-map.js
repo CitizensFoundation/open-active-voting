@@ -59,7 +59,7 @@ class OavAreaBallotMap extends OavBaseElement {
             :
             html`
               <div class="mapContainer">
-                <google-map ?disable-default-ui="${this.tiny}" map-type="hybrid" id="map" .apiKey="${this.configFromServer.client_config.googleMapsApiKey}" fit-to-markers>
+                <google-map ?disable-default-ui="${this.tiny}" id="map" .apiKey="${this.configFromServer.client_config.googleMapsApiKey}" fit-to-markers>
                   ${this.items.map(item => {
                     return item.locations.map(location => {
                       return html`
