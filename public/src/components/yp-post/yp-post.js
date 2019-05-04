@@ -308,6 +308,12 @@ Polymer({
         paper-icon-button.closeButton {
           width: 46px;
           height: 46px;
+          top: 4px;
+          left: 4px;
+        }
+
+        yp-post-points  {
+          margin-top: 16px;
         }
       }
     </style>

@@ -3,6 +3,7 @@ import { PageViewElement } from './page-view-element.js';
 import { OavShadowStyles } from './oav-shadow-styles.js';
 import { OavAreaVotingCompletedStyles } from './oav-voting-completed-styles';
 import { OavFlexLayout } from './oav-flex-layout.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
 
 class OavVotingCompleted extends PageViewElement {
   static get properties() {
@@ -19,6 +20,8 @@ class OavVotingCompleted extends PageViewElement {
     return html`
       ${ this.configFromServer ?  html`
         <div class="layout vertical center-center mainContainer">
+          <paper-icon-button ?hidden="${this.wide}" class="helpIcon" alt="${this.localize('help')}" icon="help-outline" @click="${() => { this.fire("oav-open-help") }}"></paper-icon-button>
+
           <div class="topMaterial shadow-elevation-8dp vertical center-center">
             <div>
               <img class="desktopLogo self-center" src="${this.configFromServer.client_config.votingCompleteConfig.logo}"/>

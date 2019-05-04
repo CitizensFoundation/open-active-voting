@@ -23,6 +23,16 @@ export const OavAreaVotingCompletedStyles = css`
     padding-top: 16px;
   }
 
+  .helpIcon {
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: #fff;
+  }
+
   @media (max-width: 1000px) {
     .topMaterial {
       font-size: 20px;
@@ -48,6 +58,22 @@ export const OavAreaVotingCompletedStyles = css`
     .mainContainer {
       background-image: none;
       background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
+      padding-bottom: 75px;
+    }
+
+    :host {
+      height: 100%;
+    }
+
+    .topMaterial {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .mainContainer {
+      padding-right: 16px;
     }
   }
 
