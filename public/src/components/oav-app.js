@@ -117,7 +117,9 @@ class OavApp extends OavBaseElement {
 
       wideAndBallot: Boolean,
 
-      errorText: String
+      errorText: String,
+
+      languageOveride: String
     };
   }
 
@@ -249,6 +251,14 @@ class OavApp extends OavBaseElement {
     super();
     setPassiveTouchGestures(true);
     this._boot();
+    var name = "locale".replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    var language = results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    if (language) {
+      this.language = language;
+      this.languageOveride = language;
+    }
   }
 
   _setupCustomCss(config) {
@@ -295,7 +305,9 @@ class OavApp extends OavBaseElement {
         this.favoriteIcon = "heart";
         this.oneBallotId = 1;
         if (this.configFromServer.client_config.defaultLanguage) {
-          this.language = this.configFromServer.client_config.defaultLanguage;
+          if (!this.languageOveride) {
+            this.language = this.configFromServer.client_config.defaultLanguage;
+          }
           this.setupLocaleTexts();
         }
         if (this.configFromServer.client_config.favoriteIcon) {
@@ -524,7 +536,6 @@ class OavApp extends OavBaseElement {
         (matches) => {
           this.wide = matches;
           this.wideAndBallot = this.wide && this._page==='area-ballot';
-          console.error(this.wide);
         });
 
   }
