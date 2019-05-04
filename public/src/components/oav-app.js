@@ -155,7 +155,7 @@ class OavApp extends OavBaseElement {
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img alt="welcome logo image" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
