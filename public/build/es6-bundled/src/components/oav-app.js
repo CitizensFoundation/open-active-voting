@@ -15154,6 +15154,16 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
     padding-top: 16px;
   }
 
+  .helpIcon {
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: #fff;
+  }
+
   @media (max-width: 1000px) {
     .topMaterial {
       font-size: 20px;
@@ -15179,6 +15189,22 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
     .mainContainer {
       background-image: none;
       background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
+      padding-bottom: 75px;
+    }
+
+    :host {
+      height: 100%;
+    }
+
+    .topMaterial {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .mainContainer {
+      padding-right: 16px;
     }
   }
 
@@ -15246,6 +15272,8 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
 `;_exports.OavAreaVotingCompletedStyles=OavAreaVotingCompletedStyles;var oavVotingCompletedStyles={OavAreaVotingCompletedStyles:OavAreaVotingCompletedStyles};_exports.$oavVotingCompletedStyles=oavVotingCompletedStyles;class OavVotingCompleted extends PageViewElement{static get properties(){return{configFromServer:{type:Object}}}static get styles(){return[OavShadowStyles,OavFlexLayout,OavAreaVotingCompletedStyles]}render(){return html$1`
       ${this.configFromServer?html$1`
         <div class="layout vertical center-center mainContainer">
+          <paper-icon-button ?hidden="${this.wide}" class="helpIcon" alt="${this.localize("help")}" icon="help-outline" @click="${()=>{this.fire("oav-open-help")}}"></paper-icon-button>
+
           <div class="topMaterial shadow-elevation-8dp vertical center-center">
             <div>
               <img class="desktopLogo self-center" src="${this.configFromServer.client_config.votingCompleteConfig.logo}"/>
