@@ -2363,7 +2363,7 @@
   }
 
 
-  @media (min-width: 460px) {
+  @media (min-width: 1045px) {
     .toolbar-list {
       display: block;
     }
@@ -2724,7 +2724,7 @@
     width: 320px;
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1045px) {
     paper-tab {
       font-size: 15px !important;
       margin-left: 16px;
