@@ -66,7 +66,7 @@ class OavAreaBallot extends PageViewElement {
       html`
         <div class="topContainer layout vertical">
           <div class="layout horizontal center-center tabsContainer">
-            <paper-tabs id="tabs" selected="${this.selectedView}" @selected-changed="${this._selectedChanged}"">
+            <paper-tabs id="tabs" selected="${this.selectedView}" @selected-changed="${this._selectedChanged}">
               <paper-tab>
                 <div ?hidden="${!this.wide}">${this.area.name}</div>
                 <div ?hidden="${this.wide}" class="layout vertical center-center">
