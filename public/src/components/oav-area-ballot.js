@@ -183,7 +183,7 @@ class OavAreaBallot extends PageViewElement {
     if (this.areaId) {
       this.reset();
       this.fire('ak-clear-area');
-      fetch("/votes/get_ballot?area_id="+this.areaId+"&locale="+this.language)
+      fetch("/votes/get_ballot?area_id="+this.areaId+"&locale="+this.language, { credentials: 'same-origin' })
       .then(res => res.json())
       .then(response => {
         this.area = response.area;
@@ -375,6 +375,7 @@ class OavAreaBallot extends PageViewElement {
         return fetch('/votes/post_vote', {
           method: "POST",
           cache: "no-cache",
+          credentials: 'same-origin',
           headers: {
               "Content-Type": "application/json"
           },
@@ -415,7 +416,7 @@ class OavAreaBallot extends PageViewElement {
   }
 
   completeIfAuthenticatedVote() {
-    fetch('/votes/is_vote_authenticated')
+    fetch('/votes/is_vote_authenticated', { credentials: 'same-origin' })
     .then(response => response.json())
     .then(response => {
       if (response && response.vote_ok===true) {

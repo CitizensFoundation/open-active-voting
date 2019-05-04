@@ -273,7 +273,7 @@ class OavApp extends OavBaseElement {
   }
 
   _boot() {
-    fetch("/votes/boot")
+    fetch("/votes/boot", { credentials: 'same-origin' })
       .then(res => res.json())
       .then(response => {
         this.requestInProgress= false;

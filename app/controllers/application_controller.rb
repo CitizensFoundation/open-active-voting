@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   before_action :get_db_config
   before_action :set_locale
   before_action :load_public_key
-#  skip_before_action :verify_authenticity_token
   after_action :print_headers
   before_action :start_session
 
