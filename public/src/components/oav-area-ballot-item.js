@@ -130,7 +130,7 @@ class OavAreaBallotItem extends OavBaseElement {
         </div>
         <paper-menu-button ?hidden="${this.isOnMap}" @tap="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
           <paper-icon-button class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" alt="${this.localize('openDetailMenu')}" icon="menu"></paper-icon-button>
-          <paper-listbox class="dropdown-content" slot="dropdown-content">
+          <paper-listbox class="dropdown-content" slot="dropdown-content" selected="0">
             <paper-item @tap="${this._setImageMode}">
               <iron-icon alt="${this.localize('image_item_tab')}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize('image_item_tab')}

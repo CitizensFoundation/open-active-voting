@@ -33,6 +33,16 @@ export const OavAreaVotingCompletedStyles = css`
     color: #fff;
   }
 
+  .exitIcon {
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    color: #fff;
+  }
+
   @media (max-width: 1000px) {
     .topMaterial {
       font-size: 20px;
@@ -58,6 +68,7 @@ export const OavAreaVotingCompletedStyles = css`
     .mainContainer {
       background-image: none;
       background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
+      padding-top: 20px;
       padding-bottom: 75px;
     }
 

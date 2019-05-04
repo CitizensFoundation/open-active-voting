@@ -20,7 +20,8 @@ class OavVotingCompleted extends PageViewElement {
     return html`
       ${ this.configFromServer ?  html`
         <div class="layout vertical center-center mainContainer">
-          <paper-icon-button ?hidden="${this.wide}" class="helpIcon" alt="${this.localize('help')}" icon="help-outline" @click="${() => { this.fire("oav-open-help") }}"></paper-icon-button>
+          <paper-icon-button class="helpIcon" alt="${this.localize('help')}" icon="help-outline" @click="${() => { this.fire("oav-open-help") }}"></paper-icon-button>
+          <paper-icon-button class="exitIcon" alt="${this.localize('close')}" icon="closeExit" @click="${() => { window.location='' }}"></paper-icon-button>
 
           <div class="topMaterial shadow-elevation-8dp vertical center-center">
             <div>
