@@ -3113,7 +3113,7 @@
         </div>
         <paper-menu-button ?hidden="${this.isOnMap}" @tap="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
           <paper-icon-button class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" alt="${this.localize("openDetailMenu")}" icon="menu"></paper-icon-button>
-          <paper-listbox class="dropdown-content" slot="dropdown-content">
+          <paper-listbox class="dropdown-content" slot="dropdown-content" selected="0">
             <paper-item @tap="${this._setImageMode}">
               <iron-icon alt="${this.localize("image_item_tab")}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize("image_item_tab")}
@@ -3835,6 +3835,16 @@
     color: #fff;
   }
 
+  .exitIcon {
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    color: #fff;
+  }
+
   @media (max-width: 1000px) {
     .topMaterial {
       font-size: 20px;
@@ -3860,6 +3870,7 @@
     .mainContainer {
       background-image: none;
       background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
+      padding-top: 20px;
       padding-bottom: 75px;
     }
 
@@ -3943,7 +3954,8 @@
 `;var oavVotingCompletedStyles={OavAreaVotingCompletedStyles:OavAreaVotingCompletedStyles};class OavVotingCompleted extends PageViewElement{static get properties(){return{configFromServer:{type:Object}}}static get styles(){return[OavShadowStyles,OavFlexLayout,OavAreaVotingCompletedStyles]}render(){return html$1`
       ${this.configFromServer?html$1`
         <div class="layout vertical center-center mainContainer">
-          <paper-icon-button ?hidden="${this.wide}" class="helpIcon" alt="${this.localize("help")}" icon="help-outline" @click="${()=>{this.fire("oav-open-help")}}"></paper-icon-button>
+          <paper-icon-button class="helpIcon" alt="${this.localize("help")}" icon="help-outline" @click="${()=>{this.fire("oav-open-help")}}"></paper-icon-button>
+          <paper-icon-button class="exitIcon" alt="${this.localize("close")}" icon="closeExit" @click="${()=>{window.location=""}}"></paper-icon-button>
 
           <div class="topMaterial shadow-elevation-8dp vertical center-center">
             <div>
