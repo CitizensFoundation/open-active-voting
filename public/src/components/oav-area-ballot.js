@@ -167,7 +167,7 @@ class OavAreaBallot extends PageViewElement {
 
   firstUpdated() {
     this._setupListeners();
-    installMediaQueryWatcher(`(min-width: 1000px)`,
+    installMediaQueryWatcher(`(min-width: 1024px)`,
       (matches) => {
         this.wide = matches;
       });
@@ -261,6 +261,11 @@ class OavAreaBallot extends PageViewElement {
         }
       }
     }.bind(this));
+
+    const map = this.$$("#itemsMap");
+    if (map) {
+      map.scrollIntoView(itemId);
+    }
   }
 
   _resetBallotItems() {

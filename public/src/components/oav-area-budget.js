@@ -199,7 +199,7 @@ class OavAreaBudget extends OavBaseElement {
   firstUpdated() {
     this.reset();
 
-    installMediaQueryWatcher(`(min-width: 1045px)`,
+    installMediaQueryWatcher(`(min-width: 1024px)`,
       (matches) => {
         if (matches)
           this.wide = true;

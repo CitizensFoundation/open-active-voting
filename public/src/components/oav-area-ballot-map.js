@@ -170,6 +170,24 @@ class OavAreaBallotMap extends OavBaseElement {
     }
   }
 
+  scrollIntoView(itemId) {
+    let markerIdCounter = 0;
+    let markerIdFoundAt = null;
+    this.items.map(item => {
+      return item.locations.map(location => {
+        if (item.id==itemId) {
+          markerIdFoundAt = markerIdCounter;
+        }
+        markerIdCounter++;
+      })
+    });
+
+    if (markerIdFoundAt!==null && this.$$("#map")) {
+      this.$$("#map").triggerMarkerClick(markerIdFoundAt);
+      this.markerClick({srcElement: { marker: this.$$("#map").getMarker(markerIdFoundAt)}, target: {dataset: { itemid: itemId }}});
+    }
+  }
+
   markerClick(e) {
     this.activity('click', 'marker');
     const selectedItemId = e.target.dataset.itemid;

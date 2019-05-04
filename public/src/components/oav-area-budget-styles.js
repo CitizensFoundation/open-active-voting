@@ -144,7 +144,7 @@ export const OavAreaBudgetStyles = css`
     margin-left: 4px;
   }
 
-  @media (max-width: 1045px) {
+  @media (max-width: 1024px) {
     .headerLogo {
       width: 160px;
       height: 48px;

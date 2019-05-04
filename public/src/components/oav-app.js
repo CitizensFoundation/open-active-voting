@@ -520,12 +520,11 @@ class OavApp extends OavBaseElement {
     installOfflineWatcher((offline) => this._offlineChanged(offline));
     installMediaQueryWatcher(`(min-width: 460px)`,
         (matches) => this._layoutChanged(matches));
-    installMediaQueryWatcher(`(min-width: 1000px)`,
+    installMediaQueryWatcher(`(min-width: 1024px)`,
         (matches) => {
-          if (matches)
-            this.wide = true;
-          else
-            this.wide = false;
+          this.wide = matches;
+          this.wideAndBallot = this.wide && this._page==='area-ballot';
+          console.error(this.wide);
         });
 
   }
@@ -650,11 +649,7 @@ class OavApp extends OavBaseElement {
         });
       }
 
-      if (this.wide && page==='area-ballot') {
-        this.wideAndBallot = true;
-      } else {
-        this.wideAndBallot = false;
-      }
+      this.wideAndBallot = this.wide && page==='area-ballot';
     }
   }
 

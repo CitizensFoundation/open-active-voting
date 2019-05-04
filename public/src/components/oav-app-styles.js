@@ -106,7 +106,7 @@ export const OavAppStyles = css`
   }
 
 
-  @media (min-width: 1045px) {
+  @media (min-width: 1024px) {
     .toolbar-list {
       display: block;
     }
@@ -158,7 +158,7 @@ export const OavAppStyles = css`
     }
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1024px) {
     .title {
       font-size: 17px;
     }
