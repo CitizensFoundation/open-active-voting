@@ -184,7 +184,6 @@ class OavAreaBallotMap extends OavBaseElement {
 
     if (markerIdFoundAt!==null && this.$$("#map")) {
       this.$$("#map").triggerMarkerClick(markerIdFoundAt);
-      this.markerClick({srcElement: { marker: this.$$("#map").getMarker(markerIdFoundAt)}, target: {dataset: { itemid: itemId }}});
     }
   }
 

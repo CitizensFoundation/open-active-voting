@@ -339,13 +339,14 @@ class OavAreaBudget extends OavBaseElement {
     container.className = 'budgetBallotVote';
     container.backgroundColor = "#F00";
     container.style.position = "relative";
-    container.style.cursor = "pointer";
 
     var image = document.createElement("iron-image");
     image.src = item.image_url;
     image.setAttribute("sizing", "cover");
     image.setAttribute('alt', item.name);
     image.setAttribute('title', item.name);
+    image.setAttribute('style', "cursor: pointer;");
+
     image.title= item.name;
     image.style.borderLeft = 'solid 1px';
     image.style.borderRight = 'solid 1px';
