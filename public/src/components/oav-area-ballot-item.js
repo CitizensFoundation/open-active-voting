@@ -380,11 +380,13 @@ class OavAreaBallotItem extends OavBaseElement {
       this.fire('oav-set-favorite-item-in-budget', {
         item: null
       });
+      this.isFavorite = false;
     } else {
       var button = this.$$("#addFavoriteButton");
       var buttonRect = button.getBoundingClientRect();
       var left = buttonRect.left;// + window.scrollX;
       var top = buttonRect.top;// + window.scrollY;
+      this.isFavorite = true;
 
       this.fire('oav-set-favorite-item-in-budget', {
         item: this.item,

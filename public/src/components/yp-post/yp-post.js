@@ -319,7 +319,7 @@ Polymer({
     </style>
 
     <div class="topContainer layout vertical center-center" is-post="" create-fab-title="[[t('point.add')]]" on-yp-create-fab-tap="_newPoint">
-      <paper-icon-button class="closeButton" icon="close" on-tap="_close"></paper-icon-button>
+      <paper-icon-button class="closeButton" icon="closeExit" on-tap="_close"></paper-icon-button>
       <yp-post-header id="postCard" class="largeCard" post="[[post]]" on-refresh="_refreshAjax" header-mode=""></yp-post-header>
 
       <yp-post-points host="[[host]]" id="pointsSection" post="[[post]]" scroll-to-id\$="[[scrollToPointId]]"></yp-post-points>
