@@ -3563,6 +3563,12 @@ var point=this.$$("#point"+this.scrollToId);if(point){point.elevation=5;point.el
         background-repeat: no-repeat;
       }
 
+      @media (max-width: 1048px) {
+        .topContainer {
+          padding-top: 60px;
+        }
+      }
+
       .tabs {
         margin-top: 24px;
       }
