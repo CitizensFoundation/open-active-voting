@@ -223,14 +223,15 @@ class OavApp extends OavBaseElement {
             .language="${this.language}"
             ?active="${this._page === 'voting-completed'}">
           </oav-voting-completed>
-          <yp-post
-            .id="post"
-            .budgetElement="${this.budgetElement}"
-            .language="${this.language}"
-            .postId="${this._subPath}"
-            .host="${this.postsHost}"
-            ?hidden="${this._page !== 'post'}">
-          </yp-post>
+          ${ this._page === 'post' ? html`
+            <yp-post
+              .id="post"
+              .budgetElement="${this.budgetElement}"
+              .language="${this.language}"
+              .postId="${this._subPath}"
+              .host="${this.postsHost}">
+            </yp-post>
+          ` : html``}
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
         </main>
 
