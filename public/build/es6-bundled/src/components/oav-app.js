@@ -14419,7 +14419,7 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
                 0 9px 46px 8px rgba(0, 0, 0, 0.12),
                 0 11px 15px -7px rgba(0, 0, 0, 0.4);
   }
-`;_exports.OavShadowStyles=OavShadowStyles;var oavShadowStyles={OavShadowStyles:OavShadowStyles};_exports.$oavShadowStyles=oavShadowStyles;class OavAreaBallotItem extends OavBaseElement{static get properties(){return{item:{type:Object},staticMapsApiKey:{type:String},elevation:Number,budgetElement:{type:Object},selectedInBudget:{type:Boolean},toExpensiveForBudget:{type:Boolean},isFavorite:{type:Boolean},googleMapsApiKey:{type:String},imageTabSelected:{type:Boolean},descriptionTabSelected:{type:Boolean},mapTabSelected:{type:Boolean},descriptionPdfLink:{type:String},small:{type:Boolean},tiny:{type:Boolean},mapsHeight:{type:String,value:null},mapsWidth:{type:String,value:null},longitude:{type:String,value:null},latitude:{type:String,value:null},imageLoaded:{type:Boolean,value:!1},isOnMap:Boolean,configFromServer:Object}}static get styles(){return[OavAreaBallotItemStyles,OavShadowStyles]}render(){return html$1`
+`;_exports.OavShadowStyles=OavShadowStyles;var oavShadowStyles={OavShadowStyles:OavShadowStyles};_exports.$oavShadowStyles=oavShadowStyles;class OavAreaBallotItem extends OavBaseElement{static get properties(){return{item:{type:Object},staticMapsApiKey:{type:String},elevation:Number,budgetElement:{type:Object},selectedInBudget:{type:Boolean},toExpensiveForBudget:{type:Boolean},isFavorite:{type:Boolean},googleMapsApiKey:{type:String},imageTabSelected:{type:Boolean},descriptionTabSelected:{type:Boolean},mapTabSelected:{type:Boolean},descriptionPdfLink:{type:String},small:{type:Boolean},tiny:{type:Boolean},mapsHeight:{type:String,value:null},mapsWidth:{type:String,value:null},longitude:{type:String,value:null},latitude:{type:String,value:null},imageLoaded:{type:Boolean,value:!1},isOnMap:Boolean,configFromServer:Object,listBoxSelection:Number}}static get styles(){return[OavAreaBallotItemStyles,OavShadowStyles]}render(){return html$1`
       <div id="topContainer" class="itemContent shadow-animation shadow-elevation-3dp" ?small="${this.small}" ?tiny="${this.tiny}">
         <iron-image preload @loaded-changed="${this._imageLoadedChanged}" ?small="${this.small}"
           ?tiny$="${this.tiny}" ?hidden="${!this.imageTabSelected}" name="image" sizing="cover" src="${this.item.image_url}">
@@ -14438,7 +14438,7 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
         </div>
         <paper-menu-button ?hidden="${this.isOnMap}" @tap="${this._openMenu}" ?small="${this.small}" ?tiny="${this.tiny}" class="dropdownMenuButton" horizontal-align="right">
           <paper-icon-button class="dropdown-trigger dropdownButton" slot="dropdown-trigger" @click="${this._clickedDropDownMenu}" alt="${this.localize("openDetailMenu")}" icon="menu"></paper-icon-button>
-          <paper-listbox class="dropdown-content" slot="dropdown-content" selected="0">
+          <paper-listbox class="dropdown-content" slot="dropdown-content" id="listBox" .selected="${this.listBoxSelection}">
             <paper-item @tap="${this._setImageMode}">
               <iron-icon alt="${this.localize("image_item_tab")}" class="infoIcon" icon="photo"></iron-icon>
               ${this.localize("image_item_tab")}
@@ -14492,7 +14492,7 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
           </div>
         </div>
       </div>
-    `}updated(changedProps){super.updated(changedProps);if(changedProps.has("selectedInBudget")){if(this.selectedInBudget){this.elevation=4;this.$$("#topContainer").classList.add("shadow-elevation-12dp")}else{this.elevation=1;this.$$("#topContainer").classList.remove("shadow-elevation-12dp")}}if(changedProps.has("item")){if(this.item){if(this.item.locations&&0<this.item.locations.length){this.longitude=this.item.locations[0].longitude;this.latitude=this.item.locations[0].latitude}this.resetFromBudget()}}if(changedProps.has("small")){if(this.small){this.mapsHeight="260";this.mapsWidth="146"}else{this.mapsHeight="169";this.mapsWidth="300"}}if(changedProps.has("tiny")){if(this.tiny){this.mapsHeight="220";this.mapsWidth="124"}else{this.mapsHeight="169";this.mapsWidth="300"}}}constructor(){super();this.reset()}reset(){this.small=!1;this.mapTabSelected=!1;this.descriptionTabSelected=!1;this.imageTabSelected=!0;this.isFavorite=!1;this.toExpensiveForBudget=!1;this.selectedInBudget=!1;this.mapsHeight="169";this.mapsWidth="300"}_imageLoadedChanged(event){if(event.detail.value){this.imageLoaded=!0}}_clickedDropDownMenu(){this.activity("click","dropdown")}_priceIsOne(price){if(price&&1>=price){return!0}else{return!1}}_openPdf(){this.activity("click","openPdf");if(this.item.descriptionPdfLink){window.open(this.item.descriptionPdfLink,"_blank")}}_showPost(){this.activity("click","showPost");window.appLastArea="/"+window.location.hash;const path="/post/"+this.item.idea_id;window.history.pushState({},null,path);this.fire("location-changed",path)}_itemShareUrl(){if(this.item){return encodeURIComponent("https://"+window.location.host+"/items/"+this.item.id)}else{return null}}_shareTap(event,detail){this.activity("click","shareItem")}resetFromBudget(){//console.log("resetFromBudget itemId: "+this.item.id);
+    `}updated(changedProps){super.updated(changedProps);if(changedProps.has("selectedInBudget")){if(this.selectedInBudget){this.elevation=4;this.$$("#topContainer").classList.add("shadow-elevation-12dp")}else{this.elevation=1;this.$$("#topContainer").classList.remove("shadow-elevation-12dp")}}if(changedProps.has("item")){if(this.item){if(this.item.locations&&0<this.item.locations.length){this.longitude=this.item.locations[0].longitude;this.latitude=this.item.locations[0].latitude}this.resetFromBudget()}}if(changedProps.has("small")){if(this.small){this.mapsHeight="260";this.mapsWidth="146"}else{this.mapsHeight="169";this.mapsWidth="300"}}if(changedProps.has("tiny")){if(this.tiny){this.mapsHeight="220";this.mapsWidth="124"}else{this.mapsHeight="169";this.mapsWidth="300"}}}constructor(){super();this.reset();this.listBoxSelection=0}reset(){this.small=!1;this.mapTabSelected=!1;this.descriptionTabSelected=!1;this.imageTabSelected=!0;this.isFavorite=!1;this.toExpensiveForBudget=!1;this.selectedInBudget=!1;this.mapsHeight="169";this.mapsWidth="300"}_imageLoadedChanged(event){if(event.detail.value){this.imageLoaded=!0}}_clickedDropDownMenu(){this.activity("click","dropdown")}_priceIsOne(price){if(price&&1>=price){return!0}else{return!1}}_openPdf(){this.activity("click","openPdf");if(this.item.descriptionPdfLink){window.open(this.item.descriptionPdfLink,"_blank")}}_showPost(){this.activity("click","showPost");window.appLastArea="/"+window.location.hash;const path="/post/"+this.item.idea_id;window.history.pushState({},null,path);this.fire("location-changed",path);setTimeout(()=>{this.$$("#listBox").select(0)})}_itemShareUrl(){if(this.item){return encodeURIComponent("https://"+window.location.host+"/items/"+this.item.id)}else{return null}}_shareTap(event,detail){this.activity("click","shareItem")}resetFromBudget(){//console.log("resetFromBudget itemId: "+this.item.id);
 if(this.budgetElement){if(-1<this.budgetElement.selectedItems.indexOf(this.item)){this.setInBudget();this.setNotTooExpensive();if(this.budgetElement.currentBallot.favoriteItem==this.item){this.isFavorite=!0}else{this.isFavorite=!1}}else{var budgetLeft=this.budgetElement.totalBudget-this.budgetElement.selectedBudget;if(this.item.price>budgetLeft){this.setTooExpensive()}else{this.setNotTooExpensive()}this.removeFromBudget()}}this._setImageMode(!0)}_setImageMode(disableActivity){if(!disableActivity||!1===disableActivity){this.activity("select","imageMode")}this.imageTabSelected=!0;this.descriptionTabSelected=!1;this.mapTabSelected=!1}_setMapMode(){this.activity("select","mapMode");this.imageTabSelected=!1;this.descriptionTabSelected=!1;this.mapTabSelected=!0}_setDescriptionMode(){this.activity("select","descriptionMode");this.imageTabSelected=!1;this.descriptionTabSelected=!0;this.mapTabSelected=!1}_toggleDescription(){this.activity("toggle","description");if(!0===this.descriptionTabSelected){this._setImageMode()}else{this._setDescriptionMode()}}_openMenu(){this.activity("open","itemMenu")}setInBudget(){//console.log("setInBudget itemId: "+this.item.id);
 this.selectedInBudget=!0}removeFromBudget(){//console.log("removeFromBudget itemId: "+this.item.id);
 this.selectedInBudget=!1;this.isFavorite=!1}setTooExpensive(){//console.log("setTooExpensive itemId: "+this.item.id);
@@ -15404,14 +15404,15 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
             .language="${this.language}"
             ?active="${"voting-completed"===this._page}">
           </oav-voting-completed>
-          <yp-post
-            .id="post"
-            .budgetElement="${this.budgetElement}"
-            .language="${this.language}"
-            .postId="${this._subPath}"
-            .host="${this.postsHost}"
-            ?hidden="${"post"!==this._page}">
-          </yp-post>
+          ${"post"===this._page?html$1`
+            <yp-post
+              .id="post"
+              .budgetElement="${this.budgetElement}"
+              .language="${this.language}"
+              .postId="${this._subPath}"
+              .host="${this.postsHost}">
+            </yp-post>
+          `:html$1``}
           <oav-view404 class="page" ?active="${"view404"===this._page}"></oav-view404>
         </main>
 
