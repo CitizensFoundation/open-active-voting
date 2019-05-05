@@ -167,6 +167,12 @@ Polymer({
         background-repeat: no-repeat;
       }
 
+      @media (max-width: 1048px) {
+        .topContainer {
+          padding-top: 60px;
+        }
+      }
+
       .tabs {
         margin-top: 24px;
       }
