@@ -271,7 +271,7 @@ class OavApp extends OavBaseElement {
         });
         const propValue = values[0];
         console.log("Set prop: "+propName+" to "+propValue);
-        this.style.setProperty(propName, propValue);
+        this.shadowRoot.host.style.setProperty(propName, propValue);
       });
     }
   }
