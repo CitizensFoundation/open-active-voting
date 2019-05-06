@@ -263,7 +263,6 @@ class OavApp extends OavBaseElement {
   }
 
   _setupCustomCss(config) {
-    console.log("_setupCustomCss");
     if (config.cssProperties) {
       config.cssProperties.forEach(property => {
         const propName = Object.keys(property)[0];
@@ -272,7 +271,7 @@ class OavApp extends OavBaseElement {
         });
         const propValue = values[0];
         console.log("Set prop: "+propName+" to "+propValue);
-        this.shadowRoot.host.style.setProperty(propName, propValue);
+        this.style.setProperty(propName, propValue);
       });
     }
   }
@@ -293,7 +292,6 @@ class OavApp extends OavBaseElement {
     fetch("/votes/boot", { credentials: 'same-origin' })
       .then(res => res.json())
       .then(response => {
-        console.error("1");
         this.requestInProgress= false;
         this.language = 'en';
         this.votePublicKey = response.public_key;
@@ -301,14 +299,12 @@ class OavApp extends OavBaseElement {
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
-        console.error("2");
 
         if (this.configFromServer.client_config.welcomeLocales &&
             this.configFromServer.client_config.ballotBudgetLogo) {
           const tempImg = new Image()
           tempImg.src= this.configFromServer.client_config.ballotBudgetLogo;
         }
-        console.error("3");
 
         ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
         this.postsHost = "https://yrpri.org";
@@ -325,13 +321,11 @@ class OavApp extends OavBaseElement {
         if (this.configFromServer.client_config.favoriteIcon) {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
         }
-        console.error("4");
 
         if (!(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)) {
           const path = "/area-ballot/"+this.oneBallotId;
           window.history.pushState({}, null, path);
           this.fire('location-changed', path);
-          console.error("5");
 
           if (this.configFromServer.client_config.welcomeLocales) {
             setTimeout( () => {
@@ -342,12 +336,8 @@ class OavApp extends OavBaseElement {
           }
         }
 
-        console.error("6");
-
         window.language = this.language;
         window.localize = this.localize;
-        console.error("7");
-
       })
       .catch(error => {
         console.error('Error:', error);
