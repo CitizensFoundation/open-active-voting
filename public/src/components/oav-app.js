@@ -267,6 +267,7 @@ class OavApp extends OavBaseElement {
       config.cssProperties.forEach(property => {
         const propName = Object.keys(property)[0];
         const propValue = Object.keys(property).map(e => property[e])[0];
+        console.log("Set prop: "+propName+" to "+propValue);
         this.shadowRoot.host.style.setProperty(propName, propValue);
       });
     }
