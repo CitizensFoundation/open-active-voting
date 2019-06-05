@@ -384,12 +384,16 @@ class OavAreaBallot extends PageViewElement {
           headers: {
               "Content-Type": "application/json"
           },
-          body: JSON.stringify({ encrypted_vote: encryptedVotes, area_id: this.area.id })
+          body: JSON.stringify({ encrypted_vote: encryptedVotes, area_id: this.area.id,  })
         })
         .then(response => response.json())
         .then(response => {
           if (response && response.vote_ok === true) {
-            window.location = this._getSamlUrlWithLanguage();
+            if (this.configFromServer.insecureEmailLoginEnabled===true) {
+              this.fire("oav-insecure-email-login", { areaId: this.area.id, areaName: this.area.name, onLoginFunction: this._setVotingCompleted})
+            } else {
+              window.location = this._getSamlUrlWithLanguage();
+            }
           } else {
             this.fire('oav-error', this.localize('error_could_not_post_vote'));
           }

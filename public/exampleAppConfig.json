@@ -67,6 +67,23 @@
         "language": "English"
       }
     ],
+    "insecureEmailLoginEnabled": false,
+    "insecureEmailLoginPostCodes": {
+      "1": [
+        "ABCDEF",
+        "102121",
+        "432432"
+      ],
+      "2": [
+        "C34344",
+        "WR8F22",
+        "VE9222"
+      ]
+    },
+    "insecureEmailLoginAreaNames": {
+      "1": "Area 1",
+      "2": "Area 2"
+    },
     "votingCompleteConfig": {
       "logo": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/384x159_transp_merki_blatt.png",
       "shareUrl": "https://kosning2019.gardabaer.is/"

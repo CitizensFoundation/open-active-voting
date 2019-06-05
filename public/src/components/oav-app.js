@@ -142,6 +142,13 @@ class OavApp extends OavBaseElement {
     return  html`${this.configFromServer ?
       html`
         ${errorDialog}
+
+        ${this.configFromServer.insecureEmailLoginEnabled===true ?
+          html`
+            <oav-insecure-email-login id="insecureEmailLogin"></oav-insecure-email-login>
+          ` :
+          html``
+        }
         <paper-dialog id="helpDialog">
           <paper-dialog-scrollable>
             <div id="helpContent">
@@ -345,6 +352,10 @@ class OavApp extends OavBaseElement {
 
         window.language = this.language;
         window.localize = this.localize;
+
+        if (this.configFromServer.insecureEmailLoginEnabled===true) {
+          import('./oav-insecure-email-login.js');
+        }
       })
       .catch(error => {
         console.error('Error:', error);
@@ -377,6 +388,8 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-set-ballot-element", this._setBallotElement);
     this.addEventListener("oav-set-budget-element", this._setBudgetElement);
     this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    this.addEventListener("oav-insecure-email-login", this._insecureEmailLogin);
+
     this.addEventListener("location-changed", this._locationChanged);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
   }
@@ -406,6 +419,7 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-open-help", this._help);
     this.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.removeEventListener("resize", this.resetSizeWithDelay);
+    this.removeEventListener("oav-insecure-email-login", this._insecureEmailLogin);
   }
 
   _scrollItemIntoView(event) {
@@ -414,6 +428,10 @@ class OavApp extends OavBaseElement {
 
   _hideFavoriteItem() {
     this.$$("#favoriteIcon").hidden = true;
+  }
+
+  _insecureEmailLogin(event) {
+    this.$$("#insecureEmailLogin").open(event.detail.areaId, event.detail.areaName, event.detail.onLoginFunction);
   }
 
   _toggleFavoriteItem(event) {

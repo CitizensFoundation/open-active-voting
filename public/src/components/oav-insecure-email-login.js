@@ -145,8 +145,16 @@ class OavInsecureEmailLogin extends OavBaseElement {
     super();
     this.emailValidationPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     this.confirmedAge = false;
-
-
+    this.postCodesAreas = {};
+    this.postCodesAreasNames = {};
+    Object.entries(this.confirFromServer.insecureEmailLoginPostCodes).forEach(entry => {
+      let areaId = entry[0];
+      let postCodes = entry[1];
+      postCodes.forEach(postCode => {
+        this.postCodesAreas[postCode] = areaId;
+        this.postCodesAreasNames[postCode] = this.confirFromServer.insecureEmailLoginAreaNames[areaId];
+      })
+    });
   }
 
   _resetCorrectArea() {
@@ -157,10 +165,75 @@ class OavInsecureEmailLogin extends OavBaseElement {
     }, 100);
   }
 
+  _loginCompleted() {
+    this.onLoginFunction();
+    this.close();
+  }
+
   isValidPostcode(areaId, postCode) {
     postCode = postCode.replace(/\s/g, "").toUpperCase();
-    return (this.confirFromServer.insecureEmailPostCodes[areaId].indexOf(postCode) > -1)
+    return (this.confirFromServer.insecureEmailLoginPostCodes[areaId].indexOf(postCode) > -1)
+  }
+
+  getAreaForPostCode(postCode) {
+    postCode = postCode.replace(/\s/g, "").toUpperCase();
+    return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+  }
+
+  open(areaId, areaName, onLoginFunction) {
+    this.onLoginFunction = onLoginFunction;
+    this.areaId = areaId;
+    this.areaName = areaName;
+    this.userSpinner = false;
+    this.opened = false;
+    this.postCode = "";
+    this.confirmedAge = false;
+    this.email = "";
+    this.$$("#dialog").open();
+  }
+
+  _validateAndSend(e) {
+    if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedAge").checked) {
+      if (this.isValidPostcode(this.areaId, this.postCode)) {
+        fetch('/votes/insecure_email_login', {
+          method: "POST",
+          cache: "no-cache",
+          credentials: 'same-origin',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({email: this.email.toLowerCase(), postCode: this.postCode})
+        })
+        .then(response => response.json())
+        .then(response => {
+          if (response && response.loggedIn === true) {
+            this._loginCompleted();
+          } else {
+            this.fire('oav-error', this.localize('error_not_authorized'));
+          }
+        })
+        return true;
+      } else if (this.getAreaForPostCode(this.postCode)) {
+        var areaInfo = this.getAreaForPostCode(this.postCode);
+        this.correctAreaId = areaInfo["id"];
+        this.correctAreaName = areaInfo["name"];
+      } else {
+        this.fire("oav-error", this.localize('enterValidPostcode'));
+      }
+    } else {
+      this.fire("oav-error", this.localize('completeForm'));
+      return false;
+    }
+  }
+
+  close() {
+    var dialog = this.$$("#dialog");
+    if (dialog) {
+      dialog.close();
+    }
+    this.opened = false;
+    this.userSpinner = false;
   }
 }
 
-window.customElements.define('oav-area-ballot-item', OavAreaBallotItem);
+window.customElements.define('oav-insecure-email-login', OavInsecureEmailLogin);
