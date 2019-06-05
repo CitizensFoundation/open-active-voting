@@ -1,0 +1,215 @@
+ {
+    "cssProperties": [
+      {
+        "--app-primary-color": "#59c3c7"
+      },
+      {
+        "--app-budget-container-background-image": "url(https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/1920x238_vefbordi_forsida_anramma.jpg)"
+      },
+      {
+        "--app-other-background-image": "url(https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/1920x238_vefbordi_forsida_anramma.jpg)"
+      },
+      {
+        "--app-voting-completed-image-url": "url(https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/1920x238_vefbordi_forsida_anramma.jpg)"
+      },
+      {
+        "--app-facvorite-icon-color": "#F00"
+      },
+      {
+        "--app-ballot-item-remove-fav-padding-top": "2px"
+      },
+      {
+        "--app-ballot-item-remove-fav-button-color": "#F00"
+      },
+      {
+        "--app-voting-completed-main-background-color": "#59c3c7"
+      }
+    ],
+    "auth_url": "https://audkenning.vottun.is/Login/Login?electionId=f3ec8729-e20f-4a87-81ff-0faa6248bec3&returnUrl=%20https%3A%2F%2Fkosning2019.gardabaer.is%2Fauthenticate_from_island_is",
+    "saml_idp_cert_fingerprint":"23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5",
+    "defaultLanguage": "is",
+    "favoriteIcon": "favorite",
+    "favoriteIconOutline": "favorite-border",
+    "googleMapsApiKey": "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0",
+    "googleMapsStaticApiKey": "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA",
+    "ballotBudgetLogo": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/384x159_transp_merki_blatt.png",
+    "helpPageLocales": {
+      "en": {
+        "b64text": "CjxoMT5BIEJldHRlciBHYXLDsGFiw6ZyIDIwMTk8L2gxPgo8dWw+CjxsaT5CZXR3ZWVuIDIzIE1heSBhbmQgMyBKdW5lIDIwMTksIEdhcsOwYWLDpnIgcmVzaWRlbnRzIGJvcm4gaW4gMjAwNCBvciBlYXJsaWVyIGNhbiB2b3RlIG9uIHZhcmlvdXMgcHJvcG9zZWQgcHJvamVjdHMgaW4gYW4gZWxlY3Ryb25pYyB2b3RlLjwvbGk+CjxsaT5Wb3RlcnMgd2lsbCB2b3RlIG9uIHByb3Bvc2FscyBmb3IgSVNLIDEwMCBtaWxsaW9uLCB0byBiZSBpbXBsZW1lbnRlZCBvdmVyIHRoZSBuZXh0IHR3byB5ZWFycy48L2xpPgo8bGk+UmVzaWRlbnRzIGNhbiDigJxoZWFydOKAnSBvbmUgb2YgdGhlaXIgc2VsZWN0ZWQgcHJvcG9zYWxzIHRvIGRvdWJsZSBpdHMgd2VpZ2h0LCBpLmUuIGdpdmluZyBpdCB0d28gdm90ZXMgaW5zdGVhZCBvZiBvbmUuPC9saT4KPGxpPlBlb3BsZSBtYXkgdm90ZSBhcyBvZnRlbiBhcyB0aGV5IGxpa2Ugd2hpbGUgdm90aW5nIGlzIG9wZW4sIGJ1dCBrZWVwIGluIG1pbmQgdGhhdCBvbmx5IHRoZSBsYXRlc3Qgdm90ZSBjb3VudHMuPC9saT4KPGxpPklsbHVzdHJhdGlvbnMgb2YgcHJvcG9zYWxzIG9uIHRoZSB2b3RpbmcgcGFnZSBkbyBub3QgbmVjZXNzYXJpbHkgcmVwcmVzZW50IHRoZWlyIGZpbmFsIGZvcm0uPC9saT4KPGxpPlRoZSBsb2NhdGlvbiBvZiBwcm9wb3NhbHMgaXMgc3ViamVjdCB0byBjaGFuZ2UuPC9saT4KPGxpPlZvdGVzIGFyZSBjYXN0IG9uIGEgd2Vic2l0ZSB3aGVyZSByZXNpZGVudHMgaWRlbnRpZnkgdGhlbXNlbHZlcyBpbiBhIHNlY3VyZSBtYW5uZXIgYW5kIGFsbCB2b3RlcyBhcmUgZW5jcnlwdGVkLiBUaGlzIGVuc3VyZXMgdGhhdCB2b3RlcyBjYW5ub3QgYmUgbGlua2VkIHRvIGluZGl2aWR1YWxzLjwvbGk+CjxsaT5UaGlzIGlzIG5vdCBhIGxvY2FsIHJlZmVyZW5kdW0gaW4gdGhlIHNlbnNlIG9mIEFydGljbGUgNjggb2YgdGhlIExvY2FsIEdvdmVybm1lbnQgQWN0IG5vLiAxMzgvMjAxMS48L2xpPgo8bGk+Tm90ZSB0aGF0IGluIG9yZGVyIHRvIHZvdGUsIHlvdSBoYXZlIHRvIGhhdmUgYSBkaWdpdGFsIGNlcnRpZmljYXRlIG9uIHlvdXIgbW9iaWxlIHBob25lLCBvciBhbiDDjXNseWtpbGwgaWRlbnRpZmljYXRpb24uIEZ1cnRoZXIgaW5mb3JtYXRpb24gb24gZGlnaXRhbCBjZXJ0aWZpY2F0ZXMgY2FuIGJlIGZvdW5kIGF0IDxhIGhyZWY94oCdaHR0cHM6Ly93d3cuYXVka2VubmkuaXPigJ0gdGFyZ2V0PeKAnV9ibGFua+KAnT53d3cuYXVka2VubmkuaXM8L2E+IGFuZCBvbiDDjXNseWtpbGwgaWRlbnRpZmljYXRpb24gYXQgPGEgaHJlZj3igJ1odHRwczovL3d3dy5pc2xhbmQuaXMvaXNseWtpbGzigJ0gdGFyZ2V0PeKAnV9ibGFua+KAnT53d3cuaXNsYW5kLmlzL2lzbHlraWxsPC9hPjwvbGk+CjxsaT5Wb3RlcyB3aWxsIGJlIGNhc3Qgb24gdGhlIHdlYnNpdGUga29zbmluZzIwMTkuZ2FyZGFiYWVyLmlzPC9saT4KPGxpPlZvdGluZyBhc3Npc3RhbmNlIGlzIHByb3ZpZGVkIGJ5IHRoZSBHYXLDsGFiw6Zy4oCZcyBzZXJ2aWNlIGNlbnRyZSBhdCBHYXLDsGFiw6ZyIENpdHkgSGFsbCBhdCBHYXLDsGF0b3JnIDcsIGF0IHRoZSBHYXLDsGFiw6ZyIE11bmljaXBhbCBMaWJyYXJ5IGF0IEdhcsOwYXRvcmcgNyBhbmQgYXQgdGhlIGxpYnJhcnkgYnJhbmNoIGluIMOBbGZ0YW5lcy48L2xpPgo8bGk+RnVydGhlciBpbmZvcm1hdGlvbiBvbiB0aGUgZGlyZWN0IGRlbW9jcmFjeSBwcm9qZWN0IOKAnEEgQmV0dGVyIEdhcsOwYWLDpnLigJ0sIGFsb25nIHdpdGggZGV0YWlsZWQgaW5zdHJ1Y3Rpb25zIGFuZCB2b3RpbmcgcnVsZXMsIGNhbiBiZSBmb3VuZCBvbiBHYXLDsGFiw6Zy4oCZcyB3ZWJzaXRlLCA8YSBocmVmPSJodHRwOi8vZ2FyZGFiYWVyLmlzIiB0YXJnZXQ94oCdX2JsYW5r4oCdPmdhcmRhYmFlci5pczwvYT4sIG9yIGJ5IGNhbGxpbmcgR2Fyw7BhYsOmcuKAmXMgc2VydmljZSBjZW50cmUsIHRlbC4gNTI1LTg1MDAuPC9saT4KPGxpPlF1ZXN0aW9ucyBhbmQgY29tbWVudHMgY2FuIGJlIGUtbWFpbGVkIHRvCjxhIGhyZWY9Im1haWx0bzpnYXJkYWJhZXJAZ2FyZGFiYWVyLmlzIj5nYXJkYWJhZXJAZ2FyZGFiYWVyLmlzPC9hPiAJIAkgCQpkdXJpbmcgdGhlIHZvdGluZyBwZXJpb2QuIDwvbGk+CjwvdWw+Cg=="
+      },
+      "is": {
+        "b64text": "PGgxPkJldHJpIEdhcsOwYWLDpnIgMjAxOTwvaDE+Cjx1bD4KPGxpPkZyw6EgMjMuIG1hw60gdGlsIDMuIGrDum7DrSAyMDE5IHZlcsOwdXIgb3Bpw7AgZnlyaXIgcmFmcsOmbmFyIGtvc25pbmdhciDDvmFyIHNlbSDDrWLDumFyLCBmw6ZkZGlyIMOhcmnDsAoyMDA0IGXDsGEgZnlyciwgbWXDsCBsw7ZnaGVpbWlsaSDDrSBHYXLDsGFiw6YgZ2V0YSBrb3Npw7Agw6FmcmFtIGh1Z215bmRpci48L2xpPgo8bGk+SMOmZ3QgZXIgYcOwIGtqw7NzYSDDoWZyYW0gaHVnbXluZGlyIGZ5cmlyIDEwMCBtaWxsasOzbmlyIHNlbSBmcmFta3bDpm1kYXIgdmVyw7BhIG7DpnN0dSB0dsO2CsOhcmluLjwvbGk+CjxsaT7DjWLDumFyIGdldGEgc2V0dCBoamFydGEgdmnDsCBlaW5hIGFmIMO+ZWltIGh1Z215bmR1bSBzZW0gw75laXIga2rDs3NhIG9nIMO+YW5uaWcgZ2VmacOwIMO+ZWlycmkKaHVnbXluZCB0dsO2ZmFsdCB2w6ZnaSwgdHbDtiBhdGt2w6bDsGkgw60gc3Rhw7AgZWlucy48L2xpPgo8bGk+S2rDs3NhbmRpIGdldHVyIGtvc2nDsCBlaW5zIG9mdCBvZyBoYW5uIHZpbGwgbWXDsGFuIGtvc25pbmdpbiBlciBvcGluLCBlbiBoYWZhIGJlciDDrSBodWdhIGHDsCDDvmHDsAplciBhw7BlaW5zIG7DvWphc3RhIGF0a3bDpsOwacOwIChrb3NuaW5naW4pIHNlbSBnaWxkaXIuPC9saT4KPGxpPk15bmRpciBzZW0gZnlsZ2phIGh1Z215bmR1bSDDoSBrb3NuaW5nYXPDrcOwdSBlcnUgZWtraSBkw6ZtaSB1bSBlbmRhbmxlZ2Egw7p0ZsOmcnNsdSDDoQpmcmFta3bDpm1kLjwvbGk+CjxsaT5TdGHDsHNldG5pbmcgaHVnbXluZGEgZ2V0dXIgdGVracOwIGJyZXl0aW5ndS48L2xpPgo8bGk+S29zbmluZyBmZXIgZnJhbSDDoSB2ZWZzdsOmw7BpIMO+YXIgc2VtIMOtYsO6aSBhdcOwa2VubmlyIHNpZyBtZcOwIMO2cnVnZ3VtIGjDpnR0aSBvZyB2ZXLDsHVyCmF0a3bDpsOwaSBoYW5zIGR1bGvDs8OwYcOwLiDDnnbDrSBlciBla2tpIGjDpmd0IGHDsCB0ZW5namEgYXRrdsOmw7BpIHZpw7AgZWluc3Rha2xpbmdhLjwvbGk+CjxsaT5Fa2tpIGVyIHVtIGHDsCByw6bDsGEgw61iw7pha29zbmluZ3Ugw60gc2tpbG5pbmdpIDEwNy4gZ3IuIHN2ZWl0YXJzdGrDs3JuYXJsYWdhIG5yLiAxMzggZnLDoSAyMDExLjwvbGk+CjxsaT5WYWtpbiBlciBhdGh5Z2xpIMOhIMO+dsOtIGHDsCB0aWwgYcOwIGdldGEga29zacOwIMO+YXJmIGHDsCB2ZXJhIG1lw7AgcmFmcsOmbiBza2lscsOta2kgw60gc8OtbWEgZcOwYSDDrXNseWtpbC4KQWxsYXIgbsOhbmFyaSB1cHBsw71zaW5nYXIgdW0gYXXDsGtlbm5pIG3DoSBuw6FsZ2FzdCDDoSA8YSBocmVmPeKAnWh0dHBzOi8vd3d3LmF1ZGtlbm5pLmlz4oCdIHRhcmdldD3igJ1fYmxhbmvigJ0+d3d3LmF1ZGtlbm5pLmlzPC9hPiBvZyB1bSDDrXNseWtpbArDoSA8YSBocmVmPeKAnWh0dHBzOi8vd3d3LmlzbGFuZC5pcy9pc2x5a2lsbOKAnSB0YXJnZXQ94oCdX2JsYW5r4oCdPnd3dy5pc2xhbmQuaXMvaXNseWtpbGw8L2E+PC9saT4KPGxpPktvc25pbmcgZmVyIGZyYW0gw6EgdmVmc8Otw7B1bm5pIGtvc25pbmcyMDE5LmdhcmRhYmFlci5pczwvbGk+CjxsaT5Bw7BzdG/DsCB2acOwIGHDsCBrasOzc2EgZXIgaMOmZ3QgYcOwIGbDoSDDrSDDnmrDs251c3R1dmVyaSBHYXLDsGFiw6ZqYXIsIEdhcsOwYXRvcmdpIDcsIG9nIMOtIELDs2thc2FmbmkKR2Fyw7BhYsOmamFyLCDDoSBHYXLDsGF0b3JnaSA3IG9nIMOtIMO6dGliw7ogYsOza2FzYWZuc2lucyDDoSDDgWxmdGFuZXNpLjwvbGk+CjxsaT4gQWxsYXIgbsOhbmFyaSB1cHBsw71zaW5nYXIgdW0gbMO9w7Byw6bDsGlzdmVya2VmbmnDsCBCZXRyaSBHYXLDsGFiw6ZyIMOhc2FtdCDDrXRhcmxlZ3VtCmxlacOwYmVpbmluZ3VtIG9nIHJlZ2x1bSBrb3NuaW5nYW5uYSBtw6EgbsOhbGdhc3Qgw6EgdmVmIEdhcsOwYWLDpmphciwgPGEgaHJlZj0iaHR0cDovL2dhcmRhYmFlci5pcyIgdGFyZ2V0PeKAnV9ibGFua+KAnT5nYXJkYWJhZXIuaXM8L2E+LCBlw7BhIMOtCsO+asOzbnVzdHV2ZXJpIEdhcsOwYWLDpmphciDDrSBzw61tYSA1MjUtODUwMC48L2xpPgo8bGk+SMOmZ3QgZXIgYcOwIHNlbmRhIGlubiBmeXJpcnNwdXJuaXIgb2cgw6FiZW5kaW5nYXIgw6EgbWXDsGFuIGtvc25pbmd1IHN0ZW5kdXIgw6EgbmV0ZmFuZ2nDsAo8YSBocmVmPSJtYWlsdG86Z2FyZGFiYWVyQGdhcmRhYmFlci5pcyI+Z2FyZGFiYWVyQGdhcmRhYmFlci5pczwvYT48L2xpPgo8L3VsPgo="
+      }
+    },
+    "shareMetaData": {
+      "title": "Betri Garðabær Kosning",
+      "description": "Hér geta íbúar Garðabæjar, 15 ára og eldri útdeilt 100 milljónum í framkvæmdir. Gefðu uppáhalds hugmyndinni þinni hjarta og hún fær tvöfalt vægi. Verkefni verða framkvæmd frá júní 2019 til ágúst 2020. Taktu þátt!",
+      "shareImageUrl": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/bgshare.png",
+      "faviconUrl": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/fav.png"
+    },
+    "welcomeLocales": {
+      "is": {
+        "heading": "Rafræn kosning",
+        "text": "Hér geta íbúar Garðabæjar, 15 ára og eldri útdeilt 100 milljónum í framkvæmdir. Ekki þarf að ráðstafa öllu fjármagninu. Gefðu uppáhalds hugmyndinni þinni hjarta og hún fær tvöfalt vægi. Verkefni verða framkvæmd frá júní 2019 til ágúst 2020. Takk fyrir þátttökuna!"
+      },
+      "en": {
+        "heading": "Electronic voting",
+        "text": "Here, Garðabær residents aged 15 and over can allocate ISK 100 million for new projects. You don't need to allocate the entire amount. 'Heart' your favourite proposal to double the weight of your vote. The projects will be implemented between June 2019 and August 2020. Thank you for your participation!"
+      }
+    },
+    "localeSetup": [
+      {
+        "locale": "is",
+        "language": "Íslenska"
+      },
+      {
+        "locale": "en",
+        "language": "English"
+      }
+    ],
+    "votingCompleteConfig": {
+      "logo": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/BetriGardabaer/384x159_transp_merki_blatt.png",
+      "shareUrl": "https://kosning2019.gardabaer.is/"
+    },
+    "googleAnalyticsId": "UA-7086040-26",
+    "locales": {
+      "en": {
+        "openDetailMenu": "Open detail menu",
+        "help": "help",
+        "continue": "Continue",
+        "start":"Start voting",
+        "language": "Language:",
+        "pointsFor": "Points for",
+        "pointsAgainst": "Points against",
+        "favorite_info": "Use ❤️ for your favorite idea = two votes",
+        "share_vote_by_pressing": "Share the election web with your friends",
+        "budget_empty_info_1": "{amount} millions on offer",
+        "budget_empty_info_2": "Use",
+        "budget_empty_info_3": "to select ideas",
+        "share_idea": "Share idea & vote",
+        "design_pdf": "Initial design pdf",
+        "moreInformation": "More information",
+        "welcome_title": "My neighborhood – Participate!",
+        "app_title": "My neighborhood – Participate!",
+        "voting_areas": "Choose neighborhood",
+        "menu": "Menu",
+        "choose_a_neighbourhood_1": "",
+        "choose_a_neighbourhood_2": "Choose a neighbourhood to cast your vote. 450 million have been allocated proportionately.",
+        "error_not_found": "Not found",
+        "general_error": "An error has occurred, we have been notified",
+        "error_not_authorized": "Not authorized",
+        "error_cant_connect": "Can't connect to server, please try again later",
+        "error_invalid_public_key": "Invalid public key",
+        "error_public_key_not_found": "Public key not found",
+        "error_no_items_selected": "No items selected for vote",
+        "error_does_not_fit_in_budget": "Does not fit in budget",
+        "error_encryption": "Encryption error {err}",
+        "error_could_not_post_vote": "Could not post vote, please try again later",
+        "items_list": "Ideas",
+        "items_on_map": "Maps",
+        "ballot_area_name": "Choose projects for {area_name}",
+        "selected_items_info": "You have selected {number_of_items} for a total of {selectedBudget} millions",
+        "selected_items_info_mobile": "{number_of_items, plural, one {1 idea} other {{number_of_items} ideas} } - total {selectedBudget} millions",
+        "selected_items_info_one_million": "You have selected {number_of_items} for a total of {selectedBudget} million",
+        "selected_items_info_mobile_one_million": "{number_of_items, plural, one {1 idea} other {{number_of_items} ideas} } - total {selectedBudget} million",
+        "budget_info_text": "Vote ideas for {area_name}",
+        "budget_info_text_mobile": "Projects for {area_name}",
+        "no_items_selected": "No items selected",
+        "voting_completed": "Your vote has been received",
+        "add_to_budget": "Select idea",
+        "remove_from_budget": "Remove idea",
+        "thank_you_1": "Thanks for your participation!",
+        "thank_you_2": "Your vote has been received and you have been signed out.",
+        "thank_you_3": "You can vote again, but your final vote is the one that is valid. The results of the elections will be published on Garðabær's website, gardabaer.is",
+        "million": "million",
+        "millions": "millions",
+        "million_short": "m.",
+        "image_item_tab": "Item image",
+        "description_item_tab": "Item description",
+        "map_item_tab": "Item location",
+        "budget_left_text": "{budget_left} millions left",
+        "more_info_description": "Points for and against",
+        "close": "close",
+        "vote": "Vote!",
+        "postTabsDebate": "Debate",
+        "postTabsLocation": "Location",
+        "postTabsPhotos": "Myndir",
+        "postNoLocation": "No location",
+        "number_of_voters": "Total number of valid votes",
+        "number_of_votes": "Number of voters in this neighborhood",
+        "auth_dialog": "Authenticating and sending in vote",
+        "select_favorite": "Select favorite for a double vote",
+        "deselect_favorite": "Deselect favorite",
+        "more_information": "More information"
+      },
+      "is": {
+        "openDetailMenu": "Opna valmynd með nánari upplýsingum",
+        "help": "Hjálp",
+        "continue": "Áfram",
+        "start":"Hefja kosningu",
+        "language": "Tungumál:",
+        "pointsFor": "Rök með",
+        "pointsAgainst": "Rök á móti",
+        "favorite_info": "Settu ❤️ við þína uppáhalds hugmynd = tvöfalt vægi",
+        "share_vote_by_pressing": "Deildu kosningavefnum til vina þinna.",
+        "budget_empty_info_1": "{amount} milljónir til ráðstöfunar",
+        "budget_empty_info_2": "Notaðu",
+        "budget_empty_info_3": "til að velja hugmyndir",
+        "share_idea": "Deila hugmynd & kosningu",
+        "design_pdf": "Frumhönnun PDF",
+        "moreInformation": "Nánari upplýsingar",
+        "welcome_title": "Hverfið mitt – Taktu þátt!",
+        "app_title": "Hverfið mitt – Taktu þátt!",
+        "voting_areas": "Veldu hverfi",
+        "menu": "Valmynd",
+        "choose_a_neighbourhood_1": "",
+        "choose_a_neighbourhood_2": "Veldu þér hverfi til að kjósa í. 450 milljónum hefur verið skipt á milli hverfa eftir íbúafjölda.",
+        "error_not_found": "Fannst ekki",
+        "general_error": "Villa hefur komið upp, við höfum verið látin vita",
+        "error_not_authorized": "Þú hefur ekki aðgang",
+        "error_cant_connect": "Get ekki tengst vefþjóni, vinsamlegast prófaðu síðar",
+        "error_invalid_public_key": "Dulkóðunarlykill ekki í lagi",
+        "error_public_key_not_found": "Dulkóðunarlykill fannst ekki",
+        "error_no_items_selected": "Það eru engar hugmyndir valdar í kosningu",
+        "error_encryption": "Dulkóðunarvilla {err}",
+        "error_does_not_fit_in_budget": "þessi hugmynd er of dýr fyrir það sem er eftir af peningum",
+        "error_could_not_post_vote": "Það hefur komið upp villa og þitt atkvæði er ekki móttekið, vinsamlegast reyndu aftur síðar",
+        "items_list": "Hugmyndir",
+        "items_on_map": "Kort",
+        "ballot_area_name": "Kjóstu hugmyndir fyrir {area_name}",
+        "selected_items_info": "Þú hefur valið {number_of_items, plural, one {1 hugmynd} other {{number_of_items} hugmyndir}} fyrir {selectedBudget} milljónir",
+        "selected_items_info_mobile": "{number_of_items, plural, one {1 hugmynd} other {{number_of_items} hugmyndir} } fyrir {selectedBudget} milljónir",
+        "selected_items_info_one_million": "Þú hefur valið {number_of_items, plural, one {1 hugmynd} other {{number_of_items} hugmyndir} } fyrir {selectedBudget} milljón",
+        "selected_items_info_mobile_one_million": "{number_of_items, plural, one {1 hugmynd} other {{number_of_items} hugmyndir} } fyrir {selectedBudget} milljón",
+        "budget_info_text": "Kjóstu hugmyndir - {area_name}",
+        "budget_info_text_mobile": "Kjóstu - {area_name}",
+        "no_items_selected": "Engin hugmynd valin...",
+        "voting_completed": "Atkvæði þitt hefur verið móttekið",
+        "add_to_budget": "Velja hugmynd",
+        "remove_from_budget": "Taka út hugmynd",
+        "thank_you_1": "Takk fyrir þátttökuna!",
+        "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
+        "thank_you_3": "Þú getur kosið aftur en síðasta atkvæði gildir. Kosningu lýkur 3. júní. Niðurstöður kosninga verða birtar á vef Garðabæjar, gardabaer.is.",
+        "million": "milljón",
+        "millions": "milljónir",
+        "million_short": "mkr",
+        "image_item_tab": "Mynd",
+        "description_item_tab": "Nánari upplýsingar",
+        "map_item_tab": "Staðsetning",
+        "budget_left_text": "{budget_left} milljónir eftir",
+        "more_info_description": "Rök með og á móti",
+        "close": "loka",
+        "vote": "Kjósa!",
+        "postTabsDebate": "Rök",
+        "postTabsLocation": "Staðsetning",
+        "postTabsPhotos": "Myndir",
+        "postNoLocation": "Engin staðsetning",
+        "number_of_voters": "Heildarfjöldi gildra atkvæða",
+        "number_of_votes": "Fjöldi kjósenda í þessu hverfi",
+        "auth_dialog": "Innskráning og innsending á atkvæði",
+        "select_favorite": "Settu stjörnu við uppáhalds hugmynd fyrir tvöfalt vægi",
+        "deselect_favorite": "Afvelja uppáhalds hugmynd",
+        "more_information": "Nánar um hugmynd"
+      }
+    }
+  }

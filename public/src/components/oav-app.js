@@ -164,14 +164,18 @@ class OavApp extends OavBaseElement {
                   <div class="horizontal welcomeText">
                     ${this.welcomeText}
                   </div>
-                <div class="langSelectionText">
-                  ${this.configFromServer.client_config.localeSetup.map((lang) => {
-                    return html`
-                      <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
-                        @click="${this.selectLocale}">${lang.language}</span>
+                  ${Object.keys(this.configFromServer.client_config.localeSetup).length>1 ?
+                    html`
+                      <div class="langSelectionText">
+                        ${this.configFromServer.client_config.localeSetup.map((lang) => {
+                          return html`
+                            <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
+                              @click="${this.selectLocale}">${lang.language}</span>
+                          `
+                        })}
+                      </div>
                     `
-                  })}
-                </div>
+                     : html``}
                 <div class="buttons center-center">
                   <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
                 </div>
