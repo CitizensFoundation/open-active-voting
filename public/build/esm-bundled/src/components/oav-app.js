@@ -2654,7 +2654,7 @@
         }
       `]}render(){return html$1`
       <slot></slot>
-    `}}window.customElements.define("snack-bar",SnackBar),window.IntlMessageFormat=MessageFormat;class OavBaseElement extends LitElement{static get properties(){return{wide:{type:Boolean,value:!1},language:{type:String}}}constructor(){super()}activity(e,t){this.sendToGoogleAnalytics("send","event",t,e)}sendToGoogleAnalytics(e,t,i,n){"function"==typeof ga?i&&n?ga(e,t,i,n):ga(e,t):console.warn("Google analytics message not sent for type:"+e+" parameterA:"+t+" parameterB:"+i+" parameterC:"+n)}localize(){var e=arguments[0];if(!(e&&window.localeResources&&this.language&&window.language&&window.localeResources[this.language]))return e;var t=window.localeResources[this.language||window.language][e];if(!t)return e;var i=e+t,n=window.__localizationCache.messages[i];n||(n=new MessageFormat(t,this.language,{}),window.__localizationCache.messages[i]=n);for(var o={},r=1;r<arguments.length;r+=2)o[arguments[r]]=arguments[r+1];return n.format(o)}updated(e){super.updated(e),e.has("language")}$$(e){return this.shadowRoot.querySelector(e)}fire(e,t){const i=new CustomEvent(e,{detail:t,bubbles:!0,composed:!0});this.dispatchEvent(i)}}var oavBaseElement={OavBaseElement:OavBaseElement};class PageViewElement extends OavBaseElement{shouldUpdate(){return this.active}static get properties(){return{active:{type:Boolean}}}}var pageViewElement={PageViewElement:PageViewElement};const OavAreaBallotStyles=css`
+    `}}window.customElements.define("snack-bar",SnackBar),window.IntlMessageFormat=MessageFormat;class OavBaseElement extends LitElement{static get properties(){return{wide:{type:Boolean,value:!1},language:{type:String}}}constructor(){super()}activity(e,t){this.sendToGoogleAnalytics("send","event",t,e)}sendToGoogleAnalytics(e,t,i,n){"function"==typeof ga?i&&n?ga(e,t,i,n):ga(e,t):console.warn("Google analytics message not sent for type:"+e+" parameterA:"+t+" parameterB:"+i+" parameterC:"+n)}formatNumber(e,t){return t||(t=""),e?t+e.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","):t+"0"}localize(){var e=arguments[0];if(!(e&&window.localeResources&&this.language&&window.language&&window.localeResources[this.language]))return e;var t=window.localeResources[this.language||window.language][e];if(!t)return e;var i=e+t,n=window.__localizationCache.messages[i];n||(n=new MessageFormat(t,this.language,{}),window.__localizationCache.messages[i]=n);for(var o={},r=1;r<arguments.length;r+=2)o[arguments[r]]=arguments[r+1];return n.format(o)}updated(e){super.updated(e),e.has("language")}$$(e){return this.shadowRoot.querySelector(e)}fire(e,t){const i=new CustomEvent(e,{detail:t,bubbles:!0,composed:!0});this.dispatchEvent(i)}}var oavBaseElement={OavBaseElement:OavBaseElement};class PageViewElement extends OavBaseElement{shouldUpdate(){return this.active}static get properties(){return{active:{type:Boolean}}}}var pageViewElement={PageViewElement:PageViewElement};const OavAreaBallotStyles=css`
 
   :host {}
 
@@ -2888,8 +2888,16 @@
     color: var(--app-accent-color);
   }
 
+  .price[no-millions] {
+    left: 108px;
+  }
+
   .price[small] {
     left: 70px;
+  }
+
+  .price[no-millions][small] {
+    left: 95px;
   }
 
   .price[small][tiny] {
@@ -3127,7 +3135,7 @@
               <iron-icon alt="${this.localize("description_item_tab")}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize("description_item_tab")}
             </paper-item>
-            <paper-item @tap="${this._setMapMode}">
+            <paper-item @tap="${this._setMapMode}" ?hidden="${this.configFromServer.client_config.hideLocation}">
               <iron-icon alt="${this.localize("map_item_tab")}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize("map_item_tab")}
             </paper-item>
@@ -3135,7 +3143,7 @@
               <iron-icon alt="${this.localize("design_pdf")}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize("design_pdf")}
             </paper-item>
-            <paper-item @tap="${this._showPost}">
+            <paper-item @tap="${this._showPost}" ?hidden="${this.configFromServer.client_config.hideShowPost}">
               <iron-icon raised alt="${this.localize("more_info_description")}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize("more_info_description")}
             </paper-item>
@@ -3149,7 +3157,8 @@
             title="${this.localize("share_idea")}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 
-          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.price}
+          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}" ?no-millions="${this.configFromServer.client_config.dontUserMillions}">
+            ${this.configFromServer.client_config.currencySymbol}${this.formatNumber(this.item.price)}
             <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize("million")}</span>
             <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize("millions")}</span>
           </div>
@@ -3770,23 +3779,23 @@
               ${this.selectedBudget?html$1`
                   <div ?hidden="${!this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                     ${this.localize("selected_items_info_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                     ${this.localize("selected_items_info_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                   <div ?hidden="${this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                      ${this.localize("selected_items_info","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                 `:""}
               <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot}">
-                ${this.localize("budget_left_text","budget_left",this.budgetLeft)}
+                ${this.localize("budget_left_text","budget_left",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
               </div>
               </div>
             </div>
@@ -3799,7 +3808,7 @@
             <div id="noItems" class="layout horizontal noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
               ${this.totalBudget?html$1`
                 <div ?hidden="${!this.wide}" class="onOfferText">
-                  ${this.localize("budget_empty_info_1","amount",this.budgetLeft)}
+                  ${this.localize("budget_empty_info_1","amount",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
                 </div>
                 <div>${this.localize("budget_empty_info_2")}</div>
                 <paper-fab aria-label="${this.localize("add_to_budget")}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
@@ -3809,7 +3818,7 @@
           </div>
         </div>
       </div>
-      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
+      <snack-bar ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
         ${this.localize("favorite_info")}
       </snack-bar>
     `}firstUpdated(){this.reset(),installMediaQueryWatcher("(min-width: 1024px)",e=>{this.wide=!!e,this._resetWidth()}),installMediaQueryWatcher("(orientation: portrait)",e=>{this.orientationPortrait=!!e,this._resetWidth()}),installMediaQueryWatcher("(orientation: landscape)",e=>{this.orientationLandscape=!!e,this._resetWidth()}),installMediaQueryWatcher("(min-width: 640px)",e=>{this.mediumWide=!!e,this._resetWidth()}),installMediaQueryWatcher("(max-width: 340px)",e=>{this.mini=!!e,this._resetWidth()})}constructor(){super()}_exit(){this.fire("oav-exit")}_help(){this.fire("oav-open-help")}_closeToast(){this.$$("#toast").active=!1}_resetWidth(){this.wide?this.votesWidth=940:this.votesWidth=window.innerWidth,this._resetBudgetDiv(),this.selectedItems.forEach(function(e){this._addItemToDiv(e)}.bind(this))}_millionWord(){return this.wide?this.localize("million"):this.localize("million_short")}_submitVote(){this.activity("click","submitVote"),this.currentBallot.fire("oav-submit-vote")}_selectedItemsChanged(){this.selectedItems&&0<this.selectedItems.length?(this.noSelectedItems=!1,this.$$("#votingButton").disabled=!1):(this.noSelectedItems=!0,this.$$("#votingButton").disabled=!0)}reset(){this._resetBudgetDiv(),this.selectedItems=[],this.selectedBudget=0,this.budgetHeaderImage=this.configFromServer.client_config.ballotBudgetLogo}_resetBudgetDiv(){let e=this.$$("#votes");for(;e.lastChild&&"noItems"!=e.lastChild.id&&"budgetLeftInfo"!=e.lastChild.id;)e.removeChild(e.lastChild)}_removeItemFromArray(e){var t=[];this.selectedItems.forEach(function(i){i.id!=e.id&&t.push(i)}),this.selectedItems=t}_addItemToDiv(e){var t=parseInt(this.votesWidth*(e.price/this.totalBudget));this.wide||(t-=1);var i=document.createElement("div");i.id="item_id_"+e.id,this.wide?i.style.height="100px":i.style.height="81px",i.style.width=t+"px",i.className="budgetBallotVote",i.backgroundColor="#F00",i.style.position="relative";var n=document.createElement("iron-image");n.src=e.image_url,n.setAttribute("sizing","cover"),n.setAttribute("alt",e.name),n.setAttribute("title",e.name),n.setAttribute("style","cursor: pointer;"),n.title=e.name,n.style.borderLeft="solid 1px",n.style.borderRight="solid 1px",n.style.borderColor="#ff6500",this.wide?n.style.height="100px":n.style.height="81px",n.style.width=t+"px",i.appendChild(n),i.addEventListener("tap",function(){this.fire("oav-scroll-item-into-view",e.id)}.bind(this)),this.$$("#votes").appendChild(i);i.animate([{transform:"translateX(-75px) scale(2)",easing:"ease-out"},{transform:"scale(1)",easing:"ease-out"}],{duration:600,iterations:1});this.$$("#budgetLeftInfo").animate([{transform:"scale(1)"},{transform:"scale(1.75)",easing:"ease-in-out"},{transform:"scale(1)",easing:"ease-out"}],{duration:820,iterations:1}),1>this.toastCounter&&(this.$$("#toast").active=!0,this.toastCounter+=1)}_removeItemFromDiv(e){var t=this.$$("#item_id_"+e.id);t.parentNode.removeChild(t)}getItemLeftTop(e){var t=this.$$("#item_id_"+e.id);if(t){var i=t.getBoundingClientRect(),n=(i.right-i.left)/2+i.left,o=(i.bottom-i.top)/2+i.top;return this.wide?(n-=24,o-=24):(n-=18,o-=18),{left:n,top:o}}console.error("Trying to get item that is not in the budget")}toggleBudgetItem(e){this.activity("toggle","vote"),-1<this.selectedItems.indexOf(e)?(this.activity("remove","vote"),this._removeItemFromArray(e),this._removeItemFromDiv(e),this.selectedItems=[...this.selectedItems],this.selectedBudget=this.selectedBudget-e.price,this.currentBallot.fire("oav-item-de-selected-from-budget",{itemId:e.id})):this.selectedBudget+e.price<=this.totalBudget?(this.activity("add","vote"),this.selectedItems.push(e),this.selectedItems=[...this.selectedItems],this._addItemToDiv(e),this.selectedBudget=this.selectedBudget+e.price,this.currentBallot.fire("oav-item-selected-in-budget",{itemId:e.id})):this.currentBallot.fire("oav-error",this.localize("error_does_not_fit_in_budget"))}toggleFavoriteItem(e){this.activity("toggle","favorite"),this.favoriteItem!=e&&(e?this.activity("add","favorite"):this.activity("remove","favorite"),this.favoriteItem=e)}_removeItem(e){this.selectedItems.forEach(function(t){t.id==e&&this.toggleBudgetItem(t)}.bind(this))}convertDots(e){return e.replace(".",",")}}window.customElements.define("oav-area-budget",OavAreaBudget);const OavAreaVotingCompletedStyles=css`

@@ -14065,7 +14065,7 @@ rsa.setPublicKeyFromASN(tree);var crypted=rsa.encrypt(JSON.stringify(selectedIte
       `]}render(){return html$1`
       <slot></slot>
     `}}window.customElements.define("snack-bar",SnackBar);// Locale implementation inspired by https://github.com/PolymerElements/app-localize-behavior
-window.IntlMessageFormat=MessageFormat;class OavBaseElement extends LitElement{static get properties(){return{wide:{type:Boolean,value:!1},language:{type:String}}}constructor(){super()}activity(type,object){this.sendToGoogleAnalytics("send","event",object,type)}sendToGoogleAnalytics(type,parameterA,parameterB,parameterC){if("function"==typeof ga){if(parameterB&&parameterC){ga(type,parameterA,parameterB,parameterC)}else{ga(type,parameterA)}}else{console.warn("Google analytics message not sent for type:"+type+" parameterA:"+parameterA+" parameterB:"+parameterB+" parameterC:"+parameterC)}}localize(){var key=arguments[0];if(!key||!window.localeResources||!(this.language&&window.language)||!window.localeResources[this.language])return key;var translatedValue=window.localeResources[this.language||window.language][key];if(!translatedValue){return key}var messageKey=key+translatedValue,translatedMessage=window.__localizationCache.messages[messageKey];if(!translatedMessage){translatedMessage=new MessageFormat(translatedValue,this.language,{});window.__localizationCache.messages[messageKey]=translatedMessage}for(var args={},i=1;i<arguments.length;i+=2){args[arguments[i]]=arguments[i+1]}return translatedMessage.format(args)}updated(changedProps){super.updated(changedProps);if(changedProps.has("language")){//this.requestUpdate();
+window.IntlMessageFormat=MessageFormat;class OavBaseElement extends LitElement{static get properties(){return{wide:{type:Boolean,value:!1},language:{type:String}}}constructor(){super()}activity(type,object){this.sendToGoogleAnalytics("send","event",object,type)}sendToGoogleAnalytics(type,parameterA,parameterB,parameterC){if("function"==typeof ga){if(parameterB&&parameterC){ga(type,parameterA,parameterB,parameterC)}else{ga(type,parameterA)}}else{console.warn("Google analytics message not sent for type:"+type+" parameterA:"+parameterA+" parameterB:"+parameterB+" parameterC:"+parameterC)}}formatNumber(value,currencyIcon){if(!currencyIcon)currencyIcon="";if(value){return currencyIcon+value.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}else{return currencyIcon+"0"}}localize(){var key=arguments[0];if(!key||!window.localeResources||!(this.language&&window.language)||!window.localeResources[this.language])return key;var translatedValue=window.localeResources[this.language||window.language][key];if(!translatedValue){return key}var messageKey=key+translatedValue,translatedMessage=window.__localizationCache.messages[messageKey];if(!translatedMessage){translatedMessage=new MessageFormat(translatedValue,this.language,{});window.__localizationCache.messages[messageKey]=translatedMessage}for(var args={},i=1;i<arguments.length;i+=2){args[arguments[i]]=arguments[i+1]}return translatedMessage.format(args)}updated(changedProps){super.updated(changedProps);if(changedProps.has("language")){//this.requestUpdate();
 }}$$(id){return this.shadowRoot.querySelector(id)}fire(eventName,data){const event=new CustomEvent(eventName,{detail:data,bubbles:!0,composed:!0});this.dispatchEvent(event)}}_exports.OavBaseElement=OavBaseElement;var oavBaseElement={OavBaseElement:OavBaseElement};// Locale implementation inspired by https://github.com/PolymerElements/app-localize-behavior
 _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseElement{shouldUpdate(){return this.active}static get properties(){return{active:{type:Boolean}}}}_exports.PageViewElement=PageViewElement;var pageViewElement={PageViewElement:PageViewElement};_exports.$pageViewElement=pageViewElement;const OavAreaBallotStyles=css`
 
@@ -14301,8 +14301,16 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
     color: var(--app-accent-color);
   }
 
+  .price[no-millions] {
+    left: 108px;
+  }
+
   .price[small] {
     left: 70px;
+  }
+
+  .price[no-millions][small] {
+    left: 95px;
   }
 
   .price[small][tiny] {
@@ -14540,7 +14548,7 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
               <iron-icon alt="${this.localize("description_item_tab")}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize("description_item_tab")}
             </paper-item>
-            <paper-item @tap="${this._setMapMode}">
+            <paper-item @tap="${this._setMapMode}" ?hidden="${this.configFromServer.client_config.hideLocation}">
               <iron-icon alt="${this.localize("map_item_tab")}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize("map_item_tab")}
             </paper-item>
@@ -14548,7 +14556,7 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
               <iron-icon alt="${this.localize("design_pdf")}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize("design_pdf")}
             </paper-item>
-            <paper-item @tap="${this._showPost}">
+            <paper-item @tap="${this._showPost}" ?hidden="${this.configFromServer.client_config.hideShowPost}">
               <iron-icon raised alt="${this.localize("more_info_description")}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize("more_info_description")}
             </paper-item>
@@ -14562,7 +14570,8 @@ _exports.$oavBaseElement=oavBaseElement;class PageViewElement extends OavBaseEle
             title="${this.localize("share_idea")}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 
-          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.price}
+          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}" ?no-millions="${this.configFromServer.client_config.dontUserMillions}">
+            ${this.configFromServer.client_config.currencySymbol}${this.formatNumber(this.item.price)}
             <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize("million")}</span>
             <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize("millions")}</span>
           </div>
@@ -15191,23 +15200,23 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
               ${this.selectedBudget?html$1`
                   <div ?hidden="${!this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                     ${this.localize("selected_items_info_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                     ${this.localize("selected_items_info_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile_one_million","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                   <div ?hidden="${this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                      ${this.localize("selected_items_info","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile","number_of_items",this.selectedItems.length,"selectedBudget",this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile","number_of_items",this.selectedItems.length,"selectedBudget",this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                 `:""}
               <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot}">
-                ${this.localize("budget_left_text","budget_left",this.budgetLeft)}
+                ${this.localize("budget_left_text","budget_left",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
               </div>
               </div>
             </div>
@@ -15220,7 +15229,7 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
             <div id="noItems" class="layout horizontal noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
               ${this.totalBudget?html$1`
                 <div ?hidden="${!this.wide}" class="onOfferText">
-                  ${this.localize("budget_empty_info_1","amount",this.budgetLeft)}
+                  ${this.localize("budget_empty_info_1","amount",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
                 </div>
                 <div>${this.localize("budget_empty_info_2")}</div>
                 <paper-fab aria-label="${this.localize("add_to_budget")}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
@@ -15230,7 +15239,7 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
           </div>
         </div>
       </div>
-      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
+      <snack-bar ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
         ${this.localize("favorite_info")}
       </snack-bar>
     `}firstUpdated(){this.reset();installMediaQueryWatcher(`(min-width: 1024px)`,matches=>{if(matches)this.wide=!0;else this.wide=!1;this._resetWidth()});installMediaQueryWatcher(`(orientation: portrait)`,matches=>{if(matches)this.orientationPortrait=!0;else this.orientationPortrait=!1;this._resetWidth()});installMediaQueryWatcher(`(orientation: landscape)`,matches=>{if(matches)this.orientationLandscape=!0;else this.orientationLandscape=!1;this._resetWidth()});installMediaQueryWatcher(`(min-width: 640px)`,matches=>{if(matches)this.mediumWide=!0;else this.mediumWide=!1;this._resetWidth()});installMediaQueryWatcher(`(max-width: 340px)`,matches=>{if(matches)this.mini=!0;else this.mini=!1;this._resetWidth()})}constructor(){super()}_exit(){this.fire("oav-exit")}_help(){this.fire("oav-open-help")}_closeToast(){this.$$("#toast").active=!1}_resetWidth(){if(this.wide){this.votesWidth=940}else{this.votesWidth=window.innerWidth}this._resetBudgetDiv();this.selectedItems.forEach(function(item){this._addItemToDiv(item)}.bind(this))}_millionWord(){// var localizeMethod = this.__computeLocalize(this.language, this.resources, this.formats);
