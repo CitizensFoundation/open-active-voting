@@ -390,7 +390,7 @@ class OavAreaBallot extends PageViewElement {
         .then(response => {
           if (response && response.vote_ok === true) {
             if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
-              this.fire("oav-insecure-email-login", { areaId: this.area.id, areaName: this.area.name, onLoginFunction: this._setVotingCompleted})
+              this.fire("oav-insecure-email-login", { areaId: this.area.id, areaName: this.area.name, onLoginFunction: this._setVotingCompleted.bind(this)})
             } else {
               window.location = this._getSamlUrlWithLanguage();
             }
