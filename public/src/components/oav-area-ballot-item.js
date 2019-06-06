@@ -141,7 +141,7 @@ class OavAreaBallotItem extends OavBaseElement {
               <iron-icon alt="${this.localize('description_item_tab')}" class="infoIcon" icon="description"></iron-icon>
               ${this.localize('description_item_tab')}
             </paper-item>
-            <paper-item @tap="${this._setMapMode}">
+            <paper-item @tap="${this._setMapMode}" ?hidden="${this.configFromServer.client_config.hideLocation}">
               <iron-icon alt="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize('map_item_tab')}
             </paper-item>
@@ -149,7 +149,7 @@ class OavAreaBallotItem extends OavBaseElement {
               <iron-icon alt="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize('design_pdf')}
             </paper-item>
-            <paper-item @tap="${this._showPost}">
+            <paper-item @tap="${this._showPost}" ?hidden="${this.configFromServer.client_config.hideShowPost}">
               <iron-icon raised alt="${this.localize('more_info_description')}" class="infoIcon" icon="info"></iron-icon>
               ${this.localize('more_info_description')}
             </paper-item>
@@ -163,7 +163,8 @@ class OavAreaBallotItem extends OavBaseElement {
             title="${this.localize('share_idea')}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 
-          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.price}
+          <div class="price" ?small="${this.small}" ?tiny="${this.tiny}" ?no-millions="${this.configFromServer.client_config.dontUserMillions}">
+            ${this.configFromServer.client_config.currencySymbol}${this.formatNumber(this.item.price)}
             <span class="priceCurrency" ?hidden="${!this._priceIsOne(this.item.price)}">${this.localize('million')}</span>
             <span class="priceCurrency" ?hidden="${this._priceIsOne(this.item.price)}">${this.localize('millions')}</span>
           </div>

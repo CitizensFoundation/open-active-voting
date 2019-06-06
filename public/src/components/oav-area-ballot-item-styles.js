@@ -145,8 +145,16 @@ export const OavAreaBallotItemStyles = css`
     color: var(--app-accent-color);
   }
 
+  .price[no-millions] {
+    left: 108px;
+  }
+
   .price[small] {
     left: 70px;
+  }
+
+  .price[no-millions][small] {
+    left: 95px;
   }
 
   .price[small][tiny] {

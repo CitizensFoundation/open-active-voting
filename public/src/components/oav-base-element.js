@@ -38,6 +38,17 @@ export class OavBaseElement extends LitElement {
     }
   }
 
+  formatNumber(value, currencyIcon) {
+    if (!currencyIcon)
+      currencyIcon=""
+
+    if (value) {
+      return currencyIcon+value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else {
+      return currencyIcon+"0";
+    }
+  }
+
   localize() {
     var key = arguments[0];
     if (!key || !window.localeResources || !(this.language && window.language) || !window.localeResources[this.language])

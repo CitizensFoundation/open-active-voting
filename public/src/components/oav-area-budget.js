@@ -144,18 +144,18 @@ class OavAreaBudget extends OavBaseElement {
                 html`
                   <div ?hidden="${!this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                     ${this.localize("selected_items_info_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
+                     ${this.localize("selected_items_info_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile_one_million", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile_one_million", "number_of_items", this.selectedItems.length, "selectedBudget",  this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                   <div ?hidden="${this.selectedBudgetIsOne}">
                     <div class="selectedInfo budgetText" ?wide="${this.wide}" ?hidden="${!this.wide}">
-                      ${this.localize("selected_items_info", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
+                      ${this.localize("selected_items_info", "number_of_items", this.selectedItems.length, "selectedBudget",  this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                     <div class="selectedInfo mobileBudgetText" ?wide="${this.wide}" ?hidden="${this.wide}">
-                      ${this.localize("selected_items_info_mobile", "number_of_items", this.selectedItems.length, "selectedBudget", this.selectedBudget)}
+                      ${this.localize("selected_items_info_mobile", "number_of_items", this.selectedItems.length, "selectedBudget",  this.formatNumber(this.selectedBudget,this.configFromServer.client_config.currencySymbol))}
                     </div>
                   </div>
                 `
@@ -163,7 +163,7 @@ class OavAreaBudget extends OavBaseElement {
                 ''
               }
               <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot}">
-                ${this.localize('budget_left_text','budget_left', this.budgetLeft)}
+                ${this.localize('budget_left_text','budget_left', this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
               </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ class OavAreaBudget extends OavBaseElement {
               ${this.totalBudget ?
               html`
                 <div ?hidden="${!this.wide}" class="onOfferText">
-                  ${this.localize('budget_empty_info_1', "amount", this.budgetLeft)}
+                  ${this.localize('budget_empty_info_1', "amount", this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
                 </div>
                 <div>${this.localize('budget_empty_info_2')}</div>
                 <paper-fab aria-label="${this.localize('add_to_budget')}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
@@ -190,7 +190,7 @@ class OavAreaBudget extends OavBaseElement {
           </div>
         </div>
       </div>
-      <snack-bar  ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
+      <snack-bar ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
         ${this.localize('favorite_info')}
       </snack-bar>
     `;
