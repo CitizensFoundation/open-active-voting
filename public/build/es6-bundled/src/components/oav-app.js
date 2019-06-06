@@ -15457,14 +15457,14 @@ if(this.wide){return this.localize("million")}else{return this.localize("million
                   <div class="horizontal welcomeText">
                     ${this.welcomeText}
                   </div>
+                  <div class="langSelectionText">
                   ${1<Object.keys(this.configFromServer.client_config.localeSetup).length?html$1`
-                      <div class="langSelectionText">
                         ${this.configFromServer.client_config.localeSetup.map(lang=>{return html$1`
                             <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
                               @click="${this.selectLocale}">${lang.language}</span>
                           `})}
-                      </div>
                     `:html$1``}
+                 </div>
                 <div class="buttons center-center">
                   <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize("start")}</paper-button>
                 </div>

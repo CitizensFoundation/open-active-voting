@@ -4035,14 +4035,14 @@
                   <div class="horizontal welcomeText">
                     ${this.welcomeText}
                   </div>
+                  <div class="langSelectionText">
                   ${1<Object.keys(this.configFromServer.client_config.localeSetup).length?html$1`
-                      <div class="langSelectionText">
                         ${this.configFromServer.client_config.localeSetup.map(e=>html$1`
                             <span class="langSelect" data-locale="${e.locale}" ?is-selected="${e.locale===this.language}"
                               @click="${this.selectLocale}">${e.language}</span>
                           `)}
-                      </div>
                     `:html$1``}
+                 </div>
                 <div class="buttons center-center">
                   <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize("start")}</paper-button>
                 </div>
