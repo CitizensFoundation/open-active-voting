@@ -27,7 +27,7 @@
     ],
     "auth_url": "https://audkenning.vottun.is/Login/Login?electionId=f3ec8729-e20f-4a87-81ff-0faa6248bec3&returnUrl=%20https%3A%2F%2Fkosning2019.gardabaer.is%2Fauthenticate_from_island_is",
     "saml_idp_cert_fingerprint":"23:81:C3:16:7A:8C:A8:77:2E:A6:00:26:5E:1E:EA:51:1E:66:28:C5",
-    "defaultLanguage": "is",
+    "defaultLanguage": "en",
     "favoriteIcon": "favorite",
     "favoriteIconOutline": "favorite-border",
     "googleMapsApiKey": "AIzaSyDkF_kak8BVZA5zfp5R4xRnrX8HP3hjiL0",
@@ -67,7 +67,9 @@
         "language": "English"
       }
     ],
-    "insecureEmailLoginEnabled": false,
+    "insecureEmailLoginEnabled": true,
+    "insecureEmailPostcodeMaxLength": 8,
+    "insecureEmailAgeLimit": true,
     "insecureEmailLoginPostCodes": {
       "1": [
         "ABCDEF",
@@ -81,7 +83,7 @@
       ]
     },
     "insecureEmailLoginAreaNames": {
-      "1": "Area 1",
+      "1": "Mosfellsbær",
       "2": "Area 2"
     },
     "votingCompleteConfig": {
@@ -91,6 +93,17 @@
     "googleAnalyticsId": "UA-7086040-26",
     "locales": {
       "en": {
+        "orEnterApostCodeThatBelongsTo": "Or enter a postcode that belongs to",
+        "forThisCodeYouCanVoteHere": "For this code you can vote here",
+        "thisPostCodeDoesNotBelongTo": "This postcode does not belong to",
+        "enterValidEmail": "Enter valid email",
+        "enterValidPostcode": "Enter a valid postcode for this vote",
+        "completeForm": "Complete filling out the form",
+        "authenticateAndVote": "Authenticate and vote",
+        "userEmail": "Email",
+        "postCode": "Postcode",
+        "confirmAge": "Confirm that you are 8 years or older",
+        "loginWithEmailAndPostCode": "Login with email and postcode",
         "openDetailMenu": "Open detail menu",
         "help": "help",
         "continue": "Continue",

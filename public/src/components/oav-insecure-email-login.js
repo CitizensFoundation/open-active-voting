@@ -2,10 +2,10 @@ import { html } from 'lit-element';
 import { OavInsecureEmailLoginStyles } from './oav-insecure-email-login-styles';
 import { OavBaseElement } from './oav-base-element';
 
-import '@polymer/paper-dialog';
-import '@polymer/paper-input';
-import '@polymer/paper-checkbox';
-import '@polymer/paper-button';
+import '@polymer/paper-dialog/paper-dialog';
+import '@polymer/paper-button/paper-button';
+import '@polymer/paper-input/paper-input';
+import '@polymer/paper-checkbox/paper-checkbox';
 
 class OavInsecureEmailLogin extends OavBaseElement {
   static get properties() {
@@ -68,7 +68,7 @@ class OavInsecureEmailLogin extends OavBaseElement {
 
       areaId: String,
 
-      configFromServer: String,
+      configFromServer: Object,
 
       postCodes: {
         type: Object
@@ -103,7 +103,6 @@ class OavInsecureEmailLogin extends OavBaseElement {
                         label="${this.localize('userEmail')}"
                         value="${this.email}"
                         minlength="5"
-                        pattern="${thio.emailValidationPattern}"
                         error-message="${this.emailErrorMessage}">
           </paper-input>
 
@@ -111,18 +110,18 @@ class OavInsecureEmailLogin extends OavBaseElement {
                         type="text"
                         label="${this.localize('postCode')}"
                         value="${this.postCode}"
-                        maxlength="${this.configFromServer.insecureEmailPostcodeMaxLength}">
+                        maxlength="${this.configFromServer.client_config.insecureEmailPostcodeMaxLength}">
           </paper-input>
 
-          <div class="postcodeWrongWard" hidden?="${!this.correctAreaId}">
+          <div class="postcodeWrongWard" ?hidden="${!this.correctAreaId}">
             ${this.localize("thisPostCodeDoesNotBelongTo")} ${this.areaName}.<br><br>
-            ${this.localize("forThisCodeYouCanVoteHere")} <a href="/area-ballot/${this.correctAreaId}" @tap="${this._resetCorrectArea()}">${this.correctAreaName}</a>
+            ${this.localize("forThisCodeYouCanVoteHere")} <a href="/area-ballot/${this.correctAreaId}" @click="${this._resetCorrectArea}">${this.correctAreaName}</a>
             ${this.localize("orEnterApostCodeThatBelongsTo")} ${this.areaName}.
           </div>
 
-          ${this.configFromServer.insecureEmailAgeLimit ? html`
+          ${this.configFromServer.client_config.insecureEmailAgeLimit ? html`
             <paper-checkbox id="confirmedAge" class="checkBox" name="confirmedAge">
-              ${this.localize('confirmedAge')}
+              ${this.localize('confirmAge')}
             </paper-checkbox>
           `
           : html`` }
@@ -130,8 +129,7 @@ class OavInsecureEmailLogin extends OavBaseElement {
 
         </form>
         <div class="buttons layout vertical">
-          <oav-ajax id="loginAjax" method="POST" url="/votes/insecure_email_login" on-response="_loginResponse"></oav-ajax>
-          <paper-button autofocus on-tap="_validateAndSend">${this.localize('authenticateAndVote')}</paper-button>
+          <paper-button autofocus @tap="${this._validateAndSend}">${this.localize('authenticateAndVote')}</paper-button>
         </div>
       </paper-dialog>
     `;
@@ -141,20 +139,24 @@ class OavInsecureEmailLogin extends OavBaseElement {
     super.updated(changedProps);
   }
 
+  firstUpdated() {
+    super.firstUpdated();
+    Object.entries(this.configFromServer.client_config.insecureEmailLoginPostCodes).forEach(entry => {
+      let areaId = entry[0];
+      let postCodes = entry[1];
+      postCodes.forEach(postCode => {
+        this.postCodesAreas[postCode] = areaId;
+        this.postCodesAreasNames[postCode] = this.configFromServer.client_config.insecureEmailLoginAreaNames[areaId];
+      })
+    });
+  }
+
   constructor() {
     super();
     this.emailValidationPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     this.confirmedAge = false;
     this.postCodesAreas = {};
     this.postCodesAreasNames = {};
-    Object.entries(this.confirFromServer.insecureEmailLoginPostCodes).forEach(entry => {
-      let areaId = entry[0];
-      let postCodes = entry[1];
-      postCodes.forEach(postCode => {
-        this.postCodesAreas[postCode] = areaId;
-        this.postCodesAreasNames[postCode] = this.confirFromServer.insecureEmailLoginAreaNames[areaId];
-      })
-    });
   }
 
   _resetCorrectArea() {
@@ -172,12 +174,16 @@ class OavInsecureEmailLogin extends OavBaseElement {
 
   isValidPostcode(areaId, postCode) {
     postCode = postCode.replace(/\s/g, "").toUpperCase();
-    return (this.confirFromServer.insecureEmailLoginPostCodes[areaId].indexOf(postCode) > -1)
+    return (this.configFromServer.client_config.insecureEmailLoginPostCodes[areaId].indexOf(postCode) > -1)
   }
 
   getAreaForPostCode(postCode) {
     postCode = postCode.replace(/\s/g, "").toUpperCase();
-    return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+    if (this.postCodesAreas[postCode] && this.postCodesAreasNames[postCode]) {
+      return { id: this.postCodesAreas[postCode], name: this.postCodesAreasNames[postCode] };
+    } else {
+      return null;
+    }
   }
 
   open(areaId, areaName, onLoginFunction) {
@@ -193,32 +199,41 @@ class OavInsecureEmailLogin extends OavBaseElement {
   }
 
   _validateAndSend(e) {
-    if (this.$$("#form").checkValidity() && this.email && this.postCode && this.$$("#confirmedAge").checked) {
-      if (this.isValidPostcode(this.areaId, this.postCode)) {
-        fetch('/votes/insecure_email_login', {
-          method: "POST",
-          cache: "no-cache",
-          credentials: 'same-origin',
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({email: this.email.toLowerCase(), postCode: this.postCode})
-        })
-        .then(response => response.json())
-        .then(response => {
-          if (response && response.loggedIn === true) {
-            this._loginCompleted();
-          } else {
-            this.fire('oav-error', this.localize('error_not_authorized'));
-          }
-        })
-        return true;
-      } else if (this.getAreaForPostCode(this.postCode)) {
-        var areaInfo = this.getAreaForPostCode(this.postCode);
-        this.correctAreaId = areaInfo["id"];
-        this.correctAreaName = areaInfo["name"];
+    this.email = this.$$("#email").value;
+    this.postCode = this.$$("#postCode").value;
+    if (this.email && this.postCode && this.$$("#confirmedAge").checked) {
+      const re = new RegExp(this.emailValidationPattern);
+      if (re.test(this.email)) {
+        if (this.isValidPostcode(this.areaId, this.postCode)) {
+          fetch('/votes/insecure_email_login', {
+            method: "POST",
+            cache: "no-cache",
+            credentials: 'same-origin',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({insecure_email: this.email.toLowerCase(), postCode: this.postCode})
+          })
+          .then(response => response.json())
+          .then(response => {
+            if (response && response.loggedIn === true) {
+              this._loginCompleted();
+            } else {
+              this.fire('oav-error', this.localize('error_not_authorized'));
+            }
+          }).catch(() => {
+            this.fire("oav-error", this.localize('general_error'));
+          });
+          return true;
+        } else if (this.getAreaForPostCode(this.postCode)) {
+          var areaInfo = this.getAreaForPostCode(this.postCode);
+          this.correctAreaId = areaInfo["id"];
+          this.correctAreaName = areaInfo["name"];
+        } else {
+          this.fire("oav-error", this.localize('enterValidPostcode'));
+        }
       } else {
-        this.fire("oav-error", this.localize('enterValidPostcode'));
+        this.fire("oav-error", this.localize('enterValidEmail'));
       }
     } else {
       this.fire("oav-error", this.localize('completeForm'));

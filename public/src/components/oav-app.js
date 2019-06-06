@@ -143,9 +143,13 @@ class OavApp extends OavBaseElement {
       html`
         ${errorDialog}
 
-        ${this.configFromServer.insecureEmailLoginEnabled===true ?
+        ${this.configFromServer.client_config.insecureEmailLoginEnabled===true ?
           html`
-            <oav-insecure-email-login id="insecureEmailLogin"></oav-insecure-email-login>
+            <oav-insecure-email-login
+              .language="${this.language}"
+              .configFromServer="${this.configFromServer}"
+              id="insecureEmailLogin">
+            </oav-insecure-email-login>
           ` :
           html``
         }
@@ -281,7 +285,6 @@ class OavApp extends OavBaseElement {
           return property[e];
         });
         const propValue = values[0];
-        console.log("Set prop: "+propName+" to "+propValue);
         this.shadowRoot.host.style.setProperty(propName, propValue);
         if (window.ShadyCSS) {
           window.ShadyCSS.styleSubtree((this), property);
@@ -353,7 +356,7 @@ class OavApp extends OavBaseElement {
         window.language = this.language;
         window.localize = this.localize;
 
-        if (this.configFromServer.insecureEmailLoginEnabled===true) {
+        if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
           import('./oav-insecure-email-login.js');
         }
       })
@@ -375,7 +378,7 @@ class OavApp extends OavBaseElement {
   }
 
   _setupListeners() {
-    this.addEventListener("app-resources-loaded", this._translationLoaded);
+    this.addEventListener("app-resources-loaded", this._transinsecationLoaded);
     this.addEventListener("oav-set-title", this._setTitle);
     this.addEventListener("oav-error", this._errorHandler);
     this.addEventListener("oav-set-area", this._setArea);
