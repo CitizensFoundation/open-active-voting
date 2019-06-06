@@ -1,4 +1,4 @@
-import{Polymer,Base,IronMeta,html as html$1,IronResizableBehavior,IronScrollTargetBehavior,OptionalMutableDataBehavior,dom,Templatizer,animationFrame,microTask,idlePeriod,Debouncer,flush,enqueueDebouncer,matches,translate,PaperInkyFocusBehavior,PaperRippleBehavior,afterNextRender,IronMenubarBehavior,IronMenubarBehaviorImpl,IronSelectableBehavior,PolymerElement}from"../oav-app.js";Polymer({is:"iron-request",hostAttributes:{hidden:!0},properties:{/**
+import{Polymer,Base,html as html$1,IronResizableBehavior,IronScrollTargetBehavior,OptionalMutableDataBehavior,dom,Templatizer,animationFrame,microTask,idlePeriod,Debouncer,flush,enqueueDebouncer,matches,translate,PaperCheckedElementBehavior,afterNextRender,IronMenubarBehavior,IronMenubarBehaviorImpl,IronSelectableBehavior,PolymerElement}from"../oav-app.js";Polymer({is:"iron-request",hostAttributes:{hidden:!0},properties:{/**
      * A reference to the XMLHttpRequest instance used to generate the
      * network request.
      *
@@ -322,96 +322,7 @@ if(null===str||str===void 0||!str.toString){return""}return encodeURIComponent(s
    *
    * @return {!IronRequestElement}
    */generateRequest:function(){var request=/** @type {!IronRequestElement} */document.createElement("iron-request"),requestOptions=this.toRequestOptions();this.push("activeRequests",request);request.completes.then(this._boundHandleResponse).catch(this._handleError.bind(this,request)).then(this._discardRequest.bind(this,request));var evt=this.fire("iron-ajax-presend",{request:request,options:requestOptions},{bubbles:this.bubbles,cancelable:!0});if(evt.defaultPrevented){request.abort();request.rejectCompletes(request);return request}if(this.lastRequest){this.lastRequest.removeEventListener("iron-request-progress-changed",this._boundOnProgressChanged)}request.addEventListener("iron-request-progress-changed",this._boundOnProgressChanged);request.send(requestOptions);this._setLastProgress(null);this._setLastRequest(request);this._setLoading(!0);this.fire("request",{request:request,options:requestOptions},{bubbles:this.bubbles,composed:!0});this.fire("iron-ajax-request",{request:request,options:requestOptions},{bubbles:this.bubbles,composed:!0});return request},_handleResponse:function(request){if(request===this.lastRequest){this._setLastResponse(request.response);this._setLastError(null);this._setLoading(!1)}this.fire("response",request,{bubbles:this.bubbles,composed:!0});this.fire("iron-ajax-response",request,{bubbles:this.bubbles,composed:!0})},_handleError:function(request,error){if(this.verbose){Base._error(error)}if(request===this.lastRequest){this._setLastError({request:request,error:error,status:request.xhr.status,statusText:request.xhr.statusText,response:request.xhr.response});this._setLastResponse(null);this._setLoading(!1)}// Tests fail if this goes after the normal this.fire('error', ...)
-this.fire("iron-ajax-error",{request:request,error:error},{bubbles:this.bubbles,composed:!0});this.fire("error",{request:request,error:error},{bubbles:this.bubbles,composed:!0})},_discardRequest:function(request){var requestIndex=this.activeRequests.indexOf(request);if(-1<requestIndex){this.splice("activeRequests",requestIndex,1)}},_requestOptionsChanged:function(){this.debounce("generate-request",function(){if(null==this.url){return}if(this.auto){this.generateRequest()}},this.debounceDuration)}});const IronFormElementBehavior={properties:{/**
-     * The name of this element.
-     */name:{type:String},/**
-     * The value for this element.
-     * @type {*}
-     */value:{notify:!0,type:String},/**
-     * Set to true to mark the input as required. If used in a form, a
-     * custom element that uses this behavior should also use
-     * IronValidatableBehavior and define a custom validation method.
-     * Otherwise, a `required` element will always be considered valid.
-     * It's also strongly recommended to provide a visual style for the element
-     * when its value is invalid.
-     */required:{type:Boolean,value:!1}},// Empty implementations for backcompatibility.
-attached:function(){},detached:function(){}};var ironFormElementBehavior={IronFormElementBehavior:IronFormElementBehavior};let IronValidatableBehaviorMeta=null;/**
-                                                * `Use IronValidatableBehavior` to implement an element that validates
-                                                * user input. Use the related `IronValidatorBehavior` to add custom
-                                                * validation logic to an iron-input.
-                                                *
-                                                * By default, an `<iron-form>` element validates its fields when the user
-                                                * presses the submit button. To validate a form imperatively, call the form's
-                                                * `validate()` method, which in turn will call `validate()` on all its
-                                                * children. By using `IronValidatableBehavior`, your custom element
-                                                * will get a public `validate()`, which will return the validity of the
-                                                * element, and a corresponding `invalid` attribute, which can be used for
-                                                * styling.
-                                                *
-                                                * To implement the custom validation logic of your element, you must override
-                                                * the protected `_getValidity()` method of this behaviour, rather than
-                                                * `validate()`. See
-                                                * [this](https://github.com/PolymerElements/iron-form/blob/master/demo/simple-element.html)
-                                                * for an example.
-                                                *
-                                                * ### Accessibility
-                                                *
-                                                * Changing the `invalid` property, either manually or by calling `validate()`
-                                                * will update the `aria-invalid` attribute.
-                                                *
-                                                * @demo demo/index.html
-                                                * @polymerBehavior
-                                                */const IronValidatableBehavior={properties:{/**
-     * Name of the validator to use.
-     */validator:{type:String},/**
-     * True if the last call to `validate` is invalid.
-     */invalid:{notify:!0,reflectToAttribute:!0,type:Boolean,value:!1,observer:"_invalidChanged"}},registered:function(){IronValidatableBehaviorMeta=new IronMeta({type:"validator"})},_invalidChanged:function(){if(this.invalid){this.setAttribute("aria-invalid","true")}else{this.removeAttribute("aria-invalid")}},/* Recompute this every time it's needed, because we don't know if the
-   * underlying IronValidatableBehaviorMeta has changed. */get _validator(){return IronValidatableBehaviorMeta&&IronValidatableBehaviorMeta.byKey(this.validator)},/**
-   * @return {boolean} True if the validator `validator` exists.
-   */hasValidator:function(){return null!=this._validator},/**
-   * Returns true if the `value` is valid, and updates `invalid`. If you want
-   * your element to have custom validation logic, do not override this method;
-   * override `_getValidity(value)` instead.
-    * @param {Object} value Deprecated: The value to be validated. By default,
-   * it is passed to the validator's `validate()` function, if a validator is
-   set.
-   * If this argument is not specified, then the element's `value` property
-   * is used, if it exists.
-   * @return {boolean} True if `value` is valid.
-   */validate:function(value){// If this is an element that also has a value property, and there was
-// no explicit value argument passed, use the element's property instead.
-if(value===void 0&&this.value!==void 0)this.invalid=!this._getValidity(this.value);else this.invalid=!this._getValidity(value);return!this.invalid},/**
-   * Returns true if `value` is valid.  By default, it is passed
-   * to the validator's `validate()` function, if a validator is set. You
-   * should override this method if you want to implement custom validity
-   * logic for your element.
-   *
-   * @param {Object} value The value to be validated.
-   * @return {boolean} True if `value` is valid.
-   */_getValidity:function(value){if(this.hasValidator()){return this._validator.validate(value)}return!0}};var ironValidatableBehavior={get IronValidatableBehaviorMeta(){return IronValidatableBehaviorMeta},IronValidatableBehavior:IronValidatableBehavior};const IronCheckedElementBehaviorImpl={properties:{/**
-     * Fired when the checked state changes.
-     *
-     * @event iron-change
-     */ /**
-         * Gets or sets the state, `true` is checked and `false` is unchecked.
-         */checked:{type:Boolean,value:!1,reflectToAttribute:!0,notify:!0,observer:"_checkedChanged"},/**
-     * If true, the button toggles the active state with each tap or press
-     * of the spacebar.
-     */toggles:{type:Boolean,value:!0,reflectToAttribute:!0},/* Overriden from IronFormElementBehavior */value:{type:String,value:"on",observer:"_valueChanged"}},observers:["_requiredChanged(required)"],created:function(){// Used by `iron-form` to handle the case that an element with this behavior
-// doesn't have a role of 'checkbox' or 'radio', but should still only be
-// included when the form is serialized if `this.checked === true`.
-this._hasIronCheckedElementBehavior=!0},/**
-   * Returns false if the element is required and not checked, and true
-   * otherwise.
-   * @param {*=} _value Ignored.
-   * @return {boolean} true if `required` is false or if `checked` is true.
-   */_getValidity:function(_value){return this.disabled||!this.required||this.checked},/**
-   * Update the aria-required label when `required` is changed.
-   */_requiredChanged:function(){if(this.required){this.setAttribute("aria-required","true")}else{this.removeAttribute("aria-required")}},/**
-   * Fire `iron-changed` when the checked state changes.
-   */_checkedChanged:function(){this.active=this.checked;this.fire("iron-change")},/**
-   * Reset value to 'on' if it is set to `undefined`.
-   */_valueChanged:function(){if(this.value===void 0||null===this.value){this.value="on"}}},IronCheckedElementBehavior=[IronFormElementBehavior,IronValidatableBehavior,IronCheckedElementBehaviorImpl];/** @polymerBehavior */var ironCheckedElementBehavior={IronCheckedElementBehaviorImpl:IronCheckedElementBehaviorImpl,IronCheckedElementBehavior:IronCheckedElementBehavior};const template=html$1`
+this.fire("iron-ajax-error",{request:request,error:error},{bubbles:this.bubbles,composed:!0});this.fire("error",{request:request,error:error},{bubbles:this.bubbles,composed:!0})},_discardRequest:function(request){var requestIndex=this.activeRequests.indexOf(request);if(-1<requestIndex){this.splice("activeRequests",requestIndex,1)}},_requestOptionsChanged:function(){this.debounce("generate-request",function(){if(null==this.url){return}if(this.auto){this.generateRequest()}},this.debounceDuration)}});const template=html$1`
 /* Most common used flex styles*/
 <dom-module id="iron-flex">
   <template>
@@ -1459,11 +1370,7 @@ targetModel.tabIndex=0;fidx=targetModel[this.indexAs];this._focusedVirtualIndex=
      * @type {function(MediaQueryList)}
      */_boundMQHandler:{value:function(){return this.queryHandler.bind(this)}},/**
      * @type {MediaQueryList}
-     */_mq:{value:null}},attached:function(){this.style.display="none";this.queryChanged()},detached:function(){this._remove()},_add:function(){if(this._mq){this._mq.addListener(this._boundMQHandler)}},_remove:function(){if(this._mq){this._mq.removeListener(this._boundMQHandler)}this._mq=null},queryChanged:function(){this._remove();var query=this.query;if(!query){return}if(!this.full&&"("!==query[0]){query="("+query+")"}this._mq=window.matchMedia(query);this._add();this.queryHandler(this._mq)},queryHandler:function(mq){this._setQueryMatches(mq.matches)}});const PaperCheckedElementBehaviorImpl={/**
-   * Synchronizes the element's checked state with its ripple effect.
-   */_checkedChanged:function(){IronCheckedElementBehaviorImpl._checkedChanged.call(this);if(this.hasRipple()){if(this.checked){this._ripple.setAttribute("checked","")}else{this._ripple.removeAttribute("checked")}}},/**
-   * Synchronizes the element's `active` and `checked` state.
-   */_buttonStateChanged:function(){PaperRippleBehavior._buttonStateChanged.call(this);if(this.disabled){return}if(this.isAttached){this.checked=this.active}}},PaperCheckedElementBehavior=[PaperInkyFocusBehavior,IronCheckedElementBehavior,PaperCheckedElementBehaviorImpl];/** @polymerBehavior */var paperCheckedElementBehavior={PaperCheckedElementBehaviorImpl:PaperCheckedElementBehaviorImpl,PaperCheckedElementBehavior:PaperCheckedElementBehavior};const template$1=html$1`
+     */_mq:{value:null}},attached:function(){this.style.display="none";this.queryChanged()},detached:function(){this._remove()},_add:function(){if(this._mq){this._mq.addListener(this._boundMQHandler)}},_remove:function(){if(this._mq){this._mq.removeListener(this._boundMQHandler)}this._mq=null},queryChanged:function(){this._remove();var query=this.query;if(!query){return}if(!this.full&&"("!==query[0]){query="("+query+")"}this._mq=window.matchMedia(query);this._add();this.queryHandler(this._mq)},queryHandler:function(mq){this._setQueryMatches(mq.matches)}});const template$1=html$1`
 <style>
   :host {
     display: inline-block;
@@ -3737,4 +3644,4 @@ var point=this.$$("#point"+this.scrollToId);if(point){point.elevation=5;point.el
         } else  if (this.post.Group.Community.CommunityHeaderImages && this.post.Group.Community.CommunityHeaderImages.length>0) {
           this.setupTopHeaderImage(this.post.Group.Community.CommunityHeaderImage);
         }
-        */}},setupTopHeaderImage:function(image){var url="url("+this.getImageFormatUrl(image,0)+")";this.updateStyles({"--top-area-background-image":url})},computeUrl:function(post_id){return"/api/posts/"+post_id}});export{esm as $esm,twemoji as $esmDefault,ironCheckedElementBehavior as $ironCheckedElementBehavior,ironFormElementBehavior as $ironFormElementBehavior,ironValidatableBehavior as $ironValidatableBehavior,paperCheckedElementBehavior as $paperCheckedElementBehavior,ypIronListBehavior$1 as $ypIronListBehavior,ypLocalizationBridgeBehavior$1 as $ypLocalizationBridgeBehavior,ypMediaFormatsBehavior$1 as $ypMediaFormatsBehavior,ypNumberFormatBehavior$1 as $ypNumberFormatBehavior,ypPostBehaviors as $ypPostBehaviors,ypRemoveClassBehavior$1 as $ypRemoveClassBehavior,ypTruncateBehavior$1 as $ypTruncateBehavior,IronCheckedElementBehavior,IronCheckedElementBehaviorImpl,IronFormElementBehavior,IronValidatableBehavior,IronValidatableBehaviorMeta,PaperCheckedElementBehavior,PaperCheckedElementBehaviorImpl,YpPostBehavior,ypIronListBehavior,ypLocalizationBridgeBehavior,ypMediaFormatsBehavior,ypNumberFormatBehavior,ypRemoveClassBehavior,ypTruncateBehavior};
+        */}},setupTopHeaderImage:function(image){var url="url("+this.getImageFormatUrl(image,0)+")";this.updateStyles({"--top-area-background-image":url})},computeUrl:function(post_id){return"/api/posts/"+post_id}});export{esm as $esm,twemoji as $esmDefault,ypIronListBehavior$1 as $ypIronListBehavior,ypLocalizationBridgeBehavior$1 as $ypLocalizationBridgeBehavior,ypMediaFormatsBehavior$1 as $ypMediaFormatsBehavior,ypNumberFormatBehavior$1 as $ypNumberFormatBehavior,ypPostBehaviors as $ypPostBehaviors,ypRemoveClassBehavior$1 as $ypRemoveClassBehavior,ypTruncateBehavior$1 as $ypTruncateBehavior,YpPostBehavior,ypIronListBehavior,ypLocalizationBridgeBehavior,ypMediaFormatsBehavior,ypNumberFormatBehavior,ypRemoveClassBehavior,ypTruncateBehavior};
