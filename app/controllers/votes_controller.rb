@@ -152,7 +152,7 @@ class VotesController < ApplicationController
   def insecure_email_login
     if ENV["INSECURE_EMAIL_LOGIN_ENABLED"]
       insecure_email = params[:insecure_email]
-      postcode = params[:postcode]
+      postcode = params[:postCode]
       # Find the previously stored wote from the session id that has not been authenticated before
       vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil).first
 

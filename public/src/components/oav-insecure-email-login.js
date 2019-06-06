@@ -216,7 +216,7 @@ class OavInsecureEmailLogin extends OavBaseElement {
           })
           .then(response => response.json())
           .then(response => {
-            if (response && response.loggedIn === true) {
+            if (response && response.ok === true) {
               this._loginCompleted();
             } else {
               this.fire('oav-error', this.localize('error_not_authorized'));
