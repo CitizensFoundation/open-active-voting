@@ -3279,7 +3279,7 @@
                   <div>${this.area.name}</div>
                 </div>
               </paper-tab>
-              <paper-tab>${this.localize("items_on_map")}</paper-tab>
+              <paper-tab ?hidden="${this.configFromServer.client_config.hideLocation}">${this.localize("items_on_map")}</paper-tab>
             </paper-tabs>
           </div>
 
