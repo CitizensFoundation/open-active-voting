@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Copyright (C) 2010-2018 Íbúar ses / Citizens Foundation Iceland
+# Copyright (C) 2010-2019 Íbúar ses / Citizens Foundation Iceland
 # Authors Robert Bjarnason, Gunnar Grimsson, Gudny Maren Valsdottir & Alexander Mani Gautason
 #
 # This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,9 @@ class ItemsController < ApplicationController
         format.html { render :layout => false }
       end
     else
-      redirect_to '/'
+      @item = BudgetBallotItem.find(params[:id])
+      @area = @item.budget_ballot_area
+      redirect_to '/area-ballot/'+@area.id
     end
   end
 end

@@ -1,45 +1,95 @@
-import { html } from 'lit-element';
-import { PageViewElement } from './page-view-element.js';
+import { html, css } from 'lit-element';
+import { PageViewElement } from './page-view-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
+import { OavShadowStyles} from './oav-shadow-styles'
+import { OavFlexLayout} from './oav-flex-layout'
 
 class OavSelectVotingArea extends PageViewElement {
 
   static get properties() {
     return {
-      configFromServer: { type: Object }
+      configFromServer: { type: Object },
+      hasLoadedCss: Boolean
     }
   }
 
   static get styles() {
     return [
-      css`${unsafeHTML(this.configFromServer.selectVotingAreaCSS)}`
+      OavShadowStyles,
+      OavFlexLayout
     ];
   }
 
-  render() {
-    return html`${this.wide ?
-      html`${unsafeHTML(this.setupText(this.configFromServer.selectVotingAreaMobileHTML))}` :
-      html`${unsafeHTML(this.setupText(this.configFromServerselectVotingAreaDesktopHTML))}`}`;
+  b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
   }
 
-  setupText(text) {
+  render() {
+    if (this.hasLoadedCss) {
+      return html`${this.wide ?
+        html`${unsafeHTML(this.setupHTMLText(this.configFromServer.client_config.selectVotingAreaDesktopHTML))}` :
+        html`${unsafeHTML(this.setupHTMLText(this.configFromServer.client_config.selectVotingAreaMobileHTML))}`}`;
+    } else {
+      return html``;
+    }
+  }
+
+  setupHTMLText(text) {
+    text = this.b64DecodeUnicode(text);
     this.configFromServer.areas.forEach( (area) => {
-      text = text.replace('$$areaCount'+area.id+'$$$', area.voter_count);
+      text = text.replace('ZZZareaCount'+area.id+'ZZZ', this.formatNumber(area.voter_count));
     });
 
-    text = text.replace('$$$totalVoterCount$$$', this.configFromServer.voter_count);
-    text = text.replace('$$$mainInfoText$$$', this.localize('mainInfo'));
-    text = text.replace('$$$selectArea$$$', this.localize('selectAreaInfo'));
-
+    text = text.replace(/ZZZtotalVoterCountZZZ/g, this.formatNumber(this.configFromServer.voter_count));
+    text = text.replace('ZZZmainInfoTextZZZ', this.localize('mainInfo'));
+    text = text.replace('ZZZchoose_a_neighbourhood_2ZZZ', this.localize('choose_a_neighbourhood_2'));
+    text = text.replace('ZZZselectAreaTextZZZ', this.localize('selectAreaInfo'));
+    text = text.replace(/ZZZnumber_of_votersZZZ/g, this.localize('number_of_voters'));
     return text;
   }
 
-  updated(changedProps) {
-    super(changedProps)
+  setupEvents() {
+    this.$$("#video").addEventListener('playing', this._videoPlaying);
+    this.$$("#languageSelection").addEventListener('click', this._languageSelection);
+  }
+
+  removeEvents() {
+    this.$$("#video").removeEventListener('playing', this._videoPlaying);
+    this.$$("#languageSelection").removeEventListener('click', this._languageSelection);
   }
 
   firstUpdated() {
-    super();
+    super.firstUpdated();
+  }
+
+  updated(update){
+    super.updated(update);
+    if (update.has('configFromServer') && this.configFromServer) {
+      const sheet = document.createElement('style');
+      sheet.innerHTML = this.b64DecodeUnicode(this.configFromServer.client_config.selectVotingAreaCSS);
+      this.shadowRoot.appendChild(sheet);
+      this.hasLoadedCss = true;
+      setTimeout(()=>{
+        this.setupEvents();
+        const selectedLanguageDiv = this.$$("#"+this.language+"Language");
+        if (selectedLanguageDiv) {
+          selectedLanguageDiv.classList.add("selectedLanguage");
+        }
+      });
+    }
+  }
+
+  _languageSelection(event) {
+    debugger;
+    this.language = "en"; // event.blahblahblah;
+    this.requestUpdate();
+  }
+
+  disconnectedCallback() {
+    this.removeEvents();
+    super.disconnectedCallback();
   }
 }
 

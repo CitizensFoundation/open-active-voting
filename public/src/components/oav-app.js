@@ -195,7 +195,7 @@ class OavApp extends OavBaseElement {
           </paper-dialog-scrollable>
         </paper-dialog>
 
-        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot'}">
+        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot' && this._page !== 'select-voting-area'}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
@@ -219,11 +219,15 @@ class OavApp extends OavBaseElement {
         </app-header>
 
         <main role="main" class="main-content" ?has-ballot="${this._page == 'area-ballot'}">
-          <oav-select-voting-area
-            id="selectVotingArea"
-            .language="${this.language}"
-            ?active="${this._page === 'select-voting-area'}">
-          </oav-select-voting-area>
+          ${(this._page === 'select-voting-area' && this.configFromServer) ? html`
+            <oav-select-voting-area
+              id="selectVotingArea"
+              .language="${this.language}"
+              .wide="${this.wide}"
+              .configFromServer="${this.configFromServer}"
+              ?active="${this._page === 'select-voting-area'}">
+            </oav-select-voting-area>
+          ` : html``}
           <oav-area-ballot id="budgetBallot"
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
@@ -315,6 +319,10 @@ class OavApp extends OavBaseElement {
         this._setupCustomCss(response.config.client_config);
         window.localeResources = response.config.client_config.locales;
         this.configFromServer = response.config;
+        this.configFromServer.areas = response.areas;
+        this.configFromServer.area_voter_count = response.area_voter_count;
+        this.configFromServer.total_voter_count = response.total_voter_count;
+        import('./oav-select-voting-area');
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
 
         if (this.configFromServer.client_config.welcomeLocales &&
@@ -326,7 +334,7 @@ class OavApp extends OavBaseElement {
         ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
-        this.oneBallotId = 1;
+        this.oneBallotId = this.configFromServer.client_config.oneBallotId;
         if (this.configFromServer.client_config.defaultLanguage) {
           if (localStorage.getItem("languageOverride")) {
             this.language = localStorage.getItem("languageOverride");
@@ -340,9 +348,16 @@ class OavApp extends OavBaseElement {
         }
 
         if (!(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)) {
-          const path = "/area-ballot/"+this.oneBallotId;
-          window.history.pushState({}, null, path);
-          this.fire('location-changed', path);
+          if (this._page!=="area-ballot") {
+            let path;
+            if (this.oneBallotId) {
+              path = "/area-ballot/"+this.oneBallotId;
+            } else {
+              path = "/select-voting-area";
+            }
+            window.history.pushState({}, null, path);
+            this.fire('location-changed', path);
+          }
 
           if (this.configFromServer.client_config.welcomeLocales) {
             setTimeout( () => {
@@ -351,6 +366,12 @@ class OavApp extends OavBaseElement {
               }
             });
           }
+        }
+
+        if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
+          this.showExit = true;
+        } else {
+          this.showExit = false;
         }
 
         window.language = this.language;
@@ -371,7 +392,6 @@ class OavApp extends OavBaseElement {
   }
 
   b64DecodeUnicode(str) {
-    // Going backwards: from bytestream, to percent-encoding, to original string.
     return decodeURIComponent(atob(str).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
@@ -526,8 +546,9 @@ class OavApp extends OavBaseElement {
       this.fire('location-changed', window.appLastArea);
       window.appLastArea = null;
     } else {
-      window.history.pushState({}, null, "/");
-      this.fire('location-changed', '/');
+      //window.history.pushState({}, null, "/");
+      //this.fire('location-changed', '/');
+      window.location = "/";
     }
   }
 
@@ -607,8 +628,10 @@ class OavApp extends OavBaseElement {
   }
 
   setupLocaleTexts() {
-    this.welcomeHeading = this.getWelcomeHeading();
-    this.welcomeText = this.getWelcomeText();
+    if (this.configFromServer.client_config.welcomeLocales) {
+      this.welcomeHeading = this.getWelcomeHeading();
+      this.welcomeText = this.getWelcomeText();
+    }
     this.helpContent = this.getHelpContent();
   }
 
@@ -638,12 +661,6 @@ class OavApp extends OavBaseElement {
 
       const page = this._page;
       const oldPage = changedProps.get('_page');
-
-      if (this.configFromServer && this.configFromServer.client_config.landingPageData && page && page!='select-voting-area') {
-        this.showExit = true;
-      } else {
-        this.showExit = false;
-      }
 
       // Setup top ballot if needed
       if (page && page=='area-ballot') {

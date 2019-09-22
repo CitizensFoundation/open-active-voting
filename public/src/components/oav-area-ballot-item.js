@@ -145,7 +145,7 @@ class OavAreaBallotItem extends OavBaseElement {
               <iron-icon alt="${this.localize('map_item_tab')}" class="infoIcon" icon="place"></iron-icon>
               ${this.localize('map_item_tab')}
             </paper-item>
-            <paper-item @tap="${this._openPdf}" ?hidden="${!this.descriptionPdfLink}">
+            <paper-item @tap="${this._openPdf}" ?hidden="${!this.item.pdf_url}">
               <iron-icon alt="${this.localize('design_pdf')}" class="infoIcon" icon="picture-as-pdf"></iron-icon>
               ${this.localize('design_pdf')}
             </paper-item>
@@ -272,8 +272,8 @@ class OavAreaBallotItem extends OavBaseElement {
 
   _openPdf() {
     this.activity('click', 'openPdf');
-    if (this.item.descriptionPdfLink) {
-      window.open(this.item.descriptionPdfLink, '_blank');
+    if (this.item.pdf_url) {
+      window.open(this.item.pdf_url, '_blank');
     }
   }
 

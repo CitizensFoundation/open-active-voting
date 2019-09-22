@@ -36,7 +36,12 @@ class VotesController < ApplicationController
   # Send the config and public key to the client app
   def boot
     respond_to do |format|
-      format.json { render :json => { :config => @config, :public_key => @public_key } }
+      format.json { render :json => {
+        :config => @config,
+        :areas => BudgetBallotArea.all,
+        :area_voter_count => Vote.where.not(:saml_assertion_id=>nil).group(:area_id).distinct.count(:user_id_hash),
+        :total_voter_count => Vote.where.not(:saml_assertion_id=>nil).distinct.count(:user_id_hash),
+        :public_key => @public_key } }
     end
   end
 
@@ -62,9 +67,10 @@ class VotesController < ApplicationController
   # Get the voting areas
   def get_areas
     respond_to do |format|
-      format.json { render :json => {:areas => BudgetBallotArea.all,
-                                     area_voter_count: Vote.where.not(:saml_assertion_id=>nil).group(:area_id).distinct.count(:user_id_hash),
-                                     total_voter_count: Vote.where.not(:saml_assertion_id=>nil).distinct.count(:user_id_hash)
+      format.json { render :json => {
+        :areas => BudgetBallotArea.all,
+        :area_voter_count => Vote.where.not(:saml_assertion_id=>nil).group(:area_id).distinct.count(:user_id_hash),
+        :total_voter_count => Vote.where.not(:saml_assertion_id=>nil).distinct.count(:user_id_hash)
       }}
     end
   end
