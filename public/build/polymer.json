@@ -3,6 +3,7 @@
   "shell": "src/components/oav-app.js",
   "fragments": [
     "src/components/yp-post/yp-post.js",
+    "src/components/oav-select-voting-area.js",
     "src/components/oav-insecure-email-login.js",
     "src/components/oav-view404.js"
   ],
@@ -11,6 +12,7 @@
     "index.html",
     "src/components/oav-app.js",
     "src/components/yp-post/yp-post.js",
+    "src/components/oav-select-voting-area.js",
     "src/components/oav-insecure-email-login.js",
     "src/components/oav-view404.js"
   ],
