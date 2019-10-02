@@ -52,12 +52,29 @@ class OavSelectVotingArea extends PageViewElement {
 
   setupEvents() {
     this.$$("#video").addEventListener('playing', this._videoPlaying);
-    this.$$("#languageSelection").addEventListener('click', this._languageSelection);
+    this.$$("#languageSelection").addEventListener('click', this._languageSelection.bind(this));
+    this.shadowRoot.querySelectorAll("a,area").forEach((node)=> {
+      const splitHref = node.href.split("/");
+      const areaId = splitHref[splitHref.length-1];
+      node.addEventListener('click', ()=>{ this._goToAreaId(areaId) });
+      node.removeAttribute("href");
+      node.style.pointer="cursor !important";
+    });
+  }
+
+  _goToAreaId(areaId) {
+    const path = '/area-ballot/'+areaId;
+    window.history.pushState({}, null, path);
+    this.fire('location-changed', path);
   }
 
   removeEvents() {
+    debugger;
     this.$$("#video").removeEventListener('playing', this._videoPlaying);
-    this.$$("#languageSelection").removeEventListener('click', this._languageSelection);
+    this.$$("#languageSelection").removeEventListener('click', this._languageSelection.bind(this));
+    this.shadowRoot.querySelectorAll("a,area").forEach((node)=> {
+      node.removeEventListener('click', ()=>{ this._goToAreaId(null) });
+    });
   }
 
   firstUpdated() {
@@ -83,8 +100,10 @@ class OavSelectVotingArea extends PageViewElement {
 
   _languageSelection(event) {
     debugger;
-    this.language = "en"; // event.blahblahblah;
-    this.requestUpdate();
+    this.language = event.target.id.split("Language")[0];
+    setTimeout(()=>{
+      this.requestUpdate();
+    });
   }
 
   disconnectedCallback() {

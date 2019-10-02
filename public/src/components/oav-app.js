@@ -368,12 +368,6 @@ class OavApp extends OavBaseElement {
           }
         }
 
-        if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
-          this.showExit = true;
-        } else {
-          this.showExit = false;
-        }
-
         window.language = this.language;
         window.localize = this.localize;
 
@@ -546,9 +540,13 @@ class OavApp extends OavBaseElement {
       this.fire('location-changed', window.appLastArea);
       window.appLastArea = null;
     } else {
-      //window.history.pushState({}, null, "/");
-      //this.fire('location-changed', '/');
-      window.location = "/";
+      window.history.pushState({}, null, "/");
+
+      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML) {
+        this.fire('location-changed', '/select-voting-area');
+      } else {
+        window.location = "/";
+      }
     }
   }
 
@@ -658,6 +656,12 @@ class OavApp extends OavBaseElement {
 
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page;
+
+      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
+        this.showExit = true;
+      } else {
+        this.showExit = false;
+      }
 
       const page = this._page;
       const oldPage = changedProps.get('_page');
