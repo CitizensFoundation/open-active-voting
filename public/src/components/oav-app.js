@@ -297,6 +297,10 @@ class OavApp extends OavBaseElement {
     }
   }
 
+  setLocale(event) {
+    this.language = event.detail;
+  }
+
   selectLocale(event) {
     if (this.language != event.target.dataset.locale) {
       this.language = event.target.dataset.locale;
@@ -322,8 +326,21 @@ class OavApp extends OavBaseElement {
         this.configFromServer.areas = response.areas;
         this.configFromServer.area_voter_count = response.area_voter_count;
         this.configFromServer.total_voter_count = response.total_voter_count;
+
+        if (this.configFromServer.client_config.defaultLanguage) {
+          if (localStorage.getItem("languageOverride")) {
+            this.language = localStorage.getItem("languageOverride");
+          } else {
+            this.language = this.configFromServer.client_config.defaultLanguage;
+          }
+          this.setupLocaleTexts();
+        }
+
         import('./oav-select-voting-area');
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
+        if (this.configFromServer.client_config.pageTitle) {
+          document.title = this.configFromServer.client_config.pageTitle;
+        }
 
         if (this.configFromServer.client_config.welcomeLocales &&
             this.configFromServer.client_config.ballotBudgetLogo) {
@@ -335,14 +352,7 @@ class OavApp extends OavBaseElement {
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
-        if (this.configFromServer.client_config.defaultLanguage) {
-          if (localStorage.getItem("languageOverride")) {
-            this.language = localStorage.getItem("languageOverride");
-          } else {
-            this.language = this.configFromServer.client_config.defaultLanguage;
-          }
-          this.setupLocaleTexts();
-        }
+
         if (this.configFromServer.client_config.favoriteIcon) {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
         }
@@ -370,6 +380,11 @@ class OavApp extends OavBaseElement {
 
         window.language = this.language;
         window.localize = this.localize;
+        if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
+          this.showExit = true;
+        } else {
+          this.showExit = false;
+        }
 
         if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
           import('./oav-insecure-email-login.js');
@@ -402,6 +417,7 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
     this.addEventListener("oav-exit", this._exit);
     this.addEventListener("oav-open-help", this._help);
+    this.addEventListener("oav-set-locale", this.setLocale);
     this.addEventListener("oav-set-ballot-element", this._setBallotElement);
     this.addEventListener("oav-set-budget-element", this._setBudgetElement);
     this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
@@ -431,6 +447,7 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
     this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
     this.removeEventListener("oav-exit", this._exit);
+    this.removeEventListener("oav-set-locale", this.setLocale);
     this.removeEventListener("oav-set-ballot-element", this._setBallotElement);
     this.removeEventListener("oav-set-budget-element", this._setBudgetElement);
     this.removeEventListener("oav-open-help", this._help);

@@ -69,7 +69,6 @@ class OavSelectVotingArea extends PageViewElement {
   }
 
   removeEvents() {
-    debugger;
     this.$$("#video").removeEventListener('playing', this._videoPlaying);
     this.$$("#languageSelection").removeEventListener('click', this._languageSelection.bind(this));
     this.shadowRoot.querySelectorAll("a,area").forEach((node)=> {
@@ -94,13 +93,16 @@ class OavSelectVotingArea extends PageViewElement {
         if (selectedLanguageDiv) {
           selectedLanguageDiv.classList.add("selectedLanguage");
         }
+        setTimeout(()=>{
+          this.requestUpdate();
+        }, 1000)
       });
     }
   }
 
   _languageSelection(event) {
-    debugger;
     this.language = event.target.id.split("Language")[0];
+    this.fire('oav-set-locale', this.language);
     setTimeout(()=>{
       this.requestUpdate();
     });
