@@ -86,8 +86,9 @@ class OavSelectVotingArea extends PageViewElement {
     width: 320px;
     height: auto;
     background-color: #FFF;
-    margin: 32px;
+    margin: 24px;
     margin-top: 16px;
+    margin-bottom: 24px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -398,6 +399,7 @@ class OavSelectVotingArea extends PageViewElement {
     color: #FFF;
     font-size: 28px;
     vertical-align: middle;
+    cursor: pointer !important;
   }
 
   .language {
@@ -629,10 +631,12 @@ class OavSelectVotingArea extends PageViewElement {
   }
 
   _languageSelection(event) {
+    this.$$("#languageSelection").removeEventListener('click', this._languageSelection.bind(this));
     this.language = event.target.id.split("Language")[0];
     this.fire('oav-set-locale', this.language);
     setTimeout(() => {
       this.requestUpdate();
+      this.$$("#languageSelection").addEventListener('click', this._languageSelection.bind(this));
     });
   }
 

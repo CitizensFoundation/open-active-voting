@@ -382,10 +382,8 @@ class OavApp extends OavBaseElement {
         window.localize = this.localize;
         if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
           this.showExit = true;
-          console.error("showExit true");
         } else {
           this.showExit = false;
-          console.error("showExit false");
         }
 
         if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
