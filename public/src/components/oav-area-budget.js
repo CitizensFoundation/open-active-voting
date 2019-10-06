@@ -129,7 +129,7 @@ class OavAreaBudget extends OavBaseElement {
             <span ?hidden="${!this.showExit}">
               <paper-icon-button alt="${this.localize('close')}" ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </span>
-            <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
+            <img ?hidden="${!this.mediumWide}" sizing="cover" class="headerLogo" src="${this.budgetHeaderImage}"/>
             <div class="vertical center-center" style="width: 100%;">
               <div class="flex">
               ${!this.selectedBudget && this.areaName ?

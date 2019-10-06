@@ -75,6 +75,37 @@ class VotesController < ApplicationController
     end
   end
 
+  # For smaller projects with no access to secure logins and for testing purposes
+  def insecure_email_login
+    if ENV["INSECURE_EMAIL_LOGIN_ENABLED"]
+      insecure_email = params[:insecure_email]
+      postcode = params[:postCode]
+      # Find the previously stored wote from the session id that has not been authenticated before
+      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil).first
+
+      if vote
+        # Create an encrypted checksum
+        encrypted_vote_checksum = Vote.generate_encrypted_checksum(insecure_email,
+                                       vote.payload_data,vote.client_ip_address,vote.area_id,request.session_options[:id])
+
+        # Update the values for the vote and confirm it as being authenticated
+        vote.encrypted_vote_checksum = encrypted_vote_checksum
+        vote.user_id_hash = insecure_email
+        vote.authenticated_at = Time.now
+        vote.user_postcode = postcode
+        vote.saml_assertion_id = -1
+        vote.save
+        respond_to do |format|
+          format.json { render :json => {:ok=>true} }
+        end
+      else
+        raise "Authentication was not a success vote not found for insecure email"
+      end
+    else
+      raise "Trying to use insecure email login when not enabled"
+    end
+  end
+
   # Proxy for ideas from better iceland
   def better_iceland_proxy
     post_url = "https://www.betraisland.is"+params[:params]
