@@ -197,7 +197,7 @@ class OavApp extends OavBaseElement {
 
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot' && this._page !== 'select-voting-area'}">
           <app-toolbar class="toolbar-top">
-            <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
+            <div ?hidden="${(!this.showExit || !this.wide)}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
             <div class="helpIconInBudget">
@@ -382,8 +382,10 @@ class OavApp extends OavBaseElement {
         window.localize = this.localize;
         if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
           this.showExit = true;
+          console.error("showExit true");
         } else {
           this.showExit = false;
+          console.error("showExit false");
         }
 
         if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
