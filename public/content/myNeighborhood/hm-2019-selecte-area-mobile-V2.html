@@ -1,0 +1,769 @@
+<style>
+  .layout {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+
+  .layout-inline {
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+  }
+
+  .horizontal {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .horizontal-reverse {
+    -ms-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+  }
+
+  .vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .vertical-reverse {
+    -ms-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+  }
+
+
+  .wrap {
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+
+  .wrap-reverse {
+    -ms-flex-wrap: wrap-reverse;
+    -webkit-flex-wrap: wrap-reverse;
+    flex-wrap: wrap-reverse;
+  }
+
+  .flex-auto {
+    -ms-flex: 1 1 auto;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+  }
+
+  .flex-none {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+  }
+
+  .flex {
+    -ms-flex: 1 1 0.000000001px;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-flex-basis: 0.000000001px;
+    flex-basis: 0.000000001px;
+  }
+  /* alignment in cross axis */
+  .start {
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+
+  .center {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+
+  .end {
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+  }
+
+  .baseline {
+    -ms-flex-align: baseline;
+    -webkit-align-items: baseline;
+    align-items: baseline;
+  }
+
+  /* alignment in main axis */
+  .start-justified {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+
+  .center-justified {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+  ;
+
+  .end-justified {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+
+
+  .around-justified {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+
+  .justified {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+
+
+  .center-center {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+  ;
+
+  /* self alignment */
+  .self-start {
+    -ms-align-self: flex-start;
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+  }
+
+
+  .self-center {
+    -ms-align-self: center;
+    -webkit-align-self: center;
+    align-self: center;
+  }
+
+
+  .self-end {
+    -ms-align-self: flex-end;
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+  }
+
+
+  .self-stretch {
+    -ms-align-self: stretch;
+    -webkit-align-self: stretch;
+    align-self: stretch;
+  }
+
+
+  .self-baseline {
+    -ms-align-self: baseline;
+    -webkit-align-self: baseline;
+    align-self: baseline;
+  }
+
+
+  /* multi-line alignment in main axis */
+  .start-aligned {
+    -ms-flex-line-pack: start;
+    /* IE10 */
+    -ms-align-content: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+  }
+
+
+  .end-aligned {
+    -ms-flex-line-pack: end;
+    /* IE10 */
+    -ms-align-content: flex-end;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+  }
+
+  .center-aligned {
+    -ms-flex-line-pack: center;
+    /* IE10 */
+    -ms-align-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+  }
+
+
+  .between-aligned {
+    -ms-flex-line-pack: justify;
+    /* IE10 */
+    -ms-align-content: space-between;
+    -webkit-align-content: space-between;
+    align-content: space-between;
+  }
+
+  ;
+
+  .around-aligned {
+    -ms-flex-line-pack: distribute;
+    /* IE10 */
+    -ms-align-content: space-around;
+    -webkit-align-content: space-around;
+    align-content: space-around;
+  }
+
+
+  /*******************************
+            Other Layout
+  *******************************/
+  .block {
+    display: block;
+  }
+
+
+  .invisible {
+    visibility: hidden !important;
+  }
+
+
+
+  .relative {
+    position: relative;
+  }
+
+
+  .fit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+
+  .scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+  }
+
+
+  .fullbleed {
+    margin: 0;
+    height: 100vh;
+  }
+
+
+  /* fixed position */
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+
+  .fixed-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+
+
+  .fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+
+
+  .fixed-left {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+
+
+  :host {
+    width: 100%;
+    height: 100%;
+  }
+
+  #area_options {
+    background-color: var(--app-main-backround-color);
+  }
+
+  .selectedLanguage {
+    text-decoration: underline;
+  }
+
+  h3 {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  paper-fab {
+    padding: 32px;
+    color: #FFF;
+  }
+
+  paper-fab.label {
+    font-size: 30px;
+    color: #FFF;
+  }
+
+  .infoImage {
+    width: 400px;
+    height: 225px;
+  }
+
+  @media (max-width: 940px) {
+    .infoImageContainer {
+      display: none;
+    }
+  }
+
+  .topMaterial {
+    width: 400px;
+    height: 225px;
+    background-color: #FFF;
+    margin: 16px 32px 16px 16px;
+    display: block;
+    position: relative;
+  }
+
+  .mobileMaterial {
+    display: block;
+    position: relative;
+  }
+
+  .mobileBackground {
+    display: block;
+    position: relative;
+  }
+
+  .mainContainer {
+    background-color: var(--app-main-backround-color);
+    width: 100%;
+    height: 100%;
+  }
+
+  .imageContainer {
+    width: 100%;
+    background-size: 1920px 280px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: top;
+    background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png");
+  }
+
+  .topTwoContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 800px) {
+    .imageContainer {
+      background-image: none;
+      background-color: #f0f0f0;
+    }
+  }
+
+  .selectInfoText {
+    font-size: 21px;
+    padding: 8px;
+    background-color: var(--app-primary-color);
+    color: #FFF;
+    margin: 0;
+  }
+
+  .selectInfoTextSmaller {
+    font-size: 17px;
+    padding: 8px;
+    color: #222;
+  }
+
+  .areaOptions {
+    margin-top: 48px;
+    background-color: #FFF;
+    display: block;
+    position: relative;
+    max-width: 882px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .voteNumberForVesturbaer {
+    position: absolute;
+    top: 244px;
+    right: 746px;
+    color: #95c11a;
+  }
+
+  .voteNumberForMidborg {
+    position: absolute;
+    top: 356px;
+    right: 662px;
+    color: #2ba9e0;
+  }
+
+  .voteNumberForHlidar {
+    position: absolute;
+    top: 196px;
+    right: 516px;
+    color: #f39100;
+  }
+
+  .voteNumberForHaaleiti {
+    position: absolute;
+    top: 332px;
+    left: 546px;
+    color: #10a19a;
+  }
+
+  .voteNumberForLaugardalur {
+    position: absolute;
+    top: 160px;
+    right: 444px;
+    color: #be6a95;
+  }
+
+  .voteNumberForBreidholt {
+    position: absolute;
+    bottom: 22px;
+    left: 648px;
+    color: #0e70b8;
+  }
+
+  .voteNumberForArbaer {
+    position: absolute;
+    bottom: 110px;
+    left: 728px;
+    color: #bfc005;
+  }
+
+  .voteNumberForGrafarvogur {
+    position: absolute;
+    top: 175px;
+    left: 620px;
+    color: #da616b;
+    direction: ltr;
+  }
+
+  .voteNumberForGrafarholt {
+    position: absolute;
+    bottom: 138px;
+    left: 765px;
+    color: #cc902f;
+  }
+
+  .voteNumberForKjalarnes {
+    position: absolute;
+    top: 32px;
+    right: 358px;
+    color: #2aac65;
+  }
+
+  .voteNumberGeneral {
+    padding-left: 4px;
+    font-size: 15px;
+  }
+
+  .checkIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .voteNumberForVesturbaerMobile {
+    background-color: #95c11a;
+  }
+
+  .voteNumberForMidborgMobile {
+    background-color: #2ba9e0;
+  }
+
+  .voteNumberForHlidarMobile {
+    background-color: #f39100;
+  }
+
+  .voteNumberForHaaleitiMobile {
+    background-color: #10a19a;
+  }
+
+  .voteNumberForLaugardalurMobile {
+    background-color: #be6a95;
+  }
+
+  .voteNumberForBreidholtMobile {
+    background-color: #0e70b8;
+  }
+
+  .voteNumberForArbaerMobile {
+    background-color: #bfc005;
+  }
+
+  .voteNumberForGrafarvogurMobile {
+    background-color: #da616b;
+  }
+
+  .voteNumberForGrafarholtMobile {
+    background-color: #cc902f;
+  }
+
+  .voteNumberForKjalarnesMobile {
+    background-color: #2aac65;
+  }
+
+  .voteNumberGeneralMobile {
+    font-size: 24px;
+    margin-left: 4px;
+  }
+
+  .checkIconMobile {
+    width: 35px;
+    height: 35px;
+  }
+
+  .checkIconMain {
+    width: 33px;
+    height: 33px;
+  }
+
+  @media (max-width: 1023px) {
+    .selectInfoText {
+      font-size: 18px;
+    }
+
+    .selectInfoTextSmaller {
+      font-size: 18px;
+    }
+  }
+
+  .totalVoters {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    color: #888;
+  }
+
+  .totalVoterIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .totalVoterCount {
+    font-size: 19px;
+    padding-top: 2px;
+    padding-left: 2px;
+  }
+
+  .langSelection {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    cursor: pointer;
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  .language {
+    padding-right: 6px;
+  }
+
+  .langImage {
+    cursor: pointer;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+
+  .desktopLogo {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .logoHolder {
+    padding-bottom: 8px;
+    padding-top: 8px;
+    background-color: #213158;
+  }
+
+  @media (max-width: 320px) {
+    .topMaterial {
+      max-width: 300px;
+      max-height: 130px;
+      margin: 0;
+      margin-top: 16px;
+    }
+
+    .mobileMaterial {
+      width: 270px;
+      font-size: 26px;
+    }
+  }
+
+  .mobileIronImage {
+    padding-bottom: 12px;
+  }
+
+  .areaOptions a {
+    text-decoration: none;
+  }
+
+  .mobileBackground a {
+    text-decoration: none;
+  }
+
+  .mapContainerMain {
+    position: relative;
+  }
+
+  .language {
+    text-decoration: underline;
+  }
+
+  hidden {
+    display: none !important;
+  }
+</style>
+
+  <div class="layout vertical center-center">
+    <div hidden class="topMaterial">
+      <img sizing="contain" class="desktopLogo" src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"></iron-image>
+      <div class="selectInfoTextSmaller">ZZZchoose_a_neighbourhood_2ZZZ$</div>
+      <div class="langSelection layout horizontal" id="languageSelection">
+        <div class="language" id="isLanguage">Íslenska</div>
+        <div class="language" id="enLanguage">English</div>
+        <div class="language" id="plLanguage">Polska</div>
+      </div>
+      <div title$="ZZZnumber_of_votersZZZ" class="totalVoters layout horizontal"><iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon><div class="totalVoterCount">ZZZtotalVoterCountZZZ</div></div>
+    </div>
+  </div>
+
+  <div class="topMaterial infoImageContainer">
+    <video id="video" width="100%" controls>
+      <source src="http://efni.hvitahusid.is/Reykjavik/hverfidMitt/hverfakosning_2019/video/rvk-hverfidmitt-hverfakosning2019-1920x1080-19sek-01.mp4" type="video/mp4">
+      Þinn vafri styður ekki myndbönd.
+    </video>
+  </div>
+</div>
+
+<div hidden>
+  <div class="layout vertical center-center mobileBackground" style="max-width: 300px;margin-left:auto;margin-rigth:auto;">
+      <a href="/area-ballot/1">
+        <div class="mobileMasterial shadow-elevation-3dp layout horizsontal center-center voteNumberForArbaerMobile">
+          <div>
+            Árbær
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount1ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/2">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForBreidholtMobile">
+          <div>
+            Breiðholt
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount2ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/3">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForGrafarholtMobile">
+          <div>
+            Grafarholt og Úlfarsdalur
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount3ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/4">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForGrafarvogurMobile">
+          <div>
+            Grafarvogur
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount4ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/5">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForHaaleitiMobile">
+          <div>
+            Háaleiti og Bústaðir
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount5ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/6">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForHlidarMobile">
+          <div>
+            Hlíðar
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount6ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/7">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForKjalarnesMobile">
+          <div>
+            Kjalarnes
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount7ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/8">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForLaugardalurMobile">
+          <div>
+            Laugardalur
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount8ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/9">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForMidborgMobile">
+          <div>
+            Miðborg
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount9ZZZ</div></div>
+        </div>
+      </a>
+
+      <a href="/area-ballot/10">
+        <div class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForVesturbaerMobile">
+          <div>
+            Vesturbær
+          </div>
+          <div class="flex"></div>
+          <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal"><iron-icon class="checkIconMobile" icon="verified-user"></iron-icon><div class="voteNumberGeneralMobile">ZZZareaCount10ZZZ</div></div>
+        </div>
+      </a>
+    </div>
