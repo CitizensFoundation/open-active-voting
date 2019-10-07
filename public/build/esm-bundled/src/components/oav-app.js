@@ -3769,7 +3769,7 @@
             <span ?hidden="${!this.showExit}">
               <paper-icon-button alt="${this.localize("close")}" ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </span>
-            <iron-image ?hidden="${!this.mediumWide}" sizing="contain" class="headerLogo" src="${this.budgetHeaderImage}"></iron-image>
+            <img ?hidden="${!this.mediumWide}" sizing="cover" class="headerLogo" src="${this.budgetHeaderImage}"/>
             <div class="vertical center-center" style="width: 100%;">
               <div class="flex">
               ${!this.selectedBudget&&this.areaName?html$1`
@@ -4053,7 +4053,7 @@
 
         <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${"area-ballot"!==this._page&&"select-voting-area"!==this._page}">
           <app-toolbar class="toolbar-top">
-            <div ?hidden="${!this.showExit}" class="layout horizontal exitIconInBudget">
+            <div ?hidden="${!this.showExit||!this.wide}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" alt="${this.localize("close")}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
             <div class="helpIconInBudget">
