@@ -134,6 +134,7 @@ class OavAreaBallot extends PageViewElement {
 
     if (changedProps.has('areaId')) {
       this.loadArea();
+      this.showMap = false;
     }
 
     if (changedProps.has('selectedView')) {

@@ -119,6 +119,12 @@ class OavAreaBallotMap extends OavBaseElement {
     if (changedProps.has('wide')) {
       this.resetMapHeight();
     }
+
+    if (changedProps.has('items') && this.items) {
+      setTimeout(()=>{
+        this.$$("#map")._fitToMarkersChanged();
+      }, 10);
+    }
   }
 
   resetMapHeight() {
