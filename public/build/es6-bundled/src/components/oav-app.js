@@ -15225,15 +15225,17 @@ this.$$("#addFavoriteButton").style.position="absolute";this.$$("#addFavoriteBut
               <paper-button id="votingButton" raised class="voteButton" @click="${this._submitVote}">${this.localize("vote")}</paper-button>
             </div>
           </div>
-          <div id="votes" class="layout horizontal center-center" ?wide="${this.wide}">
+          <div id="votes" class="layout horizontal" ?wide="${this.wide}">
             <div id="noItems" class="layout horizontal noItemsInfo" ?wide="${this.wide}" ?hidden="${!this.noSelectedItems}">
               ${this.totalBudget?html$1`
-                <div ?hidden="${!this.wide}" class="onOfferText">
-                  ${this.localize("budget_empty_info_1","amount",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
+                <div class="layout horizontal center-center">
+                  <div ?hidden="${!this.wide}" class="onOfferText">
+                    ${this.localize("budget_empty_info_1","amount",this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
+                  </div>
+                  <div>${this.localize("budget_empty_info_2")}</div>
+                  <paper-fab aria-label="${this.localize("add_to_budget")}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
+                  <div>${this.localize("budget_empty_info_3")}</div>
                 </div>
-                <div>${this.localize("budget_empty_info_2")}</div>
-                <paper-fab aria-label="${this.localize("add_to_budget")}" mini id="x" elevation="5" disabled class="demoButton" icon="add"></paper-fab>
-                <div>${this.localize("budget_empty_info_3")}</div>
               `:""}
             </div>
           </div>
