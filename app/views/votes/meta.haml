@@ -2,7 +2,8 @@
 %html{:lang => "en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title @meta.title
+    %title
+      = @meta["title"]
     %meta{:charset => "utf-8"}/
     %meta{:property => "og:title", :content => @meta["title"]}
     %meta{:property => "og:description", :content => @meta["description"]}
