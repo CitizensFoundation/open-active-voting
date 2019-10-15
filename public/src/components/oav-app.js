@@ -299,6 +299,7 @@ class OavApp extends OavBaseElement {
 
   setLocale(event) {
     this.language = event.detail;
+    localStorage.setItem("languageOverride", this.language);
   }
 
   selectLocale(event) {

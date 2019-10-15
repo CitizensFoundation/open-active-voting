@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
     else
       @item = BudgetBallotItem.find(params[:id])
       @area = @item.budget_ballot_area
-      redirect_to '/area-ballot/'+@area.id
+      redirect_to '/area-ballot/'+@area.id.to_s
     end
   end
 end
