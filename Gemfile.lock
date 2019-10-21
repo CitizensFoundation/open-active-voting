@@ -136,7 +136,7 @@ GEM
     rdoc (4.3.0)
     request_store (1.4.1)
       rack (>= 1.4)
-    rubyzip (1.2.2)
+    rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
