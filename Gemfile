@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.4.6'
+ruby '2.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
-gem 'rails', '5.2.3'
+gem 'rails', '5.2.4'
 gem 'tzinfo-data'
 gem 'rails-html-sanitizer'
 gem 'browser'
