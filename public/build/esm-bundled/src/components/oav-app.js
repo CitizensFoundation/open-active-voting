@@ -3276,7 +3276,7 @@
               <paper-tab>
                 <div ?hidden="${!this.wide}">${this.area.name}</div>
                 <div ?hidden="${this.wide}" class="layout vertical center-center">
-                  <div>${this.area.name}</div>
+                  <div>${this.localize("items_list")}</div>
                 </div>
               </paper-tab>
               <paper-tab ?hidden="${this.configFromServer.client_config.hideLocation}">${this.localize("items_on_map")}</paper-tab>
