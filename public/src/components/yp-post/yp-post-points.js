@@ -865,7 +865,7 @@ Polymer({
   },
 
   _response: function (event, detail) {
-    this.set('storedPoints', this._preProcessPoints(detail.response));
+    this.set('storedPoints', this._preProcessPoints(detail.response.points));
     this._processStoredPoints();
     this.removeElementsByClass(this, 'inserted-outside-list');
     this._updateCounterInfo();
