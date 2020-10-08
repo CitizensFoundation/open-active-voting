@@ -90,6 +90,11 @@ class VotesController < ApplicationController
 
         # Update the values for the vote and confirm it as being authenticated
         vote.encrypted_vote_checksum = encrypted_vote_checksum
+
+        if @config.client_config["allowVotesForAllAreas"] and @config.client_config["allowVotesForAllAreas"]==true
+          insecure_email += "-" + vote.area_id.to_s
+        end
+
         vote.user_id_hash = insecure_email
         vote.authenticated_at = Time.now
         vote.user_postcode = postcode
