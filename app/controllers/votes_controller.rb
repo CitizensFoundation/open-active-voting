@@ -81,7 +81,7 @@ class VotesController < ApplicationController
       insecure_email = params[:insecure_email]
       postcode = params[:postCode]
       # Find the previously stored wote from the session id that has not been authenticated before
-      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil).first
+      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id].to_s, :saml_assertion_id=>nil).first
 
       if vote
         # Create an encrypted checksum
@@ -178,7 +178,7 @@ class VotesController < ApplicationController
   def is_vote_authenticated
     if request.session_options[:id]
       # Find the previously stored wote from the session id that has been authenticated
-      vote = Vote.where(:session_id=>request.session_options[:id]).where.not(:saml_assertion_id=>nil).first;
+      vote = Vote.where(:session_id=>request.session_options[:id].to_s).where.not(:saml_assertion_id=>nil).first;
       response = {:error=>false, :vote_ok=> vote!=nil ? true : false}
     else
       Rails.logger.error("No session: #{request.session_options[:id]}")
@@ -241,7 +241,7 @@ class VotesController < ApplicationController
       Rails.logger.info(@response.response)
 
       # Find the previously stored wote from the session id that has not been authenticated before
-      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id], :saml_assertion_id=>nil).first
+      vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id].to_s, :saml_assertion_id=>nil).first
 
       if vote
         # Create an encrypted checksum
