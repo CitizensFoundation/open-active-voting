@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
-ruby '2.4.10'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
-gem 'rails', '5.2.4.4'
+gem 'rails', '5.2.4.5'
 gem 'tzinfo-data'
 gem 'rails-html-sanitizer'
 gem 'browser'
+gem "sprockets", "<4"
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
