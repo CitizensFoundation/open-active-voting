@@ -218,8 +218,8 @@ export const OavAreaBallotItemStyles = css`
     --paper-share-button-icon-color: var(--app-accent-color-light);
     --paper-share-button-icon-height: 46px;
     --paper-share-button-icon-width: 46px;
-    -webkit-filter: drop-shadow( 1px 1px 10px #555 );
-    filter: drop-shadow( 1px 1px 10px #555 );
+    -webkit-filter: drop-shadow( 1px 1px 10px var(--app-share-dropshadow, #555 ));
+    filter: drop-shadow( 1px 1px 10pxvar(--app-share-dropshadow, #555 ) );
   }
 
   .shareIcon[small] {

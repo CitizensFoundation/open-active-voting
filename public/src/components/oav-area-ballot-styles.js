@@ -74,6 +74,7 @@ export const OavAreaBallotStyles = css`
   }
 
   paper-tab {
+    font-family: var(--app-tabs-font-family, Roboto);
     font-size: 21px !important;
     margin-left: 24px;
     margin-right: 24px;

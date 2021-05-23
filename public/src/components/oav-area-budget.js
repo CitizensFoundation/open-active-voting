@@ -127,7 +127,7 @@ class OavAreaBudget extends OavBaseElement {
         <div class="budgetMaterial shadow-elevation-24dp" ?wide="${this.wide}">
           <div class="info layout horizontal headerContainer" ?wide="${this.wide}">
             <span ?hidden="${!this.showExit}">
-              <paper-icon-button alt="${this.localize('close')}" ?hidden="${this.wide}" class="closeButton mobileActionIcons" icon="closeExit" @click="${this._exit}"></paper-icon-button>
+              <paper-icon-button alt="${this.localize('close')}" ?hidden="${this.wide}" class="mobileActionIcons closeButton" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </span>
             <img ?hidden="${!this.mediumWide}" sizing="cover" class="headerLogo" src="${this.budgetHeaderImage}"/>
             <div class="vertical center-center" style="width: 100%;">
@@ -192,9 +192,6 @@ class OavAreaBudget extends OavBaseElement {
           </div>
         </div>
       </div>
-      <snack-bar ?wide="${this.wide}" id="toast" @click="${this._closeToast}">
-        ${this.localize('favorite_info')}
-      </snack-bar>
     `;
   }
 
@@ -249,6 +246,7 @@ class OavAreaBudget extends OavBaseElement {
 
   constructor() {
     super();
+    this.toastCounter = 0;
   }
 
 
@@ -258,10 +256,6 @@ class OavAreaBudget extends OavBaseElement {
 
   _help() {
     this.fire("oav-open-help");
-  }
-
-  _closeToast() {
-    this.$$("#toast").active= false;
   }
 
   _resetWidth() {
@@ -386,7 +380,7 @@ class OavAreaBudget extends OavBaseElement {
     });
 
     if (this.toastCounter<1) {
-      this.$$("#toast").active = true;
+      this.fire('oav-open-favorite-toast');
       this.toastCounter+=1;
     }
   }

@@ -11,6 +11,9 @@ export const OavAppStyles = css`
     box-sizing: border-box;
   }
 
+  :host {
+     font-family: var(--app-main-font-family,'Roboto',Arial,sans-serif);
+  }
   section {
     padding: 24px;
     background: var(--app-section-odd-color);
@@ -130,6 +133,14 @@ export const OavAppStyles = css`
   }
 
   app-toolbar {
+  }
+
+  paper-toast {
+    font-size: 16px;
+  }
+
+  paper-toast[wide] {
+    font-size: 20px;
   }
 
   .title {

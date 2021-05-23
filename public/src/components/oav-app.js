@@ -21,8 +21,8 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-dialog/paper-dialog.js';
 import '@polymer/paper-spinner/paper-spinner.js';
 import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+import '@polymer/paper-toast/paper-toast.js';
 import './oav-icons.js';
-import './snack-bar.js';
 import './oav-area-ballot';
 import './oav-area-budget';
 import './oav-voting-completed';
@@ -254,9 +254,8 @@ class OavApp extends OavBaseElement {
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
         </main>
 
-        <snack-bar ?active="${this._snackbarOpened}">
-          You are now ${this._offline ? 'offline' : 'online'}.
-        </snack-bar>
+        <paper-toast ?wide="${this.wide}" duration="5000" .text="${this.localize('favorite_info')}" id="toast" @click="${this._closeToast}">
+        </paper-toast>>
       `
       :
       html`${errorDialog}<paper-spinner active class="largeSpinner"></paper-spinner>`
@@ -416,6 +415,7 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
     this.addEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
     this.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
+    this.addEventListener("oav-open-favorite-toast", this._openFavoriteToast);
     this.addEventListener("oav-exit", this._exit);
     this.addEventListener("oav-open-help", this._help);
     this.addEventListener("oav-set-locale", this.setLocale);
@@ -444,6 +444,7 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-clear-area", this._clearArea);
     this.removeEventListener("oav-set-area", this._setArea);
     this.removeEventListener("location-changed", this._locationChanged);
+    this.removeEventListener("oav-open-favorite-toast", this._openFavoriteToast);
     this.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
     this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
     this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
@@ -455,6 +456,16 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
     window.removeEventListener("resize", this.resetSizeWithDelay);
     this.removeEventListener("oav-insecure-email-login", this._insecureEmailLogin);
+  }
+
+  _closeToast() {
+    const toast = this.$$("#toast");
+    toast.close();
+  }
+
+  _openFavoriteToast() {
+    const toast = this.$$("#toast");
+    toast.open();
   }
 
   _scrollItemIntoView(event) {
@@ -470,6 +481,10 @@ class OavApp extends OavBaseElement {
   }
 
   _toggleFavoriteItem(event) {
+    setTimeout(()=>{
+      this._closeToast();
+    }, 1000);
+
     const detail = event.detail;
 
     if (detail.item) {

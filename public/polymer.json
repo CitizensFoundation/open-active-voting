@@ -8,7 +8,8 @@
     "src/components/oav-view404.js"
   ],
   "sources": [
-    "images/**/*"
+    "images/**/*",
+    "fonts/**/*"
   ],
   "extraDependencies": [
     "manifest.json",

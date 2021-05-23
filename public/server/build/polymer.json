@@ -1,0 +1,89 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/components/oav-app.js",
+  "fragments": [
+    "src/components/yp-post/yp-post.js",
+    "src/components/oav-select-voting-area.js",
+    "src/components/oav-insecure-email-login.js",
+    "src/components/oav-view404.js"
+  ],
+  "sources": [
+    "images/**/*",
+    "fonts/**/*",
+    "index.html",
+    "src/components/oav-app.js",
+    "src/components/yp-post/yp-post.js",
+    "src/components/oav-select-voting-area.js",
+    "src/components/oav-insecure-email-login.js",
+    "src/components/oav-view404.js"
+  ],
+  "extraDependencies": [
+    "bower_components/webcomponentsjs/*.js",
+    "manifest.json",
+    "node_assets/@webcomponents/webcomponentsjs/**",
+    "node_assets/web-animations-js/*.js",
+    "push-manifest.json"
+  ],
+  "builds": [
+    {
+      "name": "esm-bundled",
+      "browserCapabilities": [
+        "es2015",
+        "modules"
+      ],
+      "js": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": false,
+      "basePath": true
+    },
+    {
+      "name": "es6-bundled",
+      "browserCapabilities": [
+        "es2015"
+      ],
+      "js": {
+        "compile": "es2015",
+        "minify": true,
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": false,
+      "basePath": true
+    },
+    {
+      "name": "es5-bundled",
+      "js": {
+        "compile": "es5",
+        "minify": true,
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": false,
+      "basePath": true
+    }
+  ],
+  "autoBasePath": true,
+  "npm": true,
+  "componentDir": "node_assets/",
+  "moduleResolution": "node"
+}

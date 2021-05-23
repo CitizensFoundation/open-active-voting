@@ -192,7 +192,7 @@ class OavAreaBallot extends PageViewElement {
         this.fire('oav-set-title', this.localize('ballot_area_name', 'area_name', this.area.name));
         this.fire('oav-set-area', { areaName: this.area.name, totalBudget: this.area.budget_amount });
         setTimeout( () => {
-          this.$$("#tabs").shadowRoot.getElementById("selectionBar").style.setProperty("border-bottom", "3px solid var(--paper-tabs-selection-bar-color)");
+          this.$$("#tabs").shadowRoot.getElementById("selectionBar").style.setProperty("border-bottom", "5px solid var(--paper-tabs-selection-bar-color)");
         });
       })
       .catch(error => {

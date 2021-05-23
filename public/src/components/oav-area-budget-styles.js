@@ -165,6 +165,13 @@ export const OavAreaBudgetStyles = css`
     padding: 5px;
     margin-left: 8px;
     margin-right: 8px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 1024px) {
+    .demoButton {
+      margin-top: -4px;
+    }
   }
 
   .onOfferText {
@@ -173,16 +180,7 @@ export const OavAreaBudgetStyles = css`
     font-weight: bold;
   }
 
-  paper-toast {
-    font-size: 17px;
-    height: 80px;
-    padding-bottom: 8px;
-  }
 
-  paper-toast[wide] {
-    font-size: 25px;
-    height: 108px;
-  }
 
   .mobileActionIcons {
     color: #555;
@@ -192,6 +190,11 @@ export const OavAreaBudgetStyles = css`
     padding: 0;
     margin-top: 5px;
     margin-right: 5px;
+  }
+
+  .closeButton {
+    width: 32px;
+    height: 32px;
   }
 
   [hidden] {
