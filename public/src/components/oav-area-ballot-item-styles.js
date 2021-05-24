@@ -10,7 +10,7 @@ export const OavAreaBallotItemStyles = css`
   .itemContent {
     position: relative;
     width: 300px !important;
-    height: 328px;
+    height: 324px;
     margin: 16px;
   }
 
@@ -140,7 +140,7 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .price {
-    font-size: 22px;
+    font-size: 24px;
     position: absolute;
     bottom: 14px;
     left: 92px;
@@ -164,7 +164,7 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .priceCurrency {
-    font-size: 23px;
+    font-size: 24px;
     color: var(--app-accent-color);
   }
 

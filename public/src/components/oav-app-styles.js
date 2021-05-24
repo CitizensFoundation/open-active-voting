@@ -136,11 +136,11 @@ export const OavAppStyles = css`
   }
 
   paper-toast {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   paper-toast[wide] {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .title {
@@ -184,7 +184,7 @@ export const OavAppStyles = css`
 
   .helpIconInBudget  {
     position: absolute;
-    top: 0;
+    top: 6px;
     right: 0;
     color: #fff;
   }
@@ -209,6 +209,10 @@ export const OavAppStyles = css`
     #favoriteIcon {
       width: 40px;
       height: 40px;
+    }
+
+    .helpIconInBudget  {
+      top: 2px;
     }
   }
 
