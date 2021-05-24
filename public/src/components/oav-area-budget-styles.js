@@ -92,6 +92,7 @@ export const OavAreaBudgetStyles = css`
     color: var(--app-budget-vote-button-color, #FFF);
     margin: 8px;
     margin-right: 4px;
+    font-family: var(--app-vote-button-font-family, Roboto)
   }
 
   paper-button[disabled] {
@@ -142,6 +143,7 @@ export const OavAreaBudgetStyles = css`
     padding: 0;
     margin: 0;
     margin-left: 4px;
+    margin-top: 2px;
   }
 
   @media (max-width: 1024px) {
