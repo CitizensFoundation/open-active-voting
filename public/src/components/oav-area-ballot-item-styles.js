@@ -123,12 +123,13 @@ export const OavAreaBallotItemStyles = css`
   .name {
     font-size: var(--app-item-name-font-size, 20px);
     padding: 8px;
+    padding-top: 4px;
     color: var(--app-ballot-item-name-color, #222);
   }
 
   .name[small] {
     font-size: var(--app-item-name-font-size-small, 17px);
-    padding-top: 4px;
+    padding-top: 2px;
     padding-right: 4px;
     padding-top: 4px;
   }
@@ -138,9 +139,9 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .price {
-    font-size: 25px;
+    font-size: 22px;
     position: absolute;
-    bottom: 8px;
+    bottom: 14px;
     left: 92px;
     color: var(--app-accent-color);
   }

@@ -346,7 +346,7 @@ class OavAreaBudget extends OavBaseElement {
     image.title= item.name;
     image.style.borderLeft = 'solid 1px';
     image.style.borderRight = 'solid 1px';
-    image.style.borderColor = '#ff6500';
+    image.style.borderColor = 'var(--app-budget-image-border-color, #ff6500)';
     if (this.wide) {
       image.style.height = '100px';
     } else {

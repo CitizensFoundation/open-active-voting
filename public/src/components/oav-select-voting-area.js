@@ -73,7 +73,6 @@ class OavSelectVotingArea extends PageViewElement {
           position: relative;
         }
 
-
         .selectInfoTextSmaller {
           font-size: 17px;
           padding: 8px;
@@ -86,8 +85,9 @@ class OavSelectVotingArea extends PageViewElement {
         }
 
         .checkIconMobile {
-          width: 35px;
-          height: 35px;
+          width: 32px;
+          height: 32px;
+          margin-top: 3px;
         }
 
         @media (max-width: 1024px) {
@@ -132,7 +132,8 @@ class OavSelectVotingArea extends PageViewElement {
           height: auto;
           margin-left: auto;
           margin-right: auto;
-          margin-top: 4px;
+          margin-top: 20px;
+          margin-bottom: 12px;
         }
 
         @media (max-width: 320px) {
@@ -148,7 +149,6 @@ class OavSelectVotingArea extends PageViewElement {
             font-size: 26px;
           }
         }
-
 
         .mobileBackground a {
           text-decoration: none;
@@ -169,7 +169,7 @@ class OavSelectVotingArea extends PageViewElement {
         .mobileMaterial {
           margin-right: auto;
           margin-left: auto;
-          margin-top: 16px;
+          margin-top: 22px;
           margin-bottom: 16px;
           color: #fff;
           font-size: 29px;
@@ -227,7 +227,7 @@ class OavSelectVotingArea extends PageViewElement {
           background-size: cover;
         }
 
-        .mobileLaugardalurMaterial {
+        .mobileMidborgMaterial {
           background: url("https://yrpri6-production.s3.amazonaws.com/20f2c7a9-514b-4d71-ab09-6cf123728c19-retina.png");
           background-size: cover;
         }
@@ -247,12 +247,21 @@ class OavSelectVotingArea extends PageViewElement {
         .mobileDistrictText,
         .totalIcon {
           padding: 16px;
+        }
+
+        .mobileDistrictText {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          max-width: 150px;
           text-align: center;
         }
 
         .totalIcon {
           font-family: Esja;
-          margin-top: 4px;
+          position: absolute;
+          bottom: 0;
+          right: 0;
         }
 
         @media (max-width: 320px) {
@@ -280,7 +289,7 @@ class OavSelectVotingArea extends PageViewElement {
           />
         </div>
         <div
-          style="width:320px;margin-top:38px;margin-left:auto;margin-right:auto;"
+          style="width:320px;margin-top:24px;margin-left:auto;margin-right:auto;"
         >
           <div>
             <div class="topMaterial shadow-elevation-3dp ">
@@ -484,57 +493,72 @@ class OavSelectVotingArea extends PageViewElement {
 
             <a href="/area-ballot/8">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForLaugardalurMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileLaugardalurMaterial mobileBackgroundCommon"
               >
-                <div>Laugardalur</div>
-                <div
-                  class="flex"
-                  style="width: 100%;vertical-align: middle;"
-                ></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount8ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Laugardalur</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount8ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>
 
             <a href="/area-ballot/9">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForMidborgMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileMidborgMaterial mobileBackgroundCommon"
               >
-                <div>Miðborg</div>
-                <div
-                  class="flex"
-                  style="width: 100%;vertical-align: middle;"
-                ></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount9ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Miðborg</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount9ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>
 
             <a href="/area-ballot/10">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForVesturbaerMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileVesturbaerMaterial mobileBackgroundCommon"
               >
-                <div>Vesturbær</div>
-                <div
-                  class="flex"
-                  style="width: 100%;vertical-align: middle;"
-                ></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount10ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Vesturbær</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount10ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>
