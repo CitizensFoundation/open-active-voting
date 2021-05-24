@@ -116,6 +116,7 @@ export const OavAreaBallotItemStyles = css`
 
   .description {
     padding: 8px;
+    padding-top: 16px;
     font-size: 16px;
     margin-top: 42px;
   }

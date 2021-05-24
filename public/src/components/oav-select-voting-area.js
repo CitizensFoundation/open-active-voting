@@ -281,11 +281,11 @@ class OavSelectVotingArea extends PageViewElement {
       </style>
 
       <div class="layout vertical center-center" style="display:block">
-        <div style="background-color: #213158">
+        <div style="background-color: #013B70">
           <img
             sizing="contain"
             class="mobileLogo"
-            src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"
+            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2018-400x120-logo-2xV3.png"
           />
         </div>
         <div
