@@ -379,6 +379,19 @@ class OavAreaBudget extends OavBaseElement {
       iterations: 1
     });
 
+    this.$$("#votingButton").animate([
+      { transform: "translateX(-1px)", easing: 'ease-in' },
+      { transform: "translateX(1px)", easing: 'ease-in' },
+      { transform: "translateX(-2px)", easing: 'ease-out' },
+      { transform: "translateX(2px)", easing: 'ease-out' },
+      { transform: "translateX(-1px)", easing: 'ease-in' },
+      { transform: "translateX(1px)", easing: 'ease-in' },
+
+    ], {
+      duration: 650,
+      iterations: 1
+    });
+
     if (this.toastCounter<1) {
       this.fire('oav-open-favorite-toast');
       this.toastCounter+=1;
