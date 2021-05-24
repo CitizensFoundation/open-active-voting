@@ -45,38 +45,8 @@ class OavSelectVotingArea extends PageViewElement {
   testHtml() {
     return `
       <style>
-        #area_options {
-          background-color: var(--app-main-backround-color);
-        }
-
         .selectedLanguage {
           text-decoration: underline;
-        }
-
-        h3 {
-          font-size: 18px;
-          padding: 16px;
-        }
-
-        paper-fab {
-          padding: 32px;
-          color: #fff;
-        }
-
-        paper-fab.label {
-          font-size: 30px;
-          color: #fff;
-        }
-
-        .infoImage {
-          width: 320px;
-          height: 96px;
-        }
-
-        @media (max-width: 940px) {
-          .infoImageContainer {
-            display: none;
-          }
         }
 
         .topMaterial {
@@ -103,65 +73,11 @@ class OavSelectVotingArea extends PageViewElement {
           position: relative;
         }
 
-        .mainContainer {
-          background-color: var(--app-main-backround-color);
-          width: 100%;
-          height: 100%;
-        }
-
-        .imageContainer {
-          width: 100%;
-          background-size: 1920px 280px;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-position-y: top;
-          background-image: url("https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-1920x300-bg-2x.png");
-        }
-
-        .topTwoContainer {
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        @media (max-width: 800px) {
-          .imageContainer {
-            background-image: none;
-            background-color: #f0f0f0;
-          }
-        }
-
-        .selectInfoText {
-          font-size: 21px;
-          padding: 8px;
-          background-color: var(--app-primary-color);
-          color: #fff;
-          margin: 0;
-        }
 
         .selectInfoTextSmaller {
           font-size: 17px;
           padding: 8px;
           color: #222;
-        }
-
-        .areaOptions {
-          margin-top: 48px;
-          background-color: #fff;
-          display: block;
-          position: relative;
-          max-width: 882px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .voteNumberGeneral {
-          padding-left: 4px;
-          font-size: 15px;
-        }
-
-        .checkIcon {
-          width: 40px;
-          height: 40px;
         }
 
         .voteNumberGeneralMobile {
@@ -174,16 +90,7 @@ class OavSelectVotingArea extends PageViewElement {
           height: 35px;
         }
 
-        .checkIconMain {
-          width: 33px;
-          height: 33px;
-        }
-
-        @media (max-width: 1023px) {
-          .selectInfoText {
-            font-size: 18px;
-          }
-
+        @media (max-width: 1024px) {
           .selectInfoTextSmaller {
             font-size: 18px;
           }
@@ -220,12 +127,6 @@ class OavSelectVotingArea extends PageViewElement {
           padding-right: 6px;
         }
 
-        .langImage {
-          cursor: pointer;
-          margin-right: 8px;
-          margin-left: 8px;
-        }
-
         .mobileLogo {
           width: 100%;
           height: auto;
@@ -234,32 +135,20 @@ class OavSelectVotingArea extends PageViewElement {
           margin-top: 4px;
         }
 
-        .logoHolder {
-          padding-bottom: 8px;
-          padding-top: 8px;
-          background-color: #213158;
-        }
-
         @media (max-width: 320px) {
           .topMaterial {
-            max-width: 300px;
+            max-width: 320px;
             max-height: 130px;
+            margin: 0;
             margin-top: 16px;
           }
 
           .mobileMaterial {
-            width: 270px;
+            width: 300px;
             font-size: 26px;
           }
         }
 
-        .mobileIronImage {
-          padding-bottom: 12px;
-        }
-
-        .areaOptions a {
-          text-decoration: none;
-        }
 
         .mobileBackground a {
           text-decoration: none;
@@ -283,7 +172,7 @@ class OavSelectVotingArea extends PageViewElement {
           margin-top: 16px;
           margin-bottom: 16px;
           color: #fff;
-          font-size: 28px;
+          font-size: 29px;
           font-family: Esja Bold;
           vertical-align: middle;
           cursor: pointer !important;
@@ -318,6 +207,31 @@ class OavSelectVotingArea extends PageViewElement {
           background-size: cover;
         }
 
+        .mobileHaaleitiMaterial {
+          background: url("https://yrpri6-production.s3.amazonaws.com/b54aec4e-ee01-42bf-963a-965a832708bd-retina.png");
+          background-size: cover;
+        }
+
+        .mobileHlidarMaterial {
+          background: url("https://yrpri6-production.s3.amazonaws.com/2321d88f-2517-4189-84d0-00bd982155f1-retina.png");
+          background-size: cover;
+        }
+
+        .mobileKjalarnesMaterial {
+          background: url("https://yrpri6-production.s3.amazonaws.com/839ab7e7-e039-41e3-9551-adb603bda602-retina.png");
+          background-size: cover;
+        }
+
+        .mobileLaugardalurMaterial {
+          background: url("https://yrpri6-production.s3.amazonaws.com/7c36a742-b630-47ae-a0c9-e5edbbfbec8d-retina.png");
+          background-size: cover;
+        }
+
+        .mobileLaugardalurMaterial {
+          background: url("https://yrpri6-production.s3.amazonaws.com/20f2c7a9-514b-4d71-ab09-6cf123728c19-retina.png");
+          background-size: cover;
+        }
+
         .mobileVesturbaerMaterial {
           background: url("https://yrpri6-production.s3.amazonaws.com/0e3be2dc-5129-40f8-a095-911fd3e71e99-retina.png");
           background-size: cover;
@@ -340,17 +254,31 @@ class OavSelectVotingArea extends PageViewElement {
           font-family: Esja;
           margin-top: 4px;
         }
+
+        @media (max-width: 320px) {
+          .totalIcon {
+            font-size: 16px;
+          }
+
+          .mobileMaterial {
+            font-size: 26px;
+          }
+
+          .totalVoterIcon {
+            width: 24px;
+            height: 24px;
+          }
+        }
       </style>
 
       <div class="layout vertical center-center" style="display:block">
-      <div
-      style="background-color: #213158"
-    >
-      <img
-        sizing="contain"
-        class="mobileLogo"
-        src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"
-      /></div>
+        <div style="background-color: #213158">
+          <img
+            sizing="contain"
+            class="mobileLogo"
+            src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hm2018/hm2018-400x120-logo-2x.png"
+          />
+        </div>
         <div
           style="width:320px;margin-top:38px;margin-left:auto;margin-right:auto;"
         >
@@ -484,56 +412,72 @@ class OavSelectVotingArea extends PageViewElement {
 
             <a href="/area-ballot/5">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForHaaleitiMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileHaaleitiMaterial mobileBackgroundCommon"
               >
-                <div style="width: 250px;padding-left: 8px;">
-                  Háaleiti og Bústaðir
-                </div>
-                <div class="flex" style="vertical-align: middle;"></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount5ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Háaleiti og Bústaðir</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount5ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>
 
             <a href="/area-ballot/6">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForHlidarMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileHlidarMaterial mobileBackgroundCommon"
               >
-                <div>Hlíðar</div>
-                <div
-                  class="flex"
-                  style="width: 100%;vertical-align: middle;"
-                ></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount6ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Hlíðar</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount6ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>
 
             <a href="/area-ballot/7">
               <div
-                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center voteNumberForKjalarnesMobile"
+                class="mobileMaterial shadow-elevation-3dp layout horizontal center-center mobileKjalarnesMaterial mobileBackgroundCommon"
               >
-                <div>Kjalarnes</div>
-                <div
-                  class="flex"
-                  style="width: 100%;vertical-align: middle;"
-                ></div>
-                <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-                  <iron-icon
-                    class="checkIconMobile"
-                    icon="verified-user"
-                  ></iron-icon>
-                  <div class="voteNumberGeneralMobile">ZZZareaCount7ZZZ</div>
+                <div class="mobileDistrict layout horizontal">
+                  <div class="mobileDistrictText">Kjalarnes</div>
+                  <div
+                    class="flex"
+                    style="width: 100%;vertical-align: middle;"
+                  ></div>
+                  <div
+                    title$="ZZZnumber_of_votersZZZ"
+                    class="layout horizontal totalIcon"
+                  >
+                    <iron-icon
+                      class="checkIconMobile"
+                      icon="verified-user"
+                    ></iron-icon>
+                    <div class="voteNumberGeneralMobile">ZZZareaCount7ZZZ</div>
+                  </div>
                 </div>
               </div>
             </a>

@@ -10,7 +10,7 @@ export const OavAreaBallotItemStyles = css`
   .itemContent {
     position: relative;
     width: 300px !important;
-    height: 320px;
+    height: 328px;
     margin: 16px;
   }
 
