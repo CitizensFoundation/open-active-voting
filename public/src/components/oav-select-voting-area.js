@@ -35,8 +35,25 @@ class OavSelectVotingArea extends PageViewElement {
               this.configFromServer.client_config.selectVotingAreaDesktopHTML
             )
           )}`
-        : //        html`${unsafeHTML(this.setupHTMLText(this.configFromServer.client_config.selectVotingAreaMobileHTML))}`}`;
-          html`${unsafeHTML(this.replaceInHTMLText(this.testHtml()))}`}`;
+        : html`${unsafeHTML(
+            this.setupHTMLText(
+              this.configFromServer.client_config.selectVotingAreaMobileHTML
+            )
+          )}`}`;
+    } else {
+      return html``;
+    }
+  }
+
+  renderTestLocally() {
+    if (this.hasLoadedCss) {
+      return html`${this.wide
+        ? html`${unsafeHTML(this.replaceInHTMLText(this.testHtml()))}`
+        : html`${unsafeHTML(
+            this.setupHTMLText(
+              this.configFromServer.client_config.selectVotingAreaMobileHTML
+            )
+          )}`}`;
     } else {
       return html``;
     }
@@ -56,8 +73,7 @@ class OavSelectVotingArea extends PageViewElement {
   }
 
   getText() {
-    return `
-      `;
+    return html``;
   }
 
   setupHTMLText(text) {
@@ -84,7 +100,7 @@ class OavSelectVotingArea extends PageViewElement {
 
     let totalVoteCount = this.configFromServer.total_voter_count;
 
-    totalVoteCount = 5*(Math.floor(Math.random() * 4000) + 350);
+    totalVoteCount = 5 * (Math.floor(Math.random() * 4000) + 350);
 
     text = text.replace(
       /ZZZtotalVoterCountZZZ/g,
@@ -151,21 +167,13 @@ class OavSelectVotingArea extends PageViewElement {
   updated(update) {
     super.updated(update);
     if (update.has("configFromServer") && this.configFromServer) {
-      //const sheet = document.createElement('style');
-      //sheet.innerHTML = this.b64DecodeUnicode(this.configFromServer.client_config.selectVotingAreaCSS);
-      //   this.shadowRoot.appendChild(sheet);
       this.hasLoadedCss = true;
-      setTimeout(() => {
-        this.setupEvents();
-        const selectedLanguageDiv = this.$$("#" + this.language + "Language");
-        if (selectedLanguageDiv) {
-          selectedLanguageDiv.classList.add("selectedLanguage");
-        }
-        setTimeout(() => {
-          this.requestUpdate();
-        }, 1000);
-      });
-    }
+      this.setupEvents();
+      const selectedLanguageDiv = this.$$("#" + this.language + "Language");
+      if (selectedLanguageDiv) {
+        selectedLanguageDiv.classList.add("selectedLanguage");
+      }
+  }
   }
 
   _languageSelection(event) {

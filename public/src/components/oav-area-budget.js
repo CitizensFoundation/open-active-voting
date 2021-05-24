@@ -103,7 +103,10 @@ class OavAreaBudget extends OavBaseElement {
       this._selectedItemsChanged();
     }
 
-    if (changedProps.has('selectedBudget') || changedProps.has('totalBudget')) {
+    if (
+      (changedProps.has('selectedBudget') || changedProps.has('totalBudget'))
+        &&
+      (this.totalBudget!=undefined && this.selectedBudget!=undefined)) {
       var budgetLeft = this.totalBudget-this.selectedBudget;
       if (budgetLeft>0) {
         this.budgetLeft = budgetLeft;
@@ -162,7 +165,7 @@ class OavAreaBudget extends OavBaseElement {
                 :
                 ''
               }
-              <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot}">
+              <div id="budgetLeftInfo" ?wide="${this.wide}" ?hidden="${!this.currentBallot || this.budgetLeft==undefined}">
                 ${this.localize('budget_left_text','budget_left', this.formatNumber(this.budgetLeft,this.configFromServer.client_config.currencySymbol))}
               </div>
               </div>
@@ -298,6 +301,8 @@ class OavAreaBudget extends OavBaseElement {
     this._resetBudgetDiv();
     this.selectedItems = [];
     this.selectedBudget = 0;
+    this.budgetLeft = undefined;
+    this.totalBudget = undefined;
     this.budgetHeaderImage = this.configFromServer.client_config.ballotBudgetLogo;
   }
 
