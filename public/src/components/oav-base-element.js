@@ -1,6 +1,6 @@
 // Locale implementation inspired by https://github.com/PolymerElements/app-localize-behavior
 
-import IntlMessageFormat from 'intl-messageformat/src/main.js';
+import IntlMessageFormat from 'intl-messageformat';
 window.IntlMessageFormat = IntlMessageFormat;
 
 import { LitElement } from 'lit-element';

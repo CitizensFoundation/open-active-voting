@@ -40,7 +40,8 @@
         "minify": true
       },
       "bundle": true,
-      "addServiceWorker": false
+      "addServiceWorker": false,
+      "basePath": true
     },
     {
       "name": "es6-bundled",
@@ -59,7 +60,8 @@
         "minify": true
       },
       "bundle": true,
-      "addServiceWorker": false
+      "addServiceWorker": false,
+      "basePath": true
     },
     {
       "name": "es5-bundled",
@@ -75,9 +77,11 @@
         "minify": true
       },
       "bundle": true,
-      "addServiceWorker": false
+      "addServiceWorker": false,
+      "basePath": true
     }
   ],
+  "autoBasePath": true,
   "npm": true,
   "componentDir": "node_modules/",
   "moduleResolution": "node"
