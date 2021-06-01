@@ -173,6 +173,7 @@ class OavInsecureEmailLogin extends OavBaseElement {
   }
 
   isValidPostcode(areaId, postCode) {
+    return true;
     postCode = postCode.replace(/\s/g, "").toUpperCase();
     return (this.configFromServer.client_config.insecureEmailLoginPostCodes[areaId].indexOf(postCode) > -1)
   }
