@@ -88,7 +88,7 @@ export const OavAreaBudgetStyles = css`
   }
 
   paper-button.voteButton {
-    background-color: var(--app-voting-button-background, --app-accent-color);
+    background-color: var(--app-voting-button-background, var(--app-accent-color, #f00));
     color: var(--app-budget-vote-button-color, #FFF);
     margin: 8px;
     margin-right: 4px;

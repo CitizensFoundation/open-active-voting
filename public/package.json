@@ -8,7 +8,7 @@
   "repository": "Polymer/pwa-starter-kit",
   "scripts": {
     "start": "polymer serve",
-    "startw": "npm run web-dev-server --app-index index.html --node-resolve --open\"",
+    "startw": "npm run web-dev-server --node-resolve --open  --watch --app-index index.html",
     "build": "polymer build --auto-base-path && gulp prpl-server",
     "build:static": "polymer build",
     "serve": "prpl-server --root server/build",

@@ -254,7 +254,7 @@ class OavApp extends OavBaseElement {
           <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
         </main>
 
-        <paper-toast ?wide="${this.wide}" duration="5000" .text="${this.localize('favorite_info')}" id="toast" @click="${this._closeToast}">
+        <paper-toast ?wide="${this.wide}" duration="9500" .text="${this.localize('favorite_info')}" id="toast" @click="${this._closeToast}">
         </paper-toast>>
       `
       :
