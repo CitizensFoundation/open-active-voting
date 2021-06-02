@@ -75,9 +75,10 @@ export const OavAppStyles = css`
     height: var(--app-budget-container-height, 238px);
     width: 100%;
     background-size: 1920px 238px;
-    background-repeat: no-repeat;
+    background-repeat: var(--app-budget-container-background-repeat, no-repeat);
     background-position: center;
-    background-position-y: top;
+    background-position-y: var(--app-budget-background-pos-y, top);
+    background-color: #FFF;
     background-image: var(--app-budget-container-background-image);
   }
 
@@ -187,6 +188,10 @@ export const OavAppStyles = css`
     top: 6px;
     right: 0;
     color: #fff;
+  }
+
+  .helpIconInBudget[select-voting-area] {
+    color: var(--app-help-icon-select-area, #000);
   }
 
   #helpContent h1 {

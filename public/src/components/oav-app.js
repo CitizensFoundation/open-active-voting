@@ -200,7 +200,7 @@ class OavApp extends OavBaseElement {
             <div ?hidden="${(!this.showExit || !this.wide)}" class="layout horizontal exitIconInBudget">
               <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
-            <div class="helpIconInBudget">
+            <div class="helpIconInBudget" ?select-voting-area="${this._page=="select-voting-area"}">
               <paper-icon-button icon="help-outline" alt="${this.localize('help')}" @click="${this._help}}"></paper-icon-button>
             </div>
             <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
