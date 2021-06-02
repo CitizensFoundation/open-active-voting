@@ -87,7 +87,6 @@ class OavSelectVotingArea extends PageViewElement {
     background-repeat: repeat;
     background-position: center;
     background-position-y: top;
-    background-image: url("https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/hm2018-1920x300-bg-2xV5.png");
   }
 
   @media (max-width: 800px) {
@@ -297,20 +296,18 @@ class OavSelectVotingArea extends PageViewElement {
         </div>
       </div>
 
-      <div class="shadow-elevation-3dp topMaterial infoImageContainer">
-        <video
+      <div class="shadow-elevation-2dp infoImageContainer layout horizonal" style="padding:0;margin:16px;height:225px;">
+        <img
           id="video"
-          width="400"
           height="225"
-          controls
-          style="outline: none"
-        >
-          <source
-            src="https://efni.hvitahusid.is/Reykjavik/hverfidMitt/hverfakosning_2019/video/rvk-hverfidmitt-hverfakosning2019-1920x1080-19sek-01.mp4"
-            type="video/mp4"
-          />
-          Þinn vafri styður ekki myndbönd.
-        </video>
+          src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
+        />
+        <img
+          style="margin-left: -119px;"
+          id="video"
+          height="225"
+          src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
+        />
       </div>
     </div>
   </div>
