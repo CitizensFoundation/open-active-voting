@@ -448,8 +448,8 @@ class OavAreaBudget extends OavBaseElement {
         this.selectedItems = [
           ...this.selectedItems
         ];
-        this._addItemToDiv(item);
         this.selectedBudget = this.selectedBudget + item.price;
+        this._addItemToDiv(item);
         this.currentBallot.fire('oav-item-selected-in-budget', { itemId: item.id });
       } else {
         this.currentBallot.fire('oav-error', this.localize('error_does_not_fit_in_budget'));
