@@ -51,7 +51,12 @@ class OavAreaBallot extends PageViewElement {
 
       oldFavoriteItem: Object,
 
-      showMap: Boolean
+      showMap: Boolean,
+
+      leastExpensiveItemPrice: {
+        type: Number,
+        value: 0
+      }
     };
   }
 
@@ -466,6 +471,10 @@ class OavAreaBallot extends PageViewElement {
         budgetBallotItems[i].locations = hashArray;
       } else {
         budgetBallotItems[i].locations = [];
+      }
+
+      if (budgetBallotItems[i].price<this.leastExpensiveItemPrice) {
+        this.leastExpensiveItemPrice = budgetBallotItems[i];
       }
     }
 

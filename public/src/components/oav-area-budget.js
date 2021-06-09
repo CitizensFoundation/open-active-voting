@@ -400,7 +400,8 @@ class OavAreaBudget extends OavBaseElement {
       });
     }
 
-    if (this.toastCounter<1) {
+    if (this.toastCounter<1 ||
+        this.budgetLeft<this.currentBallot.leastExpensiveItemPrice) {
       this.fire('oav-open-favorite-toast');
       this.toastCounter+=1;
     }
