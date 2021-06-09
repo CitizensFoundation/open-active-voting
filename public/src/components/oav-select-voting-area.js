@@ -887,7 +887,7 @@ class OavSelectVotingArea extends PageViewElement {
         >
           <img
             id="imageMap"
-            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/Rvik_kort_9b.png"
+            src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/hverfid_mitt_2016/Rvik_kort_4.png"
             border="0"
             width="882"
             height="597"
