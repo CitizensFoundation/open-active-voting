@@ -9,7 +9,7 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
           height: auto;
           background-color: #fff;
           margin: 24px;
-          margin-top: 0;
+          margin-top: 16px;
           margin-bottom: 24px;
           display: block;
           margin-left: auto;
@@ -85,12 +85,13 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .mobileLogo {
-          width: 320px;
+          width: 280px;
           height: auto;
           margin-left: auto;
           margin-right: auto;
           margin-bottom: 0;
-          padding-bottom:0;
+          padding-bottom: 0;
+          margin-top: 16px;
         }
 
         @media (max-width: 320px) {
@@ -238,37 +239,22 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .merki {
-          width: 230px;
-          margin-top: 32px;
-          margin-left: auto;
-          margin-right: auto;
+          width: 320px;
+          margin-top: 8px;
+          margin-left: 0;
+          margin-right: 0;
           padding: 0;
-          margin-bottom: 24px;
+          margin-bottom: 8px;
         }
       </style>
 
-
-
       <div class="layout vertical center-center" style="display: block">
-        <div  class="layout horizontal center-center">
+        <div class="layout vertical center-center">
           <img
-            class="merki"
-            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
-          />
-          <img
-            style="margin-left:-218px;"
-            class="merki"
-            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
+            class="mobileLogo"
+            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hverfakosning-logo-800x533-01%402x.png"
           />
         </div>
-
-        <div  class="layout vertical center-center">
-          <img
-          class="mobileLogo"
-          src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2018-400x120-logo-2xV3.png"
-            />
-        </div>
-
 
         <div
           style="
@@ -278,8 +264,15 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
       margin-right: auto;
     "
         >
-          <div>
-            <div class="topMaterial shadow-elevation-3dp">
+          <div class="topMaterial shadow-elevation-3dp">
+            <div>
+              <div class="layout horizontal center-center">
+                <img
+                  class="merki"
+                  src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/rvkWaves2.png"
+                />
+              </div>
+
               <div class="selectInfoTextSmaller">
                 ZZZchoose_a_neighbourhood_2ZZZ
               </div>
@@ -571,12 +564,12 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
           margin: 16px 16px 16px 16px;
           display: block;
           position: relative;
-          margin-left: 32px;
+          margin-left: 16px;
         }
 
         .infoImageContainer {
           padding:0;margin:16px;height:225px;
-          margin-left: 42px
+          margin-left: 32px
         }
 
         .imageContainer {
@@ -606,7 +599,7 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .areaOptions {
-          margin-top: 24px;
+          margin-top: 16px;
           background-color: #fff;
           display: block;
           position: relative;
@@ -716,14 +709,15 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .totalVoterIcon {
-          width: 32px;
-          height: 32px;
+          width: 24px;
+          height: 24px;
+          padding-top: 1px;
         }
 
         .totalVoterCount {
-          font-size: 19px;
-          padding-top: 2px;
-          padding-left: 2px;
+          font-size: 17px;
+          padding-bottom: 2px;
+          padding-left: 3px;
         }
 
         .langSelection {
@@ -745,7 +739,8 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .logoHolder {
-          background-color: #013b70;
+          background-color: #fff;
+          padding-top: 4px;
         }
 
         .areaOptions a {
@@ -774,7 +769,7 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
                 <img
                   sizing="contain"
                   class="desktopLogo"
-                  src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2018-400x120-logo-2xV3.png"
+                  src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/rvkWaves2.png"
                 />
               </div>
               <div class="selectInfoTextSmaller">
@@ -806,15 +801,9 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
               style=""
             >
               <img
-                id="video"
                 height="225"
-                src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
-              />
-              <img
-                style="margin-left: -119px;"
-                id="video"
-                height="225"
-                src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/rvkmerki3.png"
+                class="wavesImage"
+                src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/logoThin.png"
               />
             </div>
           </div>

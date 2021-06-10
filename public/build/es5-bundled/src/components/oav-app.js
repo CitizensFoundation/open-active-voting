@@ -41036,7 +41036,7 @@ const OavAppStyles = css`
   app-header[wide-and-ballot] {
     height: var(--app-budget-container-height, 238px);
     width: 100%;
-    background-size: 1920px 238px;
+    background-size: var(--app-budget-background-size, 1920px 238px);
     background-repeat: var(--app-budget-container-background-repeat, no-repeat);
     background-position: center;
     background-position-y: var(--app-budget-background-pos-y, top);
@@ -41118,6 +41118,7 @@ const OavAppStyles = css`
   paper-icon-button.closeButton {
     width: 58px;
     height: 58px;
+    color: var(--app-close-button-color, #fff);
   }
 
   @media (max-width: 640px) {
@@ -41152,9 +41153,14 @@ const OavAppStyles = css`
     color: #fff;
   }
 
+  .helpIconInBudget {
+    color: var(--app-help-icon-color, #fff);
+  }
+
   .helpIconInBudget[select-voting-area] {
     color: var(--app-help-icon-select-area, #000);
   }
+
 
   #helpContent h1 {
     line-height: 1em;
@@ -41227,9 +41233,9 @@ const OavAppStyles = css`
     padding: 0;
     margin: 0;
     margin-top: 8px;
-    max-width: 280px;
-    width: 280px;
-    height: 116px;
+    max-width: var(--app-welcome-logo-max-width, 280px);
+    width: var(--app-welcome-logo-width, 280px);
+    height: var(--app-welcome-logo-height, 116px);
   }
 
   .welcomeLogoContainer {
@@ -42058,7 +42064,7 @@ class OavAreaBallotItem extends OavBaseElement {
           <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.name}</div>
         </div>
         <div class="buttons">
-          <paper-share-button ?hidden="${!this.imageLoaded}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" horizontal-align="left" id="shareButton"
+          <paper-share-button ?hidden="${!this.imageLoaded || this.configFromServer.client_config.hideItemSharing}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" horizontal-align="left" id="shareButton"
             title="${this.localize('share_idea')}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 
@@ -42641,7 +42647,11 @@ class OavAreaBallot extends PageViewElement {
         type: Object
       },
       oldFavoriteItem: Object,
-      showMap: Boolean
+      showMap: Boolean,
+      leastExpensiveItemPrice: {
+        type: Number,
+        value: 0
+      }
     };
   }
 
@@ -43091,6 +43101,10 @@ class OavAreaBallot extends PageViewElement {
         budgetBallotItems[i].locations = hashArray;
       } else {
         budgetBallotItems[i].locations = [];
+      }
+
+      if (this.leastExpensiveItemPrice === undefined || budgetBallotItems[i].price < this.leastExpensiveItemPrice) {
+        this.leastExpensiveItemPrice = budgetBallotItems[i].price;
       }
     }
 
@@ -43650,6 +43664,11 @@ class OavAreaBudget extends OavBaseElement {
       } else {
         this.budgetLeft = 0;
       }
+
+      if (this.totalBudget != this.budgetLeft && (this.toastCounter < 1 || this.budgetLeft < this.currentBallot.leastExpensiveItemPrice)) {
+        this.fire('oav-open-favorite-toast');
+        this.toastCounter += 1;
+      }
     }
   }
 
@@ -43917,11 +43936,6 @@ class OavAreaBudget extends OavBaseElement {
         iterations: 1
       });
     }
-
-    if (this.toastCounter < 1) {
-      this.fire('oav-open-favorite-toast');
-      this.toastCounter += 1;
-    }
   }
 
   _removeItemFromDiv(item) {
@@ -43974,10 +43988,10 @@ class OavAreaBudget extends OavBaseElement {
         this.activity('add', 'vote');
         this.selectedItems.push(item);
         this.selectedItems = [...this.selectedItems];
+        this.selectedBudget = this.selectedBudget + item.price;
 
         this._addItemToDiv(item);
 
-        this.selectedBudget = this.selectedBudget + item.price;
         this.currentBallot.fire('oav-item-selected-in-budget', {
           itemId: item.id
         });
@@ -44288,6 +44302,10 @@ class OavApp extends OavBaseElement {
         type: Boolean,
         value: false
       },
+      haveOpenedWelcome: {
+        type: Boolean,
+        value: false
+      },
       resizeTimer: Object,
       postsHost: String,
       welcomeHeading: String,
@@ -44337,11 +44355,11 @@ class OavApp extends OavBaseElement {
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.welcomeLogo || this.configFromServer.client_config.ballotBudgetLogo}"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
-                  <div class="horizontal welcomeText">
+                  <div class="horizontal welcomeText" ?hidden="${!this.welcomeText}">
                     ${this.welcomeText}
                   </div>
                   <div class="langSelectionText">
@@ -44543,13 +44561,7 @@ class OavApp extends OavBaseElement {
           this.fire('location-changed', path);
         }
 
-        if (this.configFromServer.client_config.welcomeLocales) {
-          setTimeout(() => {
-            if (!localStorage.getItem("haveClsosedWelcome")) {
-              this.$$("#welcomeDialog").open();
-            }
-          });
-        }
+        this.openWelcomeIfNeeded();
       }
 
       window.language = this.language;
@@ -44568,6 +44580,16 @@ class OavApp extends OavBaseElement {
       console.error('Error:', error);
       this.fire('oav-error', 'unknown_error');
     });
+  }
+
+  openWelcomeIfNeeded() {
+    if (this.configFromServer.client_config.welcomeLocales && this._page !== "select-voting-area") {
+      setTimeout(() => {
+        if (!localStorage.getItem("haveClsosedWelcome")) {
+          this.$$("#welcomeDialog").open();
+        }
+      });
+    }
   }
 
   disconnectedCallback() {
@@ -44889,6 +44911,11 @@ class OavApp extends OavBaseElement {
 
       if (page == 'area-ballot' && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
         this.$$("#budgetBallot").refreshList();
+
+        if (!this.haveOpenedWelcome) {
+          this.openWelcomeIfNeeded();
+          this.haveOpenedWelcome = true;
+        }
       } // Reset ballot tab view to list
 
 
