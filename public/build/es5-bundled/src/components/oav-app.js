@@ -41219,7 +41219,8 @@ const OavAppStyles = css`
     text-align: center;
     width: 100%;
     margin: 0 !important;
-      padding: 0 !important;
+    padding: 0 !important;
+    font-family: var(--app-main-font-family,'Roboto',Arial,sans-serif);
   }
 
   .welcomeText {
@@ -41227,6 +41228,7 @@ const OavAppStyles = css`
     max-width: 420px;
     font-size: 15px;
     margin-top: 8px;
+    font-family: var(--app-main-font-family,'Roboto',Arial,sans-serif);
   }
 
   .welcomeLogo {
@@ -41245,11 +41247,12 @@ const OavAppStyles = css`
   }
 
   paper-button.continueButton {
-    background-color: var(--app-accent-color);
+    background-color: var(--app-continue-button-color, var(--app-accent-color));
     color: #fff;
     margin: 8px;
     margin-bottom: 8px;
     font-size: 18px;
+    font-family: var(--app-main-font-family,'Roboto',Arial,sans-serif);
   }
 
   paper-button.generalButton {
