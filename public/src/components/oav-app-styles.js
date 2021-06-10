@@ -74,7 +74,7 @@ export const OavAppStyles = css`
   app-header[wide-and-ballot] {
     height: var(--app-budget-container-height, 238px);
     width: 100%;
-    background-size: 1920px 238px;
+    background-size: var(--app-budget-background-size, 1920px 238px);
     background-repeat: var(--app-budget-container-background-repeat, no-repeat);
     background-position: center;
     background-position-y: var(--app-budget-background-pos-y, top);
@@ -156,6 +156,7 @@ export const OavAppStyles = css`
   paper-icon-button.closeButton {
     width: 58px;
     height: 58px;
+    color: var(--app-close-button-color, #fff);
   }
 
   @media (max-width: 640px) {
@@ -190,9 +191,14 @@ export const OavAppStyles = css`
     color: #fff;
   }
 
+  .helpIconInBudget {
+    color: var(--app-help-icon-color, #fff);
+  }
+
   .helpIconInBudget[select-voting-area] {
     color: var(--app-help-icon-select-area, #000);
   }
+
 
   #helpContent h1 {
     line-height: 1em;
@@ -265,9 +271,9 @@ export const OavAppStyles = css`
     padding: 0;
     margin: 0;
     margin-top: 8px;
-    max-width: 280px;
-    width: 280px;
-    height: 116px;
+    max-width: var(--app-welcome-logo-max-width, 280px);
+    width: var(--app-welcome-logo-width, 280px);
+    height: var(--app-welcome-logo-height, 116px);
   }
 
   .welcomeLogoContainer {

@@ -473,8 +473,8 @@ class OavAreaBallot extends PageViewElement {
         budgetBallotItems[i].locations = [];
       }
 
-      if (budgetBallotItems[i].price<this.leastExpensiveItemPrice) {
-        this.leastExpensiveItemPrice = budgetBallotItems[i];
+      if (this.leastExpensiveItemPrice===undefined || budgetBallotItems[i].price<this.leastExpensiveItemPrice) {
+        this.leastExpensiveItemPrice = budgetBallotItems[i].price;
       }
     }
 

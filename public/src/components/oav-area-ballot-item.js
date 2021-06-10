@@ -159,7 +159,7 @@ class OavAreaBallotItem extends OavBaseElement {
           <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">${this.item.name}</div>
         </div>
         <div class="buttons">
-          <paper-share-button ?hidden="${!this.imageLoaded}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" horizontal-align="left" id="shareButton"
+          <paper-share-button ?hidden="${!this.imageLoaded || this.configFromServer.client_config.hideItemSharing}" ?small="${this.small}" @share-tap="${this._shareTap}" class="shareIcon" horizontal-align="left" id="shareButton"
             title="${this.localize('share_idea')}" facebook twitter popup .url="${this._itemShareUrl()}">
           </paper-share-button>
 

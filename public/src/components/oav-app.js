@@ -105,6 +105,11 @@ class OavApp extends OavBaseElement {
         value: false
       },
 
+      haveOpenedWelcome: {
+        type: Boolean,
+        value: false
+      },
+
       resizeTimer: Object,
 
       postsHost: String,
@@ -168,11 +173,11 @@ class OavApp extends OavBaseElement {
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.welcomeLogo || this.configFromServer.client_config.ballotBudgetLogo}"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
-                  <div class="horizontal welcomeText">
+                  <div class="horizontal welcomeText" ?hidden="${!this.welcomeText}">
                     ${this.welcomeText}
                   </div>
                   <div class="langSelectionText">
@@ -369,13 +374,7 @@ class OavApp extends OavBaseElement {
             this.fire('location-changed', path);
           }
 
-          if (this.configFromServer.client_config.welcomeLocales) {
-            setTimeout( () => {
-              if (!localStorage.getItem("haveClsosedWelcome")) {
-                this.$$("#welcomeDialog").open();
-              }
-            });
-          }
+          this.openWelcomeIfNeeded();
         }
 
         window.language = this.language;
@@ -394,6 +393,16 @@ class OavApp extends OavBaseElement {
         console.error('Error:', error);
         this.fire('oav-error', 'unknown_error');
       });
+  }
+
+  openWelcomeIfNeeded() {
+    if (this.configFromServer.client_config.welcomeLocales && this._page!=="select-voting-area") {
+      setTimeout( () => {
+        if (!localStorage.getItem("haveClsosedWelcome")) {
+          this.$$("#welcomeDialog").open();
+        }
+      });
+    }
   }
 
   disconnectedCallback() {
@@ -714,6 +723,10 @@ class OavApp extends OavBaseElement {
       // Refresh list when returning back to a ballot
       if (page=='area-ballot' && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
         this.$$("#budgetBallot").refreshList();
+        if (!this.haveOpenedWelcome) {
+          this.openWelcomeIfNeeded();
+          this.haveOpenedWelcome = true;
+        }
       }
 
       // Reset ballot tab view to list

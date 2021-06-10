@@ -113,6 +113,13 @@ class OavAreaBudget extends OavBaseElement {
       } else {
         this.budgetLeft = 0;
       }
+
+      if (this.totalBudget!=this.budgetLeft &&
+        (this.toastCounter<1 ||
+        this.budgetLeft<this.currentBallot.leastExpensiveItemPrice)) {
+        this.fire('oav-open-favorite-toast');
+        this.toastCounter+=1;
+      }
     }
   }
 
@@ -398,12 +405,6 @@ class OavAreaBudget extends OavBaseElement {
         duration: 650,
         iterations: 1
       });
-    }
-
-    if (this.toastCounter<1 ||
-        this.budgetLeft<this.currentBallot.leastExpensiveItemPrice) {
-      this.fire('oav-open-favorite-toast');
-      this.toastCounter+=1;
     }
   }
 
