@@ -283,7 +283,7 @@ export const OavAppStyles = css`
   }
 
   paper-button.continueButton {
-    background-color: var(--app-accent-color);
+    background-color: var(--app-continue-button-color, var(--app-accent-color));
     color: #fff;
     margin: 8px;
     margin-bottom: 8px;
