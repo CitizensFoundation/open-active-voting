@@ -41103,7 +41103,8 @@ const OavAppStyles = css`
   }
 
   paper-toast[wide] {
-    font-size: 16px;
+    font-size: 22px;
+    text-align: center;
   }
 
   .title {
@@ -41279,9 +41280,10 @@ const OavAppStyles = css`
     paper-button.continueButton {
       font-size: 16px;
     }
+
     .welcomeLogo {
-      width: 200px;
-      height: 83px;
+      width: var(--app-welcome-logo-mobile-width, 200px);
+      height: var(--app-welcome-logo-mobile-height, 83px);
     }
   }
 
@@ -44261,11 +44263,11 @@ class OavApp extends OavBaseElement {
       },
       favoriteIcon: {
         type: String,
-        value: 'star'
+        value: "star"
       },
       dialogHeading: {
         type: String,
-        value: ''
+        value: ""
       },
       activityHost: {
         type: String,
@@ -44329,7 +44331,13 @@ class OavApp extends OavBaseElement {
       <paper-dialog id="errorDialog">
         <p id="errorText">${this.errorText}</p>
         <div class="buttons">
-          <paper-button class="generalButton" dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
+          <paper-button
+            class="generalButton"
+            dialog-confirm
+            autofocus
+            @click="${this.resetErrorText}"
+            >OK</paper-button
+          >
         </div>
       </paper-dialog>
     `;
@@ -44337,12 +44345,13 @@ class OavApp extends OavBaseElement {
         ${errorDialog}
 
         ${this.configFromServer.client_config.insecureEmailLoginEnabled === true ? html$1`
-            <oav-insecure-email-login
-              .language="${this.language}"
-              .configFromServer="${this.configFromServer}"
-              id="insecureEmailLogin">
-            </oav-insecure-email-login>
-          ` : html$1``}
+                <oav-insecure-email-login
+                  .language="${this.language}"
+                  .configFromServer="${this.configFromServer}"
+                  id="insecureEmailLogin"
+                >
+                </oav-insecure-email-login>
+              ` : html$1``}
         <paper-dialog id="helpDialog">
           <paper-dialog-scrollable>
             <div id="helpContent">
@@ -44350,7 +44359,7 @@ class OavApp extends OavBaseElement {
             </div>
           </paper-dialog-scrollable>
           <div class="buttons">
-            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize('close')}</paper-button>
+            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize("close")}</paper-button>
           </div>
         </paper-dialog>
 
@@ -44362,34 +44371,54 @@ class OavApp extends OavBaseElement {
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
-                  <div class="horizontal welcomeText" ?hidden="${!this.welcomeText}">
-                    ${this.welcomeText}
+                  <div class="horizontal welcomeText" ?hidden="${!this.welcomeText}"
+                    style="text-align: left;"
+                  >
+                    <span hidden>${this.welcomeText}</span>
+                    <div class="layout vertical">
+                      <div>
+                        <ul style="padding-bottom: 4px">
+                          <li style="padding-bottom: 8px">Íbúar Grafarvogs hafa 109 milljónir til ráðstöfunar</li>
+                          <li style="padding-bottom: 8px">Ekki þarf að ráðstafa öllu fjármagninu</li>
+                          <li style="padding-bottom: 8px">Gefðu uppáhalds hugmyndinni þinni stjörnu og hún fær tvöfalt vægi</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
+                  <div style="text-align: center;margin-left:auto;margin-right:auto;font-size:20px;">
+                        <div>Takk fyrir þáttökuna</div>
+                   </div>
+
                   <div class="langSelectionText">
                   ${Object.keys(this.configFromServer.client_config.localeSetup).length > 1 ? html$1`
-                        ${this.configFromServer.client_config.localeSetup.map(lang => {
+                          ${this.configFromServer.client_config.localeSetup.map(lang => {
       return html$1`
-                            <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale === this.language}"
-                              @click="${this.selectLocale}">${lang.language}</span>
-                          `;
+                                <span
+                                  class="langSelect"
+                                  data-locale="${lang.locale}"
+                                  ?is-selected="${lang.locale === this.language}"
+                                  @click="${this.selectLocale}"
+                                  >${lang.language}</span
+                                >
+                              `;
     })}
-                    ` : html$1``}
+                        ` : html$1``}
                  </div>
                 <div class="buttons center-center">
-                  <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
+                  <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize("start")}</paper-button>
                 </div>
               </div>
             </div>
           </paper-dialog-scrollable>
         </paper-dialog>
 
-        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot' && this._page !== 'select-voting-area'}">
+        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== "area-ballot" && this._page !== "select-voting-area"}">
           <app-toolbar class="toolbar-top">
             <div ?hidden="${!this.showExit || !this.wide}" class="layout horizontal exitIconInBudget">
-              <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
+              <paper-icon-button class="closeButton" alt="${this.localize("close")}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
             <div class="helpIconInBudget" ?select-voting-area="${this._page == "select-voting-area"}">
-              <paper-icon-button icon="help-outline" alt="${this.localize('help')}" @click="${this._help}}"></paper-icon-button>
+              <paper-icon-button icon="help-outline" alt="${this.localize("help")}" @click="${this._help}}"></paper-icon-button>
             </div>
             <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
               <oav-area-budget
@@ -44406,46 +44435,52 @@ class OavApp extends OavBaseElement {
           <iron-icon id="favoriteIcon" icon="${this.favoriteIcon}" hidden></iron-icon>
         </app-header>
 
-        <main role="main" class="main-content" ?has-ballot="${this._page == 'area-ballot'}">
-          ${this._page === 'select-voting-area' && this.configFromServer ? html$1`
-            <oav-select-voting-area
-              id="selectVotingArea"
-              .language="${this.language}"
-              .wide="${this.wide}"
-              .configFromServer="${this.configFromServer}"
-              ?active="${this._page === 'select-voting-area'}">
-            </oav-select-voting-area>
-          ` : html$1``}
+        <main role="main" class="main-content" ?has-ballot="${this._page == "area-ballot"}">
+          ${this._page === "select-voting-area" && this.configFromServer ? html$1`
+                  <oav-select-voting-area
+                    id="selectVotingArea"
+                    .language="${this.language}"
+                    .wide="${this.wide}"
+                    .configFromServer="${this.configFromServer}"
+                    ?active="${this._page === "select-voting-area"}"
+                  >
+                  </oav-select-voting-area>
+                ` : html$1``}
           <oav-area-ballot id="budgetBallot"
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
             .areaIdRoutePath="${this._subPath}"
             .configFromServer="${this.configFromServer}"
-            ?hidden="${this._page !== 'area-ballot'}"
+            ?hidden="${this._page !== "area-ballot"}"
             .votePublicKey="${this.votePublicKey}"
-            ?active="${this._page === 'area-ballot'}">
+            ?active="${this._page === "area-ballot"}">
           </oav-area-ballot>
           <oav-voting-completed
             .configFromServer="${this.configFromServer}"
             .language="${this.language}"
-            ?active="${this._page === 'voting-completed'}">
+            ?active="${this._page === "voting-completed"}">
           </oav-voting-completed>
-          ${this._page === 'post' ? html$1`
-            <yp-post
-              .id="post"
-              .budgetElement="${this.budgetElement}"
-              .language="${this.language}"
-              .postId="${this._subPath}"
-              .host="${this.postsHost}">
-            </yp-post>
-          ` : html$1``}
-          <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
+          ${this._page === "post" ? html$1`
+                  <yp-post
+                    .id="post"
+                    .budgetElement="${this.budgetElement}"
+                    .language="${this.language}"
+                    .postId="${this._subPath}"
+                    .host="${this.postsHost}"
+                  >
+                  </yp-post>
+                ` : html$1``}
+          <oav-view404 class="page" ?active="${this._page === "view404"}"></oav-view404>
         </main>
 
-        <paper-toast ?wide="${this.wide}" duration="9500" .text="${this.localize('favorite_info')}" id="toast" @click="${this._closeToast}">
+        <paper-toast
+          horizontal-align="center"
+          ?wide="${this.wide}" duration="9500" .text="${this.localize("favorite_info")}" id="toast" @click="${this._closeToast}">
         </paper-toast>>
-      ` : html$1`${errorDialog}<paper-spinner active class="largeSpinner"></paper-spinner>`}
-    `;
+      ` : html$1`${errorDialog}<paper-spinner
+            active
+            class="largeSpinner"
+          ></paper-spinner>`} `;
   }
 
   constructor() {
@@ -44457,10 +44492,10 @@ class OavApp extends OavBaseElement {
 
     this._boot();
 
-    var name = "locale".replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var name = "locale".replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
     var results = regex.exec(location.search);
-    var language = results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    var language = results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
 
     if (language) {
       this.language = language;
@@ -44505,10 +44540,10 @@ class OavApp extends OavBaseElement {
 
   _boot() {
     fetch("/votes/boot", {
-      credentials: 'same-origin'
+      credentials: "same-origin"
     }).then(res => res.json()).then(response => {
       this.requestInProgress = false;
-      this.language = 'en';
+      this.language = "en";
       this.votePublicKey = response.public_key;
 
       this._setupCustomCss(response.config.client_config);
@@ -44541,7 +44576,7 @@ class OavApp extends OavBaseElement {
         tempImg.src = this.configFromServer.client_config.ballotBudgetLogo;
       }
 
-      ga('create', this.configFromServer.client_config.googleAnalyticsId, 'auto');
+      ga("create", this.configFromServer.client_config.googleAnalyticsId, "auto");
       this.postsHost = "https://yrpri.org";
       this.favoriteIcon = "heart";
       this.oneBallotId = this.configFromServer.client_config.oneBallotId;
@@ -44561,7 +44596,7 @@ class OavApp extends OavBaseElement {
           }
 
           window.history.pushState({}, null, path);
-          this.fire('location-changed', path);
+          this.fire("location-changed", path);
         }
 
         this.openWelcomeIfNeeded();
@@ -44570,7 +44605,7 @@ class OavApp extends OavBaseElement {
       window.language = this.language;
       window.localize = this.localize;
 
-      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page != 'select-voting-area') {
+      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page != "select-voting-area") {
         this.showExit = true;
       } else {
         this.showExit = false;
@@ -44580,15 +44615,15 @@ class OavApp extends OavBaseElement {
         import('./oav-insecure-email-login.js').then(bundle => bundle && bundle.$oavInsecureEmailLogin || {});
       }
     }).catch(error => {
-      console.error('Error:', error);
-      this.fire('oav-error', 'unknown_error');
+      console.error("Error:", error);
+      this.fire("oav-error", "unknown_error");
     });
   }
 
   openWelcomeIfNeeded() {
     if (this.configFromServer.client_config.welcomeLocales && this._page !== "select-voting-area") {
       setTimeout(() => {
-        if (!localStorage.getItem("haveClsosedWelcome")) {
+        if (!localStorage.getItem("haveClsosfdedWelcome")) {
           this.$$("#welcomeDialog").open();
         }
       });
@@ -44600,9 +44635,9 @@ class OavApp extends OavBaseElement {
   }
 
   b64DecodeUnicode(str) {
-    return decodeURIComponent(atob(str).split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    return decodeURIComponent(atob(str).split("").map(function (c) {
+      return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(""));
   }
 
   _setupListeners() {
@@ -44713,13 +44748,13 @@ class OavApp extends OavBaseElement {
         this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top + "px";
         var animation = this.$$("#favoriteIcon").animate([{
           transform: "translateY(" + transformTop + "px) translateX(" + transformLeft + "px)",
-          easing: 'ease-out'
+          easing: "ease-out"
         }, {
           transform: "scale(3)",
-          easing: 'ease-in'
+          easing: "ease-in"
         }, {
           transform: "scale(1)",
-          easing: 'ease-out'
+          easing: "ease-out"
         }], {
           duration: 720,
           iterations: 1
@@ -44767,15 +44802,15 @@ class OavApp extends OavBaseElement {
   }
 
   _exit() {
-    if (this._page === 'post' && window.appLastArea) {
+    if (this._page === "post" && window.appLastArea) {
       window.history.pushState({}, null, window.appLastArea);
-      this.fire('location-changed', window.appLastArea);
+      this.fire("location-changed", window.appLastArea);
       window.appLastArea = null;
     } else {
       window.history.pushState({}, null, "/");
 
       if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML) {
-        this.fire('location-changed', '/select-voting-area');
+        this.fire("location-changed", "/select-voting-area");
       } else {
         window.location = "/";
       }
@@ -44800,8 +44835,8 @@ class OavApp extends OavBaseElement {
         var selectedLanguage = localStorage.getItem("selectedLanguage");
 
         if (selectedLanguage) {
-          this.fire('iron-signal', {
-            name: 'set-language',
+          this.fire("iron-signal", {
+            name: "set-language",
             data: selectedLanguage
           });
         }
@@ -44825,7 +44860,7 @@ class OavApp extends OavBaseElement {
     installMediaQueryWatcher(`(min-width: 460px)`, matches => this._layoutChanged(matches));
     installMediaQueryWatcher(`(min-width: 1024px)`, matches => {
       this.wide = matches;
-      this.wideAndBallot = this.wide && this._page === 'area-ballot';
+      this.wideAndBallot = this.wide && this._page === "area-ballot";
     });
   }
 
@@ -44876,45 +44911,47 @@ class OavApp extends OavBaseElement {
       image: meta.shareImageUrl // This object also takes an image property, that points to an img src.
 
     });
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
+    var link = document.querySelector("link[rel*='icon']") || document.createElement("link");
+    link.type = "image/x-icon";
+    link.rel = "shortcut icon";
     link.href = meta.faviconUrl;
-    document.getElementsByTagName('head')[0].appendChild(link);
+    document.getElementsByTagName("head")[0].appendChild(link);
   }
 
   updated(changedProps) {
-    if (changedProps.has('language')) {
+    if (changedProps.has("language")) {
       this.setupLocaleTexts();
     }
 
-    if (changedProps.has('_page')) {
-      const pageTitle = this.appTitle + ' - ' + this._page;
+    if (changedProps.has("_page")) {
+      const pageTitle = this.appTitle + " - " + this._page;
 
-      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page != 'select-voting-area') {
+      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page != "select-voting-area") {
         this.showExit = true;
       } else {
         this.showExit = false;
       }
 
       const page = this._page;
-      const oldPage = changedProps.get('_page'); // Setup top ballot if needed
+      const oldPage = changedProps.get("_page"); // Setup top ballot if needed
 
-      if (page && page == 'area-ballot') {
+      if (page && page == "area-ballot") {
         this.hideBudget = false;
       } else {
         this.hideBudget = true;
       } // Reset post if needed
 
 
-      if (oldPage == 'post' && this.$$("#post")) {
+      if (oldPage == "post" && this.$$("#post")) {
         this.$$("#post").reset();
       } // Refresh list when returning back to a ballot
 
 
-      if (page == 'area-ballot' && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
+      if (page == "area-ballot" && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
         this.$$("#budgetBallot").refreshList();
+      }
 
+      if (page == 'area-ballot') {
         if (!this.haveOpenedWelcome) {
           this.openWelcomeIfNeeded();
           this.haveOpenedWelcome = true;
@@ -44922,39 +44959,39 @@ class OavApp extends OavBaseElement {
       } // Reset ballot tab view to list
 
 
-      if (oldPage == 'area-ballot' && this.$$("#budgetBallot") && page != 'post') {
+      if (oldPage == "area-ballot" && this.$$("#budgetBallot") && page != "post") {
         this.$$("#budgetBallot").selectedView = 0;
       } // Cancel login polling if needed
 
 
-      if (oldPage == 'area-ballot' && this.$$("#budgetBallot")) {
+      if (oldPage == "area-ballot" && this.$$("#budgetBallot")) {
         this._hideFavoriteItem();
       }
 
       setTimeout(() => {
-        if (page == 'area-ballot' && this.currentBallot && this.currentBallot.favoriteItem) {
+        if (page == "area-ballot" && this.currentBallot && this.currentBallot.favoriteItem) {
           this.$$("#favoriteIcon").hidden = false;
           this.resetFavoriteIconPosition();
         }
       }); // Do not allow access to voting-completed from a reload
 
-      if (page == 'voting-completed' && oldPage != 'area-ballot') {
+      if (page == "voting-completed" && oldPage != "area-ballot") {
         window.location = "/";
       } // Refresh counts if coming from voting-completed
 
 
-      if (oldPage == 'voting-completed' && this.$$("#selectVotingArea")) {
+      if (oldPage == "voting-completed" && this.$$("#selectVotingArea")) {
         this.$$("#selectVotingArea").refreshAreaCounters();
       } // Send page info to Google Analytics
 
 
-      if (page && typeof ga == 'function') {
-        ga('send', 'pageview', {
-          'page': location.pathname + location.search + location.hash
+      if (page && typeof ga == "function") {
+        ga("send", "pageview", {
+          page: location.pathname + location.search + location.hash
         });
       }
 
-      this.wideAndBallot = this.wide && page === 'area-ballot';
+      this.wideAndBallot = this.wide && page === "area-ballot";
     }
   }
 
@@ -44981,7 +45018,7 @@ class OavApp extends OavBaseElement {
     };
 
     if (location.pathname === "/" && this.oneBallotId) {
-      const path = '/area-ballot/' + this.oneBallotId;
+      const path = "/area-ballot/" + this.oneBallotId;
       window.history.pushState({}, null, path);
       location = {
         pathname: path
@@ -44989,31 +45026,31 @@ class OavApp extends OavBaseElement {
     }
 
     const path = window.decodeURIComponent(location.pathname);
-    const page = path === '/' ? '/' : path.slice(1).split("/")[0];
+    const page = path === "/" ? "/" : path.slice(1).split("/")[0];
 
     this._loadPage(page); // Any other info you might want to extract from the path (like page type),
     // you can do here.
 
 
-    if (path.slice(1).split('/')[1]) {
-      this._subPath = path.slice(1).split('/')[1];
+    if (path.slice(1).split("/")[1]) {
+      this._subPath = path.slice(1).split("/")[1];
     }
   }
 
   _loadPage(page) {
     switch (page) {
-      case 'post':
+      case "post":
         import('./yp-post/yp-post.js').then(bundle => bundle && bundle.$ypPost || {});
         break;
 
-      case 'area-ballot':
-      case 'voting-completed':
-      case 'select-voting-area':
-      case '/':
+      case "area-ballot":
+      case "voting-completed":
+      case "select-voting-area":
+      case "/":
         break;
 
       default:
-        page = 'view404';
+        page = "view404";
         import('./oav-view404.js').then(bundle => bundle && bundle.$oavView404 || {});
     }
 
@@ -45030,5 +45067,5 @@ class OavApp extends OavBaseElement {
 
 }
 
-window.customElements.define('oav-app', OavApp);
+window.customElements.define("oav-app", OavApp);
 export { index as $index, error as $error, index$2 as $index$1, parser as $parser, regex_generated as $regexGenerated, types$1 as $types, dateTime as $dateTime, index$1 as $index$2, number as $number, regex_generated$1 as $regexGenerated$1, appLayoutBehavior as $appLayoutBehavior, appScrollEffectsBehavior as $appScrollEffectsBehavior, helpers as $helpers, ironA11yAnnouncer as $ironA11yAnnouncer, ironA11yKeysBehavior as $ironA11yKeysBehavior, ironButtonState as $ironButtonState, ironControlState as $ironControlState, ironCheckedElementBehavior as $ironCheckedElementBehavior, ironFitBehavior as $ironFitBehavior, ironFormElementBehavior as $ironFormElementBehavior, ironJsonpLibrary as $ironJsonpLibrary, ironMenuBehavior as $ironMenuBehavior, ironMenubarBehavior as $ironMenubarBehavior, ironMeta as $ironMeta, ironFocusablesHelper as $ironFocusablesHelper, ironOverlayBehavior as $ironOverlayBehavior, ironOverlayManager as $ironOverlayManager, ironScrollManager as $ironScrollManager, ironResizableBehavior as $ironResizableBehavior, ironScrollTargetBehavior as $ironScrollTargetBehavior, ironMultiSelectable as $ironMultiSelectable, ironSelectable as $ironSelectable, ironSelection as $ironSelection, ironValidatableBehavior as $ironValidatableBehavior, neonAnimatableBehavior as $neonAnimatableBehavior, neonAnimationBehavior as $neonAnimationBehavior, neonAnimationRunnerBehavior as $neonAnimationRunnerBehavior, paperButtonBehavior as $paperButtonBehavior, paperCheckedElementBehavior as $paperCheckedElementBehavior, paperInkyFocusBehavior as $paperInkyFocusBehavior, paperRippleBehavior as $paperRippleBehavior, paperDialogBehavior as $paperDialogBehavior, paperItemBehavior as $paperItemBehavior, paperMenuButton as $paperMenuButton, paperSpinnerBehavior as $paperSpinnerBehavior, arraySelector as $arraySelector, customStyle as $customStyle, domBind as $domBind, domIf as $domIf, domModule as $domModule, domRepeat as $domRepeat, _class as $class, legacyElementMixin as $legacyElementMixin, mutableDataBehavior as $mutableDataBehavior, polymerFn as $polymerFn, polymer_dom as $polymerDom, templatizerBehavior as $templatizerBehavior, dirMixin as $dirMixin, elementMixin as $elementMixin, gestureEventListeners as $gestureEventListeners, mutableData as $mutableData, propertiesChanged as $propertiesChanged, propertiesMixin as $propertiesMixin, propertyAccessors as $propertyAccessors, propertyEffects as $propertyEffects, templateStamp as $templateStamp, arraySplice as $arraySplice, async as $async, caseMap$1 as $caseMap, debounce as $debounce, flattenedNodesObserver as $flattenedNodesObserver, flush$2 as $flush, gestures$1 as $gestures, htmlTag as $htmlTag, mixin as $mixin, path as $path, renderStatus as $renderStatus, resolveUrl$1 as $resolveUrl, settings as $settings, styleGather as $styleGather, telemetry as $telemetry, templatize$1 as $templatize, wrap$2 as $wrap, polymerElement as $polymerElement, polymerLegacy as $polymerLegacy, applyShimUtils as $applyShimUtils, applyShim as $applyShim$1, commonRegex as $commonRegex, commonUtils as $commonUtils, cssParse as $cssParse, customStyleInterface as $customStyleInterface$1, documentWait$1 as $documentWait, styleSettings as $styleSettings, styleUtil as $styleUtil, templateMap$1 as $templateMap, unscopedStyleHandler as $unscopedStyleHandler, index$3 as $index$3, core as $core, error$1 as $error$1, formatters as $formatters, cssTag as $cssTag, decorators as $decorators, updatingElement as $updatingElement, litElement as $litElement, cache$1 as $cache, unsafeHtml as $unsafeHtml, defaultTemplateProcessor$1 as $defaultTemplateProcessor, directive$1 as $directive, dom$1 as $dom, modifyTemplate as $modifyTemplate, part as $part, parts as $parts, render$1 as $render, shadyRender as $shadyRender, templateFactory$1 as $templateFactory, templateInstance as $templateInstance, templateResult as $templateResult, template$b as $template, litHtml as $litHtml, mediaQuery as $mediaQuery, metadata as $metadata, network as $network, router as $router, tslib_es6 as $tslibEs6, fetch$2 as $fetch, ballotEncryptionBehavior as $ballotEncryptionBehavior, oavAppStyles as $oavAppStyles, oavAreaBallotItemStyles as $oavAreaBallotItemStyles, oavAreaBallotMapStyles as $oavAreaBallotMapStyles, oavAreaBallotStyles as $oavAreaBallotStyles, oavAreaBudgetStyles as $oavAreaBudgetStyles, oavBaseElement as $oavBaseElement, oavFlexLayout as $oavFlexLayout, oavShadowStyles as $oavShadowStyles, oavVotingCompletedStyles as $oavVotingCompletedStyles, pageViewElement as $pageViewElement, memoize as $indexDefault, strategies, ErrorKind, parse$1 as parse, TYPE, TYPE as TYPE$1, SKELETON_TYPE, SKELETON_TYPE as SKELETON_TYPE$1, isLiteralElement, isLiteralElement as isLiteralElement$1, isArgumentElement, isArgumentElement as isArgumentElement$1, isNumberElement, isNumberElement as isNumberElement$1, isDateElement, isDateElement as isDateElement$1, isTimeElement, isTimeElement as isTimeElement$1, isSelectElement, isSelectElement as isSelectElement$1, isPluralElement, isPluralElement as isPluralElement$1, isPoundElement, isPoundElement as isPoundElement$1, isTagElement, isTagElement as isTagElement$1, isNumberSkeleton, isNumberSkeleton as isNumberSkeleton$1, isDateTimeSkeleton, isDateTimeSkeleton as isDateTimeSkeleton$1, createLiteralElement, createLiteralElement as createLiteralElement$1, createNumberElement, createNumberElement as createNumberElement$1, Parser, SPACE_SEPARATOR_REGEX, WHITE_SPACE_REGEX, parseDateTimeSkeleton, parseDateTimeSkeleton as parseDateTimeSkeleton$1, parseNumberSkeletonFromString, parseNumberSkeletonFromString as parseNumberSkeletonFromString$1, parseNumberSkeleton, parseNumberSkeleton as parseNumberSkeleton$1, WHITE_SPACE_REGEX$1, AppLayoutBehavior, AppScrollEffectsBehavior, _scrollEffects, _scrollTimer, scrollTimingFunction, registerEffect, queryAllRoot, scroll, IronA11yAnnouncer, IronA11yKeysBehavior, IronButtonStateImpl, IronButtonState, IronControlState, IronCheckedElementBehaviorImpl, IronCheckedElementBehavior, IronFitBehavior, IronFormElementBehavior, IronJsonpLibraryBehavior, IronMenuBehaviorImpl, IronMenuBehavior, IronMenubarBehaviorImpl, IronMenubarBehavior, IronMeta, IronFocusablesHelper, IronOverlayBehaviorImpl, IronOverlayBehavior, IronOverlayManagerClass, IronOverlayManager, currentLockingElement, elementIsScrollLocked, pushScrollLock, removeScrollLock, _lockingElements, _lockedElementCache, _unlockedElementCache, _hasCachedLockedElement, _hasCachedUnlockedElement, _composedTreeContains, _scrollInteractionHandler, _boundScrollHandler, _lockScrollInteractions, _unlockScrollInteractions, _shouldPreventScrolling, _getScrollableNodes, _getScrollingNode, _getScrollInfo, IronResizableBehavior, IronScrollTargetBehavior, IronMultiSelectableBehaviorImpl, IronMultiSelectableBehavior, IronSelectableBehavior, IronSelection, IronValidatableBehaviorMeta, IronValidatableBehavior, NeonAnimatableBehavior, NeonAnimationBehavior, NeonAnimationRunnerBehaviorImpl, NeonAnimationRunnerBehavior, PaperButtonBehaviorImpl, PaperButtonBehavior, PaperCheckedElementBehaviorImpl, PaperCheckedElementBehavior, PaperInkyFocusBehaviorImpl, PaperInkyFocusBehavior, PaperRippleBehavior, PaperDialogBehaviorImpl, PaperDialogBehavior, PaperItemBehaviorImpl, PaperItemBehavior, PaperMenuButton, PaperSpinnerBehavior, ArraySelectorMixin, ArraySelector, CustomStyle, DomBind, DomIf, DomModule, DomRepeat, mixinBehaviors, Class, LegacyElementMixin, MutableDataBehavior, OptionalMutableDataBehavior, Polymer, Polymer as Polymer$1, flush$1, flush$1 as flush, enqueueDebouncer as addDebouncer, enqueueDebouncer as enqueueDebouncer$1, enqueueDebouncer, matchesSelector, EventApi, DomApi, dom, Templatizer, DirMixin, version, version as version$1, ElementMixin, updateStyles, GestureEventListeners, MutableData, OptionalMutableData, PropertiesChanged, PropertiesMixin, PropertyAccessors, PropertyEffects, TemplateStamp, calculateSplices, timeOut, animationFrame, idlePeriod, microTask, dashToCamelCase, camelToDashCase, Debouncer, flushDebouncers, FlattenedNodesObserver, gestures, recognizers, deepTargetFind, addListener, removeListener, register$1 as register, setTouchAction, prevent, resetMouseCanceller, findOriginalTarget, add, remove, html, html as html$2, html as html$3, htmlLiteral, dedupingMixin, isPath, root, isAncestor, isDescendant, translate, matches, normalize, split, get, set, isDeep, flush as flush$2, beforeNextRender, afterNextRender, resolveUrl, resolveCss, pathFromUrl, useShadow, useNativeCSSProperties, useNativeCustomElements, rootPath, setRootPath, sanitizeDOMValue, setSanitizeDOMValue, passiveTouchGestures, setPassiveTouchGestures, strictTemplatePolicy, setStrictTemplatePolicy, allowTemplateFromDomModule, setAllowTemplateFromDomModule, legacyOptimizations, setLegacyOptimizations, syncInitialRender, setSyncInitialRender, stylesFromModules, stylesFromModule, stylesFromTemplate, stylesFromModuleImports, cssFromModules, cssFromModule, cssFromTemplate, cssFromModuleImports, instanceCount, incrementInstanceCount, registrations, register as register$1, dumpRegistrations, templatize, modelForElement, TemplateInstanceBase, wrap$1 as wrap, PolymerElement, Base, invalidate, invalidateTemplate, isValid, templateIsValid, isValidating, templateIsValidating, startValidating, startValidatingTemplate, elementsAreInvalid, ApplyShim as $applyShimDefault, VAR_ASSIGN, MIXIN_MATCH, VAR_CONSUMED, ANIMATION_MATCH, MEDIA_MATCH, IS_VAR, BRACKETED, HOST_PREFIX, HOST_SUFFIX, updateNativeProperties, getComputedStyleValue, detectMixin, StyleNode, parse as parse$1, stringify, removeCustomPropAssignment, types, CustomStyleProvider, CustomStyleInterface as $customStyleInterfaceDefault, CustomStyleInterfaceInterface, documentWait as $documentWaitDefault, nativeShadow, cssBuild, disableRuntime, nativeCssVariables, toCssText, rulesForStyle, isKeyframesSelector, forEachRule, applyCss, createScopeStyle, applyStylePlaceHolder, applyStyle, isTargetedBuild, findMatchingParen, processVariableAndFallback, setElementClassRaw, wrap as wrap$1, getIsExtends, gatherStyleText, splitSelectorList, getCssBuild, elementHasBuiltCss, getBuildComment, isOptimalCssBuild, templateMap as $templateMapDefault, scopingAttribute, processUnscopedStyle, isUnscopedStyle, PART_TYPE, PART_TYPE as PART_TYPE$1, isFormatXMLElementFn, isFormatXMLElementFn as isFormatXMLElementFn$1, formatToParts, formatToParts as formatToParts$1, IntlMessageFormat, IntlMessageFormat as IntlMessageFormat$1, ErrorCode, ErrorCode as ErrorCode$1, FormatError, FormatError as FormatError$1, InvalidValueError, InvalidValueError as InvalidValueError$1, InvalidValueTypeError, InvalidValueTypeError as InvalidValueTypeError$1, MissingValueError, MissingValueError as MissingValueError$1, IntlMessageFormat as $indexDefault$1, supportsAdoptingStyleSheets, supportsAdoptingStyleSheets as supportsAdoptingStyleSheets$1, CSSResult, CSSResult as CSSResult$1, unsafeCSS, unsafeCSS as unsafeCSS$1, css as css$1, css, customElement, customElement as customElement$1, property, property as property$1, internalProperty, internalProperty as internalProperty$1, state, state as state$1, query, query as query$1, queryAsync, queryAsync as queryAsync$1, queryAll, queryAll as queryAll$1, eventOptions, eventOptions as eventOptions$1, queryAssignedNodes, queryAssignedNodes as queryAssignedNodes$1, defaultConverter, defaultConverter as defaultConverter$1, notEqual, notEqual as notEqual$1, UpdatingElement, UpdatingElement as UpdatingElement$1, UpdatingElement as ReactiveElement, html$1, html$1 as html$4, html$1 as html$5, svg, svg as svg$1, svg as svg$2, TemplateResult, TemplateResult as TemplateResult$1, TemplateResult as TemplateResult$2, TemplateResult as TemplateResult$3, SVGTemplateResult, SVGTemplateResult as SVGTemplateResult$1, SVGTemplateResult as SVGTemplateResult$2, LitElement, cache, unsafeHTML, DefaultTemplateProcessor, DefaultTemplateProcessor as DefaultTemplateProcessor$1, defaultTemplateProcessor, defaultTemplateProcessor as defaultTemplateProcessor$1, directive, directive as directive$1, isDirective, isDirective as isDirective$1, isCEPolyfill, reparentNodes, reparentNodes as reparentNodes$1, removeNodes, removeNodes as removeNodes$1, removeNodesFromTemplate, insertNodeIntoTemplate, noChange, noChange as noChange$1, nothing, nothing as nothing$1, isPrimitive$1 as isPrimitive, isPrimitive$1, isIterable, isIterable as isIterable$1, AttributeCommitter, AttributeCommitter as AttributeCommitter$1, AttributePart, AttributePart as AttributePart$1, NodePart, NodePart as NodePart$1, BooleanAttributePart, BooleanAttributePart as BooleanAttributePart$1, PropertyCommitter, PropertyCommitter as PropertyCommitter$1, PropertyPart, PropertyPart as PropertyPart$1, EventPart, EventPart as EventPart$1, parts$1 as parts, parts$1, render, render as render$2, shadyTemplateFactory, render$2 as render$1, templateFactory, templateFactory as templateFactory$1, templateCaches, templateCaches as templateCaches$1, TemplateInstance, TemplateInstance as TemplateInstance$1, marker, nodeMarker, markerRegex, boundAttributeSuffix, Template, Template as Template$1, isTemplatePartActive, isTemplatePartActive as isTemplatePartActive$1, createMarker, createMarker as createMarker$1, lastAttributeNameRegex, installMediaQueryWatcher, updateMetadata, setMetaTag, installOfflineWatcher, installRouter, __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __spreadArray, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet, Headers, Request, Response, DOMException, fetch$1 as fetch, encryptVote, OavAppStyles, OavAreaBallotItemStyles, OavBallotMapStyles, OavAreaBallotStyles, OavAreaBudgetStyles, OavBaseElement, OavFlexLayout, OavShadowStyles, OavAreaVotingCompletedStyles, PageViewElement };

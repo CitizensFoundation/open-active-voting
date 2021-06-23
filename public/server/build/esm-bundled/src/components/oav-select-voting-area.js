@@ -568,8 +568,10 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
         }
 
         .infoImageContainer {
-          padding:0;margin:16px;height:225px;
-          margin-left: 32px
+          padding: 0;
+          margin: 16px;
+          height: 225px;
+          margin-left: 32px;
         }
 
         .imageContainer {
@@ -610,73 +612,74 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
 
         .voteNumberForVesturbaer {
           position: absolute;
-          top: 244px;
-          right: 746px;
-          color: #727477;
+          top: 308px;
+          right: 800px;
+          color: #103d6b;
         }
 
         .voteNumberForMidborg {
           position: absolute;
-          top: 356px;
-          right: 662px;
-          color: #296d80;
+          top: 406px;
+          left: 133px;
+          color: #1a6eb5;
         }
 
         .voteNumberForHlidar {
           position: absolute;
-          top: 196px;
-          right: 516px;
-          color: #806b2c;
+          top: 426px;
+          left: 245px;
+          color: #1c6f82;
         }
 
         .voteNumberForHaaleiti {
           position: absolute;
-          top: 332px;
-          left: 546px;
-          color: #80475a;
+          top: 457px;
+          left: 373px;
+          color: #ea6044;
         }
 
         .voteNumberForLaugardalur {
           position: absolute;
-          top: 160px;
-          right: 444px;
-          color: #013b70;
+          top: 124px;
+          left: 279px;
+          color: #82495c;
         }
 
         .voteNumberForBreidholt {
           position: absolute;
-          bottom: 22px;
-          left: 648px;
-          color: #6c1118;
+          bottom: 44px;
+          left: 375px;
+          color: #1a6eb5;
         }
 
         .voteNumberForArbaer {
           position: absolute;
-          bottom: 110px;
-          left: 728px;
-          color: #0a662b;
+          bottom: 55px;
+          left: 710px;
+          color: #103d6b;
         }
 
         .voteNumberForGrafarvogur {
           position: absolute;
-          top: 175px;
-          left: 620px;
-          color: #d8222f;
+          top: 75px;
+          left: 600px;
+          color: #1c6f82;
           direction: ltr;
         }
 
         .voteNumberForGrafarholt {
           position: absolute;
-          bottom: 138px;
-          left: 765px;
-          color: #805737;
+          bottom: 105px;
+          left: 795px;
+          color: #82495c;
+          text-align: right;
         }
 
         .voteNumberForKjalarnes {
           position: absolute;
-          top: 32px;
-          right: 358px;
-          color: #525e7f;
+          top: 30px;
+          right: 392px;
+          color: #ea6044;
         }
 
         .voteNumberGeneral {
@@ -813,109 +816,92 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
           class="areaOptions shadow-elevation-6dp layout vertical center-center"
         >
           <img
-            id="imageMap"
-            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2021/Rvik_kort_9b.png"
-            border="0"
+            src="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/Reykjavik_hverfi_5litir_1764px.png"
             width="882"
-            height="597"
-            orgWidth="686"
-            orgHeight="550"
-            usemap="#image-maps-2016-08-04-135857"
-            alt=""
+            height="602"
+            usemap="#image-map"
           />
-          <map
-            name="image-maps-2016-08-04-135857"
-            id="ImageMapsCom-image-maps-2016-08-04-135857"
-          >
+
+          <map name="image-map">
             <area
+              target=""
               alt="Árbær"
               title="Árbær"
               href="/area-ballot/1"
+              coords="483,379,488,335,508,314,572,315,648,332,672,348,678,366,676,386,672,434,676,455,691,475,706,490,712,502,714,515,708,527,698,532,661,539,637,529,630,504,632,473,610,441,575,422,533,410,498,397,487,389"
               shape="poly"
-              coords="555,376,580,368,607,363,623,364,634,364,644,370,694,404,697,427,698,442,700,463,703,473,712,484,729,502,733,515,735,527,701,543,686,543,670,533,668,522,667,512,666,493,661,479,643,460,629,454,621,449,598,437,584,434,569,430,557,425,549,421,541,416,541,404,541,389"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Breiðholt"
               title="Breiðholt"
               href="/area-ballot/2"
+              coords="482,402,462,426,456,449,444,477,428,488,410,498,405,515,415,536,456,579,484,588,510,580,528,564,576,544,585,516,612,476,613,460,596,444,562,426"
               shape="poly"
-              coords="530,429,516,482,506,493,495,500,485,505,479,509,477,518,481,529,487,543,496,554,509,567,523,577,535,582,549,582,558,579,566,575,573,571,581,567,586,564,597,559,608,557,615,553,617,548,621,537,625,527,629,520,632,513,640,506,645,498,650,488,650,477,647,467,634,461,613,448,585,438,560,431,545,425"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Grafarholt og Úlfarsdalur"
               title="Grafarholt og Úlfarsdalur"
               href="/area-ballot/3"
+              coords="688,336,714,318,728,299,760,220,776,214,790,222,818,262,827,276,861,320,870,342,860,380,856,393,850,424,839,434,817,438,790,424,757,418,696,426,687,421,692,388"
               shape="poly"
-              coords="773,268,766,285,762,299,758,309,754,320,748,334,744,345,736,355,727,363,719,367,716,372,715,382,722,391,730,401,741,403,750,406,760,407,781,408,788,409,817,423,831,424,845,423,851,415,857,407,863,396,866,386,865,371,863,358,856,346,844,333,838,322,827,310,821,295,812,282,802,271,794,267,784,265"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Grafarvogur"
               title="Grafarvogur"
               href="/area-ballot/4"
+              coords="711,142,756,115,772,111,775,131,750,180,746,201,743,226,730,266,716,293,703,312,678,323,648,324,625,317,603,309,572,309,536,305,520,298,509,276,510,254,519,232,546,199,539,170,554,148,575,137,594,138,640,121,672,125,687,139"
               shape="poly"
-              coords="596,259,590,239,594,226,604,217,614,213,625,211,642,209,656,205,675,199,688,199,700,202,712,207,731,213,772,188,787,189,786,209,766,257,763,278,761,289,744,332,727,355,707,368,697,371,679,369,648,358,595,325,589,316,584,306,581,291"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Háaleiti og Bústaðir"
               title="Háaleiti og Bústaðir"
               href="/area-ballot/5"
+              coords="303,388,306,301,312,272,322,258,336,247,348,247,358,252,368,260,380,274,394,297,408,315,466,338,471,347,472,367,466,397,459,410,440,420,415,420,355,406"
               shape="poly"
-              coords="411,299,405,306,402,315,397,327,394,337,391,349,390,359,389,371,390,384,390,398,388,411,391,420,400,422,486,445,511,444,524,435,530,420,534,396,533,384,529,377,485,356,468,339,446,307,440,298,426,296"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Hlíðar"
               title="Hlíðar"
               href="/area-ballot/6"
+              coords="211,367,222,351,218,319,214,294,219,275,228,260,236,248,244,236,249,224,258,225,315,248,313,254,305,264,300,282,295,302,294,315,294,352,296,388,277,388,229,381"
               shape="poly"
-              coords="353,247,364,243,375,241,388,240,402,240,411,246,412,257,413,270,412,285,410,290,408,299,404,303,399,311,395,318,391,327,389,336,389,347,387,355,388,366,386,377,386,391,386,411,383,415,315,403,318,395,324,384,325,372,324,359,321,348,320,328,321,318,328,307,335,298,342,291,340,279"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Kjalarnes"
               title="Kjalarnes"
               href="/area-ballot/7"
+              coords="466,2,461,17,475,24,499,30,516,38,521,53,519,73,521,88,529,97,542,94,552,82,562,70,579,54,594,44,608,46,624,45,636,46,650,34,660,16,664,0"
               shape="poly"
-              coords="526,1,525,12,533,20,543,20,556,23,564,28,571,39,567,53,570,70,583,76,596,68,630,38,661,39,676,24,684,0"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Laugardalur"
               title="Laugardalur"
               href="/area-ballot/8"
+              coords="253,188,307,193,319,190,333,178,336,164,338,149,347,134,377,129,403,122,427,131,439,144,439,158,437,168,439,179,455,171,472,167,489,180,501,206,499,240,491,265,485,287,471,309,461,314,445,314,433,312,419,310,409,298,382,262,361,240,346,237,332,237,321,239,302,228,282,222,264,218,250,212"
               shape="poly"
-              coords="414,290,415,283,416,276,416,263,414,251,411,238,421,212,430,206,443,202,483,196,494,200,509,222,503,233,512,239,521,234,533,234,553,254,556,272,557,291,553,309,548,328,540,341,531,349,520,357,504,358,489,354,476,343,463,326,455,313,448,303,433,294"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Miðborg"
               title="Miðborg"
               href="/area-ballot/9"
+              coords="124,314,148,290,161,261,162,241,155,222,157,196,162,169,167,150,178,152,187,159,192,150,204,152,216,164,242,192,244,206,240,220,236,233,230,244,221,250,213,260,207,272,206,279,205,296,208,318,212,354,205,363,188,368,176,369,166,358,156,338,140,341,128,334,120,323"
               shape="poly"
-              coords="281,215,270,249,272,278,276,293,276,305,271,318,262,330,255,342,245,349,240,357,245,366,258,376,269,380,283,397,298,402,313,397,319,392,320,380,317,354,315,334,317,316,321,309,332,298,342,283,347,263,347,254,346,250,311,218,295,220"
-              style="outline: none"
-              target="_self"
             />
             <area
+              target=""
               alt="Vesturbær"
               title="Vesturbær"
               href="/area-ballot/10"
+              coords="16,159,41,133,62,140,102,144,130,126,125,114,130,99,152,92,156,80,169,72,187,76,187,107,151,133,164,136,158,159,148,177,148,196,148,217,152,242,152,263,138,285,122,300,114,312,104,294,104,278,90,252,88,230,81,216,66,212,56,194,34,188,17,181"
               shape="poly"
-              coords="153,227,177,205,213,213,238,209,249,199,244,189,246,181,254,174,261,171,267,166,275,159,279,153,290,152,301,158,298,184,271,204,281,213,276,222,270,238,269,261,273,286,273,305,268,315,259,328,249,339,241,350,235,352,231,349,229,334,222,318,217,303,212,284,188,260"
-              style="outline: none"
-              target="_self"
             />
           </map>
           <a href="/area-ballot/1" class="voteNumberForArbaer">
@@ -993,4 +979,4 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
     `}renderText(){if(this.hasLoadedCss){return html`${unsafeHTML(this.setupHTMLText(this.getText()))}`}else{return html``}}getText(){return`
 
 
-    `}setupHTMLText(text){text=this.b64DecodeUnicode(text);return this.replaceInHTMLText(text)}replaceInHTMLText(text){var _Mathfloor=Math.floor;this.configFromServer.areas.forEach(area=>{let voterCount=0;if(this.configFromServer.area_voter_count&&this.configFromServer.area_voter_count[area.id]){voterCount=this.configFromServer.area_voter_count[area.id]}voterCount=_Mathfloor(4e3*Math.random())+350;text=text.replace("ZZZareaCount"+area.id+"ZZZ",this.formatNumber(voterCount))});let totalVoteCount=this.configFromServer.total_voter_count;totalVoteCount=5*(_Mathfloor(4e3*Math.random())+350);text=text.replace(/ZZZtotalVoterCountZZZ/g,this.formatNumber(totalVoteCount));text=text.replace("ZZZmainInfoTextZZZ",this.localize("mainInfo"));text=text.replace("ZZZchoose_a_neighbourhood_2ZZZ",this.localize("choose_a_neighbourhood_2"));text=text.replace("ZZZselectAreaTextZZZ",this.localize("selectAreaInfo"));text=text.replace(/ZZZnumber_of_votersZZZ/g,this.localize("number_of_voters"));return text}setupEvents(){if(this.$$("#video"))this.$$("#video").addEventListener("playing",this._videoPlaying);this.$$("#languageSelection").addEventListener("click",this._languageSelection.bind(this));this.shadowRoot.querySelectorAll("a,area").forEach(node=>{const splitHref=node.href.split("/"),areaId=splitHref[splitHref.length-1];node.addEventListener("click",()=>{this._goToAreaId(areaId)});node.removeAttribute("href");node.style.cursor="pointer"})}_goToAreaId(areaId){const path="/area-ballot/"+areaId;window.history.pushState({},null,path);this.fire("location-changed",path)}removeEvents(){if(this.$$("#video"))this.$$("#video").removeEventListener("playing",this._videoPlaying);this.$$("#languageSelection").removeEventListener("click",this._languageSelection.bind(this));this.shadowRoot.querySelectorAll("a,area").forEach(node=>{node.removeEventListener("click",()=>{this._goToAreaId(null)})})}firstUpdated(){super.firstUpdated()}updated(update){super.updated(update);if(update.has("configFromServer")&&this.configFromServer){this.hasLoadedCss=!0;this.setupEvents();const selectedLanguageDiv=this.$$("#"+this.language+"Language");if(selectedLanguageDiv){selectedLanguageDiv.classList.add("selectedLanguage")}}}_languageSelection(event){this.$$("#languageSelection").removeEventListener("click",this._languageSelection.bind(this));this.language=event.target.id.split("Language")[0];this.fire("oav-set-locale",this.language);setTimeout(()=>{this.requestUpdate();this.$$("#languageSelection").addEventListener("click",this._languageSelection.bind(this))})}disconnectedCallback(){this.removeEvents();super.disconnectedCallback()}}window.customElements.define("oav-select-voting-area",OavSelectVotingArea);
+    `}setupHTMLText(text){text=this.b64DecodeUnicode(text);return this.replaceInHTMLText(text)}replaceInHTMLText(text){var _Mathfloor=Math.floor;this.configFromServer.areas.forEach(area=>{let voterCount=0;if(this.configFromServer.area_voter_count&&this.configFromServer.area_voter_count[area.id]){voterCount=this.configFromServer.area_voter_count[area.id]}voterCount=_Mathfloor(1e3*Math.random())+1;text=text.replace("ZZZareaCount"+area.id+"ZZZ",this.formatNumber(voterCount))});let totalVoteCount=this.configFromServer.total_voter_count;totalVoteCount=5*(_Mathfloor(1e3*Math.random())+5);text=text.replace(/ZZZtotalVoterCountZZZ/g,this.formatNumber(totalVoteCount));text=text.replace("ZZZmainInfoTextZZZ",this.localize("mainInfo"));text=text.replace("ZZZchoose_a_neighbourhood_2ZZZ",this.localize("choose_a_neighbourhood_2"));text=text.replace("ZZZselectAreaTextZZZ",this.localize("selectAreaInfo"));text=text.replace(/ZZZnumber_of_votersZZZ/g,this.localize("number_of_voters"));return text}setupEvents(){if(this.$$("#video"))this.$$("#video").addEventListener("playing",this._videoPlaying);this.$$("#languageSelection").addEventListener("click",this._languageSelection.bind(this));this.shadowRoot.querySelectorAll("a,area").forEach(node=>{const splitHref=node.href.split("/"),areaId=splitHref[splitHref.length-1];node.addEventListener("click",()=>{this._goToAreaId(areaId)});node.removeAttribute("href");node.style.cursor="pointer"})}_goToAreaId(areaId){const path="/area-ballot/"+areaId;window.history.pushState({},null,path);this.fire("location-changed",path)}removeEvents(){if(this.$$("#video"))this.$$("#video").removeEventListener("playing",this._videoPlaying);this.$$("#languageSelection").removeEventListener("click",this._languageSelection.bind(this));this.shadowRoot.querySelectorAll("a,area").forEach(node=>{node.removeEventListener("click",()=>{this._goToAreaId(null)})})}firstUpdated(){super.firstUpdated()}updated(update){super.updated(update);if(update.has("configFromServer")&&this.configFromServer){this.hasLoadedCss=!0;this.setupEvents();const selectedLanguageDiv=this.$$("#"+this.language+"Language");if(selectedLanguageDiv){selectedLanguageDiv.classList.add("selectedLanguage")}}}_languageSelection(event){this.$$("#languageSelection").removeEventListener("click",this._languageSelection.bind(this));this.language=event.target.id.split("Language")[0];this.fire("oav-set-locale",this.language);setTimeout(()=>{this.requestUpdate();this.$$("#languageSelection").addEventListener("click",this._languageSelection.bind(this))})}disconnectedCallback(){this.removeEvents();super.disconnectedCallback()}}window.customElements.define("oav-select-voting-area",OavSelectVotingArea);

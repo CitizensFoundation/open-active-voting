@@ -710,7 +710,7 @@ class OavSelectVotingArea extends PageViewElement {
         .voteNumberForBreidholt {
           position: absolute;
           bottom: 44px;
-          left: 375px;
+          left: 370px;
           color: #1a6eb5;
         }
 
@@ -1071,7 +1071,7 @@ class OavSelectVotingArea extends PageViewElement {
         voterCount = this.configFromServer.area_voter_count[area.id];
       }
 
-      voterCount = Math.floor(Math.random() * 1000) + 1;
+      voterCount = Math.floor(Math.random() * 4000) + 50;
       text = text.replace(
         "ZZZareaCount" + area.id + "ZZZ",
         this.formatNumber(voterCount)
@@ -1080,7 +1080,7 @@ class OavSelectVotingArea extends PageViewElement {
 
     let totalVoteCount = this.configFromServer.total_voter_count;
 
-    totalVoteCount = 5 * (Math.floor(Math.random() * 1000) + 5);
+    totalVoteCount = 5 * (Math.floor(Math.random() * 4000) + 400);
 
     text = text.replace(
       /ZZZtotalVoterCountZZZ/g,
