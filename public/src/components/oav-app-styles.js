@@ -317,9 +317,10 @@ export const OavAppStyles = css`
     paper-button.continueButton {
       font-size: 16px;
     }
+
     .welcomeLogo {
-      width: 200px;
-      height: 83px;
+      width: var(--app-welcome-logo-mobile-width, 200px);
+      height: var(--app-welcome-logo-mobile-height, 83px);
     }
   }
 

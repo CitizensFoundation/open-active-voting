@@ -3,33 +3,33 @@
 Copyright (c) 2010-2019 Citizens Foundation. AGPL License. All rights reserved.
 */
 
-import { LitElement, html, css } from 'lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { LitElement, html, css } from "lit-element";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
-import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js';
-import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
-import { installOfflineWatcher } from 'pwa-helpers/network.js';
-import { installRouter } from 'pwa-helpers/router.js';
-import { updateMetadata } from 'pwa-helpers/metadata.js';
-import 'whatwg-fetch';
+import { setPassiveTouchGestures } from "@polymer/polymer/lib/utils/settings.js";
+import { installMediaQueryWatcher } from "pwa-helpers/media-query.js";
+import { installOfflineWatcher } from "pwa-helpers/network.js";
+import { installRouter } from "pwa-helpers/router.js";
+import { updateMetadata } from "pwa-helpers/metadata.js";
+import "whatwg-fetch";
 
 // These are the elements needed by this element.
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/paper-dialog/paper-dialog.js';
-import '@polymer/paper-spinner/paper-spinner.js';
-import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
-import '@polymer/paper-toast/paper-toast.js';
-import './oav-icons.js';
-import './oav-area-ballot';
-import './oav-area-budget';
-import './oav-voting-completed';
+import "@polymer/app-layout/app-drawer/app-drawer.js";
+import "@polymer/app-layout/app-header/app-header.js";
+import "@polymer/app-layout/app-scroll-effects/effects/waterfall.js";
+import "@polymer/paper-icon-button/paper-icon-button.js";
+import "@polymer/paper-dialog/paper-dialog.js";
+import "@polymer/paper-spinner/paper-spinner.js";
+import "@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js";
+import "@polymer/paper-toast/paper-toast.js";
+import "./oav-icons.js";
+import "./oav-area-ballot";
+import "./oav-area-budget";
+import "./oav-voting-completed";
 
-import { OavAppStyles } from './oav-app-styles.js';
-import { OavBaseElement } from './oav-base-element.js';
-import { OavFlexLayout } from './oav-flex-layout.js';
+import { OavAppStyles } from "./oav-app-styles.js";
+import { OavBaseElement } from "./oav-base-element.js";
+import { OavFlexLayout } from "./oav-flex-layout.js";
 
 class OavApp extends OavBaseElement {
   static get properties() {
@@ -46,50 +46,50 @@ class OavApp extends OavBaseElement {
 
       favoriteIcon: {
         type: String,
-        value: 'star'
+        value: "star",
       },
 
       dialogHeading: {
         type: String,
-        value: ''
+        value: "",
       },
 
       activityHost: {
         type: String,
-        value: ""
+        value: "",
       },
 
       setupDefaults: {
         type: Boolean,
-        value: false
+        value: false,
       },
 
       votePublicKey: {
-        type: String
+        type: String,
       },
 
       configFromServer: {
         type: Object,
-        value: null
+        value: null,
       },
 
       requestInProgress: {
-       type: Boolean,
-       value: false
+        type: Boolean,
+        value: false,
       },
 
       title: {
-        type: String
+        type: String,
       },
 
       showExit: {
         type: Boolean,
-        value: false
+        value: false,
       },
 
       hideBudget: {
         type: Boolean,
-        value: true
+        value: true,
       },
 
       areaName: String,
@@ -102,12 +102,12 @@ class OavApp extends OavBaseElement {
 
       haveSetLanguage: {
         type: Boolean,
-        value: false
+        value: false,
       },
 
       haveOpenedWelcome: {
         type: Boolean,
-        value: false
+        value: false,
       },
 
       resizeTimer: Object,
@@ -124,15 +124,12 @@ class OavApp extends OavBaseElement {
 
       errorText: String,
 
-      languageOveride: String
+      languageOveride: String,
     };
   }
 
   static get styles() {
-    return [
-      OavAppStyles,
-      OavFlexLayout
-    ];
+    return [OavAppStyles, OavFlexLayout];
   }
 
   render() {
@@ -140,23 +137,31 @@ class OavApp extends OavBaseElement {
       <paper-dialog id="errorDialog">
         <p id="errorText">${this.errorText}</p>
         <div class="buttons">
-          <paper-button class="generalButton" dialog-confirm autofocus @click="${this.resetErrorText}">OK</paper-button>
+          <paper-button
+            class="generalButton"
+            dialog-confirm
+            autofocus
+            @click="${this.resetErrorText}"
+            >OK</paper-button
+          >
         </div>
       </paper-dialog>
-    `
-    return  html`${this.configFromServer ?
-      html`
+    `;
+    return html`${this.configFromServer
+      ? html`
         ${errorDialog}
 
-        ${this.configFromServer.client_config.insecureEmailLoginEnabled===true ?
-          html`
-            <oav-insecure-email-login
-              .language="${this.language}"
-              .configFromServer="${this.configFromServer}"
-              id="insecureEmailLogin">
-            </oav-insecure-email-login>
-          ` :
-          html``
+        ${
+          this.configFromServer.client_config.insecureEmailLoginEnabled === true
+            ? html`
+                <oav-insecure-email-login
+                  .language="${this.language}"
+                  .configFromServer="${this.configFromServer}"
+                  id="insecureEmailLogin"
+                >
+                </oav-insecure-email-login>
+              `
+            : html``
         }
         <paper-dialog id="helpDialog">
           <paper-dialog-scrollable>
@@ -165,7 +170,9 @@ class OavApp extends OavBaseElement {
             </div>
           </paper-dialog-scrollable>
           <div class="buttons">
-            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize('close')}</paper-button>
+            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize(
+              "close"
+            )}</paper-button>
           </div>
         </paper-dialog>
 
@@ -173,42 +180,90 @@ class OavApp extends OavBaseElement {
           <paper-dialog-scrollable>
             <div class="vertical center-center">
               <div class="welcomeLogoContainer center-center">
-                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${this.configFromServer.client_config.welcomeLogo || this.configFromServer.client_config.ballotBudgetLogo}"></img>
+                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${
+                  this.configFromServer.client_config.welcomeLogo ||
+                  this.configFromServer.client_config.ballotBudgetLogo
+                }"></img>
               </div>
               <div class="vertical center-center welcomeDialog">
                 <div class="heading">${this.welcomeHeading}</div>
-                  <div class="horizontal welcomeText" ?hidden="${!this.welcomeText}">
-                    ${this.welcomeText}
+                  <div class="horizontal welcomeText" ?hidden="${!this
+                    .welcomeText}"
+                    style="text-align: left;"
+                  >
+                    <span hidden>${this.welcomeText}</span>
+                    <div class="layout vertical">
+                      <div>
+                        <ul style="padding-bottom: 4px">
+                          <li style="padding-bottom: 8px">Íbúar Grafarvogs hafa 109 milljónir til ráðstöfunar</li>
+                          <li style="padding-bottom: 8px">Ekki þarf að ráðstafa öllu fjármagninu</li>
+                          <li style="padding-bottom: 8px">Gefðu uppáhalds hugmyndinni þinni stjörnu og hún fær tvöfalt vægi</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
+                  <div style="text-align: center;margin-left:auto;margin-right:auto;font-size:20px;">
+                        <div>Takk fyrir þáttökuna</div>
+                   </div>
+
                   <div class="langSelectionText">
-                  ${Object.keys(this.configFromServer.client_config.localeSetup).length>1 ?
-                    html`
-                        ${this.configFromServer.client_config.localeSetup.map((lang) => {
-                          return html`
-                            <span class="langSelect" data-locale="${lang.locale}" ?is-selected="${lang.locale===this.language}"
-                              @click="${this.selectLocale}">${lang.language}</span>
-                          `
-                        })}
-                    `
-                     : html``}
+                  ${
+                    Object.keys(this.configFromServer.client_config.localeSetup)
+                      .length > 1
+                      ? html`
+                          ${this.configFromServer.client_config.localeSetup.map(
+                            (lang) => {
+                              return html`
+                                <span
+                                  class="langSelect"
+                                  data-locale="${lang.locale}"
+                                  ?is-selected="${lang.locale ===
+                                  this.language}"
+                                  @click="${this.selectLocale}"
+                                  >${lang.language}</span
+                                >
+                              `;
+                            }
+                          )}
+                        `
+                      : html``
+                  }
                  </div>
                 <div class="buttons center-center">
-                  <paper-button raised class="continueButton" @click="${this.closeWelcome}" dialog-dismiss autofocus>${this.localize('start')}</paper-button>
+                  <paper-button raised class="continueButton" @click="${
+                    this.closeWelcome
+                  }" dialog-dismiss autofocus>${this.localize(
+          "start"
+        )}</paper-button>
                 </div>
               </div>
             </div>
           </paper-dialog-scrollable>
         </paper-dialog>
 
-        <app-header fixed effects="waterfall" ?wide-and-ballot="${this.wideAndBallot}" ?hidden="${this._page !== 'area-ballot' && this._page !== 'select-voting-area'}">
+        <app-header fixed effects="waterfall" ?wide-and-ballot="${
+          this.wideAndBallot
+        }" ?hidden="${
+          this._page !== "area-ballot" && this._page !== "select-voting-area"
+        }">
           <app-toolbar class="toolbar-top">
-            <div ?hidden="${(!this.showExit || !this.wide)}" class="layout horizontal exitIconInBudget">
-              <paper-icon-button class="closeButton" alt="${this.localize('close')}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
+            <div ?hidden="${
+              !this.showExit || !this.wide
+            }" class="layout horizontal exitIconInBudget">
+              <paper-icon-button class="closeButton" alt="${this.localize(
+                "close"
+              )}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
-            <div class="helpIconInBudget" ?select-voting-area="${this._page=="select-voting-area"}">
-              <paper-icon-button icon="help-outline" alt="${this.localize('help')}" @click="${this._help}}"></paper-icon-button>
+            <div class="helpIconInBudget" ?select-voting-area="${
+              this._page == "select-voting-area"
+            }">
+              <paper-icon-button icon="help-outline" alt="${this.localize(
+                "help"
+              )}" @click="${this._help}}"></paper-icon-button>
             </div>
-            <div class="budgetConstainer layout horizontal center-center" ?hidden="${this.hideBudget}">
+            <div class="budgetConstainer layout horizontal center-center" ?hidden="${
+              this.hideBudget
+            }">
               <oav-area-budget
                 id="budget"
                 .areaName="${this.areaName}"
@@ -220,65 +275,88 @@ class OavApp extends OavBaseElement {
               </oav-area-budget>
             </div>
           </app-toolbar>
-          <iron-icon id="favoriteIcon" icon="${this.favoriteIcon}" hidden></iron-icon>
+          <iron-icon id="favoriteIcon" icon="${
+            this.favoriteIcon
+          }" hidden></iron-icon>
         </app-header>
 
-        <main role="main" class="main-content" ?has-ballot="${this._page == 'area-ballot'}">
-          ${(this._page === 'select-voting-area' && this.configFromServer) ? html`
-            <oav-select-voting-area
-              id="selectVotingArea"
-              .language="${this.language}"
-              .wide="${this.wide}"
-              .configFromServer="${this.configFromServer}"
-              ?active="${this._page === 'select-voting-area'}">
-            </oav-select-voting-area>
-          ` : html``}
+        <main role="main" class="main-content" ?has-ballot="${
+          this._page == "area-ballot"
+        }">
+          ${
+            this._page === "select-voting-area" && this.configFromServer
+              ? html`
+                  <oav-select-voting-area
+                    id="selectVotingArea"
+                    .language="${this.language}"
+                    .wide="${this.wide}"
+                    .configFromServer="${this.configFromServer}"
+                    ?active="${this._page === "select-voting-area"}"
+                  >
+                  </oav-select-voting-area>
+                `
+              : html``
+          }
           <oav-area-ballot id="budgetBallot"
             .budgetElement="${this.budgetElement}"
             .language="${this.language}"
             .areaIdRoutePath="${this._subPath}"
             .configFromServer="${this.configFromServer}"
-            ?hidden="${this._page !== 'area-ballot'}"
+            ?hidden="${this._page !== "area-ballot"}"
             .votePublicKey="${this.votePublicKey}"
-            ?active="${this._page === 'area-ballot'}">
+            ?active="${this._page === "area-ballot"}">
           </oav-area-ballot>
           <oav-voting-completed
             .configFromServer="${this.configFromServer}"
             .language="${this.language}"
-            ?active="${this._page === 'voting-completed'}">
+            ?active="${this._page === "voting-completed"}">
           </oav-voting-completed>
-          ${ this._page === 'post' ? html`
-            <yp-post
-              .id="post"
-              .budgetElement="${this.budgetElement}"
-              .language="${this.language}"
-              .postId="${this._subPath}"
-              .host="${this.postsHost}">
-            </yp-post>
-          ` : html``}
-          <oav-view404 class="page" ?active="${this._page === 'view404'}"></oav-view404>
+          ${
+            this._page === "post"
+              ? html`
+                  <yp-post
+                    .id="post"
+                    .budgetElement="${this.budgetElement}"
+                    .language="${this.language}"
+                    .postId="${this._subPath}"
+                    .host="${this.postsHost}"
+                  >
+                  </yp-post>
+                `
+              : html``
+          }
+          <oav-view404 class="page" ?active="${
+            this._page === "view404"
+          }"></oav-view404>
         </main>
 
-        <paper-toast ?wide="${this.wide}" duration="9500" .text="${this.localize('favorite_info')}" id="toast" @click="${this._closeToast}">
+        <paper-toast ?wide="${
+          this.wide
+        }" duration="9500" .text="${this.localize(
+          "favorite_info"
+        )}" id="toast" @click="${this._closeToast}">
         </paper-toast>>
       `
-      :
-      html`${errorDialog}<paper-spinner active class="largeSpinner"></paper-spinner>`
-      }
-    `;
+      : html`${errorDialog}<paper-spinner
+            active
+            class="largeSpinner"
+          ></paper-spinner>`} `;
   }
 
   constructor() {
     window.__localizationCache = {
       messages: {},
-    }
+    };
     super();
     setPassiveTouchGestures(true);
     this._boot();
-    var name = "locale".replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var name = "locale".replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
     var results = regex.exec(location.search);
-    var language = results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    var language =
+      results === null
+        ? null
+        : decodeURIComponent(results[1].replace(/\+/g, " "));
     if (language) {
       this.language = language;
       localStorage.setItem("languageOverride", language);
@@ -287,15 +365,15 @@ class OavApp extends OavBaseElement {
 
   _setupCustomCss(config) {
     if (config.cssProperties) {
-      config.cssProperties.forEach(property => {
+      config.cssProperties.forEach((property) => {
         const propName = Object.keys(property)[0];
-        const values = Object.keys(property).map(function(e) {
+        const values = Object.keys(property).map(function (e) {
           return property[e];
         });
         const propValue = values[0];
         this.shadowRoot.host.style.setProperty(propName, propValue);
         if (window.ShadyCSS) {
-          window.ShadyCSS.styleSubtree((this), property);
+          window.ShadyCSS.styleSubtree(this, property);
         }
       });
     }
@@ -310,8 +388,8 @@ class OavApp extends OavBaseElement {
     if (this.language != event.target.dataset.locale) {
       this.language = event.target.dataset.locale;
       localStorage.setItem("languageOverride", this.language);
-      if (this._page==="area-ballot" && this.currentBallot) {
-        setTimeout( () => {
+      if (this._page === "area-ballot" && this.currentBallot) {
+        setTimeout(() => {
           this.currentBallot.loadArea();
         }, 10);
       }
@@ -319,11 +397,11 @@ class OavApp extends OavBaseElement {
   }
 
   _boot() {
-    fetch("/votes/boot", { credentials: 'same-origin' })
-      .then(res => res.json())
-      .then(response => {
-        this.requestInProgress= false;
-        this.language = 'en';
+    fetch("/votes/boot", { credentials: "same-origin" })
+      .then((res) => res.json())
+      .then((response) => {
+        this.requestInProgress = false;
+        this.language = "en";
         this.votePublicKey = response.public_key;
         this._setupCustomCss(response.config.client_config);
         window.localeResources = response.config.client_config.locales;
@@ -341,19 +419,25 @@ class OavApp extends OavBaseElement {
           this.setupLocaleTexts();
         }
 
-        import('./oav-select-voting-area');
+        import("./oav-select-voting-area");
         this.updateAppMeta(this.configFromServer.client_config.shareMetaData);
         if (this.configFromServer.client_config.pageTitle) {
           document.title = this.configFromServer.client_config.pageTitle;
         }
 
-        if (this.configFromServer.client_config.welcomeLocales &&
-            this.configFromServer.client_config.ballotBudgetLogo) {
-          const tempImg = new Image()
-          tempImg.src= this.configFromServer.client_config.ballotBudgetLogo;
+        if (
+          this.configFromServer.client_config.welcomeLocales &&
+          this.configFromServer.client_config.ballotBudgetLogo
+        ) {
+          const tempImg = new Image();
+          tempImg.src = this.configFromServer.client_config.ballotBudgetLogo;
         }
 
-        ga('create',this.configFromServer.client_config.googleAnalyticsId, 'auto');
+        ga(
+          "create",
+          this.configFromServer.client_config.googleAnalyticsId,
+          "auto"
+        );
         this.postsHost = "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
@@ -362,16 +446,18 @@ class OavApp extends OavBaseElement {
           this.favoriteIcon = this.configFromServer.client_config.favoriteIcon;
         }
 
-        if (!(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)) {
-          if (this._page!=="area-ballot") {
+        if (
+          !(location.href.indexOf("completePostingOfVoteAfterRedirect") > -1)
+        ) {
+          if (this._page !== "area-ballot") {
             let path;
             if (this.oneBallotId) {
-              path = "/area-ballot/"+this.oneBallotId;
+              path = "/area-ballot/" + this.oneBallotId;
             } else {
               path = "/select-voting-area";
             }
             window.history.pushState({}, null, path);
-            this.fire('location-changed', path);
+            this.fire("location-changed", path);
           }
 
           this.openWelcomeIfNeeded();
@@ -379,26 +465,36 @@ class OavApp extends OavBaseElement {
 
         window.language = this.language;
         window.localize = this.localize;
-        if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
+        if (
+          this.configFromServer &&
+          this.configFromServer.client_config.selectVotingAreaDesktopHTML &&
+          this._page &&
+          this._page != "select-voting-area"
+        ) {
           this.showExit = true;
         } else {
           this.showExit = false;
         }
 
-        if (this.configFromServer.client_config.insecureEmailLoginEnabled===true) {
-          import('./oav-insecure-email-login.js');
+        if (
+          this.configFromServer.client_config.insecureEmailLoginEnabled === true
+        ) {
+          import("./oav-insecure-email-login.js");
         }
       })
-      .catch(error => {
-        console.error('Error:', error);
-        this.fire('oav-error', 'unknown_error');
+      .catch((error) => {
+        console.error("Error:", error);
+        this.fire("oav-error", "unknown_error");
       });
   }
 
   openWelcomeIfNeeded() {
-    if (this.configFromServer.client_config.welcomeLocales && this._page!=="select-voting-area") {
-      setTimeout( () => {
-        if (!localStorage.getItem("haveClsosedWelcome")) {
+    if (
+      this.configFromServer.client_config.welcomeLocales &&
+      this._page !== "select-voting-area"
+    ) {
+      setTimeout(() => {
+        if (!localStorage.getItem("haveClsosfdedWelcome")) {
           this.$$("#welcomeDialog").open();
         }
       });
@@ -410,9 +506,14 @@ class OavApp extends OavBaseElement {
   }
 
   b64DecodeUnicode(str) {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    return decodeURIComponent(
+      atob(str)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
   }
 
   _setupListeners() {
@@ -421,16 +522,25 @@ class OavApp extends OavBaseElement {
     this.addEventListener("oav-error", this._errorHandler);
     this.addEventListener("oav-set-area", this._setArea);
     this.addEventListener("oav-clear-area", this._clearArea);
-    this.addEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.addEventListener(
+      "oav-set-favorite-item-in-budget",
+      this._toggleFavoriteItem
+    );
     this.addEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
-    this.addEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
+    this.addEventListener(
+      "oav-reset-favorite-icon-position",
+      this.resetFavoriteIconPosition
+    );
     this.addEventListener("oav-open-favorite-toast", this._openFavoriteToast);
     this.addEventListener("oav-exit", this._exit);
     this.addEventListener("oav-open-help", this._help);
     this.addEventListener("oav-set-locale", this.setLocale);
     this.addEventListener("oav-set-ballot-element", this._setBallotElement);
     this.addEventListener("oav-set-budget-element", this._setBudgetElement);
-    this.addEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    this.addEventListener(
+      "oav-scroll-item-into-view",
+      this._scrollItemIntoView
+    );
     this.addEventListener("oav-insecure-email-login", this._insecureEmailLogin);
 
     this.addEventListener("location-changed", this._locationChanged);
@@ -453,18 +563,33 @@ class OavApp extends OavBaseElement {
     this.removeEventListener("oav-clear-area", this._clearArea);
     this.removeEventListener("oav-set-area", this._setArea);
     this.removeEventListener("location-changed", this._locationChanged);
-    this.removeEventListener("oav-open-favorite-toast", this._openFavoriteToast);
-    this.removeEventListener("oav-set-favorite-item-in-budget", this._toggleFavoriteItem);
+    this.removeEventListener(
+      "oav-open-favorite-toast",
+      this._openFavoriteToast
+    );
+    this.removeEventListener(
+      "oav-set-favorite-item-in-budget",
+      this._toggleFavoriteItem
+    );
     this.removeEventListener("oav-hide-favorite-item", this._hideFavoriteItem);
-    this.removeEventListener("oav-reset-favorite-icon-position", this.resetFavoriteIconPosition);
+    this.removeEventListener(
+      "oav-reset-favorite-icon-position",
+      this.resetFavoriteIconPosition
+    );
     this.removeEventListener("oav-exit", this._exit);
     this.removeEventListener("oav-set-locale", this.setLocale);
     this.removeEventListener("oav-set-ballot-element", this._setBallotElement);
     this.removeEventListener("oav-set-budget-element", this._setBudgetElement);
     this.removeEventListener("oav-open-help", this._help);
-    this.removeEventListener("oav-scroll-item-into-view", this._scrollItemIntoView);
+    this.removeEventListener(
+      "oav-scroll-item-into-view",
+      this._scrollItemIntoView
+    );
     window.removeEventListener("resize", this.resetSizeWithDelay);
-    this.removeEventListener("oav-insecure-email-login", this._insecureEmailLogin);
+    this.removeEventListener(
+      "oav-insecure-email-login",
+      this._insecureEmailLogin
+    );
   }
 
   _closeToast() {
@@ -486,11 +611,15 @@ class OavApp extends OavBaseElement {
   }
 
   _insecureEmailLogin(event) {
-    this.$$("#insecureEmailLogin").open(event.detail.areaId, event.detail.areaName, event.detail.onLoginFunction);
+    this.$$("#insecureEmailLogin").open(
+      event.detail.areaId,
+      event.detail.areaName,
+      event.detail.onLoginFunction
+    );
   }
 
   _toggleFavoriteItem(event) {
-    setTimeout(()=>{
+    setTimeout(() => {
       this._closeToast();
     }, 1000);
 
@@ -500,46 +629,59 @@ class OavApp extends OavBaseElement {
       setTimeout(() => {
         var transformLeft, transformTop;
 
-        if (this.$$("#favoriteIcon").hidden===true) {
+        if (this.$$("#favoriteIcon").hidden === true) {
           this.$$("#favoriteIcon").style.position = "absolute";
-          this.$$("#favoriteIcon").style.left = detail.orgAnimPos.left+"px";
-          this.$$("#favoriteIcon").style.top = detail.orgAnimPos.top+"px";
+          this.$$("#favoriteIcon").style.left = detail.orgAnimPos.left + "px";
+          this.$$("#favoriteIcon").style.top = detail.orgAnimPos.top + "px";
 
-          transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
-          transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+          transformLeft = detail.orgAnimPos.left - detail.budgetAnimPos.left;
+          transformTop = detail.orgAnimPos.top - detail.budgetAnimPos.top;
         } else {
-          var oldBudgetAnimPos = this.currentBallot.oldFavoriteItem ? this.budgetElement.getItemLeftTop(this.currentBallot.oldFavoriteItem) : null;
+          var oldBudgetAnimPos = this.currentBallot.oldFavoriteItem
+            ? this.budgetElement.getItemLeftTop(
+                this.currentBallot.oldFavoriteItem
+              )
+            : null;
           if (oldBudgetAnimPos) {
-            transformLeft = oldBudgetAnimPos.left-detail.budgetAnimPos.left;
-            transformTop = oldBudgetAnimPos.top-detail.budgetAnimPos.top;
+            transformLeft = oldBudgetAnimPos.left - detail.budgetAnimPos.left;
+            transformTop = oldBudgetAnimPos.top - detail.budgetAnimPos.top;
           } else {
             console.warn("Can't find old item");
-            transformLeft = detail.orgAnimPos.left-detail.budgetAnimPos.left;
-            transformTop = detail.orgAnimPos.top-detail.budgetAnimPos.top;
+            transformLeft = detail.orgAnimPos.left - detail.budgetAnimPos.left;
+            transformTop = detail.orgAnimPos.top - detail.budgetAnimPos.top;
           }
         }
 
         this.$$("#favoriteIcon").hidden = false;
 
         this.$$("#favoriteIcon").style.position = "absolute";
-        this.$$("#favoriteIcon").style.left = detail.budgetAnimPos.left+"px";
-        this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top+"px";
-        var animation = this.$$("#favoriteIcon").animate([
+        this.$$("#favoriteIcon").style.left = detail.budgetAnimPos.left + "px";
+        this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top + "px";
+        var animation = this.$$("#favoriteIcon").animate(
+          [
+            {
+              transform:
+                "translateY(" +
+                transformTop +
+                "px) translateX(" +
+                transformLeft +
+                "px)",
+              easing: "ease-out",
+            },
+            { transform: "scale(3)", easing: "ease-in" },
+            { transform: "scale(1)", easing: "ease-out" },
+          ],
           {
-            transform: "translateY("+transformTop+"px) translateX("+transformLeft+"px)",
-            easing: 'ease-out'
-          },
-          { transform: "scale(3)",  easing: 'ease-in' },
-          { transform: "scale(1)", easing: 'ease-out' }
-        ], {
-          duration: 720,
-          iterations: 1
-        });
+            duration: 720,
+            iterations: 1,
+          }
+        );
 
         animation.onfinish = function () {
           this.$$("#favoriteIcon").style.position = "absolute";
-          this.$$("#favoriteIcon").style.left = detail.budgetAnimPos.left+"px";
-          this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top+"px";
+          this.$$("#favoriteIcon").style.left =
+            detail.budgetAnimPos.left + "px";
+          this.$$("#favoriteIcon").style.top = detail.budgetAnimPos.top + "px";
         }.bind(this);
       });
     }
@@ -547,10 +689,12 @@ class OavApp extends OavBaseElement {
 
   resetFavoriteIconPosition() {
     if (this.$$("#budgetBallot").favoriteItem) {
-      const pos = this.$$("#budget").getItemLeftTop(this.$$("#budgetBallot").favoriteItem);
+      const pos = this.$$("#budget").getItemLeftTop(
+        this.$$("#budgetBallot").favoriteItem
+      );
       if (pos) {
-        this.$$("#favoriteIcon").style.left = pos.left+"px";
-        this.$$("#favoriteIcon").style.top = pos.top+"px";
+        this.$$("#favoriteIcon").style.left = pos.left + "px";
+        this.$$("#favoriteIcon").style.top = pos.top + "px";
       } else {
         console.error("Can't find position of favorite item");
       }
@@ -576,16 +720,19 @@ class OavApp extends OavBaseElement {
     this.$$("#errorDialog").open();
   }
 
-  _exit () {
-    if (this._page==='post' && window.appLastArea) {
+  _exit() {
+    if (this._page === "post" && window.appLastArea) {
       window.history.pushState({}, null, window.appLastArea);
-      this.fire('location-changed', window.appLastArea);
+      this.fire("location-changed", window.appLastArea);
       window.appLastArea = null;
     } else {
       window.history.pushState({}, null, "/");
 
-      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML) {
-        this.fire('location-changed', '/select-voting-area');
+      if (
+        this.configFromServer &&
+        this.configFromServer.client_config.selectVotingAreaDesktopHTML
+      ) {
+        this.fire("location-changed", "/select-voting-area");
       } else {
         window.location = "/";
       }
@@ -606,10 +753,13 @@ class OavApp extends OavBaseElement {
   _translationLoaded() {
     if (!this.haveSetLanguage) {
       this.haveSetLanguage = true;
-      if (typeof(Storage) !== "undefined") {
+      if (typeof Storage !== "undefined") {
         var selectedLanguage = localStorage.getItem("selectedLanguage");
         if (selectedLanguage) {
-          this.fire('iron-signal', {name: 'set-language', data: selectedLanguage});
+          this.fire("iron-signal", {
+            name: "set-language",
+            data: selectedLanguage,
+          });
         }
       }
     }
@@ -620,50 +770,56 @@ class OavApp extends OavBaseElement {
   }
 
   getDialog(name) {
-    return this.$$("#"+name);
+    return this.$$("#" + name);
   }
 
   firstUpdated() {
     this._setupListeners();
     installRouter((location) => this._locationChanged(location));
     installOfflineWatcher((offline) => this._offlineChanged(offline));
-    installMediaQueryWatcher(`(min-width: 460px)`,
-        (matches) => this._layoutChanged(matches));
-    installMediaQueryWatcher(`(min-width: 1024px)`,
-        (matches) => {
-          this.wide = matches;
-          this.wideAndBallot = this.wide && this._page==='area-ballot';
-        });
-
+    installMediaQueryWatcher(`(min-width: 460px)`, (matches) =>
+      this._layoutChanged(matches)
+    );
+    installMediaQueryWatcher(`(min-width: 1024px)`, (matches) => {
+      this.wide = matches;
+      this.wideAndBallot = this.wide && this._page === "area-ballot";
+    });
   }
 
   getHelpContent() {
     if (this.configFromServer.client_config.helpPageLocales[this.language]) {
-      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales[this.language].b64text);
+      return this.b64DecodeUnicode(
+        this.configFromServer.client_config.helpPageLocales[this.language]
+          .b64text
+      );
     } else if (this.configFromServer.client_config.helpPageLocales["en"]) {
-      return this.b64DecodeUnicode(this.configFromServer.client_config.helpPageLocales["en"].b64text)
+      return this.b64DecodeUnicode(
+        this.configFromServer.client_config.helpPageLocales["en"].b64text
+      );
     } else {
-      return "No help page found for selected language!"
+      return "No help page found for selected language!";
     }
   }
 
   getWelcomeHeading() {
     if (this.configFromServer.client_config.welcomeLocales[this.language]) {
-      return this.configFromServer.client_config.welcomeLocales[this.language].heading;
+      return this.configFromServer.client_config.welcomeLocales[this.language]
+        .heading;
     } else if (this.configFromServer.client_config.welcomeLocales["en"]) {
-      return this.configFromServer.client_config.welcomeLocales["en"].heading
+      return this.configFromServer.client_config.welcomeLocales["en"].heading;
     } else {
-      return "No heading found"
+      return "No heading found";
     }
   }
 
   getWelcomeText() {
     if (this.configFromServer.client_config.welcomeLocales[this.language]) {
-      return this.configFromServer.client_config.welcomeLocales[this.language].text;
+      return this.configFromServer.client_config.welcomeLocales[this.language]
+        .text;
     } else if (this.configFromServer.client_config.welcomeLocales["en"]) {
-      return this.configFromServer.client_config.welcomeLocales["en"].text
+      return this.configFromServer.client_config.welcomeLocales["en"].text;
     } else {
-      return "No heading found"
+      return "No heading found";
     }
   }
 
@@ -680,49 +836,63 @@ class OavApp extends OavBaseElement {
     updateMetadata({
       title: meta.title,
       description: meta.description,
-      image: meta.shareImageUrl
+      image: meta.shareImageUrl,
       // This object also takes an image property, that points to an img src.
     });
 
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
+    var link =
+      document.querySelector("link[rel*='icon']") ||
+      document.createElement("link");
+    link.type = "image/x-icon";
+    link.rel = "shortcut icon";
     link.href = meta.faviconUrl;
-    document.getElementsByTagName('head')[0].appendChild(link);
+    document.getElementsByTagName("head")[0].appendChild(link);
   }
 
   updated(changedProps) {
-    if (changedProps.has('language')) {
+    if (changedProps.has("language")) {
       this.setupLocaleTexts();
     }
 
-    if (changedProps.has('_page')) {
-      const pageTitle = this.appTitle + ' - ' + this._page;
+    if (changedProps.has("_page")) {
+      const pageTitle = this.appTitle + " - " + this._page;
 
-      if (this.configFromServer && this.configFromServer.client_config.selectVotingAreaDesktopHTML && this._page && this._page!='select-voting-area') {
+      if (
+        this.configFromServer &&
+        this.configFromServer.client_config.selectVotingAreaDesktopHTML &&
+        this._page &&
+        this._page != "select-voting-area"
+      ) {
         this.showExit = true;
       } else {
         this.showExit = false;
       }
 
       const page = this._page;
-      const oldPage = changedProps.get('_page');
+      const oldPage = changedProps.get("_page");
 
       // Setup top ballot if needed
-      if (page && page=='area-ballot') {
+      if (page && page == "area-ballot") {
         this.hideBudget = false;
       } else {
         this.hideBudget = true;
       }
 
       // Reset post if needed
-      if (oldPage=='post' && this.$$("#post")) {
+      if (oldPage == "post" && this.$$("#post")) {
         this.$$("#post").reset();
       }
 
       // Refresh list when returning back to a ballot
-      if (page=='area-ballot' && this.$$("#budgetBallot") && this.$$("#budgetBallot").refreshList) {
+      if (
+        page == "area-ballot" &&
+        this.$$("#budgetBallot") &&
+        this.$$("#budgetBallot").refreshList
+      ) {
         this.$$("#budgetBallot").refreshList();
+      }
+
+      if (page=='area-ballot') {
         if (!this.haveOpenedWelcome) {
           this.openWelcomeIfNeeded();
           this.haveOpenedWelcome = true;
@@ -730,45 +900,52 @@ class OavApp extends OavBaseElement {
       }
 
       // Reset ballot tab view to list
-      if (oldPage=='area-ballot' && this.$$("#budgetBallot") && page!='post') {
+      if (
+        oldPage == "area-ballot" &&
+        this.$$("#budgetBallot") &&
+        page != "post"
+      ) {
         this.$$("#budgetBallot").selectedView = 0;
       }
 
       // Cancel login polling if needed
-      if (oldPage=='area-ballot' && this.$$("#budgetBallot")) {
+      if (oldPage == "area-ballot" && this.$$("#budgetBallot")) {
         this._hideFavoriteItem();
       }
 
       setTimeout(() => {
-        if (page=='area-ballot' && this.currentBallot && this.currentBallot.favoriteItem) {
+        if (
+          page == "area-ballot" &&
+          this.currentBallot &&
+          this.currentBallot.favoriteItem
+        ) {
           this.$$("#favoriteIcon").hidden = false;
           this.resetFavoriteIconPosition();
         }
       });
 
       // Do not allow access to voting-completed from a reload
-      if (page=='voting-completed' && oldPage!='area-ballot') {
+      if (page == "voting-completed" && oldPage != "area-ballot") {
         window.location = "/";
       }
 
       // Refresh counts if coming from voting-completed
-      if (oldPage=='voting-completed' && this.$$("#selectVotingArea")) {
+      if (oldPage == "voting-completed" && this.$$("#selectVotingArea")) {
         this.$$("#selectVotingArea").refreshAreaCounters();
       }
 
       // Send page info to Google Analytics
-      if (page && typeof ga == 'function') {
-        ga('send', 'pageview', {
-          'page': location.pathname + location.search  + location.hash
+      if (page && typeof ga == "function") {
+        ga("send", "pageview", {
+          page: location.pathname + location.search + location.hash,
         });
       }
 
-      this.wideAndBallot = this.wide && page==='area-ballot';
+      this.wideAndBallot = this.wide && page === "area-ballot";
     }
   }
 
-  _layoutChanged(isWideLayout) {
-  }
+  _layoutChanged(isWideLayout) {}
 
   _offlineChanged(offline) {
     const previousOffline = this._offline;
@@ -781,43 +958,45 @@ class OavApp extends OavBaseElement {
 
     clearTimeout(this.__snackbarTimer);
     this._snackbarOpened = true;
-    this.__snackbarTimer = setTimeout(() => { this._snackbarOpened = false }, 3000);
+    this.__snackbarTimer = setTimeout(() => {
+      this._snackbarOpened = false;
+    }, 3000);
   }
 
   _locationChanged(location) {
     if (location instanceof CustomEvent)
       location = { pathname: location.detail };
 
-    if (location.pathname==="/" && this.oneBallotId) {
-      const path = '/area-ballot/'+this.oneBallotId;
+    if (location.pathname === "/" && this.oneBallotId) {
+      const path = "/area-ballot/" + this.oneBallotId;
       window.history.pushState({}, null, path);
       location = { pathname: path };
     }
 
     const path = window.decodeURIComponent(location.pathname);
-    const page = path === '/' ? '/' : path.slice(1).split("/")[0];
+    const page = path === "/" ? "/" : path.slice(1).split("/")[0];
 
     this._loadPage(page);
     // Any other info you might want to extract from the path (like page type),
     // you can do here.
-    if (path.slice(1).split('/')[1]) {
-      this._subPath = path.slice(1).split('/')[1];
+    if (path.slice(1).split("/")[1]) {
+      this._subPath = path.slice(1).split("/")[1];
     }
   }
 
   _loadPage(page) {
-    switch(page) {
-      case 'post':
-        import('./yp-post/yp-post.js');
+    switch (page) {
+      case "post":
+        import("./yp-post/yp-post.js");
         break;
-      case 'area-ballot':
-      case 'voting-completed':
-      case 'select-voting-area':
-      case '/':
+      case "area-ballot":
+      case "voting-completed":
+      case "select-voting-area":
+      case "/":
         break;
       default:
-        page = 'view404';
-        import('./oav-view404.js');
+        page = "view404";
+        import("./oav-view404.js");
     }
 
     this._page = page;
@@ -832,4 +1011,4 @@ class OavApp extends OavBaseElement {
   }
 }
 
-window.customElements.define('oav-app', OavApp);
+window.customElements.define("oav-app", OavApp);
