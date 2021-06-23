@@ -330,7 +330,9 @@ class OavApp extends OavBaseElement {
           }"></oav-view404>
         </main>
 
-        <paper-toast ?wide="${
+        <paper-toast
+          horizontal-align="center"
+          ?wide="${
           this.wide
         }" duration="9500" .text="${this.localize(
           "favorite_info"
