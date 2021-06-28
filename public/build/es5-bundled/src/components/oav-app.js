@@ -41400,11 +41400,12 @@ class OavBaseElement extends LitElement {
     }
   }
 
-  formatNumber(value, currencyIcon) {
+  formatNumber(value, currencyIcon, numberSeperator) {
     if (!currencyIcon) currencyIcon = "";
+    if (!numberSeperator) numberSeperator = ",";
 
     if (value) {
-      return currencyIcon + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return currencyIcon + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, numberSeperator);
     } else {
       return currencyIcon + "0";
     }
@@ -41760,7 +41761,7 @@ const OavAreaBallotItemStyles = css`
     bottom: 12px;
     left: 12px;
     background-color: var(--app-favorite-button-background-color, var(--app-accent-color, #F00));
-    color: var(--app-ballot-item-button-color, #fff);
+    color: var(--app-favorite-ballot-item-button-color, #fff);
     --paper-fab-iron-icon: {
       height: 29px;
       width: 29px;
