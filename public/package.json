@@ -20,6 +20,8 @@
     "test:regenerate_screenshots": "mocha test/integration/screenshots-baseline/regenerate.js --timeout=15000"
   },
   "dependencies": {
+    "@material/fab": "^11.0.0",
+    "@material/mwc-fab": "^0.21.0",
     "@polymer/app-layout": "^3.0.0",
     "@polymer/iron-ajax": "^3.0.1",
     "@polymer/iron-image": "^3.0.1",

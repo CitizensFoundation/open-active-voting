@@ -168,26 +168,36 @@ export const OavAreaBallotItemStyles = css`
     color: var(--app-accent-color);
   }
 
-  paper-fab.addRemoveButton {
+  mwc-fab.addRemoveButton {
     position: absolute;
     bottom: 12px;
     right: 12px;
-    background-color: var(--app-accent-color);
-    color: var(--app-ballot-item-button-color, #fff);
+    --mdc-typography-button-text-transform: none;
+    --mdc-theme-secondary: var(--app-accent-color);
+    --mdc-theme-on-secondary: var(--app-ballot-item-button-color, #fff);
+    --mdc-fab-extended-icon-padding: 0;
+    --mdc-fab-box-shadow:0 3px 4px 0 rgba(0, 0, 0, 0.14),
+                0 1px 8px 0 rgba(0, 0, 0, 0.12),
+                0 3px 3px -2px rgba(0, 0, 0, 0.4);
   }
 
-  paper-fab.removeButton {
-    background-color: #fff !important;
-    color: var(--app-accent-color) !important;
+  mwc-fab.removeButton {
+    --mdc-typography-button-text-transform: none;
+    --mdc-theme-secondary: #FFF;
+    --mdc-theme-on-secondary: var(--app-accent-color);
+    --mdc-fab-extended-icon-padding: 0;
+    --mdc-fab-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+                0 1px 8px 0 rgba(0, 0, 0, 0.12),
+                0 3px 3px -2px rgba(0, 0, 0, 0.4);
   }
 
   paper-fab.addFavoriteButton {
     position: absolute;
-    bottom: 12px;
+    bottom: 18px;
     left: 12px;
     background-color: var(--app-favorite-button-background-color, var(--app-accent-color, #F00));
-    color: var(--app-ballot-item-button-color, #fff);
-    --paper-fab-iron-icon: {
+    color: var(--app-favorite-ballot-item-button-color, #fff);
+    --mwc-fab-iron-icon: {
       height: 29px;
       width: 29px;
     };
@@ -197,11 +207,11 @@ export const OavAreaBallotItemStyles = css`
 
   paper-fab.removeFavoriteButton {
     position: absolute;
-    bottom: 12px;
+    bottom: 18px;
     left: 12px;
     color: var(--app-ballot-item-remove-fav-button-color, rgb(255,215,0));
     background-color: var(--app-ballot-item-remove-fav-button-background-color, #FFF);
-    --paper-fab-iron-icon: {
+    --mwc-fab-iron-icon: {
       height: 29px;
       width: 29px;
     };
@@ -209,7 +219,7 @@ export const OavAreaBallotItemStyles = css`
     padding-top: var(--app-ballot-item-remove-fav-padding-top, 1px);
   }
 
-  paper-fab[disabled] {
+  mwc-fab[disabled] {
     background-color: #b7b7b7;
   }
 
@@ -305,7 +315,7 @@ export const OavAreaBallotItemStyles = css`
     z-index: 5;
   }
 
-  paper-fab {
+  mwc-fab {
     z-index: 5;
   }
 
