@@ -1074,7 +1074,7 @@ class OavSelectVotingArea extends PageViewElement {
       voterCount = Math.floor(Math.random() * 4000) + 50;
       text = text.replace(
         "ZZZareaCount" + area.id + "ZZZ",
-        this.formatNumber(voterCount)
+        this.formatNumber(voterCount, null, '.')
       );
     });
 
@@ -1084,7 +1084,7 @@ class OavSelectVotingArea extends PageViewElement {
 
     text = text.replace(
       /ZZZtotalVoterCountZZZ/g,
-      this.formatNumber(totalVoteCount)
+      this.formatNumber(totalVoteCount, null, '.')
     );
     text = text.replace("ZZZmainInfoTextZZZ", this.localize("mainInfo"));
     text = text.replace(
