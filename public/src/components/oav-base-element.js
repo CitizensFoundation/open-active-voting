@@ -38,12 +38,16 @@ export class OavBaseElement extends LitElement {
     }
   }
 
-  formatNumber(value, currencyIcon) {
+  formatNumber(value, currencyIcon, numberSeperator) {
+
     if (!currencyIcon)
       currencyIcon=""
 
+    if (!numberSeperator)
+      numberSeperator=","
+
     if (value) {
-      return currencyIcon+value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return currencyIcon+value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, numberSeperator);
     } else {
       return currencyIcon+"0";
     }
