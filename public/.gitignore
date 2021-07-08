@@ -1,4 +1,5 @@
 /node_modules
 test/integration/screenshots-current/
 _site/
+out-tsc/
 .DS_Store
