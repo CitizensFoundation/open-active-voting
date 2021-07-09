@@ -335,7 +335,6 @@ export class OavApp extends OavBaseElement {
     window.__localizationCache = {
       messages: {},
     };
-    super();
     setPassiveTouchGestures(true);
     this._boot();
     var name = "locale".replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -969,7 +968,7 @@ export class OavApp extends OavBaseElement {
   _loadPage(page: string) {
     switch (page) {
       case "post":
-        //import("./yp-post/yp-post.js");
+        import("./yp-post/yp-post.js");
         break;
       case "area-ballot":
       case "voting-completed":
