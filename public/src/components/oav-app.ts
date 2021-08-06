@@ -843,8 +843,6 @@ export class OavApp extends OavBaseElement {
       this.setupLocaleTexts();
     }
 
-    this._page="voting-completed";
-
     if (changedProps.has("_page")) {
       const pageTitle = this.appTitle + " - " + this._page;
 
@@ -906,7 +904,7 @@ export class OavApp extends OavBaseElement {
 
       // Do not allow access to voting-completed from a reload
       if (page == "voting-completed" && oldPage != "area-ballot") {
-        //window.location.href = "/";
+        window.location.href = "/";
       }
 
       // Refresh counts if coming from voting-completed
