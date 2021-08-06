@@ -17,6 +17,9 @@ export class OavAreaBallotItem extends OavBaseElement {
   @property({ type: Object })
   item!: OavItemAttributes;
 
+  @property({ type: Number })
+  areaId!: number;
+
   @property({ type: String })
   staticMapsApiKey: string | undefined;
 
@@ -106,18 +109,30 @@ export class OavAreaBallotItem extends OavBaseElement {
 
         ${this.mapTabSelected && this.mapsHeight
           ? html`
-              <iron-image
-                class="main-image"
-                sizing="cover"
-                src="https://maps.googleapis.com/maps/api/staticmap?center=${this
-                  .latitude},${this.longitude}&zoom=15&size=${this
-                  .mapsWidth}x${this
-                  .mapsHeight}&markers=color:red%7Clabel:%7C${this
-                  .latitude},${this.longitude}&key=${this.configFromServer
-                  .client_config.googleMapsStaticApiKey}"
-                ?hidden="${!this.mapTabSelected}"
-              >
-              </iron-image>
+              ${this.getMapImage
+                ? html`
+                    <iron-image
+                      class="main-image"
+                      sizing="contain"
+                      src="${this.getMapImage}"
+                      ?hidden="${!this.mapTabSelected}"
+                    >
+                    </iron-image>
+                  `
+                : html`
+                    <iron-image
+                      class="main-image"
+                      sizing="cover"
+                      src="https://maps.googleapis.com/maps/api/staticmap?center=${this
+                        .latitude},${this.longitude}&zoom=15&size=${this
+                        .mapsWidth}x${this
+                        .mapsHeight}&markers=color:red%7Clabel:%7C${this
+                        .latitude},${this.longitude}&key=${this.configFromServer
+                        .client_config.googleMapsStaticApiKey}"
+                      ?hidden="${!this.mapTabSelected}"
+                    >
+                    </iron-image>
+                  `}
             `
           : ""}
         <div
@@ -179,7 +194,10 @@ export class OavAreaBallotItem extends OavBaseElement {
               ></iron-icon>
               ${this.localize("map_item_tab")}
             </paper-item>
-            <paper-item @tap="${this._openPdf}" ?hidden="${!this.item.pdf_url}">
+            <paper-item
+              @tap="${this._openPdf}"
+              ?hidden="${!this.configFromServer.client_config.pathToDesignPdfs}"
+            >
               <iron-icon
                 alt="${this.localize("design_pdf")}"
                 class="infoIcon"
@@ -388,10 +406,18 @@ export class OavAreaBallotItem extends OavBaseElement {
     }
   }
 
+  get getMapImage() {
+    if (this.configFromServer.client_config.pathToMapImages)
+      return `${this.configFromServer.client_config.pathToMapImages}/${this.areaId}/${this.item.idea_id}.jpg`;
+    else
+      return undefined;
+  }
+
   _openPdf() {
     this.activity("click", "openPdf");
-    if (this.item.pdf_url) {
-      window.open(this.item.pdf_url, "_blank");
+    if (this.configFromServer.client_config.pathToMapImages) {
+      const path = `${this.configFromServer.client_config.pathToDesignPdfs}/${this.areaId}/${this.item.idea_id}.pdf`;
+      window.open(path, "_blank");
     }
   }
 

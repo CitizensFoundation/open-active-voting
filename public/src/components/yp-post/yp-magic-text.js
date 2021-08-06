@@ -46,9 +46,6 @@ class YpMagicTextBox extends PolymerElement {
        <!-- add max-width for IE11 -->
       <div hidden\$="[[!finalContent]]" inner-h-t-m-l="[[finalContent]]" style="max-width:100%"></div>
       <div hidden\$="[[finalContent]]" style="max-width:100%">[[truncatedContent]]</div>
-      <template is="dom-if" if="[[showMoreText]]">
-        <paper-button raised="" class="moreText" on-tap="_openFullScreen">[[moreText]]</paper-button>
-      </template>
     </div>
     <lite-signal on-lite-signal-yp-language="_languageEvent"></lite-signal>
     <lite-signal on-lite-signal-yp-auto-translate="_autoTranslateEvent"></lite-signal>

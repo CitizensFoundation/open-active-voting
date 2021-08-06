@@ -102,6 +102,7 @@ export class OavAreaBallot extends PageViewElement {
                             class="ballotAreaItem"
                             .configFromServer="${this.configFromServer}"
                             .language="${this.language}"
+                            .areaId="${this.areaId}"
                             .budgetElement="${this.budgetElement}"
                             .item="${item}"
                           >

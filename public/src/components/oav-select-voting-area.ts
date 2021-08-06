@@ -1163,6 +1163,12 @@ export class OavSelectVotingArea extends PageViewElement {
   _languageSelection(event: any) {
     this.language = (event.target as HTMLElement).id.split("Language")[0];
     this.fire("oav-set-locale", this.language);
+    setTimeout(()=>{
+      (this.$$("#languageSelection") as HTMLElement).addEventListener(
+        "click",
+        this._languageSelection.bind(this)
+      );
+    },100)
   }
 
   disconnectedCallback() {

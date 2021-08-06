@@ -363,13 +363,6 @@ Polymer({
                       <yp-magic-text text-type="postTranscriptContent" content-language="[[post.public_data.transcript.language]]" content="[[post.public_data.transcript.text]]" content-id="[[post.id]]">
                       </yp-magic-text>
                     </div>
-                    <template is="dom-if" if="[[hasPostAccess]]">
-                      <div class="layout horizontal" hidden\$="[[isEditing]]">
-                        <div class="flex"></div>
-                        <yp-ajax id="editPostTranscriptAjax" method="PUT" on-response="_editPostTranscriptResponse"></yp-ajax>
-                        <paper-icon-button class="editIcon" title\$="[[t('edit')]]" icon="create" on-tap="_editPostTranscript"></paper-icon-button>
-                      </div>
-                    </template>
                   </div>
                 </template>
               </div>

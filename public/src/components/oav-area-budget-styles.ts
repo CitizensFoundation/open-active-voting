@@ -134,7 +134,6 @@ export const OavAreaBudgetStyles = css`
     padding-right: 8px;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 32px;
   }
 
   .noItemsInfo[wide] {

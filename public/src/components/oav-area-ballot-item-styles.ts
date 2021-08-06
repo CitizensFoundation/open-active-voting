@@ -194,7 +194,7 @@ export const OavAreaBallotItemStyles = css`
       width: 29px;
     }
     padding: 0;
-    padding-top: var(--app-fav-button-padding-top, 1px);
+    padding-top: var(--app-fav-button-padding-top, 8px);
   }
 
   paper-fab.removeFavoriteButton {
@@ -211,7 +211,7 @@ export const OavAreaBallotItemStyles = css`
       width: 29px;
     }
     padding: 0;
-    padding-top: var(--app-ballot-item-remove-fav-padding-top, 1px);
+    padding-top: var(--app-ballot-item-remove-fav-padding-top, 8px);
   }
 
   paper-fab[disabled] {

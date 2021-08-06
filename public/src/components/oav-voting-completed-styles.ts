@@ -77,8 +77,6 @@ export const OavAreaVotingCompletedStyles = css`
     }
 
     .topMaterial {
-      padding-left: 8px;
-      padding-right: 8px;
     }
   }
 
@@ -94,7 +92,7 @@ export const OavAreaVotingCompletedStyles = css`
   }
 
   .desktopLogo {
-    max-width: 360px;
+    max-width: var(--app-voting-completed-desktop-logo-size, 360px);
   }
 
   @media (max-width: 600px) {

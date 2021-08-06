@@ -19,6 +19,9 @@ interface OavClientConfig {
   insecureEmailLoginPostCodes: Record<number, Array<string>>;
   insecureEmailLoginAreaNames: Record<number, string>;
 
+  pathToDesignPdfs: string;
+  pathToMapImages: string;
+
   currencySymbol: string;
   ballotBudgetLogo: string;
   shakeVotingButton: boolean;
