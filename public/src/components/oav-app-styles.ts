@@ -297,12 +297,25 @@ export const OavAppStyles = css`
     margin: 8px;
   }
 
+  .closeButton {
+    font-weight: bold;;
+  }
+
   @media (max-width: 600px) {
     .welcomeDialog {
       font-size: 16px;
       padding: 8px;
       padding-top: 0;
       text-align: center;
+    }
+
+    #helpDialog {
+      max-width: 100%;
+    }
+
+    paper-dialog {
+      padding: 0;
+      margin: 0;
     }
 
     .heading {

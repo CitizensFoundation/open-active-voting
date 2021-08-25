@@ -299,7 +299,7 @@ export class OavApp extends OavBaseElement {
             this._page === "post"
               ? html`
                   <yp-post
-                    .id="post"
+                    id="post"
                     .budgetElement="${this.budgetElement}"
                     .language="${this.language}"
                     .postId="${this._subPath}"
