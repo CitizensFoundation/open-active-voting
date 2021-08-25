@@ -15,10 +15,13 @@ async function* getFiles(dir) {
 }
 
 ;(async () => {
-  for await (const f of getFiles('/home/robert/Documents/kg2/test')) {
+  for await (const f of getFiles('/home/robert/Documents/hm2021kjorgogn')) {
     const folder = dirname(f);
     const extension = extname(f);
-    if (extension=='.jpg' || extension=='.JPG') {
+    if (extension=='.jpg' ||
+        extension=='.JPG' ||
+        extension=='.pdf' ||
+        extension=='.PDF') {
       const name = basename(f, extension);
       const nameWithExtension = `${name}${extension}`;
       const idname = nameWithExtension.split("-")[1];

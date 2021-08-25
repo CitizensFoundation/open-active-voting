@@ -48,6 +48,8 @@
     "paper-share-button": "git+https://github.com/rbjarnason/paper-share-button.git#p3",
     "plastic-map-info": "git+https://github.com/rbjarnason/plastic-map-info.git",
     "pwa-helpers": "^0.9.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-delete": "^2.0.0",
     "twemoji": "^12.0.0",
     "web-animations-js": "^2.3.1",
     "whatwg-fetch": "^3.0.0"
