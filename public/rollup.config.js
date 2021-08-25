@@ -39,7 +39,7 @@ export default merge(baseConfig, {
           dest: "dist/node_modules/@webcomponents/webcomponentsjs/",
         },
         {
-          src: "node_modules/web-animations-js/web-animations-next.min.*",
+          src: "node_modules/web-animations-js/web-animations*",
           dest: "dist/node_modules/web-animations-js/",
         },
         { src: "fonts/*", dest: "dist/fonts/" },
