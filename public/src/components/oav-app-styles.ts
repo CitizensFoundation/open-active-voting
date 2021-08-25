@@ -142,7 +142,9 @@ export const OavAppStyles = css`
   }
 
   paper-toast {
-    font-size: 12px;
+    font-size: 16px;
+    text-align: center;
+    padding: 16px;
   }
 
   paper-toast[wide] {
