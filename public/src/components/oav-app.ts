@@ -43,7 +43,13 @@ export class OavApp extends OavBaseElement {
   appTitle: string | undefined;
 
   @property({ type: String })
-  _page: string | undefined;
+  _page:
+    | "select-voting-area"
+    | "area-ballot"
+    | "voting-completed"
+    | "post"
+    | "view404"
+    | undefined;
 
   @property({ type: Boolean })
   _drawerOpened = false;
@@ -240,7 +246,7 @@ export class OavApp extends OavBaseElement {
             </div>
             <div class="helpIconInBudget" ?select-voting-area="${
               this._page == "select-voting-area"
-            }">
+            }" ?hidden="${this._page == "area-ballot" && !this.wide}">
               <paper-icon-button icon="help-outline" alt="${this.localize(
                 "help"
               )}" @click="${this._help}}"></paper-icon-button>
@@ -471,6 +477,7 @@ export class OavApp extends OavBaseElement {
         }
       })
       .catch((error) => {
+        debugger;
         console.error("Error:", error);
         this.fire("oav-error", "unknown_error");
       });
@@ -979,6 +986,6 @@ export class OavApp extends OavBaseElement {
         import("./oav-view404.js");
     }
 
-    this._page = page;
+    this._page = page as any;
   }
 }

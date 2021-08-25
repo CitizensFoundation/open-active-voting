@@ -82,6 +82,12 @@ export const OavAppStyles = css`
     background-image: var(--app-budget-container-background-image);
   }
 
+  @media (max-width: 1024px) and (min-width: 604px) {
+    app-header[wide-and-ballot] {
+      background: var(--app-budget-votes-background-color, #e0e0e0);
+    }
+  }
+
   [main-title] {
     font-size: 30px;
     /* In the narrow layout, the toolbar is offset by the width of the
@@ -189,6 +195,28 @@ export const OavAppStyles = css`
     top: 6px;
     right: 0;
     color: #fff;
+  }
+
+  @media (max-width: 1024px) and (min-width: 640px) {
+    .exitIconInBudget {
+      left: -4px;
+      top: -4px;
+    }
+
+    paper-icon-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    paper-icon-button.closeButton {
+      width: 46px;
+      height: 46px;
+    }
+
+    .helpIconInBudget {
+      right: -2px;
+      top: 0px;
+    }
   }
 
   .helpIconInBudget {
@@ -301,7 +329,7 @@ export const OavAppStyles = css`
     font-weight: bold;;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1024px) {
     .welcomeDialog {
       font-size: 16px;
       padding: 8px;

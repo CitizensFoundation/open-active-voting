@@ -132,7 +132,7 @@ export class OavAreaBudget extends OavBaseElement {
               ></paper-icon-button>
             </span>
             <img
-              ?hidden="${!this.mediumWide}"
+              ?hidden="${!this.wide}"
               sizing="cover"
               class="headerLogo"
               src="${ifDefined(this.budgetHeaderImage)}"

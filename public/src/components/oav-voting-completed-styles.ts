@@ -64,12 +64,12 @@ export const OavAreaVotingCompletedStyles = css`
     padding-top: 48px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 4600px) {
     .mainContainer {
       background-image: none;
       background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
-      padding-top: 20px;
-      padding-bottom: 75px;
+      padding-top: 48px;
+      padding-bottom: 450px;
     }
 
     :host {
