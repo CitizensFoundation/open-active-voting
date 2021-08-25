@@ -372,7 +372,7 @@ Polymer({
     if (post) {
       return encodeURIComponent("https://"+window.location.host+"/post/"+post.id);
     } else {
-      console.warn("Can't find post for action");
+      //console.warn("Can't find post for action");
       return "";
     }
   },
@@ -419,7 +419,7 @@ Polymer({
       }
       this._updateEndorsements(post);
     } else {
-      console.warn("No post found for post actions");
+      //console.warn("No post found for post actions");
     }
   },
 

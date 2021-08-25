@@ -733,7 +733,7 @@ Polymer({
           upEmoji.inputTarget = upPoint;
           downEmoji.inputTarget = downPoint;
         } else {
-          console.warn("Wide: Can't bind emojis :(");
+          //console.warn("Wide: Can't bind emojis :(");
         }
       } else {
         var upDownPoint = this.$$("#mobileUpOrDownPoint");
@@ -741,7 +741,7 @@ Polymer({
         if (upDownPoint && upDownEmoji) {
           upDownEmoji.inputTarget = upDownPoint;
         } else {
-          console.warn("Small: Can't bind emojis :(");
+          //console.warn("Small: Can't bind emojis :(");
         }
       }
     }.bind(this), 500);
