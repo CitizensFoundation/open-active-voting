@@ -322,6 +322,7 @@ export class OavApp extends OavBaseElement {
 
         <paper-toast
           horizontal-align="center"
+          horizontal-offset="-12"
           ?wide="${this.wide}" duration="7500" .text="${this.localize(
           "favorite_info"
         )}" id="toast" @click="${this._closeToast}">
