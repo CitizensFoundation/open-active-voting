@@ -55,7 +55,7 @@ export class OavAreaBallot extends PageViewElement {
   showMap = false;
 
   @property({ type: Number })
-  leastExpensiveItemPrice = 0;
+  leastExpensiveItemPrice = Number.MAX_SAFE_INTEGER;
 
   static get styles() {
     return [OavAreaBallotStyles];
@@ -561,8 +561,7 @@ export class OavAreaBallot extends PageViewElement {
       }
 
       if (
-        this.leastExpensiveItemPrice === undefined ||
-        budgetBallotItems[i].price < this.leastExpensiveItemPrice
+        this.leastExpensiveItemPrice > budgetBallotItems[i].price
       ) {
         this.leastExpensiveItemPrice = budgetBallotItems[i].price;
       }
