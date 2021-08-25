@@ -924,7 +924,7 @@ Polymer({
         });
       }
 
-      if (multipleLanguages) {
+      if (false && multipleLanguages) {
         dom(document).querySelector('yp-app').getDialogAsync("autoTranslateDialog", function (dialog) {
           dialog.openLaterIfAutoTranslationEnabled();
         }.bind(this));

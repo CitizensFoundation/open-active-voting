@@ -125,7 +125,7 @@ Polymer({
   },
 
   _computeUserTitle: function (user, titleDate) {
-    if (user && titleDate) {
+    if (false && user && titleDate) {
       const dateParsed = parseISO(titleDate);
       var dateSince = formatDistance(dateParsed, new Date(),  {
         locale: enUS//this.language

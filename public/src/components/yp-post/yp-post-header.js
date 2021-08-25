@@ -372,7 +372,7 @@ Polymer({
                 <yp-magic-text id="description" text-type="postContent" content-language="[[post.language]]" content="[[post.description]]" no-user-info\$="[[!post.Group.configuration.showWhoPostedPosts]]" structured-questions-config="[[post.Group.configuration.structuredQuestions]]" content-id="[[post.id]]" class="description" truncate="500" more-text="{{t('readMore')}}" close-dialog-text="[[t('close')]]">
                 </yp-magic-text>
               </div>
-              <div class="card-actions">
+              <div class="card-actions" hidden>
                 <yp-post-actions hidden\$="[[hideActions]]" floating="" header-mode="[[headerMode]]" elevation="-1" endorse-mode="[[endorseMode]]" class="voting" post="[[post]]"></yp-post-actions>
               </div>
             </div>
