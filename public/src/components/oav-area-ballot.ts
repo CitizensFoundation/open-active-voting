@@ -138,6 +138,7 @@ export class OavAreaBallot extends PageViewElement {
           this.completeIfAuthenticatedVote();
         } else {
           this.areaId = parseInt(this.areaIdRoutePath);
+          this.fire('oav-update-locale-text');
         }
       }
     }

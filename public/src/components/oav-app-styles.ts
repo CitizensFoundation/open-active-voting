@@ -148,7 +148,7 @@ export const OavAppStyles = css`
   }
 
   paper-toast[wide] {
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
   }
 
@@ -304,6 +304,7 @@ export const OavAppStyles = css`
     max-width: var(--app-welcome-logo-max-width, 280px);
     width: var(--app-welcome-logo-width, 280px);
     height: var(--app-welcome-logo-height, 116px);
+    margin-bottom: -4px;
   }
 
   .welcomeLogoContainer {
@@ -346,6 +347,8 @@ export const OavAppStyles = css`
     paper-dialog {
       padding: 0;
       margin: 0;
+      margin-left: 24px;
+      margin-right: 24px;
     }
 
     .heading {

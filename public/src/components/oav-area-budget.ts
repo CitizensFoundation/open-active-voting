@@ -134,7 +134,7 @@ export class OavAreaBudget extends OavBaseElement {
             <img
               ?hidden="${!this.wide}"
               sizing="cover"
-              class="headerLogo"
+              class="headerLogo" alt="Logo"
               src="${ifDefined(this.budgetHeaderImage)}"
             />
             <div class="vertical center-center" style="width: 100%;">

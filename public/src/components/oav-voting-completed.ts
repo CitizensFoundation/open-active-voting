@@ -41,7 +41,7 @@ export class OavVotingCompleted extends PageViewElement {
               >
                 <div>
                   <img
-                    class="desktopLogo self-center"
+                    class="desktopLogo self-center" alt="Logo"
                     src="${this.configFromServer.client_config
                       .votingCompleteConfig.logo}"
                   />

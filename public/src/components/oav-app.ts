@@ -140,7 +140,7 @@ export class OavApp extends OavBaseElement {
 
   __snackbarTimer: any;
 
-  haveClosedWelcome = false
+  haveClosedWelcome = false;
 
   static get styles() {
     return [OavAppStyles, OavFlexLayout];
@@ -188,7 +188,7 @@ export class OavApp extends OavBaseElement {
             </div>
           </paper-dialog-scrollable>
           <div class="buttons">
-            <paper-button class="closeButton generalButton" dialog-dismiss>${this.localize(
+            <paper-button raised class="closeButton generalButton" dialog-dismiss>${this.localize(
               "close"
             )}</paper-button>
           </div>
@@ -209,16 +209,15 @@ export class OavApp extends OavBaseElement {
                     .welcomeText}"
                     style="text-align: left;"
                   >
-                    <span hidden>${this.welcomeText}</span>
-                    <div class="layout vertical">
-                      <div>
-                        <ul style="padding-bottom: 4px">
-                          <li style="padding-bottom: 8px">Íbúar Grafarvogs hafa 109 milljónir til ráðstöfunar</li>
-                          <li style="padding-bottom: 8px">Ekki þarf að ráðstafa öllu fjármagninu</li>
-                          <li style="padding-bottom: 8px">Gefðu uppáhalds hugmyndinni þinni stjörnu og hún fær tvöfalt vægi</li>
-                        </ul>
-                      </div>
-                    </div>
+                    ${
+                      this.configFromServer.client_config.welcomeLocalesByArea
+                        ? html`
+                            <div class="layout vertical">
+                              <div>${unsafeHTML(this.welcomeText)}</div>
+                            </div>
+                          `
+                        : html` <span>${this.welcomeText}</span> `
+                    }
                   </div>
                  </div>
                 <div class="buttons layout horizontal center-center">
@@ -537,6 +536,7 @@ export class OavApp extends OavBaseElement {
     this.addEventListener("oav-set-locale", this.setLocale);
     this.addEventListener("oav-set-ballot-element", this._setBallotElement);
     this.addEventListener("oav-set-budget-element", this._setBudgetElement);
+    this.addEventListener("oav-update-locale-text", this.setupLocaleTexts);
     this.addEventListener(
       "oav-scroll-item-into-view",
       this._scrollItemIntoView
@@ -562,6 +562,7 @@ export class OavApp extends OavBaseElement {
     this.removeEventListener("oav-set-area", this._setArea);
     this.removeEventListener("oav-clear-area", this._clearArea);
     this.removeEventListener("location-changed", this._locationChanged);
+    this.removeEventListener("oav-update-locale-text", this.setupLocaleTexts);
     this.removeEventListener(
       "oav-open-favorite-toast",
       this._openFavoriteToast
@@ -827,7 +828,16 @@ export class OavApp extends OavBaseElement {
   }
 
   setupLocaleTexts() {
-    if (this.configFromServer.client_config.welcomeLocales) {
+    if (
+      this.configFromServer.client_config.welcomeLocalesByArea &&
+      this.currentBallot && this.language && this.currentBallot.areaId
+    ) {
+      this.welcomeText = this.b64DecodeUnicode(
+        this.configFromServer.client_config.welcomeLocalesByArea[
+          this.currentBallot.areaId!
+        ][this.language!]["content"]
+      );
+    } else if (this.configFromServer.client_config.welcomeLocales) {
       this.welcomeHeading = this.getWelcomeHeading();
       this.welcomeText = this.getWelcomeText();
     }
@@ -852,7 +862,9 @@ export class OavApp extends OavBaseElement {
   }
 
   updated(changedProps: Map<string | number | symbol, unknown>) {
-    if (changedProps.has("language")) {
+    if (
+      changedProps.has("language")
+    ) {
       this.setupLocaleTexts();
     }
 
