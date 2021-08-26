@@ -140,6 +140,8 @@ export class OavApp extends OavBaseElement {
 
   __snackbarTimer: any;
 
+  haveClosedWelcome = false
+
   static get styles() {
     return [OavAppStyles, OavFlexLayout];
   }
@@ -491,7 +493,7 @@ export class OavApp extends OavBaseElement {
       this._page !== "select-voting-area"
     ) {
       setTimeout(() => {
-        if (!localStorage.getItem("haveClosedWelcome")) {
+        if (!this.haveClosedWelcome) {
           (this.$$("#welcomeDialog") as PaperDialogElement).open();
           this.activity("opened", "welcome");
         }
@@ -769,7 +771,7 @@ export class OavApp extends OavBaseElement {
   }
 
   closeWelcome() {
-    localStorage.setItem("haveClosedWelcome", "true");
+    this.haveClosedWelcome = true;
     this.activity("click", "welcomeClose");
   }
 
