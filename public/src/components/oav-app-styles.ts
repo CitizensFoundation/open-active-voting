@@ -342,6 +342,7 @@ export const OavAppStyles = css`
 
     #helpDialog {
       max-width: 100%;
+      margin: 0 !important;
     }
 
     paper-dialog {
