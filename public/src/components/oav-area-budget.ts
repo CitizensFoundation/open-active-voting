@@ -102,7 +102,7 @@ export class OavAreaBudget extends OavBaseElement {
       if (
         this.totalBudget != this.budgetLeft &&
         (this.toastCounter < 1 ||
-          this.budgetLeft < this.currentBallot.leastExpensiveItemPrice)
+          this.currentBallot.itemsLeftToSelect<1)
       ) {
         this.fire("oav-open-favorite-toast");
         this.toastCounter += 1;

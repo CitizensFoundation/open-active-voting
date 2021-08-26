@@ -55,7 +55,7 @@ export class OavAreaBallot extends PageViewElement {
   showMap = false;
 
   @property({ type: Number })
-  leastExpensiveItemPrice = Number.MAX_SAFE_INTEGER;
+  itemsLeftToSelect = Number.MAX_SAFE_INTEGER;
 
   static get styles() {
     return [OavAreaBallotStyles];
@@ -411,6 +411,7 @@ export class OavAreaBallot extends PageViewElement {
     var budgetLeft =
       this.budgetElement!.totalBudget! - this.budgetElement!.selectedBudget;
     var listItems = this.$$("#itemContainer")!;
+    let itemsCountLeft = listItems.children.length;
     for (var i = 0; i < listItems.children.length; i++) {
       var listItem = listItems.children[i] as OavAreaBallotItem;
       if (listItem.id != "domRepeat" && !listItem.selectedInBudget) {
@@ -418,11 +419,15 @@ export class OavAreaBallot extends PageViewElement {
           listItem.setNotTooExpensive();
         } else {
           listItem.setTooExpensive();
+          itemsCountLeft--;
         }
+      } else if (listItem.id != "domRepeat") {
+        itemsCountLeft--;
       }
     }
     const map = this.$$("#itemsMap") as OavAreaBallotMap;
     if (map) map.checkIfSelectedItemToExpensive(budgetLeft);
+    this.itemsLeftToSelect = itemsCountLeft;
   }
 
   _postVoteToServer() {
@@ -558,12 +563,6 @@ export class OavAreaBallot extends PageViewElement {
         budgetBallotItems[i].locations = hashArray;
       } else {
         budgetBallotItems[i].locations = [];
-      }
-
-      if (
-        this.leastExpensiveItemPrice > budgetBallotItems[i].price
-      ) {
-        this.leastExpensiveItemPrice = budgetBallotItems[i].price;
       }
     }
 

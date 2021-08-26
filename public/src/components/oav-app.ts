@@ -486,12 +486,14 @@ export class OavApp extends OavBaseElement {
 
   openWelcomeIfNeeded() {
     if (
-      this.configFromServer.client_config.welcomeLocales &&
+      (this.configFromServer.client_config.welcomeLocales ||
+        this.configFromServer.client_config.welcomeLocalesByArea) &&
       this._page !== "select-voting-area"
     ) {
       setTimeout(() => {
-        if (!localStorage.getItem("haveClssosfdedWelcome")) {
+        if (!localStorage.getItem("haveClosedWelcome")) {
           (this.$$("#welcomeDialog") as PaperDialogElement).open();
+          this.activity("opened", "welcome");
         }
       });
     }
@@ -768,6 +770,7 @@ export class OavApp extends OavBaseElement {
 
   closeWelcome() {
     localStorage.setItem("haveClosedWelcome", "true");
+    this.activity("click", "welcomeClose");
   }
 
   getDialog(name: string) {
