@@ -180,8 +180,6 @@ Polymer({
     <div class="layout vertical">
 
       <div class="userInfoContainer layout horizontal" up-vote\$="[[upVote(point)]]" down-vote\$="[[downVote(point)]]" hidden\$="[[hideUser]]">
-        <iron-icon icon="thumb-up" class="thumbsIcon thumbsIconUp" hidden\$="[[!pointValueUp]]"></iron-icon>
-        <iron-icon icon="thumb-down" class="thumbsIcon thumbsIconDown" hidden\$="[[pointValueUp]]"></iron-icon>
         <div class="layout horizontal" hidden\$="[[point.Post.Group.configuration.hidePointAuthor]]">
           <yp-user-with-organization title-date="[[point.created_at]]" inverted="" user\$="[[user]]"></yp-user-with-organization>
         </div>

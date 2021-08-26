@@ -316,6 +316,7 @@ Polymer({
           height: 46px;
           top: 4px;
           left: 4px;
+          color: #555;
         }
 
         yp-post-points  {

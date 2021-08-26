@@ -41,7 +41,7 @@ interface OavClientConfig {
   googleAnalyticsId: string;
   oneBallotId: number;
   welcomeLocales: Record<string,Record<string,string>>;
-  welcomeLocalesByArea: Record<string,Record<string,string>>;
+  welcomeLocalesByArea: Record<number,Record<string,Record<string,string>>>;
   helpPageLocales: Record<string,Record<string,string>>;
 }
 

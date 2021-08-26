@@ -120,14 +120,116 @@
   "googleMapsStaticApiKey": "AIzaSyBYy8UvdDD650mz7k1pY0j2hBFQmCPVnxA",
   "pathToDesignPdfs": "https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2021kjorgognV2/pdfs",
   "pathToMapImages": "https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2021kjorgognV2/mapImages",
-  "welcomeLocales": {
-    "is": {
-      "heading": "",
-      "text": "Hér geta íbúar Grafarvogs, 15 ára og eldri, útdeilt 109 milljónum í framkvæmdir. Ekki þarf að ráðstafa öllu fjármagninu. Gefðu uppáhalds hugmyndinni þinni stjörnu og hún fær tvöfalt vægi. Takk fyrir þátttökuna!"
+  "welcomeLocalesByArea": {
+    "1": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
     },
-    "en": {
-      "heading": "",
-      "text": "Hér geta íbúar Grafarvogs, 15 ára og eldri, útdeilt 109 milljónum í framkvæmdir. Ekki þarf að ráðstafa öllu fjármagninu. Gefðu uppáhalds hugmyndinni þinni stjörnu og hún fær tvöfalt vægi. Takk fyrir þátttökuna!"
+    "2": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "3": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "4": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "5": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "6": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "7": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "8": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "9": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
+    },
+    "10": {
+      "is": {
+        "content": ""
+      },
+      "en": {
+        "content": ""
+      },
+      "pl": {
+        "content": ""
+      }
     }
   },
   "ballotBudgetLogo": "https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2018-400x120-logo-2xV3.png",
