@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "dom","es2018.intl", "es2020.intl", "esnext.intl"],
     "strict": true,
     "allowJs": true,
     "esModuleInterop": false,
