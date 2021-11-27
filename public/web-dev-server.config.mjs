@@ -14,7 +14,7 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   open: '/',
   middleware: [
     proxy('/votes/', {
-      target: 'http://localhost:3012/',
+      target: 'http://localhost:3055/',
     }),
   ],
   //watch: !hmr,
