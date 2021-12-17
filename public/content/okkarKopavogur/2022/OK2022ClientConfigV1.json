@@ -22,6 +22,9 @@
         "--app-ballot-item-remove-fav-button-color": "rgb(255,0,0)"
       },
       {
+        "--app-help-icon-select-area-desktop": "#FFF"
+      },
+      {
         "--app-voting-completed-main-background-color": "#01abc4"
       }
     ],

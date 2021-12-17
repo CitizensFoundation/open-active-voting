@@ -229,6 +229,10 @@ export const OavAppStyles = css`
     color: var(--app-help-icon-select-area, #000);
   }
 
+  .helpIconInBudget[select-voting-area][is-wide] {
+    color: var(--app-help-icon-select-area-desktop, #000);
+  }
+
   #helpContent h1 {
     line-height: 1em;
     font-size: 1.5em;

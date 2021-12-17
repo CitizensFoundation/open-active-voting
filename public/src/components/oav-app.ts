@@ -245,9 +245,11 @@ export class OavApp extends OavBaseElement {
                 "close"
               )}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
             </div>
-            <div class="helpIconInBudget" ?select-voting-area="${
-              this._page == "select-voting-area"
-            }" ?hidden="${this._page == "area-ballot" && !this.wide}">
+            <div class="helpIconInBudget" ?is-wide="${
+              this.wide
+            }" ?select-voting-area="${
+          this._page == "select-voting-area"
+        }" ?hidden="${this._page == "area-ballot" && !this.wide}">
               <paper-icon-button icon="help-outline" alt="${this.localize(
                 "help"
               )}" @click="${this._help}}"></paper-icon-button>
@@ -832,7 +834,9 @@ export class OavApp extends OavBaseElement {
   setupLocaleTexts() {
     if (
       this.configFromServer.client_config.welcomeLocalesByArea &&
-      this.currentBallot && this.language && this.currentBallot.areaId
+      this.currentBallot &&
+      this.language &&
+      this.currentBallot.areaId
     ) {
       this.welcomeText = this.b64DecodeUnicode(
         this.configFromServer.client_config.welcomeLocalesByArea[
@@ -864,9 +868,7 @@ export class OavApp extends OavBaseElement {
   }
 
   updated(changedProps: Map<string | number | symbol, unknown>) {
-    if (
-      changedProps.has("language")
-    ) {
+    if (changedProps.has("language")) {
       this.setupLocaleTexts();
     }
 
