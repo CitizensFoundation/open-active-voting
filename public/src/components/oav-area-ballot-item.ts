@@ -290,7 +290,8 @@ export class OavAreaBallotItem extends OavBaseElement {
           <div
             id="favoriteButtons"
             class="favoriteButtons"
-            ?hidden="${!this.selectedInBudget}"
+            ?hidden="${!this.selectedInBudget ||
+            this.configFromServer.client_config.hideFavoriteButton}"
           >
             <paper-fab
               mini
@@ -409,8 +410,7 @@ export class OavAreaBallotItem extends OavBaseElement {
   get getMapImage() {
     if (this.configFromServer.client_config.pathToMapImages)
       return `${this.configFromServer.client_config.pathToMapImages}/${this.areaId}/${this.item.idea_id}.jpg`;
-    else
-      return undefined;
+    else return undefined;
   }
 
   _openPdf() {
