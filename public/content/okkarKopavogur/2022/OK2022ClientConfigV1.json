@@ -25,7 +25,7 @@
         "--app-voting-completed-main-background-color": "#01abc4"
       }
     ],
-    "auth_url": "https://audkenning.vottun.is/Login/Login?electionId=eb2d975e-8a91-4dff-b0ee-51befa38fe34&returnUrl=%20https%3A%2F%2Fkosning2020.kopavogur.is%2authenticate_from_island_is",
+    "auth_url": "https://audkenning.vottun.is/Login/Login?electionId=eb2d975e-8a91-4dff-b0ee-51befa38fe34&returnUrl=%20https%3A%2F%2Fkosning2022.kopavogur.is%2authenticate_from_island_is",
     "saml_idp_cert_fingerprint":"95:6E:B9:F6:B5:B9:04:2F:D6:FE:AD:02:3D:36:D7:EB:8C:0B:84:B8",
     "defaultLanguage": "is",
     "favoriteIcon": "favorite",
@@ -45,10 +45,10 @@
         "b64text": "PGgxPk9ra2FyIEvDs3Bhdm9ndXIg4oCTIGtvc25pbmdhciAyMDIwIOKAkyB1cHBsw71zaW5nYXI8L2gxPgo8dWw+CiAgPGxpPkZyw6EgMjMuIGphbsO6YXIgdGlsIDQuIGZlYnLDumFyIDIwMjAgdmVyw7B1ciBvcGnDsCBmeXJpciBrb3NuaW5nYXIgw75hciBzZW0gw61iw7phciwgZsOmZGRpciDDoXJpw7AgMjAwNCBlw7BhCiAgICBmeXJyLCBtZcOwIGzDtmdoZWltaWxpIMOtIEvDs3Bhdm9naSBnZXRhIGtvc2nDsCDDoWZyYW0gaHVnbXluZGlyIMOtIGVpbnVtIGFmIGZpbW0gYsOmamFyaGx1dHVtCiAgICBLw7NwYXZvZ3MuPC9saT4KICA8bGk+SMOmZ3QgZXIgYcOwIGtqw7NzYSDDoWZyYW0gaHVnbXluZGlyIGZ5cmlyIMO+w6EgdXBwaMOmw7Agc2VtIGh2ZXJqdSBodmVyZmkgaGVmdXIgdmVyacOwIMO6dGhsdXRhw7AuPC9saT4KICA8bGk+w41iw7phciBnZXRhIGHDsGVpbnMga29zacOwIMOtIGVpbnUgaHZlcmZpIGFmIGZpbW0uPC9saT4KICA8bGk+w41iw7phciBnZXRhIHNldHQgaGphcnRhIHZpw7AgZWluYSBhZiDDvmVpbSBodWdteW5kdW0gc2VtIMO+ZWlyIGtqw7NzYSBvZyDDvmFubmlnIGdlZmnDsCDDvmVpcnJpIGh1Z215bmQKICAgIHR2w7ZmYWx0IHbDpmdpLCB0dsO2IGF0a3bDpsOwaSDDrSBzdGHDsCBlaW5zLjwvbGk+CiAgPGxpPktqw7NzYW5kaSBnZXR1ciBrb3Npw7AgZWlucyBvZnQgb2cgaGFubiB2aWxsIG1lw7BhbiBrb3NuaW5naW4gZXIgb3BpbiwgZW4gaGFmYSBiZXIgw60gaHVnYSBhw7Agw75hw7AgZXIgYcOwZWlucyBuw71qYXN0YSBhdGt2w6bDsGnDsCBzZW0gZ2lsZGlyLjwvbGk+CiAgPGxpPktvc25pbmcgZmVyIGZyYW0gw6EgdmVmc3bDpsOwaSDDvmFyIHNlbSDDrWLDumkgYXXDsGtlbm5pciBzaWcgbWXDsCDDtnJ1Z2d1bSBow6Z0dGkgb2cgdmVyw7B1ciBhdGt2w6bDsGkgaGFucyBkdWxrw7PDsGHDsC4gw552w60gZXIgZWtraSBow6ZndCBhw7AgdGVuZ2phIGF0a3bDpsOwaSB2acOwIGVpbnN0YWtsaW5nYS48L2xpPgogIDxsaT5Fa2tpIGVyIHVtIGHDsCByw6bDsGEgw61iw7pha29zbmluZ3Ugw60gc2tpbG5pbmdpIDEwNy4gZ3IuIHN2ZWl0YXJzdGrDs3JuYXJsYWdhIG5yLiAxMzggZnLDoSAyMDExLjwvbGk+CiAgPGxpPkvDs3Bhdm9naSBlciBza2lwdCB1cHAgw60gZmltbSBiw6ZqYXJobHV0YSBlZnRpciBza8OzbGFodmVyZnVtOiBLw6Fyc25lc3Nrw7NsYWh2ZXJmacOwLCBTbsOmbGFuZHMtIG9nCiAgICDDgWxmaMOzbHMtc2vDs2xhaHZlcmZpbiwgS8OzcGF2b2dzLSBvZyBTbcOhcmEtc2vDs2xhaHZlcmZpbiwgTGluZGEtIG9nIFNhbGEtc2vDs2xhaHZlcmZpbiBvZyBIw7Zyw7B1dmFsbGEtCiAgICBvZyBWYXRuc2VuZGFza8OzbGFodmVyZmluLjwvbGk+CiAgPGxpPkZqw6FybWFnbiBodmVyZmFubmEgc2tpcHRpc3Qgw6EgZWZ0aXJmYXJhbmRpIGjDoXR0OiAoIGFsbGFyIHTDtmx1ciBlcnUgbsOhbXVuZGHDsGFyIMOtIGhlaWxhciB0w7ZsdXIpPC9saT4KICA8dWw+CiAgICAgIDxsaT5Lw6Fyc25lc3Nrw7NsYWh2ZXJmacOwOiAzMiBtaWxsasOzbmlyPC9saT4KICAgICAgPGxpPlNuw6ZsYW5kcy0gb2cgw4FsZmjDs2xzc2vDs2xhaHZlcmZpbjogNDggbWlsbGrDs25pcjwvbGk+CiAgICAgIDxsaT5Lw7NwYXZvZ3MtIG9nIFNtw6FyYXNrw7NsYWh2ZXJmaW46IDM5IG1pbGxqw7NuaXI8L2xpPgogICAgICA8bGk+TGluZGEtIG9nIFNhbGFza8OzbGFodmVyZmluOiAzNiBtaWxsasOzbmlyPC9saT4KICAgICAgPGxpPkjDtnLDsHV2YWxsYS0gb2cgVmF0bnNlbmRhc2vDs2xhaHZlcmZpbjogNDUgbWlsbGrDs25pcjwvbGk+CiAgPC91bD4KICA8bGk+VmnDsCB2ZWtqdW0gYXRoeWdsaSDDoSDDvnbDrSBhw7AgdGlsIGHDsCBnZXRhIGtvc2nDsCDDvmFyZiBhw7AgdmVyYSBtZcOwIHJhZnLDpm4gc2tpbHLDrWtpIMOtIHPDrW1hIGXDsGEgw61zbHlraWwuIEFsbGFyIG7DoW5hcmkgdXBwbMO9c2luZ2FyIHVtIGF1w7BrZW5uaSBtw6EgbsOhbGdhc3Qgw6Egd3d3LmF1ZGtlbm5pLmlzIG9nIHVtIMOtc2x5a2lsIMOhCiAgICAgIDxhIHRhcmdldD0iX2JsYW5rIiBocmVmPSJodHRwczovL3d3dy5pc2xhbmQuaXMvaXNseWtpbGwiPnd3dy5pc2xhbmQuaXMvaXNseWtpbGw8L2E+PC9saT4KICA8bGk+S29zbmluZyBmZXIgZnJhbSDDoSB2ZWZzw63DsHVubmkga29zbmluZzIwMjAua29wYXZvZ3VyLmlzPC9saT4KICA8bGk+w55qw7NudXN0dXZlciBLw7NwYXZvZ3Niw6ZqYXIgYsO9w7B1ciB1cHAgw6EgYcOwZ2FuZyBhw7AgdMO2bHZ1bSBvZyBhw7BzdG/DsCB2acOwIGtvc25pbmd1bmEgc8OpIMO+ZXNzCiAgICDDs3NrYcOwLiBTYW1hIMOhIHZpw7AgdW0gQsOza2FzYWZuIEvDs3Bhdm9ncywgSGFtcmFib3JnIDZhLCDDoSBtZcOwYW4ga29zbmluZyBzdGVuZHVyIHlmaXIuPC9saT4KICA8bGk+VXBwbMO9c2luZ2FyIG9nIGxlacOwYmVpbmluZ2FyIHVtIGtvc25pbmdhcm5hciBlcnUgYcOwZ2VuZ2lsZWdhciDDoSBrb3NuaW5nYXZlZm51bSBtZcOwYW4gw6EKICAgIGtvc25pbmd1IHN0ZW5kdXIuPC9saT4KICA8bGk+SMOmZ3QgZXIgYcOwIHNlbmRhIGlubiBmeXJpcnNwdXJuaXIgb2cgw6FiZW5kaW5nYXIgw6EgbmV0ZmFuZ2nDsCBva2thcmtvcGF2b2d1ckBrb3Bhdm9ndXIuaXMKICAgICAgRWlubmlnIGVyIGjDpmd0IGHDsCBuw6FsZ2FzdCB1cHBsw71zaW5nYXIgdW0ga29zbmluZ2FybmFyIMOtIMO+asOzbnVzdHV2ZXJpIEvDs3Bhdm9ncyDDoSBEaWdyYW5lc3ZlZ2kgMQogICAgICBlw7BhIMOtIHPDrW1hIDQ0MS0wMDAwLjwvbGk+CiAgPGxpPk15bmRpciBzZW0gZnlsZ2phIGh1Z215bmR1bSDDoSBrb3NuaW5nYXPDrcOwdSBlcnUgZWtraSBkw6ZtaSB1bSBlbmRhbmxlZ2Egw7p0ZsOmcnNsdSDDoSBmcmFta3bDpm1kLjwvbGk+CiAgPGxpPlN0YcOwc2V0bmluZyBvZyDDunRmw6Zyc2xhIGh1Z215bmRhIGdldHVyIHRla2nDsCBicmV5dGluZ3VtLjwvbGk+CjwvdWw+"
       }
     },
-    "pageTitle": "Okkar Kópavogur 2020",
+    "pageTitle": "Okkar Kópavogur 2022",
     "shareMetaData": {
-      "title": "Okkar Kópavogur 2020",
-      "description": "Frá 23. janúar til 4. febrúar 2020 verður opið fyrir kosningar þar sem íbúar, fæddir árið 2004 eða fyrr, með lögheimili í Kópavogi geta kosið áfram hugmyndir í einum af fimm bæjarhlutum Kópavogs.",
+      "title": "Okkar Kópavogur 2022",
+      "description": "Frá 26. janúar til 9. febrúar 2022 verður opið fyrir kosningar þar sem íbúar, fæddir árið 2004 eða fyrr, með lögheimili í Kópavogi geta kosið áfram hugmyndir í einum af fimm bæjarhlutum Kópavogs.",
       "shareImageUrl": "https://oav-direct-assets.s3-eu-west-1.amazonaws.com/OkkarKopavogur2017/OK-kosning-864x486.jpg",
       "faviconUrl": "https://www.kopavogur.is/favicon.ico"
     },
@@ -70,7 +70,7 @@
     ],
     "votingCompleteConfig": {
       "logo": "https://s3-eu-west-1.amazonaws.com/oav-direct-assets/OkkarKopavogur2017/384x159_transparent_logo.png",
-      "shareUrl": "https://kosning2020.kopavogur.is/"
+      "shareUrl": "https://kosning2022.kopavogur.is/"
     },
     "googleAnalyticsId": "UA-7086040-14",
     "locales": {
@@ -116,7 +116,7 @@
         "remove_from_budget": "Remove idea",
         "thank_you_1": "Thank you for participating!",
         "thank_you_2": "Your vote has been received and you have been logged out.",
-        "thank_you_3": "You can vote again until February 4th but only the last vote is valid. Thanks for participating. Results will be published on www.kopavogur.is",
+        "thank_you_3": "You can vote again until February 9th but only the last vote is valid. Thanks for participating. Results will be published on www.kopavogur.is",
         "million": "million",
         "millions": "millions",
         "million_short": "m.",
@@ -180,7 +180,7 @@
         "remove_from_budget": "Taka út hugmynd",
         "thank_you_1": "Takk fyrir þátttökuna!",
         "thank_you_2": "Atkvæði þitt hefur verið móttekið og þú hefur verið skráð(ur) út.",
-        "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 4. febrúar. Niðurstöður kosninga verða birtar á heimasíðu Kópavogsbæjar.",
+        "thank_you_3": "Þú getur kosið aftur en síðasta kosning gildir. Kosningu lýkur 9. febrúar. Niðurstöður kosninga verða birtar á heimasíðu Kópavogsbæjar.",
         "million": "milljón",
         "millions": "milljónir",
         "million_short": "mkr",
@@ -244,7 +244,7 @@
         "remove_from_budget": "Usuń z budżetu",
         "thank_you_1": "Dziękujemy za udział w głosowaniu!",
         "thank_you_2": "Twój głos został oddany i zostałeś wylogowany.",
-        "thank_you_3": "Możesz głosować ponownie do 4. lutego. Liczy się twój ostatni głos. Dziękujemy za udział w głosowaniu. Wyniki będą ogłoszona na www.kopavogur.is",
+        "thank_you_3": "Możesz głosować ponownie do 9. lutego. Liczy się twój ostatni głos. Dziękujemy za udział w głosowaniu. Wyniki będą ogłoszona na www.kopavogur.is",
         "million": "mln",
         "millions": "mln",
         "million_short": "m.",

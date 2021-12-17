@@ -598,8 +598,10 @@ export class OavApp extends OavBaseElement {
   }
 
   _openFavoriteToast() {
-    const toast = this.$$("#toast") as PaperToastElement;
-    toast.open();
+    if (!this.configFromServer.client_config.hideFavoriteButton) {
+      const toast = this.$$("#toast") as PaperToastElement;
+      toast.open();
+    }
   }
 
   _scrollItemIntoView(event: CustomEvent | any) {
