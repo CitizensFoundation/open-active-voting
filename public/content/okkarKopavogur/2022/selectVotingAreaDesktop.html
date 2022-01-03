@@ -14,12 +14,12 @@
 
   paper-fab {
     padding: 32px;
-    color: #FFF;
+    color: #fff;
   }
 
   paper-fab.label {
     font-size: 30px;
-    color: #FFF;
+    color: #fff;
   }
 
   .infoImage {
@@ -36,7 +36,7 @@
   .topMaterial {
     width: 400px;
     height: 225px;
-    background-color: #FFF;
+    background-color: #fff;
     margin: 16px 32px 16px 16px;
     display: block;
     position: relative;
@@ -83,7 +83,7 @@
     font-size: 21px;
     padding: 8px;
     background-color: var(--app-primary-color);
-    color: #FFF;
+    color: #fff;
     margin: 0;
   }
 
@@ -96,7 +96,7 @@
 
   .areaOptions {
     margin-top: 48px;
-    background-color: #FFF;
+    background-color: #fff;
     display: block;
     position: relative;
     max-width: 882px;
@@ -291,31 +291,59 @@
   }
 </style>
 
-<div style="display:block">
+<div style="display: block">
   <div class="layout vertical imageContainer" style="">
-    <div class="layout horizontal center-center" style="width:882px;margin-left:auto;margin-right:auto;">
-      <div class="shadow-elevation-3dp topMaterial" style="width:400px !important;">
-        <div class="logoHolder layout horizontal center-center" style="width:400px !important;">
-          <img sizing="contain" class="desktopLogo" width="384" height="159"
-            src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/OkkarKopavogur2017/384x159_transparent_logo.png"/>
+    <div
+      class="layout horizontal center-center"
+      style="width: 882px; margin-left: auto; margin-right: auto"
+    >
+      <div
+        class="shadow-elevation-3dp topMaterial"
+        style="width: 400px !important"
+      >
+        <div
+          class="logoHolder layout horizontal center-center"
+          style="width: 400px !important"
+        >
+          <img
+            sizing="contain"
+            class="desktopLogo"
+            width="384"
+            height="159"
+            src="https://s3-eu-west-1.amazonaws.com/oav-direct-assets/OkkarKopavogur2017/384x159_transparent_logo.png"
+          />
         </div>
         <div class="selectInfoTextSmaller">ZZZchoose_a_neighbourhood_2ZZZ</div>
-        <div class="langSelection layout horizontal" id="languageSelection" style="color: #000;">
+        <div
+          class="langSelection layout horizontal"
+          id="languageSelection"
+          style="color: #000"
+        >
           <div class="language" id="isLanguage">Íslenska</div>
           <div class="language" id="enLanguage">English</div>
           <div class="language" id="plLanguage">Polska</div>
         </div>
-        <div title$="ZZZnumber_of_votersZZZ" class="totalVoters layout horizontal">
+        <div
+          title$="ZZZnumber_of_votersZZZ"
+          class="totalVoters layout horizontal"
+        >
           <iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon>
           <div class="totalVoterCount">ZZZtotalVoterCountZZZ</div>
         </div>
       </div>
 
       <div class="shadow-elevation-3dp topMaterial infoImageContainer">
-        <video id="video" width="400" height="225" controls style="outline:none;">
+        <video
+          id="video"
+          width="400"
+          height="225"
+          controls
+          style="outline: none"
+        >
           <source
-            src="https://oav-direct-assets.s3-eu-west-1.amazonaws.com/OkkarKopavogur2017/KosningamyndbandOK2020.mp4"
-            type="video/mp4">
+            src="https://oav-direct-assets.s3.eu-west-1.amazonaws.com/OK2022/Kop_OkkarKopDes2021_v1.mp4"
+            type="video/mp4"
+          />
           Þinn vafri styður ekki myndbönd.
         </video>
       </div>
@@ -323,48 +351,100 @@
   </div>
 
   <div class="areaOptions shadow-elevation-6dp layout vertical center-center">
-<img src="https://oav-direct-assets.s3-eu-west-1.amazonaws.com/OkkarKopavogur2017/skolahverfi1.png" usemap="#image-map">
+    <img
+      width="882"
+      height="515"
+      src="https://oav-direct-assets.s3.eu-west-1.amazonaws.com/OK2022/Kopavogur_Svaedakort_1764x1030.png"
+      usemap="#image-map"
+    />
 
-<map name="image-map">
-<area target="" alt="Kársnesskólahverfi" title="Kársnesskólahverfi" href="/area-ballot/1" coords="27,30,68,34,79,47,95,47,119,41,135,45,138,54,154,53,163,50,174,54,206,49,217,49,248,39,263,42,265,53,257,63,215,89,215,111,235,164,228,171,211,161,179,148,118,138,85,132,60,103,35,71,24,50" shape="poly">
-<area target="" alt="Snælands- og Álfhólsskólahverfi" title="Snælands- og Álfhólsskólahverfi" href="/area-ballot/2" coords="268,62,277,48,301,34,533,70,546,97,517,167,436,176,394,188,367,210,349,199,371,176,342,148,347,133,327,120,335,76" shape="poly">
-<area target="" alt="Kópavogs- og Smáraskólahverfi" title="Kópavogs- og Smáraskólahverfi" href="/area-ballot/3" coords="210,204,231,192,242,165,220,113,221,92,258,70,327,79,323,120,342,138,340,146,366,178,345,200,361,218,310,273,296,271,233,238" shape="poly">
-<area target="" alt="Linda- og Salaskólahverfi" title="Linda- og Salaskólahverfi" href="/area-ballot/4" coords="316,271,394,193,440,182,453,185,461,255,573,343,569,352,447,371,429,345,389,323,393,296,380,286,333,283" shape="poly">
-<area target="" alt="Hörðuvalla- og Vatnsendaskólahverfi" title="Hörðuvalla- og Vatnsendaskólahverfi" href="/area-ballot/5" coords="454,375,584,352,701,260,770,276,811,276,829,280,847,265,856,296,841,309,802,312,777,347,793,360,805,374,789,386,738,397,732,420,753,456,745,464,641,464,625,476,591,476,585,420,459,392" shape="poly">
-</map>
+    <map name="image-map">
+      <area
+        target=""
+        alt="Kársnesskólahverfi"
+        title="Kársnesskólahverfi"
+        href="/area-ballot/1"
+        coords="27,30,68,34,79,47,95,47,119,41,135,45,138,54,154,53,163,50,174,54,206,49,217,49,248,39,263,42,265,53,257,63,215,89,215,111,235,164,228,171,211,161,179,148,118,138,85,132,60,103,35,71,24,50"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Snælands- og Álfhólsskólahverfi"
+        title="Snælands- og Álfhólsskólahverfi"
+        href="/area-ballot/2"
+        coords="268,62,277,48,301,34,533,70,546,97,517,167,436,176,394,188,367,210,349,199,371,176,342,148,347,133,327,120,335,76"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Kópavogs- og Smáraskólahverfi"
+        title="Kópavogs- og Smáraskólahverfi"
+        href="/area-ballot/3"
+        coords="210,204,231,192,242,165,220,113,221,92,258,70,327,79,323,120,342,138,340,146,366,178,345,200,361,218,310,273,296,271,233,238"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Linda- og Salaskólahverfi"
+        title="Linda- og Salaskólahverfi"
+        href="/area-ballot/4"
+        coords="316,271,394,193,440,182,453,185,461,255,573,343,569,352,447,371,429,345,389,323,393,296,380,286,333,283"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Hörðuvalla- og Vatnsendaskólahverfi"
+        title="Hörðuvalla- og Vatnsendaskólahverfi"
+        href="/area-ballot/5"
+        coords="454,375,584,352,701,260,770,276,811,276,829,280,847,265,856,296,841,309,802,312,777,347,793,360,805,374,789,386,738,397,732,420,753,456,745,464,641,464,625,476,591,476,585,420,459,392"
+        shape="poly"
+      />
+    </map>
 
-<div hidden>
-  <a href="/area-ballot/1" class="voteAreaOne">
-    <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-      <div class="voteNumberGeneral">ZZZareaCount1ZZZ</div>
+    <div hidden>
+      <a href="/area-ballot/1" class="voteAreaOne">
+        <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+          <div class="voteNumberGeneral">ZZZareaCount1ZZZ</div>
+        </div>
+      </a>
+      <a href="/area-ballot/2" class="voteAreaTwo">
+        <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+          <div class="voteNumberGeneral">ZZZareaCount2ZZZ</div>
+        </div>
+      </a>
+      <a href="/area-ballot/3" class="voteAreaThree">
+        <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+          <div class="voteNumberGeneral">ZZZareaCount3ZZZ</div>
+        </div>
+      </a>
+      <a href="/area-ballot/4" class="voteAreaFour">
+        <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+          <div class="voteNumberGeneral">ZZZareaCount4ZZZ</div>
+        </div>
+      </a>
+      <a href="/area-ballot/5" class="voteAreaFive">
+        <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+          <div class="voteNumberGeneral">ZZZareaCount5ZZZ</div>
+        </div>
+      </a>
     </div>
-  </a>
-  <a href="/area-ballot/2" class="voteAreaTwo">
-    <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-      <div class="voteNumberGeneral">ZZZareaCount2ZZZ</div>
-    </div>
-  </a>
-  <a href="/area-ballot/3" class="voteAreaThree">
-    <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-      <div class="voteNumberGeneral">ZZZareaCount3ZZZ</div>
-    </div>
-  </a>
-  <a href="/area-ballot/4" class="voteAreaFour">
-    <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-      <div class="voteNumberGeneral">ZZZareaCount4ZZZ</div>
-    </div>
-  </a>
-  <a href="/area-ballot/5" class="voteAreaFive">
-    <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
-      <div class="voteNumberGeneral">ZZZareaCount5ZZZ</div>
-    </div>
-  </a>
-
-</div>
   </div>
-  <div class="layout horizontal center-center" style="width:32px;margin-left:auto;margin-right:auto;">
-     <paper-share-button style="margin-top: 16px; color:#FFF;text-align: center;" class="shareIcon" horizontal-align="left"
-      id="shareButton" url="https://kosning2020.kopavogur.is/" title="Share" facebook twitter popup .url="/">
+  <div
+    class="layout horizontal center-center"
+    style="width: 32px; margin-left: auto; margin-right: auto"
+  >
+    <paper-share-button
+      style="margin-top: 16px; color: #fff; text-align: center"
+      class="shareIcon"
+      horizontal-align="left"
+      id="shareButton"
+      url="https://kosning2022.kopavogur.is/"
+      title="Share"
+      facebook
+      twitter
+      popup
+      .url="/"
+    >
     </paper-share-button>
   </div>
 </div>
