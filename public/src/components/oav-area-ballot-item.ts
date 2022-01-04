@@ -287,36 +287,40 @@ export class OavAreaBallotItem extends OavBaseElement {
           >
           </paper-fab>
 
-          <div
-            id="favoriteButtons"
-            class="favoriteButtons"
-            ?hidden="${!this.selectedInBudget ||
-            this.configFromServer.client_config.hideFavoriteButton}"
-          >
-            <paper-fab
-              mini
-              id="addFavoriteButton"
-              class="addFavoriteButton"
-              elevation="5"
-              class="favoriteButton"
-              ?hidden="${this.isFavorite}"
-              title="${this.localize("select_favorite")}"
-              icon="${this.configFromServer.client_config.favoriteIconOutline}"
-              @click="${this._toggleFavorite}"
-            >
-            </paper-fab>
-            <paper-fab
-              mini
-              class="removeFavoriteButton"
-              elevation="5"
-              class="favoriteButton"
-              ?hidden="${!this.isFavorite}"
-              title="${this.localize("deselect_favorite")}"
-              icon="${this.configFromServer.client_config.favoriteIcon}"
-              @click="${this._toggleFavorite}"
-            >
-            </paper-fab>
-          </div>
+          ${
+            !this.configFromServer.client_config.hideFavoriteButton ? html`
+              <div
+                id="favoriteButtons"
+                class="favoriteButtons"
+                ?hidden="${!this.selectedInBudget}"
+              >
+                <paper-fab
+                  mini
+                  id="addFavoriteButton"
+                  class="addFavoriteButton"
+                  elevation="5"
+                  class="favoriteButton"
+                  ?hidden="${this.isFavorite}"
+                  title="${this.localize("select_favorite")}"
+                  icon="${this.configFromServer.client_config.favoriteIconOutline}"
+                  @click="${this._toggleFavorite}"
+                >
+                </paper-fab>
+                <paper-fab
+                  mini
+                  class="removeFavoriteButton"
+                  elevation="5"
+                  class="favoriteButton"
+                  ?hidden="${!this.isFavorite}"
+                  title="${this.localize("deselect_favorite")}"
+                  icon="${this.configFromServer.client_config.favoriteIcon}"
+                  @click="${this._toggleFavorite}"
+                >
+                </paper-fab>
+              </div>
+
+            ` : html``
+          }
         </div>
       </div>
     `;
