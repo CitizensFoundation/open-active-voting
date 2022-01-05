@@ -559,27 +559,30 @@ export class OavAreaBallotItem extends OavBaseElement {
   _toggleInBudget() {
     //console.log("_toggleInBudget itemId: "+this.item.id);
     const addFavoriteButton = this.$$("#addFavoriteButton") as HTMLElement;
-    addFavoriteButton.style.position = "absolute";
-    addFavoriteButton.style.left = "12px";
-    addFavoriteButton.style.bottom = "12px";
-
-    var animation = addFavoriteButton.animate(
-      [
-        { transform: "translateX(200px)", easing: "ease-out" },
-        { transform: "scale(2)", easing: "ease-out" },
-        { transform: "translateY(0)", easing: "ease-out" },
-      ],
-      {
-        duration: 400,
-        iterations: 1,
-      }
-    );
-
-    animation.onfinish = function () {
+    if (addFavoriteButton) {
       addFavoriteButton.style.position = "absolute";
       addFavoriteButton.style.left = "12px";
       addFavoriteButton.style.bottom = "12px";
-    }.bind(this);
+
+      var animation = addFavoriteButton.animate(
+        [
+          { transform: "translateX(200px)", easing: "ease-out" },
+          { transform: "scale(2)", easing: "ease-out" },
+          { transform: "translateY(0)", easing: "ease-out" },
+        ],
+        {
+          duration: 400,
+          iterations: 1,
+        }
+      );
+
+      animation.onfinish = function () {
+        addFavoriteButton.style.position = "absolute";
+        addFavoriteButton.style.left = "12px";
+        addFavoriteButton.style.bottom = "12px";
+      }.bind(this);
+    }
+
     this.fire("oav-toggle-item-in-budget", { item: this.item });
   }
 }
