@@ -149,7 +149,7 @@ GEM
     tilt (2.0.10)
     turn (0.9.6)
       ansi
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     tzinfo-data (1.2021.5)
       tzinfo (>= 1.0.0)
