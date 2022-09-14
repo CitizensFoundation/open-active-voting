@@ -252,12 +252,14 @@ export class OavAreaBallotItem extends OavBaseElement {
               .currencySymbol}${this.formatNumber(this.item.price, undefined)}
             <span
               class="priceCurrency"
-              ?hidden="${!this._priceIsOne(this.item.price)}"
+              ?hidden="${!this._priceIsOne(this.item.price) || this.configFromServer.client_config
+              .dontUserMillions}"
               >${this.localize("million")}</span
             >
             <span
               class="priceCurrency"
-              ?hidden="${this._priceIsOne(this.item.price)}"
+              ?hidden="${this._priceIsOne(this.item.price) || this.configFromServer.client_config
+              .dontUserMillions}"
               >${this.localize("millions")}</span
             >
           </div>

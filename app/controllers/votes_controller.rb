@@ -20,6 +20,8 @@ require 'digest/sha1'
 require 'nokogiri'
 require 'base64'
 require 'ruby-saml'
+require 'uri'
+require 'net/http'
 
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
@@ -113,26 +115,26 @@ class VotesController < ApplicationController
   end
 
   # For smaller projects with no access to secure logins and for testing purposes
-  def insecure_sms_login
-    if ENV["INSECURE_SMS_LOGIN_ENABLED"]
-      insecure_sms = params[:insecure_sms]
+  def sms_login
+    if ENV["LOW_SECURITY_SMS_LOGIN_ENABLED"]
+      number_for_sms = params[:number_for_sms]
       if session[:random_sms_code]==params[:user_sms_code]
         # Find the previously stored wote from the session id that has not been authenticated before
         vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id].to_s, :saml_assertion_id=>nil).first
 
         if vote
           # Create an encrypted checksum
-          encrypted_vote_checksum = Vote.generate_encrypted_checksum(insecure_sms,
+          encrypted_vote_checksum = Vote.generate_encrypted_checksum(number_for_sms,
                                           vote.payload_data,vote.client_ip_address,vote.area_id,request.session_options[:id])
 
           # Update the values for the vote and confirm it as being authenticated
           vote.encrypted_vote_checksum = encrypted_vote_checksum
 
           if @config.client_config["allowVotesForAllAreas"] and @config.client_config["allowVotesForAllAreas"]==true
-            insecure_sms += "-" + vote.area_id.to_s
+            number_for_sms += "-" + vote.area_id.to_s
           end
 
-          vote.user_id_hash = insecure_sms
+          vote.user_id_hash = number_for_sms
           vote.authenticated_at = Time.now
           vote.user_postcode = postcode
           vote.saml_assertion_id = -1
@@ -147,16 +149,27 @@ class VotesController < ApplicationController
         respond_to do |format|
           render json: {}, status: :unauthorised
         end
+      end
     else
       raise "Trying to use insecure email login when not enabled"
     end
   end
 
-  def insecure_sms_login_code
+  def sms_login_code
     if ENV["INSECURE_SMS_LOGIN_ENABLED"]
       random_sms_code = session[:random_sms_code] = 4.times.map{rand(10)}.join
       sms_text = @config.client_config["sms_text"].gsub("#SMSCODE#", random_sms_code)
-      # SEND SMS WITH A GET REQUEST
+      sms_text = sms_text.gsub!(/ /, "+")
+      url = @config.client_config["sms_url"].gsub("#SMSTONUMBER#", params[:number_for_sms])
+      url = url.gsub("#SMSTEXT#", sms_text)
+      res = Net::HTTP.get_response(URI(url))
+      if res.is_a?(Net::HTTPSuccess)
+        respond_to do |format|
+          format.json { render :json => {:ok=>true} }
+        end
+      else
+        raise "SMS login code failed"
+      end
     else
       raise "Trying to use insecure email login when not enabled"
     end
