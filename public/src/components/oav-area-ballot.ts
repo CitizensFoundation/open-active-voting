@@ -480,6 +480,15 @@ export class OavAreaBallot extends PageViewElement {
                   areaName: this.area!.name,
                   onLoginFunction: this._setVotingCompleted.bind(this),
                 });
+              } else if (
+                this.configFromServer.client_config
+                  .lowSecuritySmsLoginEnabled === true
+              ) {
+                this.fire("oav-low-security-sms-login", {
+                  areaId: this.area!.id,
+                  areaName: this.area!.name,
+                  onLoginFunction: this._setVotingCompleted.bind(this),
+                });
               } else {
                 window.location.href = this._getSamlUrlWithLanguage();
               }

@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   get "votes/better_iceland_proxy"
   post "votes/post_vote"
   post "votes/insecure_email_login"
+
+  post "votes/sms_login"
+  post "votes/send_sms_login_code"
+
   get "votes/logout_and_information"
   get "votes/logout"
   get "votes/select_area"

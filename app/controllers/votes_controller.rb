@@ -33,6 +33,7 @@ class VotesController < ApplicationController
   def logout
     Rails.logger.info("Logout")
     session[:random_sms_code] = nil
+    session[:sms_number] = nil
     reset_session
   end
 
@@ -117,8 +118,12 @@ class VotesController < ApplicationController
   # For smaller projects with no access to secure logins and for testing purposes
   def sms_login
     if ENV["LOW_SECURITY_SMS_LOGIN_ENABLED"]
-      number_for_sms = params[:number_for_sms]
-      if session[:random_sms_code]==params[:user_sms_code]
+      puts params[:smsCode]
+      puts session[:random_sms_code]
+      puts session[:sms_number]
+
+      if session[:sms_number] and session[:random_sms_code]==params[:smsCode]
+        puts number_for_sms = session[:sms_number]
         # Find the previously stored wote from the session id that has not been authenticated before
         vote = Vote.order("created_at DESC").where(:session_id=>request.session_options[:id].to_s, :saml_assertion_id=>nil).first
 
@@ -136,7 +141,6 @@ class VotesController < ApplicationController
 
           vote.user_id_hash = number_for_sms
           vote.authenticated_at = Time.now
-          vote.user_postcode = postcode
           vote.saml_assertion_id = -1
           vote.save
           respond_to do |format|
@@ -151,17 +155,19 @@ class VotesController < ApplicationController
         end
       end
     else
-      raise "Trying to use insecure email login when not enabled"
+      raise "Trying to use low security sms login when not enabled"
     end
   end
 
-  def sms_login_code
-    if ENV["INSECURE_SMS_LOGIN_ENABLED"]
-      random_sms_code = session[:random_sms_code] = 4.times.map{rand(10)}.join
-      sms_text = @config.client_config["sms_text"].gsub("#SMSCODE#", random_sms_code)
+  def send_sms_login_code
+    if ENV["LOW_SECURITY_SMS_LOGIN_ENABLED"]
+      puts random_sms_code = session[:random_sms_code] = 4.times.map{rand(10)}.join
+      puts session[:sms_number] = params[:smsNumber]
+      sms_text = @config.client_config["lowSecuritySmsText"].gsub("#SMSCODE#", random_sms_code)
       sms_text = sms_text.gsub!(/ /, "+")
-      url = @config.client_config["sms_url"].gsub("#SMSTONUMBER#", params[:number_for_sms])
+      url = @config.client_config["lowSecuritySmsUrl"].gsub("#SMSTONUMBER#", params[:smsNumber])
       url = url.gsub("#SMSTEXT#", sms_text)
+      puts url
       res = Net::HTTP.get_response(URI(url))
       if res.is_a?(Net::HTTPSuccess)
         respond_to do |format|
@@ -171,7 +177,7 @@ class VotesController < ApplicationController
         raise "SMS login code failed"
       end
     else
-      raise "Trying to use insecure email login when not enabled"
+      raise "Trying to use low security sms login when not enabled"
     end
   end
 

@@ -36,6 +36,7 @@ import { PaperDialogElement } from "@polymer/paper-dialog/paper-dialog.js";
 import { OavSelectVotingArea } from "./oav-select-voting-area.js";
 import { PaperToastElement } from "@polymer/paper-toast/paper-toast.js";
 import { OavInsecureEmailLogin } from "./oav-insecure-email-login.js";
+import { OavLowSecuritySmsLogin } from "./oav-low-security-sms-login.js";
 
 @customElement("oav-app")
 export class OavApp extends OavBaseElement {
@@ -178,6 +179,19 @@ export class OavApp extends OavBaseElement {
                   id="insecureEmailLogin"
                 >
                 </oav-insecure-email-login>
+              `
+            : html``
+        }
+
+        ${
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+            ? html`
+                <oav-low-security-sms-login
+                  .language="${this.language}"
+                  .configFromServer="${this.configFromServer}"
+                  id="lowSecuritySmsLogin"
+                >
+                </oav-low-security-sms-login>
               `
             : html``
         }
@@ -479,6 +493,13 @@ export class OavApp extends OavBaseElement {
         ) {
           import("./oav-insecure-email-login.js");
         }
+
+        if (
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+        ) {
+          import("./oav-low-security-sms-login.js");
+        }
+
       })
       .catch((error) => {
         debugger;
@@ -544,6 +565,7 @@ export class OavApp extends OavBaseElement {
       this._scrollItemIntoView
     );
     this.addEventListener("oav-insecure-email-login", this._insecureEmailLogin);
+    this.addEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
 
     this.addEventListener("location-changed", this._locationChanged);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
@@ -592,6 +614,7 @@ export class OavApp extends OavBaseElement {
       "oav-insecure-email-login",
       this._insecureEmailLogin
     );
+    this.removeEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
   }
 
   _closeToast() {
@@ -618,6 +641,14 @@ export class OavApp extends OavBaseElement {
 
   _insecureEmailLogin(event: CustomEvent | any) {
     (this.$$("#insecureEmailLogin") as OavInsecureEmailLogin).open(
+      event.detail.areaId,
+      event.detail.areaName,
+      event.detail.onLoginFunction
+    );
+  }
+
+  _lowSecuritySmsLogin(event: CustomEvent | any) {
+    (this.$$("#lowSecuritySmsLogin") as OavLowSecuritySmsLogin).open(
       event.detail.areaId,
       event.detail.areaName,
       event.detail.onLoginFunction

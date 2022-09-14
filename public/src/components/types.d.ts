@@ -19,6 +19,10 @@ interface OavClientConfig {
   insecureEmailLoginPostCodes: Record<number, Array<string>>;
   insecureEmailLoginAreaNames: Record<number, string>;
 
+  lowSecuritySmsLoginEnabled?: boolean;
+  lowSecuritySmsUrl?: string;
+  lowSecuritySmsText?: string;
+
   pathToDesignPdfs: string;
   pathToMapImages: string;
 
