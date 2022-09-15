@@ -26,6 +26,8 @@ interface OavClientConfig {
   pathToDesignPdfs: string;
   pathToMapImages: string;
 
+  postsHost?: string;
+
   currencySymbol: string;
   ballotBudgetLogo: string;
   shakeVotingButton: boolean;

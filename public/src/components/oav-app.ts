@@ -450,7 +450,7 @@ export class OavApp extends OavBaseElement {
           this.configFromServer.client_config.googleAnalyticsId,
           "auto"
         );
-        this.postsHost = "https://yrpri.org";
+        this.postsHost = this.configFromServer.client_config.postsHost || "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
 
