@@ -984,6 +984,10 @@ export class OavApp extends OavBaseElement {
       }
 
       this.wideAndBallot = this.wide && page === "area-ballot";
+
+      if (page == "voting-completed") {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   }
 
