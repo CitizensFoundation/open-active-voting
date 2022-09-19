@@ -68,7 +68,6 @@ export class OavVotingCompleted extends PageViewElement {
                         title="${this.localize("share_vote_by_pressing")}"
                         facebook
                         twitter
-                        popup
                         url="${this.configFromServer.client_config
                           .votingCompleteConfig.shareUrl}"
                       >

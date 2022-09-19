@@ -9,6 +9,7 @@ import "@polymer/paper-checkbox/paper-checkbox";
 import { PaperDialogElement } from "@polymer/paper-dialog/paper-dialog";
 import { PaperInputElement } from "@polymer/paper-input/paper-input";
 import { PaperCheckboxElement } from "@polymer/paper-checkbox/paper-checkbox";
+import { NumberFormatInternal } from "@formatjs/ecma402-abstract";
 
 @customElement("oav-low-security-sms-login")
 export class OavLowSecuritySmsLogin extends OavBaseElement {
@@ -85,14 +86,25 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
                   label="${this.localize("smsCode")}"
                   .value="${this.smsCode}"
                   minlength="4"
+                  allowed-pattern="[0-9]"
                   .error-message="${this.smsCodeErrorMessage}"
                 >
                 </paper-input>
               `
             : html`
                 <paper-input
+                  id="yearOfBirth"
+                  type="text"
+                  minlength="4"
+                  maxlength="4"
+                  allowed-pattern="[0-9]"
+                  label="${this.localize("lowSecuritySmsLoginYearOfBirth")}"
+                >
+                </paper-input>
+                <paper-input
                   id="smsNumber"
                   type="text"
+                  allowed-pattern="[0-9]"
                   label="${this.localize("mobileNumber")}"
                   .value="${this.smsNumber}"
                   minlength="6"
@@ -102,6 +114,9 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
               `}
         </form>
         <div class="buttons layout vertical">
+          <paper-button dialog-dismiss
+            >${this.localize('cancel')}</paper-button
+          >
           <paper-button autofocus @tap="${this._validateAndSend}"
             >${this.smsCodeSent
               ? html`${this.localize("sendSmsCode")}`
@@ -182,9 +197,19 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
       }
     } else {
       this.smsNumber = (this.$$("#smsNumber") as PaperInputElement).value!;
-      if (this.smsNumber) {
-        //TODO: Better validation
-        if (true) {
+      const yearOfBirth = (this.$$("#yearOfBirth") as PaperInputElement).value!;
+      let yearOfBirthInt;
+      //@ts-ignore
+      if (yearOfBirth && !isNaN(yearOfBirth)) {
+        yearOfBirthInt = parseInt(yearOfBirth);
+      }
+      if (!yearOfBirthInt ||
+        yearOfBirthInt < this.configFromServer.client_config.lowSecuritySmsLoginMinYearOfBirth! ||
+        yearOfBirthInt > this.configFromServer.client_config.lowSecuritySmsLoginMaxYearOfBirth!) {
+          this.fire("oav-error", this.localize("lowSecuritySmsLoginAgeError"));
+          return false;
+      } else if (this.smsNumber) {
+        if (this.smsNumber.length>6) {
           fetch("/votes/send_sms_login_code", {
             method: "POST",
             cache: "no-cache",
@@ -209,7 +234,7 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
             });
           return true;
         } else {
-          this.fire("oav-error", this.localize("completeForm"));
+          this.fire("oav-error", this.localize("enterValidPhoneNumber"));
           return false;
         }
       } else {

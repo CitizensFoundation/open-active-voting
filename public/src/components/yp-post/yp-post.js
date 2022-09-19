@@ -558,6 +558,63 @@ Polymer({
     this.fire('yp-set-pages', detail.response);
   },
 
+  _structuredAnswersFormatted: function (post, translatedQuestions, translatedAnswers) {
+    if (post && post.public_data && post.public_data.structuredAnswersJson &&
+      post.Group.configuration && post.Group.configuration.structuredQuestionsJson) {
+
+      var currentQuestions = post.Group.configuration.structuredQuestionsJson;
+      var currentAnswers = post.public_data.structuredAnswersJson;
+
+      if (translatedQuestions && translatedAnswers) {
+        currentQuestions = translatedQuestions;
+        currentAnswers = translatedAnswers;
+      }
+
+      var questionHash = {};
+      var showDescriptionBeforeIdHash = {};
+      var showDescriptionAfterIdHash = {};
+      var outText = "";
+
+      currentQuestions.forEach(function (question) {
+        if (question.uniqueId) {
+          questionHash[question.uniqueId] = question;
+        } else {
+          if (question.showBeforeAnswerId) {
+            showDescriptionBeforeIdHash[question.showBeforeAnswerId] = question;
+          }
+
+          if (question.showAfterAnswerId) {
+            showDescriptionAfterIdHash[question.showAfterAnswerId] = question;
+          }
+        }
+      }.bind(this));
+
+      currentAnswers.forEach(function (answer) {
+        if (answer) {
+          var question = questionHash[answer.uniqueId];
+          if (question) {
+            if (showDescriptionBeforeIdHash[answer.uniqueId]) {
+              outText+=showDescriptionBeforeIdHash[answer.uniqueId].text+"\n\n";
+            }
+            outText+=question.text+"\n";
+            if (answer.value) {
+              outText+=answer.value+"\n\n";
+            } else {
+              outText+="\n\n";
+            }
+            if (showDescriptionAfterIdHash[answer.uniqueId]) {
+              outText+=showDescriptionAfterIdHash[answer.uniqueId].text+"\n\n";
+            }
+          }
+        }
+      }.bind(this));
+
+      return outText;
+    } else {
+      return "";
+    }
+  },
+
   _getPost: function () {
     this._setupAjaxUrl();
     this.$$('#ajax').retryMethodAfter401Login = this._getPost.bind(this);
@@ -565,7 +622,12 @@ Polymer({
   },
 
   _handleIncomingPostResponse: function (event, detail) {
-    this.set("post", detail.response);
+    const post = detail.response;
+    if (!post.description) {
+      post.description = this._structuredAnswersFormatted(post);
+    }
+
+    this.set("post", post);
 
     this.refresh();
 

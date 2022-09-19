@@ -369,7 +369,7 @@ Polymer({
             </div>
             <div class="layout vertical">
               <div class="infoContainer">
-                <yp-magic-text id="description" text-type="postContent" content-language="[[post.language]]" content="[[post.description]]" no-user-info\$="[[!post.Group.configuration.showWhoPostedPosts]]" structured-questions-config="[[post.Group.configuration.structuredQuestions]]" content-id="[[post.id]]" class="description" truncate="500" more-text="{{t('readMore')}}" close-dialog-text="[[t('close')]]">
+                <yp-magic-text id="description" simple-format text-type="postContent" content-language="[[post.language]]" content="[[post.description]]" no-user-info\$="[[!post.Group.configuration.showWhoPostedPosts]]" structured-questions-config="[[post.Group.configuration.structuredQuestions]]" content-id="[[post.id]]" class="description" truncate="500" more-text="{{t('readMore')}}" close-dialog-text="[[t('close')]]">
                 </yp-magic-text>
               </div>
               <div class="card-actions" hidden>

@@ -50,6 +50,8 @@ interface OavClientConfig {
   welcomeLocalesByArea: Record<number,Record<string,Record<string,string>>>;
   helpPageLocales: Record<string,Record<string,string>>;
   hideFavoriteButton: boolean;
+  lowSecuritySmsLoginMinYearOfBirth?: number;
+  lowSecuritySmsLoginMaxYearOfBirth?: number;
 }
 
 interface OavConfigFromServer {

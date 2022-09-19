@@ -86,7 +86,7 @@ Polymer({
         <div class="action-text">{{point.counter_quality_down}}</div>
       </div>
     </div>
-    <paper-share-button hidden on-share-tap="_shareTap" class="shareIcon" up-voted\$="[[isUpVoted]]" horizontal-align="right" id="shareButton" title\$="[[t('sharePoint')]]" facebook="" google="" twitter="" popup="" url="[[pointUrl]]"></paper-share-button>
+    <paper-share-button hidden on-share-tap="_shareTap" class="shareIcon" up-voted\$="[[isUpVoted]]" horizontal-align="right" id="shareButton" title\$="[[t('sharePoint')]]" facebook="" google="" twitter="" url="[[pointUrl]]"></paper-share-button>
 
     <yp-ajax id="pointQualityAjax" method="POST" on-response="_pointQualityResponse"></yp-ajax>
     <lite-signal on-lite-signal-got-endorsements-and-qualities="_updateQualitiesFromSignal"></lite-signal>

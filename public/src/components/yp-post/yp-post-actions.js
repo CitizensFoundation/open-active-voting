@@ -200,7 +200,7 @@ Polymer({
         <div class="action-text down-text" hidden\$="[[post.Group.configuration.hideVoteCount]]">[[formattedDownCount]]</div>
       </div>
       <div class="share">
-        <paper-share-button hidden on-share-tap="_shareTap" class="shareIcon" less-margin\$="[[post.Group.configuration.hideDownVoteForPost]]" endorsed\$="[[isEndorsed]]" horizontal-align="right" id="shareButton" title\$="[[t('post.shareInfo')]]" facebook="" google="" twitter="" popup="" url="[[postUrl]]"></paper-share-button>
+        <paper-share-button hidden on-share-tap="_shareTap" class="shareIcon" less-margin\$="[[post.Group.configuration.hideDownVoteForPost]]" endorsed\$="[[isEndorsed]]" horizontal-align="right" id="shareButton" title\$="[[t('post.shareInfo')]]" facebook="" google="" twitter="" url="[[postUrl]]"></paper-share-button>
       </div>
     </paper-material>
 

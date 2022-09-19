@@ -235,8 +235,9 @@ export class OavAreaBallotItem extends OavBaseElement {
             id="shareButton"
             title="${this.localize("share_idea")}"
             facebook
+            instagram
             twitter
-            popup
+            is-popup
             .url="${this._itemShareUrl()}"
           >
           </paper-share-button>
