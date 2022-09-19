@@ -25,6 +25,8 @@ require 'net/http'
 
 DSIG = "http://www.w3.org/2000/09/xmldsig#"
 
+DO_NOT_LOG_IP_ADDRESSES = false
+
 class VotesController < ApplicationController
 
   before_action :log_session_id
