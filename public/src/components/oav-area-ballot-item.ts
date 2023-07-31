@@ -422,9 +422,13 @@ export class OavAreaBallotItem extends OavBaseElement {
 
   _openPdf() {
     this.activity("click", "openPdf");
-    if (this.configFromServer.client_config.pathToMapImages) {
-      const path = `${this.configFromServer.client_config.pathToDesignPdfs}/${this.areaId}/${this.item.idea_id}.pdf`;
-      window.open(path, "_blank");
+    if (this.configFromServer.client_config.useDirectPdfUrls && this.item.pdf_url) {
+      window.open(this.item.pdf_url, "_blank");
+    } else {
+      if (this.configFromServer.client_config.pathToMapImages) {
+        const path = `${this.configFromServer.client_config.pathToDesignPdfs}/${this.areaId}/${this.item.idea_id}.pdf`;
+        window.open(path, "_blank");
+      }
     }
   }
 

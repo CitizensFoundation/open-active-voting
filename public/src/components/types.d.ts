@@ -28,6 +28,8 @@ interface OavClientConfig {
 
   postsHost?: string;
 
+  useDirectPdfUrls?: boolean;
+
   currencySymbol: string;
   ballotBudgetLogo: string;
   shakeVotingButton: boolean;
