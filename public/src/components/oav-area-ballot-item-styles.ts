@@ -93,7 +93,7 @@ export const OavAreaBallotItemStyles = css`
 
   .descriptionContainer {
     cursor: pointer;
-    height: 169px;
+    height: 168px;
     width: 300px;
     margin: 0;
     overflow: hidden;
