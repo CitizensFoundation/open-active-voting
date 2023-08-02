@@ -97,9 +97,11 @@ export class OavAreaBallotItem extends OavBaseElement {
       >
         <iron-image
           preload
+          class="itemImage"
           @loaded-changed="${this._imageLoadedChanged}"
           ?small="${this.small}"
           ?tiny$="${this.tiny}"
+          @click="${this._setDescriptionMode}"
           ?hidden="${!this.imageTabSelected}"
           name="image"
           sizing="cover"
@@ -139,6 +141,7 @@ export class OavAreaBallotItem extends OavBaseElement {
           ?hidden="${!this.descriptionTabSelected}"
           name="description"
           class="descriptionContainer"
+          @click="${this._setImageMode}"
           ?tiny="${this.tiny}"
           ?small="${this.small}"
         >

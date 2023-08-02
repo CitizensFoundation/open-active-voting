@@ -55,6 +55,10 @@ export const OavAreaBallotItemStyles = css`
     border-color: var(--app-accent-color);
   }
 
+  .itemImage {
+    cursor: pointer;
+  }
+
   iron-image {
     height: 169px;
     width: 300px;
@@ -88,6 +92,7 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .descriptionContainer {
+    cursor: pointer;
     height: 169px;
     width: 300px;
     margin: 0;
@@ -118,6 +123,7 @@ export const OavAreaBallotItemStyles = css`
     padding-top: 16px;
     font-size: 16px;
     margin-top: 42px;
+
   }
 
   .name {
