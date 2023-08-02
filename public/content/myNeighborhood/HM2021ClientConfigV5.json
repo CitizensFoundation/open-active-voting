@@ -232,8 +232,8 @@
       }
     }
   },
-  "ballotBudgetLogo": "https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/hm2018-400x120-logo-2xV3.png",
-  "welcomeLogo": "https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/logoThin.png",
+  "ballotBudgetLogo": "https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2023/HM+logo+-+%C3%A1+kj%C3%B6rse%C3%B0li_800+x+240px.png",
+  "welcomeLogo": "https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2023/Kosningalogo_popup_800x450.png",
 
   "helpPageLocales": {
     "en": {

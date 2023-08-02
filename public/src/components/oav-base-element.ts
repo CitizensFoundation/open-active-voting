@@ -41,25 +41,9 @@ export class OavBaseElement extends LitElement {
     parameterC: any
   ) {
     //@ts-ignore
-    if (typeof ga == "function") {
-      if (parameterB && parameterC) {
-        //@ts-ignore
-        ga(type, parameterA, parameterB, parameterC);
-      } else {
-        //@ts-ignore
-        ga(type, parameterA);
-      }
-    } else {
-      console.warn(
-        "Google analytics message not sent for type:" +
-          type +
-          " parameterA:" +
-          parameterA +
-          " parameterB:" +
-          parameterB +
-          " parameterC:" +
-          parameterC
-      );
+    if (typeof gtag == 'function') {
+      //@ts-ignore
+      gtag('event', `${type} - ${parameterA}`)
     }
   }
 

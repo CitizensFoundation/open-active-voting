@@ -918,7 +918,7 @@ var commonUtils = {
        * the desired `orange`. This leads us to a limitation.
        *
        * Limitation 1:
-      
+
        * Only properties in the rule where the `@apply`
        * is used are considered as default values.
        * If another rule matches the element and sets `background` with
@@ -929,7 +929,7 @@ var commonUtils = {
        *
        * When using Polymer's `updateStyles` api, new properties may not be set for
        * `@apply` properties.
-      
+
       */
 'use strict';
 
@@ -1637,14 +1637,14 @@ let validateFn = null; /**
                        This interface is provided to add document-level <style> elements to ShadyCSS for processing.
                        These styles must be processed by ShadyCSS to simulate ShadowRoot upper-bound encapsulation from outside styles
                        In addition, these styles may also need to be processed for @apply rules and CSS Custom Properties
-                       
+
                        To add document-level styles to ShadyCSS, one can call `ShadyCSS.addDocumentStyle(styleElement)` or `ShadyCSS.addDocumentStyle({getStyle: () => styleElement})`
-                       
+
                        In addition, if the process used to discover document-level styles can be synchronously flushed, one should set `ShadyCSS.documentStyleFlush`.
                        This function will be called when calculating styles.
-                       
+
                        An example usage of the document-level styling api can be found in `examples/document-style-lib.js`
-                       
+
                        @unrestricted
                        */
 
@@ -12293,7 +12293,7 @@ function flattenBehaviors(behaviors, list, exclude) {
    * Copies property descriptors from source to target, overwriting all fields
    * of any previous descriptor for a property *except* for `value`, which is
    * merged in from the target if it does not exist on the source.
-   * 
+   *
    * @param {*} target Target properties object
    * @param {*} source Source properties object
    */
@@ -12313,25 +12313,25 @@ function mergeProperties(target, source) {
   }
 } /* Note about construction and extension of legacy classes.
     [Changed in Q4 2018 to optimize performance.]
-  
+
     When calling `Polymer` or `mixinBehaviors`, the generated class below is
     made. The list of behaviors was previously made into one generated class per
     behavior, but this is no longer the case as behaviors are now called
     manually. Note, there may *still* be multiple generated classes in the
     element's prototype chain if extension is used with `mixinBehaviors`.
-  
+
     The generated class is directly tied to the info object and behaviors
     used to create it. That list of behaviors is filtered so it's only the
     behaviors not active on the superclass. In order to call through to the
     entire list of lifecycle methods, it's important to call `super`.
-  
+
     The element's `properties` and `observers` are controlled via the finalization
     mechanism provided by `PropertiesMixin`. `Properties` and `observers` are
     collected by manually traversing the prototype chain and merging.
-  
+
     To limit changes, the `_registered` method is called via `_initializeProperties`
     and not `_finalizeClass`.
-  
+
   */ /**
       * @param {!PolymerInit} info Polymer info object
       * @param {function(new:HTMLElement)} Base base class to extend with info object
@@ -15674,19 +15674,19 @@ Loader.prototype = {
   }
 }; /**
      Loads specified jsonp library.
-   
+
      Example:
-   
+
          <iron-jsonp-library
            library-url="https://apis.google.com/js/plusone.js?onload=%%callback%%"
            notify-event="api-load"
            library-loaded="{{loaded}}"></iron-jsonp-library>
-   
+
      Will emit 'api-load' event when loaded, and set 'loaded' to true
-   
+
      Implemented by  Polymer.IronJsonpLibraryBehavior. Use it
      to create specific library loader elements.
-   
+
      @demo demo/index.html
    */
 Polymer({
@@ -15961,10 +15961,10 @@ var error = {
 
 }; /*! *****************************************************************************
    Copyright (c) Microsoft Corporation.
-   
+
    Permission to use, copy, modify, and/or distribute this software for any
    purpose with or without fee is hereby granted.
-   
+
    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
@@ -21483,35 +21483,35 @@ var metaDatas = IronMeta.types; /**
                                 such that any instance of iron-meta has access to the shared information. You
                                 can use `iron-meta` to share whatever you want (or create an extension [like
                                 x-meta] for enhancements).
-                                
+
                                 The `iron-meta` instances containing your actual data can be loaded in an
                                 import, or constructed in any way you see fit. The only requirement is that you
                                 create them before you try to access them.
-                                
+
                                 Examples:
-                                
+
                                 If I create an instance like this:
-                                
+
                                     <iron-meta key="info" value="foo/bar"></iron-meta>
-                                
+
                                 Note that value="foo/bar" is the metadata I've defined. I could define more
                                 attributes or use child nodes to define additional metadata.
-                                
+
                                 Now I can access that element (and it's metadata) from any iron-meta instance
                                 via the byKey method, e.g.
-                                
+
                                     meta.byKey('info');
-                                
+
                                 Pure imperative form would be like:
-                                
+
                                     document.createElement('iron-meta').byKey('info');
-                                
+
                                 Or, in a Polymer element, you can include a meta in your template:
-                                
+
                                     <iron-meta id="meta"></iron-meta>
                                     ...
                                     this.$.meta.byKey('info');
-                                
+
                                 @group Iron Elements
                                 @demo demo/index.html
                                 @element iron-meta
@@ -24079,13 +24079,13 @@ const IronOverlayBehaviorImpl = {
      or shown, and displays on top of other content. It includes an optional
      backdrop, and can be used to implement a variety of UI controls including
      dialogs and drop downs. Multiple overlays may be displayed at once.
-   
+
      See the [demo source
      code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
      for an example.
-   
+
      ### Closing and canceling
-   
+
      An overlay may be hidden by closing or canceling. The difference between close
      and cancel is user intent. Closing generally implies that the user
      acknowledged the content on the overlay. By default, it will cancel whenever
@@ -24096,31 +24096,31 @@ const IronOverlayBehaviorImpl = {
      element. When the dialog is canceled, the overlay fires an
      'iron-overlay-canceled' event. Call `preventDefault` on this event to prevent
      the overlay from closing.
-   
+
      ### Positioning
-   
+
      By default the element is sized and positioned to fit and centered inside the
      window. You can position and size it manually using CSS. See
      `Polymer.IronFitBehavior`.
-   
+
      ### Backdrop
-   
+
      Set the `with-backdrop` attribute to display a backdrop behind the overlay.
      The backdrop is appended to `<body>` and is of type `<iron-overlay-backdrop>`.
      See its doc page for styling options.
-   
+
      In addition, `with-backdrop` will wrap the focus within the content in the
      light DOM. Override the [`_focusableNodes`
      getter](#Polymer.IronOverlayBehavior:property-_focusableNodes) to achieve a
      different behavior.
-   
+
      ### Limitations
-   
+
      The element is styled to appear on top of other content by setting its
      `z-index` property. You must ensure no element has a stacking context with a
      higher `z-index` than its parent stacking context. You should place this
      element as a child of `<body>` whenever possible.
-   
+
      @demo demo/index.html
      @polymerBehavior
     */
@@ -26538,28 +26538,28 @@ Ripple.prototype = {
 }; /**
    Material design: [Surface
    reaction](https://www.google.com/design/spec/animation/responsive-interaction.html#responsive-interaction-surface-reaction)
-   
+
    `paper-ripple` provides a visual effect that other paper elements can
    use to simulate a rippling effect emanating from the point of contact.  The
    effect can be visualized as a concentric circle with motion.
-   
+
    Example:
-   
+
        <div style="position:relative">
          <paper-ripple></paper-ripple>
        </div>
-   
+
    Note, it's important that the parent container of the ripple be relative
    position, otherwise the ripple will emanate outside of the desired container.
-   
+
    `paper-ripple` listens to "mousedown" and "mouseup" events so it would display
    ripple effect when touches on it.  You can also defeat the default behavior and
    manually route the down and up actions to the ripple element.  Note that it is
    important if you call `downAction()` you will have to make sure to call
    `upAction()` so that `paper-ripple` would end the animation loop.
-   
+
    Example:
-   
+
        <paper-ripple id="ripple" style="pointer-events: none;"></paper-ripple>
        ...
        downAction: function(e) {
@@ -26568,32 +26568,32 @@ Ripple.prototype = {
        upAction: function(e) {
          this.$.ripple.upAction();
        }
-   
+
    Styling ripple effect:
-   
+
      Use CSS color property to style the ripple:
-   
+
        paper-ripple {
          color: #4285f4;
        }
-   
+
      Note that CSS color property is inherited so it is not required to set it on
      the `paper-ripple` element directly.
-   
+
    By default, the ripple is centered on the point of contact.  Apply the
    `recenters` attribute to have the ripple grow toward the center of its
    container.
-   
+
        <paper-ripple recenters></paper-ripple>
-   
+
    You can also  center the ripple inside its container from the start.
-   
+
        <paper-ripple center></paper-ripple>
-   
+
    Apply `circle` class to make the rippling effect within a circle.
-   
+
        <paper-ripple class="circle"></paper-ripple>
-   
+
    @group Paper Elements
    @element paper-ripple
    @hero hero.svg
@@ -28154,7 +28154,7 @@ $_documentContainer.innerHTML = `<dom-module id="paper-dialog-shared-styles">
         padding: 0;
       }
 
-      
+
       :host > ::slotted(*:first-child) {
         margin-top: 24px;
       }
@@ -28425,7 +28425,7 @@ template$7.setAttribute('strip-whitespace', ''); /**
                                                                                                    <paper-fab icon="add"></paper-fab>
                                                    <paper-fab mini icon="favorite"></paper-fab>
                                                    <paper-fab src="star.png"></paper-fab>
-                                                                                               
+
                                                  ### Styling
                                                                                                The following custom properties and mixins are available for styling:
                                                                                                Custom property | Description | Default
@@ -28904,21 +28904,21 @@ var config = {
 }; /**
    Material design: [Dropdown
    buttons](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
-   
+
    `paper-menu-button` allows one to compose a designated "trigger" element with
    another element that represents "content", to create a dropdown menu that
    displays the "content" when the "trigger" is clicked.
-   
+
    The child element assigned to the `dropdown-trigger` slot will be used as the
    "trigger" element. The child element assigned to the `dropdown-content` slot
    will be used as the "content" element.
-   
+
    The `paper-menu-button` is sensitive to its content's `iron-select` events. If
    the "content" element triggers an `iron-select` event, the `paper-menu-button`
    will close automatically.
-   
+
    Example:
-   
+
        <paper-menu-button>
          <paper-icon-button icon="menu"
    slot="dropdown-trigger"></paper-icon-button> <paper-listbox
@@ -28927,11 +28927,11 @@ var config = {
            <paper-item>Help</paper-item>
          </paper-listbox>
        </paper-menu-button>
-   
+
    ### Styling
-   
+
    The following custom properties and mixins are also available for styling:
-   
+
    Custom property | Description | Default
    ----------------|-------------|----------
    `--paper-menu-button-dropdown-background` | Background color of the paper-menu-button dropdown | `--primary-background-color`
@@ -28939,7 +28939,7 @@ var config = {
    `--paper-menu-button-disabled` | Mixin applied to the paper-menu-button when disabled | `{}`
    `--paper-menu-button-dropdown` | Mixin applied to the paper-menu-button dropdown | `{}`
    `--paper-menu-button-content` | Mixin applied to the paper-menu-button content | `{}`
-   
+
    @hero hero.svg
    @demo demo/index.html
    */
@@ -30374,51 +30374,51 @@ Polymer({
 var currentToast = null; /**
                          Material design: [Snackbars &
                          toasts](https://www.google.com/design/spec/components/snackbars-toasts.html)
-                         
+
                          `paper-toast` provides a subtle notification toast. Only one `paper-toast` will
                          be visible on screen.
-                         
+
                          Use `opened` to show the toast:
-                         
+
                          Example:
-                         
+
                              <paper-toast text="Hello world!" opened></paper-toast>
-                         
+
                          Also `open()` or `show()` can be used to show the toast:
-                         
+
                          Example:
-                         
+
                              <paper-button on-click="openToast">Open Toast</paper-button>
                              <paper-toast id="toast" text="Hello world!"></paper-toast>
-                         
+
                              ...
-                         
+
                              openToast: function() {
                                this.$.toast.open();
                              }
-                         
+
                          Set `duration` to 0, a negative number or Infinity to persist the toast on
                          screen:
-                         
+
                          Example:
-                         
+
                              <paper-toast text="Terms and conditions" opened duration="0">
                                <a href="#">Show more</a>
                              </paper-toast>
-                         
-                         
+
+
                          ### Styling
                          The following custom properties and mixins are available for styling:
-                         
+
                          Custom property | Description | Default
                          ----------------|-------------|----------
                          `--paper-toast-background-color` | The paper-toast background-color | `#323232`
                          `--paper-toast-color` | The paper-toast color | `#f1f1f1`
-                         
+
                          This element applies the mixin `--paper-font-common-base` but does not import
                          `paper-styles/typography.html`. In order to apply the `Roboto` font to this
                          element, make sure you've imported `paper-styles/typography.html`.
-                         
+
                          @group Paper Elements
                          @element paper-toast
                          @demo demo/index.html
@@ -35857,7 +35857,7 @@ $_documentContainer$3.innerHTML = `<dom-module id="paper-share-button">
     </paper-menu-button>
   </template>
 
-    
+
 </dom-module>`;
 document.head.appendChild($_documentContainer$3.content);
 Polymer({
@@ -36076,7 +36076,7 @@ class PlasticResizeAware extends PolymerElement {
     }
   } /**
      * Fire event for this element's resize
-     * @param {ResizeObserverEntry} entry 
+     * @param {ResizeObserverEntry} entry
      */
 
   _roCallback(entry) {
@@ -36644,11 +36644,11 @@ window.customElements.define(PlasticMapInfo.is, PlasticMapInfo); /**
                                                                       Utility method that calls a callback whenever a media-query matches in response
                                                                       to the viewport size changing. The callback should take a boolean parameter
                                                                       (with `true` meaning the media query is matched).
-                                                                    
+
                                                                       Example:
-                                                                    
+
                                                                           import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
-                                                                    
+
                                                                           installMediaQueryWatcher(`(min-width: 600px)`, (matches) => {
                                                                             console.log(matches ? 'wide screen' : 'narrow sreen');
                                                                           });
@@ -36674,22 +36674,22 @@ var mediaQuery = {
         Utility method that updates the page's open graph and Twitter card metadata.
         It takes an object as a parameter with the following properties:
         title | description | url | image.
-      
+
         If the `url` is not specified, `window.location.href` will be used; for
         all other properties, if they aren't specified, then that metadata field will not
         be set.
-      
+
         Example (in your top level element or document, or in the router callback):
-      
+
             import { updateMetadata } from 'pwa-helpers/metadata.js';
-      
+
             updateMetadata({
               title: 'My App - view 1',
               description: 'This is my sample app',
               url: window.location.href,
               image: '/assets/view1-hero.png'
             });
-      
+
       */
 
 const updateMetadata = ({
@@ -36722,18 +36722,18 @@ const updateMetadata = ({
 }; /**
      Utility method to create or update the content of a meta tag based on an
      attribute name/value pair.
-   
+
      Example (in your top level element or document, or in the router callback):
-   
+
          import { setMetaTag } from 'pwa-helpers/metadata.js';
-   
+
          setMetaTag('name', 'twitter:card', 'summary');
-         
+
      This would create the following meta tag in the head of the document (or
      update the content attribute if a meta tag with name="twitter:card" exists):
-   
+
          <meta name="twitter:card" content="summary">
-   
+
    */
 
 function setMetaTag(attrName, attrValue, content) {
@@ -36763,11 +36763,11 @@ var metadata = {
         Utility method that calls a callback whenever the network connectivity of the app changes.
         The callback should take a boolean parameter (with `true` meaning
         the network is offline, and `false` meaning online)
-      
+
         Example:
-      
+
             import { installOfflineWatcher } from 'pwa-helpers/network.js';
-      
+
             installOfflineWatcher((offline) => {
               console.log('You are ' + offline ? ' offline' : 'online');
             });
@@ -36791,31 +36791,31 @@ var network = {
    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
    */ /**
         Basic router that calls a callback whenever the location is updated.
-      
+
         Example:
-      
+
             import { installRouter } from 'pwa-helpers/router.js';
-      
+
             installRouter((location) => handleNavigation(location));
-      
+
         For example, if you're using this router in a Redux-connected component,
         you could dispatch an action in the callback:
-      
+
             import { installRouter } from 'pwa-helpers/router.js';
             import { navigate } from '../actions/app.js';
-      
+
             installRouter((location) => store.dispatch(navigate(location)))
-      
+
         If you need to force a navigation to a new location programmatically, you can
         do so by pushing a new state using the History API, and then manually
         calling the callback with the new location:
-      
+
             window.history.pushState({}, '', '/new-route');
             handleNavigation(window.location);
-      
+
         Optionally, you can use the second argument to read the event that caused the
         navigation. For example, you may want to scroll to top only after a link click.
-      
+
             installRouter((location, event) => {
               // Only scroll to top on link clicks, not popstate events.
               if (event && event.type === 'click') {
@@ -41390,11 +41390,7 @@ class OavBaseElement extends LitElement {
 
   sendToGoogleAnalytics(type, parameterA, parameterB, parameterC) {
     if (typeof ga == 'function') {
-      if (parameterB && parameterC) {
-        ga(type, parameterA, parameterB, parameterC);
-      } else {
-        ga(type, parameterA);
-      }
+      gtag(type, parameterA);
     } else {
       console.warn("Google analytics message not sent for type:" + type + " parameterA:" + parameterA + " parameterB:" + parameterB + " parameterC:" + parameterC);
     }
@@ -44577,7 +44573,7 @@ class OavApp extends OavBaseElement {
         tempImg.src = this.configFromServer.client_config.ballotBudgetLogo;
       }
 
-      ga("create", this.configFromServer.client_config.googleAnalyticsId, "auto");
+      gtag('config', this.configFromServer.client_config.googleAnalyticsId);
       this.postsHost = "https://yrpri.org";
       this.favoriteIcon = "heart";
       this.oneBallotId = this.configFromServer.client_config.oneBallotId;
@@ -44986,8 +44982,8 @@ class OavApp extends OavBaseElement {
       } // Send page info to Google Analytics
 
 
-      if (page && typeof ga == "function") {
-        ga("send", "pageview", {
+      if (page && typeof gtag == "function") {
+        gtag("send", "pageview", {
           page: location.pathname + location.search + location.hash
         });
       }

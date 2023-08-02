@@ -806,7 +806,7 @@ import{html$1 as html,PageViewElement,unsafeHTML,OavShadowStyles,OavFlexLayout}f
               <img
                 height="225"
                 class="wavesImage"
-                src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/logoThin.png"
+                src="https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2023/Kosningalogo_popup_800x450.png"
               />
             </div>
           </div>

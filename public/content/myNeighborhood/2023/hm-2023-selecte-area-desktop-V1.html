@@ -1,0 +1,479 @@
+<style>
+  .selectedLanguage {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 940px) {
+    .infoImageContainer {
+      display: none;
+    }
+  }
+
+  .topMaterial {
+    width: 400px;
+    height: 225px;
+    background-color: #fff;
+    margin: 16px 16px 16px 16px;
+    display: block;
+    position: relative;
+    margin-left: 16px;
+  }
+
+  .infoImageContainer {
+    padding: 0;
+    margin: 16px;
+    height: 225px;
+    margin-left: 32px;
+  }
+
+  .imageContainer {
+    width: 100%;
+    background-size: 1920px 280px;
+    background-repeat: repeat;
+    background-position: center;
+    background-position-y: top;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 800px) {
+    .imageContainer {
+      background-image: none;
+      background-color: #f0f0f0;
+    }
+  }
+
+  .selectInfoTextSmaller {
+    font-size: 17px;
+    padding: 8px;
+    padding-bottom: 8px;
+    padding-top: 12px;
+    margin-top: 0;
+    color: #222;
+  }
+
+  .areaOptions {
+    margin-top: 16px;
+    background-color: #fff;
+    display: block;
+    position: relative;
+    max-width: 882px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .voteNumberForVesturbaer {
+    position: absolute;
+    top: 311px;
+    right: 810px;
+    color: #103d6b;
+  }
+
+  .voteNumberForMidborg {
+    position: absolute;
+    top: 404px;
+    left: 135px;
+    color: #1a6eb5;
+  }
+
+  .voteNumberForHlidar {
+    position: absolute;
+    top: 426px;
+    left: 245px;
+    color: #1c6f82;
+  }
+
+  .voteNumberForHaaleiti {
+    position: absolute;
+    top: 457px;
+    left: 373px;
+    color: #ea6044;
+  }
+
+  .voteNumberForLaugardalur {
+    position: absolute;
+    top: 124px;
+    left: 284px;
+    color: #82495c;
+  }
+
+  .voteNumberForBreidholt {
+    position: absolute;
+    bottom: 44px;
+    left: 370px;
+    color: #1a6eb5;
+  }
+
+  .voteNumberForArbaer {
+    position: absolute;
+    bottom: 55px;
+    left: 710px;
+    color: #103d6b;
+  }
+
+  .voteNumberForGrafarvogur {
+    position: absolute;
+    top: 73px;
+    left: 602px;
+    color: #1c6f82;
+    direction: ltr;
+  }
+
+  .voteNumberForGrafarholt {
+    position: absolute;
+    bottom: 105px;
+    left: 795px;
+    color: #82495c;
+    text-align: right;
+  }
+
+  .voteNumberForKjalarnes {
+    position: absolute;
+    top: 30px;
+    right: 406px;
+    color: #ea6044;
+  }
+
+  .voteNumberGeneral {
+    padding-left: 4px;
+    font-size: 15px;
+    font-family: Esja;
+  }
+
+  .checkIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .checkIconMain {
+    width: 33px;
+    height: 33px;
+  }
+
+  @media (max-width: 1023px) {
+    .selectInfoTextSmaller {
+      font-size: 18px;
+    }
+  }
+
+  .totalVoters {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    color: #888;
+  }
+
+  .totalVoterIcon {
+    width: 24px;
+    height: 24px;
+    padding-top: 1px;
+  }
+
+  .totalVoterCount {
+    font-size: 17px;
+    padding-bottom: 2px;
+    padding-left: 3px;
+  }
+
+  .langSelection {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    cursor: pointer;
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  .language {
+    padding-right: 6px;
+  }
+
+  .desktopLogo {
+    width: 100%;
+    height: 120px;
+  }
+
+  .logoHolder {
+    background-color: #fff;
+    padding-top: 4px;
+  }
+
+  .areaOptions a {
+    text-decoration: none;
+  }
+
+  .language {
+    text-decoration: underline;
+  }
+</style>
+
+<div style="display: block">
+  <div class="layout vertical imageContainer" style="">
+    <div
+      class="layout horizontal center-center"
+      style="width: 882px; margin-left: auto; margin-right: auto"
+    >
+      <div
+        class="shadow-elevation-2dp topMaterial"
+        style="width: 400px !important"
+      >
+        <div
+          class="logoHolder layout horizontal center-center"
+          style="width: 400px !important"
+        >
+          <img
+            sizing="contain"
+            class="desktopLogo"
+            src="https://yrpri-eu-direct-assets.s3-eu-west-1.amazonaws.com/rvkWaves2.png"
+          />
+        </div>
+        <div class="selectInfoTextSmaller">ZZZchoose_a_neighbourhood_2ZZZ</div>
+        <div
+          class="langSelection layout horizontal"
+          id="languageSelection"
+          style="color: #000"
+        >
+          <div class="language" id="isLanguage">Íslenska</div>
+          <div class="language" id="enLanguage">English</div>
+          <div class="language" id="plLanguage">Polska</div>
+        </div>
+        <div
+          title$="ZZZnumber_of_votersZZZ"
+          class="totalVoters layout horizontal"
+        >
+          <iron-icon class="totalVoterIcon" icon="verified-user"></iron-icon>
+          <div class="totalVoterCount">ZZZtotalVoterCountZZZ</div>
+        </div>
+      </div>
+
+      <div
+        class="shadow-elevation-2dp infoImageContainer layout horizonal"
+        style=""
+      >
+        <img
+          height="225"
+          width="400"
+          class="wavesImage"
+          src="https://oav-direct-assets.s3.eu-west-1.amazonaws.com/hm2023/Kosningalogo_desktop_forsida_800x450.png"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="areaOptions shadow-elevation-6dp layout vertical center-center"
+    aria-label="Veldu hverfi"
+    role="list"
+  >
+    <img
+      src="https://yrpri-eu-direct-assets.s3.eu-west-1.amazonaws.com/Reykjavik_hverfi_5litir_1764px.png"
+      width="882"
+      height="602"
+      alt="Kort af Reykjavik sem hægt er að smella á"
+      usemap="#image-map"
+    />
+
+    <map name="image-map">
+      <area
+        target=""
+        alt="Árbær"
+        title="Árbær"
+        href="/area-ballot/1"
+        coords="483,379,488,335,508,314,572,315,648,332,672,348,678,366,676,386,672,434,676,455,691,475,706,490,712,502,714,515,708,527,698,532,661,539,637,529,630,504,632,473,610,441,575,422,533,410,498,397,487,389"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Breiðholt"
+        title="Breiðholt"
+        href="/area-ballot/2"
+        coords="482,402,462,426,456,449,444,477,428,488,410,498,405,515,415,536,456,579,484,588,510,580,528,564,576,544,585,516,612,476,613,460,596,444,562,426"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Grafarholt og Úlfarsdalur"
+        title="Grafarholt og Úlfarsdalur"
+        href="/area-ballot/3"
+        coords="688,336,714,318,728,299,760,220,776,214,790,222,818,262,827,276,861,320,870,342,860,380,856,393,850,424,839,434,817,438,790,424,757,418,696,426,687,421,692,388"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Grafarvogur"
+        title="Grafarvogur"
+        href="/area-ballot/4"
+        coords="711,142,756,115,772,111,775,131,750,180,746,201,743,226,730,266,716,293,703,312,678,323,648,324,625,317,603,309,572,309,536,305,520,298,509,276,510,254,519,232,546,199,539,170,554,148,575,137,594,138,640,121,672,125,687,139"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Háaleiti og Bústaðir"
+        title="Háaleiti og Bústaðir"
+        href="/area-ballot/5"
+        coords="303,388,306,301,312,272,322,258,336,247,348,247,358,252,368,260,380,274,394,297,408,315,466,338,471,347,472,367,466,397,459,410,440,420,415,420,355,406"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Hlíðar"
+        title="Hlíðar"
+        href="/area-ballot/6"
+        coords="211,367,222,351,218,319,214,294,219,275,228,260,236,248,244,236,249,224,258,225,315,248,313,254,305,264,300,282,295,302,294,315,294,352,296,388,277,388,229,381"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Kjalarnes"
+        title="Kjalarnes"
+        href="/area-ballot/7"
+        coords="466,2,461,17,475,24,499,30,516,38,521,53,519,73,521,88,529,97,542,94,552,82,562,70,579,54,594,44,608,46,624,45,636,46,650,34,660,16,664,0"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Laugardalur"
+        title="Laugardalur"
+        href="/area-ballot/8"
+        coords="253,188,307,193,319,190,333,178,336,164,338,149,347,134,377,129,403,122,427,131,439,144,439,158,437,168,439,179,455,171,472,167,489,180,501,206,499,240,491,265,485,287,471,309,461,314,445,314,433,312,419,310,409,298,382,262,361,240,346,237,332,237,321,239,302,228,282,222,264,218,250,212"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Miðborg"
+        title="Miðborg"
+        href="/area-ballot/9"
+        coords="124,314,148,290,161,261,162,241,155,222,157,196,162,169,167,150,178,152,187,159,192,150,204,152,216,164,242,192,244,206,240,220,236,233,230,244,221,250,213,260,207,272,206,279,205,296,208,318,212,354,205,363,188,368,176,369,166,358,156,338,140,341,128,334,120,323"
+        shape="poly"
+      />
+      <area
+        target=""
+        alt="Vesturbær"
+        title="Vesturbær"
+        href="/area-ballot/10"
+        coords="16,159,41,133,62,140,102,144,130,126,125,114,130,99,152,92,156,80,169,72,187,76,187,107,151,133,164,136,158,159,148,177,148,196,148,217,152,242,152,263,138,285,122,300,114,312,104,294,104,278,90,252,88,230,81,216,66,212,56,194,34,188,17,181"
+        shape="poly"
+      />
+    </map>
+    <a
+      href="/area-ballot/1"
+      class="voteNumberForArbaer"
+      aria-label="Árbær"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount1ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/2"
+      class="voteNumberForBreidholt"
+      aria-label="Breiðholt"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount2ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/3"
+      class="voteNumberForGrafarholt"
+      aria-label="Grafarholt"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount3ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/4"
+      class="voteNumberForGrafarvogur"
+      aria-label="Grafarvogur"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount4ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/5"
+      class="voteNumberForHaaleiti"
+      aria-label="Háaleiti"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount5ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/6"
+      class="voteNumberForHlidar"
+      aria-label="Hlíðar"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount6ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/7"
+      class="voteNumberForKjalarnes"
+      aria-label="Kjalarnes"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount7ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/8"
+      class="voteNumberForLaugardalur"
+      aria-label="Laugardalur"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount8ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/9"
+      class="voteNumberForMidborg"
+      aria-label="Miðborg"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral">ZZZareaCount9ZZZ</div>
+      </div>
+    </a>
+    <a
+      href="/area-ballot/10"
+      class="voteNumberForVesturbaer"
+      aria-label="Vesturbær"
+      role="listitem"
+    >
+      <div title$="ZZZnumber_of_votersZZZ" class="layout horizontal">
+        <div class="voteNumberGeneral" style="direction: rtl">
+          ZZZareaCount10ZZZ
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    class="layout horizontal center-center"
+    style="width: 32px; margin-left: auto; margin-right: auto"
+  >
+    <paper-share-button
+      style="margin-top: 16px; color: #fff; text-align: center"
+      class="shareIcon"
+      horizontal-align="left"
+      id="shareButton"
+      url="https://kosning2023.reykjavik.is/"
+      title="Share"
+      facebook
+      twitter
+      popup
+      .url="/"
+    >
+    </paper-share-button>
+  </div>
+</div>

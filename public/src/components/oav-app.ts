@@ -445,11 +445,7 @@ export class OavApp extends OavBaseElement {
         }
 
         //@ts-ignore
-        ga(
-          "create",
-          this.configFromServer.client_config.googleAnalyticsId,
-          "auto"
-        );
+        gtag('config', this.configFromServer.client_config.googleAnalyticsId);
         this.postsHost = this.configFromServer.client_config.postsHost || "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
@@ -976,11 +972,9 @@ export class OavApp extends OavBaseElement {
 
       // Send page info to Google Analytics
       //@ts-ignore
-      if (page && typeof ga == "function") {
+      if (page && typeof gtag == "function") {
         //@ts-ignore
-        ga("send", "pageview", {
-          page: location.pathname + location.search + location.hash,
-        });
+        gtag("event", "pageview");
       }
 
       this.wideAndBallot = this.wide && page === "area-ballot";
