@@ -10,7 +10,6 @@ gem 'tzinfo-data'
 gem 'rails-html-sanitizer'
 gem 'browser'
 gem "sprockets", "<4"
-gem "stringio"
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -37,7 +36,7 @@ gem 'haml' # generate html from templates
 #gem 'jquery-rails' # Jquery for Rails
 gem 'mysql2' # The Mysql Driver
 gem 'nokogiri'# XML/HTML Parsing library
-gem 'psych'
+#gem 'psych'
 #gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4r.git'
 gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem "passenger"
