@@ -196,7 +196,9 @@ export class OavAreaBallotItem extends OavBaseElement {
             </paper-item>
             <paper-item
               @tap="${this._openPdf}"
-              ?hidden="${!this.configFromServer.client_config.pathToDesignPdfs}"
+              ?hidden="${!this.configFromServer.client_config
+                .pathToDesignPdfs &&
+              !this.configFromServer.client_config.useDirectPdfUrls}"
             >
               <iron-icon
                 alt="${this.localize("design_pdf")}"
@@ -253,14 +255,14 @@ export class OavAreaBallotItem extends OavBaseElement {
               .currencySymbol}${this.formatNumber(this.item.price, undefined)}
             <span
               class="priceCurrency"
-              ?hidden="${!this._priceIsOne(this.item.price) || this.configFromServer.client_config
-              .dontUserMillions}"
+              ?hidden="${!this._priceIsOne(this.item.price) ||
+              this.configFromServer.client_config.dontUserMillions}"
               >${this.localize("million")}</span
             >
             <span
               class="priceCurrency"
-              ?hidden="${this._priceIsOne(this.item.price) || this.configFromServer.client_config
-              .dontUserMillions}"
+              ?hidden="${this._priceIsOne(this.item.price) ||
+              this.configFromServer.client_config.dontUserMillions}"
               >${this.localize("millions")}</span
             >
           </div>
@@ -290,40 +292,40 @@ export class OavAreaBallotItem extends OavBaseElement {
           >
           </paper-fab>
 
-          ${
-            !this.configFromServer.client_config.hideFavoriteButton ? html`
-              <div
-                id="favoriteButtons"
-                class="favoriteButtons"
-                ?hidden="${!this.selectedInBudget}"
-              >
-                <paper-fab
-                  mini
-                  id="addFavoriteButton"
-                  class="addFavoriteButton"
-                  elevation="5"
-                  class="favoriteButton"
-                  ?hidden="${this.isFavorite}"
-                  title="${this.localize("select_favorite")}"
-                  icon="${this.configFromServer.client_config.favoriteIconOutline}"
-                  @click="${this._toggleFavorite}"
+          ${!this.configFromServer.client_config.hideFavoriteButton
+            ? html`
+                <div
+                  id="favoriteButtons"
+                  class="favoriteButtons"
+                  ?hidden="${!this.selectedInBudget}"
                 >
-                </paper-fab>
-                <paper-fab
-                  mini
-                  class="removeFavoriteButton"
-                  elevation="5"
-                  class="favoriteButton"
-                  ?hidden="${!this.isFavorite}"
-                  title="${this.localize("deselect_favorite")}"
-                  icon="${this.configFromServer.client_config.favoriteIcon}"
-                  @click="${this._toggleFavorite}"
-                >
-                </paper-fab>
-              </div>
-
-            ` : html``
-          }
+                  <paper-fab
+                    mini
+                    id="addFavoriteButton"
+                    class="addFavoriteButton"
+                    elevation="5"
+                    class="favoriteButton"
+                    ?hidden="${this.isFavorite}"
+                    title="${this.localize("select_favorite")}"
+                    icon="${this.configFromServer.client_config
+                      .favoriteIconOutline}"
+                    @click="${this._toggleFavorite}"
+                  >
+                  </paper-fab>
+                  <paper-fab
+                    mini
+                    class="removeFavoriteButton"
+                    elevation="5"
+                    class="favoriteButton"
+                    ?hidden="${!this.isFavorite}"
+                    title="${this.localize("deselect_favorite")}"
+                    icon="${this.configFromServer.client_config.favoriteIcon}"
+                    @click="${this._toggleFavorite}"
+                  >
+                  </paper-fab>
+                </div>
+              `
+            : html``}
         </div>
       </div>
     `;
@@ -422,7 +424,10 @@ export class OavAreaBallotItem extends OavBaseElement {
 
   _openPdf() {
     this.activity("click", "openPdf");
-    if (this.configFromServer.client_config.useDirectPdfUrls && this.item.pdf_url) {
+    if (
+      this.configFromServer.client_config.useDirectPdfUrls &&
+      this.item.pdf_url
+    ) {
       window.open(this.item.pdf_url, "_blank");
     } else {
       if (this.configFromServer.client_config.pathToMapImages) {
