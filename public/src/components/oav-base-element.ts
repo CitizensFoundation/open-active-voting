@@ -43,7 +43,7 @@ export class OavBaseElement extends LitElement {
     //@ts-ignore
     if (typeof gtag == 'function') {
       //@ts-ignore
-      gtag('event', `${type} - ${parameterA}`)
+      gtag('event', `${parameterC} - ${parameterB}`)
     }
   }
 
