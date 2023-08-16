@@ -1,1 +1,0 @@
-import{P as e,h as a,_ as o,c as s}from"./1d8b0318.js";let t,r=e=>e,n=class extends e{render(){return a(t||(t=r` <section> <h2>Oops! You hit a 404</h2> <p> The page you're looking for doesn't seem to exist. Head back <a href="/">home</a> and try again? </p> </section> `))}};n=o([s("oav-view404")],n);export{n as OavView404};
