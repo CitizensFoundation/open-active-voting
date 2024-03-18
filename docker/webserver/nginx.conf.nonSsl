@@ -1,0 +1,13 @@
+# This is the server block that serves our application.
+server {
+  listen 80;
+  
+  large_client_header_buffers 4 32k;
+
+  server_name kosning.kopavogur.is;
+  root /home/app/oav_website/public;
+
+  passenger_enabled on;
+  passenger_user app;
+  passenger_ruby /usr/bin/ruby2.2;
+}
