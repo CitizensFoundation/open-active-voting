@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby33:2.5.1
+FROM phusion/passenger-ruby33:3.0.2
 MAINTAINER Robert Vidar Bjarnason <robert@citizens.is>
 
 RUN echo 'version 5.10.23'
