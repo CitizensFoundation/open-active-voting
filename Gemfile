@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.7.8'
+ruby '3.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'activesupport', '4.2.7.1', :path => "lib/rails/activesupport-4.2.7.1"
 #gem 'rake'
-gem 'rails', '6.1.7.4'
+gem 'rails', '7.1.3.2'
 gem 'tzinfo-data'
 gem 'rails-html-sanitizer'
 gem 'browser'
@@ -20,7 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 #gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'rexml'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -38,7 +38,7 @@ gem 'mysql2' # The Mysql Driver
 gem 'nokogiri'# XML/HTML Parsing library
 #gem 'psych'
 #gem 'soap4r', :path =>"lib/soap4r" # git => 'https://github.com/rbjarnason/soap4r.git'
-gem 'ruby-saml', :path => "lib/ruby-saml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
+gem 'ruby-saml', :path => "lib/RubySaml" # :git => 'https://github.com/rbjarnason/ruby-saml.git', :ref=>"63ce604db2e562eeb25467e7e1655d16bab7d9cb"
 gem "passenger"
 gem 'loofah'
 gem "ffi"

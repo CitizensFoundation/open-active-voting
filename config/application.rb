@@ -24,8 +24,6 @@ module OpenActiveVotingApp
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
 
-    config.assets.enabled = false
-
     config.i18n.available_locales = [:en, :is, :pl, :de]
 
     # Set default locale to English
