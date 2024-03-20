@@ -18,5 +18,3 @@ config/database.yml
 /tmp
 /test_ballots
 /log
-
-/config/master.key
