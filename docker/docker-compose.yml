@@ -3,8 +3,8 @@ version: '3.8'
 services:
   web:
     build:
-      context: ./webserver
-      dockerfile: Dockerfile
+      context: ../../.
+      dockerfile: docker/webserver/Dockerfile
     container_name: oav_web
     ports:
       - "443:443"

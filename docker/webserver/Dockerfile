@@ -22,4 +22,6 @@ ADD setup_app.sh /etc/my_init.d/setup_app.sh
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY . /home/app/oav_website
+
 EXPOSE 443
