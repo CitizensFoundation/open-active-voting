@@ -16,5 +16,6 @@ services:
       - ./webserver/nginx.conf:/etc/nginx/sites-enabled/oav_website.conf
       - ./webserver/rails-env.conf:/etc/nginx/main.d/rails-env.conf
       - ./webserver/setup_app.sh:/etc/my_init.d/setup_app.sh
+      - ../../open-active-voting:/home/app/oav_website
     command: /sbin/my_init
 
