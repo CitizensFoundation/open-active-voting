@@ -284,7 +284,7 @@ class VotesController < ApplicationController
   end
 
   def perform_island_is_authentication(token,request)
-    @response = OneLogin::RubySaml::Response.new(token)
+    @response = OneLogin::RubySaml::Response.new(token, {skip_recipient_check: true})
     @response.settings = saml_settings
     begin
       # SAML verification
