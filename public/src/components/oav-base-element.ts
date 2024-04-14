@@ -16,7 +16,8 @@ declare global {
 import IntlMessageFormat from "intl-messageformat";
 window.IntlMessageFormat = IntlMessageFormat;
 
-import { customElement, LitElement, property } from "lit-element";
+import {  LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { OavAreaBallot } from "./oav-area-ballot";
 
 export class OavBaseElement extends LitElement {

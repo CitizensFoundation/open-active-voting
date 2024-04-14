@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavAreaBallotItemStyles = css`
   .itemContent {
@@ -52,7 +52,7 @@ export const OavAreaBallotItemStyles = css`
   .itemSelectedFrame[selected] {
     background: transparent;
     border: solid 2px;
-    border-color: var(--app-accent-color);
+    border-color: var(--md-sys-color-primary);
   }
 
   .itemImage {
@@ -100,8 +100,7 @@ export const OavAreaBallotItemStyles = css`
     font-size: 18px;
     font-weight: bold;
     text-align: left;
-    background-color: var(--app-ballot-item-description-background-color, #333);
-    color: var(--app-ballot-item-description-color, #fff);
+    background-color: var(--md-sys-color-surface-variant);
     margin-bottom: 7px;
   }
 
@@ -130,7 +129,6 @@ export const OavAreaBallotItemStyles = css`
     font-size: var(--app-item-name-font-size, 20px);
     padding: 8px;
     padding-top: 4px;
-    color: var(--app-ballot-item-name-color, #222);
   }
 
   .name[small] {
@@ -149,7 +147,6 @@ export const OavAreaBallotItemStyles = css`
     position: absolute;
     bottom: 14px;
     left: 92px;
-    color: var(--app-accent-color);
   }
 
   .price[no-millions] {
@@ -170,55 +167,32 @@ export const OavAreaBallotItemStyles = css`
 
   .priceCurrency {
     font-size: 24px;
-    color: var(--app-accent-color);
   }
 
-  paper-fab.addRemoveButton {
+  md-filled-icon-button.addRemoveButton {
     position: absolute;
     bottom: 12px;
     right: 12px;
-    background-color: var(--app-accent-color);
-    color: var(--app-ballot-item-button-color, #fff);
   }
 
-  paper-fab.removeButton {
-    background-color: #fff !important;
-    color: var(--app-accent-color) !important;
+  md-filled-icon-button.removeButton {
   }
 
-  paper-fab.addFavoriteButton {
+  md-filled-icon-button.addFavoriteButton {
     position: absolute;
     bottom: 12px;
     left: 12px;
-    background-color: var(
-      --app-favorite-button-background-color,
-      var(--app-accent-color, #f00)
-    );
-    color: var(--app-favorite-ballot-item-button-color, #fff);
-    --paper-fab-iron-icon: {
-      height: 29px;
-      width: 29px;
-    }
     padding: 0;
   }
 
-  paper-fab.removeFavoriteButton {
+  md-filled-icon-button.removeFavoriteButton {
     position: absolute;
     bottom: 12px;
     left: 12px;
-    color: var(--app-ballot-item-remove-fav-button-color, rgb(255, 215, 0));
-    background-color: var(
-      --app-ballot-item-remove-fav-button-background-color,
-      #fff
-    );
-    --paper-fab-iron-icon: {
-      height: 29px;
-      width: 29px;
-    }
     padding: 0;
   }
 
-  paper-fab[disabled] {
+  md-filled-icon-button[disabled] {
     background-color: #b7b7b7;
   }
 
@@ -226,11 +200,9 @@ export const OavAreaBallotItemStyles = css`
     position: absolute;
     top: 6px;
     left: 0;
-    --paper-share-button-icon-color: var(--app-accent-color-light);
+    --paper-share-button-icon-color: var(--md-sys-color-primary);
     --paper-share-button-icon-height: 46px;
     --paper-share-button-icon-width: 46px;
-    -webkit-filter: drop-shadow(1px 1px 10px var(--app-share-dropshadow, #555));
-    filter: drop-shadow(1px 1px 10pxvar (--app-share-dropshadow, #555));
   }
 
   .shareIcon[small] {
@@ -241,15 +213,12 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .itemContent {
-    color: var(--app-ballot-item-content-color, #222);
-    background-color: var(--app-ballot-item-content-background-color, #fbfbfb);
   }
 
   .addRemoveButton {
   }
 
   .infoIcon {
-    color: var(--app-accent-color-light);
     width: 32px;
     height: 32px;
     padding: 0;
@@ -264,7 +233,6 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .stateDropdown {
-    color: var(--app-accent-color-light);
     position: absolute;
     top: 60px;
     right: 0;
@@ -280,9 +248,6 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .dropdownButton {
-    background-color: var(--app-accent-color);
-    opacity: 0.8;
-    color: var(--app-ballot-item-button-color, #fff);
     padding: 2px;
     width: 32px;
     height: 26px;
@@ -297,7 +262,6 @@ export const OavAreaBallotItemStyles = css`
   }
 
   .externalInfoIcon {
-    color: var(--app-ballot-item-extinfo-icon-color, #999);
     width: 45px;
     height: 45px;
   }
@@ -313,7 +277,7 @@ export const OavAreaBallotItemStyles = css`
     z-index: 5;
   }
 
-  paper-fab {
+  md-filled-icon-button {
     z-index: 5;
   }
 

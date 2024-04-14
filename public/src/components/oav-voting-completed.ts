@@ -1,9 +1,11 @@
-import { customElement, html, property } from "lit-element";
+import { html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
 import { PageViewElement } from "./page-view-element.js";
 import { OavShadowStyles } from "./oav-shadow-styles.js";
 import { OavAreaVotingCompletedStyles } from "./oav-voting-completed-styles.js";
 import { OavFlexLayout } from "./oav-flex-layout.js";
-import "@polymer/paper-icon-button/paper-icon-button.js";
+import "@material/web/iconbutton/filled-icon-button.js";
 
 @customElement("oav-voting-completed")
 export class OavVotingCompleted extends PageViewElement {
@@ -19,29 +21,32 @@ export class OavVotingCompleted extends PageViewElement {
       ${this.configFromServer
         ? html`
             <div class="layout vertical center-center mainContainer">
-              <paper-icon-button
+              <md-filled-icon-button
                 class="helpIcon"
                 alt="${this.localize("help")}"
-                icon="help-outline"
                 @click="${() => {
                   this.fire("oav-open-help");
                 }}"
-              ></paper-icon-button>
-              <paper-icon-button
+              >
+                <md-icon>help_outline</md-icon>
+              </md-filled-icon-button>
+              <md-filled-icon-button
                 class="exitIcon"
                 alt="${this.localize("close")}"
-                icon="closeExit"
                 @click="${() => {
                   window.location.href = "";
                 }}"
-              ></paper-icon-button>
+              >
+                <md-icon>close</md-icon>
+              </md-filled-icon-button>
 
               <div
                 class="topMaterial shadow-elevation-8dp vertical center-center"
               >
                 <div>
                   <img
-                    class="desktopLogo self-center" alt="Logo"
+                    class="desktopLogo self-center"
+                    alt="Logo"
                     src="${this.configFromServer.client_config
                       .votingCompleteConfig.logo}"
                   />

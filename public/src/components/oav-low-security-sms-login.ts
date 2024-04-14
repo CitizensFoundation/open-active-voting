@@ -1,15 +1,15 @@
-import { customElement, html, property } from "lit-element";
+import { html} from "lit";
+import { customElement, property } from "lit/decorators.js";
+
 import { OavLowSecuritySmsLoginStyles } from "./oav-low-security-sms-login-styles.js";
 import { OavBaseElement } from "./oav-base-element";
 
-import "@polymer/paper-dialog/paper-dialog";
-import "@polymer/paper-button/paper-button";
-import "@polymer/paper-input/paper-input";
-import "@polymer/paper-checkbox/paper-checkbox";
-import { PaperDialogElement } from "@polymer/paper-dialog/paper-dialog";
-import { PaperInputElement } from "@polymer/paper-input/paper-input";
-import { PaperCheckboxElement } from "@polymer/paper-checkbox/paper-checkbox";
-import { NumberFormatInternal } from "@formatjs/ecma402-abstract";
+import "@material/web/dialog/dialog.js";
+import "@material/web/button/text-button.js";
+import "@material/web/button/filled-button.js";
+import "@material/web/textfield/outlined-text-field.js";
+import { MdDialog } from "@material/web/dialog/dialog.js";
+import { MdOutlinedTextField } from "@material/web/textfield/outlined-text-field.js";
 
 @customElement("oav-low-security-sms-login")
 export class OavLowSecuritySmsLogin extends OavBaseElement {
@@ -64,23 +64,25 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
 
   render() {
     return html`
-      <paper-dialog id="dialog" with-backdrop>
-        <div class="layout horizontal center-center">
+      <md-dialog id="dialog" with-backdrop>
+        <div slot="content" class="layout horizontal center-center">
           ${this.smsCodeSent
             ? html`<h2>${this.localize("enterSmsCode")}</h2> `
             : html`<h2>${this.localize("enterYourMobileNumber")}</h2>`}
         </div>
 
-        ${this.smsCodeSent
-          ? html`<div>${this.localize("enterSmsCodeDescription")}</div>`
-          : html`<div>
-              ${this.localize("enterYourMobileNumberDescription")}
-            </div>`}
+        <div slot="content">
+          ${this.smsCodeSent
+            ? html`<div>${this.localize("enterSmsCodeDescription")}</div>`
+            : html`<div>
+                ${this.localize("enterYourMobileNumberDescription")}
+              </div>`}
+        </div>
 
-        <form is="iron-form" id="form">
+        <form is="iron-form" id="form" slot="content">
           ${this.smsCodeSent
             ? html`
-                <paper-input
+                <md-outlined-text-field
                   id="smsCode"
                   type="text"
                   label="${this.localize("smsCode")}"
@@ -89,10 +91,10 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
                   allowed-pattern="[0-9]"
                   .error-message="${this.smsCodeErrorMessage}"
                 >
-                </paper-input>
+                </md-outlined-text-field>
               `
             : html`
-                <paper-input
+                <md-outlined-text-field
                   id="yearOfBirth"
                   type="text"
                   minlength="4"
@@ -100,8 +102,8 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
                   allowed-pattern="[0-9]"
                   label="${this.localize("lowSecuritySmsLoginYearOfBirth")}"
                 >
-                </paper-input>
-                <paper-input
+                </md-outlined-text-field>
+                <md-outlined-text-field
                   id="smsNumber"
                   type="text"
                   allowed-pattern="[0-9]"
@@ -110,20 +112,20 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
                   minlength="6"
                   .error-message="${this.smsErrorMessage}"
                 >
-                </paper-input>
+                </md-outlined-text-field>
               `}
         </form>
-        <div class="buttons layout vertical">
-          <paper-button dialog-dismiss
-            >${this.localize('cancel')}</paper-button
+        <div slot="actions" class="buttons layout vertical">
+          <md-text-button dialog-dismiss
+            >${this.localize("cancel")}</md-text-button
           >
-          <paper-button autofocus @tap="${this._validateAndSend}"
+          <md-filled-button autofocus @click="${this._validateAndSend}"
             >${this.smsCodeSent
               ? html`${this.localize("sendSmsCode")}`
-              : html`${this.localize("sendPhoneNumber")}`}</paper-button
+              : html`${this.localize("sendPhoneNumber")}`}</md-filled-button
           >
         </div>
-      </paper-dialog>
+      </md-dialog>
     `;
   }
 
@@ -155,12 +157,12 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
     this.userSpinner = false;
     this.opened = false;
     this.smsNumber = "";
-    (this.$$("#dialog") as PaperDialogElement).open();
+    (this.$$("#dialog") as MdDialog).open=true;
   }
 
   _validateAndSend(e: CustomEvent) {
     if (this.smsCodeSent) {
-      this.smsCode = (this.$$("#smsCode") as PaperInputElement).value!;
+      this.smsCode = (this.$$("#smsCode") as MdOutlinedTextField).value!;
       if (this.smsCode) {
         //TODO: Better validation
         if (true) {
@@ -196,20 +198,25 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
         return false;
       }
     } else {
-      this.smsNumber = (this.$$("#smsNumber") as PaperInputElement).value!;
-      const yearOfBirth = (this.$$("#yearOfBirth") as PaperInputElement).value!;
+      this.smsNumber = (this.$$("#smsNumber") as MdOutlinedTextField).value!;
+      const yearOfBirth = (this.$$("#yearOfBirth") as MdOutlinedTextField).value!;
       let yearOfBirthInt;
       //@ts-ignore
       if (yearOfBirth && !isNaN(yearOfBirth)) {
         yearOfBirthInt = parseInt(yearOfBirth);
       }
-      if (!yearOfBirthInt ||
-        yearOfBirthInt < this.configFromServer.client_config.lowSecuritySmsLoginMinYearOfBirth! ||
-        yearOfBirthInt > this.configFromServer.client_config.lowSecuritySmsLoginMaxYearOfBirth!) {
-          this.fire("oav-error", this.localize("lowSecuritySmsLoginAgeError"));
-          return false;
+      if (
+        !yearOfBirthInt ||
+        yearOfBirthInt <
+          this.configFromServer.client_config
+            .lowSecuritySmsLoginMinYearOfBirth! ||
+        yearOfBirthInt >
+          this.configFromServer.client_config.lowSecuritySmsLoginMaxYearOfBirth!
+      ) {
+        this.fire("oav-error", this.localize("lowSecuritySmsLoginAgeError"));
+        return false;
       } else if (this.smsNumber) {
-        if (this.smsNumber.length>6) {
+        if (this.smsNumber.length > 6) {
           fetch("/votes/send_sms_login_code", {
             method: "POST",
             cache: "no-cache",
@@ -245,9 +252,9 @@ export class OavLowSecuritySmsLogin extends OavBaseElement {
   }
 
   close() {
-    var dialog = this.$$("#dialog") as PaperDialogElement;
+    var dialog = this.$$("#dialog") as MdDialog;
     if (dialog) {
-      dialog.close();
+      dialog.open=false;
     }
     this.opened = false;
     this.userSpinner = false;

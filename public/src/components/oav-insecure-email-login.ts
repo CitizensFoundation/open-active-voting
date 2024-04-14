@@ -1,14 +1,14 @@
-import { customElement, html, property } from "lit-element";
+import { html} from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { OavInsecureEmailLoginStyles } from "./oav-insecure-email-login-styles.js";
 import { OavBaseElement } from "./oav-base-element";
 
-import "@polymer/paper-dialog/paper-dialog";
-import "@polymer/paper-button/paper-button";
-import "@polymer/paper-input/paper-input";
-import "@polymer/paper-checkbox/paper-checkbox";
-import { PaperDialogElement } from "@polymer/paper-dialog/paper-dialog";
-import { PaperInputElement } from "@polymer/paper-input/paper-input";
-import { PaperCheckboxElement } from "@polymer/paper-checkbox/paper-checkbox";
+import "@material/web/button/text-button.js";
+import "@material/web/checkbox/checkbox.js";
+
+import { MdDialog } from "@material/web/dialog/dialog.js";
+import { MdOutlinedTextField } from "@material/web/textfield/outlined-text-field.js";
+import { MdCheckbox } from "@material/web/checkbox/checkbox.js";
 
 @customElement("oav-insecure-email-login")
 export class OavInsecureEmailLogin extends OavBaseElement {
@@ -79,31 +79,29 @@ export class OavInsecureEmailLogin extends OavBaseElement {
 
   render() {
     return html`
-      <paper-dialog id="dialog" with-backdrop>
-        <div class="layout horizontal center-center">
+      <md-dialog id="dialog" modal>
+        <div slot="content" class="layout horizontal center-center">
           <h2>${this.localize("loginWithEmailAndPostCode")}</h2>
         </div>
 
-        <form is="iron-form" id="form">
-          <paper-input
+        <form id="form">
+          <md-outlined-text-field
             id="email"
             type="text"
             label="${this.localize("userEmail")}"
             .value="${this.email}"
             minlength="5"
             .error-message="${this.emailErrorMessage}"
-          >
-          </paper-input>
+          ></md-outlined-text-field>
 
-          <paper-input
+          <md-outlined-text-field
             id="postCode"
             type="text"
             label="${this.localize("postCode")}"
             .value="${this.postCode}"
             maxlength="${this.configFromServer.client_config
               .insecureEmailPostcodeMaxLength}"
-          >
-          </paper-input>
+          ></md-outlined-text-field>
 
           <div class="postcodeWrongWard" ?hidden="${!this.correctAreaId}">
             ${this.localize("thisPostCodeDoesNotBelongTo")} ${this.areaName}.<br /><br />
@@ -118,22 +116,22 @@ export class OavInsecureEmailLogin extends OavBaseElement {
 
           ${this.configFromServer.client_config.insecureEmailAgeLimit
             ? html`
-                <paper-checkbox
+                <md-checkbox
                   id="confirmedAge"
                   class="checkBox"
                   name="confirmedAge"
                 >
                   ${this.localize("confirmAge")}
-                </paper-checkbox>
+                </md-checkbox>
               `
             : html``}
         </form>
-        <div class="buttons layout vertical">
-          <paper-button autofocus @tap="${this._validateAndSend}"
-            >${this.localize("authenticateAndVote")}</paper-button
-          >
+        <div slot="actions" class="buttons layout vertical">
+          <md-text-button autofocus @click="${this._validateAndSend}">
+            ${this.localize("authenticateAndVote")}
+          </md-text-button>
         </div>
-      </paper-dialog>
+      </md-dialog>
     `;
   }
 
@@ -202,16 +200,16 @@ export class OavInsecureEmailLogin extends OavBaseElement {
     this.postCode = "";
     this.confirmedAge = false;
     this.email = "";
-    (this.$$("#dialog") as PaperDialogElement).open();
+    (this.$$("#dialog") as MdDialog).open=true;
   }
 
   _validateAndSend(e: CustomEvent) {
-    this.email = (this.$$("#email") as PaperInputElement).value!;
-    this.postCode = (this.$$("#postCode") as PaperInputElement).value!;
+    this.email = (this.$$("#email") as MdOutlinedTextField).value!;
+    this.postCode = (this.$$("#postCode") as MdOutlinedTextField).value!;
     if (
       this.email &&
       this.postCode &&
-      (this.$$("#confirmedAge") as PaperCheckboxElement).checked
+      (this.$$("#confirmedAge") as MdCheckbox).checked
     ) {
       const re = new RegExp(this.emailValidationPattern);
       if (re.test(this.email)) {
@@ -257,9 +255,9 @@ export class OavInsecureEmailLogin extends OavBaseElement {
   }
 
   close() {
-    var dialog = this.$$("#dialog") as PaperDialogElement;
+    var dialog = this.$$("#dialog") as MdDialog;
     if (dialog) {
-      dialog.close();
+      dialog.open=false;
     }
     this.opened = false;
     this.userSpinner = false;

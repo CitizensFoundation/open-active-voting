@@ -411,7 +411,7 @@ class YpMagicTextBoxDialog extends YpMagicTextBox {
           max-width: 100%;
         }
 
-        paper-dialog {
+        md-dialog {
           padding: 0;
           margin: 0;
         }
@@ -422,16 +422,14 @@ class YpMagicTextBoxDialog extends YpMagicTextBox {
       }
     </style>
 
-    <paper-dialog id="dialog">
-      <h2>[[pageTitle]]</h2>
-      <paper-dialog-scrollable>
-        <div hidden\$="[[!finalContent]]" inner-h-t-m-l="[[finalContent]]"></div>
-        <div hidden\$="[[finalContent]]">[[content]]</div>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button raised="" dialog-dismiss="">[[closeDialogText]]</paper-button>
+    <md-dialog id="dialog">
+      <span slot="title">[[pageTitle]]</span>
+      <div slot="content" hidden$="[[!finalContent]]" inner-h-t-m-l="[[finalContent]]"></div>
+      <div slot="content" hidden$="[[finalContent]]">[[content]]</div>
+      <div slot="actions" class="buttons">
+        <md-filled-button dialog-dismiss="">[[closeDialogText]]</md-filled-button>
       </div>
-    </paper-dialog>
+    </md-dialog>
     <lite-signal on-lite-signal-yp-language="_languageEvent"></lite-signal>
     <lite-signal on-lite-signal-yp-auto-translate="_autoTranslateEvent"></lite-signal>
 

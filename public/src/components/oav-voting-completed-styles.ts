@@ -3,12 +3,11 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from 'lit-element';
+import { css } from 'lit';
 
 export const OavAreaVotingCompletedStyles = css`
   .topMaterial {
-    background-color: var(--app-voting-completed-top-material-background-color, #fbfbfb);
-    color: var(--app-voting-completed-top-material-color, #222);
+    background-color: var(--md-sys-color-surface-variant);
     font-size: 26px;
     margin: 48px;
     margin-top: 0;
@@ -24,23 +23,19 @@ export const OavAreaVotingCompletedStyles = css`
   }
 
   .helpIcon {
-    color: #fff;
     width: 48px;
     height: 48px;
     position: absolute;
     top: 6px;
     right: 6px;
-    color: #fff;
   }
 
   .exitIcon {
-    color: #fff;
     width: 48px;
     height: 48px;
     position: absolute;
     top: 6px;
     left: 6px;
-    color: #fff;
   }
 
   @media (max-width: 1000px) {
@@ -67,7 +62,7 @@ export const OavAreaVotingCompletedStyles = css`
   @media (max-width: 4600px) {
     .mainContainer {
       background-image: none;
-      background-color: var(--app-voting-completed-main-background-color, #e0e0e0);
+      background-color: var(--app-voting-completed-main-background-color, var(--md-sys-color-surface-variant));
       padding-top: 48px;
       padding-bottom: 450px;
     }
@@ -116,7 +111,6 @@ export const OavAreaVotingCompletedStyles = css`
 
 
   .logoHolder {
-    background-color: var(--app-voting-completed-logo-holder-background-color, #213158);
     padding-bottom: 8px;
     padding-top: 8px;
   }
@@ -128,11 +122,10 @@ export const OavAreaVotingCompletedStyles = css`
 
   .fb-like {
     padding-top: 16px;
-    color: #eee;
   }
 
   .shareIconFinal {
-    --paper-share-button-icon-color: var(--app-accent-color);
+    --paper-share-button-icon-color: var(--md-sys-color-on-surface);
     --paper-share-button-icon-height: 60px;
     --paper-share-button-icon-width: 60px;
     margin-left: 8px;

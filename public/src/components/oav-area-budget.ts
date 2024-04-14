@@ -1,18 +1,18 @@
-import { customElement, html, property } from "lit-element";
+import { html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
 import { ifDefined } from "lit-html/directives/if-defined.js";
 import { installMediaQueryWatcher } from "pwa-helpers/media-query.js";
 
 import { OavAreaBudgetStyles } from "./oav-area-budget-styles.js";
 import { OavShadowStyles } from "./oav-shadow-styles";
 
-import "@polymer/paper-fab";
-import "@polymer/paper-icon-button";
-import "@polymer/paper-button";
+import "@material/web/iconbutton/filled-icon-button.js";
 import "@polymer/iron-image";
 import { OavBaseElement } from "./oav-base-element.js";
 import { OavFlexLayout } from "./oav-flex-layout.js";
-import { PaperButtonElement } from "@polymer/paper-button";
-import { OavAreaBallot } from './oav-area-ballot.js';
+import { OavAreaBallot } from "./oav-area-ballot.js";
+import { MdFilledButton } from "@material/web/button/filled-button.js";
 
 @customElement("oav-area-budget")
 export class OavAreaBudget extends OavBaseElement {
@@ -101,8 +101,7 @@ export class OavAreaBudget extends OavBaseElement {
 
       if (
         this.totalBudget != this.budgetLeft &&
-        (this.toastCounter < 1 ||
-          this.currentBallot.itemsLeftToSelect<1)
+        (this.toastCounter < 1 || this.currentBallot.itemsLeftToSelect < 1)
       ) {
         this.fire("oav-open-favorite-toast");
         this.toastCounter += 1;
@@ -123,18 +122,20 @@ export class OavAreaBudget extends OavBaseElement {
             ?wide="${this.wide}"
           >
             <span ?hidden="${!this.showExit}">
-              <paper-icon-button
+              <md-filled-icon-button
                 alt="${this.localize("close")}"
                 ?hidden="${this.wide}"
                 class="mobileActionIcons closeButton"
-                icon="closeExit"
                 @click="${this._exit}"
-              ></paper-icon-button>
+              >
+                <md-icon>closeExit</md-icon>
+              </md-filled-icon-button>
             </span>
             <img
               ?hidden="${!this.wide}"
               sizing="cover"
-              class="headerLogo" alt="Logo"
+              class="headerLogo"
+              alt="Logo"
               src="${ifDefined(this.budgetHeaderImage)}"
             />
             <div class="vertical center-center" style="width: 100%;">
@@ -247,20 +248,20 @@ export class OavAreaBudget extends OavBaseElement {
                 </div>
               </div>
             </div>
-            <paper-icon-button
+            <md-filled-icon-button
               ?hidden="${this.wide}"
               class="mobileActionIcons"
-              alt="${this.localize("help")}"
-              icon="help-outline"
+              aria-label="${this.localize("help")}"
               @click="${this._help}"
-            ></paper-icon-button>
+            >
+              <md-icon>help_outline</md-icon>
+            </md-filled-icon-button>
             <div>
-              <paper-button
+              <md-filled-button
                 id="votingButton"
-                raised
                 class="voteButton"
                 @click="${this._submitVote}"
-                >${this.localize("vote")}</paper-button
+                >${this.localize("vote")}</md-filled-button
               >
             </div>
           </div>
@@ -285,15 +286,13 @@ export class OavAreaBudget extends OavBaseElement {
                         )}
                       </div>
                       <div>${this.localize("budget_empty_info_2")}</div>
-                      <paper-fab
+                      <md-filled-icon-button
                         aria-label="${this.localize("add_to_budget")}"
-                        mini
                         id="x"
-                        elevation="5"
                         disabled
                         class="demoButton"
-                        icon="add"
-                      ></paper-fab>
+                        ><md-icon>add</md-icon></md-filled-icon-button
+                      >
                       <div>${this.localize("budget_empty_info_3")}</div>
                     </div>
                   `
@@ -381,10 +380,10 @@ export class OavAreaBudget extends OavBaseElement {
   _selectedItemsChanged() {
     if (this.selectedItems && this.selectedItems.length > 0) {
       this.noSelectedItems = false;
-      (this.$$("#votingButton") as PaperButtonElement).disabled = false;
+      (this.$$("#votingButton") as MdFilledButton).disabled = false;
     } else {
       this.noSelectedItems = true;
-      (this.$$("#votingButton") as PaperButtonElement).disabled = true;
+      (this.$$("#votingButton") as MdFilledButton).disabled = true;
     }
   }
 

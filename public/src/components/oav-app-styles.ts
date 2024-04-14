@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavAppStyles = css`
   :host {
@@ -16,7 +16,6 @@ export const OavAppStyles = css`
   }
   section {
     padding: 24px;
-    background: var(--app-section-odd-color);
   }
 
   section > * {
@@ -26,7 +25,6 @@ export const OavAppStyles = css`
   }
 
   section:nth-of-type(even) {
-    background: var(--app-section-even-color);
   }
 
   app-header {
@@ -35,30 +33,10 @@ export const OavAppStyles = css`
 
   :host {
     display: block;
-    --app-primary-color: #333;
-    --app-secondary-color: black;
-    --app-main-backround-color: #e0e0e0;
-    --app-accent-color: var(--paper-orange-a700);
-    --app-accent-color-light: var(--paper-orange-a200);
-    --app-text-color: #ffffff;
-
-    --paper-tabs-selection-bar-color: var(--paper-orange-a700);
-    --paper-tabs-selection-bar: {
-      color: var(--paper-orange-a700);
       border-bottom: 3px solid !important;
-      border-bottom-color: var(--paper-orange-a700);
+      border-bottom-color: var(--md-sys-color-primary);
     }
 
-    --primary-color-more-darker: var(--app-main-backround-color, #333);
-    --primary-color: var(--app-main-backround-color, #333);
-
-    color: var(--app-text-color);
-
-    --app-header-background-color: var(--app-primary-color);
-    --app-header-text-color: var(--app-text-color);
-    --app-header-selected-color: var(--app-primary-color);
-    --paper-icon-button-ink-color: var(--app-text-color);
-  }
 
   app-header {
     position: fixed;
@@ -66,9 +44,8 @@ export const OavAppStyles = css`
     left: 0;
     width: 100%;
     text-align: center;
-    background-color: var(--app-header-background-color);
-    color: var(--app-header-text-color);
-    border-bottom: 1px solid #eee;
+    background-color: var(--md-sys-color-surface-variant);
+    border-bottom: 1px solid var(--md-sys-color-primary);
   }
 
   app-header[wide-and-ballot] {
@@ -78,13 +55,12 @@ export const OavAppStyles = css`
     background-repeat: var(--app-budget-container-background-repeat, no-repeat);
     background-position: center;
     background-position-y: var(--app-budget-background-pos-y, top);
-    background-color: #fff;
     background-image: var(--app-budget-container-background-image);
   }
 
   @media (max-width: 1024px) and (min-width: 604px) {
     app-header[wide-and-ballot] {
-      background: var(--app-budget-votes-background-color, #e0e0e0);
+      background: var(--app-budget-votes-background-color, var(--md-sys-color-surface));
     }
   }
 
@@ -135,7 +111,7 @@ export const OavAppStyles = css`
   }
 
   .toolbar-top {
-    background-color: var(--app-header-background-color);
+    background-color: var(--md-sys-color-surface-variant);
   }
 
   app-toolbar {
@@ -156,24 +132,23 @@ export const OavAppStyles = css`
     font-size: 24px;
   }
 
-  paper-icon-button {
+  md-filled-icon-button {
     width: 50px;
     height: 50px;
   }
 
-  paper-icon-button.closeButton {
+  md-filled-icon-button.closeButton {
     width: 58px;
     height: 58px;
-    color: var(--app-close-button-color, #fff);
   }
 
   @media (max-width: 640px) {
-    paper-icon-button {
+    md-filled-icon-button {
       width: 40px;
       height: 40px;
     }
 
-    paper-icon-button.closeButton {
+    md-filled-icon-button.closeButton {
       width: 46px;
       height: 46px;
     }
@@ -189,14 +164,12 @@ export const OavAppStyles = css`
     position: absolute;
     top: 0;
     left: 0;
-    color: #fff;
   }
 
   .helpIconInBudget {
     position: absolute;
     top: 6px;
     right: 0;
-    color: #fff;
   }
 
   @media (max-width: 1024px) and (min-width: 640px) {
@@ -205,12 +178,12 @@ export const OavAppStyles = css`
       top: -4px;
     }
 
-    paper-icon-button {
+    md-filled-icon-button {
       width: 40px;
       height: 40px;
     }
 
-    paper-icon-button.closeButton {
+    md-filled-icon-button.closeButton {
       width: 46px;
       height: 46px;
     }
@@ -222,15 +195,12 @@ export const OavAppStyles = css`
   }
 
   .helpIconInBudget {
-    color: var(--app-help-icon-color, #fff);
   }
 
   .helpIconInBudget[select-voting-area] {
-    color: var(--app-help-icon-select-area, #000);
   }
 
   .helpIconInBudget[select-voting-area][is-wide] {
-    color: var(--app-help-icon-select-area-desktop, #000);
   }
 
   #helpContent h1 {
@@ -239,13 +209,9 @@ export const OavAppStyles = css`
   }
 
   #favoriteIcon {
-    color: var(--app-facvorite-icon-color, rgb(255, 215, 0));
-    background-color: transparent;
     width: 50px;
     height: 50px;
     z-index: 2720;
-    -webkit-filter: drop-shadow(1px 1px 10px #5f5f5f);
-    filter: drop-shadow(1px 1px 10px #5f5f5f);
   }
 
   @media (max-width: 640px) {
@@ -274,8 +240,7 @@ export const OavAppStyles = css`
     display: none !important;
   }
 
-  paper-dialog {
-    background-color: var(--primary-background-color);
+  md-dialog {
   }
 
   .welcomeDialog {
@@ -317,18 +282,14 @@ export const OavAppStyles = css`
     text-align: center;
   }
 
-  paper-button.continueButton {
-    background-color: var(--app-continue-button-color, var(--app-accent-color));
-    color: #fff;
+  md-filled-button.continueButton {
     margin: 8px;
     margin-bottom: 8px;
     font-size: 18px;
     font-family: var(--app-main-font-family, "Roboto", Arial, sans-serif);
   }
 
-  paper-button.generalButton {
-    color: var(--app-accent-color);
-    background-color: #fff;
+  md-filled-button.generalButton {
     margin: 8px;
   }
 
@@ -349,7 +310,7 @@ export const OavAppStyles = css`
       margin: 0 !important;
     }
 
-    paper-dialog {
+    md-dialog {
       padding: 0;
       margin: 0;
       margin-left: 24px;
@@ -363,7 +324,7 @@ export const OavAppStyles = css`
     .welcomeText {
       width: 100%;
     }
-    paper-button.continueButton {
+    md-filled-button.continueButton {
       font-size: 16px;
     }
 
@@ -380,7 +341,7 @@ export const OavAppStyles = css`
     .heading {
       font-size: 19px;
     }
-    paper-button.continueButton {
+    md-filled-button.continueButton {
       font-size: 16px;
     }
     .welcomeLogo {
@@ -390,7 +351,7 @@ export const OavAppStyles = css`
     .welcomeLogologoContainer {
       display: none;
     }
-    paper-button.continueButton {
+    md-filled-button.continueButton {
       margin-top: 0;
     }
   }
@@ -398,7 +359,7 @@ export const OavAppStyles = css`
   .welcomeLogoContainer {
   }
 
-  paper-dialog {
+  md-dialog {
     z-index: 1000000;
   }
 

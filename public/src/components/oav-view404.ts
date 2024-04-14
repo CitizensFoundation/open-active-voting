@@ -1,4 +1,6 @@
-import { customElement, html } from 'lit-element';
+import { html } from 'lit';
+import { customElement, property } from "lit/decorators.js";
+
 import { PageViewElement } from './page-view-element.js';
 
 // These are the shared styles needed by this element.

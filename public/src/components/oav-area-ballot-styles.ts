@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavAreaBallotStyles = css`
   :host {
@@ -12,7 +12,6 @@ export const OavAreaBallotStyles = css`
   iron-list {
     margin-top: 24px;
     padding-bottom: 16px;
-    background-color: var(--app-main-background-color);
   }
 
   .name {
@@ -45,13 +44,11 @@ export const OavAreaBallotStyles = css`
     outline: 0px;
   }
 
-  paper-button.addButton {
+  md-filled-button.voteButton {
     position: absolute;
     bottom: 16px;
     outline: 0px;
     right: 8px;
-    background-color: var(--app-ballot-add-button-background-color, #f00);
-    color: var(--app-ballot-add-button-color, #fff);
   }
 
   .budgetContainer {
@@ -63,17 +60,15 @@ export const OavAreaBallotStyles = css`
   }
 
   .topContainer {
-    background-color: var(--app-main-background-color);
-    color: var(--app-ballot-color, #333);
   }
 
-  paper-tabs {
+  md-tabs {
     margin: 8px;
     margin-right: 16px;
     margin-left: 16px;
   }
 
-  paper-tab {
+  md-tab-primary {
     font-family: var(--app-tabs-font-family, Roboto);
     font-size: 21px !important;
     margin-left: 24px;
@@ -82,7 +77,7 @@ export const OavAreaBallotStyles = css`
   }
 
   @media (max-width: 1024px) {
-    paper-tab {
+    md-tab-primary {
       font-size: 15px !important;
       margin-left: 16px;
       margin-right: 16px;
@@ -90,7 +85,7 @@ export const OavAreaBallotStyles = css`
   }
 
   @media (max-width: 360px) {
-    paper-tab {
+    md-tab-primary {
       font-size: 14px !important;
       margin-left: 16px;
       margin-right: 16px;

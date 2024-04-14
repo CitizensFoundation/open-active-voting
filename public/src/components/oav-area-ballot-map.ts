@@ -1,11 +1,11 @@
-import { customElement, html, property } from "lit-element";
+import { html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { OavBallotMapStyles } from "./oav-area-ballot-map-styles.js";
-import { OavShadowStyles } from "./oav-shadow-styles";
-import { OavBaseElement } from "./oav-base-element";
+import { OavShadowStyles } from "./oav-shadow-styles.js";
+import { OavBaseElement } from "./oav-base-element.js";
 import "plastic-map-info";
 import "google-map/google-map.js";
 import "google-map/google-map-marker.js";
-import "@polymer/paper-styles/shadow";
 import { OavAreaBudget } from "./oav-area-budget.js";
 import { OavAreaBallotItem } from './oav-area-ballot-item.js';
 

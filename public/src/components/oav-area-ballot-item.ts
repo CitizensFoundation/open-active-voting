@@ -1,14 +1,15 @@
-import { customElement, html, property } from "lit-element";
+import { html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
 import { OavAreaBallotItemStyles } from "./oav-area-ballot-item-styles.js";
 import { OavBaseElement } from "./oav-base-element";
 import { OavShadowStyles } from "./oav-shadow-styles";
 
 import "@polymer/iron-image";
-import "@polymer/paper-menu-button";
-import "@polymer/paper-icon-button";
-import "@polymer/paper-listbox";
-import "@polymer/paper-item";
-import "@polymer/paper-fab";
+import "@material/web/iconbutton/filled-icon-button.js";
+import "@material/web/menu/menu.js";
+import "@material/web/icon/icon.js";
+import "@material/web/button/filled-button.js";
 import "paper-share-button";
 import { OavAreaBudget } from "./oav-area-budget.js";
 
@@ -87,252 +88,212 @@ export class OavAreaBallotItem extends OavBaseElement {
     return [OavAreaBallotItemStyles, OavShadowStyles];
   }
 
-  render() {
-    return html`
-      <div
-        id="topContainer"
-        class="itemContent shadow-animation shadow-elevation-3dp"
+
+render() {
+  return html`
+    <div
+      id="topContainer"
+      class="itemContent shadow-animation shadow-elevation-3dp"
+      ?small="${this.small}"
+      ?tiny="${this.tiny}"
+    >
+      <img
+        class="itemImage"
+        @load="${this._imageLoadedChanged}"
         ?small="${this.small}"
         ?tiny="${this.tiny}"
+        @click="${this._setDescriptionMode}"
+        ?hidden="${!this.imageTabSelected}"
+        alt="Image"
+        style="object-fit: cover;"
+        src="${this.item.image_url}"
       >
-        <iron-image
-          preload
-          class="itemImage"
-          @loaded-changed="${this._imageLoadedChanged}"
-          ?small="${this.small}"
-          ?tiny$="${this.tiny}"
-          @click="${this._setDescriptionMode}"
-          ?hidden="${!this.imageTabSelected}"
-          name="image"
-          sizing="cover"
-          src="${this.item.image_url}"
-        >
-        </iron-image>
 
-        ${this.mapTabSelected && this.mapsHeight
-          ? html`
-              ${this.getMapImage
-                ? html`
-                    <iron-image
-                      class="main-image"
-                      sizing="contain"
-                      src="${this.getMapImage}"
-                      ?hidden="${!this.mapTabSelected}"
-                    >
-                    </iron-image>
-                  `
-                : html`
-                    <iron-image
-                      class="main-image"
-                      sizing="cover"
-                      src="https://maps.googleapis.com/maps/api/staticmap?center=${this
-                        .latitude},${this.longitude}&zoom=15&size=${this
-                        .mapsWidth}x${this
-                        .mapsHeight}&markers=color:red%7Clabel:%7C${this
-                        .latitude},${this.longitude}&key=${this.configFromServer
-                        .client_config.googleMapsStaticApiKey}"
-                      ?hidden="${!this.mapTabSelected}"
-                    >
-                    </iron-image>
-                  `}
-            `
-          : ""}
-        <div
-          ?hidden="${!this.descriptionTabSelected}"
-          name="description"
-          class="descriptionContainer"
-          @click="${this._setImageMode}"
-          ?tiny="${this.tiny}"
-          ?small="${this.small}"
-        >
-          <div id="description" class="description">
-            ${this.item.description}
-          </div>
-        </div>
-        <paper-menu-button
-          ?hidden="${this.isOnMap}"
-          @tap="${this._openMenu}"
-          ?small="${this.small}"
-          ?tiny="${this.tiny}"
-          class="dropdownMenuButton"
-          horizontal-align="right"
-        >
-          <paper-icon-button
-            class="dropdown-trigger dropdownButton"
-            slot="dropdown-trigger"
-            @click="${this._clickedDropDownMenu}"
-            alt="${this.localize("openDetailMenu")}"
-            icon="menu"
-          ></paper-icon-button>
-          <paper-listbox
-            class="dropdown-content"
-            slot="dropdown-content"
-            id="listBox"
-            .selected="${this.listBoxSelection}"
-          >
-            <paper-item @tap="${this._setImageMode}">
-              <iron-icon
-                alt="${this.localize("image_item_tab")}"
-                class="infoIcon"
-                icon="photo"
-              ></iron-icon>
-              ${this.localize("image_item_tab")}
-            </paper-item>
-            <paper-item @tap="${this._setDescriptionMode}">
-              <iron-icon
-                alt="${this.localize("description_item_tab")}"
-                class="infoIcon"
-                icon="description"
-              ></iron-icon>
-              ${this.localize("description_item_tab")}
-            </paper-item>
-            <paper-item
-              @tap="${this._setMapMode}"
-              ?hidden="${this.configFromServer.client_config.hideLocation}"
-            >
-              <iron-icon
-                alt="${this.localize("map_item_tab")}"
-                class="infoIcon"
-                icon="place"
-              ></iron-icon>
-              ${this.localize("map_item_tab")}
-            </paper-item>
-            <paper-item
-              @tap="${this._openPdf}"
-              ?hidden="${!this.configFromServer.client_config
-                .pathToDesignPdfs &&
-              !this.configFromServer.client_config.useDirectPdfUrls}"
-            >
-              <iron-icon
-                alt="${this.localize("design_pdf")}"
-                class="infoIcon"
-                icon="picture-as-pdf"
-              ></iron-icon>
-              ${this.localize("design_pdf")}
-            </paper-item>
-            <paper-item
-              @tap="${this._showPost}"
-              ?hidden="${this.configFromServer.client_config.hideShowPost}"
-            >
-              <iron-icon
-                raised
-                alt="${this.localize("more_info_description")}"
-                class="infoIcon"
-                icon="info"
-              ></iron-icon>
-              ${this.localize("more_info_description")}
-            </paper-item>
-          </paper-listbox>
-        </paper-menu-button>
-        <div class="layout horizontal">
-          <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">
-            ${this.item.name}
-          </div>
-        </div>
-        <div class="buttons">
-          <paper-share-button
-            ?hidden="${!this.imageLoaded ||
-            this.configFromServer.client_config.hideItemSharing}"
-            ?small="${this.small}"
-            @share-tap="${this._shareTap}"
-            class="shareIcon"
-            horizontal-align="left"
-            id="shareButton"
-            title="${this.localize("share_idea")}"
-            facebook
-            instagram
-            twitter
-            is-popup
-            .url="${this._itemShareUrl()}"
-          >
-          </paper-share-button>
-
-          <div
-            class="price"
-            ?small="${this.small}"
-            ?tiny="${this.tiny}"
-            ?no-millions="${this.configFromServer.client_config
-              .dontUserMillions}"
-          >
-            ${this.configFromServer.client_config
-              .currencySymbol}${this.formatNumber(this.item.price, undefined)}
-            <span
-              class="priceCurrency"
-              ?hidden="${!this._priceIsOne(this.item.price) ||
-              this.configFromServer.client_config.dontUserMillions}"
-              >${this.localize("million")}</span
-            >
-            <span
-              class="priceCurrency"
-              ?hidden="${this._priceIsOne(this.item.price) ||
-              this.configFromServer.client_config.dontUserMillions}"
-              >${this.localize("millions")}</span
-            >
-          </div>
-
-          <paper-fab
-            mini
-            id="addToBudgetButton"
-            elevation="5"
-            class="addRemoveButton"
-            ?hidden="${this.selectedInBudget}"
-            ?disabled="${this.toExpensiveForBudget}"
-            title="${this.localize("add_to_budget")}"
-            icon="add"
-            @click="${this._toggleInBudget}"
-          >
-          </paper-fab>
-
-          <paper-fab
-            mini
-            elevation="5"
-            class="addRemoveButton removeButton"
-            ?hidden="${!this.selectedInBudget}"
-            ?disabled="${this.toExpensiveForBudget}"
-            title="${this.localize("remove_from_budget")}"
-            icon="remove"
-            @click="${this._toggleInBudget}"
-          >
-          </paper-fab>
-
-          ${!this.configFromServer.client_config.hideFavoriteButton
-            ? html`
-                <div
-                  id="favoriteButtons"
-                  class="favoriteButtons"
-                  ?hidden="${!this.selectedInBudget}"
-                >
-                  <paper-fab
-                    mini
-                    id="addFavoriteButton"
-                    class="addFavoriteButton"
-                    elevation="5"
-                    class="favoriteButton"
-                    ?hidden="${this.isFavorite}"
-                    title="${this.localize("select_favorite")}"
-                    icon="${this.configFromServer.client_config
-                      .favoriteIconOutline}"
-                    @click="${this._toggleFavorite}"
+      ${this.mapTabSelected && this.mapsHeight
+        ? html`
+            ${this.getMapImage
+              ? html`
+                  <img
+                    class="main-image"
+                    style="object-fit: contain;"
+                    src="${this.getMapImage}"
+                    ?hidden="${!this.mapTabSelected}"
                   >
-                  </paper-fab>
-                  <paper-fab
-                    mini
-                    class="removeFavoriteButton"
-                    elevation="5"
-                    class="favoriteButton"
-                    ?hidden="${!this.isFavorite}"
-                    title="${this.localize("deselect_favorite")}"
-                    icon="${this.configFromServer.client_config.favoriteIcon}"
-                    @click="${this._toggleFavorite}"
+                `
+              : html`
+                  <img
+                    class="main-image"
+                    style="object-fit: cover;"
+                    src="https://maps.googleapis.com/maps/api/staticmap?center=${this
+                      .latitude},${this.longitude}&zoom=15&size=${this
+                      .mapsWidth}x${this
+                      .mapsHeight}&markers=color:red%7Clabel:%7C${this
+                      .latitude},${this.longitude}&key=${this.configFromServer
+                      .client_config.googleMapsStaticApiKey}"
+                    ?hidden="${!this.mapTabSelected}"
                   >
-                  </paper-fab>
-                </div>
-              `
-            : html``}
+                `}
+          `
+        : ""}
+      <div
+        ?hidden="${!this.descriptionTabSelected}"
+        name="description"
+        class="descriptionContainer"
+        @click="${this._setImageMode}"
+        ?tiny="${this.tiny}"
+        ?small="${this.small}"
+      >
+        <div id="description" class="description">
+          ${this.item.description}
         </div>
       </div>
-    `;
-  }
+      <md-menu
+        ?hidden="${this.isOnMap}"
+        @md-menu-action="${this._openMenu}"
+        ?small="${this.small}"
+        ?tiny="${this.tiny}"
+        class="dropdownMenuButton"
+        corner="BOTTOM_START"
+      >
+        <md-filled-icon-button
+          class="dropdown-trigger dropdownButton"
+          slot="trigger"
+          @click="${this._clickedDropDownMenu}"
+          aria-label="${this.localize("openDetailMenu")}"
+        ><md-icon>menu</md-icon></md-filled-icon-button>
+        <md-menu-item @click="${this._setImageMode}">
+          <md-icon slot="graphic">photo</md-icon>
+          ${this.localize("image_item_tab")}
+        </md-menu-item>
+        <md-menu-item @click="${this._setDescriptionMode}">
+          <md-icon slot="graphic">description</md-icon>
+          ${this.localize("description_item_tab")}
+        </md-menu-item>
+        <md-menu-item
+          @click="${this._setMapMode}"
+          ?hidden="${this.configFromServer.client_config.hideLocation}"
+        >
+          <md-icon slot="graphic">place</md-icon>
+          ${this.localize("map_item_tab")}
+        </md-menu-item>
+        <md-menu-item
+          @click="${this._openPdf}"
+          ?hidden="${!this.configFromServer.client_config
+            .pathToDesignPdfs &&
+          !this.configFromServer.client_config.useDirectPdfUrls}"
+        >
+          <md-icon slot="graphic">picture_as_pdf</md-icon>
+          ${this.localize("design_pdf")}
+        </md-menu-item>
+        <md-menu-item
+          @click="${this._showPost}"
+          ?hidden="${this.configFromServer.client_config.hideShowPost}"
+        >
+          <md-icon slot="graphic">info</md-icon>
+          ${this.localize("more_info_description")}
+        </md-menu-item>
+      </md-menu>
+      <div class="layout horizontal">
+        <div class="name" ?small="${this.small}" ?tiny="${this.tiny}">
+          ${this.item.name}
+        </div>
+      </div>
+      <div class="buttons">
+        <paper-share-button
+          ?hidden="${!this.imageLoaded ||
+          this.configFromServer.client_config.hideItemSharing}"
+          ?small="${this.small}"
+          @share-tap="${this._shareTap}"
+          class="shareIcon"
+          horizontal-align="left"
+          id="shareButton"
+          title="${this.localize("share_idea")}"
+          facebook
+          instagram
+          twitter
+          is-popup
+          .url="${this._itemShareUrl()}"
+        >
+        </paper-share-button>
+
+        <div
+          class="price"
+          ?small="${this.small}"
+          ?tiny="${this.tiny}"
+          ?no-millions="${this.configFromServer.client_config
+            .dontUserMillions}"
+        >
+          ${this.configFromServer.client_config
+            .currencySymbol}${this.formatNumber(this.item.price, undefined)}
+          <span
+            class="priceCurrency"
+            ?hidden="${!this._priceIsOne(this.item.price) ||
+            this.configFromServer.client_config.dontUserMillions}"
+            >${this.localize("million")}</span
+          >
+          <span
+            class="priceCurrency"
+            ?hidden="${this._priceIsOne(this.item.price) ||
+            this.configFromServer.client_config.dontUserMillions}"
+            >${this.localize("millions")}</span
+          >
+        </div>
+
+        <md-filled-icon-button
+          mini
+          id="addToBudgetButton"
+          elevation="5"
+          class="addRemoveButton"
+          ?hidden="${this.selectedInBudget}"
+          ?disabled="${this.toExpensiveForBudget}"
+          title="${this.localize("add_to_budget")}"
+          @click="${this._toggleInBudget}"
+        ><md-icon>add</md-icon></md-filled-icon-button>
+
+        <md-filled-icon-button
+          mini
+          elevation="5"
+          class="addRemoveButton removeButton"
+          ?hidden="${!this.selectedInBudget}"
+          ?disabled="${this.toExpensiveForBudget}"
+          title="${this.localize("remove_from_budget")}"
+          @click="${this._toggleInBudget}"
+        ><md-icon>remove</md-icon></md-filled-icon-button>
+
+        ${!this.configFromServer.client_config.hideFavoriteButton
+          ? html`
+              <div
+                id="favoriteButtons"
+                class="favoriteButtons"
+                ?hidden="${!this.selectedInBudget}"
+              >
+                <md-filled-icon-button
+                  mini
+                  id="addFavoriteButton"
+                  class="addFavoriteButton"
+                  elevation="5"
+                  class="favoriteButton"
+                  ?hidden="${this.isFavorite}"
+                  title="${this.localize("select_favorite")}"
+                  @click="${this._toggleFavorite}"
+                ><md-icon>${this.configFromServer.client_config
+                    .favoriteIconOutline}</md-icon></md-filled-icon-button>
+                <md-filled-icon-button
+                  mini
+                  class="removeFavoriteButton"
+                  elevation="5"
+                  class="favoriteButton"
+                  ?hidden="${!this.isFavorite}"
+                  title="${this.localize("deselect_favorite")}"
+                  @click="${this._toggleFavorite}"
+                ><md-icon>${this.configFromServer.client_config.favoriteIcon}</md-icon></md-filled-icon-button>
+              </div>
+            `
+          : html``}
+      </div>
+    </div>
+  `;
+}
 
   updated(changedProps: Map<string | number | symbol, unknown>) {
     super.updated(changedProps);
@@ -402,7 +363,7 @@ export class OavAreaBallotItem extends OavBaseElement {
   }
 
   _imageLoadedChanged(event: CustomEvent) {
-    if (event.detail.value) {
+    if (event.target) {
       this.imageLoaded = true;
     }
   }

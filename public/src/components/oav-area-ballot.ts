@@ -1,20 +1,20 @@
-import { customElement, html, property } from "lit-element";
+import {  html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { cache } from "lit-html/directives/cache.js";
 import { PageViewElement } from "./page-view-element.js";
 import { OavAreaBallotStyles } from "./oav-area-ballot-styles.js";
 import { encryptVote } from "./ballot-encryption-behavior.js";
 import { installMediaQueryWatcher } from "pwa-helpers/media-query.js";
 
-import "@polymer/paper-tabs/paper-tab";
-import "@polymer/paper-tabs/paper-tabs";
+import "@material/web/tabs/tabs.js";
+import "@material/web/tabs/primary-tab.js";
 import "./oav-area-ballot-item";
 import "./oav-area-ballot-map";
 import { OavAreaBudget } from "./oav-area-budget.js";
-import { PaperTabsElement } from "@polymer/paper-tabs/paper-tabs";
-import { OavAreaBallotItem } from './oav-area-ballot-item.js';
-import { OavAreaBallotMap } from './oav-area-ballot-map.js';
-import { OavApp } from './oav-app.js';
-import { PaperDialogElement } from '@polymer/paper-dialog';
+import { OavAreaBallotItem } from "./oav-area-ballot-item.js";
+import { OavAreaBallotMap } from "./oav-area-ballot-map.js";
+import { OavApp } from "./oav-app.js";
+import { MdDialog } from "@material/web/dialog/dialog.js";
 
 @customElement("oav-area-ballot")
 export class OavAreaBallot extends PageViewElement {
@@ -66,12 +66,12 @@ export class OavAreaBallot extends PageViewElement {
       ? html`
           <div class="topContainer layout vertical">
             <div class="layout horizontal center-center tabsContainer">
-              <paper-tabs
+              <md-tabs
                 id="tabs"
-                selected="${this.selectedView}"
-                @selected-changed="${this._selectedChanged}"
+                activeIndex="${this.selectedView}"
+                @MDCTabBar:activated="${this._selectedChanged}"
               >
-                <paper-tab>
+                <md-primary-tab>
                   <div ?hidden="${!this.wide}">${this.area.name}</div>
                   <div
                     ?hidden="${this.wide}"
@@ -79,12 +79,13 @@ export class OavAreaBallot extends PageViewElement {
                   >
                     <div>${this.localize("items_list")}</div>
                   </div>
-                </paper-tab>
-                <paper-tab
+                </md-primary-tab>
+                <md-primary-tab
                   ?hidden="${this.configFromServer.client_config.hideLocation}"
-                  >${this.localize("items_on_map")}</paper-tab
                 >
-              </paper-tabs>
+                  ${this.localize("items_on_map")}
+                </md-primary-tab>
+              </md-tabs>
             </div>
 
             ${this.budgetBallotItems
@@ -138,7 +139,7 @@ export class OavAreaBallot extends PageViewElement {
           this.completeIfAuthenticatedVote();
         } else {
           this.areaId = parseInt(this.areaIdRoutePath);
-          this.fire('oav-update-locale-text');
+          this.fire("oav-update-locale-text");
         }
       }
     }
@@ -221,7 +222,7 @@ export class OavAreaBallot extends PageViewElement {
               ) as HTMLElement
             ).style.setProperty(
               "border-bottom",
-              "5px solid var(--paper-tabs-selection-bar-color)"
+              "5px solid var(--md-sys-color-primary)"
             );
           });
         })
@@ -289,6 +290,7 @@ export class OavAreaBallot extends PageViewElement {
   }
 
   _scrollItemIntoView(itemId: number) {
+    //@ts-ignore
     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
 
@@ -374,7 +376,7 @@ export class OavAreaBallot extends PageViewElement {
     var listItems = this.$$("#itemContainer");
     if (listItems) {
       for (var i = 0; i < listItems.children.length; i++) {
-        var listItem = listItems.children[i] as OavAreaBallotItem;;
+        var listItem = listItems.children[i] as OavAreaBallotItem;
         if (
           listItem.id != "domRepeat" &&
           listItem.item.id == event.detail.itemId
@@ -516,8 +518,10 @@ export class OavAreaBallot extends PageViewElement {
     window.history.pushState({}, "", path);
     this.fire("location-changed", path);
 
-    var dialog = (document.querySelector("oav-app") as OavApp).getDialog("authDialog") as PaperDialogElement;
-    if (dialog) dialog.close();
+    var dialog = (document.querySelector("oav-app") as OavApp).getDialog(
+      "authDialog"
+    ) as MdDialog;
+    if (dialog) dialog.open=false;
   }
 
   completeIfAuthenticatedVote() {

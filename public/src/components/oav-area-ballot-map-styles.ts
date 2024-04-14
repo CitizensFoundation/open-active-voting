@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavBallotMapStyles = css`
   :host {
@@ -26,14 +26,13 @@ export const OavBallotMapStyles = css`
   .noMapContainer {
     padding: 8px;
     margin: 16px;
-    background-color: #fff;
   }
 
   #map {
   }
 
   a {
-    color: var(--primary-color-700);
+    color: var(--md-sys-color-on-surface);
   }
 
   h1 {
@@ -41,25 +40,23 @@ export const OavBallotMapStyles = css`
   }
 
   #myInfoCard {
-    background-color: #000;
     padding: 0;
     margin: 0 !important;
     --paper-map-info-mixin: {
       padding: 0;
       margin: 0 !important;
-      background-color: #fbfbfb;
-      color: var(--app-accent-color);
+      background-color: var(--md-sys-color-surface-variant);
+      color: var(--md-sys-color-on-surface);
       max-width: 100%;
       max-height: 100%;
     }
     --paper-map-info-beak-mixin: {
-      color: var(--app-accent-color);
+      color: var(--md-sys-color-on-surface);
     }
   }
 
   .ballotItem {
     margin: 0;
     padding: 0;
-    color: #fff;
   }
 `;

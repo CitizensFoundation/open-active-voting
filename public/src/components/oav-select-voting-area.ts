@@ -1,4 +1,6 @@
-import { html, css, property, customElement } from "lit-element";
+import { html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
 import { PageViewElement } from "./page-view-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import { OavShadowStyles } from "./oav-shadow-styles";

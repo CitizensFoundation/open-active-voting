@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavFlexLayout = css`
   .layout {

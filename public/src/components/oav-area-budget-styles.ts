@@ -3,7 +3,7 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavAreaBudgetStyles = css`
   :host {
@@ -29,10 +29,8 @@ export const OavAreaBudgetStyles = css`
   }
 
   .budgetMaterial {
-    background-color: var(
-      --app-budget-material-background-color,
-      rgba(249, 249, 249, 1)
-    );
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface);
     height: 139px;
     margin: 0px 0px 0px 0px;
     margin-right: auto;
@@ -46,7 +44,8 @@ export const OavAreaBudgetStyles = css`
   }
 
   #votes {
-    background-color: var(--app-budget-votes-background-color, #e0e0e0);
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface);
     height: 81px;
   }
 
@@ -56,8 +55,8 @@ export const OavAreaBudgetStyles = css`
   }
 
   .budgetRuler {
-    background-color: var(--app-budget-ruler-background-color, #f0f0f0);
-    color: var(--app-budget-ruler-color, #111);
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface);
     font-size: 14px;
     padding: 4px;
     padding-right: 8x;
@@ -72,18 +71,13 @@ export const OavAreaBudgetStyles = css`
   }
 
   .budgetHeader {
-    background-color: var(--app-budget-header-background-color, #fff);
-    color: var(--app-budget-header-color, #000);
     font-size: 26px;
     padding: 12px;
   }
 
   .info {
-    background-color: var(
-      --app-budget-info-background-color,
-      rgba(249, 249, 249, 1)
-    );
-    color: var(--app-budget-info-color, #111);
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-on-surface);
     padding: 4px;
     font-size: 12px;
   }
@@ -93,19 +87,10 @@ export const OavAreaBudgetStyles = css`
     font-size: 19px;
   }
 
-  paper-button.voteButton {
-    background-color: var(
-      --app-voting-button-background,
-      var(--app-accent-color, #f00)
-    );
-    color: var(--app-budget-vote-button-color, #fff);
+  md-filled-button.voteButton {
     margin: 8px;
     margin-right: 4px;
     font-family: var(--app-vote-button-font-family, Roboto);
-  }
-
-  paper-button[disabled] {
-    background-color: #bbb;
   }
 
   .selectedInfo {
@@ -128,7 +113,6 @@ export const OavAreaBudgetStyles = css`
   }
 
   .noItemsInfo {
-    color: var(--app-budget-noitemsinfo-color, #555);
     font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
@@ -142,7 +126,7 @@ export const OavAreaBudgetStyles = css`
 
   .itemInBudget {
     border-left: solid 3px;
-    border-left-color: var(--app-accent-color);
+    border-left-color: var(--md-sys-color-primary);
   }
 
   .headerLogo {
@@ -163,16 +147,10 @@ export const OavAreaBudgetStyles = css`
   }
 
   .headerContainer {
-    background-color: var(
-      --app-budget-header-container-background-color,
-      #f0f0f0
-    );
-    color: var(--app-budget-vote-button-color, #444);
+    background-color: var(--md-sys-color-surface-variant);
   }
 
   .demoButton {
-    background-color: var(--app-accent-color);
-    color: #fff;
     width: 30px;
     height: 30px;
     padding: 5px;
@@ -194,7 +172,6 @@ export const OavAreaBudgetStyles = css`
   }
 
   .mobileActionIcons {
-    color: #555;
     width: 42px;
     height: 42px;
     margin: 0;

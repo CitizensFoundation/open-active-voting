@@ -1,45 +1,43 @@
-import '@polymer/polymer/polymer-legacy.js';
-import '@polymer/paper-button/paper-button.js';
-import '@polymer/paper-dialog/paper-dialog.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import "@polymer/polymer/polymer-legacy.js";
+import "@material/web/dialog/dialog.js";
+import "@material/web/button/text-button.js";
+import { Polymer } from "@polymer/polymer/lib/legacy/polymer-fn.js";
+import { html } from "@polymer/polymer/lib/utils/html-tag.js";
 
 Polymer({
   _template: html`
-    <style include="iron-flex iron-flex-alignment">
-
-      paper-dialog {
-        background-color: #FFF;
-      }
-    </style>
-
-    <paper-dialog id="error">
-      <p id="errorText">[[errorText]]</p>
-      <div class="buttons">
-        <paper-button dialog-confirm="" autofocus="" on-tap="resetErrorText">OK</paper-button>
+    <md-dialog id="error">
+      <div slot="content">
+        <p id="errorText">${this.errorText}</p>
       </div>
-    </paper-dialog>
-`,
+      <div slot="actions">
+        <md-text-button
+          dialogAction="confirm"
+          autofocus
+          @click="${this.resetErrorText}"
+          >OK</md-text-button
+        >
+      </div>
+    </md-dialog>
+  `,
 
-  is: 'yp-ajax-error-dialog',
+  is: "yp-ajax-error-dialog",
 
   properties: {
-
     errorText: {
       type: String,
-      value: ""
-    }
-
+      value: "",
+    },
   },
 
-  showErrorDialog: function(errorText) {
+  showErrorDialog: function (errorText) {
     this.errorText = errorText;
     this.$$("#error").open();
     var errorDialog = this.$$("#error");
   },
 
-  resetErrorText: function(event) {
+  resetErrorText: function (event) {
     this.$.error.close();
-    this.$.errorText="";
-  }
-})
+    this.$.errorText = "";
+  },
+});

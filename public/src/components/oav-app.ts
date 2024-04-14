@@ -3,8 +3,10 @@
 Copyright (c) 2010-2021 Citizens Foundation. AGPL License. All rights reserved.
 */
 
-import { LitElement, html, css, customElement, property } from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import { html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
+import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 
 import { setPassiveTouchGestures } from "@polymer/polymer/lib/utils/settings.js";
 import { installMediaQueryWatcher } from "pwa-helpers/media-query.js";
@@ -17,11 +19,10 @@ import "whatwg-fetch";
 import "@polymer/app-layout/app-drawer/app-drawer.js";
 import "@polymer/app-layout/app-header/app-header.js";
 import "@polymer/app-layout/app-scroll-effects/effects/waterfall.js";
-import "@polymer/paper-icon-button/paper-icon-button.js";
-import "@polymer/paper-dialog/paper-dialog.js";
-import "@polymer/paper-spinner/paper-spinner.js";
-import "@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js";
-import "@polymer/paper-toast/paper-toast.js";
+import "@material/web/dialog/dialog.js";
+import "@material/web/button/text-button.js";
+import "@material/web/iconbutton/filled-icon-button.js";
+
 import "./oav-icons.js";
 import "./oav-area-ballot";
 import "./oav-area-budget";
@@ -32,11 +33,11 @@ import { OavBaseElement } from "./oav-base-element.js";
 import { OavFlexLayout } from "./oav-flex-layout.js";
 import { OavAreaBudget } from "./oav-area-budget";
 import { OavAreaBallot } from "./oav-area-ballot";
-import { PaperDialogElement } from "@polymer/paper-dialog/paper-dialog.js";
 import { OavSelectVotingArea } from "./oav-select-voting-area.js";
 import { PaperToastElement } from "@polymer/paper-toast/paper-toast.js";
 import { OavInsecureEmailLogin } from "./oav-insecure-email-login.js";
 import { OavLowSecuritySmsLogin } from "./oav-low-security-sms-login.js";
+import { MdDialog } from "@material/web/dialog/dialog.js";
 
 @customElement("oav-app")
 export class OavApp extends OavBaseElement {
@@ -153,18 +154,20 @@ export class OavApp extends OavBaseElement {
 
   render() {
     let errorDialog = html`
-      <paper-dialog id="errorDialog">
-        <p id="errorText">${this.errorText}</p>
-        <div class="buttons">
-          <paper-button
+      <md-dialog id="errorDialog">
+        <div slot="content">
+          <p id="errorText">${this.errorText}</p>
+        </div>
+        <div slot="actions">
+          <md-text-button
             class="generalButton"
-            dialog-confirm
+            dialogAction="confirm"
             autofocus
             @click="${this.resetErrorText}"
-            >OK</paper-button
+            >OK</md-text-button
           >
         </div>
-      </paper-dialog>
+      </md-dialog>
     `;
     return html`${this.configFromServer
       ? html`
@@ -184,7 +187,8 @@ export class OavApp extends OavBaseElement {
         }
 
         ${
-          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled ===
+          true
             ? html`
                 <oav-low-security-sms-login
                   .language="${this.language}"
@@ -195,56 +199,50 @@ export class OavApp extends OavBaseElement {
               `
             : html``
         }
-        <paper-dialog id="helpDialog">
-          <paper-dialog-scrollable>
-            <div id="helpContent">
-              ${unsafeHTML(this.helpContent)}
-            </div>
-          </paper-dialog-scrollable>
-          <div class="buttons">
-            <paper-button raised class="closeButton generalButton" dialog-dismiss>${this.localize(
-              "close"
-            )}</paper-button>
-          </div>
-        </paper-dialog>
 
-        <paper-dialog id="welcomeDialog" with-backdrop>
-          <paper-dialog-scrollable>
-            <div class="vertical center-center">
-              <div class="welcomeLogoContainer center-center">
-                <img aria-label="welcome/velkomin" class="welcomeLogo" src="${
-                  this.configFromServer.client_config.welcomeLogo ||
-                  this.configFromServer.client_config.ballotBudgetLogo
-                }"></img>
-              </div>
-              <div class="vertical center-center welcomeDialog">
-                <div class="heading">${this.welcomeHeading}</div>
-                  <div class="horizontal welcomeText" ?hidden="${!this
-                    .welcomeText}"
-                    style="text-align: left;"
-                  >
-                    ${
-                      this.configFromServer.client_config.welcomeLocalesByArea
-                        ? html`
-                            <div class="layout vertical">
-                              <div>${unsafeHTML(this.welcomeText)}</div>
-                            </div>
-                          `
-                        : html` <span>${this.welcomeText}</span> `
-                    }
-                  </div>
-                 </div>
-                <div class="buttons layout horizontal center-center">
-                  <paper-button raised class="continueButton" @click="${
-                    this.closeWelcome
-                  }" dialog-dismiss autofocus>${this.localize(
-          "start"
-        )}</paper-button>
-                </div>
+        <md-dialog id="helpDialog">
+          <div slot="content" id="helpContent">
+            ${unsafeHTML(this.helpContent)}
+          </div>
+          <div slot="actions" class="buttons">
+            <md-filled-button class="closeButton generalButton" dialogAction="dismiss">
+              ${this.localize("close")}
+            </md-filled-button>
+          </div>
+        </md-dialog>
+
+        <md-dialog id="welcomeDialog" modal>
+          <div slot="content" class="vertical center-center">
+            <div class="welcomeLogoContainer center-center">
+              <img aria-label="welcome/velkomin" class="welcomeLogo" src="${
+                this.configFromServer.client_config.welcomeLogo ||
+                this.configFromServer.client_config.ballotBudgetLogo
+              }"></img>
+            </div>
+            <div class="vertical center-center welcomeDialog">
+              <div class="heading">${this.welcomeHeading}</div>
+              <div class="horizontal welcomeText" ?hidden="${!this
+                .welcomeText}" style="text-align: left;">
+                ${
+                  this.configFromServer.client_config.welcomeLocalesByArea
+                    ? html`
+                        <div class="layout vertical">
+                          <div>${unsafeHTML(this.welcomeText)}</div>
+                        </div>
+                      `
+                    : html` <span>${this.welcomeText}</span> `
+                }
               </div>
             </div>
-          </paper-dialog-scrollable>
-        </paper-dialog>
+          </div>
+          <div slot="actions" class="buttons layout horizontal center-center">
+            <md-filled-button class="continueButton" @click="${
+              this.closeWelcome
+            }" dialogAction="dismiss" autofocus>
+              ${this.localize("start")}
+            </md-filled-button>
+          </div>
+        </md-dialog>
 
         <app-header fixed effects="waterfall" ?wide-and-ballot="${
           this.wideAndBallot
@@ -255,18 +253,22 @@ export class OavApp extends OavBaseElement {
             <div ?hidden="${
               !this.showExit || !this.wide
             }" class="layout horizontal exitIconInBudget">
-              <paper-icon-button class="closeButton" alt="${this.localize(
+              <md-filled-icon-button class="closeButton" alt="${this.localize(
                 "close"
-              )}" icon="closeExit" @click="${this._exit}"></paper-icon-button>
+              )}" @click="${this._exit}">
+                <md-icon>close</md-icon>
+              </md-filled-icon-button>
             </div>
             <div class="helpIconInBudget" ?is-wide="${
               this.wide
             }" ?select-voting-area="${
           this._page == "select-voting-area"
         }" ?hidden="${this._page == "area-ballot" && !this.wide}">
-              <paper-icon-button icon="help-outline" alt="${this.localize(
-                "help"
-              )}" @click="${this._help}}"></paper-icon-button>
+             <md-filled-icon-button alt="${this.localize("help")}" @click="${
+          this._help
+        }">
+              <md-icon>help_outline</md-icon>
+            </md-filled-icon-button>
             </div>
             <div class="budgetConstainer layout horizontal center-center" ?hidden="${
               this.hideBudget
@@ -345,10 +347,10 @@ export class OavApp extends OavBaseElement {
         )}" id="toast" @click="${this._closeToast}">
         </paper-toast>>
       `
-      : html`${errorDialog}<paper-spinner
-            active
+      : html`${errorDialog}<md-circular-progress
+            indeterminate
             class="largeSpinner"
-          ></paper-spinner>`} `;
+          ></md-circular-progress>`} `;
   }
 
   constructor() {
@@ -445,8 +447,9 @@ export class OavApp extends OavBaseElement {
         }
 
         //@ts-ignore
-        gtag('config', this.configFromServer.client_config.googleAnalyticsId);
-        this.postsHost = this.configFromServer.client_config.postsHost || "https://yrpri.org";
+        gtag("config", this.configFromServer.client_config.googleAnalyticsId);
+        this.postsHost =
+          this.configFromServer.client_config.postsHost || "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
 
@@ -491,11 +494,11 @@ export class OavApp extends OavBaseElement {
         }
 
         if (
-          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled ===
+          true
         ) {
           import("./oav-low-security-sms-login.js");
         }
-
       })
       .catch((error) => {
         debugger;
@@ -512,7 +515,7 @@ export class OavApp extends OavBaseElement {
     ) {
       setTimeout(() => {
         if (!this.haveClosedWelcome) {
-          (this.$$("#welcomeDialog") as PaperDialogElement).open();
+          (this.$$("#welcomeDialog") as MdDialog).open = true;
           this.activity("opened", "welcome");
         }
       });
@@ -561,7 +564,10 @@ export class OavApp extends OavBaseElement {
       this._scrollItemIntoView
     );
     this.addEventListener("oav-insecure-email-login", this._insecureEmailLogin);
-    this.addEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
+    this.addEventListener(
+      "oav-low-security-sms-login",
+      this._lowSecuritySmsLogin
+    );
 
     this.addEventListener("location-changed", this._locationChanged);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
@@ -610,7 +616,10 @@ export class OavApp extends OavBaseElement {
       "oav-insecure-email-login",
       this._insecureEmailLogin
     );
-    this.removeEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
+    this.removeEventListener(
+      "oav-low-security-sms-login",
+      this._lowSecuritySmsLogin
+    );
   }
 
   _closeToast() {
@@ -739,7 +748,7 @@ export class OavApp extends OavBaseElement {
   }
 
   _help() {
-    (this.$$("#helpDialog") as PaperDialogElement).open();
+    (this.$$("#helpDialog") as MdDialog).open=true;
   }
 
   _setArea(event: CustomEvent | any) {
@@ -754,7 +763,7 @@ export class OavApp extends OavBaseElement {
 
   _errorHandler(event: CustomEvent | any) {
     this.errorText = this.localize(event.detail);
-    (this.$$("#errorDialog") as PaperDialogElement).open();
+    (this.$$("#errorDialog") as MdDialog).open=true;
   }
 
   _exit() {
@@ -980,7 +989,7 @@ export class OavApp extends OavBaseElement {
       this.wideAndBallot = this.wide && page === "area-ballot";
 
       if (page == "voting-completed") {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
   }

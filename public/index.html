@@ -5,7 +5,19 @@
     <title>Loading...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href="/" />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
     <script async src="https://www.googletagmanager.com/gtag/js"></script>
     <script>
       window.process = { env: { NODE_ENV: "production" } };
@@ -96,7 +108,7 @@
         line-height: 1.5;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
-        background-color: #e9e9e9;
+        background-color: var(--md-sys-color-surface);
       }
     </style>
   </head>
@@ -111,5 +123,22 @@
     <script src="node_modules/web-animations-js/web-animations.min.js"></script>
     <script src="node_modules/web-animations-js/web-animations-next.min.js"></script>
     <script async src="https://polyfill.io/v3/polyfill.min.js?features=Intl.PluralRules,Intl.PluralRules.~locale.en"></script>
+
+    <script>
+      // Feature detection for ElementInternals API
+      if (typeof customElements !== 'undefined' && 'ElementInternals' in window) {
+          // The browser supports ElementInternals, no need to load the polyfill
+          console.log('ElementInternals supported, no polyfill needed.');
+      } else {
+          // The browser does not support ElementInternals, load the polyfill
+          var script = document.createElement('script');
+          script.src = 'https://unpkg.com/element-internals-polyfill';
+          document.head.appendChild(script);
+          script.onload = function() {
+              console.log('ElementInternals polyfill loaded.');
+              // Initialize or use the polyfilled features here
+          };
+      }
+  </script>
   </body>
 </html>

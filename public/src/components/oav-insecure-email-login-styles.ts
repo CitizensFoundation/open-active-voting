@@ -3,22 +3,21 @@
 Copyright (c) 2010-2021 Citizens Foundation
 */
 
-import { css } from "lit-element";
+import { css } from "lit";
 
 export const OavInsecureEmailLoginStyles = css`
-  paper-dialog {
+  md-dialog {
     padding-left: 8px;
     padding-right: 8px;
     width: 440px;
-    background-color: #fff;
   }
 
-  paper-dialog {
+  md-dialog {
     z-index: 9999;
   }
 
   @media (max-width: 480px) {
-    paper-dialog {
+    md-dialog {
       padding: 0;
       margin: 0;
       height: 100%;
@@ -26,7 +25,7 @@ export const OavInsecureEmailLoginStyles = css`
     }
   }
 
-  paper-spinner {
+  md-circular-progress {
     padding: 0;
     margin: 0;
   }
@@ -34,7 +33,6 @@ export const OavInsecureEmailLoginStyles = css`
   .buttons {
     margin-left: 0;
     padding-left: 0;
-    color: var(--app-accent-color);
     font-size: 18px;
     padding-top: 8px;
   }
@@ -43,16 +41,14 @@ export const OavInsecureEmailLoginStyles = css`
     margin-top: 16px;
   }
 
-  paper-input {
-    --paper-input-container-focus-color: var(--app-accent-color);
+  md-outlined-text-field {
   }
 
-  paper-checkbox {
-    --paper-checkbox-checked-color: var(--app-accent-color);
+  md-checkbox {
     padding-top: 8px;
   }
 
   .postcodeWrongWard {
-    color: var(--paper-red-a400);
+    color: var(md-sys-color-error);
   }
 `;
