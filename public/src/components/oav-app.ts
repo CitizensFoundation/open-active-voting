@@ -345,7 +345,7 @@ export class OavApp extends OavBaseElement {
           ?wide="${this.wide}" duration="4500" .text="${this.localize(
           "favorite_info"
         )}" id="toast" @click="${this._closeToast}">
-        </paper-toast>>
+        </paper-toast>
       `
       : html`${errorDialog}<md-circular-progress
             indeterminate

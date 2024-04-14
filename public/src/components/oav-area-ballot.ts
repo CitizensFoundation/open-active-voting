@@ -215,16 +215,6 @@ export class OavAreaBallot extends PageViewElement {
             areaName: this.area!.name,
             totalBudget: this.area!.budget_amount,
           });
-          setTimeout(() => {
-            (
-              this.$$("#tabs")!.shadowRoot!.getElementById(
-                "selectionBar"
-              ) as HTMLElement
-            ).style.setProperty(
-              "border-bottom",
-              "5px solid var(--md-sys-color-primary)"
-            );
-          });
         })
         .catch((error) => {
           this.fire("ak-error", error);
