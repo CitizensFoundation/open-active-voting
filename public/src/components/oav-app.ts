@@ -151,6 +151,11 @@ export class OavApp extends OavBaseElement {
     this.errorText = undefined;
   }
 
+  handleLocaleChange(locale: string) {
+    window.location.href = "/?locale="+locale; // Forcefully set the window's location to trigger a reload
+  }
+
+
   render() {
     let errorDialog = html`
       <paper-dialog id="errorDialog">
@@ -252,6 +257,7 @@ export class OavApp extends OavBaseElement {
                               : html`
                                   <a
                                     class="localeSelection"
+                                    @click="${()=>this.handleLocaleChange(locale.code)}"
                                     href="${`/?locale=${locale.code}`}"
                                   >
                                     <span class="localeName">${locale.name}</span>
