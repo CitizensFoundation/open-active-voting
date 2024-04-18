@@ -184,7 +184,8 @@ export class OavApp extends OavBaseElement {
         }
 
         ${
-          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled ===
+          true
             ? html`
                 <oav-low-security-sms-login
                   .language="${this.language}"
@@ -234,12 +235,35 @@ export class OavApp extends OavBaseElement {
                     }
                   </div>
                  </div>
-                <div class="buttons layout horizontal center-center">
+                <div class="buttons layout vertical center-center">
                   <paper-button raised class="continueButton" @click="${
-                    this.closeWelcome
-                  }" dialog-dismiss autofocus>${this.localize(
-          "start"
-        )}</paper-button>
+                              this.closeWelcome
+                            }" dialog-dismiss autofocus>${this.localize(
+                    "start"
+                  )}</paper-button>
+                <div class="layout horizontal center-center">
+                    ${
+                      this.configFromServer.client_config.localeSelectionOnWelcome
+                        ? html`
+                        ${this.configFromServer.client_config.localeSelectionOnWelcome.map(
+                          (locale) => html`
+                            ${this.language === locale.code
+                              ? html``
+                              : html`
+                                  <a
+                                    class="localeSelection"
+                                    href="${`/?locale=${locale.code}`}"
+                                  >
+                                    <span class="localeName">${locale.name}</span>
+                                  </a>
+                                `}
+                          `
+                        )}
+
+                      </div>
+                      `
+                        : html``
+                    }
                 </div>
               </div>
             </div>
@@ -445,8 +469,9 @@ export class OavApp extends OavBaseElement {
         }
 
         //@ts-ignore
-        gtag('config', this.configFromServer.client_config.googleAnalyticsId);
-        this.postsHost = this.configFromServer.client_config.postsHost || "https://yrpri.org";
+        gtag("config", this.configFromServer.client_config.googleAnalyticsId);
+        this.postsHost =
+          this.configFromServer.client_config.postsHost || "https://yrpri.org";
         this.favoriteIcon = "heart";
         this.oneBallotId = this.configFromServer.client_config.oneBallotId;
 
@@ -491,11 +516,11 @@ export class OavApp extends OavBaseElement {
         }
 
         if (
-          this.configFromServer.client_config.lowSecuritySmsLoginEnabled === true
+          this.configFromServer.client_config.lowSecuritySmsLoginEnabled ===
+          true
         ) {
           import("./oav-low-security-sms-login.js");
         }
-
       })
       .catch((error) => {
         debugger;
@@ -561,7 +586,10 @@ export class OavApp extends OavBaseElement {
       this._scrollItemIntoView
     );
     this.addEventListener("oav-insecure-email-login", this._insecureEmailLogin);
-    this.addEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
+    this.addEventListener(
+      "oav-low-security-sms-login",
+      this._lowSecuritySmsLogin
+    );
 
     this.addEventListener("location-changed", this._locationChanged);
     window.addEventListener("resize", this.resetSizeWithDelay.bind(this));
@@ -610,7 +638,10 @@ export class OavApp extends OavBaseElement {
       "oav-insecure-email-login",
       this._insecureEmailLogin
     );
-    this.removeEventListener("oav-low-security-sms-login", this._lowSecuritySmsLogin);
+    this.removeEventListener(
+      "oav-low-security-sms-login",
+      this._lowSecuritySmsLogin
+    );
   }
 
   _closeToast() {
@@ -980,7 +1011,7 @@ export class OavApp extends OavBaseElement {
       this.wideAndBallot = this.wide && page === "area-ballot";
 
       if (page == "voting-completed") {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
   }

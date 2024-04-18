@@ -42,6 +42,7 @@ interface OavClientConfig {
   favoriteIconOutline: string;
   favoriteIcon: string;
   welcomeLogo: string;
+  localeSelectionOnWelcome?: {code: string, name: string}[];
   localeSetup: Record<string, OavLocationInfo>;
   defaultLanguage: string;
   shareMetaData: OavConfigMetaInformation;

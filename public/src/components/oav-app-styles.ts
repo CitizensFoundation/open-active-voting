@@ -115,6 +115,24 @@ export const OavAppStyles = css`
     display: block;
   }
 
+  .localeName {
+    padding: 4px;
+  }
+
+  .buttons {
+    margin-top: 8px;
+  }
+
+  .localeSelection {
+    color: #333;
+    margin-top: 4px,
+  }
+
+  .localeSelection {
+    margin: 6px;
+    margin-top: 8px;
+  }
+
   @media (min-width: 1024px) {
     .toolbar-list {
       display: block;
