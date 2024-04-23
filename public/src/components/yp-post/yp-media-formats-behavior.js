@@ -203,7 +203,14 @@ export const ypMediaFormatsBehavior = {
         if (selectedImageIndex>videos[0].VideoImages.length-1) {
           selectedImageIndex = 0;
         }
-        return JSON.parse(videos[0].VideoImages[selectedImageIndex].formats)[0];
+        if (selectedImageIndex<0) {
+          selectedImageIndex = 0;
+        }
+        if (videos[0].VideoImages[selectedImageIndex]) {
+          return JSON.parse(videos[0].VideoImages[selectedImageIndex].formats)[0];
+        } else {
+          return null;
+        }
     } else {
       return null;
     }

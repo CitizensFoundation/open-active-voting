@@ -629,7 +629,15 @@ Polymer({
 
   _postVideoPosterPath: function (post) {
     if (post && post.PostVideos) {
-      var videoPosterURL = this._getVideoPosterURL(post.PostVideos);
+      var videoPosterURL;
+      if ((post.Group &&
+          post.Group.configuration &&
+          post.Group.configuration.useVideoCover) ||
+          !this._postImagePath(post)) {
+        videoPosterURL = this._getVideoPosterURL(post.PostVideos);
+      } else {
+        videoPosterURL = this._postImagePath(post);
+      }
       if (videoPosterURL) {
         return videoPosterURL;
       } else {

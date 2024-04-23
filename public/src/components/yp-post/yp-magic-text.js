@@ -347,7 +347,7 @@ class YpMagicTextBox extends PolymerElement {
       ]
     });
     this.processedContent = this.processedContent.replace(/&amp\;/g, "&");
-    this.processedContent = twemoji.parse(this.processedContent).
+    this.processedContent = twemoji.parse(this.processedContent, { base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/' }).
     replace(/&amp\;quot\;/g,"\"").
     replace(/class=\"emoji\" /g,'style="height: 1em;width: 1em;margin: 0 .3em 0 .3em;vertical-align: -0.1em;" ');
   }
