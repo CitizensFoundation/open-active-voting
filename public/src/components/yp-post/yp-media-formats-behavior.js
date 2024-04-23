@@ -70,13 +70,13 @@ export const ypMediaFormatsBehavior = {
         if (videoId) {
           this.videoPlayListener = function () {
             this.set('playStartedAt', new Date());
-            window.appGlobals.sendVideoView(videoId)
+            //window.appGlobals.sendVideoView(videoId)
           }.bind(this);
           this.videoPauseListener = function () {
-            this._checkVideoLongPlayTimeAndReset(videoPlayer);
+            //this._checkVideoLongPlayTimeAndReset(videoPlayer);
           }.bind(this);
           this.videoEndedListener = function () {
-            this._checkVideoLongPlayTimeAndReset(videoPlayer);
+            //this._checkVideoLongPlayTimeAndReset(videoPlayer);
           }.bind(this);
           videoPlayer.addEventListener("play", this.videoPlayListener);
           videoPlayer.addEventListener("pause", this.videoPauseListener);
@@ -89,7 +89,7 @@ export const ypMediaFormatsBehavior = {
         if (audioId) {
           this.audioPlayListener =  function () {
             this.set('playStartedAt', new Date());
-            window.appGlobals.sendAudioListen(audioId)
+            //window.appGlobals.sendAudioListen(audioId)
           }.bind(this);
           this.audioPauseListener = function () {
             this._checkAudioLongPlayTimeAndReset(audioPlayer);
